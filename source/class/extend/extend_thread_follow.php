@@ -31,6 +31,7 @@ class extend_thread_follow extends extend_thread_base {
 				'uid' => $uid,
 				'username' => $this->member['username'],
 				'tid' => $tid,
+				'pid' => $pid,
 				'note' => '',
 				'dateline' => TIMESTAMP
 			);
@@ -65,6 +66,7 @@ class extend_thread_follow extends extend_thread_base {
 				'uid' => $this->member['uid'],
 				'username' => $this->member['username'],
 				'tid' => $this->thread['tid'],
+				'pid' => $this->pid,
 				'note' => $notemsg,
 				'dateline' => TIMESTAMP
 			);

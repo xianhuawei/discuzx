@@ -185,6 +185,7 @@ if($op == 'add') {
 			'uid' => $_G['uid'],
 			'username' => $_G['username'],
 			'tid' => $tid,
+			'pid' => $post['pid'],
 			'note' => cutstr(followcode(dhtmlspecialchars($_GET['note']), 0, 0, 0, false), 140),
 			'dateline' => TIMESTAMP
 		);
