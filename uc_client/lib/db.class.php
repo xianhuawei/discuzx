@@ -156,15 +156,15 @@ class ucclient_db {
 		} else {
 			$s = '';
 			if($message) {
-				$s = date("Y-m-d H:i:s")."UCenter info: $message";
+				$s = date("Y-m-d H:i:s")."<b>UCenter info: </b> $message <br />";
 			}
 			if($sql) {
-				$s .= '   SQL:'.htmlspecialchars($sql);
+				$s .= '<b>SQL:</b>'.htmlspecialchars($sql).'<br />';
 			}
-			$s .= '    Error:'.$error;
-			$s .= '    Errno:'.$errorno;
+			$s .= '<b>Error:</b>'.$error.'<br />';
+	     	$s .= '<b>Errno:</b>'.$errorno.'<br />';
 			$s = str_replace(UC_DBTABLEPRE, '[Table]', $s);
-			$s	.= "\r\n";
+			$s	.= "<br /><br /><br />";
 			
 			$file =  DISCUZ_ROOT.'./data/log/'.date("Ymd").'_errorlog.php';
 			error_log($s,3,$file);
