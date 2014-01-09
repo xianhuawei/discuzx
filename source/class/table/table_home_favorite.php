@@ -24,6 +24,14 @@ class table_home_favorite extends discuz_table
 	}
 
 	public function fetch_all_by_uid_idtype($uid, $idtype, $favid = 0, $start = 0, $limit = 0) {
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_idtype_'.$uid.'_'.$idtype;
+		if($this->_allowmem){
+			$result = memory('get',$cache_key);
+			if($result !== false){
+				return $result;
+			}
+		}
+		
 		$parameter = array($this->_table);
 		$wherearr = array();
 		if($favid) {
@@ -38,7 +46,10 @@ class table_home_favorite extends discuz_table
 		}
 		$wheresql = !empty($wherearr) && is_array($wherearr) ? ' WHERE '.implode(' AND ', $wherearr) : '';
 
-		return DB::fetch_all("SELECT * FROM %t $wheresql ORDER BY dateline DESC ".DB::limit($start, $limit), $parameter, $this->_pk);
+		$result = DB::fetch_all("SELECT * FROM %t $wheresql ORDER BY dateline DESC ".DB::limit($start, $limit), $parameter, $this->_pk);
+		memory('set',$cache_key,$result);
+		
+		return $result ; 
 	}
 
 	public function count_by_uid_idtype($uid, $idtype, $favid = 0) {
@@ -74,6 +85,14 @@ class table_home_favorite extends discuz_table
 	}
 
 	public function delete($val, $unbuffered = false, $uid = 0) {
+		//删除缓存
+		$favids = is_array($val) ? $val : array($val);
+		$fav_res = $this->fetch_all($favids);
+		foreach ($fav_res as $fav){
+			$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_idtype_'.$fav['uid'].'_'.$fav['idtype'];
+			memory('rm',$cache_key);
+		}
+		
 		$val = dintval($val, is_array($val) ? true : false);
 		if($val) {
 			if($uid) {
@@ -82,6 +101,14 @@ class table_home_favorite extends discuz_table
 			return DB::delete($this->_table, DB::field($this->_pk, $val).($uid ? ' AND '.DB::field('uid', $uid) : ''), null, $unbuffered);
 		}
 		return !$unbuffered ? 0 : false;
+	}
+	
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false){
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_idtype_'.$$data['uid'].'_'.$data['idtype'];
+		memory('rm',$cache_key);
+		
+		return parent::insert($data, $return_insert_id, $replace, $silent);
 	}
 
 }

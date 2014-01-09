@@ -52,6 +52,7 @@ class table_forum_post extends discuz_table
 				array(self::get_tablename($tableid), $tid));
 	}
 	public function fetch_all_by_tid_range_position($tableid, $tid, $start, $end, $maxposition, $ordertype = 0) {
+		//todo 其它页面,只要满页也缓存
 		$storeflag = false;
 		if($this->_allowmem) {
 			if($ordertype != 1 && $start == 1 && $maxposition > ($end - $start)) {
@@ -224,6 +225,7 @@ class table_forum_post extends discuz_table
 	}
 
 	public function fetch_all_common_viewthread_by_tid($tid, $visibleallflag, $authorid, $forum_pagebydesc, $ordertype, $count, $start, $limit) {
+		//todo 其它页面,只要满页也缓存
 		$data = array();
 		$storeflag = false;
 		if($this->_allowmem) {
@@ -608,10 +610,10 @@ class table_forum_post extends discuz_table
 	}
 
 	public function insert($tableid, $data, $return_insert_id = false, $replace = false, $silent = false) {
-		//添加主题的楼层位置
+		//添加主题的楼层位置 todo主从延迟的问题 查主库
 		$maxposition = $this->fetch_maxposition_by_tid($tableid,$data['tid']);
 		$data['position'] = $maxposition + 1 ;
-		
+		//todo 把当前页面的缓存删除
 		return DB::insert(self::get_tablename($tableid), $data, $return_insert_id, $replace, $silent);
 	}
 

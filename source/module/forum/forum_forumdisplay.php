@@ -633,10 +633,14 @@ if($filter !== 'hot') {
 	$threadlist = array();
 	$indexadd = '';
 	$_order = "displayorder DESC, $_GET[orderby] $_GET[ascdesc]";
+	if($filterarr['inforum'] && $filterarr['displayorder']){
+		$indexadd = ' FORCE INDEX (displayorder) ';
+	}
 	if($filterbool) {
 		if($filterarr['digest']) {
 			$indexadd = " FORCE INDEX (digest) ";
 		}
+		
 	} elseif($showsticky && $stickytids && is_array($stickytids)) {
 		$filterarr1 = $filterarr;
 		$filterarr1['inforum'] = '';
