@@ -274,18 +274,18 @@ class table_forum_post extends discuz_table
 		if($authorid) {
 			$return['authorid'] = $alias.DB::field('authorid', $authorid);
 		}
-		//修改成tid排序,dateline跟tid是同一个顺序,order by主键效率高 避免 filesort
+		//修改成pid排序,dateline跟pid是同一个顺序,order by主键效率高 避免 filesort
 		if($forum_pagebydesc) {
 			if($ordertype != 1) {
-				$return['orderby'] = 'ORDER BY '.$alias.'tid DESC';
+				$return['orderby'] = 'ORDER BY '.$alias.'pid DESC';
 			} else {
-				$return['orderby'] = 'ORDER BY '.$alias.'tid ASC';
+				$return['orderby'] = 'ORDER BY '.$alias.'pid ASC';
 			}
 		} else {
 			if($ordertype != 1) {
-				$return['orderby'] = 'ORDER BY '.$alias.'tid';
+				$return['orderby'] = 'ORDER BY '.$alias.'pid';
 			} else {
-				$return['orderby'] = 'ORDER BY '.$alias.'tid DESC';
+				$return['orderby'] = 'ORDER BY '.$alias.'pid DESC';
 			}
 		}
 		return $return;
