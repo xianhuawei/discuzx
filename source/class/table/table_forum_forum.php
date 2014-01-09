@@ -52,7 +52,8 @@ class table_forum_forum extends discuz_table
 		if(empty($fids)) {
 			return array();
 		}
-		return DB::fetch_all('SELECT fid, name FROM '.DB::table($this->_table)." WHERE ".DB::field('fid', $fids), array(), 'fid');
+		return  parent::fetch_all($fids);
+		//return DB::fetch_all('SELECT fid, name FROM '.DB::table($this->_table)." WHERE ".DB::field('fid', $fids), array(), 'fid');
 	}
 	public function fetch_all_info_by_fids($fids, $status = 0, $limit = 0, $fup = 0, $displayorder = 0, $onlyforum = 0, $noredirect = 0, $type = '', $start = 0) {
 		$sql = $fids ? "f.".DB::field('fid', $fids) : '';

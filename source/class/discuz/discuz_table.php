@@ -111,6 +111,10 @@ class discuz_table extends discuz_base
 					while($value = DB::fetch($query)) {
 						$data[$value[$this->_pk]] = $value;
 						$this->store_cache($value[$this->_pk], $value);
+						//为空也缓存 缓存为空数组
+						if(empty($value)){
+							$this->store_cache($value[$this->_pk], array());
+						}
 					}
 					
 					//为空也缓存 缓存为空数组
