@@ -36,6 +36,10 @@ if($op == 'follow') {
 		);
 
 		C::t('forum_collectionfollow')->insert($data);
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_uid'.$data['uid'];
+		memory('rm',$cache_key);
+		
 		C::t('forum_collection')->update_by_ctid($ctid, 0, 1, 0);
 
 		if($_G['collection']['uid'] != $_G['uid']) {

@@ -17,7 +17,9 @@ class table_forum_collectionfollow extends discuz_table
 
 		$this->_table = 'forum_collectionfollow';
 		$this->_pk    = 'ctid';
-
+		$this->_pre_cache_key = 'forum_collectionfollow_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 3600;
 		parent::__construct();
 	}
 
@@ -40,7 +42,18 @@ class table_forum_collectionfollow extends discuz_table
 		if(!$uid) {
 			return null;
 		}
-		return DB::fetch_all('SELECT * FROM %t WHERE %i', array($this->_table, DB::field('uid', $uid)), $this->_pk);
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_uid'.$uid;
+		if($this->_allowmem){
+			$result = memory('get',$cache_key);
+			if($result !== false){
+				return $result;
+			}
+		}
+		
+		$result = DB::fetch_all('SELECT * FROM %t WHERE %i', array($this->_table, DB::field('uid', $uid)), $this->_pk);
+		memory('set',$cache_key,$result);
+		
+		return $result; 
 	}
 
 	public function fetch_by_ctid_uid($ctid, $uid) {
@@ -55,6 +68,10 @@ class table_forum_collectionfollow extends discuz_table
 	}
 
 	public function delete_by_ctid_uid($ctid, $uid) {
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_uid'.$uid;
+		memory('rm',$cache_key);
+		
 		return DB::query("DELETE FROM %t WHERE uid=%d AND ctid=%d", array($this->_table, $uid, $ctid));
 	}
 
@@ -62,6 +79,10 @@ class table_forum_collectionfollow extends discuz_table
 		if(!$uid) {
 			return false;
 		}
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_uid'.$uid;
+		memory('rm',$cache_key);
+		
 		return DB::query("DELETE FROM %t WHERE %i", array($this->_table, DB::field('uid', $uid)));
 	}
 
@@ -74,6 +95,10 @@ class table_forum_collectionfollow extends discuz_table
 	}
 
 	public function update($ctid, $uid, $data, $unbuffered = false, $low_priority = false) {
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_uid'.$uid;
+		memory('rm',$cache_key);
+		
 		if(!empty($data) && is_array($data) && $ctid && $uid) {
 			return DB::update($this->_table, $data, DB::field('ctid', $ctid).' AND '.DB::field('uid', $uid), $unbuffered, $low_priority);
 		}

@@ -133,7 +133,7 @@ class db_driver_mysql
 		if(defined('DISCUZ_DEBUG') && DISCUZ_DEBUG) {
 			$starttime = microtime(true);
 		}
-        //echo $sql."<br>";
+        echo $sql."<br>";
 		if('UNBUFFERED' === $silent) {
 			$silent = false;
 			$unbuffered = true;

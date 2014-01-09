@@ -147,6 +147,9 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 					'stamp' => '',
 				);
 				C::t('forum_threadmod')->insert($modarr);
+				//删除缓存
+				$cache_key = 'forum_threadmod_fetch_by_tid'.$setarr['id'];
+				memory('rm',$cache_key);
 
 				C::t('forum_thread')->update($setarr['id'], array('moderated' => 1, 'pushedaid' => $aid));
 			}

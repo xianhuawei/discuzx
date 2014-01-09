@@ -23,6 +23,7 @@ class discuz_session {
 	private $old =  array('sid' =>  '', 'ip' =>  '', 'uid' =>  0);
 
 	private $table;
+	private $old_var;
 
 	public function __construct($sid = '', $ip = '', $uid = 0) {
 		$this->old = array('sid' =>  $sid, 'ip' =>  $ip, 'uid' =>  $uid);
@@ -67,6 +68,7 @@ class discuz_session {
 		}
 
 		$this->var = $session;
+		$this->old_var	= $session;	// 原来的session
 		$this->sid = $session['sid'];
 	}
 
@@ -97,7 +99,28 @@ class discuz_session {
 				$this->delete();
 				$this->table->insert($this->var, false, false, true);
 			} else {
-				$this->table->update($this->var['sid'], $this->var);
+				$is_update 	= false;
+				//session不变时 不更新 
+				foreach($this->var as $key=>$val){
+					if($this->old_var[$key]!=$val){
+						if($val==0 || $val=='' || $val==null){
+							if( !($this->old_var[$key]==0 || $this->old_var[$key]=='' || $this->old_var[$key]==null) ){
+								$is_update 	= true;
+							}
+						}else if($key=='lastactivity' || $key=='lastolupdate'){
+							if( $val>$this->old_var[$key] && $val-20>$this->old_var[$key] ){
+								$is_update 	= true;
+							}else if($val<$this->old_var[$key] && $val+20<$this->old_var[$key] ){
+								$is_update 	= true;
+							}
+						}else{
+							$is_update 	= true;
+						}
+					}
+				}
+				if($is_update){
+					$this->table->update($this->var['sid'], $this->var);
+				}
 			}
 			setglobal('sessoin', $this->var);
 			dsetcookie('sid', $this->sid, 86400);
@@ -216,7 +239,7 @@ class discuz_session {
 			foreach($_G['action'] as $k => $v) {
 				C::app()->session->set($k, $v);
 			}
-
+			
 			C::app()->session->update();
 
 			if($_G['uid'] && TIMESTAMP - $ulastactivity > 21600) {

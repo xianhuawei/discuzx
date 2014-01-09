@@ -194,6 +194,9 @@ function updatemagicthreadlog($tid, $magicid, $action = 'MAG', $expiration = 0, 
 				'status' => 1
 			);
 	C::t('forum_threadmod')->insert($data);
+	//删除缓存
+	$cache_key = 'forum_threadmod_fetch_by_tid'.$tid;
+	memory('rm',$cache_key);
 }
 
 function updatemagiclog($magicid, $action, $amount, $price, $targetuid = 0, $idtype = '', $targetid = 0) {

@@ -645,6 +645,10 @@ if($op == 'block') {
 					'reason' => getstr($_GET['recommendto'], 20),
 				);
 				C::t('forum_threadmod')->insert($modarr);
+				//删除缓存
+				$cache_key = 'forum_threadmod_fetch_by_tid'.$item['id'];
+				memory('rm',$cache_key);
+				
 				$data = array('moderated' => 1);
 				loadcache('stamptypeid');
 				if(array_key_exists(4, $_G['cache']['stamptypeid'])) {

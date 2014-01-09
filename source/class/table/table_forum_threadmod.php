@@ -21,7 +21,18 @@ class table_forum_threadmod extends discuz_table
 		parent::__construct();
 	}
 	public function fetch_by_tid($tid) {
-		return DB::fetch_first('SELECT * FROM %t WHERE tid=%d ORDER BY dateline DESC LIMIT 1', array($this->_table, $tid));
+		$cache_key = 'forum_threadmod_fetch_by_tid'.$tid;
+		if(memory('check')){
+			$result = memory('get',$cache_key);
+			if($result !== false){
+				return $result;
+			}
+		}
+		
+		$result = DB::fetch_first('SELECT * FROM %t WHERE tid=%d ORDER BY dateline DESC LIMIT 1', array($this->_table, $tid));
+		memory('set',$cache_key,$result);
+				
+		return $result; 
 	}
 	public function fetch_by_tid_action_status($tid, $action, $status = 1) {
 		return DB::fetch_first('SELECT * FROM %t WHERE tid=%d AND action=%s AND status=%d ORDER BY dateline DESC LIMIT 1', array($this->_table, $tid, $action, $status));
@@ -58,15 +69,28 @@ class table_forum_threadmod extends discuz_table
 		return DB::delete($this->_table, DB::field('tid', 0, '>').' AND '.DB::field('dateline', $dateline, '<'));
 	}
 	public function update_by_tid_action($tids, $action, $data) {
+		$tids = is_array($tids) ? $tids : array($tids);
 		$tids = dintval($tids, true);
 		if(!empty($data) && is_array($data) && $tids) {
+			//删除缓存
+			foreach ($tids as $tid){
+				$cache_key = 'forum_threadmod_fetch_by_tid'.$tid;
+				memory('rm',$cache_key);
+			}
 			return DB::update($this->_table, $data, DB::field('tid', $tids).' AND '.DB::field('action', $action));
 		}
 		return 0;
 	}
 	public function delete_by_tid($tids) {
+		$tids = is_array($tids) ? $tids : array($tids);
 		$tids = dintval($tids, true);
 		if($tids) {
+			//删除缓存
+			foreach ($tids as $tid){
+				$cache_key = 'forum_threadmod_fetch_by_tid'.$tid;
+				memory('rm',$cache_key);
+			}
+			
 			return DB::delete($this->_table, DB::field('tid', $tids));
 		}
 		return 0;

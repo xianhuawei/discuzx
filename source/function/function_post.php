@@ -492,6 +492,9 @@ function updatemodlog($tids, $action, $expiration = 0, $iscron = 0, $reason = ''
 				$data['stamp'] = $stamp;
 			}
 			C::t('forum_threadmod')->insert($data);
+			//删除缓存
+			$cache_key = 'forum_threadmod_fetch_by_tid'.$tid;
+			memory('rm',$cache_key);
 		}
 	}
 
