@@ -20,6 +20,8 @@ class table_common_member_profile extends discuz_table_archive
 		$this->_table = 'common_member_profile';
 		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'common_member_profile_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
 		$this->_fields = array('uid', 'realname', 'gender', 'birthyear', 'birthmonth', 'birthday', 'constellation',
 				'zodiac', 'telephone', 'mobile', 'idcardtype', 'idcard', 'address', 'zipcode', 'nationality', 'birthprovince', 'birthcity', 'birthdist',
 				'birthcommunity', 'resideprovince', 'residecity', 'residedist', 'residecommunity', 'residesuite', 'graduateschool', 'education', 'company',

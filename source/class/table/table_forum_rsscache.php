@@ -18,6 +18,8 @@ class table_forum_rsscache extends discuz_table
 		$this->_table = 'forum_rsscache';
 		$this->_pk    = 'tid';
         $this->_pre_cache_key = 'forum_rsscache_';
+        $this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 

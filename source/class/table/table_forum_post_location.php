@@ -18,6 +18,7 @@ class table_forum_post_location extends discuz_table
 		$this->_table = 'forum_post_location';
 		$this->_pk    = 'pid';
 		$this->_pre_cache_key = 'forum_post_location_';
+		$this->_allowmem = memory('check');
 		$this->_cache_ttl = 0;
 
 		parent::__construct();

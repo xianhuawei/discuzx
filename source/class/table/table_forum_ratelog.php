@@ -18,7 +18,9 @@ class table_forum_ratelog extends discuz_table
 		$this->_table = 'forum_ratelog';
 		$this->_pk    = 'rid';
         $this->_pre_cache_key = 'forum_ratelog_';
-
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
+		
 		parent::__construct();
 	}
 	public function fetch_by_uid_pid($uid, $pid) {

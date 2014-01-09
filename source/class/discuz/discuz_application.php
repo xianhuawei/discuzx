@@ -403,7 +403,8 @@ class discuz_application extends discuz_base{
 	private function _init_session() {
 
 		$sessionclose = !empty($this->var['setting']['sessionclose']);
-		$this->session = $sessionclose ? new discuz_session_close() : new discuz_session();
+		//修改为关闭 & 游客都用discuz_session_close
+		$this->session = ( $sessionclose || empty($this->var['uid']) ) ? new discuz_session_close() : new discuz_session();
 
 		if($this->init_session)	{
 			$this->session->init($this->var['cookie']['sid'], $this->var['clientip'], $this->var['uid']);

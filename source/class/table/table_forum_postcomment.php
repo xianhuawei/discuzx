@@ -18,6 +18,9 @@ class table_forum_postcomment extends discuz_table
 		$this->_table = 'forum_postcomment';
 		$this->_pk    = 'id';
         $this->_pre_cache_key = 'forum_postcomment_';
+        $this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
+		
 		parent::__construct();
 	}
 

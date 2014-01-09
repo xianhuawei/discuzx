@@ -17,7 +17,9 @@ class table_home_favorite extends discuz_table
 
 		$this->_table = 'home_favorite';
 		$this->_pk    = 'favid';
-
+		$this->_pre_cache_key = 'home_favorite_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 

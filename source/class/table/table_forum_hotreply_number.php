@@ -11,12 +11,16 @@ class table_forum_hotreply_number extends discuz_table {
 	public function __construct() {
 		$this->_table = 'forum_hotreply_number';
 		$this->_pk = 'pid';
-
+		$this->_pre_cache_key = 'forum_hotreply_number_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
+		
 		parent::__construct();
 	}
 
 	public function fetch_all_by_pids($pids) {
-		return DB::fetch_all('SELECT * FROM %t WHERE '.DB::field('pid', $pids), array($this->_table), 'pid');
+		return parent::fetch_all($pids);
+		//return DB::fetch_all('SELECT * FROM %t WHERE '.DB::field('pid', $pids), array($this->_table), 'pid');
 	}
 
 	public function fetch_all_by_tid_total($tid, $limit = 5) {
@@ -24,7 +28,8 @@ class table_forum_hotreply_number extends discuz_table {
 	}
 
 	public function fetch_by_pid($pid) {
-		return DB::fetch_first('SELECT * FROM %t WHERE pid=%d', array($this->_table, $pid));
+		return parent::fetch($pid);
+		//return DB::fetch_first('SELECT * FROM %t WHERE pid=%d', array($this->_table, $pid));
 	}
 
 	public function update_num($pid, $typeid) {

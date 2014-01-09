@@ -17,7 +17,9 @@ class table_forum_forum extends discuz_table
 
 		$this->_table = 'forum_forum';
 		$this->_pk    = 'fid';
-
+		$this->_pre_cache_key = 'forum_forum_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 3600;
 		parent::__construct();
 	}
 
@@ -37,7 +39,14 @@ class table_forum_forum extends discuz_table
 		return DB::fetch_all("SELECT * FROM ".DB::table($this->_table)." WHERE $typesql $statussql $fupsql $limitsql");
 	}
 	public function fetch_info_by_fid($fid) {
-		return DB::fetch_first("SELECT ff.*, f.* FROM %t f LEFT JOIN %t ff ON ff.fid=f.fid WHERE f.fid=%d", array($this->_table, 'forum_forumfield', $fid));
+		$cache_key = $this->_pre_cache_key.'fetch_info_by_fid'.$fid;
+		if($this->_allowmem && $result = memory('get',$cache_key)){
+			return $result;
+		}else{
+			$result = DB::fetch_first("SELECT ff.*, f.* FROM %t f LEFT JOIN %t ff ON ff.fid=f.fid WHERE f.fid=%d", array($this->_table, 'forum_forumfield', $fid));
+			memory('set',$cache_key,$result,$this->_cache_ttl);
+			return $result;
+		}
 	}
 	public function fetch_all_name_by_fid($fids) {
 		if(empty($fids)) {
@@ -108,6 +117,11 @@ class table_forum_forum extends discuz_table
 		if(empty($fids)) {
 			return false;
 		}
+		//删除对应的缓存
+		foreach ($fids as $fid){
+			$cache_key = $this->_pre_cache_key.'fetch_info_by_fid'.$fid;
+			memory('rm',$cache_key);
+		}
 		$sqladd = in_array('all', $fids) ? '' :  ' WHERE '.DB::field('fid', $fids);
 		DB::query("UPDATE ".DB::table($this->_table)." SET threadcaches='".intval($threadcache)."'$sqladd");
 	}
@@ -160,6 +174,12 @@ class table_forum_forum extends discuz_table
 		if(!dintval($fid)) {
 			return false;
 		}
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_info_by_fid'.$fid;
+		memory('rm',$cache_key);
+		$cache_forum_key = 'forum_forum_fetch_all_info_by_fids'.$fid;
+		memory('rm',$cache_forum_key);
+		
 		$addsql = array();
 		if($threads) {
 			$addsql[] = "threads=threads+'".intval($threads)."'";
@@ -184,6 +204,12 @@ class table_forum_forum extends discuz_table
 		if(!intval($fid)) {
 			return false;
 		}
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_info_by_fid'.$fid;
+		memory('rm',$cache_key);
+		$cache_forum_key = 'forum_forum_fetch_all_info_by_fids'.$fid;
+		memory('rm',$cache_forum_key);
+		
 		DB::query("UPDATE ".DB::table($this->_table)." SET commoncredits=commoncredits+1 WHERE ".DB::field('fid', $fid));
 	}
 
@@ -194,6 +220,12 @@ class table_forum_forum extends discuz_table
 		if(!intval($levelid) || !intval($fid)) {
 			return false;
 		}
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_info_by_fid'.$fid;
+		memory('rm',$cache_key);
+		$cache_forum_key = 'forum_forum_fetch_all_info_by_fids'.$fid;
+		memory('rm',$cache_forum_key);
+		
 		DB::query("UPDATE ".DB::table($this->_table)." SET level=%d WHERE fid=%d", array($levelid, $fid));
 	}
 	public function fetch_all_fid_for_group($start, $limit, $issub = 0, $conditions = '') {
@@ -249,6 +281,13 @@ class table_forum_forum extends discuz_table
 		if(empty($fids)) {
 			return false;
 		}
+		//删除缓存
+		foreach ($fids as $fid){
+			$cache_key = $this->_pre_cache_key.'fetch_info_by_fid'.$fid;
+			memory('rm',$cache_key);
+			$cache_forum_key = 'forum_forum_fetch_all_info_by_fids'.$fid;
+			memory('rm',$cache_forum_key);
+		}
 		DB::query("UPDATE ".DB::table($this->_table)." SET level='0' WHERE %i", array(DB::field('fid', $fids)));
 	}
 	public function validate_level_num() {
@@ -258,6 +297,13 @@ class table_forum_forum extends discuz_table
 		return DB::fetch_all("SELECT f.*, ff.dateline, ff.founderuid, ff.foundername, ff.description FROM ".DB::table($this->_table)." f LEFT JOIN ".DB::table('forum_forumfield')." ff ON ff.fid=f.fid WHERE status='3' AND level='-1' ORDER BY f.fid DESC LIMIT ".intval($start).', '.intval($limit));
 	}
 	public function update_archive($fids) {
+		//删除缓存
+		foreach ($fids as $fid){
+			$cache_key = $this->_pre_cache_key.'fetch_info_by_fid'.$fid;
+			memory('rm',$cache_key);
+			$cache_forum_key = 'forum_forum_fetch_all_info_by_fids'.$fid;
+			memory('rm',$cache_forum_key);
+		}
 		return DB::update('forum_forum', array('archive' => '0'), "fid NOT IN (".dimplode($fids).")");
 	}
 	public function fetch_all_for_grouplist($orderby = 'displayorder', $fieldarray = array(), $num = 1, $fids = array(), $sort = 0, $getcount = 0) {

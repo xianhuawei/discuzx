@@ -18,7 +18,9 @@ class table_forum_postcache extends discuz_table
 		$this->_table = 'forum_postcache';
 		$this->_pk    = 'pid';
 		$this->_pre_cache_key = 'forum_postcache_';
-
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
+		
 		parent::__construct();
 	}
 

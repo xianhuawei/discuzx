@@ -20,6 +20,9 @@ class table_forum_thread extends discuz_table
 		$this->_table = 'forum_thread';
 		$this->_pk    = 'tid';
 		$this->_pre_cache_key = 'forum_thread_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
+		
 		parent::__construct();
 	}
 
@@ -938,6 +941,10 @@ class table_forum_thread extends discuz_table
 	public function insert($data, $return_insert_id = false, $replace = false, $silent = false) {
 		if($data && is_array($data)) {
 			$this->clear_cache($data['fid'], 'forumdisplay_');
+			//删除缓存
+			$cache_key = $this->_pre_cache_key.'count_by_fid_displayorder_authorid'.$data['fid'].'-'.$data['displayorder'].'-'.$data['authorid'];
+			memory('rm',$cache_key);
+			
 			return DB::insert($this->_table, $data, $return_insert_id, $replace, $silent);
 		}
 		return 0;
@@ -1008,7 +1015,18 @@ class table_forum_thread extends discuz_table
 		return $data;
 	}
 	public function count_by_fid_displayorder_authorid($fid, $displayorder, $authorid, $tableid=0) {
-		return DB::result_first("SELECT COUNT(*) FROM %t WHERE fid=%d AND displayorder=%d AND authorid=%d", array($this->get_table_name($tableid), $fid, $displayorder, $authorid));
+		//加缓存
+		$cache_key = $this->_pre_cache_key.'count_by_fid_displayorder_authorid'.$fid.'-'.$displayorder.'-'.$authorid;
+		if($this->_allowmem){
+			$result = memory('get',$cache_key);
+			if($result !== false){
+				return $result;
+			}
+		}
+		
+		$result = DB::result_first("SELECT COUNT(*) FROM %t WHERE fid=%d AND displayorder=%d AND authorid=%d", array($this->get_table_name($tableid), $fid, $displayorder, $authorid));
+		memory('set',$cache_key,$result,180);
+		return $result;
 	}
 	public function count_all_thread() {
 		$count = 0;

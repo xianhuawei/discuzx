@@ -18,7 +18,9 @@ class table_common_member_field_home extends discuz_table_archive
 		$this->_table = 'common_member_field_home';
 		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'common_member_field_home_';
-
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
+		
 		parent::__construct();
 	}
 

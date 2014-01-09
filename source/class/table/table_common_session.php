@@ -17,7 +17,9 @@ class table_common_session extends discuz_table
 
 		$this->_table = 'common_session';
 		$this->_pk    = 'sid';
-
+//		$this->_pre_cache_key = 'common_session_';
+//		$this->_allowmem = memory('check');
+//		$this->_cache_ttl = 360;
 		parent::__construct();
 	}
 

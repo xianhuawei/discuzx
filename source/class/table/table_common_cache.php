@@ -18,7 +18,9 @@ class table_common_cache extends discuz_table
 		$this->_table = 'common_cache';
 		$this->_pk    = 'cachekey';
         $this->_pre_cache_key = 'common_cache_';
-
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
+		
 		parent::__construct();
 	}
 

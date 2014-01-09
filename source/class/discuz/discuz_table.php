@@ -112,6 +112,13 @@ class discuz_table extends discuz_base
 						$data[$value[$this->_pk]] = $value;
 						$this->store_cache($value[$this->_pk], $value);
 					}
+					
+					//为空也缓存 缓存为空数组
+					if(empty($value)){
+						foreach ($ids as $id){
+							$this->store_cache($id, array());
+						}
+					}
 				}
 			}
 		}

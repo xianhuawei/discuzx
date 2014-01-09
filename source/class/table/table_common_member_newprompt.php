@@ -18,7 +18,9 @@ class table_common_member_newprompt extends discuz_table
 		$this->_table = 'common_member_newprompt';
 		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'common_member_newprompt_';
-
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
+		
 		parent::__construct();
 	}
 	public function insert($uid, $data) {

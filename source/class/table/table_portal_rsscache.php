@@ -18,7 +18,8 @@ class table_portal_rsscache extends discuz_table
 		$this->_table = 'portal_rsscache';
 		$this->_pk    = 'aid';
         $this->_pre_cache_key = 'portal_rsscache_';
-
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 

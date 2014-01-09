@@ -18,7 +18,8 @@ class table_common_tag extends discuz_table
 		$this->_table = 'common_tag';
 		$this->_pk    = 'tagid';
         $this->_pre_cache_key = 'common_tag_';
-
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 

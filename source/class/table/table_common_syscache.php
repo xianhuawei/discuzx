@@ -22,7 +22,8 @@ class table_common_syscache extends discuz_table
 		$this->_pre_cache_key = 'common_syscache_';
 		$this->_isfilecache = getglobal('config/cache/type') == 'file';
 		$this->_allowmem = memory('check');
-
+		$this->_cache_ttl = 86400;
+		
 		parent::__construct();
 	}
 

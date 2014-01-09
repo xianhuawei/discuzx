@@ -264,7 +264,15 @@ foreach($_G['cache']['forums'] as $sub) {
 		}
 		$subexists = 1;
 		$sublist = array();
-		$query = C::t('forum_forum')->fetch_all_info_by_fids(0, 'available', 0, $_G['fid'], 1, 0, 0, 'sub');
+		
+		//加缓存
+		$cache_forum_key = 'forum_forum_fetch_all_info_by_fids'.$_G['fid'];
+		if(memory('check') && $cache_forum = memory('get',$cache_forum_key)){
+			$query = $cache_forum;
+		}else{
+			$query = C::t('forum_forum')->fetch_all_info_by_fids(0, 'available', 0, $_G['fid'], 1, 0, 0, 'sub');
+			memory('set',$cache_forum_key,$query);
+		}
 
 		if(!empty($_G['member']['accessmasks'])) {
 			$fids = array_keys($query);
@@ -552,7 +560,10 @@ if($showsticky) {
 	$forumstickytids = array();
 	if($_G['page'] !== 1 || $filterbool === false) {
 		if($_G['setting']['globalstick'] && $_G['forum']['allowglobalstick']) {
-			$stickytids = explode(',', str_replace("'", '', $_G['cache']['globalstick']['global']['tids']));
+			if(!empty($_G['cache']['globalstick']['global']['tids'])){
+				$stickytids = explode(',', str_replace("'", '', $_G['cache']['globalstick']['global']['tids']));
+			}
+			
 			if(!empty($_G['cache']['globalstick']['categories'][$thisgid]['count'])) {
 				$stickytids = array_merge($stickytids, explode(',', str_replace("'", '', $_G['cache']['globalstick']['categories'][$thisgid]['tids'])));
 			}

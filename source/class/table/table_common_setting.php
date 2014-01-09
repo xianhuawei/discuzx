@@ -18,7 +18,8 @@ class table_common_setting extends discuz_table
 		$this->_table = 'common_setting';
 		$this->_pk    = 'skey';
         $this->_pre_cache_key = 'common_setting_';
-
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 
