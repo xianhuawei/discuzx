@@ -1753,6 +1753,9 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 			'against' => 0,
 			'total' => 0,
 		), true);
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_tid_total_'.$post['tid'].'_10';
+		memory('rm',$cache_key);
 	} else {
 		if(C::t('forum_hotreply_member')->fetch($post['pid'], $_G['uid'])) {
 			showmessage('noreply_voted_error', '', array(), array('msgtype' => 3));

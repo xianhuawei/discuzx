@@ -24,7 +24,18 @@ class table_forum_hotreply_number extends discuz_table {
 	}
 
 	public function fetch_all_by_tid_total($tid, $limit = 5) {
-		return DB::fetch_all('SELECT * FROM %t WHERE tid=%d ORDER BY total DESC LIMIT %d', array($this->_table, $tid, $limit), 'pid');
+		//加缓存
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_tid_total_'.$tid.'_'.$limit;
+		if($this->_allowmem){
+			$result = memory('get',$cache_key);
+			if( $result !== false){
+				return $result;
+			}
+		}
+		
+		$result = DB::fetch_all('SELECT * FROM %t WHERE tid=%d ORDER BY total DESC LIMIT %d', array($this->_table, $tid, $limit), 'pid');
+		memory('set',$cache_key,$result);
+		return $result;
 	}
 
 	public function fetch_by_pid($pid) {
@@ -41,6 +52,10 @@ class table_forum_hotreply_number extends discuz_table {
 		if(empty($tid)) {
 			return false;
 		}
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_tid_total_'.$tid.'_10';
+		memory('rm',$cache_key);
+		
 		return DB::query('DELETE FROM %t WHERE tid IN (%n)', array($this->_table, $tid));
 	}
 
