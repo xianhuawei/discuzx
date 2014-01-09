@@ -183,6 +183,16 @@ class table_forum_thread extends discuz_table
 				while($value = DB::fetch($query)) {
 					$data[$value['tid']] = $value;
 					$this->store_cache($value['tid'], $value, $this->_cache_ttl);
+					//为空也缓存 缓存为空数组
+					if(empty($value)){
+						$this->store_cache($value[$this->_pk], array());
+					}
+				}
+				//为空也缓存 缓存为空数组
+				if(empty($value)){
+					foreach ($tids as $tid){
+						$this->store_cache($tid, array());
+					}
 				}
 			}
 		}

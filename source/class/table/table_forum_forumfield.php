@@ -17,11 +17,15 @@ class table_forum_forumfield extends discuz_table
 
 		$this->_table = 'forum_forumfield';
 		$this->_pk    = 'fid';
+		$this->_pre_cache_key = 'forum_forumfield_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 3600;
 
 		parent::__construct();
 	}
 	public function fetch_all_by_fid($fids) {
 		$fids = array_map('intval', (array)$fids);
+		return parent::fetch_all($fids);
 		if(!empty($fids)) {
 			return DB::fetch_all("SELECT * FROM %t WHERE fid IN(%n)", array($this->_table, $fids), $this->_pk);
 		} else {
