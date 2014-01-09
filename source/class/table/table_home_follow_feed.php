@@ -33,7 +33,7 @@ class table_home_follow_feed extends discuz_table
 			$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_'.$uids[0].'_'.intval($archiver);
 			$result = memory('get',$cache_key);
 			if($result !== false){
-				//return $result;
+				return $result;
 			}
 		}
 		$data = array();
