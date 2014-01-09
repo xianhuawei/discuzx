@@ -633,6 +633,7 @@ if($filter !== 'hot') {
 	$threadlist = array();
 	$indexadd = '';
 	$_order = "displayorder DESC, $_GET[orderby] $_GET[ascdesc]";
+	//索引优化
 	if($filterarr['inforum'] && $filterarr['displayorder']){
 		$indexadd = ' FORCE INDEX (displayorder) ';
 	}
