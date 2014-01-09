@@ -179,19 +179,17 @@ class table_forum_thread extends discuz_table
 			if($data === false) $data = array();
 			if(!empty($tids)) {
 				$parameter = array($this->get_table_name($tableid), $tids);
-				$query = DB::query("SELECT * FROM %t WHERE tid IN(%n)".DB::limit($start, $limit), $parameter);
-				while($value = DB::fetch($query)) {
-					$data[$value['tid']] = $value;
-					$this->store_cache($value['tid'], $value, $this->_cache_ttl);
-					//为空也缓存 缓存为空数组
-					if(empty($value)){
-						$this->store_cache($value[$this->_pk], array());
-					}
-				}
-				//为空也缓存 缓存为空数组
-				if(empty($value)){
-					foreach ($tids as $tid){
+				
+				$values = DB::fetch_all("SELECT * FROM %t WHERE tid IN(%n)".DB::limit($start, $limit), $parameter);
+				if(empty($values)){//为空的也缓存
+					foreach ($tids as $key=>$tid){
+						var_dump($tid);
 						$this->store_cache($tid, array());
+					}
+				}else{
+					foreach ($values as $value){
+						$data[$value['tid']] = $value;
+						$this->store_cache($value['tid'], $value, $this->_cache_ttl);
 					}
 				}
 			}

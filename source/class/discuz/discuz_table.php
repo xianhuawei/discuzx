@@ -108,20 +108,15 @@ class discuz_table extends discuz_base
 				}
 				if($data === false) $data =array();
 				if(!empty($ids)) {
-					$query = DB::query('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $ids));
-					while($value = DB::fetch($query)) {
-						$data[$value[$this->_pk]] = $value;
-						$this->store_cache($value[$this->_pk], $value);
-						//为空也缓存 缓存为空数组
-						if(empty($value)){
-							$this->store_cache($value[$this->_pk], array());
-						}
-					}
-					
-					//为空也缓存 缓存为空数组
-					if(empty($value)){
-						foreach ($ids as $id){
+					$values = DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $ids));
+					if(empty($values)){//为空的也缓存
+						foreach ($ids as $key=>$id){
 							$this->store_cache($id, array());
+						}
+					}else{
+						foreach ($values as $value){
+							$data[$value[$this->_pk]] = $value;
+							$this->store_cache($value[$this->_pk], $value);
 						}
 					}
 				}

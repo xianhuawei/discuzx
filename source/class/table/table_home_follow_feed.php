@@ -22,12 +22,20 @@ class table_home_follow_feed extends discuz_table
 
 		$this->_table = 'home_follow_feed';
 		$this->_pk    = 'feedid';
-
+		$this->_pre_cache_key = 'home_follow_feed_';
+		$this->_allowmem = memory('check');
 		parent::__construct();
 	}
 
 	public function fetch_all_by_uid($uids = 0, $archiver = false, $start = 0, $limit = 0) {
-
+		//主页的首页缓存
+		if($this->_allowmem && $start == 0 && !empty($uids) && count($uids) == 1 ){
+			$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_'.$uids[0].'_'.intval($archiver);
+			$result = memory('get',$cache_key);
+			if($result !== false){
+				//return $result;
+			}
+		}
 		$data = array();
 		$parameter = array($archiver ? $this->_archiver_table : $this->_table);
 		$wherearr = array();
@@ -42,7 +50,9 @@ class table_home_follow_feed extends discuz_table
 			$data[$row['feedid']] = $row;
 			$this->_tids[$row['tid']] = $row['tid'];
 		}
-
+		if($this->_allowmem && $start == 0 && !empty($uids) && count($uids) == 1 ){
+			memory('set',$cache_key,$data);
+		}
 		return $data;
 	}
 
@@ -76,9 +86,18 @@ class table_home_follow_feed extends discuz_table
 		$count = DB::result_first("SELECT COUNT(*) FROM %t $wheresql", $parameter);
 		return $count;
 	}
-
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false){
+		//删除缓存
+		$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_'.$data['uid'].'_0';
+		memory('rm',$cache_key);
+		parent::insert($data, $return_insert_id, $replace, $silent);
+	}
 	public function insert_archiver($data) {
 		if(!empty($data) && is_array($data)) {
+			//删除缓存
+			$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_'.$data['uid'].'_1';
+			memory('rm',$cache_key);
+			
 			return DB::insert($this->_archiver_table, $data, false, true);
 		}
 		return 0;
@@ -87,6 +106,11 @@ class table_home_follow_feed extends discuz_table
 	public function delete_by_feedid($feedid, $archiver = false) {
 		$feedid = dintval($feedid, true);
 		if($feedid) {
+			//删除缓存
+			$feed = $this->fetch($feedid);
+			$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_'.$feed['uid'].'_'.intval($archiver);
+			memory('rm',$cache_key);
+			
 			return DB::delete($archiver ? $this->_archiver_table : $this->_table, DB::field('feedid', $feedid));
 		}
 		return 0;
@@ -96,6 +120,13 @@ class table_home_follow_feed extends discuz_table
 		$uids = dintval($uids, true);
 		$delnum = 0;
 		if($uids) {
+			//删除缓存
+			foreach ($uids as $uid){
+				$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_'.$uid.'_0';
+				memory('rm',$cache_key);
+				$cache_key = $this->_pre_cache_key.'fetch_all_by_uid_'.$uid.'_1';
+				memory('rm',$cache_key);
+			}
 			$delnum = DB::delete($this->_table, DB::field('uid', $uids));
 			$delnum += DB::delete($this->_archiver_table, DB::field('uid', $uids));
 		}

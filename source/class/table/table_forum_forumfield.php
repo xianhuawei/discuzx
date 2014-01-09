@@ -26,11 +26,11 @@ class table_forum_forumfield extends discuz_table
 	public function fetch_all_by_fid($fids) {
 		$fids = array_map('intval', (array)$fids);
 		return parent::fetch_all($fids);
-		if(!empty($fids)) {
-			return DB::fetch_all("SELECT * FROM %t WHERE fid IN(%n)", array($this->_table, $fids), $this->_pk);
-		} else {
-			return array();
-		}
+//		if(!empty($fids)) {
+//			return DB::fetch_all("SELECT * FROM %t WHERE fid IN(%n)", array($this->_table, $fids), $this->_pk);
+//		} else {
+//			return array();
+//		}
 	}
 	public function fetch_all_field_perm() {
 		return DB::fetch_all("SELECT fid, viewperm, postperm, replyperm, getattachperm, postattachperm, postimageperm FROM ".DB::table($this->_table)." WHERE founderuid=0");
