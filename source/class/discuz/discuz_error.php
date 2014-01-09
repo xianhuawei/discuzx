@@ -27,7 +27,8 @@ class discuz_error
 			$messagesave = '<b>'.$message.'</b><br><b>PHP:</b>'.$logtrace;
 			discuz_error::write_error_log($messagesave);
 		}
-
+		
+		/*
 		if($show) {
 			if(!defined('IN_MOBILE')) {
 				discuz_error::show_error('system', "<li>$message</li>", $showtrace, 0);
@@ -35,6 +36,7 @@ class discuz_error
 				discuz_error::mobile_show_error('system', "<li>$message</li>", $showtrace, 0);
 			}
 		}
+		*/
 
 		if($halt) {
 			exit();
@@ -183,7 +185,10 @@ class discuz_error
 
 	public static function show_error($type, $errormsg, $phpmsg = '', $typemsg = '') {
 		global $_G;
-
+		//禁止删除到页面
+		self::write_error_log($errormsg."\r\n".var_export($phpmsg,true)."\r\n\r\n");
+		header("Location: ".'http://'.$_SERVER['HTTP_HOST'].'/');die;
+			
 		ob_end_clean();
 		$gzip = getglobal('gzipcompress');
 		ob_start($gzip ? 'ob_gzhandler' : null);

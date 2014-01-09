@@ -156,15 +156,21 @@ class ucclient_db {
 		} else {
 			$s = '';
 			if($message) {
-				$s = "<b>UCenter info:</b> $message<br />";
+				$s = date("Y-m-d H:i:s")."UCenter info: $message";
 			}
 			if($sql) {
-				$s .= '<b>SQL:</b>'.htmlspecialchars($sql).'<br />';
+				$s .= '   SQL:'.htmlspecialchars($sql);
 			}
-			$s .= '<b>Error:</b>'.$error.'<br />';
-			$s .= '<b>Errno:</b>'.$errorno.'<br />';
+			$s .= '    Error:'.$error;
+			$s .= '    Errno:'.$errorno;
 			$s = str_replace(UC_DBTABLEPRE, '[Table]', $s);
-			exit($s);
+			$s	.= "\r\n";
+			
+			$file =  DISCUZ_ROOT.'./data/log/'.date("Ymd").'_errorlog.php';
+			error_log($s,3,$file);
+			
+			header("Location: ".'http://'.$_SERVER['HTTP_HOST'].'/');
+			die;
 		}
 	}
 }

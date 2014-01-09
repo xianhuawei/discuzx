@@ -3548,7 +3548,8 @@ CREATE TABLE pre_home_follow (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   mutual tinyint(1) NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (uid,followuid)
+  PRIMARY KEY (uid,followuid),
+  KEY `uid` (`uid`,`status`,`dateline`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_home_follow_feed;
