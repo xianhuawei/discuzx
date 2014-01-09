@@ -2649,7 +2649,7 @@ CREATE TABLE pre_forum_post (
   tags varchar(255) NOT NULL DEFAULT '0',
   `comment` tinyint(1) NOT NULL DEFAULT '0',
   replycredit int(10) NOT NULL DEFAULT '0',
-  position int(8) unsigned NOT NULL DEFAULT '1',
+  position int(10) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (pid),
   UNIQUE KEY tid_position (tid,position),
   KEY fid (fid),
