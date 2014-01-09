@@ -608,6 +608,10 @@ class table_forum_post extends discuz_table
 	}
 
 	public function insert($tableid, $data, $return_insert_id = false, $replace = false, $silent = false) {
+		//添加主题的楼层位置
+		$maxposition = $this->fetch_maxposition_by_tid($tableid,$data['tid']);
+		$data['position'] = $maxposition + 1 ;
+		
 		return DB::insert(self::get_tablename($tableid), $data, $return_insert_id, $replace, $silent);
 	}
 
