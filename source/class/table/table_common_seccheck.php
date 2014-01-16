@@ -18,7 +18,9 @@ class table_common_seccheck extends discuz_table
 
 		$this->_table = 'common_seccheck';
 		$this->_pk    = 'ssid';
-
+		$this->_pre_cache_key = 'common_seccheck_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 

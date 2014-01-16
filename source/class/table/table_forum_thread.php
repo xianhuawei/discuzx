@@ -491,7 +491,6 @@ class table_forum_thread extends discuz_table
 	}
 
 	public function fetch_all_search($conditions, $tableid = 0, $start = 0, $limit = 0, $order = '', $sort = 'DESC', $forceindex='') {
-		//todo 其它页面(不只是第一页)也缓存
 		$ordersql = '';
 		if(!empty($order)) {
 			$ordersql =  " ORDER BY $order $sort ";

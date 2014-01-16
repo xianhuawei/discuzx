@@ -2660,6 +2660,17 @@ CREATE TABLE pre_forum_post (
   KEY `first` (tid,`first`)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS pre_forum_post_author;
+CREATE TABLE `pre_forum_post_author` (
+  `pid` int(10) unsigned NOT NULL COMMENT '帖子ID',
+  `authorid` int(11) NOT NULL COMMENT '用户id',
+  `tid` int(10) unsigned NOT NULL COMMENT '主题id',
+  `tableid` int(10) unsigned NOT NULL COMMENT '表id',
+  PRIMARY KEY (`pid`),
+  KEY `authorid` (`authorid`),
+  KEY `tid` (`tid`)
+) ENGINE=InnoDB COMMENT='帖子索引表 按用户分表';
+
 DROP TABLE IF EXISTS pre_forum_post_location;
 CREATE TABLE pre_forum_post_location (
   pid int(10) unsigned NOT NULL DEFAULT '0',

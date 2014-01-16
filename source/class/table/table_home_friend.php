@@ -16,8 +16,8 @@ class table_home_friend extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'home_friend';
-		$this->_pk    = 'uid';
-
+		$this->_pk    = '';
+		
 		parent::__construct();
 	}
 
