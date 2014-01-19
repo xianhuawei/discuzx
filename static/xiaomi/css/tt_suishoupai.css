@@ -1,0 +1,204 @@
+@charset "utf-8";
+/* ----------------------------------
+
+Main CSS file for Discuz! X3
+(C) Comsenz Inc.
+
+-------------------------------------*/
+
+a:link,
+a:visited {color: #666666;text-decoration: none;}
+
+.red    { color: red; }
+.left   { float: left; }
+.right  { float: right;}
+img     { border: 0;}
+.ssp_wutu{float: left;width:955px;height:100px;border: #E1E1E1 1px solid; margin:10px 0;padding:5px 0; padding-left:5px;text-align:center;}
+/* Layout Style  */
+.clearfix:after { content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.clearfix {display: inline-block;}
+.clearfix {display: block;}
+
+html,body { margin: 0; padding: 0;height: 100%; background: #ffffff;}
+
+/* Page Layout */
+
+/* main */
+.photoMain	 { width: 960px; margin: 10px auto; color: #000; font: 12px/1.5 Tahoma,"hiragino sans gb",Helvetica,Arial;  }
+.photoMain a:hover  { text-decoration: underline;}
+
+.photoFocus	  			{ width: 100%; height: 350px; position: relative; overflow: hidden; clear: both;z-index:0 }
+.photoFocus img 		{ position: absolute; left: 0; top: 0; z-index: 0; display: none;}
+.photoFocus dl          { position: absolute; left: 16px; bottom: 10px; z-index: 4; }
+.photoFocus dd      	{ display: none; color: #ffffff; font-size: 20px; font-weight: 800; }
+.photoFocus ol      	{ position: absolute; right: 15px; bottom: 20px; font-size: 20px; font-weight: 800; z-index: 4; }
+.photoFocus li      	{ width: 10px; height: 10px; overflow: hidden; background: #909388; float: left; margin: 0 5px 0 5px; }
+.photoFocus li a:link,
+.photoFocus li a:visited	 { display: block; color: #909388;  }
+.photoFocus li a:hover  { text-decoration: none; }
+.photoFocus .selected   		{ background: #CDCFCE; }
+.photoFoucs .selected a:link, 
+.photoFoucs .selected a:visited { color: #CDCFCE; }
+.photoFocus cite    	{ position: absolute; left: 0; bottom : 0; z-index: 3; background: #000000; width: 100%; height: 50px; display: block; opacity: 0.5;  }					  
+.photoTopic   	 	 		{ width: 100%; height: 197px; margin: 10px 0 0 0; border-bottom: #E1E1E1 1px solid; border-left: #E1E1E1 1px solid; border-right: #E1E1E1 1px solid; clear: both;}
+.photoTopic li     			{ width: 320px; height: 197px; float: left; border-top: #666666 3px solid; }
+.photoTopic p     	 		{ width: 318px; height: 150px; margin: 20px 0 0 0;  }
+.photoTopic strong     		{ font-size: 26px; font-weight: 700;  color: #5D5D5D; display: block; margin: 0 0 0 20px; }
+.photoTopic span       		{ display: block; margin: 15px 0 15px 20px; color: #333333; }
+.photoTopic cite      		{ display: block; font-style: normal; float: right; margin: 0 10px 0 0; } 
+.photoTopic cite a:link,
+.photoTopic cite a:visited         { display: block; background: #666666; font-size: 14px; font-weight: 700; color: #ffffff; width: 90px; height: 30px; line-height: 30px; text-align: center; border-radius: 5px;}
+.photoTopic cite a:hover           { background: #FF613A; color: #ffffff !important; text-decoration: none; }
+
+.photoTopic .selected  		{ border-top: #FA7A1F 3px solid; }
+.photoTopic .selected strong  { color: #FA7A1F; }
+.photoTopic .middle p         { border-left: #E1E1E1 1px dotted; border-right: #E1E1E1 1px dotted; }
+.photoTopic ins               { margin: 0 0 0 20px; float: left; }
+.photoTopic img               { float: left;  margin: 0 3px 0 3px; }
+
+.photoMember      			{ float: left; width: 648px; height: 269px; border: #E1E1E1 1px solid; margin: 10px 0 0 0;}
+.photoMember h3   			{ width: 100%; height: 47px; line-height: 47px; border-bottom: #E1E1E1 1px solid; text-indent: 25px; color: #474747; font-weight: 700; font-size: 14px; }
+.photoMember dd   			{ float: left; width: 285px; height: 80px; margin: 25px 0 0 30px; _margin: 25px 0 0 20px;}
+.photoMember img  			{ float: left; margin: 0 20px 0 0; }
+.photoMember p    			{ float: right; width: 195px; }
+.photoMember a:link,
+.photoMember a:visited  	{ color: #656565;  }
+.photoMember strong         { font-size: 14px; font-weight: 700; display: block; }
+.photoMember strong a:hover { color: #FF6633 !important;  }
+
+
+.photoNav     		  { float: right; width: 298px; height: 270px; border-top: #E1E1E1 1px solid; border-left: #E1E1E1 1px solid; color: #323232; font-weight: 700; font-size: 14px; margin: 10px 0 0 0; }
+.photoNav dt  		  { text-indent: 10px; border-right: #E1E1E1 1px solid; border-bottom: #E1E1E1 1px solid; width: 297px; height: 47px; float: left; line-height: 47px; }
+.photoNav dd  		  { border-right: #E1E1E1 1px solid; border-bottom: #E1E1E1 1px solid; width: 148px; height: 73px; float: left; line-height: 73px; text-align: center;   }
+.photoNav a:link,
+.photoNav a:visited   { display: block; }
+.photoNav a:hover     { background: #FF6634; color: #FFFFFF !important; text-decoration: none; }
+
+.photoList       		{ width: 100%; margin: 10px 0 10px 0; float: left;}
+.photoList li    		{ width: 185px; height: 185px; float: left; margin: 3px; position: relative; }
+.photoList img          { position: absolute; z-index: 0; top: 0; left: 0; }
+.photoList p     		{ position: absolute; z-index: 2; bottom: 5px; left: 10px; visibility: hidden; }
+.photoList cite  		{ position: absolute; z-index: 1; bottom: 0; left: 0; width: 185px; height: 30px; background: #000000; opacity: 0.5; visibility: hidden;  }
+.photoList strong   	{ font-size: 12px; color: #ffffff; display: block; }
+.photoList span     	{ color: #cccccc; } 
+.photoList a:hover  	{ _zoom: 1; text-decoration: none; } 
+.photoList a:hover p    { visibility: visible; }
+.photoList a:hover cite { visibility: visible; }
+
+.photoListArray  { float: right; margin: -66px -30px 0 0; }
+.photoListArray a { display: block; width: 33px; height: 50px; background: url(photoListArray.jpg) no-repeat;}
+
+.photoMore   { width: 100%; height: 58px; line-height: 58px; background: #F5F5F5; border: #E1E1E1 1px solid; font-size: 20px; font-weight: 700; text-align: center; clear: both;}
+.photoMore a:link, .photoMore a:visited { color: #ABABAB; }
+.photoMore a:hover { text-decoration: none; color: #FF6634 !important; }
+
+/*  page list */
+.photoSort     		  { width: 168px; float: left; }
+.photoSort li  		  { width: 168px; height: 35px; font-size: 16px; font-weight: 700;}
+.photoSort a:hover,
+.photoSort .selected a:link,
+.photoSort .selected a:visited    { color: #FF7C63 !important; text-decoration: none; }
+
+.pageList  	 				  { width: 770px; float: right; }
+
+.pageList_ViewWay   		  { width: 155px; height: 25px; line-height: 25px; float: right; font-size: 14px; }
+.pageList_ViewWay dd          { float: left; }
+.pageList_ViewWay a:link,
+.pageList_ViewWay a:visited   { margin: 0 5px 0 5px; }
+.pageList_ViewWay a:hover,
+.pageList_ViewWay .selected a:link,
+.pageList_ViewWay .selected a:visited    { color: #FF7C63 !important; text-decoration: none; }
+
+
+/* page */
+.page        		{ height: 28px; float: right; clear: both; display: block; line-height: 26px;margin-right: 8px;}
+.page li     		{ float: left;display: inline;margin-left: 4px;padding: 0 8px;height: 26px; border: 1px solid #CDCDCD; background-color: white;color: #333;overflow: hidden;text-decoration: none;}
+.page a:hover       { color: #FF7C63 !important; }
+.page .selected     { color: #FF7C63; font-weight: bold;}
+
+/* page */
+.comment_page        		{ width: 226px; _width: 226px; height: 10px; float: right; clear: both;}
+.comment_page li     		{ width: 10px; height: 10px; float: left; margin: 0 8px 0 8px;  font-size: 14px; }
+.comment_page a:hover       { color: #FF7C63 !important; }
+.comment_page .selected     { color: #FF7C63; }
+
+/* photo Member Detail page */
+.photoMemberDetail  	 	{ width: 100%; height: 110px; border-bottom: #666666 1px dotted; position: relative; }
+.photoMemberDetail .head    { float: left; margin: 0 20px 0 0; } 
+.photoMemberDetail p        { float: left; }
+.photoMemberDetail strong   { width: 520px; font-size: 30px; height: 3px; line-height: 30px; margin: 0 0 30px 0; _margin: 0 0 0 0; font-weight: 700; color: #F66433; display: block; }
+.photoMemberDetail span     { height: 30px; line-height: 30px; font-size: 14px; }
+.photoMemberDetail a:link, a:visited { color: #666666; margin: 0 5px 0 5px; }
+.photoMemberDetail a:hover  { color: #FF7C63 !important; text-decoration: none; }
+.photoMemberDetail dl       { position: absolute;  bottom: 10px; left: 115px; _left: 110px; font-size: 14px; } 
+.photoMemberDetail dd       { float: left;  margin: 0 5px 0 5px;}
+.photoMemberDetail ul       { float: right; margin: 70px 0 0 0; *margin: 70px 0 0 -90px; _margin: 10px 0 0 0; }
+.photoMemberDetail li       { float: left; height: 25px; line-height: 25px; font-size: 14px;}
+.photoMemberDetail .detail  { margin: 0; *margin: 70px 0 0 -90px; _margin: 0;}
+.photoMemberDetail li img   		 { opacity:0.3;}
+.photoMemberDetail li a:hover img   { opacity:1;}
+
+/* photo Image */
+.photoImage	       		{ position: relative; width: 960px;  margin: 10px 0  0; text-align: center; }
+.photoImage	img         { margin: 0 0 -6px 0;}
+.photoImage span   		{ position: absolute; bottom: 10px; left: 10px; z-index: 5; color: #ffffff; }
+.photoImage cite   	 	{ position: absolute; bottom: 0px; left: 0px; width: 960px; height: 40px; background: #000000;  z-index: 4; font-size: 14px; opacity: 0.5; }
+.photoImage ins   	 	{ position: absolute; z-index: 10; width: 480px; height: 410px; display: block; background: url(about:blank);  }
+
+.photoImage .left       { left: 0;   top: 0;}
+.photoImage .right      { right: 0;  top: 0;}
+ 
+.photoImage a:link,
+.photoImage a:visited   { display: block; width: 102px; height: 95px; line-height: 95px; _position: relative; margin: 0; padding: 0; }
+.photoImage a:hover     { text-decoration:none; }
+
+
+.photoImage .prev         { width: 102px; height: 95px; margin: 155px 0 0 20px; position: static; float: left; visibility: hidden;							  background: url(/images/pai/ArrowLeft.png) no-repeat !important;/* FF IE7 */					  	  	  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/pai/ArrowLeft.png'); /* IE6 */					  	  	  _background: none; /* IE6 */}
+.photoImage .next        { width: 102px; height: 95px; margin: 155px 20px 0 0; position: static; float: right; visibility: hidden;					   		  background: url(/images/pai/ArrowRight.png) no-repeat !important;/* FF IE7 */					   		  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/pai/ArrowRight.png'); /* IE6 */					   		  _background: none; /* IE6 */}
+.photoImage .show .prev  { visibility: visible; }
+.photoImage .show .next  { visibility: visible; }
+
+
+.photoExif    	 { width: 960px; padding: 10px 0 10px 0; text-indent: 15px; text-align: center; color: #999;}
+.photoImagePage  { width: 960px; height: 30px; line-height: 30px; font-size: 14px; border-top: #e1e1e1 1px dotted; }
+/* photo Image Intro */
+.photoImageIntro  { width: 100%; font-size: 14px; line-height: 25px; text-indent: 25px; padding-top: 25px; }
+
+.photoImageBtn    	 { width: 230px; height: 40px; margin: 0 auto; padding: 10px 0 15px 0; position: relative; }
+.photoImageBtn a     { width: 100px; height: 40px; text-indent: -9999px}
+.photoImageBtn .btnGood         { background: url(btnGood.jpg) no-repeat;}
+.photoImageBtn .btnGoComment    { background: url(btnGoComment.jpg) no-repeat;}
+.photoImageBtn span  { position: absolute; top: 30px; left: 35px; font-size: 16px; font-weight: 700; color: #F03000; display: none; }
+
+/* photo Box */
+.photoBox     { width: 960px; border: #E1E1E1 1px solid; margin: 10px auto 10px auto; }
+.photoBox h2  { width: 100%; height: 45px; line-height: 45px; text-indent: 25px; color: #333333; border-bottom: #E1E1E1 1px solid; font-size: 14px; font-weight: 700; }
+
+/* photo Recommend */
+.photoRecommend  	 { height: 260px; margin: 50px auto 0 auto; }
+.photoRecommend li   { text-align: center; float: left; width: 163px; margin: 14px 15px 0 14px; *margin: 14px 11px 0 10px; } 
+.photoRecommend span { width: 163px; height: 30px; line-height: 30px; overflow: hidden;}
+
+/* photo commend */
+.photoComment      				{ color: #757575; }
+.photoComment h2   				{ color: #757575; }
+.photoComment .commentList   	{ margin: 25px 0 0 0; }
+.photoComment .commentList li   { float: left; padding: 0 0 10px 0; width: 910px;  margin: 5px 0 5px 25px; border-bottom: #E1E1E1 1px dotted; } 
+.photoComment img       { float: left; margin: 0 25px 0 0; }
+.photoComment p         { float: left; width: 800px; font-size: 14px; }
+.photoComment strong    { color: #FF633B; }
+.photoComment ins       { color: #999999; font-size: 12px; text-decoration: none; }
+.photoComment span      { margin: 10px 0 0 0; display: block;}
+
+.photoComment .commentPost      { width: 900px; height: 80px; line-height: 25px; margin: 20px auto 0 auto; }
+.photoComment .commentPost img  { float: right; margin: 0 0 10px 0;}
+.photoComment .commentPost p    { text-align: right; float: right; }
+.photoComment .commentPost a:link,  .photoComment .commentPost a:visited { color: #3D6FAE; }
+
+.photoCommentInput     	 	 { width: 898px; height: 188px; margin: 40px auto 10px auto; border: #E1E1E1 1px solid; clear: both; position: relative;}
+.photoCommentInput cite  	 { width: 898px; height: 7px; background: url(/images/pai/textInputTopBg.jpg) repeat-x; display: block; }
+.photoCommentInput textarea  { width: 890px; height: 180px; padding: 0 4px 0 4px; border: 0;  font-size: 14px;}
+.photoCommentInput span  	 { position: absolute; top: 0; left: 10px;  }
+
+.photoDetailPage li { width: auto; height: auto;}
+

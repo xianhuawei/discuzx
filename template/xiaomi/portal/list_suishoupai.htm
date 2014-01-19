@@ -1,0 +1,64 @@
+﻿<!--{template common/header}-->
+<!--[name]小米随手拍②[/name]-->
+<!--{eval $list = array();}-->
+<!--{eval $wheresql = category_get_wheresql($cat);}-->
+<!--{eval $list = category_get_list($cat, $wheresql, $page);}-->
+<!--{ad/text/wp a_t}-->
+<style id="diy_style" type="text/css"></style>
+<link href="$_G['style']['styleimgdir']/css/tt_suishoupai.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="$_G['style']['styleimgdir']/js/jquery-1.7.1.min.js"></script>
+<script>jQuery.noConflict();</script>
+
+<div class="wp">
+	<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+
+<div class="photoMain">
+	<!--幻灯片-->	
+    	<!--[diy=tt_ssp_hdp]--><div id="tt_ssp_hdp" class="area"></div><!--[/diy]-->
+    <!--幻灯片-->
+	<dl class="ssp_wutu">
+    	<!--[diy=tt_ssp_wutu]--><div id="tt_ssp_wutu" class="area"></div><!--[/diy]-->
+	</dl>
+    <ul id="photoTopic" class="photoTopic">
+        <li class="selected">
+            <!--[diy=tt_ssp_qiehuan1]--><div id="tt_ssp_qiehuan1" class="area"></div><!--[/diy]-->
+        </li>
+        <li class="middle">
+            <!--[diy=tt_ssp_qiehuan2]--><div id="tt_ssp_qiehuan2" class="area"></div><!--[/diy]-->
+        </li>
+        <li>
+            <!--[diy=tt_ssp_qiehuan3]--><div id="tt_ssp_qiehuan3" class="area"></div><!--[/diy]--> 	
+        </li>
+	</ul>
+	<!--小米摄影发烧友-->
+	<dl class="photoMember">
+    	<h3>小米摄影发烧友</h3>
+		<!--[diy=tt_ssp_syfsy]--><div id="tt_ssp_syfsy" class="area"></div><!--[/diy]-->
+	</dl>
+    <!--随手拍导航-->
+    <dl class="photoNav">
+    	<dt>随手拍导航</dt>
+		<!--[diy=tt_ssp_sspdh]--><div id="tt_ssp_sspdh" class="area"></div><!--[/diy]-->
+    </dl>
+    <!--图片列表-->
+    <div style="margin:0 auto; width:960px;">
+    <ul class="photoList" >
+		<!--[diy=tt_ssp_tplb]--><div id="tt_ssp_tplb" class="area"></div><!--[/diy]-->     
+	</ul>
+    <div class="photoMore"><a href="#">点击查看更多</a></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<script src="$_G['style']['styleimgdir']/js/ssp_effectPage.js"></script>
+<script src="$_G['style']['styleimgdir']/js/ssp_Photography.js"></script>
+<script>
+	jQuery(function(){
+		focusAddJump();
+        ep.Run();
+        photoNavSwitch();
+	});
+</script>
+
+<!--{template common/footer}-->
