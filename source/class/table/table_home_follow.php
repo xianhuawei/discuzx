@@ -16,7 +16,7 @@ class table_home_follow extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'home_follow';
-		$this->_pk    = '';
+		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'home_follow_';
 		$this->_allowmem = memory('check');
 		$this->_cache_ttl = 86400;
