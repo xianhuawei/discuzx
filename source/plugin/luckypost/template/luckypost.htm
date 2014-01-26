@@ -1,0 +1,133 @@
+<!--{subtemplate common/header}-->
+<style type="text/css">
+	.xl2 { background: url({IMGDIR}/vline.png) repeat-y 50% 0; }
+		.xl2 div, .bm .bm_h h2 { width: 48.9%; float:left; padding-right: 10px; }
+		.xl2 li { width: 100%;clear:both;height: 35px; }
+				.xl2 .xl2_r em { padding-right: 0; }
+			.xl2 .xl2_r li { padding-left: 10px; }
+</style>
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em>
+		<a href="plugin.php?id=luckypost">{lang luckypost:luckypost}</a> <em>&rsaquo;</em>
+		<!--{if $opactives[list]}-->{lang luckypost:lucky_all_event}<!--{elseif $opactives[my]}-->{lang luckypost:lucky_my_event}<!--{elseif $opactives[stat]}-->{lang luckypost:lucky_rank}<!--{/if}-->
+	</div>
+</div>
+<div class="boardnav">
+	<div id="ct" class="wp cl{if $_G['forum']['allowside']} ct2{/if}"{if $leftside} style="margin-left:{$_G['leftsidewidth_mwidth']}px"{/if}>
+		<div class="mn">
+			<div class="bm bml pbn">
+				<div class="bm_h cl">
+					<span class="y">
+						<p>$myfortune</p>
+					</span>
+					<h1 class="xs2">
+						<!--{if $opactives[list]}-->{lang luckypost:lucky_all_event}<!--{elseif $opactives[my]}-->{lang luckypost:lucky_my_event}<!--{elseif $opactives[stat]}-->{lang luckypost:lucky_rank}<!--{/if}-->
+					</h1>
+				</div>
+				<div class="bm_c cl pbn">
+					<div style=";" id="forum_rules_1163">
+						<div class="ptn xg2">{lang luckypost:find_chance}</div>
+					</div>
+				</div>
+			</div>
+			<div id="pgt" class="bm bw0 pgs cl">
+			<!--{if $action != 'stat'}-->
+				$multipage
+				<span class="pgb y"><a href="{$page_url}">{lang luckypost:home_page}</a></span>
+			<!--{/if}-->
+				<a onclick="showWindow('nav', this.href, 'get', 0)" href="forum.php?mod=misc&amp;action=nav"><img src="{IMGDIR}/pn_post.png" alt="{lang send_posts}" /></a>
+			</div>
+			<ul id="thread_types" class="ttp bm cl">
+				<li $opactives[list]><a href="plugin.php?id=luckypost">{lang luckypost:lucky_all_event}</a></li>
+				<li $opactives[my]><a href="plugin.php?id=luckypost&op=my">{lang luckypost:lucky_my_event}</a></li>
+				<li $opactives[stat]><a href="plugin.php?id=luckypost&ac=stat">{lang luckypost:lucky_rank}</a></li>
+			</ul>
+			<!--{if $action == 'stat'}-->
+				<div class="bm bmw">
+					<div class="bm_h">
+						<h2>{lang luckypost:lucky_goodrank}</h2>
+						<h2 style="width: 46.9%;padding-left: 10px;">{lang luckypost:lucky_badrank}</h2>
+					</div>
+					<div class="bm_c">
+						<div class="xl xl2 cl">
+						<!--{if $lucklist}-->
+							<!--{eval $i=0;}-->
+							<!--{loop $lucklist $list}-->
+							<!--{eval $i++;$newtd=$i%2;}-->
+							<div{if !$newtd} class="xl2_r"{/if}>
+								<ul>
+								<!--{loop $list $listmember}-->
+								<li class="pstyle">
+									<em>
+										<span class="xi1">$listmember[times]</span>
+									</em>
+									<a href="home.php?mod=space&uid=$listmember[uid]" c='1' target="_blank"><!--{avatar($listmember[uid],small)}--></a> &nbsp;<span class="xg1"><a href="home.php?mod=space&uid=$listmember[uid]" c='1' target="_blank">$listmember[username]</a></span>
+								</li>
+								<!--{/loop}-->
+								</ul>
+							</div>
+							<!--{/loop}-->
+						<!--{else}-->
+							<p class="emp">{lang luckypost:luckypost_no_event}</p>
+						<!--{/if}-->
+						</div>
+					</div>
+				</div>
+			<!--{else}-->
+				<div id="threadlist" class="tl bm bmw"{if $_G['uid']} style="position: relative;"{/if}>
+					<div class="th">
+						<table cellspacing="0" cellpadding="0">
+							<tr>
+								<th colspan="2">
+									{lang luckypost:lucky_event}
+								</th>
+								<td class="by">{lang luckypost:lucky_person}</td>
+								<td class="by">{lang luckypost:lucky_scene}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="bm_c">
+						<div id="forumnew" style="display:none"></div>
+						<table cellspacing="0" cellpadding="0">
+						<!--{if $list}-->
+							<!--{loop $list $key $value}-->
+							<tbody id="$value['pid']">
+								<tr>
+									<td class="icn">
+										{if $value['credits'] >= 0}<img src="{IMGDIR}/rec_add.gif" />{else}<img src="{IMGDIR}/rec_subtract.gif" />{/if}
+									</td>
+									<th>
+										<a href="{if $value['pid']}forum.php?mod=redirect&goto=findpost&ptid=$value['tid']&pid=$value['pid']{else}forum.php?mod=viewthread&tid=$value['tid']{/if}" target="_blank" class="xst" >$value[event]</a>
+									</th>
+									<td class="by">
+										<cite>
+										<!--{if $value['uid'] && $value[username] && !$value[anonymous] || $action == 'my'}-->
+											<a href="home.php?mod=space&uid=$value['uid']" c="1">$value[username]</a>
+										<!--{else}-->
+											$_G[setting][anonymoustext]
+										<!--{/if}-->
+										</cite>
+										<em><span{if $value['istoday']} class="xi1"{/if}><!--{date($value['dateline'], 'Y-n-j H:i:s')}--></span></em>
+									</td>
+									<td class="by">
+										<cite><a href="{if $value['pid']}forum.php?mod=redirect&goto=findpost&ptid=$value['tid']&pid=$value['pid']{else}forum.php?mod=viewthread&tid=$value['tid']{/if}" target="_blank">{lang luckypost:lucky_click}</a></cite>
+									</td>
+								</tr>
+							</tbody>
+							<!--{/loop}-->
+						<!--{else}-->
+							<tbody class="bw0_all"><tr><th colspan="5"><p class="emp">{lang luckypost:luckypost_no_event}</p></th></tr></tbody>
+						<!--{/if}-->
+						</table>
+					</div>
+				</div>
+				<div class="bm bw0 pgs cl">
+					$multipage
+					<span class="pgb y"><a href="{$page_url}">{lang luckypost:home_page}</a></span>
+				</div>
+			<!--{/if}-->
+		</div>
+	</div>
+</div>
+<!--{subtemplate common/footer}-->

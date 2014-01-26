@@ -1,0 +1,31 @@
+{eval
+function tpl_viewthread_postbottom_luckyshow($event, $color = '') {
+}
+<!--{block return}-->
+<!--{if $event['picName'] || $event['cardName']}-->
+<div class="lkwb">
+	<div class="lknb" style="background: url(source/plugin/luckypost/template/{if $event[key] == plugin_luckypost::KEY_LUCKY_EVENT}good.png{else}bad.png{/if}) no-repeat right bottom;background-color: {$color}!important;">
+		<div class="lkpb"><a href="plugin.php?id=luckypost&ac=stat" target="_blank" title="{lang luckypost:lucky_goodrank} / {lang luckypost:lucky_badrank}"><img src="source/plugin/luckypost/template/image/{$event['picName']}"></a></div>
+		<div>
+			<p>{lang luckypost:got} <span class="xi1">{$event['cardName']}</span> {lang luckypost:one}</p>
+			<p><em>{lang luckypost:card_info}</em>$event['msg']</p>
+			<p><em>{lang luckypost:card_effect}</em>{if $event[key] == plugin_luckypost::KEY_LUCKY_EVENT}{lang luckypost:got}{else}{lang luckypost:lost}{/if} <span class="xi1">$event['credit']</span> $event['extcredits']</p>
+		</div>
+	</div>
+</div>
+<!--{else}-->
+<div class="psth xs1 ple"{if $color} style="background-color: {$color} !important;"{/if}>
+	<table><tbody>
+	<tr>
+		<td>[<a href="plugin.php?id=luckypost" target="_blank" title="{lang luckypost:lucky_view}">{lang luckypost:luckypost}</a>]: $event['msg']</td>
+		<td width="120"><a href="plugin.php?id=luckypost&ac=stat" target="_blank">{lang luckypost:lucky_goodrank} / {lang luckypost:lucky_badrank}</a></td>
+	</tr>
+	</tbody></table>
+</div>
+<!--{/if}-->
+<!--{/block}-->
+<!--{eval return $return;}-->
+{eval
+}
+
+}

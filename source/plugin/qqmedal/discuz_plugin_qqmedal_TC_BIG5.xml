@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X2.5]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[ªÀ°ÏQQ¹F¤H³Ô³¹]]></item>
+			<item id="identifier"><![CDATA[qqmedal]]></item>
+			<item id="description"><![CDATA[]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[qqmedal/]]></item>
+			<item id="copyright"><![CDATA[Comsenz Inc.]]></item>
+			<item id="version"><![CDATA[1.0]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[setting]]></item>
+					<item id="menu"><![CDATA[³]¸m]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="1">
+					<item id="name"><![CDATA[qqmedal]]></item>
+					<item id="menu"><![CDATA[]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[11]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X2.5]]></item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="qqmedal"><![CDATA[#ªÀ°ÏQQ¹F¤H#]]></item>
+				<item id="title"><![CDATA[§Ú­è­èÀò±o¤FªÀ°ÏQQ¹F¤H³Ô³¹]]></item>
+				<item id="allowed"><![CDATA[¬O§_¶}±ÒªÀ°ÏQQ¹F¤H³Ô³¹]]></item>
+				<item id="allowed_comment"><![CDATA[¬°¤F¥¿±`¨Ï¥Î¦¹´¡¥ó¡A±z»Ý­n¥ý¶}±ÒQQ¤¬Áp¥\\¯à]]></item>
+				<item id="show"><![CDATA[QQ¹F¤H³Ô³¹¼Ë¦¡:]]></item>
+				<item id="rewardcredit"><![CDATA[¤À¨É¼úÀy©Ò¥ÎÂX®i¿n¤À]]></item>
+				<item id="rewardcredit_comment"><![CDATA[¥Î¤á§¹¦¨¤À¨É«á¡A¼úÀy©Ò¥ÎªºÂX®i¿n¤À]]></item>
+				<item id="addcreditnum"><![CDATA[¤À¨É¼úÀy¿n¤À¼Æ¶q]]></item>
+				<item id="addcreditnum_comment"><![CDATA[¥Î¤á§¹¦¨¤À¨É«á¡A¼úÀyªºÂX®i¿n¤À¼Æ¶q]]></item>
+				<item id="feed"><![CDATA[¤À¨É¤º®e]]></item>
+				<item id="feed_comment"><![CDATA[¤À¨É¨ìQQªÅ¶¡©MÄË°T·L³Õªº¤º®e¡Aªø«×¤£¶W¹L70­Ó¦r]]></item>
+				<item id="credit_or_feed_empty"><![CDATA[¼úÀy¿n¤À©Î¤À¨É¤º®e¤£¯à¬°ªÅ]]></item>
+				<item id="publish_succeed"><![CDATA[¤À¨É¦¨¥\\¡I]]></item>
+			</item>
+			<item id="templatelang">
+				<item id="medalaward"><![CDATA[³Ô³¹¼úÀy]]></item>
+				<item id="awardtips1"><![CDATA[®¥³ß±zÀò±o "ªÀ°ÏQQ¹F¤H" ³Ô³¹¡I]]></item>
+				<item id="awardtips2"><![CDATA[§¹¦¨¤À¨ÉÁÙ±NÀò±o¿n¤À¼úÀy¡J]]></item>
+			</item>
+			<item id="installlang">
+				<item id="qqmedal"><![CDATA[ªÀ°ÏQQ¹F¤H]]></item>
+				<item id="qqmedal_comment"><![CDATA[¨Ï¥ÎQQ±b¸¹µn¿ý½×¾Âªº¥Î¤á]]></item>
+				<item id="publishfeed"><![CDATA[±ÀÂË¤@­Ó«Ü´Îªººô¯¸µ¹¤j®a¡A¨Ï¥ÎQQµn¿ýÁÙ¯àÀò±o ªÀ°ÏQQ¹F¤H ³Ô³¹©MÃB¥~ªº¿n¤À¼úÀy¡A¤p½¼¦Ì¤@¬íÄÁÅÜ¨­¦Ñ¦¿´ò¡A§Ö¨Ó¬Ý¬Ý§a]]></item>
+				<item id="tips"><![CDATA[´¡¥ó¦w¸Ë¦¨¥\\¡I<br />¬°¤F¥¿±`¨Ï¥Î¦¹´¡¥ó¡A±zÁÙ»Ý­n¶}±ÒQQ¤¬Áp¥\\¯à¡A¸Ô±¡½Ð¬d¬Ý¥»´¡¥óªº¦w¸Ë»¡©ú]]></item>
+			</item>
+		</item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
+	</item>
+</root>
