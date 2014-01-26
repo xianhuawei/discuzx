@@ -15,6 +15,9 @@ class table_discuz_security_cdd extends discuz_table {
 	public function __construct() {
 		$this->_table = 'discuz_security_cdd';
 		$this->_pk    = 'id';
+		$this->_pre_cache_key = 'discuz_security_cdd_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 	

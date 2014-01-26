@@ -16,22 +16,22 @@ $action = !in_array($_GET['ac'], $acArray) ? 'list' : $_GET['ac'];
 
 $list = $myfortune_arr = array();
 
-//note 涓汉闄呴亣缁熻
+//note 个人际遇统计
 $myfortune_arr = C::t('#luckypost#common_plugin_luckypostlog')->fetch($_G['uid']);
 $gdtimes = $myfortune_arr['goodtimes'] ? $myfortune_arr['goodtimes'] : 0;
 $bdtimes = $myfortune_arr['badtimes'] ? $myfortune_arr['badtimes'] : 0;
 $myfortune = lang('plugin/luckypost', 'myfortune', array('$goodtimes' => $gdtimes, '$badtimes' => $bdtimes));
 
-//note 浜嬩欢鍒楄〃
+//note 事件列表
 if($action == 'list') {
 
 	$events = $rewards = $punishs = array();
-	//note 濂栧姳浜嬩欢
+	//note 奖励事件
 	$rewards = explode("\n", str_replace(array("\r\n", "\r"), "\n", $_G['cache']['plugin']['luckypost']['rewardevent']));
 	foreach($rewards as $reward) {
 		$events['reward'][] = explode('|', $reward);
 	}
-	//note 鎯╃綒浜嬩欢
+	//note 惩罚事件
 	$punishs = explode("\n", str_replace(array("\r\n", "\r"), "\n", $_G['cache']['plugin']['luckypost']['punishevent']));
 	foreach($punishs as $punish) {
 		$events['punish'][] = explode('|', $punish);

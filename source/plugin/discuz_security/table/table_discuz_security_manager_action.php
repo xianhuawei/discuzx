@@ -16,6 +16,9 @@ class table_discuz_security_manager_action extends discuz_table
 	public function __construct() {
 		$this->_table = 'discuz_security_manager_action';
 		$this->_pk    = 'uid';
+		$this->_pre_cache_key = 'discuz_security_manager_action_';
+		$this->_allowmem = memory('check');
+		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 	public function insert($uid, $username, $action, $dateline, $recdateline) {

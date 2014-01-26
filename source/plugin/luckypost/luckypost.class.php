@@ -31,30 +31,30 @@ class plugin_luckypost {
 
 		$this->open = $_G['cache']['plugin']['luckypost']['isopen'];
 		if ($this->open) {
-			//note åŽå°è®¾ç½®å¥–åŠ±äº‹ä»¶
+			//note ºóÌ¨ÉèÖÃ½±ÀøÊÂ¼þ
 			$rewards = explode("\n", str_replace(array("\r\n", "\r"), "\n", $_G['cache']['plugin']['luckypost']['rewardevent']));
 			foreach($rewards as $reward) {
 				$this->event[self::KEY_LUCKY_EVENT][] = explode('|', $reward);
 			}
-			//note åŽå°è®¾ç½®æƒ©ç½šäº‹ä»¶
+			//note ºóÌ¨ÉèÖÃ³Í·£ÊÂ¼þ
 			$punishs = explode("\n", str_replace(array("\r\n", "\r"), "\n", $_G['cache']['plugin']['luckypost']['punishevent']));
 			foreach($punishs as $punish) {
 				$this->event[self::KEY_PUNISH_EVNET][] = explode('|', $punish);
 			}
-			//note åŽå°è®¾ç½®å…è®¸çš„ç”¨æˆ·ç»„
+			//note ºóÌ¨ÉèÖÃÔÊÐíµÄÓÃ»§×é
 			$luckgroups = (array)unserialize($_G['cache']['plugin']['luckypost']['luckgroups']);
-			//note åŽå°è®¾ç½®å…è®¸çš„ç‰ˆå—
+			//note ºóÌ¨ÉèÖÃÔÊÐíµÄ°æ¿é
 			$luckfids = (array)unserialize($_G['cache']['plugin']['luckypost']['luckfids']);
 			$this->probability = $_G['cache']['plugin']['luckypost']['probability'] - 0;
 			$this->rprobability = $_G['cache']['plugin']['luckypost']['rprobability'] - 0;
 			$this->luckyColor = $_G['cache']['plugin']['luckypost']['eventstyle_1'];
 			$this->badColor = $_G['cache']['plugin']['luckypost']['eventstyle_2'];
 
-			//note å½“å‰ç”¨æˆ·ç»„åˆ¤æ–­
+			//note µ±Ç°ÓÃ»§×éÅÐ¶Ï
 			$this->groupon = in_array('', $luckgroups) ? TRUE : (in_array($_G['member']['groupid'], $luckgroups) ? TRUE : FALSE);
-			//note å½“å‰ç‰ˆå—åˆ¤æ–­
+			//note µ±Ç°°æ¿éÅÐ¶Ï
 			$this->forumon = in_array('', $luckfids) ? TRUE : (in_array($_G['fid'], $luckfids) ? TRUE : FALSE);
-			//note ä»…ä¸»é¢˜å¸–é™…é‡å¼€å…³
+			//note ½öÖ÷ÌâÌû¼ÊÓö¿ª¹Ø
 			$this->trigger = $_G['cache']['plugin']['luckypost']['threadonly'] ? array('post_newthread_succeed') : array('post_newthread_succeed', 'post_reply_succeed');
 			include_once template('luckypost:module');
 		}
@@ -62,13 +62,13 @@ class plugin_luckypost {
 
 	function _luckypost($tid, $pid = self::EMPTY_PID, $isanonymous = FALSE) {
 
-		//note äº§ç”Ÿé™…é‡æ¦‚çŽ‡åˆ¤æ–­
+		//note ²úÉú¼ÊÓö¸ÅÂÊÅÐ¶Ï
 		$this->iflucky = $this->_lottery($this->probability);
 		if($this->iflucky) {
-			//note å¥–åŠ±/æƒ©ç½šæ¦‚çŽ‡åˆ¤æ–­
+			//note ½±Àø/³Í·£¸ÅÂÊÅÐ¶Ï
 			$eventKey = $this->_lottery($this->rprobability) ? self::KEY_LUCKY_EVENT : self::KEY_PUNISH_EVNET;
 			$maxNum = count($this->event[$eventKey]) - 1;
-			//note éšæœºå‡ºäº‹ä»¶id
+			//note Ëæ»ú³öÊÂ¼þid
 			$eventId = $this->_randomnum(0, $maxNum);
 			$threadValue = array(
 				'tid' => $tid,
@@ -107,11 +107,11 @@ class plugin_luckypost {
 			list($creditId, $creditRangeString, $event) = $this->event[$eventKey][$eventId];
 			$creditId = intval($creditId);
 
-			//note ç§¯åˆ†èŒƒå›´
+			//note »ý·Ö·¶Î§
 			$creditRange = explode(',', $creditRangeString);
-			//note éšæœºå‡ºå¥–æƒ©ç§¯åˆ†
+			//note Ëæ»ú³ö½±³Í»ý·Ö
 			$creditData = $this->_randomnum(abs($creditRange[0]), abs($creditRange[1]));
-			//note åˆ¤æ–­å¥–æƒ©
+			//note ÅÐ¶Ï½±³Í
 			$creditData = $eventKey == self::KEY_LUCKY_EVENT ? $creditData : '-' . $creditData;
 
 			if($creditId) {
@@ -159,7 +159,7 @@ class plugin_luckypost {
 			}
 		}
 
-		//note å¤„ç†å‘è‰ç¨¿æ— pidæƒ…å†µ
+		//note ´¦Àí·¢²Ý¸åÎÞpidÇé¿ö
 		if ($_G['page'] == '1') {
 			$pids[] = self::EMPTY_PID;
 		}
@@ -169,22 +169,22 @@ class plugin_luckypost {
 				$result['pid'] = $thisFirstPId;
 			}
 
-			//note ç”¨æˆ·åæ˜¾ç¤ºå¤„ç†
+			//note ÓÃ»§ÃûÏÔÊ¾´¦Àí
 			$member = array('username' => lang('plugin/luckypost', 'anonymous'));
 			if (!$postlist[$result['pid']]['anonymous']) {
 				$member = getuserbyuid($result['uid']);
 			}
-			//note ç§¯åˆ†åˆ¤æ–­å¥–åŠ±æˆ–æƒ©ç½š
+			//note »ý·ÖÅÐ¶Ï½±Àø»ò³Í·£
 			$eventKey = $result['credits'] > 0 ? self::KEY_LUCKY_EVENT : self::KEY_PUNISH_EVNET;
 
 			$creditId = $creditRangeString = $event ='';
 			list($creditId, $creditRangeString, $event, $cardName, $picName) = $this->event[$eventKey][$result['eventid']];
 
-			//note ç§¯åˆ†é¡¹
+			//note »ý·ÖÏî
 			$extcredits = $_G['setting']['extcredits'][$creditId]['img'] . $_G['setting']['extcredits'][$creditId]['title'];
-			//note ç§¯åˆ†å€¼
+			//note »ý·ÖÖµ
 			$result['credits'] = abs($result['credits']) . ' ' . $_G['setting']['extcredits'][$creditId]['unit'];
-			//note å…·ä½“äº‹ä»¶å†…å®¹
+			//note ¾ßÌåÊÂ¼þÄÚÈÝ
 			$eventMsg = str_replace(array('{username}', '{credit}', '{extcredits}'), array($member['username'], $result['credits'], $extcredits), $event);
 			$luckyList[$result['pid']] = array(
 				'msg' => $eventMsg,
@@ -220,11 +220,11 @@ class plugin_luckypost_forum extends plugin_luckypost {
 		global $_G, $displayorder, $isanonymous, $pinvisible;
 
 		list($message, $forwordURL, $threadValue) = $params['param'];
-		//note å…è®¸é™…é‡åˆ¤æ–­
+		//note ÔÊÐí¼ÊÓöÅÐ¶Ï
 		if($this->open && $this->groupon && $this->forumon && in_array($message, $this->trigger)
 			&& $displayorder != self::THREAD_DISPLAYORDER_DRAFT && $pinvisible != self::POST_INVISIBLE_DRAFT
 			&& $threadValue['pid']) {
-			//note é™…é‡å¤„ç†
+			//note ¼ÊÓö´¦Àí
 			return $this->_luckypost($threadValue['tid'], $threadValue['pid'], $isanonymous);
 		}
 
@@ -236,10 +236,10 @@ class plugin_luckypost_forum extends plugin_luckypost {
 		global $_G;
 
 		list($message) = $params['param'];
-		//note å…è®¸é™…é‡åˆ¤æ–­(ä»Žè‰ç¨¿ä¸­å‘è¡¨)ï¼Œåªå¤„ç†è¯¥è‰ç¨¿çš„ä¸»é¢˜å¸–
+		//note ÔÊÐí¼ÊÓöÅÐ¶Ï(´Ó²Ý¸åÖÐ·¢±í)£¬Ö»´¦Àí¸Ã²Ý¸åµÄÖ÷ÌâÌû
 		if($_GET['action'] == 'pubsave' && $this->open && $this->groupon && $this->forumon && in_array($message, $this->trigger)) {
 			$isanonymous = trim($_G['forum_thread']['author']) ? FALSE : TRUE;
-			//note é™…é‡å¤„ç†
+			//note ¼ÊÓö´¦Àí
 			return $this->_luckypost($_G['forum_thread']['tid'], self::EMPTY_PID, $isanonymous);
 		}
 
@@ -263,11 +263,11 @@ class plugin_luckypost_group extends plugin_luckypost {
 		global $_G, $displayorder, $isanonymous, $pinvisible;
 
 		list($message, $forwordURL, $threadValue) = $params['param'];
-		//note å…è®¸é™…é‡åˆ¤æ–­
+		//note ÔÊÐí¼ÊÓöÅÐ¶Ï
 		if($this->open && $this->groupon && $this->forumon && in_array($message, $this->trigger)
 			&& $displayorder != self::THREAD_DISPLAYORDER_DRAFT && $pinvisible != self::POST_INVISIBLE_DRAFT
 			&& $threadValue['pid']) {
-			//note é™…é‡å¤„ç†
+			//note ¼ÊÓö´¦Àí
 			return $this->_luckypost($threadValue['tid'], $threadValue['pid'], $isanonymous);
 		}
 
@@ -279,10 +279,10 @@ class plugin_luckypost_group extends plugin_luckypost {
 		global $_G;
 
 		list($message) = $params['param'];
-		//note å…è®¸é™…é‡åˆ¤æ–­(ä»Žè‰ç¨¿ä¸­å‘è¡¨)ï¼Œåªå¤„ç†è¯¥è‰ç¨¿çš„ä¸»é¢˜å¸–
+		//note ÔÊÐí¼ÊÓöÅÐ¶Ï(´Ó²Ý¸åÖÐ·¢±í)£¬Ö»´¦Àí¸Ã²Ý¸åµÄÖ÷ÌâÌû
 		if($_GET['action'] == 'pubsave' && $this->open && $this->groupon && $this->forumon && in_array($message, $this->trigger)) {
 			$isanonymous = trim($_G['forum_thread']['author']) ? FALSE : TRUE;
-			//note é™…é‡å¤„ç†
+			//note ¼ÊÓö´¦Àí
 			return $this->_luckypost($_G['forum_thread']['tid'], self::EMPTY_PID, $isanonymous);
 		}
 
