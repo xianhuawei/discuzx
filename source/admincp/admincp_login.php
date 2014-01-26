@@ -83,16 +83,6 @@ function html_login_footer($halt = true) {
 	</td>
 </tr>
 </table>
-<table class="logintb">
-<tr>
-	<td colspan="2" class="footer">
-		<div class="copyright">
-			<p>Powered by <a href="http://www.discuz.net/" target="_blank">Discuz!</a> $version </p>
-			<p>&copy; 2001-2013, <a href="http://www.comsenz.com/" target="_blank">Comsenz</a> Inc.</p>
-		</div>
-	</td>
-</tr>
-</table>
 </body>
 </html>
 

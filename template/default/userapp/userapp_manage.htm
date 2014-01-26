@@ -125,7 +125,7 @@
 			var my_site_name = htmlspecialchars_decode('{$my_site_name}');
 
 			x = htmlspecialchars_decode(x);
-			document.title = x + ' - <!--{if $space}--><!--{eval echo daddslashes($space[username])}--> - <!--{/if}-->' + my_site_name + ' - Powered by UCenter Home';
+			document.title = x + ' - <!--{if $space}--><!--{eval echo daddslashes($space[username])}--> - <!--{/if}-->' + my_site_name;
 		}
 
 		</script>
