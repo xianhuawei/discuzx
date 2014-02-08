@@ -512,7 +512,8 @@ function api_msg($code, $msg) {
 	$out .= "\t</fileinfo>\n";
 	$out .= "\t<nexturl></nexturl>\n";
 	$out .= "</root>";
-	echo $out;
+	$file =  UC_ROOT.'./data/log/errorlog/'.date('Ym').'/'.date("Y-m-d").'.php';
+	error_log($out,3,$file);
 	exit;
 }
 
