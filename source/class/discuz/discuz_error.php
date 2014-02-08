@@ -379,7 +379,7 @@ EOT;
 
 		$message = discuz_error::clear($message);
 		$time = time();
-		$file =  DISCUZ_ROOT.'./data/log/errorlog/'.date('Ym').'/'.date("Y-m-d").'.php';
+		$file =  DISCUZ_ROOT.'./data/log/errorlog/'.date("Y-m-d").'.php';
 		$hash = md5($message);
 
 		$uid = getglobal('uid');

@@ -167,7 +167,7 @@ class ucclient_db {
 			$s = str_replace(UC_DBTABLEPRE, '[Table]', $s);
 			$s	.= "<br /><br /><br />";
 			
-			$file =  UC_ROOT.'./data/log/errorlog/'.date('Ym').'/'.date("Y-m-d").'.php';
+			$file =  UC_ROOT.'./data/log/errorlog/'.date("Y-m-d").'.php';
 			error_log($s,3,$file);
 			
 			header("Location: ".'http://'.$_SERVER['HTTP_HOST'].'/');
