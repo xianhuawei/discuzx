@@ -16,7 +16,7 @@ class table_common_admincp_perm extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'common_admincp_perm';
-		$this->_pk    = '';
+		$this->_pk    = 'cpgroupid';
 
 		parent::__construct();
 	}

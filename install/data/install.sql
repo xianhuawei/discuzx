@@ -398,9 +398,11 @@ CREATE TABLE pre_common_credit_log (
 
 DROP TABLE IF EXISTS pre_common_credit_log_field;
 CREATE TABLE pre_common_credit_log_field (
-  logid int(11) unsigned NOT NULL,
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
+  logid int(11) unsigned NOT NULL ,
   title varchar(100) NOT NULL,
   `text` text NOT NULL,
+  PRIMARY KEY id (id),
   KEY logid (logid)
 ) ENGINE=InnoDB;
 
@@ -607,6 +609,7 @@ CREATE TABLE pre_common_magic (
 
 DROP TABLE IF EXISTS pre_common_magiclog;
 CREATE TABLE pre_common_magiclog (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   uid int(11) unsigned NOT NULL DEFAULT '0',
   magicid smallint(6) unsigned NOT NULL DEFAULT '0',
   `action` tinyint(1) NOT NULL DEFAULT '0',
@@ -617,6 +620,7 @@ CREATE TABLE pre_common_magiclog (
   targetid int(10) unsigned NOT NULL DEFAULT '0',
   idtype char(6) DEFAULT NULL,
   targetuid int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (id),
   KEY uid (uid,dateline),
   KEY `action` (`action`),
   KEY targetuid (targetuid,dateline),
@@ -1159,9 +1163,11 @@ CREATE TABLE pre_common_process (
 
 DROP TABLE IF EXISTS pre_common_regip;
 CREATE TABLE pre_common_regip (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   ip char(15) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   count smallint(6) NOT NULL DEFAULT '0',
+  PRIMARY KEY (id),
   KEY ip (ip)
 ) ENGINE=InnoDB;
 
@@ -2164,6 +2170,7 @@ CREATE TABLE pre_forum_collectionthread (
 
 DROP TABLE IF EXISTS pre_forum_creditslog;
 CREATE TABLE pre_forum_creditslog (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   uid int(11) unsigned NOT NULL DEFAULT '0',
   fromto char(15) NOT NULL DEFAULT '',
   sendcredits tinyint(1) NOT NULL DEFAULT '0',
@@ -2172,6 +2179,7 @@ CREATE TABLE pre_forum_creditslog (
   receive int(10) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   operation char(3) NOT NULL DEFAULT '',
+  PRIMARY KEY (id),
   KEY uid (uid,dateline)
 ) ENGINE=InnoDB;
 
@@ -2503,9 +2511,11 @@ CREATE TABLE pre_forum_medallog (
 
 DROP TABLE IF EXISTS pre_forum_memberrecommend;
 CREATE TABLE pre_forum_memberrecommend (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   tid int(11) unsigned NOT NULL,
   recommenduid int(11) unsigned NOT NULL,
   dateline int(10) unsigned NOT NULL,
+  PRIMARY KEY (id),
   KEY tid (tid),
   KEY uid (recommenduid)
 ) ENGINE=InnoDB;
@@ -2521,11 +2531,13 @@ CREATE TABLE pre_forum_moderator (
 
 DROP TABLE IF EXISTS pre_forum_modwork;
 CREATE TABLE pre_forum_modwork (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   uid int(11) unsigned NOT NULL DEFAULT '0',
   modaction char(3) NOT NULL DEFAULT '',
   dateline date NOT NULL DEFAULT '2006-01-01',
   count smallint(6) unsigned NOT NULL DEFAULT '0',
   posts smallint(6) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (id),
   KEY uid (uid,dateline)
 ) ENGINE=InnoDB;
 
@@ -2541,10 +2553,12 @@ CREATE TABLE pre_forum_newthread (
 
 DROP TABLE IF EXISTS pre_forum_onlinelist;
 CREATE TABLE pre_forum_onlinelist (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   groupid smallint(6) unsigned NOT NULL DEFAULT '0',
   displayorder tinyint(3) NOT NULL DEFAULT '0',
   title varchar(30) NOT NULL DEFAULT '',
-  url varchar(30) NOT NULL DEFAULT ''
+  url varchar(30) NOT NULL DEFAULT '',
+  PRIMARY KEY (id),
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_order;
@@ -2613,11 +2627,13 @@ CREATE TABLE pre_forum_polloption_image (
 
 DROP TABLE IF EXISTS pre_forum_pollvoter;
 CREATE TABLE pre_forum_pollvoter (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   tid int(11) unsigned NOT NULL DEFAULT '0',
   uid int(11) unsigned NOT NULL DEFAULT '0',
   username varchar(15) NOT NULL DEFAULT '',
   `options` text NOT NULL,
   dateline int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (id),
   KEY tid (tid),
   KEY uid (uid,dateline)
 ) ENGINE=InnoDB;
@@ -2965,9 +2981,11 @@ CREATE TABLE pre_forum_threadhot (
 
 DROP TABLE IF EXISTS pre_forum_threadimage;
 CREATE TABLE pre_forum_threadimage (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   tid int(11) unsigned NOT NULL DEFAULT '0',
   attachment varchar(255) NOT NULL DEFAULT '',
   remote tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (id),
   KEY tid (tid)
 ) ENGINE=InnoDB;
 
@@ -2986,6 +3004,7 @@ CREATE TABLE pre_forum_threadlog (
 
 DROP TABLE IF EXISTS pre_forum_threadmod;
 CREATE TABLE pre_forum_threadmod (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   tid int(11) unsigned NOT NULL DEFAULT '0',
   uid int(11) unsigned NOT NULL DEFAULT '0',
   username char(15) NOT NULL DEFAULT '',
@@ -2996,15 +3015,18 @@ CREATE TABLE pre_forum_threadmod (
   magicid smallint(6) unsigned NOT NULL,
   stamp tinyint(3) NOT NULL,
   reason char(40) NOT NULL DEFAULT '',
+  PRIMARY KEY (id),
   KEY tid (tid,dateline),
   KEY expiration (expiration,`status`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_threadpartake;
 CREATE TABLE pre_forum_threadpartake (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   tid int(11) unsigned NOT NULL DEFAULT '0',
   uid int(11) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (id),
   KEY tid (tid,uid)
 ) ENGINE=InnoDB;
 
@@ -3195,12 +3217,14 @@ CREATE TABLE pre_forum_typeoption (
 
 DROP TABLE IF EXISTS pre_forum_typeoptionvar;
 CREATE TABLE pre_forum_typeoptionvar (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   sortid smallint(6) unsigned NOT NULL DEFAULT '0',
   tid int(11) unsigned NOT NULL DEFAULT '0',
   fid int(11) unsigned NOT NULL DEFAULT '0',
   optionid smallint(6) unsigned NOT NULL DEFAULT '0',
   expiration int(10) unsigned NOT NULL DEFAULT '0',
   `value` mediumtext NOT NULL,
+  PRIMARY KEY (id),
   KEY sortid (sortid),
   KEY tid (tid),
   KEY fid (fid)
@@ -3388,12 +3412,14 @@ CREATE TABLE pre_home_click (
 
 DROP TABLE IF EXISTS pre_home_clickuser;
 CREATE TABLE pre_home_clickuser (
+  cid int(11) unsigned NOT NULL AUTO_INCREMENT,
   uid int(11) unsigned NOT NULL DEFAULT '0',
   username varchar(15) NOT NULL DEFAULT '',
   id int(11) unsigned NOT NULL DEFAULT '0',
   idtype varchar(15) NOT NULL DEFAULT '',
   clickid smallint(6) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (cid),
   KEY id (id,idtype,dateline),
   KEY uid (uid,idtype,dateline)
 ) ENGINE=InnoDB;
@@ -3779,12 +3805,14 @@ CREATE TABLE pre_home_specialuser (
   opuid int(11) unsigned NOT NULL DEFAULT '0',
   opusername varchar(15) NOT NULL DEFAULT '',
   displayorder int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (uid),
   KEY uid (uid,`status`),
   KEY displayorder (`status`,displayorder)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_home_userapp;
 CREATE TABLE pre_home_userapp (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   uid int(11) unsigned NOT NULL DEFAULT '0',
   appid int(11) unsigned NOT NULL DEFAULT '0',
   appname varchar(60) NOT NULL DEFAULT '',
@@ -3795,6 +3823,7 @@ CREATE TABLE pre_home_userapp (
   narrow tinyint(1) NOT NULL DEFAULT '0',
   menuorder smallint(6) NOT NULL DEFAULT '0',
   displayorder smallint(6) NOT NULL DEFAULT '0',
+  RIMARY KEY (id),
   KEY uid (uid,appid),
   KEY menuorder (uid,menuorder),
   KEY displayorder (uid,displayorder)
@@ -3802,10 +3831,12 @@ CREATE TABLE pre_home_userapp (
 
 DROP TABLE IF EXISTS pre_home_userappfield;
 CREATE TABLE pre_home_userappfield (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT,
   uid int(11) unsigned NOT NULL DEFAULT '0',
   appid int(11) unsigned NOT NULL DEFAULT '0',
   profilelink text NOT NULL,
   myml text NOT NULL,
+  RIMARY KEY (id),
   KEY uid (uid,appid)
 ) ENGINE=InnoDB;
 

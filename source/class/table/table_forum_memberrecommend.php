@@ -16,7 +16,7 @@ class table_forum_memberrecommend extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'forum_memberrecommend';
-		$this->_pk    = '';
+		$this->_pk    = 'id';
 
 		parent::__construct();
 	}

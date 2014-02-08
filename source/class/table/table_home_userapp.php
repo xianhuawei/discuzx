@@ -16,7 +16,7 @@ class table_home_userapp extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'home_userapp';
-		$this->_pk    = '';
+		$this->_pk    = 'id';
 
 		parent::__construct();
 	}

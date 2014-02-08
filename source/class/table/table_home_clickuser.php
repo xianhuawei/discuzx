@@ -16,7 +16,7 @@ class table_home_clickuser extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'home_clickuser';
-		$this->_pk    = '';
+		$this->_pk    = 'cid';
 
 		parent::__construct();
 	}

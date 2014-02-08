@@ -16,7 +16,7 @@ class table_forum_creditslog extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'forum_creditslog';
-		$this->_pk    = '';
+		$this->_pk    = 'id';
 
 		parent::__construct();
 	}

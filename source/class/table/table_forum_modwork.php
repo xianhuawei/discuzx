@@ -16,7 +16,7 @@ class table_forum_modwork extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'forum_modwork';
-		$this->_pk    = '';
+		$this->_pk    = 'id';
 
 		parent::__construct();
 	}

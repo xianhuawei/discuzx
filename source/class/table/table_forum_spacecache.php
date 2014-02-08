@@ -17,9 +17,6 @@ class table_forum_spacecache extends discuz_table
 
 		$this->_table = 'forum_spacecache';
 		$this->_pk    = '';
-        $this->_pre_cache_key = 'forum_spacecache_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
 		
 		parent::__construct();
 	}

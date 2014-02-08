@@ -16,7 +16,7 @@ class table_common_magiclog extends discuz_table_archive
 	public function __construct() {
 
 		$this->_table = 'common_magiclog';
-		$this->_pk    = '';
+		$this->_pk    = 'id';
 
 		parent::__construct();
 	}

@@ -16,7 +16,7 @@ class table_common_regip extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'common_regip';
-		$this->_pk    = '';
+		$this->_pk    = 'id';
 
 		parent::__construct();
 	}

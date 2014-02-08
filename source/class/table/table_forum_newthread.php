@@ -16,7 +16,7 @@ class table_forum_newthread extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'forum_newthread';
-		$this->_pk    = '';
+		$this->_pk    = 'tid';
 
 		parent::__construct();
 	}

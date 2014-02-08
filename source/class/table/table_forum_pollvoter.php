@@ -16,7 +16,7 @@ class table_forum_pollvoter extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'forum_pollvoter';
-		$this->_pk    = '';
+		$this->_pk    = 'id';
 
 		parent::__construct();
 	}
