@@ -30,6 +30,13 @@ class discuz_table extends discuz_base
 			$this->_table = $para['table'];
 			$this->_pk = $para['pk'];
 		}
+		//如果 $this->_table 和 $this->_pk 不为空 则统一加上缓存
+		if(!isset($this->_pre_cache_key) && !empty($this->_table) && $this->_pk){
+			$this->_pre_cache_key = $this->_table.'_';
+			if($ttl = getglobal('setting/memory/'.$this->_table) == null){
+				$this->_cache_ttl = 86400;//默认缓存一天
+			}
+		}
 		if(isset($this->_pre_cache_key) && (($ttl = getglobal('setting/memory/'.$this->_table)) !== null || ($ttl = $this->_cache_ttl) !== null) && memory('check')) {
 			$this->_cache_ttl = $ttl;
 			$this->_allowmem = true;
