@@ -26,7 +26,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_GET['echostr']) {
 	define("TOKEN", $wxsetting['token']);
 	include DISCUZ_ROOT.'./source/plugin/hux_wx/weixin.php';
 	$wechatObj = new wechatCallbackapi();
-	$wechatObj->valid();
+	if (isset($_GET["echostr"])) {
+		$wechatObj->valid();
+	} else {
+		$wechatObj->responseMsg();
+	}
 } else {
     echo 'Access Denied';
 }

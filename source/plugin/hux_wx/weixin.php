@@ -33,6 +33,8 @@ class wechatCallbackapi
 					$keyword = $postObj->PicUrl.'||'.$postObj->MediaId;
 				} elseif ($postObj->MsgType == 'event') {
 					$keyword = $postObj->Event.'||'.$postObj->EventKey;
+				} elseif ($postObj->MsgType == 'location') {
+					$keyword = $postObj->Location_Y.','.$postObj->Location_X;
 				} else {
 					$keyword = trim($postObj->Content);
 				}
@@ -165,24 +167,24 @@ class wechatCallbackapi
         }
     }
     
-    private function makeText($fromUsername,$toUsername,$text='')
+    private function makeText($fromUsername,$toUsername,$text='',$FuncFlag=0)
     {
         $textTpl = "<xml>
             <ToUserName><![CDATA[%s]]></ToUserName>
             <FromUserName><![CDATA[%s]]></FromUserName>
-            <CreateTime>{TIMESTAMP}</CreateTime>
+            <CreateTime>%s</CreateTime>
             <MsgType><![CDATA[text]]></MsgType>
             <Content><![CDATA[%s]]></Content>
             <FuncFlag>0</FuncFlag>
             </xml>";
-        return sprintf($textTpl,$fromUsername,$toUsername,$text,$FuncFlag);
+        return sprintf($textTpl,$fromUsername,$toUsername,TIMESTAMP,$text,$FuncFlag);
     }
-    private function makeNews($fromUsername,$toUsername,$newsData=array())
+    private function makeNews($fromUsername,$toUsername,$newsData=array(),$FuncFlag=0)
     {
         $newTplHeader = "<xml>
             <ToUserName><![CDATA[%s]]></ToUserName>
             <FromUserName><![CDATA[%s]]></FromUserName>
-            <CreateTime>{TIMESTAMP}</CreateTime>
+            <CreateTime>%s</CreateTime>
             <MsgType><![CDATA[news]]></MsgType>
             <ArticleCount>%s</ArticleCount><Articles>";
         $newTplItem = "<item>
@@ -196,7 +198,7 @@ class wechatCallbackapi
             </xml>";
         $Content = '';
         $itemsCount = count($newsData['items']);
-        $itemsCount = $itemsCount < 10 ? $itemsCount : 10;//微信公众平台图文回复的消息一次最多10条
+        $itemsCount = $itemsCount < 10 ? $itemsCount : 10;//Î¢ÐÅ¹«ÖÚÆ½Ì¨Í¼ÎÄ»Ø¸´µÄÏûÏ¢Ò»´Î×î¶à10Ìõ
         if ($itemsCount) {
             foreach ($newsData['items'] as $key => $item) {
                 if ($key<=9) {
@@ -204,7 +206,7 @@ class wechatCallbackapi
                 }
             }
         }
-        $header = sprintf($newTplHeader,$fromUsername,$toUsername,$itemsCount);
+        $header = sprintf($newTplHeader,$fromUsername,$toUsername,TIMESTAMP,$itemsCount);
         $footer = sprintf($newTplFoot,$FuncFlag);
         return $header . $Content . $footer;
     }	
