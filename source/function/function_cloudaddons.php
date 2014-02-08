@@ -382,10 +382,10 @@ function cloudaddons_clear($type, $id) {
 					$importtxt = @implode('', file($entrydir.'/'.$f));
 					$pluginarray = getimportdata('Discuz! Plugin');
 					if($pluginarray['installfile']) {
-						@unlink($entrydir.'/'.$pluginarray['installfile']);
+						//@unlink($entrydir.'/'.$pluginarray['installfile']);
 					}
 					if($pluginarray['upgradefile']) {
-						@unlink($entrydir.'/'.$pluginarray['upgradefile']);
+						//@unlink($entrydir.'/'.$pluginarray['upgradefile']);
 					}
 					$filedeleted = true;
 				}
