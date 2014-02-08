@@ -5,7 +5,8 @@ if(!defined('IN_DISCUZ')) {
 include DISCUZ_ROOT.'./source/plugin/hux_wx/mod/push/lang/lang.'.currentlang().'.php';
 
 if ($huxaction['action'] == '0') {
-	$user = C::t('#hux_wx#hux_uc_members')->fetch_by_uid($keyword,'uid');
+	loaducenter();
+	$user = uc_get_user(addslashes($keyword));
 	if (!$user) {
 		C::t('#hux_wx#hux_wx_action')->delete($openid);
 		$string = lang('plugin/hux_wx','nouid');

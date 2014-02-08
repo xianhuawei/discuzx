@@ -10,7 +10,8 @@ if ($huxaction['action'] == '0') {
 	$bindac = explode('|||',$huxaction['action']);
 	if ($bindac[1]) {
 		if ($bindac[1] == '1') {
-			$user = C::t('#hux_wx#hux_uc_members')->fetch_by_uid($bindac[0],'salt,password');
+			loaducenter();
+			$user = uc_get_user(addslashes($bindac[0]));
 			if (!$user) {
 				C::t('#hux_wx#hux_wx_action')->delete($openid);
 				$string = lang('plugin/hux_wx','nouid');

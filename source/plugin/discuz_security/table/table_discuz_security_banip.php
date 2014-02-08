@@ -13,11 +13,8 @@ if(!defined('IN_DISCUZ')) {
 class table_discuz_security_banip extends discuz_table {
 
 	public function __construct() {
-		$this->_table = 'discuz_security_banip';
+		$this->_table = 'plugin_discuz_security_banip';
 		$this->_pk = 'ip';
-		$this->_pre_cache_key = 'discuz_security_banip_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 

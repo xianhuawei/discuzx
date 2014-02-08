@@ -17,9 +17,9 @@ if ($token && $sppasswd) {
 }
 
 $sql = <<<EOF
-DROP TABLE IF EXISTS cdb_baidusubmit_setting;
-DROP TABLE IF EXISTS cdb_baidusubmit_sitemap;
-DROP TABLE IF EXISTS cdb_baidusubmit_urlstat;
+DROP TABLE IF EXISTS cdb_plugin_baidusubmit_setting;
+DROP TABLE IF EXISTS cdb_plugin_baidusubmit_sitemap;
+DROP TABLE IF EXISTS cdb_plugin_baidusubmit_urlstat;
 EOF;
 
 if ($sql) {

@@ -13,11 +13,8 @@ if(!defined('IN_DISCUZ')) {
 class table_discuz_security_adminlog extends discuz_table {
 
 	public function __construct() {
-		$this->_table = 'discuz_security_adminlog';
+		$this->_table = 'plugin_discuz_security_adminlog';
 		$this->_pk = 'key';
-		$this->_pre_cache_key = 'discuz_security_adminlog_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
 		
 		parent::__construct();
 	}

@@ -8,7 +8,7 @@ global $_G;
 
 require_once dirname(__FILE__).'/function/function_baidu.php';
 
-if (!baidu_table_exists('baidusubmit_setting')) {
+if (!baidu_table_exists('plugin_baidusubmit_setting')) {
     cpmsg_error(lang('plugin/baidusubmit', 'tablenotexists'));
 }
 

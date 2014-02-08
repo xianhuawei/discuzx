@@ -7,7 +7,7 @@ class table_baidusubmit_setting extends discuz_table
 {
     public function __construct()
     {
-        $this->_table = 'baidusubmit_setting';
+        $this->_table = 'plugin_baidusubmit_setting';
         parent::__construct();
     }
 

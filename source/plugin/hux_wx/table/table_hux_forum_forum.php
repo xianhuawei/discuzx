@@ -10,7 +10,6 @@ class table_hux_forum_forum extends discuz_table_archive
 
 		$this->_table = 'forum_forum';
 		$this->_pk    = 'fid';
-		$this->_pre_cache_key = 'forum_forum_';
 		parent::__construct();
 	}
 

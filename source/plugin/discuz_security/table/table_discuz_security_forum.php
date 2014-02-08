@@ -15,11 +15,8 @@ class table_discuz_security_forum extends discuz_table
 {
 	public function __construct() {
 
-		$this->_table = 'discuz_security_forum';
+		$this->_table = 'plugin_discuz_security_forum';
 		$this->_pk    = 'uid';
-		$this->_pre_cache_key = 'discuz_security_forum_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 

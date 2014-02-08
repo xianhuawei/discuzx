@@ -10,9 +10,8 @@ class table_hux_wx extends discuz_table
 
 	public function __construct() {
 
-		$this->_table = 'hux_wx';
+		$this->_table = 'plugin_hux_wx';
 		$this->_pk    = 'openid';
-		$this->_pre_cache_key = 'hux_wx_';
 		parent::__construct();
 	}
 	

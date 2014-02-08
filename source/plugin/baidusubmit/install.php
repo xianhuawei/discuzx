@@ -4,16 +4,16 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $sql = <<<EOF
-DROP TABLE IF EXISTS cdb_baidusubmit_setting;
-CREATE TABLE cdb_baidusubmit_setting (
+DROP TABLE IF EXISTS cdb_plugin_baidusubmit_setting;
+CREATE TABLE cdb_plugin_baidusubmit_setting (
     `skey` varchar(255) NOT NULL DEFAULT '',
     `svalue` text NOT NULL,
     `stime` int(10) NOT NULL,
     PRIMARY KEY (`skey`)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS cdb_baidusubmit_sitemap;
-CREATE TABLE cdb_baidusubmit_sitemap (
+DROP TABLE IF EXISTS cdb_plugin_baidusubmit_sitemap;
+CREATE TABLE cdb_plugin_baidusubmit_sitemap (
     `sid` int NOT NULL AUTO_INCREMENT,
     `url` varchar(255) NOT NULL DEFAULT '',
     `type` tinyint NOT NULL,
@@ -26,17 +26,17 @@ CREATE TABLE cdb_baidusubmit_sitemap (
     PRIMARY KEY (`sid`),
     KEY (`start`),
     KEY (`end`)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS cdb_baidusubmit_urlstat;
-CREATE TABLE cdb_baidusubmit_urlstat (
+DROP TABLE IF EXISTS cdb_plugin_baidusubmit_urlstat;
+CREATE TABLE cdb_plugin_baidusubmit_urlstat (
     `id` int NOT NULL AUTO_INCREMENT,
     `ctime` int(10) NOT NULL DEFAULT 0,
     `urlnum` int(10) NOT NULL DEFAULT 0,
     `urlcount` bigint NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY (`ctime`)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
 EOF;
 
 runquery($sql);

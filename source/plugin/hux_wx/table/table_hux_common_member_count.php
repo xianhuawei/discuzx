@@ -10,7 +10,6 @@ class table_hux_common_member_count extends discuz_table_archive
 
 		$this->_table = 'common_member_count';
 		$this->_pk    = 'uid';
-		$this->_pre_cache_key = 'common_member_count_';
 
 		parent::__construct();
 	}

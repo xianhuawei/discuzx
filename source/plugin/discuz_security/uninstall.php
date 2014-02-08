@@ -13,9 +13,9 @@ if(!defined('IN_DISCUZ')) {
 
 $sql = <<<EOF
 
-DROP TABLE cdb_discuz_security_banip;
-DROP TABLE cdb_discuz_security_forum;
-DROP TABLE cdb_discuz_security_manager_action;
+DROP TABLE cdb_plugin_discuz_security_banip;
+DROP TABLE cdb_plugin_discuz_security_forum;
+DROP TABLE cdb_plugin_discuz_security_manager_action;
 
 EOF;
 runquery($sql);

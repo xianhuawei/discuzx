@@ -8,7 +8,7 @@ class table_baidusubmit_urlstat extends discuz_table
 {
     public function __construct()
     {
-        $this->_table = 'baidusubmit_urlstat';
+        $this->_table = 'plugin_baidusubmit_urlstat';
         parent::__construct();
     }
 

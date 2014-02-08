@@ -15,14 +15,14 @@ $sql = '';
 
 $sql .= <<<EOF
 
-CREATE TABLE IF NOT EXISTS `cdb_discuz_security_adminlog` (
+CREATE TABLE IF NOT EXISTS `cdb_plugin_discuz_security_adminlog` (
  `key` char(10) NOT NULL,
  `value` mediumint(8) unsigned NOT NULL DEFAULT '0',
  `lastupdate` int(10) unsigned NOT NULL DEFAULT '0',
  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `cdb_discuz_security_cdd` (
+CREATE TABLE IF NOT EXISTS `cdb_plugin_discuz_security_cdd` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `path` varchar(255) NOT NULL,
   `scaned` tinyint(1) NOT NULL,

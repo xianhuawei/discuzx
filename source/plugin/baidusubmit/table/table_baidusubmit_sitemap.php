@@ -7,7 +7,7 @@ class table_baidusubmit_sitemap extends discuz_table
 {
     public function __construct()
     {
-        $this->_table = 'baidusubmit_sitemap';
+        $this->_table = 'plugin_baidusubmit_sitemap';
         parent::__construct();
     }
 

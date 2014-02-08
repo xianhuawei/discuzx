@@ -16,7 +16,7 @@ class table_hux_forum_threadimage extends discuz_table
 	public function __construct() {
 
 		$this->_table = 'forum_threadimage';
-		$this->_pk    = '';
+		$this->_pk    = 'id';
 
 		parent::__construct();
 	}
