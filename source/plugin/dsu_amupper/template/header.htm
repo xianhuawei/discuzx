@@ -1,0 +1,12 @@
+<style>
+.dsu_amupper_list li{ float:left; padding:8px; width:212px; overflow:hidden;}
+.dsu_amupper_list .avt { margin:0 5px 0 0}
+.dsu_amupper_list .index { font-size:12px; font-family:'Georgia'; width:50px; color:#FF0000}
+</style>
+
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a><em>&raquo;</em><A HREF="javascript:;">{lang dsu_amupper:pname}</A><em>&rsaquo;</em> <!--{if $order == 'addup'}--><A HREF="javascript:;">{lang dsu_amupper:addup}</A><!--{elseif $order == 'cons'}--><A HREF="javascript:;">{lang dsu_amupper:cons}</A><!--{/if}-->
+	</div>
+	<!--{if $_G[uid] == $padminid }--><A href="plugin.php?id=dsu_amupper:padmin&ppersubmit=true&formhash={FORMHASH}" onclick="showWindow('dsu_amupperadmin', this.href);" class='y'>{lang dsu_amupper:admin}</A><!--{/if}-->
+</div> 

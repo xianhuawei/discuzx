@@ -1,0 +1,32 @@
+<div class="sd" >
+	<div class="bm">
+		<div class="bm_h cl">
+		<h2>{lang dsu_amupper:tips}</h2>
+        </div>
+		<div class="bm_c">
+		$p_var['notice']
+		</div>
+	</div>
+	{if $_G['uid']>0}
+	<div class="bm">
+		<div class="bm_h cl">
+		<h2>{lang dsu_amupper:myset}</h2>
+        </div>
+		<div id="amuum" class="bm_c">
+		<a class="xi1 xw1" href="plugin.php?id=dsu_amupper:pperlist&order=cons&page={$mypospage[cons]}">{lang dsu_amupper:cons} : {lang dsu_amupper:di} $mycons {lang dsu_amupper:top}</a><br>
+		<a class="xi1 xw1" href="plugin.php?id=dsu_amupper:pperlist&order=addup&page={$mypospage[addup]}">{lang dsu_amupper:addup} : {lang dsu_amupper:di} $myindex {lang dsu_amupper:top}</a>
+		</div>
+	</div>
+		{if $p_var['luck']>0 && $p_var['luckmax']}
+		<div class="bm">
+			<div class="bm_h cl">
+			<h2>{lang dsu_amupper:buyluckcost} {$_G['setting']['extcredits'][$p_var[ptjf]][title]} $p_var['luck']</h2>
+			</div>
+			<div id="amuum" class="bm_c">
+			<a class="xi1 xw1" href="plugin.php?id=dsu_amupper:buyluck&&formhash={FORMHASH}" onclick="showWindow('dsu_amupperluck', this.href);">{lang dsu_amupper:buyluck}</a><br>
+			{lang dsu_amupper:luckinfo1} $p_var['luckmax'] {lang dsu_amupper:luckinfo2} 
+			</div>
+		</div>
+		{/if}
+	{/if}
+</div>

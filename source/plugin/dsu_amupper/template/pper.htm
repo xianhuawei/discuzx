@@ -1,0 +1,24 @@
+<!--{block return}-->
+	<!--{if $_G['uid']}-->
+		<!--{if $return_if == -1}-->
+		<!--{elseif $return_if == 1}-->
+			<a id="pper_a" href="plugin.php?id=dsu_amupper&ppersubmit=true&formhash={FORMHASH}" onclick="showWindow('dsu_amupper', this.href);$('pper_a').style.display = 'none';$('pper_b').style.display = '';return false;"><img src="./source/plugin/dsu_amupper/images/dk.png" class="qq_bind" align="absmiddle"></a>
+			<a id="pper_b" style="display:none" href="javascript:;"><img src="./source/plugin/dsu_amupper/images/wb.png" class="qq_bind" align="absmiddle"></a>
+			<span class="pipe">|</span>
+		<!--{elseif $return_if == 2}-->
+			<!--{if $_G['mod'] != 'logging'}-->
+				<img src="./source/plugin/dsu_amupper/images/wb.png" class="qq_bind" align="absmiddle">
+				<span class="pipe">|</span>
+				<script>showWindow('pper', 'plugin.php?id=dsu_amupper&ppersubmit=true&formhash={FORMHASH}');</script>
+			<!--{/if}-->
+		<!--{elseif $return_if == 3}-->
+			<script>showWindow('pper', 'plugin.php?id=dsu_amupper:ppering');</script>
+		<!--{elseif $return_if == 4}-->
+			<span id="pperwb" onmouseover="showMenu(this.id)"><a id="pper_a" href="plugin.php?id=dsu_amupper&ppersubmit=true&formhash={FORMHASH}" onclick="showWindow('dsu_amupper', this.href);return false;"><img src="./source/plugin/dsu_amupper/images/wb.png" class="qq_bind" align="absmiddle"></a></span>
+			<span class="pipe">|</span>
+		<!--{else}-->
+			<span id="pperwb" onmouseover="showMenu(this.id)"><a id="pper_a" href="plugin.php?id=dsu_amupper&ppersubmit=true&formhash={FORMHASH}" onclick="showWindow('dsu_amupper', this.href);return false;"><img src="./source/plugin/dsu_amupper/images/wb.png" class="qq_bind" align="absmiddle"></a></span>
+			<span class="pipe">|</span>
+		<!--{/if}-->
+	<!--{/if}-->
+<!--{/block}-->

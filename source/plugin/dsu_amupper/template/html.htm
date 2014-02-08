@@ -1,0 +1,11 @@
+
+<div class="bm_c amuminh" >
+		<div class="bm_c dsu_amupper_list cl">
+			<ul class="cl">
+				{loop $ggprint $key $value}
+				<li {if $value['uid'] == $_G['uid']}style=" background:#FFF6D4"{/if}><span class="z index">{$value['index']}</span><div class="avt z"><a href="home.php?mod=space&uid=$value['uid']" target="_blank" title='{$value[lasttime]}'><!--{avatar($value['uid'],small)}--></a></div><a href="home.php?mod=space&uid=$value['uid']" target="_blank" title='{$value[username]}'>{$value['usernamec']}</a><br>{lang dsu_amupper:cons}{$value['cons']}{lang dsu_amupper:times}<br>{lang dsu_amupper:addup}{$value['addup']}{lang dsu_amupper:times}</li>
+				{/loop}
+			</ul>
+			{$multipage}
+		</div>
+</div>
