@@ -13,8 +13,8 @@ if(!defined('IN_DISCUZ')) {
 
 $sql = <<<EOF
 
-DROP TABLE IF EXISTS cdb_myrepeats;
-CREATE TABLE cdb_myrepeats (
+DROP TABLE IF EXISTS cdb_plugin_myrepeats;
+CREATE TABLE cdb_plugin_myrepeats (
   `uid` int(11) unsigned NOT NULL,
   `username` varchar(15) NOT NULL DEFAULT '',
   `logindata` varchar(255) NOT NULL DEFAULT '',

@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 $sql = <<<EOF
 
-DROP TABLE cdb_myrepeats;
+DROP TABLE cdb_plugin_myrepeats;
 
 EOF;
 

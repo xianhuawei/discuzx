@@ -14,7 +14,7 @@ class table_myrepeats extends discuz_table
 {
 	public function __construct() {
 
-		$this->_table = 'myrepeats';
+		$this->_table = 'plugin_myrepeats';
 		$this->_pk    = '';
 
 		parent::__construct();
