@@ -1,0 +1,40 @@
+<!--{if $bind[uid]}-->
+<p class="pbm bbda xi1">{lang weibo:config_bindinfo}</p>
+<table cellspacing="0" cellpadding="0" class="tfm mbw bbda">
+	<tr>
+		<th>{lang weibo:bind_weibo}</th>
+		<td><a href="http://weibo.com/u/$bind[sina_uid]" class="xw1" target="_blank">$bind[sina_username]</a><td>
+	</tr>
+	<tr>
+		<th>{lang weibo:bind_dateline}</th>
+		<td>$bind[dateline]<td>
+	</tr>
+</table>
+<h2><a href="javascript:;" onclick="display('unbind');" class="xi2">{lang weibo:config_unbind}</a></h2>
+<div id="unbind" style="display:none;">
+	<form action="home.php?mod=spacecp&ac=plugin&id=weibo:bind" method="post" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="unbindsubmit" value="true" />
+		<p class="mtm mbm">{lang weibo:config_unbind_desc}</p>
+		<p><button type="submit" class="pn pnc"><strong>{lang weibo:config_unbind_confirm}</strong></button></p>
+	</form>
+</div>
+<!--{else}-->
+<div class="mtw bm2 cl">
+	<div class="bm2_b bw0 hm" style="padding-top: 70px;">
+		<a href="plugin.php?id=weibo:login"><img src="data/attachment/common/sina_bind_btn.png"></a>
+		<p class="mtn xg1">{lang weibo:config_bind}</p>
+	</div>
+	<div class="bm2_b bm2_b_y bw0">
+		<dl class="xld">
+			<h2 class="xi1 xs2">{lang weibo:config_title}</h2>
+			<dt>{lang weibo:config_title1}</dt>
+			<dd class="xg1">{lang weibo:config_desc_content1}</dd>
+			<dt>{lang weibo:config_title2}</dt>
+			<dd class="xg1">{lang weibo:config_desc_content2}</dd>
+			<dt>{lang weibo:config_title3}</dt>
+			<dd class="xg1">{lang weibo:config_desc_content3}</dd>
+		</dl>
+	</div>
+</div>
+<!--{/if}-->

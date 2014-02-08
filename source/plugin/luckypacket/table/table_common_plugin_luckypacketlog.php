@@ -6,7 +6,7 @@ if(!defined('IN_DISCUZ')) {
 class table_common_plugin_luckypacketlog extends discuz_table {
 
 	public function __construct() {
-		$this->_table = 'common_plugin_luckypacketlog';
+		$this->_table = 'plugin_luckypacketlog';
 
 		parent::__construct();
 	}

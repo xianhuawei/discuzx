@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X1.5]]></item>
+	<item id="Time"><![CDATA[2011-02-01 22:02]]></item>
+	<item id="From"><![CDATA[乐游网 ]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[快乐大转盘]]></item>
+			<item id="identifier"><![CDATA[huxdzp]]></item>
+			<item id="description"><![CDATA[快乐大转盘插件]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[huxdzp/]]></item>
+			<item id="copyright"><![CDATA[HappyUX.Com]]></item>
+			<item id="version"><![CDATA[1.1]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[admin_jx]]></item>
+					<item id="menu"><![CDATA[奖项设置]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="1">
+					<item id="name"><![CDATA[huxdzp]]></item>
+					<item id="menu"><![CDATA[快乐大转盘]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[5]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X1.5]]></item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+		<item id="upgradefile"><![CDATA[upgrade.php]]></item>
+		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
+		<item id="var">
+			<item id="0">
+				<item id="displayorder"><![CDATA[1]]></item>
+				<item id="title"><![CDATA[每次消费积分值]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[paymoneynum]]></item>
+				<item id="type"><![CDATA[number]]></item>
+				<item id="value"><![CDATA[10]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="1">
+				<item id="displayorder"><![CDATA[0]]></item>
+				<item id="title"><![CDATA[消费积分]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[paymoney]]></item>
+				<item id="type"><![CDATA[extcredit]]></item>
+				<item id="value"><![CDATA[2]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="2">
+				<item id="displayorder"><![CDATA[4]]></item>
+				<item id="title"><![CDATA[中奖记录每页显示数]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[nums]]></item>
+				<item id="type"><![CDATA[number]]></item>
+				<item id="value"><![CDATA[20]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="3">
+				<item id="displayorder"><![CDATA[3]]></item>
+				<item id="title"><![CDATA[奖励提示文字]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[jlmsg]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[抽中]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="4">
+				<item id="displayorder"><![CDATA[2]]></item>
+				<item id="title"><![CDATA[概率设置]]></item>
+				<item id="description"><![CDATA[奖项一共12个，对应号码1-12，假如要将概率精确到1%，则设置100个数，如果号码1设置有10个，也就是说号码1的概率为10%，号码2有1个，则号码2的概率为1%，已此类推，号码的顺序可以打乱，效果更佳，但是号码只能是1-12，如果设置其他号码，出现数据异常，概不负责 ... ...]]></item>
+				<item id="variable"><![CDATA[gailv]]></item>
+				<item id="type"><![CDATA[textarea]]></item>
+				<item id="value"><![CDATA[12,12,3,12,12,11,12,10,12,9,7,12,8,12,12,10,11,5,11,7,11,10,11,11,3,11,11,11,12,12,12,12,12,12,12,4,12,12,12,12,12,12,9,12,9,12,12,10,12,12,12,8,12,12,12,12,1,12,12,10,12,12,12,9,12,12,12,12,12,8,12,5,12,12,6,12,12,12,12,12,12,12,6,12,12,12,4,12,9,12,12,2,12,7,12,12,11,12,12,12]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+		</item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="op_sus"><![CDATA[操作成功！]]></item>
+				<item id="ninb"><![CDATA[您的]]></item>
+				<item id="loginmsg"><![CDATA[请先登录]]></item>
+				<item id="closemsg"><![CDATA[大转盘维护中]]></item>
+				<item id="buzu"><![CDATA[不足]]></item>
+				<item id="cjwan"><![CDATA[今日抽奖机会已完]]></item>
+				<item id="weizhong"><![CDATA[未中奖]]></item>
+				<item id="not_allow"><![CDATA[没有权限！]]></item>
+				<item id="name_empty"><![CDATA[奖品名称不能为空！]]></item>
+			</item>
+			<item id="templatelang">
+				<item id="jname"><![CDATA[奖项名称]]></item>
+				<item id="jid"><![CDATA[号码]]></item>
+				<item id="gljid"><![CDATA[关联号码]]></item>
+				<item id="manageop"><![CDATA[操作]]></item>
+				<item id="jpname"><![CDATA[奖品名称]]></item>
+				<item id="jptype"><![CDATA[奖品类别]]></item>
+				<item id="jfnum"><![CDATA[奖励积分数值]]></item>
+				<item id="managedel"><![CDATA[删除]]></item>
+				<item id="jpother"><![CDATA[其他]]></item>
+				<item id="jpjfa"><![CDATA[积分一]]></item>
+				<item id="jpjfb"><![CDATA[积分二]]></item>
+				<item id="jxnumber"><![CDATA[号奖项]]></item>
+				<item id="jplist"><![CDATA[奖品一览]]></item>
+				<item id="newjl"><![CDATA[最新中奖布告]]></item>
+				<item id="new"><![CDATA[最新加入玩家]]></item>
+				<item id="myjl"><![CDATA[中奖记录]]></item>
+				<item id="managejp"><![CDATA[奖品管理]]></item>
+				<item id="managejpff"><![CDATA[奖品发放]]></item>
+				<item id="jpstate"><![CDATA[发放状态]]></item>
+				<item id="ffwei"><![CDATA[未发放]]></item>
+				<item id="ffed"><![CDATA[已发放]]></item>
+				<item id="sqing"><![CDATA[申请中]]></item>
+				<item id="upstate"><![CDATA[更改状态为已发放]]></item>
+				<item id="sqren"><![CDATA[申请人]]></item>
+				<item id="shenqing"><![CDATA[申请奖品]]></item>
+				<item id="welcome"><![CDATA[欢迎您]]></item>
+				<item id="nin"><![CDATA[您的]]></item>
+				<item id="cjxh"><![CDATA[每次抽奖消耗]]></item>
+				<item id="cia"><![CDATA[每天可抽奖]]></item>
+				<item id="cib"><![CDATA[次]]></item>
+				<item id="copyright_author"><![CDATA[乐游网]]></item>
+				<item id="copyright"><![CDATA[版权信息]]></item>
+				<item id="copyright_front"><![CDATA[HUX]]></item>
+				<item id="copyright_back"><![CDATA[DZP]]></item>
+			</item>
+		</item>
+	</item>
+</root>

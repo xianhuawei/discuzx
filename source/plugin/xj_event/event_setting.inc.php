@@ -7,7 +7,7 @@ if(!defined('IN_DISCUZ')) {
 $tid = intval($_GET['tid']);
 
 //权限验证
-$thread = DB::fetch_first("SELECT A.authorid,B.setting FROM ".DB::table('forum_thread')." A,".DB::table('xj_event')." B WHERE A.tid='$tid' and A.tid = B.tid");
+$thread = DB::fetch_first("SELECT A.authorid,B.setting FROM ".DB::table('forum_thread')." A,".DB::table('plugin_xj_event')." B WHERE A.tid='$tid' and A.tid = B.tid");
 $setting = unserialize($thread['setting']);
 if($_G['groupid']>1 && $_G['uid']!=$thread['authorid']){
 	showmessage('quickclear_noperm');

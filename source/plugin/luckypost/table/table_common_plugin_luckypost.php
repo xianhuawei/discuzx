@@ -6,11 +6,8 @@ if(!defined('IN_DISCUZ')) {
 class table_common_plugin_luckypost extends discuz_table {
 
 	public function __construct() {
-		$this->_table = 'common_plugin_luckypost';
+		$this->_table = 'plugin_luckypost';
 		$this->_pk = 'lid';
-		$this->_pre_cache_key = 'common_plugin_luckypost_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 

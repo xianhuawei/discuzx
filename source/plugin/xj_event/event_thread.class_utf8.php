@@ -81,14 +81,14 @@ class threadplugin_xj_event {
 		$activityaid = intval($_GET['activityaid']);
 		convertunusedattach($activityaid,$tid,$pid);
 		$activityaid_url = addslashes($_GET['activityaid_url']);
-		DB::query("INSERT INTO ".DB::table('xj_event')." 
+		DB::query("INSERT INTO ".DB::table('plugin_xj_event')." 
 		(tid, postclass, starttime, endtime, offlineclass, onlineclass, citys, event_address, event_number, event_number_man, event_number_woman, event_number_max, use_extcredits_num, use_extcredits, use_cost, activitybegin, activityexpiration, userfield,activityaid, activityaid_url,setting) 
 		VALUES 
 		('$tid', '$postclass', '$starttime', '$endtime', '$offlineclass', '$onlineclass', '$citys', '$event_address', '$event_number', '$event_number_man', '$event_number_woman', '$event_number_max', '$use_extcredits_num', '$use_extcredits', '$use_cost', '$activitybegin' , '$activityexpiration' ,'$userfield','$activityaid' ,'$activityaid_url','$setting_str') ");
 	}
 	function editpost($fid, $tid) {
 		global $_G;
-		$items = DB::fetch(DB::query("SELECT * FROM ".DB::table('xj_event')." WHERE tid = '$tid'"));
+		$items = DB::fetch(DB::query("SELECT * FROM ".DB::table('plugin_xj_event')." WHERE tid = '$tid'"));
 		$extcredits = $_G['setting']['extcredits'];
 		$citys = explode("\n",$_G['cache']['plugin']['xj_event']['city']);
 		$tmp = explode("\n",$_G['cache']['plugin']['xj_event']['event_offline_class']);
@@ -148,7 +148,7 @@ class threadplugin_xj_event {
 		}
 		$userfield = serialize($tmp);
 		//获取当前的设置
-		$event = DB::fetch_first("SELECT setting FROM ".DB::table('xj_event')." WHERE tid='$tid'");
+		$event = DB::fetch_first("SELECT setting FROM ".DB::table('plugin_xj_event')." WHERE tid='$tid'");
 		$setting = unserialize($event['setting']);
 		$setting['noverify'] = intval($_GET['noverify']);
 		$setting['eventzy_enable'] = intval($_GET['eventzy_enable']);
@@ -157,7 +157,7 @@ class threadplugin_xj_event {
 		$setting['eventpay'] = intval($_GET['eventpay']);
 		$setting_str = serialize($setting);
 		//活动图片编辑处理
-		$activity = DB::fetch(DB::query("SELECT activityaid FROM ".DB::table('xj_event')." WHERE tid = '$tid'"));
+		$activity = DB::fetch(DB::query("SELECT activityaid FROM ".DB::table('plugin_xj_event')." WHERE tid = '$tid'"));
 		$activityaid = $activity['activityaid'];
 		if($activityaid && $activityaid != $_GET['activityaid']) {
 				$attach = C::t('forum_attachment_n')->fetch('tid:'.$_G['tid'], $activityaid);
@@ -175,7 +175,7 @@ class threadplugin_xj_event {
 		}
 		
 		$activityaid_url = addslashes($_GET['activityaid_url']);
-		DB::query("UPDATE ".DB::table('xj_event')." set tid='$tid', postclass='$postclass', starttime='$starttime', endtime='$endtime', offlineclass='$offlineclass', onlineclass='$onlineclass', citys='$citys', event_address='$event_address', event_number='$event_number', event_number_man='$event_number_man', event_number_woman='$event_number_woman', event_number_max='$event_number_max', use_extcredits_num='$use_extcredits_num', use_extcredits='$use_extcredits', use_cost='$use_cost', activitybegin='$activitybegin', activityexpiration='$activityexpiration', userfield='$userfield',activityaid='$activityaid' , activityaid_url='$activityaid_url',setting = '$setting_str' WHERE tid = '{$tid}'");
+		DB::query("UPDATE ".DB::table('plugin_xj_event')." set tid='$tid', postclass='$postclass', starttime='$starttime', endtime='$endtime', offlineclass='$offlineclass', onlineclass='$onlineclass', citys='$citys', event_address='$event_address', event_number='$event_number', event_number_man='$event_number_man', event_number_woman='$event_number_woman', event_number_max='$event_number_max', use_extcredits_num='$use_extcredits_num', use_extcredits='$use_extcredits', use_cost='$use_cost', activitybegin='$activitybegin', activityexpiration='$activityexpiration', userfield='$userfield',activityaid='$activityaid' , activityaid_url='$activityaid_url',setting = '$setting_str' WHERE tid = '{$tid}'");
 	}
 	
 	
@@ -183,7 +183,7 @@ class threadplugin_xj_event {
 		global $_G;
 		$timestamp = time();
 		$extcredits = $_G['setting']['extcredits'];
-		$items = DB::fetch(DB::query("SELECT * FROM ".DB::table('xj_event')." WHERE tid = '$tid'"));
+		$items = DB::fetch(DB::query("SELECT * FROM ".DB::table('plugin_xj_event')." WHERE tid = '$tid'"));
 		if($items['postclass']==1){
 			$postclass = lang('plugin/xj_event', 'xxhd');
 			$tmp = explode("\n",$_G['cache']['plugin']['xj_event']['event_offline_class']);
@@ -247,16 +247,16 @@ class threadplugin_xj_event {
 
 
 		
-		$hg = DB::fetch_first("SELECT * FROM ".DB::table('xj_eventthread')." WHERE eid=".intval($items['eid'])." and sort=1");
+		$hg = DB::fetch_first("SELECT * FROM ".DB::table('plugin_xj_eventthread')." WHERE eid=".intval($items['eid'])." and sort=1");
 		//报名总人数
-		$applycountnumber = DB::result_first("SELECT SUM(applynumber) FROM ".DB::table('xj_eventapply')." WHERE tid='$tid' and verify=1");
+		$applycountnumber = DB::result_first("SELECT SUM(applynumber) FROM ".DB::table('plugin_xj_eventapply')." WHERE tid='$tid' and verify=1");
 		//报名时可能选择的人数
 		$applynumber = array();
 		for($i=1;$i<=$items['event_number_max'];$i++){
 			$applynumber[] = $i;
 		}
 		//报名审核状态
-		$apply = DB::fetch_first("SELECT pay_state,verify FROM ".DB::table('xj_eventapply')." WHERE tid='$tid' and uid=".$_G['uid']);
+		$apply = DB::fetch_first("SELECT pay_state,verify FROM ".DB::table('plugin_xj_eventapply')." WHERE tid='$tid' and uid=".$_G['uid']);
 		$verify = $apply['verify'];
 		$pay_state = $apply['pay_state'];
 		

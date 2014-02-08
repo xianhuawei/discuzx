@@ -26,7 +26,7 @@ if($_GET['choose']=='soon'){
 }
 
 $perpage = 10; //每页数
-$listcount = DB::result_first("SELECT count(*) FROM ".DB::table('xj_event')." A,".DB::table('forum_thread')." B WHERE A.tid=B.tid ".$sqlstr." ORDER BY A.eid");
+$listcount = DB::result_first("SELECT count(*) FROM ".DB::table('plugin_xj_event')." A,".DB::table('forum_thread')." B WHERE A.tid=B.tid ".$sqlstr." ORDER BY A.eid");
 $page = $_GET['page']?$_GET['page']:1;
 if(@ceil($listcount/$perpage) < $page) {
 	$page = 1;
@@ -35,12 +35,12 @@ $start_limit = ($page - 1) * $perpage;
 $multipage = multi($listcount,$perpage,$page,"plugin.php?id=xj_event:event_list_ajax&pc=".$_GET['pc']."&".($_GET['offlineclass']?"offlineclass=".$_GET['offlineclass']:"onlineclass=".$_GET['onlineclass']),0,10,false,true);
 $multipage = str_replace('class="pg"','class="jlpg"',$multipage);
 
-$query = DB::query("SELECT * FROM ".DB::table('xj_event')." A,".DB::table('forum_thread')." B WHERE A.tid=B.tid ".$sqlstr." ORDER BY A.eid DESC LIMIT $start_limit,$perpage");
+$query = DB::query("SELECT * FROM ".DB::table('plugin_xj_event')." A,".DB::table('forum_thread')." B WHERE A.tid=B.tid ".$sqlstr." ORDER BY A.eid DESC LIMIT $start_limit,$perpage");
 $toplist = array();
 while($value = DB::fetch($query)){
 	//获取报名人数
-	$value['zynumber'] = DB::result_first("SELECT count(*) FROM ".DB::table('xj_eventthread')." WHERE eid=".$value['eid']);
-	$value['applynumber'] = DB::result_first("SELECT SUM(applynumber) FROM ".DB::table('xj_eventapply')." WHERE tid=".$value['tid']." and verify=1");
+	$value['zynumber'] = DB::result_first("SELECT count(*) FROM ".DB::table('plugin_xj_eventthread')." WHERE eid=".$value['eid']);
+	$value['applynumber'] = DB::result_first("SELECT SUM(applynumber) FROM ".DB::table('plugin_xj_eventapply')." WHERE tid=".$value['tid']." and verify=1");
 	$value['applynumber'] = $value['applynumber']?$value['applynumber']:0;
 	if($value['activityaid']){
 		$value[activityaid_url] = $_G['setting']['attachurl'].'forum/'.$value['activityaid_url'];

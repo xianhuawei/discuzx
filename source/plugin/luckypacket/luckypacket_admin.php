@@ -7,9 +7,7 @@ if(!in_array($_GET['op'], array('add', 'edit'))) {
 	showmessage('undefined_action');
 }
 
-// 闱炵鐞嗗憳
 if(!$packetAdmin) {
-	// 绂佹闱炶嚜锷╃孩鍖呮搷浣?
 	if($_GET['pspecial'] != PACKET_TYPE_PERSON) {
 		showmessage('undefined_action');
 	} elseif($_GET['pspecial'] == PACKET_TYPE_PERSON && !$selfPacket) {
@@ -29,7 +27,6 @@ if($op == 'edit') {
 	$packet = C::t('#luckypacket#common_plugin_luckypacket')->fetch($pid);
 }
 
-// 鐢ㄦ埛缁?
 $query = C::t('common_usergroup')->range_orderby_credit();
 $grouplist = array();
 foreach($query as $group) {
@@ -43,7 +40,6 @@ if(!submitcheck('submit', 1)) {
 			showmessage('luckypacket:packet_noexist');
 		}
 
-		// 闱炵鐞嗗憳绂佹缂栬緫浠栦汉绾㈠寘
 		if($packet['originatorid'] != $_G['uid'] && !$packetAdmin) {
 			showmessage('luckypacket:packet_edit_nopermission');
 		}
@@ -135,8 +131,6 @@ if(!submitcheck('submit', 1)) {
 		$jumpAdd = '';
 		if(intval($addresult)) {
 			if($ps == PACKET_TYPE_PERSON) {
-				//$founders = empty($_G['config']['admincp']['founder']) ? array() : explode(',', $_G['config']['admincp']['founder']);
-				//$notifyUIds = array_merge($founders, $adminids);
 				if($adminids) {
 					$notifyUId = $adminids[array_rand($adminids)];
 					if($notifyUId) {

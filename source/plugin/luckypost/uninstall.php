@@ -10,10 +10,10 @@ if(!submitcheck('submit', 1)) {
 } else {
 
 	if ($_POST['deleteDate']) {
-		$plugintable = DB::table('common_plugin_luckypost');
-		$pluginlogtable = DB::table('common_plugin_luckypostlog');
-		$collectiontable = DB::table('common_plugin_luckypost_collection');
-		$collectionlogtable = DB::table('common_plugin_luckypost_collectionlog');
+		$plugintable = DB::table('plugin_luckypost');
+		$pluginlogtable = DB::table('plugin_luckypostlog');
+		$collectiontable = DB::table('plugin_luckypost_collection');
+		$collectionlogtable = DB::table('plugin_luckypost_collectionlog');
 
 	$sql = <<<EOF
 DROP TABLE IF EXISTS {$plugintable};

@@ -4,7 +4,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 global $_G;
-$plugin_xj_event = DB::table('xj_event');
+$plugin_xj_event = DB::table('plugin_xj_event');
 $sql = <<<EOF
 ALTER TABLE $plugin_xj_event ADD `activitybegin` int(10) NOT NULL;
 EOF;

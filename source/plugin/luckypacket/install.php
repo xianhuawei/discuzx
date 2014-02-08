@@ -6,8 +6,8 @@ if(!defined('IN_DISCUZ')) {
 
 $sql = <<<EOF
 
-DROP TABLE IF EXISTS pre_common_plugin_luckypacket;
-CREATE TABLE pre_common_plugin_luckypacket (
+DROP TABLE IF EXISTS pre_plugin_luckypacket;
+CREATE TABLE pre_plugin_luckypacket (
   `packetid` int(10) unsigned NOT NULL auto_increment,
   `pname` varchar(20) NOT NULL default '',
   `pspecial` tinyint(3) NOT NULL default '0',
@@ -26,10 +26,10 @@ CREATE TABLE pre_common_plugin_luckypacket (
   `created` int(10) unsigned NOT NULL default '0',
   `updated` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY (`packetid`)
-) TYPE=MyISAM;
+) TYPE=InnoDB;
 
-DROP TABLE IF EXISTS pre_common_plugin_luckypacketlog;
-CREATE TABLE pre_common_plugin_luckypacketlog (
+DROP TABLE IF EXISTS pre_plugin_luckypacketlog;
+CREATE TABLE pre_plugin_luckypacketlog (
   `uid` mediumint(8) unsigned NOT NULL default '0',
   `packetid` int(10) unsigned NOT NULL default '0',
   `issuetype` tinyint(1) NOT NULL default '0',
@@ -40,13 +40,13 @@ CREATE TABLE pre_common_plugin_luckypacketlog (
   KEY `uid` (`uid`),
   KEY `packetid` (`packetid`),
   KEY `dateline` (`dateline`)
-) TYPE=MyISAM;
+) TYPE=InnoDB;
 
-INSERT INTO pre_common_plugin_luckypacket (pname, pspecial, description, starttimefrom, starttimeto, settings, usergroups, displayorder, status, inum, tnum, originatorid, ispass, created) values ('{$installlang['daliy_packet']}', 1, '{$installlang['daliy_packet_sum']}', 0, 0, 'a:12:{s:11:"issuecredit";s:1:"1";s:9:"issuetype";s:1:"2";s:10:"certainnum";i:0;s:12:"packetminnum";s:1:"1";s:12:"packetmaxnum";s:2:"10";s:6:"num_pp";s:1:"1";s:9:"total_num";s:3:"100";s:15:"modnum_multiply";s:1:"1";s:6:"gender";s:1:"0";s:7:"reg_day";s:1:"0";s:7:"postnum";s:1:"0";s:6:"credit";s:1:"0";}', 'a:1:{i:0;i:0;}', 0, 1, 0, 0, 1, 1, '{$_G['timestamp']}');
+INSERT INTO pre_plugin_luckypacket (pname, pspecial, description, starttimefrom, starttimeto, settings, usergroups, displayorder, status, inum, tnum, originatorid, ispass, created) values ('{$installlang['daliy_packet']}', 1, '{$installlang['daliy_packet_sum']}', 0, 0, 'a:12:{s:11:"issuecredit";s:1:"1";s:9:"issuetype";s:1:"2";s:10:"certainnum";i:0;s:12:"packetminnum";s:1:"1";s:12:"packetmaxnum";s:2:"10";s:6:"num_pp";s:1:"1";s:9:"total_num";s:3:"100";s:15:"modnum_multiply";s:1:"1";s:6:"gender";s:1:"0";s:7:"reg_day";s:1:"0";s:7:"postnum";s:1:"0";s:6:"credit";s:1:"0";}', 'a:1:{i:0;i:0;}', 0, 1, 0, 0, 1, 1, '{$_G['timestamp']}');
 
 
 EOF;
-//ALTER TABLE  `pre_common_plugin_luckypacket` CHANGE  `isopen`  `status` TINYINT( 1 ) NOT NULL DEFAULT  '0'
+//ALTER TABLE  `pre_plugin_luckypacket` CHANGE  `isopen`  `status` TINYINT( 1 ) NOT NULL DEFAULT  '0'
 runquery($sql);
 $finish = TRUE;
 

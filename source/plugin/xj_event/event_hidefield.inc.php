@@ -5,7 +5,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $tid = intval($_GET['tid']);
-$items = DB::fetch_first("SELECT setting FROM ".DB::table('xj_event')." WHERE tid='$tid'");
+$items = DB::fetch_first("SELECT setting FROM ".DB::table('plugin_xj_event')." WHERE tid='$tid'");
 $setting = unserialize($items['setting']);
 $fieldname = $_GET['fieldname'];
 if($_GET['action']=='show'){
@@ -16,6 +16,6 @@ if($_GET['action']=='hide'){
 }
 
 $setting = serialize($setting);
-DB::query("UPDATE ".DB::table('xj_event')." SET setting = '$setting' WHERE tid='$tid'");
+DB::query("UPDATE ".DB::table('plugin_xj_event')." SET setting = '$setting' WHERE tid='$tid'");
 
 ?>

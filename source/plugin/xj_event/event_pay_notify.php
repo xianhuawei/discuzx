@@ -33,22 +33,22 @@ if($apitype == 'alipay'){
 	$notify_time = $_G['timestamp'];
 	if($notifydata['trade_status'] == 'WAIT_BUYER_PAY'){   //绛夊緟鏀粯
 		$buyer_email = $_GET['buyer_email'];
-		DB::query("UPDATE ".DB::table('xj_eventpay_log')." SET paystate=1, trade_status='$trade_status', tradeno='$tradeno', buyer_email='$buyer_email', notify_time=$notify_time  WHERE orderid = '$orderid'");
+		DB::query("UPDATE ".DB::table('plugin_xj_eventpay_log')." SET paystate=1, trade_status='$trade_status', tradeno='$tradeno', buyer_email='$buyer_email', notify_time=$notify_time  WHERE orderid = '$orderid'");
 	}elseif($notifydata['trade_status'] == 'WAIT_SELLER_SEND_GOODS'){         //涔板宸蹭粯娆撅紝绛夊緟鍙戣揣
 		$pay_time = $_G['timestamp'];
-		DB::query("UPDATE ".DB::table('xj_eventpay_log')." SET paystate=2, trade_status='$trade_status', pay_time=$pay_time, notify_time=$notify_time WHERE orderid = '$orderid'");
-		$item = DB::fetch_first("SELECT applyid FROM ".DB::table('xj_eventpay_log')." WHERE orderid = '$orderid'");
+		DB::query("UPDATE ".DB::table('plugin_xj_eventpay_log')." SET paystate=2, trade_status='$trade_status', pay_time=$pay_time, notify_time=$notify_time WHERE orderid = '$orderid'");
+		$item = DB::fetch_first("SELECT applyid FROM ".DB::table('plugin_xj_eventpay_log')." WHERE orderid = '$orderid'");
 		$applyid = $item['applyid'];
-		DB::query("UPDATE ".DB::table('xj_eventapply')." SET pay_state=1 WHERE applyid = $applyid");
+		DB::query("UPDATE ".DB::table('plugin_xj_eventapply')." SET pay_state=1 WHERE applyid = $applyid");
 	}elseif($notifydata['trade_status'] == 'WAIT_BUYER_CONFIRM_GOODS'){
-		DB::query("UPDATE ".DB::table('xj_eventpay_log')." SET trade_status='$trade_status', notify_time=$notify_time WHERE orderid = '$orderid'");
+		DB::query("UPDATE ".DB::table('plugin_xj_eventpay_log')." SET trade_status='$trade_status', notify_time=$notify_time WHERE orderid = '$orderid'");
 	}elseif($notifydata['trade_status'] == 'TRADE_FINISHED'){
-		DB::query("UPDATE ".DB::table('xj_eventpay_log')." SET paystate=3, trade_status='$trade_status', notify_time=$notify_time WHERE orderid = '$orderid'");
-		$item = DB::fetch_first("SELECT applyid FROM ".DB::table('xj_eventpay_log')." WHERE orderid = '$orderid'");
+		DB::query("UPDATE ".DB::table('plugin_xj_eventpay_log')." SET paystate=3, trade_status='$trade_status', notify_time=$notify_time WHERE orderid = '$orderid'");
+		$item = DB::fetch_first("SELECT applyid FROM ".DB::table('plugin_xj_eventpay_log')." WHERE orderid = '$orderid'");
 		$applyid = $item['applyid'];
-		DB::query("UPDATE ".DB::table('xj_eventapply')." SET pay_state=1,verify=1 WHERE applyid = $applyid");
+		DB::query("UPDATE ".DB::table('plugin_xj_eventapply')." SET pay_state=1,verify=1 WHERE applyid = $applyid");
 	}elseif($notifydata['trade_status'] == 'TRADE_CLOSED'){
-		DB::query("UPDATE ".DB::table('xj_eventpay_log')." SET paystate=9, trade_status='$trade_status', notify_time=$notify_time WHERE orderid = '$orderid'");
+		DB::query("UPDATE ".DB::table('plugin_xj_eventpay_log')." SET paystate=9, trade_status='$trade_status', notify_time=$notify_time WHERE orderid = '$orderid'");
 	}
 }
 

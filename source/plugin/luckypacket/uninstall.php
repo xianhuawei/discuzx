@@ -12,8 +12,8 @@ if(!submitcheck('submit', 1)) {
 	if ($_POST['deleteDate']) {
 
 		$sql = <<<EOF
-DROP TABLE IF EXISTS pre_common_plugin_luckypacket;
-DROP TABLE IF EXISTS pre_common_plugin_luckypacketlog;
+DROP TABLE IF EXISTS pre_plugin_luckypacket;
+DROP TABLE IF EXISTS pre_plugin_luckypacketlog;
 
 EOF;
 		runquery($sql);

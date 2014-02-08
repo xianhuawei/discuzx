@@ -4,11 +4,11 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-$plugin_xj_event = DB::table('xj_event');
-$plugin_xj_eventapply = DB::table('xj_eventapply');
-$plugin_xj_eventthread = DB::table('xj_eventthread');
-$plugin_xj_event_member_info = DB::table('xj_event_member_info');
-$plugin_xj_event_vote_log = DB::table('xj_event_vote_log');
+$plugin_xj_event = DB::table('plugin_xj_event');
+$plugin_xj_eventapply = DB::table('plugin_xj_eventapply');
+$plugin_xj_eventthread = DB::table('plugin_xj_eventthread');
+$plugin_xj_event_member_info = DB::table('plugin_xj_event_member_info');
+$plugin_xj_event_vote_log = DB::table('plugin_xj_event_vote_log');
 
 
 

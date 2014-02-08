@@ -9,12 +9,10 @@ if($_GET['action'] == 'get' && submitcheck('getsubmit', 1)) {
 	$packet = C::t('#luckypacket#common_plugin_luckypacket')->fetch($packetid);
 	$gender = C::t('#luckypacket#common_member_profile_for_plugin')->fetch_field_value_by_uid($_G['uid'], 'gender');
 
-	// 绾㈠寘链镙告垨链紑鍚?
 	if($packet['status'] != PACKEY_STATUS_OPEN || $packet['ispass'] != 1) {
 		showmessage('luckypacket:pakcet_get_invalid');
 	}
 
-	// 绂佹镊凡棰呜嚜宸茬孩鍖?
 	if($packet['pspecial'] == PACKET_TYPE_PERSON && $packet['originatorid'] == $_G['uid']) {
 		showmessage('luckypacket:pakcet_self_invalid');
 	}
@@ -22,27 +20,22 @@ if($_GET['action'] == 'get' && submitcheck('getsubmit', 1)) {
 	$packet = array_merge($packet, (array)unserialize($packet['settings']));
 	$packet['usergroups'] = unserialize($packet['usergroups']);
 	unset($packet['settings']);
-	// 链紑濮?
 	if($packet['starttimefrom'] > 0 && $packet['starttimefrom'] > TIMESTAMP) {
 		showmessage('luckypacket:pakcet_not_start');
 	}
 
-	// 宸茬粨鏉?
 	if($packet['starttimeto'] > 0 && $packet['starttimeto'] < TIMESTAMP) {
 		showmessage('luckypacket:pakcet_end_already');
 	}
 
-	// 绾㈠寘琚瀹屼简
 	if($packet['total_num'] > 0 && $packet['inum'] >= $packet['total_num']) {
 		showmessage('luckypacket:packet_total_max_failed', dreferer());
 	}
 
-	// 鐢ㄦ埛缁勯檺鍒?
 	if($packet['usergroups'] !== array(0) && !in_array($_G['member']['groupid'], $packet['usergroups'])) {
 		showmessage('luckypacket:usergroup_get_invalid');
 	}
 
-	// 鍚勭闄愬埗鍒ゆ柇
 	$post = getuserprofile('posts');
 	$varReplace = array(
 		'$packet[regDay]' => $packet['reg_day'],
@@ -59,7 +52,6 @@ if($_GET['action'] == 'get' && submitcheck('getsubmit', 1)) {
 		showmessage('luckypacket:packet_permforum_nopermission', '', $varReplace);
 	}
 
-	// 锲炲笘绾㈠寘鍜岀浜虹孩鍖呭垽鏂槸鍚﹀洖甯?
 	if($packet['pspecial'] == PACKET_TYPE_REPLY || $packet['pspecial'] == PACKET_TYPE_PERSON) {
 		$ptable = getposttablebytid($packet['rtid']);
 		$isreply = C::t('forum_post')->fetch_pid_by_tid_authorid($packet['rtid'], $_G['uid']);
@@ -67,7 +59,6 @@ if($_GET['action'] == 'get' && submitcheck('getsubmit', 1)) {
 			showmessage('luckypacket:nopost_nodraw', '', array('$replyurl' => $packet['rtid']));
 		}
 	}
-	// 闅忔満链艰缮鏄浐瀹氩€?
 	$creditdata = $packet['issuetype'] == 1 ? $packet['certainnum'] : randomPacket($packet['packetminnum'], $packet['packetmaxnum']);
 	$creditdata = ($_G['adminid'] > 0 && $_G['adminid'] <= 3) ? ($packet['modnum_multiply']+1) * $creditdata : $creditdata;
 	$dataarr = array('extcredits'.$packet['issuecredit'] => $creditdata);
@@ -76,7 +67,6 @@ if($_GET['action'] == 'get' && submitcheck('getsubmit', 1)) {
 		$today = '';
 	}
 
-	// 宸查杩囨暟閲?
 	$personnum = C::t('#luckypacket#common_plugin_luckypacketlog')->count_by_packetid_uid($packetid, $_G['uid'], $today);
 	if($personnum >= $packet['num_pp']) {
 		showmessage('luckypacket:packet_get_max_failed', dreferer());
@@ -86,7 +76,6 @@ if($_GET['action'] == 'get' && submitcheck('getsubmit', 1)) {
 		}
 		if($packet['pspecial'] == PACKET_TYPE_PERSON && $packet['originatorid']) {
 			$originator = C::t('common_member_count')->fetch($packet['originatorid']);
-			// 绉垎绛栫暐涓嬮檺
 			if($originator['extcredits'.$packet['issuecredit']]-abs($creditdata) < $_G['setting']['creditspolicy']['lowerlimit'][$packet['issuecredit']]) {
 				showmessage('luckypacket:credits_policy_lowerlimit');
 				exit;

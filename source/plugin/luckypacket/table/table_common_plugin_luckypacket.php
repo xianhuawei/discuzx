@@ -6,9 +6,8 @@ if(!defined('IN_DISCUZ')) {
 class table_common_plugin_luckypacket extends discuz_table {
 
 	public function __construct() {
-		$this->_table = 'common_plugin_luckypacket';
+		$this->_table = 'plugin_luckypacket';
 		$this->_pk    = 'packetid';
-		$this->_pre_cache_key = 'common_plugin_luckypacket_';
 		parent::__construct();
 	}
 

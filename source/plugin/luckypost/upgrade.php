@@ -5,7 +5,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $sql = <<<EOF
-CREATE TABLE IF NOT EXISTS pre_common_plugin_luckypost_collection (
+CREATE TABLE IF NOT EXISTS pre_plugin_luckypost_collection (
   `cid` int(10) unsigned NOT NULL auto_increment,
   `groups` text NOT NULL,
   `character` text NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS pre_common_plugin_luckypost_collection (
   PRIMARY KEY cid (`cid`)
 ) TYPE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS pre_common_plugin_luckypost_collectionlog (
+CREATE TABLE IF NOT EXISTS pre_plugin_luckypost_collectionlog (
   `cid` int(10) unsigned NOT NULL default '0',
   `uid` mediumint(8) unsigned NOT NULL default '0',
   `collection` text NOT NULL,
@@ -30,24 +30,24 @@ EOF;
 
 $columnexisted = false;
 
-$query = DB::query("SHOW COLUMNS FROM ".DB::table('common_plugin_luckypost'));
+$query = DB::query("SHOW COLUMNS FROM ".DB::table('plugin_luckypost'));
 while($temp = DB::fetch($query)) {
 	if($temp['Field'] == 'anonymous') {
 		$columnexisted = true;
 		break;
 	}
 }
-$sql .= !$columnexisted ? "ALTER TABLE ".DB::table('common_plugin_luckypost')." ADD COLUMN `anonymous` tinyint(1) NOT NULL default '0';\n" : '';
+$sql .= !$columnexisted ? "ALTER TABLE ".DB::table('plugin_luckypost')." ADD COLUMN `anonymous` tinyint(1) NOT NULL default '0';\n" : '';
 
-$createtable = DB::fetch_first('SHOW CREATE TABLE '.DB::table('common_plugin_luckypost'));
+$createtable = DB::fetch_first('SHOW CREATE TABLE '.DB::table('plugin_luckypost'));
 $oldcolumns = C::t('#luckypost#common_plugin_luckypost')->getcolumn($createtable['Create Table']);
 
 if (!$oldcolumns['KEY']['pid']) {
-	$sql .= "ALTER TABLE pre_common_plugin_luckypost ADD INDEX `pid` (`tid`, `pid`);\n";
+	$sql .= "ALTER TABLE pre_plugin_luckypost ADD INDEX `pid` (`tid`, `pid`);\n";
 }
 
 if (!$oldcolumns['KEY']['uid']) {
-	$sql .= "ALTER TABLE pre_common_plugin_luckypost ADD INDEX `uid` (`uid`);\n";
+	$sql .= "ALTER TABLE pre_plugin_luckypost ADD INDEX `uid` (`uid`);\n";
 }
 
 if($sql) {

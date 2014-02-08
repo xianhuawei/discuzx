@@ -13,8 +13,8 @@ $event_uid = $item['authorid'];
 $event_title = $item['subject'];
 
 if($_GET['action']=='cannel'){
-	$items = DB::fetch_first("SELECT userfield,setting,use_extcredits_num,use_extcredits FROM ".DB::table('xj_event')." WHERE tid = '$tid'");
-	DB::query("DELETE FROM ".DB::table('xj_eventapply')." WHERE tid = '$tid' and uid = ".$_G['uid']);
+	$items = DB::fetch_first("SELECT userfield,setting,use_extcredits_num,use_extcredits FROM ".DB::table('plugin_xj_event')." WHERE tid = '$tid'");
+	DB::query("DELETE FROM ".DB::table('plugin_xj_eventapply')." WHERE tid = '$tid' and uid = ".$_G['uid']);
 	//积分操作
 	if($items['use_extcredits_num']>0){
 		updatemembercount($_G['uid'],array($items['use_extcredits']=>$items['use_extcredits_num']));
@@ -24,7 +24,7 @@ if($_GET['action']=='cannel'){
 
 
 $member = DB::fetch_first("SELECT extcredits1,extcredits2,extcredits3,extcredits4,extcredits5,extcredits6,extcredits7,extcredits8 FROM ".DB::table('common_member_count')." WHERE uid = ".$_G['uid']);
-$items = DB::fetch_first("SELECT userfield,setting,use_extcredits_num,use_extcredits FROM ".DB::table('xj_event')." WHERE tid = '$tid'");
+$items = DB::fetch_first("SELECT userfield,setting,use_extcredits_num,use_extcredits FROM ".DB::table('plugin_xj_event')." WHERE tid = '$tid'");
 
 //判断积分够不够
 if($member['extcredits'.$items['use_extcredits']]<$items['use_extcredits_num']){
@@ -70,13 +70,13 @@ foreach($sysuserfield as $key => $value){
 $ufielddata = serialize($ufielddata);
 
 
-DB::query("INSERT INTO ".DB::table('xj_eventapply')." 
+DB::query("INSERT INTO ".DB::table('plugin_xj_eventapply')." 
 		(tid, eid, uid, realname, mobile, qq, bmmessage, dateline, applynumber, ufielddata) 
 		VALUES 
 		('$tid', '$eid', '$uid', '$realname', '$mobile', '$qq', '$bmmessage', '$dateline', '$applynumber', '$ufielddata')");
-$num = DB::result_first("SELECT count(*) FROM ".DB::table('xj_event_member_info')." WHERE uid = '$uid'");
+$num = DB::result_first("SELECT count(*) FROM ".DB::table('plugin_xj_event_member_info')." WHERE uid = '$uid'");
 if($num==0){
-	DB::query("INSERT INTO ".DB::table('xj_event_member_info')." (uid) VALUES ('$uid')");
+	DB::query("INSERT INTO ".DB::table('plugin_xj_event_member_info')." (uid) VALUES ('$uid')");
 }
 //积分操作
 if($items['use_extcredits_num']>0){
@@ -87,7 +87,7 @@ if($setting['noverify']==1){
 	if($setting['eventpay']){
 		showmessage('报名资料提交成功！现在转入支付页面。', "plugin.php?id=xj_event:event_pay&tid=$tid", array(), array('showdialog' => 1, 'showmsg' => true, 'locationtime' => true, 'alert' => 'right'));
 	}else{	
-		DB::query("update ".DB::table('xj_eventapply')." set verify=1 where tid='$tid'"); //自动审核
+		DB::query("update ".DB::table('plugin_xj_eventapply')." set verify=1 where tid='$tid'"); //自动审核
 		notification_add($event_uid, 'system',$_G['username'].' '.lang('plugin/xj_event', 'bmcjlnd').' <a href="forum.php?mod=viewthread&tid='.$tid.'" target="_blank">'.$event_title.'</a> '.lang('plugin/xj_event', 'hdxtyzdsh'),array(),0);
 		showmessage(lang('plugin/xj_event', 'gxnbmcg'), "forum.php?mod=viewthread&tid=$tid", array(), array('showdialog' => 1, 'showmsg' => true, 'locationtime' => true, 'alert' => 'right'));
 	}

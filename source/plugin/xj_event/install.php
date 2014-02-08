@@ -9,12 +9,12 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-$plugin_xj_event = DB::table('xj_event');
-$plugin_xj_eventapply = DB::table('xj_eventapply');
-$plugin_xj_eventthread = DB::table('xj_eventthread');
-$plugin_xj_event_member_info = DB::table('xj_event_member_info');
-$plugin_xj_event_vote_log = DB::table('xj_event_vote_log');
-$plugin_xj_eventpay_log = DB::table('xj_eventpay_log');
+$plugin_xj_event = DB::table('plugin_xj_event');
+$plugin_xj_eventapply = DB::table('plugin_xj_eventapply');
+$plugin_xj_eventthread = DB::table('plugin_xj_eventthread');
+$plugin_xj_event_member_info = DB::table('plugin_xj_event_member_info');
+$plugin_xj_event_vote_log = DB::table('plugin_xj_event_vote_log');
+$plugin_xj_eventpay_log = DB::table('plugin_xj_eventpay_log');
 
 
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS $plugin_xj_event (
   KEY `tid` (`tid`),
   KEY `postclass` (`postclass`),
   KEY `offlineclass` (`offlineclass`,`onlineclass`)
-) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=gbk AUTO_INCREMENT=8 ;
 
 CREATE TABLE IF NOT EXISTS $plugin_xj_eventapply (
   `applyid` mediumint(8) NOT NULL auto_increment,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS $plugin_xj_eventapply (
   `ufielddata` text NOT NULL,
   PRIMARY KEY  (`applyid`),
   KEY `applyid` (`applyid`,`tid`,`uid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=gbk AUTO_INCREMENT=22 ;
 
 CREATE TABLE IF NOT EXISTS $plugin_xj_eventthread (
   `eid` mediumint(8) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS $plugin_xj_eventthread (
   `coverurl` varchar(200) NOT NULL COMMENT '封面',
   `votes` mediumint(6) NOT NULL,
   KEY `eid` (`eid`,`tid`,`fid`)
-) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
 
 CREATE TABLE IF NOT EXISTS $plugin_xj_event_member_info (
   `uid` mediumint(8) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS $plugin_xj_event_member_info (
   `common` mediumint(8) NOT NULL,
   `bad` mediumint(8) NOT NULL,
   `plane` mediumint(8) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
 CREATE TABLE IF NOT EXISTS $plugin_xj_event_vote_log (
   `vid` int(10) NOT NULL auto_increment,
   `eid` mediumint(8) NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS $plugin_xj_event_vote_log (
   KEY `uid` (`uid`),
   KEY `votetime` (`votetime`),
   KEY `vid` (`vid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=gbk AUTO_INCREMENT=4 ;
 CREATE TABLE IF NOT EXISTS $plugin_xj_eventpay_log (
   `applyid` mediumint(8) NOT NULL,
   `uid` mediumint(8) NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS $plugin_xj_eventpay_log (
   `notify_time` int(10) NOT NULL,
   KEY `applyid` (`applyid`,`uid`),
   KEY `orderid` (`orderid`)
-) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+) ENGINE=InnoDB DEFAULT CHARSET=gbk;
 EOF;
 
 runquery($sql);

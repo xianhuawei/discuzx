@@ -198,7 +198,7 @@ class wechatCallbackapi
             </xml>";
         $Content = '';
         $itemsCount = count($newsData['items']);
-        $itemsCount = $itemsCount < 10 ? $itemsCount : 10;//Î¢ÐÅ¹«ÖÚÆ½Ì¨Í¼ÎÄ»Ø¸´µÄÏûÏ¢Ò»´Î×î¶à10Ìõ
+        $itemsCount = $itemsCount < 10 ? $itemsCount : 10;
         if ($itemsCount) {
             foreach ($newsData['items'] as $key => $item) {
                 if ($key<=9) {

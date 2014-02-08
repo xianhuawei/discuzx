@@ -13,8 +13,8 @@ class plugin_xj_event {
 		global $_G;
 		if($a['step']=='delete'){
 			$deltid = implode(',',$a['param'][0]);
-			DB::query("DELETE FROM ".DB::table('xj_event')." WHERE tid in(".$deltid.")");
-			DB::query("DELETE FROM ".DB::table('xj_eventthread')." WHERE tid in(".$deltid.")");
+			DB::query("DELETE FROM ".DB::table('plugin_xj_event')." WHERE tid in(".$deltid.")");
+			DB::query("DELETE FROM ".DB::table('plugin_xj_eventthread')." WHERE tid in(".$deltid.")");
 		}
 		return;
 	}
@@ -25,7 +25,7 @@ class plugin_xj_event {
 		$return = array();
 		$items = array();
 		foreach($threadlist as $key=>$value){
-			$et = DB::fetch_first("SELECT * FROM ".DB::table('xj_eventthread')." WHERE tid=".$value['tid']);
+			$et = DB::fetch_first("SELECT * FROM ".DB::table('plugin_xj_eventthread')." WHERE tid=".$value['tid']);
 			if($et){
 				if($et['sort']==1){
 					$items[$key] = '['.lang('plugin/xj_event', 'hdhg').']';
@@ -33,7 +33,7 @@ class plugin_xj_event {
 					$items[$key] = '<img src="source/plugin/xj_event/images/zy.png" alt="event_zy" title="'.lang('plugin/xj_event', 'hdzy').'" align="absmiddle" />';
 				}
 			}
-			$event = DB::fetch_first("SELECT * FROM ".DB::table('xj_event')." WHERE tid=".$value['tid']);
+			$event = DB::fetch_first("SELECT * FROM ".DB::table('plugin_xj_event')." WHERE tid=".$value['tid']);
 			if($event){
 				if($event['starttime']>$nowtime){
 					$items[$key] = '<img src="source/plugin/xj_event/images/hd_ico2.png" align="absmiddle">';
@@ -46,10 +46,10 @@ class plugin_xj_event {
 				}
 			
 				$setting = unserialize($event['setting']);
-				$applys = DB::result_first("SELECT COUNT(*) FROM ".DB::table('xj_eventapply')." WHERE tid=".$value['tid']);
+				$applys = DB::result_first("SELECT COUNT(*) FROM ".DB::table('plugin_xj_eventapply')." WHERE tid=".$value['tid']);
 				$items[$key] = $items[$key].' <a href="forum.php?mod=viewthread&tid='.$value['tid'].'&menu=3" class="xi2">'.lang('plugin/xj_event', 'baomin').'(<b>'.$applys.'</b>)</a>';
 				if($setting['eventzy_enable']){
-					$threads = DB::result_first("SELECT COUNT(*) FROM ".DB::table('xj_event')." A,".DB::table('xj_eventthread')." B WHERE A.tid=".$value['tid']." and A.eid=B.eid");
+					$threads = DB::result_first("SELECT COUNT(*) FROM ".DB::table('plugin_xj_event')." A,".DB::table('plugin_xj_eventthread')." B WHERE A.tid=".$value['tid']." and A.eid=B.eid");
 					$items[$key] = $items[$key].' <a href="forum.php?mod=viewthread&tid='.$value['tid'].'&menu=2" class="xi2">'.$setting['eventzy_name'].'(<b>'.$threads.'</b>)</a>';
 				}
 			}
@@ -69,7 +69,7 @@ class plugin_xj_event_forum extends plugin_xj_event{
 		global $_G;
 		//print_r($_G['forum_threadlist'][1]);
 		foreach($_G['forum_threadlist'] as $key=>$value){
-			$num = DB::result_first("SELECT COUNT(*) FROM ".DB::table('xj_event')." WHERE tid=".$value['tid']);
+			$num = DB::result_first("SELECT COUNT(*) FROM ".DB::table('plugin_xj_event')." WHERE tid=".$value['tid']);
 			if($num>0){
 				$_G['forum_threadlist'][$key]['special'] = 4;
 			}

@@ -8,10 +8,10 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
-$plugin_xj_event = DB::table('xj_event');
-$plugin_xj_eventthread = DB::table('xj_eventthread');
-$plugin_xj_eventapply = DB::table('xj_eventapply');
-$plugin_xj_eventpay_log = DB::table('xj_eventpay_log');
+$plugin_xj_event = DB::table('plugin_xj_event');
+$plugin_xj_eventthread = DB::table('plugin_xj_eventthread');
+$plugin_xj_eventapply = DB::table('plugin_xj_eventapply');
+$plugin_xj_eventpay_log = DB::table('plugin_xj_eventpay_log');
 
 
 if($_GET['fromversion']=='1.1' or $_GET['fromversion']=='1.2' or $_GET['fromversion']=='1.3'){
@@ -28,14 +28,14 @@ ALTER TABLE $plugin_xj_eventapply ADD `ufielddata` TEXT NOT NULL;
 EOF;
 runquery($sql);
 
-	$query = DB::query("SELECT * FROM ".DB::table('xj_eventapply')." WHERE ufielddata =''");
+	$query = DB::query("SELECT * FROM ".DB::table('plugin_xj_eventapply')." WHERE ufielddata =''");
 	while($value = DB::fetch($query)){
 		$ufielddata = array();
 		$ufielddata['realname'] = $value['realname'];
 		$ufielddata['mobile'] = $value['mobile'];
 		$ufielddata['qq'] = $value['qq'];
 		$ufielddata = serialize($ufielddata);
-		DB::query("UPDATE ".DB::table('xj_eventapply')." SET ufielddata = '$ufielddata' WHERE applyid = ".$value['applyid']);
+		DB::query("UPDATE ".DB::table('plugin_xj_eventapply')." SET ufielddata = '$ufielddata' WHERE applyid = ".$value['applyid']);
 	}
 	
 
@@ -46,7 +46,7 @@ $sql = <<<EOF
 ALTER TABLE $plugin_xj_event ADD `activitybegin` int(10) NOT NULL;
 EOF;
 runquery($sql);
-$query = DB::query("SELECT * FROM ".DB::table('xj_event'));
+$query = DB::query("SELECT * FROM ".DB::table('plugin_xj_event'));
 while($value = DB::fetch($query)){
 	$setting = unserialize($value['setting']);
 	if(!$setting['eventzy_enable']){
@@ -54,7 +54,7 @@ while($value = DB::fetch($query)){
 		$setting['eventzy_name']=lang('plugin/xj_event', 'zuoye');
 		$setting['eventzy_fid']=0;
 		$settingstr = serialize($setting);
-		DB::query("UPDATE ".DB::table('xj_event')." SET setting = '$settingstr' WHERE eid = ".$value['eid']);
+		DB::query("UPDATE ".DB::table('plugin_xj_event')." SET setting = '$settingstr' WHERE eid = ".$value['eid']);
 	}
 }
 }
@@ -110,14 +110,14 @@ if($_GET['fromversion']=='1.1' or $_GET['fromversion']=='1.2' or $_GET['fromvers
 	EOF;
 	runquery($sql);
 	
-	$query = DB::query("SELECT * FROM ".DB::table('xj_eventapply')." WHERE ufielddata =''");
+	$query = DB::query("SELECT * FROM ".DB::table('plugin_xj_eventapply')." WHERE ufielddata =''");
 	while($value = DB::fetch($query)){
 		$ufielddata = array();
 		$ufielddata['realname'] = $value['realname'];
 		$ufielddata['mobile'] = $value['mobile'];
 		$ufielddata['qq'] = $value['qq'];
 		$ufielddata = serialize($ufielddata);
-		DB::query("UPDATE ".DB::table('xj_eventapply')." SET ufielddata = '$ufielddata' WHERE applyid = ".$value['applyid']);
+		DB::query("UPDATE ".DB::table('plugin_xj_eventapply')." SET ufielddata = '$ufielddata' WHERE applyid = ".$value['applyid']);
 	}
 	cpmsg('tasks_installed', 'action=tasks&operation=type', 'succeed');
 }
