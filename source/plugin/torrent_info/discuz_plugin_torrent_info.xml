@@ -28,18 +28,6 @@
 					<item id="navsubname"><![CDATA[]]></item>
 					<item id="navsuburl"><![CDATA[]]></item>
 				</item>
-				<item id="1">
-					<item id="name"><![CDATA[buy]]></item>
-					<item id="menu"><![CDATA[购买付费版]]></item>
-					<item id="url"><![CDATA[]]></item>
-					<item id="type"><![CDATA[3]]></item>
-					<item id="adminid"><![CDATA[0]]></item>
-					<item id="displayorder"><![CDATA[0]]></item>
-					<item id="navtitle"><![CDATA[]]></item>
-					<item id="navicon"><![CDATA[]]></item>
-					<item id="navsubname"><![CDATA[]]></item>
-					<item id="navsuburl"><![CDATA[]]></item>
-				</item>
 			</item>
 		</item>
 		<item id="version"><![CDATA[X2,X2.5,X3]]></item>
@@ -178,7 +166,6 @@
 				<item id="torrent_info"><![CDATA[点击查看种子详情]]></item>
 				<item id="not_support_remote"><![CDATA[抱歉，暂不支持远程附件]]></item>
 				<item id="not_torrent_file"><![CDATA[请确认是否为 Torrent 文件]]></item>
-				<item id="torrent_info_buy"><![CDATA[感谢您选择付费版!<br />您即将跳转到 Discuz! 应用中心，如果没有跳转请点击下面的连接。]]></item>
 			</item>
 			<item id="templatelang">
 				<item id="info"><![CDATA[种子信息]]></item>
