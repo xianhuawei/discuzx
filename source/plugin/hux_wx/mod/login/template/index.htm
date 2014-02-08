@@ -1,0 +1,43 @@
+{template common/header}
+<!--{if $_G['inajax']}-->
+<style type="text/css">
+.SmartCome{ border:0;width:545px; height:285px;background:url(source/plugin/hux_wx/mod/login/images/main.jpg) no-repeat;}
+.SC_close{ padding-right:8px; height:56px; padding-top:15px; padding-right:15px;} 
+.erweima{width:200px;}
+.erweima img{ width:147px; height:147px; padding-top:0px; padding-right:0px; }
+.authid{ font-family:"Microsoft YaHei", serif; font-size:38px; color:#FF0;}
+.help{font-family:"Microsoft YaHei", serif; font-size:16px; color:#FFF;}
+</style>
+<script type="text/javascript">
+function hux_wx_submit(){
+document.getElementById("hux_wx_form").submit();	
+}
+</script>
+<table class="SmartCome" align="center">
+<tr><td colspan="2" align="right" class="SC_close" valign="top"><a href="javascript:;" onclick="hideWindow('hux_wx');"><img src="source/plugin/hux_wx/mod/login/images/close.png"></a></td></tr>
+<!--{if error==1}-->
+<tr><td colspan="2" align="center"><h1>Error!</h1></td></tr>
+<!--{else}-->
+  <tr>
+    <td rowspan="3" class="erweima" align="right" valign="top"><img src="{$wxsetting['qrpic']}?rand={TIMESTAMP}"></td>
+    <td align="center" height="48px;" class="help"><p></p></td>
+  </tr>
+  <tr height="36px;">
+    <td align="center" valign="middle"><font class="authid">#{$authid}</font></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+    <form action="plugin.php?id=hux_wx:hux_wx&mod=login&ac=tologin" method="post" name="hux_wx" id="hux_wx_form">
+    <input type="hidden" name="formhash" value="{FORMHASH}" >
+    <input type="hidden" name="referer" value="{$dreferer}" >
+    <input type="hidden" name="authid" value="{$authid}" >
+    <input type="hidden" name="weixinsubmit" value="true" >
+    </form>
+     <a href="javascript:;" onclick="hux_wx_submit();">
+     <img src="source/plugin/hux_wx/mod/login/images/submit.png"></a>
+   </td>
+  </tr>
+  <!--{/if}-->
+</table>
+<!--{/if}-->
+{template common/footer}

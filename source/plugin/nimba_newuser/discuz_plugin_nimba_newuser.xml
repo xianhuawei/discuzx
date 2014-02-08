@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X2,X2.5,X3,X3.1]]></item>
+	<item id="Time"><![CDATA[2013-05-04 10:11]]></item>
+	<item id="From"><![CDATA[312]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[新手报到]]></item>
+			<item id="identifier"><![CDATA[nimba_newuser]]></item>
+			<item id="description"><![CDATA[新手报道v2.7.1 for Discuz X2.0/X2.5/X3.0 作者 土著人宁巴 人工智能实验室 出品（Made By Nimba, Team From AiLab.CN ）
+开辟固定板块，强制新注册用户发布新手报道贴！（注：配合分类信息功能，效果会更好）]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[nimba_newuser/]]></item>
+			<item id="copyright"><![CDATA[nimba]]></item>
+			<item id="version"><![CDATA[v2.7.1]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[readme]]></item>
+					<item id="menu"><![CDATA[使用说明]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="1">
+					<item id="name"><![CDATA[newuser]]></item>
+					<item id="menu"><![CDATA[]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[11]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="2">
+					<item id="name"><![CDATA[addon]]></item>
+					<item id="menu"><![CDATA[应用中心]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[99]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X2,X2.5,X3]]></item>
+		<item id="var">
+			<item id="0">
+				<item id="displayorder"><![CDATA[-1]]></item>
+				<item id="title"><![CDATA[开启插件]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[open]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="1">
+				<item id="displayorder"><![CDATA[0]]></item>
+				<item id="title"><![CDATA[优先运行]]></item>
+				<item id="description"><![CDATA[开启后，插件可绕过系统的防灌水设置，先行运行，关闭则先运行防灌水的设置后再运行报到，防灌水设置见[全局]->[防灌水设置]，详情见插件页说明：http://addon.discuz.com/?@nimba_newuser.plugin]]></item>
+				<item id="variable"><![CDATA[fgs]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="2">
+				<item id="displayorder"><![CDATA[1]]></item>
+				<item id="title"><![CDATA[跳转间隔]]></item>
+				<item id="description"><![CDATA[单位：秒，仅填数字，未报道用户在弹出提示后跳转至新手报道版块]]></item>
+				<item id="variable"><![CDATA[refresh]]></item>
+				<item id="type"><![CDATA[number]]></item>
+				<item id="value"><![CDATA[3]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="3">
+				<item id="displayorder"><![CDATA[2]]></item>
+				<item id="title"><![CDATA[报道版块]]></item>
+				<item id="description"><![CDATA[指定发布新手报道贴的版块，请务必完成本项设置]]></item>
+				<item id="variable"><![CDATA[baodao]]></item>
+				<item id="type"><![CDATA[forum]]></item>
+				<item id="value"><![CDATA[2]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="4">
+				<item id="displayorder"><![CDATA[3]]></item>
+				<item id="title"><![CDATA[跳转方式]]></item>
+				<item id="description"><![CDATA[新增参数，可以选择跳转至版块帖子列表还是直接跳至签到发布页]]></item>
+				<item id="variable"><![CDATA[style]]></item>
+				<item id="type"><![CDATA[select]]></item>
+				<item id="value"><![CDATA[2]]></item>
+				<item id="extra"><![CDATA[1=列表页
+2=发帖页]]></item>
+			</item>
+			<item id="5">
+				<item id="displayorder"><![CDATA[4]]></item>
+				<item id="title"><![CDATA[分类信息Sortid]]></item>
+				<item id="description"><![CDATA[仅当上面设置进入“发帖页”时此参数有效，分类信息设置请参考本插件提供的模板和教程：http://addon.discuz.com/?@nimba_newuser.plugin]]></item>
+				<item id="variable"><![CDATA[sortid]]></item>
+				<item id="type"><![CDATA[number]]></item>
+				<item id="value"><![CDATA[0]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="6">
+				<item id="displayorder"><![CDATA[5]]></item>
+				<item id="title"><![CDATA[提示信息]]></item>
+				<item id="description"><![CDATA[可自定义提示信息，支持HTML代码]]></item>
+				<item id="variable"><![CDATA[tip]]></item>
+				<item id="type"><![CDATA[textarea]]></item>
+				<item id="value"><![CDATA[您刚刚注册成为本站会员，有很多朋友都在关注您，想要了解您！赶快去发布一篇自我介绍的帖子吧！]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="7">
+				<item id="displayorder"><![CDATA[6]]></item>
+				<item id="title"><![CDATA[报到用户组]]></item>
+				<item id="description"><![CDATA[选择需要发布报到帖得用户组，请勿选择“游客”]]></item>
+				<item id="variable"><![CDATA[group]]></item>
+				<item id="type"><![CDATA[groups]]></item>
+				<item id="extra"><![CDATA[]]></item>
+				<item id="__value">
+					<item id="0"><![CDATA[10]]></item>
+					<item id="1"><![CDATA[1]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
+		<item id="upgradefile"><![CDATA[upgrade.php]]></item>
+		<item id="license"><![CDATA[[list]
+[*]本插件版权归属插件作者所有.
+[*]未经插件作者许可,任何人不得以任何形式在任何地方发布/转发原版以及其衍生的修改版.
+[*][b]插件作者:[/b]土著人宁巴 Team from [url=http://www.ailab.cn/]人工智能实验室[/url]
+[*][b]功能简介:[/b]开辟固定板块，强制新注册用户发布新手报道贴！（注：配合分类信息功能，效果会更好）
+[*][b]技术支持:[/b][url=http://www.ailab.cn/]人工智能实验室[/url]
+[*]如有任何关于使用上的疑问,请至站长社区[url]http://dz.open.ailab.cn/[/url]提出.
+[*][color=Red]请您在安装前认真阅读插件的详细说明[/color]，地址：[url]http://addon.discuz.com/?@nimba_security.plugin[/url].
+[*][color=Red]如果您愿意资助我们,请至[url]http://me.alipay.com/lih062624[/url]对我们进行赞助.[/color]
+[*]最后,感谢您使用我们的插件,也希望您能够给我们提供更好的意见([url=http://www.ailab.cn/]请点击这里进入人工智能实验室[/url]).
+[/list]]]></item>		
+	</item>
+</root>

@@ -1,0 +1,15 @@
+<!--{template common/header}-->
+<div style="text-align:center; padding:100px 0px;">
+<form action="forum.php?mod=post&action=newthread&specialextra=xj_event" name="event_post" method="get">
+<input name="mod" type="hidden" value="post" />
+<input name="action" type="hidden" value="newthread" />
+<input name="postclass" type="hidden" value="{$_GET[postclass]}" />
+<input name="specialextra" type="hidden" value="xj_event" />
+{lang xj_event:xzbk}:<select name="fid">
+{$forumlist}
+</select>
+
+<input name="submit" type="submit" id="submit" value="{lang xj_event:xiayb}"/>
+</form>
+</div>
+<!--{template common/footer}-->

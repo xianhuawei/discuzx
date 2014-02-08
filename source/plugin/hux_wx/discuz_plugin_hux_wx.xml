@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X3.1]]></item>
+	<item id="Time"><![CDATA[2014-01-30 14:15]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[微信推广平台]]></item>
+			<item id="identifier"><![CDATA[hux_wx]]></item>
+			<item id="description"><![CDATA[HUXTeam:http://www.hux.cc]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[hux_wx/]]></item>
+			<item id="copyright"><![CDATA[HUXTeam]]></item>
+			<item id="version"><![CDATA[1.0.7]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[hook]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[11]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="1">
+					<item id="name"><![CDATA[qr]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[微信公众平台]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[1]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="2">
+					<item id="name"><![CDATA[admincp]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[指令管理]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[1]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="3">
+					<item id="name"><![CDATA[admin]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[中奖管理]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[2]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="4">
+					<item id="name"><![CDATA[bind]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[绑定用户管理]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[3]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="5">
+					<item id="name"><![CDATA[buy]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[更多指令]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[4]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="6">
+					<item id="name"><![CDATA[caidan]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[自定义菜单]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[5]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="7">
+					<item id="name"><![CDATA[hux]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[HUX应用中心]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[6]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X3.1,X3,X2.5]]></item>
+		<item id="var">
+			<item id="0">
+				<item id="displayorder"><![CDATA[0]]></item>
+				<item id="title"><![CDATA[显示名称]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[pluginname]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[公众微信号]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="1">
+				<item id="displayorder"><![CDATA[1]]></item>
+				<item id="title"><![CDATA[二维码图片地址]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[qrpic]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[http://www.hux.cc/qrcode.jpg]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="2">
+				<item id="displayorder"><![CDATA[2]]></item>
+				<item id="title"><![CDATA[公众微信号]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[wxnumber]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[happyux_com]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="3">
+				<item id="displayorder"><![CDATA[3]]></item>
+				<item id="title"><![CDATA[Token]]></item>
+				<item id="description"><![CDATA[和微信公众平台对接验证时需用到，随意设置，相当于一个独立密码，在微信公众平台验证成为开发者时填写的Token必须和这里填写的一致]]></item>
+				<item id="variable"><![CDATA[token]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[123]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="4">
+				<item id="displayorder"><![CDATA[4]]></item>
+				<item id="title"><![CDATA[精确回复指令]]></item>
+				<item id="description"><![CDATA[自动回复机器人指令，每行一个指令，精确指令是指输入指令码时完全匹配指令，格式：指令码||回复内容，{n}可以当换行符使用]]></item>
+				<item id="variable"><![CDATA[jq]]></item>
+				<item id="type"><![CDATA[textarea]]></item>
+				<item id="value"><![CDATA[list||回复1，获得帮助{n}回复2，你知的
+1||我爱你
+2||你好]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="5">
+				<item id="displayorder"><![CDATA[5]]></item>
+				<item id="title"><![CDATA[模糊回复指令]]></item>
+				<item id="description"><![CDATA[自动回复机器人指令，每行一个指令，模糊指令是指输入指令码时模糊匹配指令，只要涉及到关键词就会回复，请注意不要和精确指令重复，否则优先使用精确指令，格式：指令码||回复内容，{n}可以当换行符使用]]></item>
+				<item id="variable"><![CDATA[mh]]></item>
+				<item id="type"><![CDATA[textarea]]></item>
+				<item id="value"><![CDATA[a||啊
+xx||OO
+bb||213]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="6">
+				<item id="displayorder"><![CDATA[6]]></item>
+				<item id="title"><![CDATA[默认自动回复]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[mr]]></item>
+				<item id="type"><![CDATA[textarea]]></item>
+				<item id="value"><![CDATA[欢迎来到HUX
+官方站点：http://www.hux.cc
+获取更多操作指令请输入：help]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="7">
+				<item id="displayorder"><![CDATA[7]]></item>
+				<item id="title"><![CDATA[禁止用户组]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[gppost]]></item>
+				<item id="type"><![CDATA[groups]]></item>
+				<item id="extra"><![CDATA[]]></item>
+				<item id="__value">
+					<item id="0"><![CDATA[9]]></item>
+					<item id="1"><![CDATA[20]]></item>
+					<item id="2"><![CDATA[4]]></item>
+					<item id="3"><![CDATA[5]]></item>
+					<item id="4"><![CDATA[6]]></item>
+					<item id="5"><![CDATA[7]]></item>
+					<item id="6"><![CDATA[8]]></item>
+				</item>
+			</item>
+			<item id="8">
+				<item id="displayorder"><![CDATA[8]]></item>
+				<item id="title"><![CDATA[管理组]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[gp]]></item>
+				<item id="type"><![CDATA[groups]]></item>
+				<item id="extra"><![CDATA[]]></item>
+				<item id="__value">
+					<item id="0"><![CDATA[1]]></item>
+				</item>
+			</item>
+			<item id="9">
+				<item id="displayorder"><![CDATA[9]]></item>
+				<item id="title"><![CDATA[微信积分]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[money]]></item>
+				<item id="type"><![CDATA[extcredit]]></item>
+				<item id="value"><![CDATA[2]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="10">
+				<item id="displayorder"><![CDATA[10]]></item>
+				<item id="title"><![CDATA[释放@指令]]></item>
+				<item id="description"><![CDATA[释放之后才能将指令名改成带@的指令，如：@help，否则带@的指令不会生效，如果你安装了专用的@指令组件，请设置为否]]></item>
+				<item id="variable"><![CDATA[at]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="11">
+				<item id="displayorder"><![CDATA[11]]></item>
+				<item id="title"><![CDATA[取消指令代码]]></item>
+				<item id="description"><![CDATA[本指令用来取消正在执行的指令]]></item>
+				<item id="variable"><![CDATA[cc]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[cc]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="12">
+				<item id="displayorder"><![CDATA[12]]></item>
+				<item id="title"><![CDATA[AppID]]></item>
+				<item id="description"><![CDATA[微信服务号创建自定义菜单时需要的参数，如果你的微信公众号不支持自定义菜单，请留空]]></item>
+				<item id="variable"><![CDATA[appid]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="13">
+				<item id="displayorder"><![CDATA[13]]></item>
+				<item id="title"><![CDATA[AppSecret]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[appsk]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="14">
+				<item id="displayorder"><![CDATA[14]]></item>
+				<item id="title"><![CDATA[编码兼容]]></item>
+				<item id="description"><![CDATA[插件本身已经对不同编码做了兼容，如果还是出现乱码，请开启编码兼容]]></item>
+				<item id="variable"><![CDATA[code]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[0]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="15">
+				<item id="displayorder"><![CDATA[15]]></item>
+				<item id="title"><![CDATA[关注自动回复]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[gz]]></item>
+				<item id="type"><![CDATA[textarea]]></item>
+				<item id="value"><![CDATA[欢迎关注HUX
+官方站点：http://www.hux.cc
+获取更多操作指令请输入：help]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+		</item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="uid"><![CDATA[请输入论坛UID]]></item>
+				<item id="touid"><![CDATA[请输入会员UID]]></item>
+				<item id="nouid"><![CDATA[UID不存在]]></item>
+				<item id="tobind"><![CDATA[请先绑定论坛帐号]]></item>
+				<item id="noop"><![CDATA[您所在用户组被禁止使用此指令]]></item>
+				<item id="cc"><![CDATA[取消指令成功]]></item>
+				<item id="moneyno"><![CDATA[您的积分不足]]></item>
+				<item id="adminzhiling"><![CDATA[这是管理专用指令]]></item>
+				<item id="jifen"><![CDATA[积分]]></item>
+				<item id="member"><![CDATA[会员]]></item>
+				<item id="guanli"><![CDATA[管理]]></item>
+				<item id="op"><![CDATA[操作]]></item>
+				<item id="delete"><![CDATA[删除]]></item>
+				<item id="opsus"><![CDATA[操作成功]]></item>
+				<item id="shixiao"><![CDATA[此页面已失效，请重新输入指令]]></item>
+				<item id="appcmd"><![CDATA[指令]]></item>
+				<item id="appid"><![CDATA[原指令]]></item>
+				<item id="qx"><![CDATA[权限]]></item>
+				<item id="appver"><![CDATA[版本]]></item>
+				<item id="appcmdtxt"><![CDATA[指令描述]]></item>
+				<item id="add"><![CDATA[添加]]></item>
+				<item id="appup"><![CDATA[更新]]></item>
+				<item id="notup"><![CDATA[已经是最新版本]]></item>
+				<item id="set"><![CDATA[设置]]></item>
+				<item id="paixu"><![CDATA[排序]]></item>
+				<item id="aterr"><![CDATA[@指令不允许改名]]></item>
+				<item id="cmdadd"><![CDATA[已添加指令]]></item>
+				<item id="cmddel"><![CDATA[未添加指令]]></item>
+				<item id="sqren"><![CDATA[中奖者]]></item>
+				<item id="jpstate"><![CDATA[状态]]></item>
+				<item id="ffwei"><![CDATA[未发放]]></item>
+				<item id="ffed"><![CDATA[已发放]]></item>
+				<item id="zjtime"><![CDATA[中奖时间]]></item>
+				<item id="jpname"><![CDATA[奖品名称]]></item>
+				<item id="datadel"><![CDATA[清空所有已发放的中奖数据]]></item>
+				<item id="upstate"><![CDATA[更改状态为已发放]]></item>
+				<item id="free"><![CDATA[免费]]></item>
+				<item id="price"><![CDATA[价格：]]></item>
+				<item id="rmbfuhao"><![CDATA[￥]]></item>
+				<item id="show"><![CDATA[显示]]></item>
+				<item id="hide"><![CDATA[隐藏]]></item>
+				<item id="ccmsg"><![CDATA[取消指令请发送:{cc}]]></item>
+				<item id="huxapp_1"><![CDATA[应用总数：]]></item>
+				<item id="huxapp_2"><![CDATA[总安装量：]]></item>
+				<item id="huxapp_3"><![CDATA[安装量：]]></item>
+				<item id="huxapp_4"><![CDATA[插件列表]]></item>
+				<item id="huxapp_5"><![CDATA[扩展列表]]></item>
+				<item id="huxapp_6"><![CDATA[模板列表]]></item>
+			</item>
+			<item id="templatelang">
+				<item id="wxnumber"><![CDATA[公众微信号]]></item>
+				<item id="qrpic"><![CDATA[二维码，扫一扫，关注本站]]></item>
+				<item id="tlist"><![CDATA[微信公众平台操作指令列表]]></item>
+				<item id="copyright"><![CDATA[http://www.hux.cc]]></item>
+			</item>
+		</item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
+		<item id="upgradefile"><![CDATA[upgrade.php]]></item>
+	</item>
+</root>

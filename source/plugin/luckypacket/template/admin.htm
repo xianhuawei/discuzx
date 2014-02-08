@@ -1,0 +1,180 @@
+<div class="bm bml bm_c">
+	<form action="plugin.php?id=luckypacket&module=admin&op=$op" name="postform" id="postform" method="post">
+		<!--{if $op == 'edit'}-->
+		<input type="hidden" value="$packet['packetid']" name="pid">
+		<!--{/if}-->
+		<!--{if $ps}-->
+		<input type="hidden" value="$ps" name="pspecial">
+		<!--{/if}-->
+		<table cellspacing="0" cellpadding="0" width="100%" class="tfm">
+		<thead class="colplural">
+		<tr>
+			<td align="center" colspan="2"><h2>$operation</h2></td>
+		</tr>
+		</thead>
+		<tr>
+			<td width="131px"><span>{lang luckypacket:add_packet_name}</span></td>
+			<td><span><input type="text" name="packet_name" class="px" value="$packet['pname']" tabindex="1" style="width: 35em" /></span><span class="rq">*</span></td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_note}</span></td>
+			<td><span class="area"><textarea name="packet_note" class="pt" tabindex="1" rows="4" style="width: 35em">$packet['description']</textarea></span><span class="rq">*</span></td>
+		</tr>
+		<!--{if $ps == PACKET_TYPE_REPLY || $ps == PACKET_TYPE_PERSON}-->
+		<tr>
+			<td><span>{lang luckypacket:add_packet_rtid}</span></td>
+			<td><span><input type="text" name="packetnew[rtid]" id="rtid" class="px" value="$packet['rtid']" tabindex="1" onblur="checkval();" style="width:120px" /></span><span id="checkval" class="rq">*</span></td>
+		</tr>
+		<!--{/if}-->
+		<tr>
+		<td><span>{lang luckypacket:add_packet_timelimit}</span></td>
+			<td>
+				<div id="uncertainstarttime">
+					<input type="text" name="starttimefrom" id="starttimefrom" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$packet['starttimefrom']" tabindex="1" style="width:120px" /><span> ~ </span><input onclick="showcalendar(event, this, true)" type="text" autocomplete="off" id="starttimeto" name="starttimeto" class="px" value="$packet['starttimeto']" tabindex="1" style="width:120px" />
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_credit}</span></td>
+			<td>
+				<span class="ftid">
+					<select id="issuecredit" class="ps" width="108" name="packetnew[issuecredit]" tabindex="1" autocomplete="off">
+					<!--{loop $_G['setting']['extcredits'] $id $credit}-->
+					<option value="$id" {if $packet['issuecredit'] == $id}selected{/if}>$credit['title']</option>
+					<!--{/loop}-->
+					</select>
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_issuetype}</span></td>
+			<td>
+				<span class="ftid">
+					<select id="issuetype" class="ps" width="108" change="display('certainnum');display('uncertaincertainnum');" name="packetnew[issuetype]" tabindex="1" autocomplete="off">
+					<option value="1" {if $packet['issuetype'] == 1}selected="selected"{/if}>{lang luckypacket:add_packet_fix}</option>
+					<option value="2" {if $packet['issuetype'] == 2}selected="selected"{/if}>{lang luckypacket:add_packet_rand}</option>
+					</select>
+				</span>
+				<div id="certainnum" {if $packet['issuetype'] == 2}style="display: none"{/if}>
+					<input type="text" name="packetnew[certainnum]" class="px" value="$packet['certainnum']" tabindex="1"  style="width:120px" autocomplete="off" /><span class="rq">*</span>
+				</div>
+				<div id="uncertaincertainnum" {if $packet['issuetype'] != 2}style="display: none"{/if}>
+					<input type="text" name="packetnew[packetminnum]" class="px" value="$packet['packetminnum']" tabindex="1" autocomplete="off" style="width:120px" /> ~ <input type="text" name="packetnew[packetmaxnum]" class="px" value="$packet['packetmaxnum']" tabindex="1" autocomplete="off" style="width:120px" /><span class="rq">*</span>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_num_pp}</span></td>
+			<td><span><input type="text" name="packetnew[num_pp]" id="num_pp" class="px" value="$packet['num_pp']" tabindex="1" /></span><span class="rq">*</span></td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_total_num}</span></td>
+			<td><span><input type="text" name="packetnew[total_num]" class="px" value="$packet['total_num']" tabindex="1" /></span><span class="rq">*&nbsp;{lang luckypacket:add_packet_total_num_sum}</span></td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_modnum_multiply}</span></td>
+			<td><span><input type="text" name="packetnew[modnum_multiply]" class="px" value="$packet['modnum_multiply']" tabindex="1" /></span></td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_gender_restricted}</span></td>
+			<td>
+				<span class="ftid">
+					<select id="gender_restricted" class="ps" width="108" name="packetnew[gender]" tabindex="1" autocomplete="off">
+					<option value="0" {if $packet['gender'] == 0}selected="selected"{/if}>{lang luckypacket:add_packet_gender_both}</option>
+					<option value="1" {if $packet['gender'] == 1}selected="selected"{/if}>{lang luckypacket:add_packet_gender_male}</option>
+					<option value="2" {if $packet['gender'] == 2}selected="selected"{/if}>{lang luckypacket:add_packet_gender_female}</option>
+					</select>
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_reg_day_restricted}</span></td>
+			<td><span><input type="text" name="packetnew[reg_day]" class="px" value="$packet['reg_day']" tabindex="1" /></span></td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_postnum_restricted}</span></td>
+			<td><span><input type="text" name="packetnew[postnum]" class="px" value="$packet['postnum']" tabindex="1" /></span></td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_credit_restricted}</span></td>
+			<td><span><input type="text" name="packetnew[credit]" class="px" value="$packet['credit']" tabindex="1" /></span></td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_usergroup_restricted}</span></td>
+			<style>option {padding-left:20px}</style>
+			<td>
+				<span>
+					<select name="usergroups[]" size="6" multiple="multiple" style="width:308px; padding:2px;">
+					<option value="0" {if @in_array(0, $packet['usergroups'])}selected="selected"{/if}>{lang luckypacket:add_packet_gender_both}</option>
+					<!--{loop $grouplist $type $group}-->
+					<optgroup label="$type">
+						<!--{loop $group $gid $groupname}-->
+						<option value="$gid" {if @in_array($gid, $packet['usergroups'])}selected="selected"{/if}>$groupname</option>
+						<!--{/loop}-->
+					</optgroup>
+					<!--{/loop}-->
+					</select>
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_displayorder}</span></td>
+			<td><span><input type="text" name="displayorder" class="px" value="$packet['displayorder']" tabindex="1" /></span></td>
+		</tr>
+		<tr>
+			<td><span>{lang luckypacket:add_packet_isopen}</span></td>
+			<td>
+				<span class="ftid">
+					<select id="packet_isopen" class="ps" width="108" name="isopen" tabindex="1">
+					<option value="1" {if $packet['status'] == PACKEY_STATUS_OPEN}selected="selected"{/if}>{lang luckypacket:add_packet_open}</option>
+					<option value="2" {if $packet['status'] == PACKEY_STATUS_CLOSE}selected="selected"{/if}>{lang luckypacket:add_packet_close}</option>
+					</select>
+				</span>
+		</td>
+		</tr>
+		<!--{if $op == 'add' && $packetAdmin && $ps != PACKET_TYPE_PERSON}-->
+		<tr>
+			<td><span>{lang luckypacket:add_packet_isannounce}</span></td>
+			<td><span><input type="checkbox" tabindex="1" value="1" class="pc" name="isannounce">&nbsp;{lang luckypacket:add_packet_announce}&nbsp;{lang luckypacket:add_packet_announce_sum}</span></td>
+		</tr>
+		<!--{/if}-->
+		</table>
+	<div align="center"><button type="submit" name="submit" value="true" class="pn"><strong>{lang luckypacket:add_submit}</strong></button></div>
+</div>
+
+
+<script type="text/javascript" reload="1">
+simulateSelect('issuecredit');
+simulateSelect('issuetype');
+simulateSelect('gender_restricted');
+simulateSelect('packet_isopen');
+
+function checkval() {
+	var rtid = parseInt($('rtid').value);
+	ajaxresponse('checkval', 'action=checkval&rtid=' + rtid);
+}
+
+function ajaxresponse(objname, data) {
+	var x = new Ajax('XML', objname);
+	x.get('plugin.php?id=luckypacket&module=ajax&inajax=1&handlekey=' + objname + '&' + data, function(s){
+		var obj = $(objname);
+		s = trim(s);
+		if(s.indexOf('bad_rtid') < 0) {
+			obj.style.display = '';
+			obj.innerHTML = '&nbsp;<img src="{STATICURL}image/common/check_right.gif" width="16" height="16" />&nbsp;' + s;
+			obj.className = "warning";
+		} else {
+			warning(obj, '$bad_rtid');
+		}
+	});
+}
+
+
+function warning(obj, msg) {
+obj.style.display = '';
+obj.innerHTML = '&nbsp;<img src="{STATICURL}image/common/check_error.gif" width="16" height="16" alt="error_tip" />&nbsp;' + msg;
+obj.className = "warning";
+}
+
+</script>
+<script type="text/javascript" src="{$_G['setting']['jspath']}calendar.js?{VERHASH}"></script>

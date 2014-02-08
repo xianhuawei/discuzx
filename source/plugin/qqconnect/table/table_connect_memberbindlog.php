@@ -16,7 +16,7 @@ class table_connect_memberbindlog extends discuz_table {
 	public function __construct() {
 		$this->_table = 'connect_memberbindlog';
 		$this->_pk = 'mblid';
-
+		$this->_pre_cache_key = 'connect_memberbindlog_';
 		parent::__construct();
 	}
 

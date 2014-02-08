@@ -1,0 +1,180 @@
+{template common/header}
+<link rel="stylesheet" type="text/css" href="source/plugin/hux_zp/images/style.css" />
+<!--{if $_G['inajax']}-->
+<!--{if $ac == 'msg'}-->
+<div id="main_messaqge">
+			<h3 class="flb">
+				<em>{lang hux_zp:tishi}</em>
+				<span>
+					<a href="javascript:;" class="flbc" onclick="<!--{if $_GET['type'] == 2}-->window.location.reload();<!--{else}-->hideWindow('{$_GET['handlekey']}');<!--{/if}-->" title="{lang close}">{lang close}</a>
+				</span>
+			</h3>
+				<div style="padding:10px 10px;">
+					<p>$_GET['text']</p>
+				</div>
+				
+				<p class="o pns{if empty($_G['inajax'])} mtw{/if}"><button type="button" class="pn pnc" name="submit" value="yes" onclick="<!--{if $_GET['type'] == 1}-->lottery();<!--{/if}--><!--{if $_GET['type'] == 2}-->window.location.reload();<!--{else}-->hideWindow('{$_GET['handlekey']}');<!--{/if}-->"><strong>{lang hux_zp:queding}</strong></button></p>
+</div>
+<!--{elseif $ac == 'info'}-->
+<div id="main_messaqge">
+			<h3 class="flb">
+				<em>{lang hux_zp:inputinfo}</em>
+				<span>
+					<!--{if $_G['inajax']}--><a href="javascript:;" class="flbc" onclick="hideWindow('{$_GET['handlekey']}')" title="{lang close}">{lang close}</a><!--{/if}-->
+				</span>
+			</h3>
+			<form action="plugin.php?id=hux_zp:hux_zp&ac=info<!--{if $_GET['uid']}-->&uid={$_GET['uid']}<!--{/if}-->" method="post" name="add" >
+				<ul class="cl" style="padding:10px 10px;">
+					<li>
+						<p><strong>{lang hux_zp:lianxia}</strong></p><p class="mtn"><input type="text" name="lianxia" class="txt" value="{$lianxi[0]}"></p>
+					</li>
+					<li>
+						<p><strong>{lang hux_zp:lianxib}</strong></p><p class="mtn"><input type="text" name="lianxib" class="txt" value="{$lianxi[1]}"></p>
+					</li>
+					<li>
+						<p><strong>{lang hux_zp:lianxic}</strong></p><p class="mtn"><input type="text" name="lianxic" class="txt" value="{$lianxi[2]}"></p>
+					</li>
+					<li>
+						<p><strong>{lang hux_zp:lianxid}</strong></p><p class="mtn"><input type="text" name="lianxid" class="txt" value="{$lianxi[3]}"></p>
+					</li>
+					<li>
+						<p><strong>{lang hux_zp:lianxie}</strong></p><p class="mtn"><input type="text" name="lianxie" class="txt" value="{$lianxi[4]}"></p>
+					</li>
+					<li>
+						<p><strong>{lang hux_zp:lianxif}</strong></p><p><textarea name="lianxif" cols="30" rows="5" class="txt">{$lianxi[5]}</textarea></p>
+					</li>
+				</ul>
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<!--{if !empty($_G['inajax'])}--><input type="hidden" name="handlekey" value="$_G['gp_handlekey']" /><!--{/if}-->
+				<p class="o pns{if empty($_G['inajax'])} mtw{/if}"><button type="submit" class="pn pnc" name="addsubmit" value="yes"><strong>{lang submit}</strong></button></p>
+			</form>
+</div>
+<!--{/if}-->
+<!--{else}-->
+<script type="text/javascript" src="http://huxddz.duapp.com/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://huxddz.duapp.com/js/jQueryRotate.2.2.js"></script>
+<script type="text/javascript" src="http://huxddz.duapp.com/js/jquery.easing.min.js"></script>
+
+
+{$jscode}
+
+
+<div id="pt" class="wp"><div class="z"><a href="index.php" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a><em> &rsaquo; </em><a href="plugin.php?id=hux_zp:hux_zp">$zpsetting['name']</a></div> 
+</div>
+
+<div id="ct" class="fct wp cl">
+<div class="fmn">
+              <ul class="tb cl">
+				<li $actives['']><a href="plugin.php?id=hux_zp:hux_zp">$zpsetting['name']</a></li>
+				<!--{if !empty($_G['uid'])}-->
+				<li $actives['myjl']><a href="plugin.php?id=hux_zp:hux_zp&ac=myjl">{lang hux_zp:myjl}</a></li>
+				<!--{if $_G['adminid'] == '1'}-->
+				<li $actives['managejpff']><a href="plugin.php?id=hux_zp:hux_zp&ac=managejpff">{lang hux_zp:managejpff}</a></li>
+				<li $actives['config']><a href="plugin.php?id=hux_zp:hux_zp&ac=config">{lang hux_zp:managejp}</a></li>
+				<!--{/if}-->
+				<!--{/if}-->
+				<li style="padding-left:10px;">{lang hux_zp:playernum}:<font color="red">{$playernum}</font> {lang hux_zp:jfneed}:<font color="red">{$zpsetting['moneynum']}</font>{$paymoneyname} <!--{if $_G['uid']}--> {lang hux_zp:mycash}:<font color="red">{$mycash}</font>{$paymoneyname}<!--{/if}--></li>
+              </ul>
+	
+</div>
+<!--{if $ac == 'config'}-->
+<div class="bm" style="margin-top:5px;"><div class="bm_c">
+	<form action="plugin.php?id=hux_zp:hux_zp&ac=config" method="post" name="add" >
+		<table cellspacing="0" cellpadding="0" class="dt valt">
+			<tr>
+				<th class="xw1">ID</th>
+				<th class="xw1">{lang hux_zp:jpname}</th>
+			</tr>
+			<!--{loop $prize_list $stargl}-->
+			<tr>
+				<td>{$stargl['id']}</td>
+				<td><input type="text" name="sname{$stargl['id']}" value="{$stargl['name']}" class="txtjp" /><input type="hidden" name="seid{$stargl['id']}" value="{$stargl['id']}" /></td>
+			</tr>
+			<!--{/loop}-->
+		</table>
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<p class="o pns mtw"><button type="submit" class="pn vm" name="addsubmit" value="yes"><strong>{lang submit}</strong></button></p>
+	</form>
+</div></div>
+<!--{elseif $ac == 'myjl'}-->
+<div class="bm" style="margin-top:5px;"><div class="bm_c">
+	<table cellspacing="0" cellpadding="0" class="dt valt">
+		<tr>
+			<th class="xw1">{lang hux_zp:jpname}</th>
+			<th class="xw1">{lang hux_zp:jpstate}</th>
+			<th class="xw1">{lang hux_zp:zjtime}</th>
+		</tr>
+		<!--{loop $flist $val}-->
+		<tr>
+			<td>{$val['name']}</td>
+			<td><!--{if $val['state'] == 1}-->{lang hux_zp:ffed}<!--{else}-->{lang hux_zp:ffwei}<!--{/if}--></td>
+			<td>{$val['dateline']}</td>
+		</tr>
+		<!--{/loop}-->
+	</table>
+	<!--{if $multi}-->
+	<table cellspacing="0" cellpadding="0" class="dt">
+		<tr><td>{$multi}</td></tr>
+	</table>
+	<!--{/if}-->
+	<p class="o pns mtw"><button type="submit" class="pn vm" name="addcard" value="yes" onclick="showWindow('hux_zp', 'plugin.php?id=hux_zp:hux_zp&ac=info','get',0);return false;"><strong>{lang hux_zp:inputinfo}</strong></button>
+</div></div>
+<!--{elseif $ac == 'managejpff'}-->
+<div class="bm" style="margin-top:5px;"><div class="bm_c">
+	<table cellspacing="0" cellpadding="0" class="dt valt">
+		<tr>
+			<th class="xw1">{lang hux_zp:jpname}</th>
+			<th class="xw1">{lang hux_zp:sqren}</th>
+			<th class="xw1">{lang hux_zp:zjtime}</th>
+			<th class="xw1">{lang hux_zp:op}</th>
+		</tr>
+		<!--{loop $flist $val}-->
+		<tr>
+			<td>{$val['name']}</td>
+			<td>{$val['username']}</td>
+			<td>{$val['dateline']}</td>
+			<td>[<a href="plugin.php?id=hux_zp:hux_zp&ac=jpffsave&eid={$val['id']}&formhash={FORMHASH}">{lang hux_zp:upstate}</a>]&nbsp;&nbsp;&nbsp;&nbsp;[<a href="javascript:;" onclick="showWindow('hux_zp_info', 'plugin.php?id=hux_zp:hux_zp&ac=info&uid={$val['uid']}','get',0);return false;">{lang hux_zp:showinfo}</a>]</td>
+		</tr>
+		<!--{/loop}-->
+	</table>
+	<!--{if $multi}-->
+	<table cellspacing="0" cellpadding="0" class="dt">
+		<tr><td>{$multi}</td></tr>
+	</table>
+	<!--{/if}-->
+</div></div>
+<!--{else}-->
+<div id="huxmain" style="padding:10px;">
+	<div class="huxzp">
+		<div id="disk"></div>
+		<div id="start"><img src="source/plugin/hux_zp/images/start.png" id="startbtn"></div>
+   </div>
+</div>
+<div class="jieshao">{lang hux_zp:jplist}</div>
+<div class="jieshaob">
+	<table cellspacing="0" cellpadding="0">
+		<tr>
+			<td width="300" valign="top">
+				<!--{loop $prize_list $val}-->
+				<div style="line-height:28px;">{$val['name']} ({$val['num']}{lang hux_zp:jpming})</div>
+				<!--{/loop}-->
+			</td>
+			<td width="450" style="background:url(source/plugin/hux_zp/images/zjbg.jpg) no-repeat;">
+				<div id="gundong">
+				<ul class="mulitline">
+				<!--{loop $show_list $val}-->
+				<li>{$val['username']} {lang hux_zp:zhong}[{$val['name']}]</li>
+				<!--{/loop}-->
+				</ul>
+				</div>
+			</td>
+			<td width="205" align="right"><img src="source/plugin/hux_zp/images/jp.jpg"></td>
+		</tr>
+	</table>
+</div>
+<div class="jieshao">{lang hux_zp:guize}</div>
+<div class="jieshaob">{$guize}</div>
+<div class="bm" id="huxteam" style="padding:10px;"></div>
+<!--{/if}-->
+<!--{/if}-->
+{template common/footer}

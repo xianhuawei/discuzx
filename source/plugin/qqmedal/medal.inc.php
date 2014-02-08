@@ -1,9 +1,5 @@
 <?php
 
-/**
- * $Id: medal.inc.php 2012-03-15 10:42:10Z liudongdong $
- */
-
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }

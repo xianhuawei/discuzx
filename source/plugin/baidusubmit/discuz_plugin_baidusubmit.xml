@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X2.5]]></item>
+	<item id="Time"><![CDATA[2013-06-09 15:27]]></item>
+	<item id="From"><![CDATA[Discuz! Board]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[百度结构化数据提交]]></item>
+			<item id="identifier"><![CDATA[baidusubmit]]></item>
+			<item id="description"><![CDATA[]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[baidusubmit/]]></item>
+			<item id="copyright"><![CDATA[Baidu Inc.]]></item>
+			<item id="version"><![CDATA[1.0.3]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[baidusubmit]]></item>
+					<item id="menu"><![CDATA[]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[11]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="1">
+					<item id="name"><![CDATA[admin]]></item>
+					<item id="menu"><![CDATA[管理]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="2">
+					<item id="name"><![CDATA[submitlog]]></item>
+					<item id="menu"><![CDATA[近期提交历史]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[1]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X2.5,X3,X3.1]]></item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="authsuccess"><![CDATA[验证成功]]></item>
+				<item id="authfailed"><![CDATA[验证失败]]></item>
+				<item id="getCheckSigfailed"><![CDATA[获取站点签名失败]]></item>
+				<item id="saveSitemapfailed"><![CDATA[保存sitemap失败]]></item>
+				<item id="authCheckSigfailed"><![CDATA[验证签名失败，以下是几种可能的原因：<br />
+1、确认插件是否已启用。 <br />
+2、服务器是否设置了rewrite规则，删除和插件相关的rewrite 规则。<br />
+3、是否安装了SEO相关插件，可先暂停使用。<br />
+4、是否安装了安全狗等软件，可先暂停验证成功后再启用。<br />
+5、是否有多台服务器，设置了均衡负载，需要都装上插件。]]></item>
+				<item id="schemaNotExsit"><![CDATA[不存在此schema]]></item>
+				<item id="linkSitefailed"><![CDATA[连接不到该站点]]></item>
+				<item id="haveperm"><![CDATA[Disallow]]></item>
+				<item id="noperm"><![CDATA[Allow]]></item>
+				<item id="hidecontent"><![CDATA[PartlyAllow]]></item>
+				<item id="tablenotexists"><![CDATA[缺少数据表，请确认本应用已安装成功]]></item>
+			</item>
+			<item id="templatelang">
+				<item id="title"><![CDATA[简介]]></item>
+				<item id="description1"><![CDATA[安装百度结构化数据提交插件后，能又快又全的向百度提交网页及内容，有助于：]]></item>
+				<item id="description2"><![CDATA[1）百度 Spider 更好地了解您的网站，优化收录]]></item>
+				<item id="description3"><![CDATA[2）网站在百度搜索上得到更好展现]]></item>
+				<item id="startusebutton"><![CDATA[开启使用]]></item>
+				<item id="stopusebutton"><![CDATA[停止使用]]></item>
+				<item id="shuoming"><![CDATA[说明]]></item>
+				<item id="shuoming1"><![CDATA[1.	您还可以到]]></item>
+				<item id="zhanzhangpingtai"><![CDATA[百度站长平台]]></item>
+				<item id="shuoming2"><![CDATA[提交：]]></item>
+				<item id="shuominglog"><![CDATA[若安装后第二天还是无提交历史，可能是插件冲突引起的，可尝试停用插件定位导致冲突的插件。]]></item>
+				<item id="sitemap"><![CDATA[sitemap]]></item>
+				<item id="schematijiao"><![CDATA[结构化数据]]></item>
+				<item id="siliantijiao"><![CDATA[死链提交]]></item>
+				<item id="shuoming3"><![CDATA[2.	使用过程中，有任何意见或建议请提至]]></item>
+				<item id="zhanzhangfankui"><![CDATA[百度站长反馈中心]]></item>
+				<item id="siteurl"><![CDATA[论坛网址：]]></item>
+				<item id="siteauth"><![CDATA[验证]]></item>
+				<item id="sitereauth"><![CDATA[重新验证]]></item>
+				<item id="submitlogtitledate"><![CDATA[提交日期]]></item>
+				<item id="submitlogtitledaynum"><![CDATA[当日提交数]]></item>
+				<item id="submitlogtitlecount"><![CDATA[累计提交数]]></item>
+				<item id="titleauth"><![CDATA[站点验证]]></item>
+				<item id="titleping"><![CDATA[实时推送]]></item>
+				<item id="save"><![CDATA[保存]]></item>
+				<item id="open"><![CDATA[开启]]></item>
+				<item id="close"><![CDATA[关闭]]></item>
+			</item>
+		</item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+    	<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
+	</item>
+</root>

@@ -1,0 +1,138 @@
+<script type="text/javascript">
+
+function ajaxpost2(formid, showid, waitid, submitbtn) {
+    var waitid = typeof waitid === 'undefined' || waitid === null ? showid : (waitid !== '' ? waitid : '');
+    var showidclass = !showidclass ? '' : showidclass;
+    var curform = $(formid);
+
+    var action = curform.getAttribute('action');
+    action = hostconvert(action);
+    curform.action = action.replace(/\&inajax\=1/g, '')+'&inajax=1';
+
+    submitbtn.disabled = true;
+
+    $(showid).innerHTML = '';
+
+    var x = new Ajax('HTML', waitid);
+    x.showLoading();
+    x.showId = $(showid);
+
+    var poststr = 'siteurl=' + encodeURIComponent(curform.elements['siteurl'].value) + '&auth=1';
+
+    x.post(curform.action, poststr, function(s, x) {
+        s = eval('(' + s + ')');
+        ajaxinnerhtml($(showid), s.msg);
+        if (s.error === 0) {
+            $(showid).className = authStatus.success.msgclass;
+            submitbtn.value = authStatus.success.btntext;
+            $('siteurl').disabled = true;
+            $('siteurl').className = authStatus.success.inputclass;
+            //打开全局
+            isExist = 1;
+        } else {
+            $(showid).className = authStatus.failed.msgclass;
+            submitbtn.innerHTML = authStatus.failed.btntext;
+            $('siteurl').disabled = false;
+            $('siteurl').className = authStatus.failed.inputclass;
+        }
+        submitbtn.disabled = false;
+
+        doane();
+    });
+
+    return false;
+}
+var isExist = {if $keyExist}1{else}0{/if};
+
+var authStatus = {
+    'success':{
+        'btntext': '{lang baidusubmit:sitereauth}',
+        'msgclass': '',
+        'inputclass': 'dsclass'
+    },
+    'failed':{
+        'btntext': '{lang baidusubmit:siteauth}',
+        'msgclass': 'errormsg',
+        'inputclass': ''
+    }
+};
+
+function formsubmit(form)
+{
+    if (1 == isExist) {
+        $('submit').value = '{lang baidusubmit:siteauth}';
+        $('siteurl').disabled = false;
+        $('siteurl').className = '';
+        $('returnmessage').innerHTML = '';
+        isExist = 0;
+    } else {
+        ajaxpost2('authform','returnmessage', 'xwaitid', $('submit'));
+    }
+    return false;
+}
+</script>
+<table class="tb tb2 " id="tips">
+<tbody><tr><th class="partition">{lang baidusubmit:title} & {lang baidusubmit:shuoming}</th></tr>
+<tr><td class="tipsblock" s="1"><ul id="tipslis"><li>{lang baidusubmit:description1}</li><li>{lang baidusubmit:description2}</li><li>{lang baidusubmit:description3}</li><li>{lang baidusubmit:shuoming1}<a target="_blank" href="http://zhanzhang.baidu.com/">
+    {lang baidusubmit:zhanzhangpingtai}</a>{lang baidusubmit:shuoming2}<a target="_blank"
+    href="http://zhanzhang.baidu.com/sitemap/index">{lang baidusubmit:sitemap}</a>
+    |<a target="_blank" href="http://zhanzhang.baidu.com/schema/index">{lang baidusubmit:schematijiao}</a>
+    |<a target="_blank" href="http://zhanzhang.baidu.com/badlink/index">{lang baidusubmit:siliantijiao}</a>
+    </li><li>{lang baidusubmit:shuoming3}<a target="_blank" href="http://zhanzhang.baidu.com/feedback/index">
+    {lang baidusubmit:zhanzhangfankui}</a></li></ul></td></tr></tbody>
+</table>
+
+<form method="post" id="authform" action="{$url}&auth=1" onsubmit="return formsubmit(this);">
+<table class="tb tb2 ">
+    <tr><th colspan="15" class="partition">{lang baidusubmit:titleauth}</th></tr>
+    <tr>
+        <td colspan="2" class="td27" s="1">{lang baidusubmit:siteurl}</td>
+    </tr>
+    <tr class="noborder">
+        <td class="vtop rowform"><input type="text" name="siteurl" id="siteurl" style="width:250px" value="{$siteUrl}" {if $keyExist}disabled="disabled" class="dsclass"{/if} /></td>
+    </tr>
+    <tr>
+        <td colspan="15">
+            <div class="fixsel"><input type="submit" class="btn" id="submit" name="submit" title="&#25353;&#32;&#69;&#110;&#116;&#101;&#114;&#32;&#38190;&#21487;&#38543;&#26102;&#25552;&#20132;&#24744;&#30340;&#20462;&#25913;" value="{if !$keyExist}{lang baidusubmit:siteauth}{else}{lang baidusubmit:sitereauth}{/if}"> <span id="returnmessage"></span><span id="xwaitid"></span></div>
+        </td>
+    </tr>
+</table>
+</form>
+
+<form method="post" action="{$url}">
+<input type="hidden" name="ping" value="1" />
+<table class="tb tb2">
+    <tr><th colspan="15" class="partition">{lang baidusubmit:titleping}</th></tr>
+    <tr>
+        <td class="vtop rowform">
+            <ul>
+                <li {if $openping}class="checked"{/if}><input type="radio" class="radio" name="openping" value="1" {if $openping}checked="checked"{/if} />{lang baidusubmit:open}</li>
+                <li {if !$openping}class="checked"{/if}><input type="radio" class="radio" name="openping" value="0" {if !$openping}checked="checked"{/if} />{lang baidusubmit:close}</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="submit" class="btn" name="submit" value="{lang baidusubmit:save}" /></td>
+    </tr>
+</table>
+</form>
+
+<style type="text/css">
+.floattop {
+top: auto;
+}
+.desc{
+width:80%;
+font-size:12px;
+margin-bottom:10px;
+margin-top:5px;
+}
+.showclass{
+}
+.dsclass {
+background-color: #888888;
+}
+.errormsg {
+color: #FF0000;
+}
+</style>

@@ -16,7 +16,7 @@ class table_connect_tthreadlog extends discuz_table {
 	public function __construct() {
 		$this->_table = 'connect_tthreadlog';
 		$this->_pk = 'twid';
-
+		$this->_pre_cache_key = 'connect_tthreadlog_';
 		parent::__construct();
 	}
 

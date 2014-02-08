@@ -1,0 +1,17 @@
+<table class="tb tb2 ">
+<tr><th colspan="15" class="partition">{lang baidusubmit:shuoming}</th></tr>
+<tr><td class="tipsblock" colspan="15">{lang baidusubmit:shuominglog}</td></tr>
+<tr class="header">
+        <th>{lang baidusubmit:submitlogtitledate}</th>
+        <th>{lang baidusubmit:submitlogtitledaynum}</th>
+        <th>{lang baidusubmit:submitlogtitlecount}</th>
+</tr>
+
+<!--{loop $loglist $row}-->
+<tr class="hover">
+    <td>{$row['ctime']}</td>
+    <td>{$row['urlnum']}</td>
+    <td>{$row['urlcount']}</td>
+</tr>
+<!--{/loop}-->
+</table>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X2.5,X3,X3.1]]></item>
+	<item id="Time"><![CDATA[2012-06-07 16:14]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[红包中心]]></item>
+			<item id="identifier"><![CDATA[luckypacket]]></item>
+			<item id="description"><![CDATA[可以设置不同的红包，给会员发放积分。]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[luckypacket/]]></item>
+			<item id="copyright"><![CDATA[Luckypacket]]></item>
+			<item id="version"><![CDATA[2.01]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[luckypacket]]></item>
+					<item id="menu"><![CDATA[领取红包]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[5]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X2.5]]></item>
+		<item id="var">
+			<item id="0">
+				<item id="displayorder"><![CDATA[0]]></item>
+				<item id="title"><![CDATA[是否关闭红包中心]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[isclose]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[0]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="1">
+				<item id="displayorder"><![CDATA[1]]></item>
+				<item id="title"><![CDATA[红包中心公告]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[announcement]]></item>
+				<item id="type"><![CDATA[textarea]]></item>
+				<item id="value"><![CDATA[红包中心正式发放了!<br />
+各种红包火热发放中ing...]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="2">
+				<item id="displayorder"><![CDATA[2]]></item>
+				<item id="title"><![CDATA[红包中心欢迎语]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[welcome]]></item>
+				<item id="type"><![CDATA[textarea]]></item>
+				<item id="value"><![CDATA[]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="3">
+				<item id="displayorder"><![CDATA[3]]></item>
+				<item id="title"><![CDATA[管理红包的管理员uid]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[adminids]]></item>
+				<item id="type"><![CDATA[text]]></item>
+				<item id="value"><![CDATA[1,2,3]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="4">
+				<item id="displayorder"><![CDATA[4]]></item>
+				<item id="title"><![CDATA[允许申请自主红包的用户组]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[sgroup]]></item>
+				<item id="type"><![CDATA[groups]]></item>
+				<item id="extra"><![CDATA[]]></item>
+				<item id="__value">
+					<item id="0"><![CDATA[9]]></item>
+					<item id="1"><![CDATA[10]]></item>
+					<item id="2"><![CDATA[11]]></item>
+					<item id="3"><![CDATA[12]]></item>
+					<item id="4"><![CDATA[13]]></item>
+					<item id="5"><![CDATA[14]]></item>
+					<item id="6"><![CDATA[15]]></item>
+					<item id="7"><![CDATA[16]]></item>
+				</item>
+			</item>
+			<item id="5">
+				<item id="displayorder"><![CDATA[5]]></item>
+				<item id="title"><![CDATA[是否隐藏关闭和过期的红包]]></item>
+				<item id="description"><![CDATA[普通会员查看红包列表里不显示关闭的和过期的红包。]]></item>
+				<item id="variable"><![CDATA[hidden]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+		</item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="pluginTitle"><![CDATA[红包中心]]></item>
+				<item id="closed"><![CDATA[红包中心正在维护，请稍后访问...]]></item>
+				<item id="packet_ver"><![CDATA[Luckypacket For <a href="http://discuz.net" target="_blank">Discuz!</a> X2.5<br />Ver 2.00]]></item>
+				<item id="usergroups_member"><![CDATA[会员用户组]]></item>
+				<item id="usergroups_special"><![CDATA[特殊用户组]]></item>
+				<item id="usergroups_specialadmin"><![CDATA[特殊管理组]]></item>
+				<item id="usergroups_system"><![CDATA[系统用户组]]></item>
+				<item id="packet_add"><![CDATA[添加红包]]></item>
+				<item id="packet_edit"><![CDATA[编辑红包]]></item>
+				<item id="add_type_0"><![CDATA[添加普通红包]]></item>
+				<item id="add_type_1"><![CDATA[添加每日红包]]></item>
+				<item id="add_type_2"><![CDATA[添加回帖红包]]></item>
+				<item id="add_type_3"><![CDATA[申请自主红包]]></item>
+				<item id="packet_self"><![CDATA[我的红包]]></item>
+				<item id="packet_nor"><![CDATA[普通红包]]></item>
+				<item id="packet_list"><![CDATA[所有红包]]></item>
+				<item id="packet_daily"><![CDATA[每日红包]]></item>
+				<item id="packet_reply"><![CDATA[回帖红包]]></item>
+				<item id="packet_diy"><![CDATA[自主红包]]></item>
+				<item id="packet_mod"><![CDATA[审核红包]]></item>
+				<item id="packet_edit_nopermission"><![CDATA[对不起，您无权编辑他人发放的红包，请返回。]]></item>
+				<item id="packet_name_isnull"><![CDATA[红包名称不能为空，请返回。]]></item>
+				<item id="packet_note_isnull"><![CDATA[红包说明不能为空，请返回。]]></item>
+				<item id="bad_rtid"><![CDATA[红包关联主题帖不存在或者禁止回复，请返回。]]></item>
+				<item id="bad_mod"><![CDATA[操作失败]]></item>
+				<item id="moderate_pass"><![CDATA[通过审核]]></item>
+				<item id="del_succeed"><![CDATA[已删除]]></item>
+				<item id="packet_need_moderate"><![CDATA[红包中心有新的自主红包申请，请进入红包中心查看]]></item>
+				<item id="packet_need_moderate_content"><![CDATA[红包中心有新的自主红包申请，需要您进行审核，请进入红包中心查看。<a href="{$siteurl}plugin.php?id=luckypacket&op=mod">点击进入红包中心</a>]]></item>
+				<item id="thread_title"><![CDATA[帖子标题：<a href="forum.php?mod=viewthread&tid={$tid}" target="_blank"><font color="blue">{$existpost}</font>]]></item>
+				<item id="bad_endtime"><![CDATA[发放结束时间不能小于开始时间，请返回。]]></item>
+				<item id="bad_extcredit"><![CDATA[所设置发放积分未启用，请返回。]]></item>
+				<item id="bad_certainnum"><![CDATA[发放积分固定值为空或设置有误，请返回。]]></item>
+				<item id="bad_packetminnum"><![CDATA[发放积分最小值设置有误，请返回。]]></item>
+				<item id="bad_packetmaxnum"><![CDATA[发放积分最大值为空或设置有误，请返回。]]></item>
+				<item id="bad_num_pp"><![CDATA[每人最多领取个数必须为正整数，请返回。]]></item>
+				<item id="bad_total_num"><![CDATA[总共可领取红包数目设置有误，请返回。]]></item>
+				<item id="bad_modnum_multiply"><![CDATA[版主额外发放倍数设置有误，请返回。]]></item>
+				<item id="bad_reg_day"><![CDATA[注册天数限制设置有误，请返回。]]></item>
+				<item id="bad_postnum"><![CDATA[发帖数限制设置有误，请返回。]]></item>
+				<item id="bad_credit"><![CDATA[积分限制设置有误，请返回。]]></item>
+				<item id="bad_displayorder"><![CDATA[显示顺序设置有误，请返回。]]></item>
+				<item id="credits_policy_lowerlimit"><![CDATA[发放者积分低于下限，请返回]]></item>
+				<item id="add_succeed"><![CDATA[红包添加成功。]]></item>
+				<item id="announce_issue"><![CDATA[红包开始发放了。]]></item>
+				<item id="get_num"><![CDATA[领取红包数]]></item>
+				<item id="goto_packet"><![CDATA[<br /><a href="plugin.php?id=luckypacket">点击进入红包中心</a>]]></item>
+				<item id="packet_noexist"><![CDATA[所操作红包不存在，请返回。]]></item>
+				<item id="edit_succeed"><![CDATA[编辑红包成功。]]></item>
+				<item id="pakcet_issue_invalid"><![CDATA[您所在的用户组无权申请自主红包，请返回。]]></item>
+				<item id="pakcet_get_invalid"><![CDATA[对不起此红包不能领取，请返回。]]></item>
+				<item id="pakcet_self_invalid"><![CDATA[对不起，不能领取自已发放的红包，请返回。]]></item>
+				<item id="pakcet_not_start"><![CDATA[此红包未开始发放，不能领取，请返回。]]></item>
+				<item id="pakcet_end_already"><![CDATA[此红包已结束发放，不能领取，请返回。]]></item>
+				<item id="usergroup_get_invalid"><![CDATA[你所在的用户组不能领取此红包，请返回。]]></item>
+				<item id="packet_permforum_nopermission"><![CDATA[您没有达到领取该红包的条件，请返回。</p></div><div><p><b>所需条件：</b><br />
+	&nbsp;&nbsp;&nbsp;注册天数 > {$packet[regDay]} 并且 发帖数 > {$packet[postNum]} 并且 积分数 > {$packet[credit]} 并且 性别为 {$packet[gender]}<br /><br /><b>您的信息：</b><br />&nbsp;&nbsp;&nbsp;注册天数：{$regDay}<br />
+	&nbsp;&nbsp;&nbsp;发帖数：{$post}<br />
+	&nbsp;&nbsp;&nbsp;积分数：{$credits}<br />
+	&nbsp;&nbsp;&nbsp;性别：{$gender}
+	</p></div>]]></item>
+				<item id="gender_secret"><![CDATA[保密]]></item>
+				<item id="gender_both"><![CDATA[全部]]></item>
+				<item id="gender_male"><![CDATA[男]]></item>
+				<item id="gender_female"><![CDATA[女]]></item>
+				<item id="gender_undefine"><![CDATA[未填写]]></item>
+				<item id="nopost_nodraw"><![CDATA[您还没有参与回帖不能领取此红包。<a href="forum.php?mod=viewthread&tid={$replyurl}">查看该主题</a> | <a href="forum.php?mod=post&action=reply&tid={$replyurl}">回复该主题</a>]]></item>
+				<item id="packet_get_succeed"><![CDATA[红包领取成功，获得]]></item>
+				<item id="packet_get_succeed_msg"><![CDATA[红包领取成功，获得 {$credit} {$credittitle}]]></item>
+				<item id="packet_total_max_failed"><![CDATA[对不起，此红包已被别人领取光了 -。-|||]]></item>
+				<item id="packet_get_max_failed"><![CDATA[O(∩_∩)O 您的红包已经领完了，谢谢您的关注 O(∩_∩)O]]></item>
+			</item>
+			<item id="templatelang">
+				<item id="pluginTitle"><![CDATA[红包中心]]></item>
+				<item id="notice"><![CDATA[<center>欢迎来到<br />－红包中心－</center>]]></item>
+				<item id="sub_title_record"><![CDATA[红包领取排行榜]]></item>
+				<item id="sub_title_mod"><![CDATA[操作菜单]]></item>
+				<item id="packet_add"><![CDATA[添加普通红包]]></item>
+				<item id="packet_add_1"><![CDATA[添加每日红包]]></item>
+				<item id="packet_add_2"><![CDATA[添加回帖红包]]></item>
+				<item id="packet_add_3"><![CDATA[申请自主红包]]></item>
+				<item id="packet_all"><![CDATA[所有红包]]></item>
+				<item id="packet_0"><![CDATA[普通红包]]></item>
+				<item id="packet_1"><![CDATA[每日红包]]></item>
+				<item id="packet_2"><![CDATA[回帖红包]]></item>
+				<item id="packet_3"><![CDATA[自主红包]]></item>
+				<item id="mod_packet"><![CDATA[审核红包]]></item>
+				<item id="packet_edit"><![CDATA[编辑红包]]></item>
+				<item id="packetlist"><![CDATA[红包列表]]></item>
+				<item id="mypacketlist"><![CDATA[我的红包]]></item>
+				<item id="my_record"><![CDATA[领取记录]]></item>
+				<item id="app_packet"><![CDATA[申请发放红包]]></item>
+				<item id="person_info"><![CDATA[个人信息]]></item>
+				<item id="username"><![CDATA[用户名]]></item>
+				<item id="usergroup"><![CDATA[用户组]]></item>
+				<item id="r_packetlist"><![CDATA[公告信息]]></item>
+				<item id="stars_of_forum"><![CDATA[昨日论坛之星]]></item>
+				<item id="add_packet_name"><![CDATA[红包名称：]]></item>
+				<item id="add_packet_note"><![CDATA[红包说明：]]></item>
+				<item id="add_packet_rtid"><![CDATA[关联主题帖ID：]]></item>
+				<item id="add_packet_timelimit"><![CDATA[发放时间：]]></item>
+				<item id="add_packet_credit"><![CDATA[发放的积分项：]]></item>
+				<item id="add_packet_issuetype"><![CDATA[红包发放类型：]]></item>
+				<item id="thread_title"><![CDATA[帖子标题]]></item>
+				<item id="add_packet_fix"><![CDATA[固定值]]></item>
+				<item id="add_packet_rand"><![CDATA[随机值]]></item>
+				<item id="get_credit_num_1"><![CDATA[红包面值：]]></item>
+				<item id="add_packet_num_pp"><![CDATA[每人最多领取个数：]]></item>
+				<item id="add_packet_total_num"><![CDATA[总共可领取红包数目：]]></item>
+				<item id="add_packet_total_num_sum"><![CDATA[（填写 -1 为不限制）]]></item>
+				<item id="add_packet_modnum_multiply"><![CDATA[版主额外发放倍数：]]></item>
+				<item id="add_packet_gender_restricted"><![CDATA[性别限制：]]></item>
+				<item id="add_packet_gender_both"><![CDATA[全部]]></item>
+				<item id="add_packet_gender_male"><![CDATA[男]]></item>
+				<item id="add_packet_gender_female"><![CDATA[女]]></item>
+				<item id="add_packet_reg_day_restricted"><![CDATA[注册天数限制：]]></item>
+				<item id="add_packet_postnum_restricted"><![CDATA[发贴数目限制：]]></item>
+				<item id="add_packet_credit_restricted"><![CDATA[积分限制：]]></item>
+				<item id="add_packet_usergroup_restricted"><![CDATA[用户组限制：]]></item>
+				<item id="add_packet_displayorder"><![CDATA[红包显示顺序]]></item>
+				<item id="add_packet_isopen"><![CDATA[是否开启本红包：]]></item>
+				<item id="remain_num"><![CDATA[剩余红包数量：]]></item>
+				<item id="add_packet_open"><![CDATA[开启]]></item>
+				<item id="add_packet_close"><![CDATA[关闭]]></item>
+				<item id="add_packet_isannounce"><![CDATA[是否自动发送公告]]></item>
+				<item id="add_packet_announce"><![CDATA[发送公告]]></item>
+				<item id="add_packet_announce_sum"><![CDATA[（本功能会自动添加公告，若想编辑公告内容及设置，请进入后台修改。） ]]></item>
+				<item id="add_submit"><![CDATA[提交]]></item>
+				<item id="no_packet"><![CDATA[目前暂无红包]]></item>
+				<item id="get_packet"><![CDATA[领取]]></item>
+				<item id="edit_packet"><![CDATA[编辑]]></item>
+				<item id="get_record"><![CDATA[领取记录]]></item>
+				<item id="my_get_record"><![CDATA[我的领取记录]]></item>
+				<item id="all_get_record"><![CDATA[所有领取记录]]></item>
+				<item id="my_issue_record"><![CDATA[我的发放记录]]></item>
+				<item id="no_log"><![CDATA[暂无任何记录]]></item>
+				<item id="moderate_pass"><![CDATA[通过]]></item>
+				<item id="moderate_del"><![CDATA[删除]]></item>
+				<item id="moderate_reset"><![CDATA[重置]]></item>
+				<item id="get_credit_name"><![CDATA[积分名称]]></item>
+				<item id="get_credit_num"><![CDATA[积分数]]></item>
+				<item id="get_issuetype"><![CDATA[发放类型]]></item>
+				<item id="get_packetid"><![CDATA[红包id]]></item>
+				<item id="get_credit_dateline"><![CDATA[领取时间]]></item>
+				<item id="get_credit_ip"><![CDATA[操作IP]]></item>
+				<item id="copyright"><![CDATA[版本信息]]></item>
+				<item id="search_any_date"><![CDATA[全部时间]]></item>
+				<item id="personal"><![CDATA[私人红包]]></item>
+				<item id="personal_moderate"><![CDATA[审核中]]></item>
+				<item id="today"><![CDATA[今日]]></item>
+				<item id="day"><![CDATA[天]]></item>
+				<item id="thread"><![CDATA[帖]]></item>
+				<item id="multiple"><![CDATA[倍]]></item>
+				<item id="last_1_days"><![CDATA[一天]]></item>
+				<item id="last_2_days"><![CDATA[两天]]></item>
+				<item id="list_one_week"><![CDATA[一周]]></item>
+				<item id="list_one_month"><![CDATA[一个月]]></item>
+				<item id="list_three_month"><![CDATA[三个月]]></item>
+				<item id="draw_already"><![CDATA[此红包已被领取 {$packetdata[inum]} 个，点击查看领取详情。]]></item>
+				<item id="total_draw"><![CDATA[总共被领取：]]></item>
+				<item id="out_of_draw"><![CDATA[[本红包已被领取光了]]]></item>
+				<item id="status_of_draw"><![CDATA[本红包领取情况：]]></item>
+				<item id="unlimited"><![CDATA[不限]]></item>
+				<item id="click_to_view"><![CDATA[点击查看]]></item>
+				<item id="confirm_msg"><![CDATA[您正删除一个红包，请确认是否要进行此操作？]]></item>
+			</item>
+			<item id="installlang">
+				<item id="daliy_packet"><![CDATA[每日红包]]></item>
+				<item id="daliy_packet_sum"><![CDATA[每天发放固定数量的红包，先到先得！]]></item>
+				<item id="delete_data_confirm"><![CDATA[你已成功卸载“红包中心”插件，是否删除历史红包数据？]]></item>
+				<item id="delete_data_confirm_content"><![CDATA[删除历史数据]]></item>
+			</item>
+		</item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
+		<item id="upgradefile"><![CDATA[upgrade.php]]></item>
+	</item>
+</root>

@@ -6,6 +6,7 @@
  *
  *      $Id: mypm.php 27451 2012-02-01 05:48:47Z monkey $
  */
+//note signin(签到) @ Discuz! X3
 
 if(!defined('IN_MOBILE_API')) {
 	exit('Access Denied');
@@ -16,9 +17,11 @@ include_once 'misc.php';
 
 class mobile_api {
 
+	//note 程序模块执行前需要运行的代码
 	function common() {
 	}
 
+	//note 程序模板输出前运行的代码
 	function output() {
 		global $_G;
 		$variable = array();

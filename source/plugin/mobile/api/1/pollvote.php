@@ -5,6 +5,7 @@
 *
 *      $Id: pollvote.php 32286 2012-12-19 07:56:10Z monkey $
 */
+//note Õ∂∆±¥¶¿Ì @ Discuz! X2.5
 
 if(!defined('IN_MOBILE_API')) {
 	exit('Access Denied');

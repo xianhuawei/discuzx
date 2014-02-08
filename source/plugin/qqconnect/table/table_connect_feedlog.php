@@ -16,7 +16,7 @@ class table_connect_feedlog extends discuz_table {
 	public function __construct() {
 		$this->_table = 'connect_feedlog';
 		$this->_pk = 'flid';
-
+		$this->_pre_cache_key = 'connect_feedlog_';
 		parent::__construct();
 	}
 

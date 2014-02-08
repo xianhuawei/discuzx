@@ -1,0 +1,19 @@
+<!--{template common/header_ajax}-->
+<h3 class="flb">
+	<em>{$lang['appname']}</em>
+	    <span><a href="javascript:;" class="flbc" onclick="hideWindow('$_GET['handlekey']');" title="{lang close}">{lang close}</a></span>
+</h3>
+<div class="f_c altw">
+<div style="clear:both;"/>
+	<div class="alert_right">
+		<div style="clear:both;"/>
+		<p id="succeedmessage"></p>
+		<p id="succeedlocation" class="alert_btnleft"></p>
+		<p class="alert_btnleft">$tips</p>
+	</div>
+</div>
+<p class="o pns">
+	<span style="float:left;padding-left:2em;">{$refresh}{$lang['tiaozhuan']}</span>
+	<button type="button" class="pn pnc" onclick="javascript:window.location.href='{$action}'"><strong>{$lang['dianji']}</strong></button>
+</p>
+<!--{template common/footer_ajax}-->

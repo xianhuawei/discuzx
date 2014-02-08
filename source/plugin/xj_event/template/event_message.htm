@@ -1,0 +1,54 @@
+<!--{template common/header}-->
+<div id="message_display">
+<form name="event_message" id="event_message" method="post" autocomplete="off" action="plugin.php?id=xj_event:event_message&action=send&page={$page}&tid={$tid}&inajax=1&ajaxtarget={$_GET[ajaxtarget]}" onsubmit="ajaxpost('event_message', 'message_display', 'message_display', '');">
+<input type="hidden" name="message_action" value="1" />
+<table width="600" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="600" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><h3 class="flb">{lang xj_event:dztx}</h3></td>
+        <td width="30" align="right"><a href="javascript:;" 
+class="flbc" onclick="hideWindow('applymessage');" title="{lang 
+close}"></a></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+  	<td>
+<div style="clear:both; height:30px; padding-top:5px; padding-left:10px;">{lang xj_event:leirong}: <input name="message_content" type="text" size="70" maxlength="70"/>
+</div>
+    <table width="600" border="0" cellspacing="0" cellpadding="0" id="movieinfo">
+      <tr style="height:26px; border-bottom:1px #CCCCCC dashed;">
+      	<td width="42" align="center">{lang xj_event:xz}</td>
+        <td width="60" align="center">{lang xj_event:yhm}</td>
+        <td width="50" align="center">{lang xj_event:bmrs}</td>
+        <td width="140" align="center">{lang xj_event:bmsj}</td>
+        <td align="center">{lang xj_event:zys}</td>
+        <td align="center">{lang xj_event:shenghe}</td>
+        <td width="60" align="center">{lang xj_event:pj}</td>
+      </tr>
+      <!--{loop $accesslist $key $value}-->
+      <tr style="height:26px; border-bottom:1px #CCCCCC dashed;">
+      	<td width="42" align="center"><!--{if $value[pj]==0}--><input name="uid[]" type="checkbox" value="$value[uid]"/><!--{/if}--></td>
+        <td width="60" align="center">$value[username]</td>
+        <td width="50" align="center">$value[applynumber]</td>
+        <td width="140" align="center">$value[dateline]</td>
+        <td align="center">$value[sharenum]</td>
+        <td align="center"><!--{if $value[verify]==0}--><span style="color:#FF0000;">{lang xj_event:daish}</span><!--{/if}--><!--{if $value[verify]==1}--><span style="color:#009900;">{lang xj_event:yish}</span><!--{/if}--></td>
+        <td width="60" align="center"><!--{if $value[pj]==1}--><span style="color:#FF0000;">{lang xj_event:haopin}</span><!--{/if}--><!--{if $value[pj]==2}--><span style="color:#FF6600;">{lang xj_event:zhongpin}</span><!--{/if}--><!--{if $value[pj]==3}--><span style="color:#006600;">{lang xj_event:chapin}</span><!--{/if}--><!--{if $value[pj]==4}--><span style="color:#006600;">{lang xj_event:ffj}</span><!--{/if}--><!--{if $value[pj]==0}-->{lang xj_event:wu}<!--{/if}--></td>
+      </tr>
+      <!--{/loop}-->
+    </table>
+    </td>
+  </tr>
+</table>
+<!--{if $multipage}-->
+<div style="clear:both; height:30px; padding-top:5px;">$multipage</div>
+<!--{/if}-->
+<div class="o pns">
+<em class="xi1" id="return_activityapplies" style="float:left;">$onerror</em>
+<button type="submit" class="pn pnc"><span>{lang xj_event:fstx}</span></button>
+</div>
+</form>
+<div>
+<!--{template common/footer}-->

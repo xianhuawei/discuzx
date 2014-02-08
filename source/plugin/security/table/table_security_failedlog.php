@@ -16,7 +16,7 @@ class table_security_failedlog extends discuz_table {
 	public function __construct() {
 		$this->_table = 'security_failedlog';
 		$this->_pk = 'id';
-
+		$this->_pre_cache_key = 'security_failedlog_';
 		parent::__construct();
 	}
 

@@ -1,0 +1,23 @@
+<title>{$getpmlang['appcmdtxt']}</title>
+<link rel="stylesheet" type="text/css" href="source/plugin/hux_wx/mod/getpm/css/jquery.mobile-1.3.2.min.css" />
+<link rel="stylesheet" type="text/css" href="source/plugin/hux_wx/mod/getpm/css/list.css" />
+<script src="source/plugin/hux_wx/mod/getpm/js/jquery-1.9.1.min.js"></script>
+<script src="source/plugin/hux_wx/mod/getpm/js/jquery.mobile-1.3.2.min.js"></script>
+<script src="source/plugin/hux_wx/mod/getpm/js/iscroll.js"></script>
+<script src="source/plugin/hux_wx/mod/getpm/js/list.js"></script>
+<div id="header">{$user['username']} {$getpmlang['toyou']}</div>
+<div id="wrapper">
+	<div id="scroller">
+		<div id="pullDown" class="idle">
+			<span class="pullDownIcon"></span>
+			<span class="pullDownLabel">Pull down to refresh...</span>
+		</div>
+		<ul id="thelist">
+		</ul>
+		<div id="pullUp" class="idle">
+			<span class="pullUpIcon"></span>
+			<span class="pullUpLabel">Pull up to refresh...</span>
+		</div>
+	</div>
+</div>
+<div id="footer">UID:{$_GET['touid']}</div>

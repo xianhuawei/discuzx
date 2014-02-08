@@ -16,6 +16,7 @@ class table_security_evilpost extends discuz_table {
 	public function __construct() {
 		$this->_table = 'security_evilpost';
 		$this->_pk = 'pid';
+		$this->_pre_cache_key = 'security_evilpost_';
 
 		parent::__construct();
 	}

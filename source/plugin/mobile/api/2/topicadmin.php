@@ -5,6 +5,7 @@
 *
 *      $Id: topicadmin.php 32489 2013-01-29 03:57:16Z monkey $
 */
+//note topicadmin入口管理 @ Discuz! X2.5
 
 if(!defined('IN_MOBILE_API')) {
 	exit('Access Denied');

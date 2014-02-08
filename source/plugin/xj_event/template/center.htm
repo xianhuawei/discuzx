@@ -1,0 +1,148 @@
+<!--{template common/header}-->
+<style>
+.xj_hll{color:$_G[style][highlightlink];}
+.xj_h{color:#858585;}
+a.xj_btn{ display:inline-block; padding-top:4px; text-align:center; height:28px; width:170px;background:url(source/plugin/xj_event/images/btnbg.png) no-repeat; text-decoration:none; font-size:14px; font-weight:bold; font-family: '{lang xj_event:wryh}';}
+a:hover.xj_btn{ display:inline-block; padding-top:4px; text-align:center; height:28px; width:170px;background:url(source/plugin/xj_event/images/btnbg.png) no-repeat; text-decoration:none; font-size:14px; font-weight:bold; font-family: '{lang xj_event:wryh}';}
+.xjmenu {
+	height:32px;
+}
+.xjmenu_a {
+	width:80px;
+	line-height:32px;
+	float:left;
+	height:32px;
+	text-align:center;
+	border-top:#cdcdcd 1px solid;
+	border-left:#cdcdcd 1px solid;
+	border-right:#cdcdcd 1px solid;
+	border-bottom:#ffffff 1px solid;
+	margin-left:10px;
+	font-weight:bold;
+	cursor:pointer;
+	background-color:#FFFFFF;
+	margin-top:-1px;
+	color:$_G[style][highlightlink];
+}
+.xjmenu_b {
+	width:80px;
+	line-height:32px;
+	float:left;
+	height:32px;
+	text-align:center;
+	margin-left:10px;
+	cursor:pointer;
+	background-color:#efefef;
+	border:#cdcdcd 1px solid;
+	margin-top:-1px;
+}
+.xjmain {
+	border-top:#cdcdcd 1px solid;
+	padding:15px 0px;
+	margin-bottom:10px;
+}
+a.eventmenu {
+	display:inline-block;
+	padding:4px 6px 2px 6px;
+	color:#777777;
+	text-decoration:none;
+	line-height:12px;
+	margin-left:5px;
+}
+a:hover.eventmenu {
+	display:inline-block;
+	padding:4px 6px 2px 6px;
+	color:#ffffff;
+	text-decoration:none;
+	line-height:12px;
+	margin-left:5px;
+	background-color:#aaaaaa;
+}
+a.eventmenu_select {
+	display:inline-block;
+	padding:4px 6px 2px 6px;
+	color:#ffffff;
+	text-decoration:none;
+	line-height:12px;
+	margin-left:5px;
+	background-color:#aaaaaa;
+}
+.xjevent{ float:left; width:245px; margin:5px 5px;}
+.xjevent b a{ font-size:14px; font-family: "{lang xj_event:wryh}";color:$_G[style][highlightlink];}
+</style>
+<div id="ct" class="wp cl" style="margin:10px 0px;">
+    <div style=" width:200px; float:left; border:1px solid #d7d7d7; background:#f8f8f8;">
+        <div style=" line-height:32px; border-bottom:1px dashed #d7d7d7; margin:10px 8px 10px 8px; "><a href="plugin.php?id=xj_event:event_list&pc=1" style="font-weight:bold; font-size:14px; font-family: '{lang xj_event:wryh}';" class="xj_hll">{lang xj_event:xxhd}[{$xxnum}]</a></div>
+        <!--{loop $offlineclass $key $value}-->
+        <div style="line-height:24px; margin:0px 8px; background:url(source/plugin/xj_event/images/xuxian.png) repeat-x 0px 23px; padding-left:5px;"><a href="plugin.php?id=xj_event:event_list&pc=1&offlineclass={$value[0]}" class="xj_h">{$value[1]}<span class="xj_hll">[{$value[2]}]</span></a></div>
+        <!--{/loop}-->
+        <div style=" line-height:32px; border-bottom:1px dashed #d7d7d7; margin:10px 8px 10px 8px; "><a href="plugin.php?id=xj_event:event_list&pc=2" style="font-weight:bold; font-size:14px; font-family: '{lang xj_event:wryh}';" class="xj_hll">{lang xj_event:xshd}[{$xsnum}]</a></div>
+        <!--{loop $onlineclass $key $value}-->
+        <div style="line-height:24px; margin:0px 8px; background:url(source/plugin/xj_event/images/xuxian.png) repeat-x 0px 23px; padding-left:5px;"><a href="plugin.php?id=xj_event:event_list&pc=2&onlineclass={$value[0]}" class="xj_h">{$value[1]}<span class="xj_hll">[{$value[2]}]</span></a></div>
+        <!--{/loop}-->
+        <div style="clear:both; margin-top:20px;"></div>
+    </div>
+    <div style=" width:230px; float:right; border-left:1px dotted #d7d7d7;">
+    	<div style="margin:0px 8px; text-align:center; margin-top:15px;">
+        	<a href="plugin.php?id=xj_event:event_post&postclass=1" class="xj_btn xj_hll">{lang xj_event:fbxxhd}</a>
+            <div style="text-align:left; font-size:12px; margin:8px 8px; color:#858585;">{lang xj_event:qpsqlyqjcqkg}</div>
+
+            <a href="plugin.php?id=xj_event:event_post&postclass=2" class="xj_btn xj_hll">{lang xj_event:fbxshd}</a>
+            <div style="text-align:left; font-size:12px; color:#858585; margin:8px 8px;">{lang xj_event:fqzycydwlht}</div>
+
+        </div>
+    </div>
+    <div style=" width: auto; float: none; margin:0px 240px 0px 210px;">
+    	<div style="padding-top:15px;">
+            <ul class="xjmenu">
+              <li class="xjmenu_a" onclick="remenu(1)" id="xjmenu1">{lang xj_event:sylx}</li>
+              <li class="xjmenu_b" onclick="remenu(2)" id="xjmenu2">{lang xj_event:gfrz}</li>
+              <li class="xjmenu_b" onclick="remenu(3)" id="xjmenu3">{lang xj_event:xxhd}</li>
+              <li class="xjmenu_b" onclick="remenu(4)" id="xjmenu4">{lang xj_event:xshd}</li>
+            </ul>
+			<div class="xjmain" id="event1">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function remenu(a){
+	for(i=1;i<=4;i++){
+		if(i==a){
+			//$('event'+i).style.display="block";
+			$('xjmenu'+i).className='xjmenu_a';
+			//document.getElementById('xjmenu'+i).className='xjmenu_a'; 
+			//document.getElementById('postclass').value=i;
+		}else{
+			//$('event'+i).style.display="none";
+			$('xjmenu'+i).className='xjmenu_b';
+			//document.getElementById('xjmenu'+i).className='xjmenu_b';
+		}
+	}
+	
+	if(a == 1){
+		ajaxget('plugin.php?id=xj_event:event_center_top&action=all&choose=new','event1','','','','');
+	}
+	if(a == 2){
+		ajaxget('plugin.php?id=xj_event:event_center_top&action=official&choose=new','event1','','','','');
+	}
+	if(a == 3){
+		ajaxget('plugin.php?id=xj_event:event_center_top&action=offline&choose=new','event1','','','','');
+	}
+	if(a == 4){
+		ajaxget('plugin.php?id=xj_event:event_center_top&action=online&choose=new','event1','','','','');
+	}
+	
+
+
+
+	/*
+	if(a == 3){
+		ajaxget('plugin.php?id=xj_event:event_userlist&tid={$_GET[tid]}','event3_content','','','','');
+		$('userlistmenu1').className='eventmenu_select';
+	}
+	*/
+}
+ajaxget('plugin.php?id=xj_event:event_center_top&action=all&choose=new','event1','','','','');
+</script>
+<!--{template common/footer}-->

@@ -94,10 +94,10 @@ function cloudaddons_removelog($rid) {
 }
 
 function cloudaddons_validator($addonid) {
-	$array = cloudaddons_getmd5($addonid);
-	if(cloudaddons_open('&mod=app&ac=validator&ver=2&addonid='.$addonid.($array !== false ? '&rid='.$array['RevisionID'].'&sn='.$array['SN'].'&rd='.$array['RevisionDateline'] : '')) === '0') {
-		cpmsg('cloudaddons_genuine_message', '', 'error', array('addonid' => $addonid));
-	}
+//	$array = cloudaddons_getmd5($addonid);
+//	if(cloudaddons_open('&mod=app&ac=validator&ver=2&addonid='.$addonid.($array !== false ? '&rid='.$array['RevisionID'].'&sn='.$array['SN'].'&rd='.$array['RevisionDateline'] : '')) === '0') {
+//		cpmsg('cloudaddons_genuine_message', '', 'error', array('addonid' => $addonid));
+//	}
 }
 
 function cloudaddons_upgradecheck($addonids) {
@@ -376,7 +376,7 @@ function cloudaddons_clear($type, $id) {
 		$filedeleted = false;
 		while($f = $d->read()) {
 			if(preg_match('/^discuz\_'.$dirs[$type][0].'\_'.$id.'(\_\w+)?\.xml$/', $f)) {
-				@unlink($entrydir.'/'.$f);
+				//@unlink($entrydir.'/'.$f);
 				if($type == 'plugin' && !$filedeleted) {
 					@unlink($entrydir.'/'.$f);
 					$importtxt = @implode('', file($entrydir.'/'.$f));

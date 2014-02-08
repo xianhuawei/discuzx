@@ -1,0 +1,83 @@
+<!--{block return}-->
+<img src="$imgurl" width="150" height="110"/>
+<dt>{lang xj_event:hdfs}: <strong>$postclass</strong></dt>
+<dt>{lang xj_event:hdlx}: $eventclass[1]</dt>
+<dt>{lang xj_event:hddq}: $citys</dt>
+<dt>{lang xj_event:kssj}: {$starttime}</dt>
+<dt>{lang xj_event:jssj}: {$endtime}</dt>
+<dt>{lang xj_event:hddd}: {$items[event_address]}</dt>
+<!--{if $items[use_extcredits_num]>0}-->
+<dt>{lang xj_event:cyjf}: {$items[use_extcredits_num]} $extcredit_title</dt>
+<!--{/if}-->
+<dt>{lang xj_event:cjme}:
+<!--{if $items[event_number]==0}-->
+{lang xj_event:buxian}
+<!--{else}-->
+{$items[event_number]} {lang xj_event:ren}
+<!--{/if}-->
+</dt>
+<dt>{lang xj_event:bmrs}: {$applycountnumber} {lang xj_event:ren}</dt>
+<dt>{lang xj_event:cjfy}: {$items[use_cost]} {lang xj_event:yuan}</dt>
+<dt>{lang xj_event:bmjz}: {$activityexpiration}</dt>
+
+
+
+<!--{if $items[postclass]==1}-->
+    <!--线下活动按钮-->
+    <!--条件当前时间小于（活动结束+30天）的时间-->
+    <!--{if $timestamp<($items[endtime]+2592000)}-->
+    	<!--过了报名时间，没有报名的-->
+        <!--{if $items['activityexpiration']<=$timestamp and $verify==null}-->
+            <a href="javascript:" class="bm_btn2" title="{lang xj_event:bmjz}">{lang xj_event:bmjz}</a>
+        <!--{else}-->    
+            <!--{if !$_G[uid]}-->
+                <a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href);return false;" class="bm_btn2" title="{lang xj_event:qdlhbm}">{lang xj_event:wycjqdl}</a>
+            <!--{else}-->
+                <!--{if $verify==null}-->
+                    <a href="plugin.php?id=xj_event:event_mobile_join&tid={$tid}" class="bm_btn">{lang xj_event:wycj}</a>
+                <!--{else}-->
+                    <!--{if $verify==0}-->
+                        <a href="javascript:" onclick="showDialog($('canceljoin').innerHTML, 'info', '{lang xj_event:qxbm}')" class="bm_btn">{lang xj_event:qxbm}</a>
+                    <!--{else}-->
+                        <a href="forum.php?mod=post&action=newthread&fid={$_G[fid]}&eid={$items[eid]}" class="bm_btn3" title="{lang xj_event:ldbmypshtg}">{lang xj_event:fbhdzy}</a>
+                    <!--{/if}--> 
+                <!--{/if}-->    
+            <!--{/if}-->
+        <!--{/if}-->
+    <!--{/if}-->
+    <!--线下活动按钮end-->
+
+<!--{else}-->
+
+    <!--线上活动按钮-->
+    <!--条件当前时间小于（活动结束）的时间-->
+    <!--{if $timestamp<$items[endtime]}-->
+    	<!--过了报名时间，没有报名的-->
+        <!--{if $items['activityexpiration']<=$timestamp and $verify==null}-->
+            <a href="javascript:" class="bm_btn2" title="{lang xj_event:bmjz}">{lang xj_event:bmjz}</a>
+        <!--{else}-->    
+            <!--{if !$_G[uid]}-->
+                <a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href);return false;" class="bm_btn2" title="{lang xj_event:qdlhbm}">{lang xj_event:wycjqdl}</a>
+            <!--{else}-->
+                <!--{if $verify==null}-->
+                    <a href="plugin.php?id=xj_event:event_mobile_join&tid={$tid}" class="bm_btn">{lang xj_event:wycj}</a>
+                <!--{else}-->
+                    <!--{if $verify==0}-->
+                        <a href="javascript:" onclick="showDialog($('canceljoin').innerHTML, 'info', '{lang xj_event:qxbm}')" class="bm_btn">{lang xj_event:qxbm}</a>
+                    <!--{else}-->
+                        <a href="forum.php?mod=post&action=newthread&fid={$_G[fid]}&eid={$items[eid]}" class="bm_btn3" title="{lang xj_event:ldbmypshtg}">{lang xj_event:fbhdzy}</a>
+                    <!--{/if}--> 
+                <!--{/if}-->    
+            <!--{/if}-->
+        <!--{/if}-->
+    <!--{/if}-->
+    <!--线下活动按钮end-->
+
+<!--{/if}-->
+
+
+<!--{if $items[verify] == 1}-->
+[{lang xj_event:gfrz}]
+<!--{/if}-->
+
+<!--{/block}-->

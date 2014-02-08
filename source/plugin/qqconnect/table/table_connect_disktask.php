@@ -11,7 +11,7 @@ class table_connect_disktask extends discuz_table {
 	public function __construct() {
 		$this->_table = 'connect_disktask';
 		$this->_pk = 'taskid';
-
+		$this->_pre_cache_key = 'connect_disktask_';
 		parent::__construct();
 	}
 

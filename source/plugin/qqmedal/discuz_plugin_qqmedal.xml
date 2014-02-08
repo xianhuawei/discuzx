@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X2.5,X3.1]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[社区QQ达人勋章]]></item>
+			<item id="identifier"><![CDATA[qqmedal]]></item>
+			<item id="description"><![CDATA[]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[qqmedal/]]></item>
+			<item id="copyright"><![CDATA[Comsenz Inc.]]></item>
+			<item id="version"><![CDATA[1.0]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[setting]]></item>
+					<item id="menu"><![CDATA[设置]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+				<item id="1">
+					<item id="name"><![CDATA[qqmedal]]></item>
+					<item id="menu"><![CDATA[]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[11]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+					<item id="navtitle"><![CDATA[]]></item>
+					<item id="navicon"><![CDATA[]]></item>
+					<item id="navsubname"><![CDATA[]]></item>
+					<item id="navsuburl"><![CDATA[]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X2.5]]></item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="qqmedal"><![CDATA[#社区QQ达人#]]></item>
+				<item id="title"><![CDATA[我刚刚获得了社区QQ达人勋章]]></item>
+				<item id="allowed"><![CDATA[是否开启社区QQ达人勋章]]></item>
+				<item id="allowed_comment"><![CDATA[为了正常使用此插件，您需要先开启QQ互联功能]]></item>
+				<item id="show"><![CDATA[QQ达人勋章样式:]]></item>
+				<item id="rewardcredit"><![CDATA[分享奖励所用扩展积分]]></item>
+				<item id="rewardcredit_comment"><![CDATA[用户完成分享后，奖励所用的扩展积分]]></item>
+				<item id="addcreditnum"><![CDATA[分享奖励积分数量]]></item>
+				<item id="addcreditnum_comment"><![CDATA[用户完成分享后，奖励的扩展积分数量]]></item>
+				<item id="feed"><![CDATA[分享内容]]></item>
+				<item id="feed_comment"><![CDATA[分享到QQ空间和腾讯微博的内容，长度不超过70个字]]></item>
+				<item id="credit_or_feed_empty"><![CDATA[奖励积分或分享内容不能为空]]></item>
+				<item id="publish_succeed"><![CDATA[分享成功！]]></item>
+			</item>
+			<item id="templatelang">
+				<item id="medalaward"><![CDATA[勋章奖励]]></item>
+				<item id="awardtips1"><![CDATA[恭喜您获得 "社区QQ达人" 勋章！]]></item>
+				<item id="awardtips2"><![CDATA[完成分享还将获得积分奖励：]]></item>
+			</item>
+            <item id="installlang">
+                <item id="qqmedal"><![CDATA[社区QQ达人]]></item>
+                <item id="qqmedal_comment"><![CDATA[使用QQ帐号登录论坛的用户]]></item>
+                <item id="publishfeed"><![CDATA[推荐一个很棒的网站给大家，使用QQ登录还能获得 社区QQ达人 勋章和额外的积分奖励，小虾米一秒钟变身老江湖，快来看看吧]]></item>
+                <item id="tips"><![CDATA[插件安装成功！<br />为了正常使用此插件，您还需要开启QQ互联功能，详情请查看本插件的安装说明]]></item>
+            </item>
+		</item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
+	</item>
+</root>

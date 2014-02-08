@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: mobile.class.php 34241 2013-11-21 08:34:48Z nemohou $
+ *      $Id: mobile.class.php 34236 2013-11-21 01:13:12Z nemohou $
  */
 
 define("MOBILE_PLUGIN_VERSION", "3");
@@ -17,7 +17,11 @@ class mobile_core {
 		function_exists('ob_gzhandler') ? ob_start('ob_gzhandler') : ob_start();
 		header("Content-type: application/json");
 		$result = mobile_core::json(mobile_core::format($result));
-		echo empty($_GET['jsoncallback_'.FORMHASH]) ? $result : $_GET['jsoncallback_'.FORMHASH].'('.$result.')';
+		if(defined('FORMHASH')) {
+			echo empty($_GET['jsoncallback_'.FORMHASH]) ? $result : $_GET['jsoncallback_'.FORMHASH].'('.$result.')';
+		} else {
+			echo $result;
+		}
 		exit;
 	}
 
@@ -117,7 +121,7 @@ class mobile_core {
 				}
 			}
 			$message_result = strip_tags($message_result);
-
+			
 			if(defined('IS_WEBVIEW') && IS_WEBVIEW && in_array('mobileoem', $_G['setting']['plugins']['available'])) {
 				include_once DISCUZ_ROOT.'./source/plugin/mobileoem/discuzcode.func.php';
 				include mobileoem_template('common/showmessage');
@@ -147,7 +151,7 @@ class mobile_core {
 		}
 		return $xml;
 	}
-
+	
 	function diconv_array($variables, $in_charset, $out_charset) {
 		foreach($variables as $_k => $_v) {
 			if(is_array($_v)) {
@@ -192,11 +196,11 @@ class base_plugin_mobile {
 	function discuzcode($param) {
 		if(!defined('IN_MOBILE_API') || $param['caller'] != 'discuzcode') {
 			return;
-		}
+		}		
 		global $_G;
 		if(defined('IS_WEBVIEW') && IS_WEBVIEW && in_array('mobileoem', $_G['setting']['plugins']['available'])) {
 			include_once DISCUZ_ROOT.'./source/plugin/mobileoem/discuzcode.func.php';
-			include_once mobileoem_template('forum/discuzcode');
+			include_once mobileoem_template('forum/discuzcode');						
 			$_G['discuzcodemessage'] = mobileoem_discuzcode($param['param']);
 			if(in_array('soso_smilies', $_G['setting']['plugins']['available'])) {
 				$sosoclass = DISCUZ_ROOT.'./source/plugin/soso_smilies/soso.class.php';
@@ -213,7 +217,7 @@ class base_plugin_mobile {
 				"/\[\/size]/i",
 			), '', $_G['discuzcodemessage']);
 		}
-	}
+	}	
 
 	function global_mobile() {
 		if(!defined('IN_MOBILE_API')) {

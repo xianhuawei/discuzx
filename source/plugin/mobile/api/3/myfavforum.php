@@ -4,8 +4,9 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: myfavforum.php 34241 2013-11-21 08:34:48Z nemohou $
+ *      $Id: myfavforum.php 34236 2013-11-21 01:13:12Z nemohou $
  */
+//note 帖子thread >> myfavthread(我收藏的帖子) @ Discuz! X3.x
 
 if(!defined('IN_MOBILE_API')) {
 	exit('Access Denied');
@@ -18,9 +19,11 @@ include_once 'home.php';
 
 class mobile_api {
 
+	//note 程序模块执行前需要运行的代码
 	function common() {
 	}
 
+	//note 程序模板输出前运行的代码
 	function output() {
 		global $_G;
 		$fids = array();
@@ -33,7 +36,7 @@ class mobile_api {
 				$GLOBALS['list'][$fids[$_fid]]['threads'] = $_v['threads'];
 				$GLOBALS['list'][$fids[$_fid]]['posts'] = $_v['posts'];
 				$GLOBALS['list'][$fids[$_fid]]['todayposts'] = $_v['todayposts'];
-				$GLOBALS['list'][$fids[$_fid]]['yesterdayposts'] = $_v['yesterdayposts'];
+				$GLOBALS['list'][$fids[$_fid]]['yesterdayposts'] = $_v['yesterdayposts'];					
 			}
 		}
 		$variable = array(

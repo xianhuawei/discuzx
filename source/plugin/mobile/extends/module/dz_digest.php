@@ -10,6 +10,9 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 class dz_digest extends extends_data {
+//	private $variable;
+//	private $page;
+//	private $perpage = 50;
 	function __construct() {
 		parent::__construct();
 	}

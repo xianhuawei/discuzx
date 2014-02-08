@@ -1,9 +1,5 @@
 <?php
 
-/**
- * $Id: setting.inc.php 2012-03-15 10:42:10Z liudongdong $
- */
-
 if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }

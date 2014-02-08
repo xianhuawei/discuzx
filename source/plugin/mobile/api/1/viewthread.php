@@ -6,6 +6,7 @@
  *
  *      $Id: viewthread.php 31700 2012-09-24 03:46:59Z zhangjie $
  */
+//note 版块forum >> viewthread(看帖页面) @ Discuz! X2.5
 
 if(!defined('IN_MOBILE_API')) {
 	exit('Access Denied');
@@ -16,9 +17,11 @@ include_once 'forum.php';
 
 class mobile_api {
 
+	//note 程序模块执行前需要运行的代码
 	function common() {
 	}
 
+	//note 程序模板输出前运行的代码
 	function output() {
 		global $_G, $thread;
 		if($GLOBALS['hiddenreplies']) {

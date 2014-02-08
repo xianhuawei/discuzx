@@ -9,12 +9,15 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+//$extendsclass = null;
 class mobile_api {
 
 	public $extendsclass;
 	public $modulelist;
 
+	//note 程序模块执行前需要运行的代码
 	function common() {
+		//global $extendsclass;
 
 		$this->modulelist = array('dz_newthread', 'dz_digest', 'dz_newreply', 'dz_newpic');
 		if(!in_array($_GET['identifier'], $this->modulelist)) {
@@ -39,7 +42,9 @@ class mobile_api {
 
 	}
 
+	//note 程序模板输出前运行的代码
 	function output() {
+		//global $_G, $extendsclass;
 		$variable = $this->extendsclass->output();
 		mobile_core::result(mobile_core::variable($variable));
 	}

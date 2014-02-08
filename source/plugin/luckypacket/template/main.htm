@@ -1,0 +1,67 @@
+<!--{template common/header}-->
+	<script type="text/javascript">
+	function getElementsByName_iefix(tag, name) {
+		var elem = document.getElementsByTagName(tag);
+		var arr = new Array();
+		for(i = 0,iarr = 0; i < elem.length; i++) {
+			att = elem[i].getAttribute("name");
+			if(att == name) {
+				arr[iarr] = elem[i];
+				iarr++;
+			}
+		}
+		return arr;
+	}
+
+	function chgrank() {
+		var rankschg = getElementsByName_iefix('div', 'ranks');
+		for(var j = 0;j < rankschg.length;j++) {
+			if(rankschg[j].style.display == 'block') {
+				rankschg[j].style.display = 'none';	
+				if(j == rankschg.length - 1) {
+					rankschg[0].style.display = 'block';
+				} else {
+					rankschg[j+1].style.display = 'block'
+				}
+				break;
+			}
+		}
+		setTimeout("chgrank()", 5000);
+	}
+	window.onload = chgrank();
+	</script>
+	<div id="pt" class="bm cl">
+		<div class="z">
+			<a href="./" class="nvhm" title="{lang home}">$_G[setting][bbname]</a><em>&rsaquo;</em><a href="plugin.php?id=luckypacket">{lang luckypacket:pluginTitle}</a>{if $operation}<em>&rsaquo;</em>$operation{/if}
+		</div>
+	</div>
+	<div id="ct" class="ct2 wp cl">
+		<div class="mn">
+			<!--{if $packetSetting['announcement']}-->
+			<div class="bm bml pbn">
+				<div class="bm_h cl">
+					<span class="y">
+						<p></p>
+					</span>
+					<h1 class="xs2">
+						{lang luckypacket:r_packetlist}
+					</h1>
+				</div>
+				<div class="bm_c cl pbn">
+					<div style=";" id="forum_rules_1163">
+						<div class="ptn xg2">$packetSetting['announcement']</div>
+					</div>
+				</div>
+			</div>
+			<!--{/if}-->
+			<!--{if $mod=='admin'}-->
+				<!--{subtemplate luckypacket:admin}-->
+			<!--{else}-->
+				<!--{subtemplate luckypacket:list}-->
+			<!--{/if}-->
+		</div>
+		<div class="sd">
+			<!--{subtemplate luckypacket:side}-->
+		</div>
+	</div>
+<!--{subtemplate common/footer}-->

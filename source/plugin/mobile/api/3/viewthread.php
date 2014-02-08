@@ -4,8 +4,9 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: viewthread.php 34241 2013-11-21 08:34:48Z nemohou $
+ *      $Id: viewthread.php 31700 2012-09-24 03:46:59Z zhangjie $
  */
+//note 版块forum >> viewthread(看帖页面) @ Discuz! X3.x
 
 if(!defined('IN_MOBILE_API')) {
 	exit('Access Denied');
@@ -18,13 +19,15 @@ include_once 'forum.php';
 
 class mobile_api {
 
+	//note 程序模块执行前需要运行的代码
 	function common() {
 		global $_G;
 		$_G['setting']['avatarmethod'] = 0;
 	}
 
+	//note 程序模板输出前运行的代码
 	function output() {
-		extract($GLOBALS);
+		extract($GLOBALS);		
 		$_G['forum_thread']['replies'] = $_G['forum_thread']['replies'] >= 0 ? $_G['forum_thread']['replies'] : 0;
 		if($_G['page'] > @ceil(($_G['forum_thread']['replies'] + 1) / $_G['ppp'])) {
 			$content = '';
@@ -41,15 +44,15 @@ class mobile_api {
 						$postlist[$pid]['message'] = str_replace('[attach]'.$aid.'[/attach]', mobileoem_parseimg($postlist[$pid]['attachments'][$aid]['width'], 0, $variable['imagelist'][$aid]), $postlist[$pid]['message']);
 					} else {
 						$postlist[$pid]['message'] .= '<br /><br />'.mobileoem_parseimg($postlist[$pid]['attachments'][$aid]['width'], 0, $variable['imagelist'][$aid]);
-					}
+					}					
 				}
 			}
-			foreach($postlist as $pid => $post) {
+			foreach($postlist as $pid => $post) {				
 				if($post['attachlist']) {
 					foreach($post['attachlist'] as $aid) {
 						$aidencode = packaids($postlist[$pid]['attachments'][$aid]);
 						$_code = parseurl('/forum.php?mod=attachment&aid='.$aidencode, $postlist[$pid]['attachments'][$aid]['filename'], 0);
-						if(strexists($postlist[$pid]['message'], '[attach]'.$aid.'[/attach]')) {
+						if(strexists($postlist[$pid]['message'], '[attach]'.$aid.'[/attach]')) {						
 							$postlist[$pid]['message'] = str_replace('[attach]'.$aid.'[/attach]', $_code, $postlist[$pid]['message']);
 						} else {
 							$postlist[$pid]['message'] .= '<br /><br />'.$_code;
@@ -70,7 +73,7 @@ class mobile_api {
 		}
 		$variable['forumname'] = $forum['name'];
 		$variable['datatype'] = $_G['page'] == 1 ? 0 : 1;
-		$variable['webview_page'] = $content;
+		$variable['webview_page'] = $content;		
 		$variable['ppp'] = $_G['ppp'];
 		$variable['posts'] = count($postlist);
 		$variable['page'] = $_G['page'];

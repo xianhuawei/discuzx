@@ -1,0 +1,11 @@
+#huxmain{height:512px;background:#F38B04 url(bg.jpg) no-repeat;}
+.huxzp{width:417px; height:417px; position:relative;margin:50px auto;}
+#disk{width:417px; height:417px; background:url(disk.png) no-repeat;}
+#start{width:163px; height:320px; position:absolute; top:46px; left:130px;}
+#start img{cursor:pointer}
+.txt {border:solid 1px #999;width:220px;padding:3px;}
+.txtjp {border:solid 1px #999;width:100px;padding:3px;}
+.jieshao{height:28px;background-color:#CE5A0A;color:#FFF;font-size:16px;font-weight:700;padding:4px 0 0 8px;}
+.jieshaob{background-color:#F8A636;padding:10px;color:#000;}
+#gundong ul.mulitline{color:green;height:170px;overflow:hidden;}
+#gundong li{height:24px;text-indent:15px; font-size:12px; line-height:24px;list-style:none;padding-left:10px;}

@@ -1,0 +1,199 @@
+<?php
+if(!defined('IN_DISCUZ')) {
+    exit('Access Denied');
+}
+
+/* 以下数据来自 http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types */
+/* 数据不保证完整 */
+$filetypes = array(
+    'zip' => array('zip', '7z', 'rar', 'gz', 'tar', 'cab'),
+    'exe' => array('exe', 'dll', 'com', 'bat', 'msi'),
+    'video' => array(),
+    'audio' => array(),
+    'image' => array()
+);
+
+/* 压缩包格式 (都是本人没见过的格式) */
+/*
+MIME 都是 application/*-compressed 这种格式
+但并不是所有的压缩包都是这种格式 例如 zip
+*/
+$filetypes['zip'][] = 'ace';
+$filetypes['zip'][] = 'cfs';
+$filetypes['zip'][] = 'dgc';
+$filetypes['zip'][] = 'gca';
+$filetypes['zip'][] = 'lzh';
+$filetypes['zip'][] = 'lha';
+
+/* 视频格式 */
+$filetypes['video'][] = '3g2';
+$filetypes['video'][] = '3gp';
+$filetypes['video'][] = 'asf';
+$filetypes['video'][] = 'asx';
+$filetypes['video'][] = 'avi';
+$filetypes['video'][] = 'dvb';
+$filetypes['video'][] = 'f4v';
+$filetypes['video'][] = 'fli';
+$filetypes['video'][] = 'flv';
+$filetypes['video'][] = 'fvt';
+$filetypes['video'][] = 'h261';
+$filetypes['video'][] = 'h263';
+$filetypes['video'][] = 'h264';
+$filetypes['video'][] = 'jpgm';
+$filetypes['video'][] = 'jpgv';
+$filetypes['video'][] = 'jpm';
+$filetypes['video'][] = 'm1v';
+$filetypes['video'][] = 'm2v';
+$filetypes['video'][] = 'm4u';
+$filetypes['video'][] = 'm4v';
+$filetypes['video'][] = 'mj2';
+$filetypes['video'][] = 'mjp2';
+$filetypes['video'][] = 'mk3d';
+$filetypes['video'][] = 'mks';
+$filetypes['video'][] = 'mkv';
+$filetypes['video'][] = 'mng';
+$filetypes['video'][] = 'mov';
+$filetypes['video'][] = 'movie';
+$filetypes['video'][] = 'mp4';
+$filetypes['video'][] = 'mp4v';
+$filetypes['video'][] = 'mpe';
+$filetypes['video'][] = 'mpeg';
+$filetypes['video'][] = 'mpg';
+$filetypes['video'][] = 'mpg4';
+$filetypes['video'][] = 'mxu';
+$filetypes['video'][] = 'ogv';
+$filetypes['video'][] = 'pyv';
+$filetypes['video'][] = 'qt';
+$filetypes['video'][] = 'rm';
+$filetypes['video'][] = 'rmvb';
+$filetypes['video'][] = 'smv';
+$filetypes['video'][] = 'uvh';
+$filetypes['video'][] = 'uvm';
+$filetypes['video'][] = 'uvp';
+$filetypes['video'][] = 'uvs';
+$filetypes['video'][] = 'uvu';
+$filetypes['video'][] = 'uvv';
+$filetypes['video'][] = 'uvvh';
+$filetypes['video'][] = 'uvvm';
+$filetypes['video'][] = 'uvvp';
+$filetypes['video'][] = 'uvvs';
+$filetypes['video'][] = 'uvvu';
+$filetypes['video'][] = 'uvvv';
+$filetypes['video'][] = 'viv';
+$filetypes['video'][] = 'vob';
+$filetypes['video'][] = 'webm';
+$filetypes['video'][] = 'wm';
+$filetypes['video'][] = 'wmv';
+$filetypes['video'][] = 'wmx';
+$filetypes['video'][] = 'wvx';
+
+/* 音频格式 */
+$filetypes['audio'][] = 'aac';
+$filetypes['audio'][] = 'adp';
+$filetypes['audio'][] = 'aif';
+$filetypes['audio'][] = 'aifc';
+$filetypes['audio'][] = 'aiff';
+$filetypes['audio'][] = 'au';
+$filetypes['audio'][] = 'caf';
+$filetypes['audio'][] = 'dra';
+$filetypes['audio'][] = 'dts';
+$filetypes['audio'][] = 'dtshd';
+$filetypes['audio'][] = 'ecelp4800';
+$filetypes['audio'][] = 'ecelp7470';
+$filetypes['audio'][] = 'ecelp9600';
+$filetypes['audio'][] = 'eol';
+$filetypes['audio'][] = 'flac';
+$filetypes['audio'][] = 'kar';
+$filetypes['audio'][] = 'lvp';
+$filetypes['audio'][] = 'm2a';
+$filetypes['audio'][] = 'm3a';
+$filetypes['audio'][] = 'm3u';
+$filetypes['audio'][] = 'mid';
+$filetypes['audio'][] = 'midi';
+$filetypes['audio'][] = 'mka';
+$filetypes['audio'][] = 'mp2';
+$filetypes['audio'][] = 'mp2a';
+$filetypes['audio'][] = 'mp3';
+$filetypes['audio'][] = 'mp4a';
+$filetypes['audio'][] = 'mpga';
+$filetypes['audio'][] = 'oga';
+$filetypes['audio'][] = 'ogg';
+$filetypes['audio'][] = 'pya';
+$filetypes['audio'][] = 'ra';
+$filetypes['audio'][] = 'ram';
+$filetypes['audio'][] = 'rip';
+$filetypes['audio'][] = 'rmi';
+$filetypes['audio'][] = 'rmp';
+$filetypes['audio'][] = 's3m';
+$filetypes['audio'][] = 'sil';
+$filetypes['audio'][] = 'snd';
+$filetypes['audio'][] = 'spx';
+$filetypes['audio'][] = 'uva';
+$filetypes['audio'][] = 'uvva';
+$filetypes['audio'][] = 'wav';
+$filetypes['audio'][] = 'wax';
+$filetypes['audio'][] = 'weba';
+$filetypes['audio'][] = 'wma';
+$filetypes['audio'][] = 'xm';
+
+/* 图像格式 */
+$filetypes['image'][] = '3ds';
+$filetypes['image'][] = 'bmp';
+$filetypes['image'][] = 'btif';
+$filetypes['image'][] = 'cgm';
+$filetypes['image'][] = 'cmx';
+$filetypes['image'][] = 'djv';
+$filetypes['image'][] = 'djvu';
+$filetypes['image'][] = 'dwg';
+$filetypes['image'][] = 'dxf';
+$filetypes['image'][] = 'fbs';
+$filetypes['image'][] = 'fh';
+$filetypes['image'][] = 'fh4';
+$filetypes['image'][] = 'fh5';
+$filetypes['image'][] = 'fh7';
+$filetypes['image'][] = 'fhc';
+$filetypes['image'][] = 'fpx';
+$filetypes['image'][] = 'fst';
+$filetypes['image'][] = 'g3';
+$filetypes['image'][] = 'gif';
+$filetypes['image'][] = 'ico';
+$filetypes['image'][] = 'ief';
+$filetypes['image'][] = 'jpe';
+$filetypes['image'][] = 'jpeg';
+$filetypes['image'][] = 'jpg';
+$filetypes['image'][] = 'ktx';
+$filetypes['image'][] = 'mdi';
+$filetypes['image'][] = 'mmr';
+$filetypes['image'][] = 'npx';
+$filetypes['image'][] = 'pbm';
+$filetypes['image'][] = 'pct';
+$filetypes['image'][] = 'pcx';
+$filetypes['image'][] = 'pgm';
+$filetypes['image'][] = 'pic';
+$filetypes['image'][] = 'png';
+$filetypes['image'][] = 'pnm';
+$filetypes['image'][] = 'ppm';
+$filetypes['image'][] = 'psd';
+$filetypes['image'][] = 'ras';
+$filetypes['image'][] = 'rgb';
+$filetypes['image'][] = 'rlc';
+$filetypes['image'][] = 'sgi';
+$filetypes['image'][] = 'sid';
+$filetypes['image'][] = 'sub';
+$filetypes['image'][] = 'svg';
+$filetypes['image'][] = 'svgz';
+$filetypes['image'][] = 'tga';
+$filetypes['image'][] = 'tif';
+$filetypes['image'][] = 'tiff';
+$filetypes['image'][] = 'uvg';
+$filetypes['image'][] = 'uvi';
+$filetypes['image'][] = 'uvvg';
+$filetypes['image'][] = 'uvvi';
+$filetypes['image'][] = 'wbmp';
+$filetypes['image'][] = 'wdp';
+$filetypes['image'][] = 'webp';
+$filetypes['image'][] = 'xbm';
+$filetypes['image'][] = 'xif';
+$filetypes['image'][] = 'xpm';
+$filetypes['image'][] = 'xwd';
+?>

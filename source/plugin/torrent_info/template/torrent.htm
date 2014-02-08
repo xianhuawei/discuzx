@@ -1,0 +1,61 @@
+{template common/header}
+<div class="flb" style="padding:10px 0 8px">
+    <ul class="tb tb_s cl">
+        <li class="y" style="width:26px">
+            <span class="flbc" onclick="hideWindow('torrentInfo')" title="{lang close}">{lang close}</span>
+        </li>
+        <li class="current" id="e_btn_info">
+            <a hideFocus="true" onclick="switchButton('info');" href="javascript:;">{lang torrent_info:info}</a>
+        </li>
+        <li id="e_btn_files">
+            <a hideFocus="true" onclick="switchButton('files');" href="javascript:;">{lang torrent_info:list}</a>
+        </li>
+    </ul>
+</div>
+<script type="text/javscript">
+	announce = {$torrent[status]};
+	aList = {eval echo(json_encode($torrent[announce]))};
+	btURI = "{$torrent[URI]}";
+</script>
+<div class="p_opt" id="e_info" unselectable="on" style="padding:0 10px">
+    <div class="bbda bt_top">
+        <div class="bt_left">{lang torrent_info:torrent_name}:</div>
+        <div class="bt_right" title="$torrent[name]">$torrent[name]</div>
+    </div>
+    <div class="bbda bt_top">
+        <div class="bt_left">{lang torrent_info:torrent_size}:</div>
+        <div class="bt_right">$torrent[size]</div>
+    </div>
+    <div class="bbda bt_top">
+        <div class="bt_left">{lang torrent_info:torrent_number}:</div>
+        <div class="bt_right">$torrent[file][length]</div>
+    </div>
+    <div class="bbda bt_top">
+        <div class="bt_left">{lang torrent_info:torrent_date}:</div>
+        <div class="bt_right">$torrent[time]</div>
+    </div>
+    <div class="bt_top">
+        <div class="bt_left">{lang torrent_info:torrent_announce}:</div>
+        <div class="bt_right" title="$torrent[announce][0]" id="announce">$torrent[announce][0]</div>
+    </div>
+</div>
+<div class="p_opt" id="e_files" unselectable="on" style="padding:0 10px;display:none">
+    <table class="bbs bt_top" border="0" cellSpacing="0" cellPadding="0">
+        <tbody>
+            <tr>
+                <td class="tubiao"></td>
+                <td class="name">{lang torrent_info:name}</td>
+                <td class="size">{lang torrent_info:size}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="upfl">
+        <table class="bt_top" border="0" cellSpacing="0" cellPadding="0">
+            <tbody>{loop $torrent[file][list] $key $val}<tr><td class="tubiao"><div class="$val[class]"></div></td><td class="name"><div title="$val[name]">$val[name]</div></td><td class="size">$val[size]</td></tr>{/loop}</tbody>
+        </table>
+    </div>
+</div>
+<div class="o">
+    <div class="notice upnf bt_magnet" style="text-align:left;" id="bt_notice"><div style="float:right;width:165px;text-align:right">{if $cvars[magnet]&&!$onlyview}<a href="$torrent[magnet]" onclick="setCopy(this.href, '{lang torrent_info:copy_success}');return false;" class="bt_copy" hideFocus="true">{lang torrent_info:copy_magnet}</a>&nbsp;<a href="$torrent[magnet]" class="bt_download" hideFocus="true">{lang torrent_info:magnet}</a>{else}<button class="pn pnc" onclick="hideWindow('torrentInfo')" style="float:right"><strong>{lang confirms}</strong></button>{/if}</div><span id="bt_text">{if $onlyview}{lang torrent_info:not_permission}{elseif $cvars[announce]}<a href="javascript:;" onclick="aId=0;bt_get()">{lang torrent_info:query}</a>{else}{lang torrent_info:close}{/if}&nbsp;</span></div>
+</div>
+{template common/footer}

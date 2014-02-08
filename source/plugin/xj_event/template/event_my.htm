@@ -1,0 +1,67 @@
+<!--{template common/header}-->
+<style>
+.xjevent{margin:5px 5px;background:url(source/plugin/xj_event/images/xuxian.png) repeat-x 0px 139px; height:100px}
+.xjevent b a{ font-size:14px; font-family: "{lang xj_event:wryh}";color:$_G[style][highlightlink];}
+.xj_hll{color:$_G[style][highlightlink];}
+.jlpg {
+	text-align:right;
+	padding-right:10px;
+}
+.jlpg strong {
+	display:inline-block;
+	height:20px;
+	width:20px;
+	border:1px solid #CCCCCC;
+	font-size:12px;
+	text-align:center;
+	margin-right:5px;
+	background-color:#CCCCCC;
+	color:#FFFFFF;
+}
+.jlpg a {
+	display:inline-block;
+	height:20px;
+	width:20px;
+	border:1px solid #CCCCCC;
+	font-size:12px;
+	text-align:center;
+	margin-right:5px;
+}
+</style>
+<div id="wp" class="wp"><div id="pt" class="bm cl">
+<div class="z">
+<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em>
+<a href="plugin.php?id=xj_event:event_my">{lang xj_event:huodong}</a>
+</div>
+</div>
+<div id="ct" class="ct2_a wp cl">
+<div class="mn">
+<div class="bm bw0">
+<h1 class="mt">
+{lang xj_event:wzzdhd}
+</h1>
+<!--{if $_GET[act]=='zz'}-->
+<p class="tbmu">{lang xj_event:wzzdhd}: <span class="xi1">$listcount</span> {lang xj_event:ci}</p>
+<!--{elseif $_GET[act]=='cj'}-->
+<p class="tbmu">{lang xj_event:wcjdhd}: <span class="xi1">$listcount</span> {lang xj_event:ci}</p>
+<!--{/if}-->
+<!--{if $listcount>0}-->
+<!--{else}-->
+<p class="emp">请购买商业版或付费组件</p>
+<!--{/if}-->
+<!--{if $multipage}-->
+<div style=" clear:both; height:30px; padding-top:5px;">$multipage</div>
+<!--{/if}-->
+</div>
+</div>
+<div class="appl">
+<div class="tbn">
+<h2 class="mt bbda">{lang xj_event:huodong}</h2>
+<ul>
+<li<!--{if $_GET[act]=='zz'}--> class="a"<!--{/if}-->><a href="plugin.php?id=xj_event:event_my&act=zz">{lang xj_event:wzzdhd}</a></li>
+<li<!--{if $_GET[act]=='cj'}--> class="a"<!--{/if}-->><a href="plugin.php?id=xj_event:event_my&act=cj">{lang xj_event:wcjdhd}</a></li>
+</ul>
+</div>
+</div>
+</div>	</div>
+<!--{template common/footer}-->

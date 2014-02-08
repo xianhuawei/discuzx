@@ -1,0 +1,62 @@
+<div class="bm">
+	<div class="bm_h cl bbs">
+		<label class="wx xs3">{lang luckypacket:pluginTitle}</label>
+	</div>
+	<div><h3 class="bm_c"><!--{if $welcome}-->$welcome<!--{else}-->{lang luckypacket:notice}<!--{/if}--></h3></div>
+</div>
+<!--{if $rankLists}-->
+<div class="bm">
+	<div class="bm_h cl">
+		<h2>{lang luckypacket:sub_title_record}</h2>
+	</div>
+	<div class="bm_c">
+		<!--{if $rankLists}-->
+			<!--{loop $rankLists $cid $ranklist}-->
+				<div class="xl" name="ranks" style="display:<!--{if $cid != $getnumber}-->none<!--{else}-->block<!--{/if}-->;">
+				<span style="padding-left:20px;"><em>$cid</em>{lang luckypacket:username}</span>
+				<ol>
+					<!--{loop $ranklist $uid $member}-->
+					<li id="top"><em><span class="xi1">$member['gn']</span></em><a href="home.php?mod=space&uid=$uid" target="_blank">$member['username']</a></li>
+					<!--{/loop}-->
+				</ol>
+				</div>
+			<!--{/loop}-->
+		<!--{else}-->
+		<h1><center>{lang luckypacket:no_log}</center></h1>
+		<!--{/if}-->
+	</div>
+</div>
+<!--{/if}-->
+<div class="bm">
+	<div class="bm_h cl">
+		<h2>{lang luckypacket:sub_title_mod}</h2>
+	</div>
+	<div class="bm_c">
+		<ul class="cl">
+			<li><a href="plugin.php?id=luckypacket">{lang luckypacket:packetlist}</a></li>
+			<li><a href="plugin.php?id=luckypacket&module=showlog">{lang luckypacket:my_record}</a></li>
+			<!--{if $selfPacket}--><li><a href="plugin.php?id=luckypacket&module=admin&op=add&pspecial=3">{lang luckypacket:packet_add_3}</a></li><!--{/if}-->
+			<!--{if $_G['uid'] && $packetAdmin}--><li><a href="plugin.php?id=luckypacket&module=admin&op=add">{lang luckypacket:packet_add}</a></li>
+			<li><a href="plugin.php?id=luckypacket&module=admin&op=add&pspecial=1">{lang luckypacket:packet_add_1}</a></li>
+			<li><a href="plugin.php?id=luckypacket&module=admin&op=add&pspecial=2">{lang luckypacket:packet_add_2}</a></li>
+			<li><a href="plugin.php?id=luckypacket&op=mod">{lang luckypacket:mod_packet}</a></li><!--{/if}-->
+		</ul>
+		<ul class="ml mls cl">
+			<!--{loop $groupviewed_list $groupid $group}-->
+			<li>
+				<a href="forum.php?mod=group&fid=$groupid" title="$group[name]" class="avt"><img src="$group[icon]" alt="$group[name]" /></a>
+				<p><a href="forum.php?mod=group&fid=$groupid" title="$group[name]">$group[name]</a></p>
+				<span>$group[membernum]</span>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+</div>
+<div class="bm">
+	<div class="bm_h cl">
+		<h2>{lang luckypacket:copyright}</h2>
+	</div>
+	<div class="bm_c">
+		<span><em style="font-size: 11px;font-family: Verdana;">$packetVersion</em></span>
+	</div>
+</div>

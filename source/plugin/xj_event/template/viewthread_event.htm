@@ -1,0 +1,484 @@
+<!--{block return}-->
+<style>
+.robgz {
+	color:#fc4201;
+}
+.eventtitle {
+	font-size:14px;
+	font-family:'Microsoft YaHei';
+	line-height:26px;
+	font-weight:bold;
+	color:#0092ff;
+}
+.xjmenu {
+	height:32px;
+}
+.xjmenu_a {
+	width:80px;
+	line-height:32px;
+	float:left;
+	height:32px;
+	text-align:center;
+	border-top:#cdcdcd 1px solid;
+	border-left:#cdcdcd 1px solid;
+	border-right:#cdcdcd 1px solid;
+	border-bottom:#ffffff 1px solid;
+	margin-left:10px;
+	font-weight:bold;
+	cursor:pointer;
+	background-color:#FFFFFF;
+	margin-top:-1px;
+}
+.xjmenu_b {
+	width:80px;
+	line-height:32px;
+	float:left;
+	height:32px;
+	text-align:center;
+	margin-left:10px;
+	cursor:pointer;
+	background-color:#efefef;
+	border:#cdcdcd 1px solid;
+	margin-top:-1px;
+}
+.xjmain {
+	border-top:#cdcdcd 1px solid;
+	padding:15px;
+	margin-bottom:10px;
+}
+a.bm_btn {
+	display:inline-block;
+	width:200px;
+	height:28px;
+	text-align:center;
+	background: #ee5816;
+	padding-top:2px;
+	color:#FFFFFF;
+	border:#c03b00 solid 1px;
+	font-size:15px;
+	font-weight:bold;
+	text-decoration:none;
+}
+a:hover.bm_btn {
+	background-color:#c03b00;
+}
+a.bm_btn2 {
+	display:inline-block;
+	width:200px;
+	height:28px;
+	text-align:center;
+	background: #d0d0d0;
+	padding-top:2px;
+	color:#666666;
+	font-size:15px;
+	font-weight:bold;
+	text-decoration:none;
+}
+a.bm_btn3 {
+	display:inline-block;
+	width:200px;
+	height:28px;
+	text-align:center;
+	background: #008f00;
+	padding-top:2px;
+	color:#ffffff;
+	font-size:15px;
+	font-weight:bold;
+	text-decoration:none;
+}
+a.pay_btn{
+	display:inline-block;
+	width:200px;
+	height:28px;
+	text-align:center;
+	background: #ee5816;
+	padding-top:2px;
+	color:#FFFFFF;
+	border:#c03b00 solid 1px;
+	font-size:15px;
+	font-weight:bold;
+	text-decoration:none;
+	margin-top:10px;
+}
+a:hover.pay_btn {
+	margin-top:10px;
+	background-color:#c03b00;
+}
+
+a.eventmenu {
+	display:inline-block;
+	padding:4px 6px 2px 6px;
+	color:#777777;
+	text-decoration:none;
+	line-height:12px;
+	margin-left:5px;
+}
+a:hover.eventmenu {
+	display:inline-block;
+	padding:4px 6px 2px 6px;
+	color:#ffffff;
+	text-decoration:none;
+	line-height:12px;
+	margin-left:5px;
+	background-color:#aaaaaa;
+}
+a.eventmenu_select {
+	display:inline-block;
+	padding:4px 6px 2px 6px;
+	color:#ffffff;
+	text-decoration:none;
+	line-height:12px;
+	margin-left:5px;
+	background-color:#aaaaaa;
+}
+
+.jlpg {
+	text-align:right;
+	padding-right:10px;
+}
+.jlpg strong {
+	display:inline-block;
+	height:20px;
+	width:20px;
+	border:1px solid #CCCCCC;
+	font-size:12px;
+	text-align:center;
+	margin-right:5px;
+	background-color:#CCCCCC;
+	color:#FFFFFF;
+}
+.jlpg a {
+	display:inline-block;
+	height:20px;
+	width:20px;
+	border:1px solid #CCCCCC;
+	font-size:12px;
+	text-align:center;
+	margin-right:5px;
+}
+</style>
+<ul class="xjmenu">
+  <li class="xjmenu_a" onclick="remenu(1)" id="xjmenu1">{lang xj_event:hdjs}</li>
+  <!--{if $setting[eventzy_enable]}-->
+  <li class="xjmenu_b" onclick="remenu(2)" id="xjmenu2">{lang xj_event:huodong}{$setting[eventzy_name]}</li>
+  <!--{/if}-->
+  <li class="xjmenu_b" onclick="remenu(3)" id="xjmenu3">{lang xj_event:bmwy}</li>
+  <!--{if $hg}-->
+  <li class="xjmenu_b"><a href="forum.php?mod=viewthread&tid={$hg[tid]}" target="_blank">{lang xj_event:hdgg}</a></li>
+  <!--{/if}-->
+  <!--{if $timestamp>=$items[starttime] and $timestamp<=$items[endtime]}-->
+  <li style="width:100px;line-height:32px;float:left;height:32px;text-align:center;margin-left:10px;margin-top:-1px; background:url(source/plugin/xj_event/images/d.png) no-repeat 0px 7px; padding-left:10px;">{lang xj_event:bhdjxz}</li>
+  <!--{elseif $timestamp>$items[endtime]}-->
+  <li style="width:100px;line-height:32px;float:left;height:32px;text-align:center;margin-left:10px;margin-top:-1px; background:url(source/plugin/xj_event/images/t.png) no-repeat 0px 7px; padding-left:10px;">{lang xj_event:bhdyjs}</li>
+  <!--{elseif $timestamp<$items[starttime]}-->
+  <li style="width:100px;line-height:32px;float:left;height:32px;text-align:center;margin-left:10px;margin-top:-1px; background:url(source/plugin/xj_event/images/w.png) no-repeat 0px 7px; padding-left:10px;">{lang xj_event:bhdwks}</li>
+  <!--{/if}-->
+</ul>
+<div class="xjmain" id="event1">
+  <!--{if $items[postclass]==1}-->
+  <div style="color:#777;line-height:26px; font-size:14px; font-family:'Microsoft YaHei'; width:320px; float:left;"> <span class="eventtitle">{lang xj_event:hdfs}:</span> $postclass<br />
+    <span class="eventtitle">{lang xj_event:hdlx}:</span> $eventclass[1]<br />
+    <span class="eventtitle">{lang xj_event:hddq}:</span> $citys<br />
+    <span class="eventtitle">{lang xj_event:kssj}:</span> {$starttime}<br />
+    <span class="eventtitle">{lang xj_event:jssj}:</span> {$endtime}<br />
+    <span class="eventtitle">{lang xj_event:hddd}:</span> {$items[event_address]}<br />
+    <!--{if $items[use_extcredits_num]>0}-->
+    <span class="eventtitle">{lang xj_event:cyjf}:</span> {$items[use_extcredits_num]} $extcredit_title<br />
+    <!--{/if}-->
+    <span class="eventtitle">{lang xj_event:cjme}:</span>
+    <!--{if $items[event_number]==0}-->
+    {lang xj_event:buxian}
+    <!--{else}-->
+    <span class="robgz">{$items[event_number]} {lang xj_event:ren}</span>
+    <!--{/if}-->
+    <br />
+    <span class="eventtitle">{lang xj_event:bmrs}:</span> {$applycountnumber} {lang xj_event:ren}<br />
+    <span class="eventtitle">{lang xj_event:cjfy}:</span> {$items[use_cost]} {lang xj_event:yuan}<br />
+    <span class="eventtitle">{lang xj_event:bmjz}:</span> <span class="robgz">{$activityexpiration}</span><br />
+    <br />
+    <!--线下活动按钮-->
+    <!--条件当前时间小于（活动结束+30天）的时间-->
+    <!--{if $timestamp<($items[endtime]+2592000)}-->
+    	<!--过了报名时间，没有报名的-->
+        <!--{if $items['activityexpiration']<=$timestamp and $verify==null}-->
+            <a href="javascript:" class="bm_btn2" title="{lang xj_event:bmjz}">{lang xj_event:bmjz}</a>
+        <!--{else}-->    
+            <!--{if !$_G[uid]}-->
+                <a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href);return false;" class="bm_btn2" title="{lang xj_event:qdlhbm}">{lang xj_event:wycjqdl}</a>
+            <!--{else}-->
+                <!--{if $items['activitybegin']<$timestamp and $items['activityexpiration']>$timestamp and $verify==null}-->
+                    <a href="javascript:" onclick="showDialog($('activityjoin').innerHTML, 'info', '{lang xj_event:wycj}')" class="bm_btn">{lang xj_event:wycj}</a>
+                <!--{elseif $items['activitybegin']>$timestamp and $verify==null}-->
+                	<a href="javascript:" class="bm_btn2">{lang xj_event:bmhwks}</a>
+                <!--{else}-->
+                    <!--{if $verify==0}-->
+                    	<!--{if !$pay_state}-->
+                    			<a href="javascript:" onclick="showDialog($('canceljoin').innerHTML, 'info', '{lang xj_event:qxbm}')" class="bm_btn">{lang xj_event:qxbm}</a>
+                    	<!--{/if}-->
+                        <!--{if $setting[eventpay]}-->
+                        	<!--{if $pay_state}-->
+                        		<a href="javascript:" class="pay_btn" style="background-color:#06C; border:#06C;">{lang xj_event:fyyfdsh}</a>
+                            <!--{else}-->
+                            	<a href="plugin.php?id=xj_event:event_pay&tid={$items[tid]}" class="pay_btn">{lang xj_event:zhifufy}</a>
+                            <!--{/if}-->
+                        <!--{/if}-->
+                    <!--{else}-->
+                    	<!--{if $setting[eventzy_enable]}-->
+                        <a href="forum.php?mod=post&action=newthread&fid=<!--{if $setting[eventzy_fid]}-->{$setting[eventzy_fid]}<!--{else}-->{$_G[fid]}<!--{/if}-->&eid={$items[eid]}" class="bm_btn3" title="{lang xj_event:ldbmypshtg}">{lang xj_event:fbhdzy}{$setting[eventzy_name]}</a>
+                        <!--{/if}-->
+                    <!--{/if}--> 
+                <!--{/if}-->    
+            <!--{/if}-->
+        <!--{/if}-->
+    <!--{/if}-->
+    <!--线下活动按钮end-->
+    
+    </div>
+  <div style="width:360px; float:right; text-align:center; padding-top:10px;"><img src="$imgurl" width="360" height="230"/></div>
+<!--{elseif $items[postclass]==2}-->
+<div style="color:#777;line-height:26px; font-size:14px; font-family:'Microsoft YaHei'; width:320px; float:left;"> <span class="eventtitle">{lang xj_event:hdfs}:</span> $postclass<br />
+  <span class="eventtitle">{lang xj_event:hdlx}:</span> $eventclass[1]<br />
+    <span class="eventtitle">{lang xj_event:kssj}:</span> {$starttime}<br />
+    <span class="eventtitle">{lang xj_event:jssj}:</span> {$endtime}<br />
+  <span class="eventtitle">{lang xj_event:hddq}:</span> $citys<br />
+  <!--{if $items[use_extcredits_num]>0}-->
+  <span class="eventtitle">{lang xj_event:cyjf}:</span> {$items[use_extcredits_num]} $extcredit_title<br />
+  <!--{/if}-->
+  <span class="eventtitle">{lang xj_event:cjrs}:</span>
+  <!--{if $items[event_number]==0}-->
+  {lang xj_event:buxian}
+  <!--{else}-->
+  <span class="robgz">{$items[event_number]} {lang xj_event:ren}</span>
+  <!--{/if}-->
+  <br />
+  <span class="eventtitle">{lang xj_event:bmrs}:</span> {$applycountnumber} {lang xj_event:ren}<br />
+  <span class="eventtitle">{lang xj_event:bmjz}:</span> <span class="robgz">{$activityexpiration}</span><br />
+  <br />
+    <!--线上活动按钮-->
+    <!--条件当前时间小于（活动结束）的时间-->
+    <!--{if $timestamp<$items[endtime]}-->
+    	<!--过了报名时间，没有报名的-->
+        <!--{if $items['activityexpiration']<=$timestamp and $verify==null}-->
+            <a href="javascript:" class="bm_btn2" title="{lang xj_event:bmjz}">{lang xj_event:bmjz}</a>
+        <!--{else}-->   
+            <!--{if !$_G[uid]}-->
+                <a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href);return false;" class="bm_btn2" title="{lang xj_event:qdlhbm}">{lang xj_event:wycjqdl}</a>
+            <!--{else}-->
+                <!--{if $items['activitybegin']<$timestamp and $items['activityexpiration']>$timestamp and $verify==null}-->
+                    <a href="javascript:" onclick="showDialog($('activityjoin').innerHTML, 'info', '{lang xj_event:wycj}')" class="bm_btn">{lang xj_event:wycj}</a>
+                <!--{elseif $items['activitybegin']>$timestamp and $verify==null}-->
+                	<a href="javascript:" class="bm_btn2">{lang xj_event:bmhwks}</a>
+                <!--{else}-->
+                    <!--{if $verify==0}-->
+                    	<!--{if !$pay_state}-->
+                    			<a href="javascript:" onclick="showDialog($('canceljoin').innerHTML, 'info', '{lang xj_event:qxbm}')" class="bm_btn">{lang xj_event:qxbm}</a>
+                    	<!--{/if}-->
+                        <!--{if $setting[eventpay]}-->
+                        	<!--{if $pay_state}-->
+                        		<a href="javascript:" class="pay_btn" style="background-color:#06C; border:#06C;">{lang xj_event:fyyfdsh}</a>
+                            <!--{else}-->
+                            	<a href="plugin.php?id=xj_event:event_pay&tid={$items[tid]}" class="pay_btn">{lang xj_event:zhifufy}</a>
+                            <!--{/if}-->
+                        <!--{/if}-->
+                    <!--{else}-->
+                        <a href="forum.php?mod=post&action=newthread&fid=<!--{if $setting[eventzy_fid]}-->{$setting[eventzy_fid]}<!--{else}-->{$_G[fid]}<!--{/if}-->&eid={$items[eid]}" class="bm_btn3" title="{lang xj_event:ldbmypshtg}">{lang xj_event:fbhdzy}{$setting[eventzy_name]}</a>
+                    <!--{/if}--> 
+                <!--{/if}-->    
+            <!--{/if}-->
+        <!--{/if}-->
+    <!--{/if}-->
+    <!--线下活动按钮end-->
+   
+   
+   
+   
+   </div>
+<div style="width:360px; float:right; text-align:center; padding-top:10px;"><img src="$imgurl" width="360" height="230"/></div>
+<!--{/if}-->
+<!--{if $items[verify] == 1}-->
+<img src="source/plugin/xj_event/images/rz.png" border="0" style="position:absolute; margin-top:100px; margin-left:290px;"/>
+<!--{/if}-->
+</div>
+
+
+
+<div class="xjmain" id="event2">
+<div style="color:#CCCCCC;">
+</div>
+<div id="event2_content">
+</div>
+</div>
+
+
+
+<div class="xjmain" id="event3">
+<div style="color:#CCCCCC;">
+<a href="javascript:" onclick="ajaxget('plugin.php?id=xj_event:event_userlist&tid={$_GET[tid]}','event3_content','','','',userlist_menu(1));" class="eventmenu" id="userlistmenu1">{lang xj_event:bmhy}</a> | <a href="javascript:" onclick="ajaxget('plugin.php?id=xj_event:event_userlist&action=nopass&tid={$_GET[tid]}','event3_content','','','',userlist_menu(2));" class="eventmenu" id="userlistmenu2">{lang xj_event:hbhy}</a> | <a href="javascript:" onclick="ajaxget('plugin.php?id=xj_event:event_userlist&action=noattend&tid={$_GET[tid]}','event3_content','','','',userlist_menu(3));" class="eventmenu" id="userlistmenu3">{lang xj_event:fgjhy}</a>
+</div>
+<div id="event3_content">
+</div>
+</div>
+
+<script type="text/javascript">
+$('event2').style.display="none";
+$('event3').style.display="none";
+function remenu(a){
+	if(a == 2){
+		ajaxget('plugin.php?id=xj_event:event_threadlist&eid={$items[eid]}&fid={$_G[fid]}','event2_content','','','','');
+	}
+	if(a == 3){
+		ajaxget('plugin.php?id=xj_event:event_userlist&tid={$_GET[tid]}','event3_content','','','','');
+		$('userlistmenu1').className='eventmenu_select';
+	}
+	for(i=1;i<=3;i++){
+		<!--{if !$setting[eventzy_enable]}-->
+		if(i==2){
+			continue;
+		}
+		<!--{/if}-->
+		if(i==a){
+			$('event'+i).style.display="block";
+			$('xjmenu'+i).className='xjmenu_a';
+			//document.getElementById('xjmenu'+i).className='xjmenu_a'; 
+			//document.getElementById('postclass').value=i;
+		}else{
+			$('event'+i).style.display="none";
+			$('xjmenu'+i).className='xjmenu_b';
+			//document.getElementById('xjmenu'+i).className='xjmenu_b';
+		}
+	}
+}
+function userlist_menu(a){
+	for(i=1;i<=3;i++){
+		if(i==a){
+			$('userlistmenu'+i).className='eventmenu_select';
+		}else{
+			$('userlistmenu'+i).className='eventmenu';
+		}
+	}
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<div style="clear:both; height:20px;"></div>
+<!--{if $_G[uid] == $_G[thread][authorid] or $_G[groupid]==1}-->
+<div style=" border-bottom:1px dashed #bbbbbb; clear:both;"></div>
+<div style="color:#777;line-height:32px; padding-left:10px;"> <span class="robgz">{lang xj_event:hdgl}: </span> 
+<a href="javascript:" id="menu3" class="eventmenu" onclick="showWindow('setting', 'plugin.php?id=xj_event:event_setting&tid={$tid}')">{lang xj_event:hdsz}</a>
+<a href="javascript:" id="menu1" class="eventmenu" onclick="showWindow('applymanage', 'plugin.php?id=xj_event:event_joinmanage&tid={$tid}')">{lang xj_event:bmgl}</a>
+<a href="javascript:" id="menu2" class="eventmenu" onclick="showWindow('accessmanage', 'plugin.php?id=xj_event:event_accessmanage&tid={$tid}')" title="{lang xj_event:dcjhdhyjxpj}">{lang xj_event:pjgl}</a>
+<a href="javascript:" id="menu4" class="eventmenu" onclick="showWindow('applymessage', 'plugin.php?id=xj_event:event_message&tid={$tid}')" title="{lang xj_event:dcjhdhyjxqfxxhtxdgl}">{lang xj_event:dztx}</a>
+<a href="forum.php?mod=post&action=newthread&fid={$_G[fid]}&eid={$items[eid]}&sort=1" id="menu5" class="eventmenu" title="{lang xj_event:fbbchddhgt}">{lang xj_event:hdgg}</a>
+  <!--{if $_G[groupid]==1}-->
+  <!--{if $items[verify] == 0}-->
+  <a href="javascript:" id="menu5" class="eventmenu">{lang xj_event:rzhd}</a>
+  <!--{else}-->
+  <a href="plugin.php?id=xj_event:event_rz&tid={$tid}&action=cancel" id="menu5" class="eventmenu">{lang xj_event:qxrz}</a>
+  <!--{/if}-->
+  <!--{/if}-->
+</div>
+<!--{/if}-->
+<div style=" border-bottom:1px dashed #bbbbbb; clear:both; margin-bottom:10px;"></div>
+<div id="canceljoin" style="display:none">
+  <div style="width:300px; height:70px; text-align:center; line-height:60px; font-weight:bold; font-size:14px;"> {lang xj_event:sfqxbm} </div>
+  <em class="xi1" id="return_canceljoin"></em>
+  <div class="o pns">
+    <button type="submit" class="pn pnc" onclick="ajaxget('plugin.php?id=xj_event:event_join&tid={$tid}&action=cannel', 'return_canceljoin', 'return_canceljoin','','','cancelfull()');"><span>{lang xj_event:queding}</span></button>
+  </div>
+</div>
+<div id="activityjoin" style="display:none">
+  <form name="activity" id="activity" method="post" autocomplete="off" action="plugin.php?id=xj_event:event_join&tid={$tid}">
+    <input type="hidden" name="formhash" value="2584a5f6" />
+    <input type="hidden" name="handlekey" value="activityapplies" />
+    <input type="hidden" name="eid" value="{$items[eid]}" />
+    <div class="c">
+      <div class="actfm">
+        <table summary="{lang xj_event:wycj}" cellpadding="0" cellspacing="0" class="actl" style="width:400px;">
+        
+
+            <!--{if !empty($selectuserfield)}-->
+                <!--{loop $selectuserfield $fieldid}-->
+                <!--{if $settings[$fieldid][available]}-->
+                    <tr>
+                        <th id="th_$fieldid"><strong class="rq y">*</strong>$settings[$fieldid][title]</th>
+                        <td id="td_$fieldid">
+                    <!--{if $settings[$fieldid][formtype] != 'file'}-->
+                            $htmls[$fieldid]
+                    <!--{else}-->
+                         <input id="activitypic_$fieldid" type="text" tabindex="1" value="" class="px" name="$fieldid" onblur="if(!this.value.match(/^https?:\/\/.+\/.+\.(jpg|png|gif|jpeg|bmp)$/i)){ $('showerror_$fieldid').innerHTML='{lang xj_event:tpdzcw}';}else{ $('showerror_$fieldid').innerHTML='&nbsp;';}"><div id="showerror_$fieldid" class="rq mtn">{lang xj_event:qsrtpdz}</div>
+                    <!--{/if}-->
+                        </td>
+                    </tr>
+                <!--{/if}-->
+                <!--{/loop}-->
+            <!--{/if}-->
+          <tr>
+            <th>{lang xj_event:bmrs}</th>
+            <td>
+            <select name="applynumber">
+            	<!--{loop $applynumber $value}-->
+            	<option value="$value">$value {lang xj_event:ren}</option>
+                <!--{/if}-->
+            </select>
+            </td>
+          </tr>
+          <!--{if in_array('bmmessage',$userfield)}-->
+          <tr>
+            <th>{lang xj_event:liuyan}</th>
+            <td><textarea name="message" maxlength="100" cols="38" rows="3" class="pt" tabindex="4"></textarea></td>
+          </tr>
+          <!--{/if}-->
+        </table>
+      </div>
+    </div>
+    <div class="o pns">
+      <input type="hidden" name="activitysubmit" value="true">
+      <em class="xi1" id="return_activityapplies"></em>
+      <button type="submit" class="pn pnc"><span>{lang xj_event:tijiao}</span></button>
+    </div>
+  </form>
+  <script type="text/javascript">
+function cancelfull(){
+	showDialog('{lang xj_event:qxcg}', 'right', '', 'location.href="'+window.location.href+'"');
+}
+
+function succeedhandle_activityapplies(locationhref, message) {
+showDialog(message, 'right', '', 'location.href="' + locationhref + '"');
+}
+/*
+function joincheck(){
+	var i;
+	i = 0;
+	if($('activity').realname.value == '') {
+		$('showerror_realname').innerHTML = '{lang xj_event:qsrzsxm}';
+		i = 1;
+	}
+	if($('activity').mobile.value == '') {
+		$('showerror_mobile').innerHTML = '{lang xj_event:qsrsjh}';
+		i = 1;
+	}
+	if($('activity').qq.value == '') {
+		$('showerror_qq').innerHTML = '{lang xj_event:qsrqqh}';
+		i = 1;
+	}
+	if(i==0){
+		ajaxpost('activity', 'return_activityapplies', 'return_activityapplies', 'onerror');
+	}
+}
+*/
+<!--{if !empty($_GET[menu])}-->
+remenu({$_GET[menu]});
+<!--{/if}-->
+
+</script>
+</div>
+<!--{/block}-->

@@ -1,0 +1,14 @@
+<!--{template common/header}-->
+      <!--{loop $joinlist $key $value}-->
+      <div style="height:100px; width:50px; float:left; margin-right:10px; margin-top:10px; line-height:20px; text-align:center;">
+      <div class="avt y"><a href="home.php?mod=space&uid={$value[uid]}">{$value[avatar]}</a></div>
+      $value[username]<br />
+      ({$value[applynumber]}{lang xj_event:ren})
+      </div>
+      <!--{/loop}-->
+<div style="clear:both;"></div>
+<!--{if $multipage}-->
+<div style="clear:both; height:30px; padding-top:5px;">$multipage</div>
+<!--{/if}-->
+
+<!--{template common/footer}-->

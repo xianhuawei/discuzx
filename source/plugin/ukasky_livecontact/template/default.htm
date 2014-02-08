@@ -1,0 +1,115 @@
+<!--{block return}-->
+<link href="source/plugin/ukasky_livecontact/template/default/qq.css" rel="stylesheet" type="text/css" />
+<style>
+<!--
+.QQbox {
+	TOP:{$high}px;
+}
+-->
+</style>
+<div class="QQbox" id="divQQbox" >
+<div class="Qlist" id="divOnline" onmouseout="hideMsgBox(event);" style="display : none;">
+<div class="t"></div>
+<div class="infobox"> {lang ukasky_livecontact:ourHours}<br>{$online}</div>
+<div class="con" onmouseover="OnlineOver()">
+
+<ul>
+<!--{loop $arrQQlist $key $val}-->
+<li><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$val[0]}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$val[0]}:45" alt="{lang ukasky_livecontact:sendToMe}" title="{lang ukasky_livecontact:sendToMe}">{$val[1]}</a></li>
+<!--{/loop}-->
+<!--{loop $arrWWlist $key $val}-->
+<li>
+	<a target="_blank" href="http://amos.im.alisoft.com/msg.aw?v=2&site=cntaobao&s=1&charset={$charset}&uid={$val[0]}" ><img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid={$val[0]}&site=cntaobao&s=2&charset={$charset}" alt="{$val[1]}" /><span style="color:#1266c9; vertical-align:top">{$val[1]}</span></a>
+</li>
+<!--{/loop}-->
+<li>{$email}</li>
+<li>TEL: {$tel}</li>
+<li><center><a href="{$feedback}" target="_blank" style="color: navy;">{lang ukasky_livecontact:feedback}</a></center></li>
+
+</ul>
+
+</div>
+
+<div class="b"></div>
+
+</div>
+
+<div id="divMenu" onmouseover="OnlineOver()"><img src="source/plugin/ukasky_livecontact/template/default/qq_1.gif" class="press"></div>
+
+</div>
+<script language='javascript' type='text/javascript'>
+//<![CDATA[
+var tips; var theTop = 145;
+var old = theTop;
+function initFloatTips() {
+tips = document.getElementById('divQQbox');
+moveTips();
+};
+
+function moveTips() {
+var tt=50;
+if (window.innerHeight) {
+posQQ = window.pageYOffset
+}
+else if (document.documentElement && document.documentElement.scrollTop) {
+posQQ = document.documentElement.scrollTop;
+}
+else if (document.body) {
+posQQ = document.body.scrollTop;
+}
+posQQ=posQQ-tips.offsetTop+theTop;
+posQQ=tips.offsetTop+posQQ/10;
+if (posQQ < theTop) posQQ = theTop;
+if (posQQ != old) {
+tips.style.top = posQQ+"px";
+tt=10;
+//alert(tips.style.top);
+}
+old = posQQ;
+setTimeout(moveTips,tt);
+}
+//!]]>
+initFloatTips();
+function OnlineOver(){
+document.getElementById("divMenu").style.display = "none";
+document.getElementById("divOnline").style.display = "block";
+document.getElementById("divQQbox").style.width = "145px";
+}
+
+function OnlineOut(){
+document.getElementById("divMenu").style.display = "block";
+document.getElementById("divOnline").style.display = "none";
+}
+
+if(typeof(HTMLElement)!="undefined")
+{
+HTMLElement.prototype.contains=function(obj)
+{
+while(obj!=null&&typeof(obj.tagName)!="undefind"){
+if(obj==this) return true;
+obj=obj.parentNode;
+}
+return false;
+};
+}
+
+function hideMsgBox(theEvent){
+if (theEvent){
+var browser=navigator.userAgent;
+if (browser.indexOf("Firefox")>0){
+if (document.getElementById('divOnline').contains(theEvent.relatedTarget)) {
+return;
+}
+}
+if (browser.indexOf("MSIE")>0){
+if (document.getElementById('divOnline').contains(event.toElement)) {
+return;
+}
+}
+}
+
+document.getElementById("divMenu").style.display = "block";
+document.getElementById("divOnline").style.display = "none";
+}
+</script>
+<!--{/block}-->

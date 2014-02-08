@@ -16,7 +16,7 @@ class table_common_connect_guest extends discuz_table {
 	public function __construct() {
 		$this->_table = 'common_connect_guest';
 		$this->_pk = 'conopenid';
-
+		$this->_pre_cache_key = 'common_connect_guest_';
 		parent::__construct();
 	}
 
