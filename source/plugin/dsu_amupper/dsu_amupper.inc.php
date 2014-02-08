@@ -191,7 +191,7 @@ if($this_time <> 0){
     //今天连续打卡&整点打卡
     $Hreward = rand($this_Hs['minreward'],$this_Hs['maxreward']);
     $return_msg = '整点签到成功! 获得额外奖励'.$ptjfname.'+'.$Hreward;
-    C::t('plugin_dsuamupper')->update($_G['uid'],array('lasttime'=> $_G['timestamp']));
+    C::t('#dsu_amupper#plugin_dsuamupper')->update($_G['uid'],array('lasttime'=> $_G['timestamp']));
     updatemembercount($_G['uid'], array("extcredits{$thisvars['ptjf']}" => $Hreward), true,'',0);
 }
 

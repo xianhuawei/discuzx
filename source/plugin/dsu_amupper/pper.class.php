@@ -12,8 +12,6 @@ class plugin_dsu_amupper_base {
     function __construct() {
 		global $_G;
 		//C1:不在用户组;C2:未签到;C3:已签到，没有cookies;C4:已签到，有cookies;
-		$this->_table['l'] = 'plugin_dsuamupper';
-		$this->_table['c'] = 'plugin_dsuamupperc';
 
 		if($_G['uid']){
 			$this->vars = $_G['cache']['plugin']['dsu_amupper'];
@@ -25,8 +23,7 @@ class plugin_dsu_amupper_base {
 			$this->_cookised = getcookie('dsu_amuppered');
 			$this->_time = 0;
 			if(!$this->_cookised || !$this->_cookise){
-				$this->vars['uid'] = C::t('plugin_dsuamupper')->fetch($_G['uid']);
-				//$this->_time = $this->_istoday($this->vars['uid']['lasttime']);
+				$this->vars['uid'] = C::t('#dsu_amupper#plugin_dsuamupper')->fetch($_G['uid']);
 			}elseif($this->_cookised == $_G['uid']){
 				$this->_time = 0;
 			}else{
