@@ -35,7 +35,6 @@ function select_kl3w_guisepost(obj,uid){
 <dd><em>&nbsp;&#x8BF7;<!--{if $this->vars['showmod']=='2'}-->&#x70b9;&#x51fb;<!--{/if}-->&#x9009;&#x62E9;&#x9A6C;&#x7532;</em></dd></dl></a><!--{loop $input $vo}-->
 <a onclick="select_kl3w_guisepost(this,'{$vo['uid']}')"><dl title="UID:{$vo['uid']}({$vo['username']})"><!--{if $vo['newpm']||$vo['newprompt']}--><dt title="&#x6709;{$vo['newprompt']}&#x4e2a;&#x63d0;&#x9192;&#x672a;&#x8bfb;">&nbsp;</dt><!--{/if}-->
 {$vo['avatar']}<dd style="color:#{$gender_arr[$vo['uid']]}">{$vo['username']}</dd><dd><em>{$lastpost_arr[$vo['uid']]}</em></dd></dl></a><!--{/loop}--></div></div>
-<span class="xg1 y">Plugin by www.kl3w.com(&#x4F60;&#x53EF;&#x514D;&#x8D39;&#x4F7F;&#x7528;&#xFF0C;&#x4F46;&#x8BF7;&#x4FDD;&#x7559;&#x7248;&#x6743;)</span></div>
 <!--{/if}-->
 </div>
 <!--{/block}-->
