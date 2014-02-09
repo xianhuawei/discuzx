@@ -2558,7 +2558,7 @@ CREATE TABLE pre_forum_onlinelist (
   displayorder tinyint(3) NOT NULL DEFAULT '0',
   title varchar(30) NOT NULL DEFAULT '',
   url varchar(30) NOT NULL DEFAULT '',
-  PRIMARY KEY (id),
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_order;
@@ -3823,7 +3823,7 @@ CREATE TABLE pre_home_userapp (
   narrow tinyint(1) NOT NULL DEFAULT '0',
   menuorder smallint(6) NOT NULL DEFAULT '0',
   displayorder smallint(6) NOT NULL DEFAULT '0',
-  RIMARY KEY (id),
+  PRIMARY KEY (id),
   KEY uid (uid,appid),
   KEY menuorder (uid,menuorder),
   KEY displayorder (uid,displayorder)
@@ -3836,7 +3836,7 @@ CREATE TABLE pre_home_userappfield (
   appid int(11) unsigned NOT NULL DEFAULT '0',
   profilelink text NOT NULL,
   myml text NOT NULL,
-  RIMARY KEY (id),
+  PRIMARY KEY (id),
   KEY uid (uid,appid)
 ) ENGINE=InnoDB;
 

@@ -824,10 +824,10 @@ INSERT INTO pre_forum_medal VALUES ('10','论坛元老','0','medal10.gif','0','0
 
 
 
-INSERT INTO pre_forum_onlinelist VALUES ('1','1','管理员','online_admin.gif');
-INSERT INTO pre_forum_onlinelist VALUES ('2','2','超级版主','online_supermod.gif');
-INSERT INTO pre_forum_onlinelist VALUES ('3','3','版主','online_moderator.gif');
-INSERT INTO pre_forum_onlinelist VALUES ('0','4','会员','online_member.gif');
+INSERT INTO pre_forum_onlinelist VALUES ('','1','1','管理员','online_admin.gif');
+INSERT INTO pre_forum_onlinelist VALUES ('','2','2','超级版主','online_supermod.gif');
+INSERT INTO pre_forum_onlinelist VALUES ('','3','3','版主','online_moderator.gif');
+INSERT INTO pre_forum_onlinelist VALUES ('','0','4','会员','online_member.gif');
 
 
 
