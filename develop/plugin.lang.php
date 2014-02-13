@@ -208,6 +208,7 @@ $devlang = array
 	'plugins_script_cron' => '计划任务脚本',
 	'plugins_script_adv' => '广告脚本',
 	'plugins_script_task' => '站点任务脚本',
+	'plugins_script_cache' => '缓存脚本',
 	'plugins_script_secqaa' => '验证问答脚本',
 	'plugins_script_seccode' => '验证码脚本',
 	'plugins_script_navigation' => '导航栏目嵌入脚本',

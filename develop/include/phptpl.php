@@ -222,12 +222,12 @@ $phptpl['cron'] = <<<EOF
  *	Date: $nowdate
  *	Warning: Don't delete this comment
  *
- *	cronname:{name}
- *	week:{weekday}
- *	day:{day}
- *	hour:{hour}
- *	minute:{minute}
- *	desc:{desc}
+ *	cronname:{name} 计划任务名称，可写脚本语言包中的项目
+ *	week:{weekday} 设置星期几执行本任务，留空为不限制
+ *	day:{day} 设置哪一日执行本任务，留空为不限制
+ *	hour:{hour} 设置哪一小时执行本任务，留空为不限制
+ *	minute:{minute} 设置哪些分钟执行本任务，至多可以设置 12 个分钟值，多个值之间用半角逗号 "," 隔开，留空为不限制
+ *	desc:{desc} 定时任务描述
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -424,6 +424,17 @@ class seccode_{name} {
 	}
 }
 EOF;
+
+$phptpl['cache'] = <<<EOF
+/**
+ * 插件缓存
+ */
+function build_cache_plugin_{name}() {
+	//您的缓存更新脚本内容 //TODO - Insert your code here
+}
+
+EOF;
+
 $phptpl['sqlcode'] = <<<EOFSQL
 
 \$sql = <<<EOF

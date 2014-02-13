@@ -56,7 +56,7 @@ function createPluginPackage($plugin) {
 	//创建模板目录
 	$tpldri = $basedir.'/template';
 	dmkdir($tpldri);
-	$scripttype = array('magic', 'cron', 'adv', 'task', 'secqaa', 'seccode', 'navigation');
+	$scripttype = array('magic', 'cron', 'adv', 'task', 'secqaa', 'seccode', 'navigation','cache');
 	$basetype = array('general', 'special', 'mobile');
 	//创建相应的文件
 	$baseClass = $baseMethod = $expandMethod = $specialClass = array();

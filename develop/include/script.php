@@ -15,7 +15,7 @@ if(!defined('DISCUZ_VERSION')) {
 }
 $version = floatval(substr(DISCUZ_VERSION, 1));
 if($version > 2.5) {
-	$scripttype = array_merge($scripttype, array('seccode', 'magic', 'cron', 'adv', 'task'));
+	$scripttype = array_merge($scripttype, array('seccode', 'magic', 'cron', 'adv', 'task','cache'));
 } elseif($version > 2) {
 	$scripttype = array_merge($scripttype, array('seccode'));
 }
