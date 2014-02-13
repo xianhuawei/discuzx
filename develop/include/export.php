@@ -44,6 +44,15 @@ function createPluginPackage($plugin) {
 	if(!is_dir($basedir)) {
 		dmkdir($basedir);
 	}
+	
+	//创建table,cache,api,cache,static/image static/js
+	$path_extras = array('table','cache','api','cache','static/image','static/js');
+	foreach ($path_extras as $path_extra){
+		if(!is_dir($basedir.'/'.$path_extra)) {
+			dmkdir($basedir.'/'.$path_extra, 0777, false);
+		}
+	}
+	
 	//创建模板目录
 	$tpldri = $basedir.'/template';
 	dmkdir($tpldri);
@@ -122,12 +131,14 @@ function createPluginPackage($plugin) {
 				$code = str_replace('//==={code}===', str_replace('{sql}', $scripts['install'], $phptpl['sqlcode']), $code);
 				file_put_contents($filePath, $code);
 			}
+			//写入卸载脚本
 			if($scripts['uninstall']) {
 				$filePath = $basedir.'/uninstall.php';
 				$code = str_replace('{modulename}', 'uninstall', $phptpl['emptyfile']);
 				$code = str_replace('//==={code}===', str_replace('{sql}', $scripts['uninstall'], $phptpl['sqlcode']), $code);
 				file_put_contents($filePath, $code);
 			}
+			//写入升级脚本
 			if($scripts['upgrade']) {
 				$filePath = $basedir.'/upgrade.php';
 				$code = str_replace('{modulename}', 'upgrade', $phptpl['emptyfile']);
@@ -136,7 +147,7 @@ function createPluginPackage($plugin) {
 			}
 		}
 	}
-
+	
 	//写入嵌入点脚本
 	foreach($baseClass as $name) {
 		$filePath = $basedir.'/'.$name.'.class.php';

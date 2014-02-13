@@ -151,6 +151,12 @@ $phptpl['methodtpl'] = <<<EOF
 EOF;
 
 $phptpl['magic'] = <<<EOF
+/**
+ * 道具类example
+ * 最终由source/class/discuz/class_task.php 回调执行
+ * 脚本位置：source/plugin/{$plugin[identifier]}/magic/magic_{name}.php
+ * 语言包位置：source/language/magic/lang_{name}.php
+ */
 class magic_{name} {
 	public \$version = '$plugin[version]';	//脚本版本号
 	public \$name = '{name}';				//道具名称 (可填写语言包项目)
@@ -168,6 +174,15 @@ class magic_{name} {
 	 */
 	public function getsetting(&\$magic) {
 		//TODO - Insert your code here
+		\$settings = array(
+			'text' => array(
+				'title' => 'text_title',//设置项目名称 (可填写语言项目)
+				'type' => 'mradio',//项目类型
+				'value' => array(),//项目选项
+				'default' => 0,//项目默认值
+			)
+		);
+		return \$settings;
 	}
 
 	/**
@@ -188,6 +203,13 @@ class magic_{name} {
 	 * 道具显示
 	 */
 	public function show() {
+		//TODO - Insert your code here
+	}
+	
+	/**
+	 * 道具购买
+	 */
+	public function buy() {
 		//TODO - Insert your code here
 	}
 }
@@ -217,6 +239,12 @@ if(!defined('IN_DISCUZ')) {
 
 EOF;
 $phptpl['adv'] = <<<EOF
+/**
+ * 广告类example
+ * 最终由source/block/html/block_adv.php执行
+ * 脚本位置：source/plugin/{$plugin[identifier]}/adv/adv_{name}.php
+ * 语言包位置：source/language/adv/lang_{name}.php
+ */
 class adv_{name} {
 
 	public \$version = '$plugin[version]';	//脚本版本号
@@ -231,6 +259,15 @@ class adv_{name} {
 	 */
 	public function getsetting() {
 		//TODO - Insert your code here
+		\$settings = array(
+			'text' => array(
+				'title' => 'text_title',//设置项目名称 (可填写语言项目)
+				'type' => 'mradio',//项目类型
+				'value' => array(),//项目选项
+				'default' => 0,//项目默认值
+			)
+		);
+		return \$settings;
 	}
 
 	/**
@@ -245,11 +282,26 @@ class adv_{name} {
 	 */
 	public function evalcode() {
 		//TODO - Insert your code here
+		return array(
+			//检测广告是否投放时的代码
+			'check' => '
+			if(condition) {
+				\$checked = false;
+			}',
+			//广告显示时的代码 (随机调用投放的广告)
+			'create' => '\$adcode = \$codes[\$adids[array_rand(\$adids)]];',
+		);
 	}
 
 }
 EOF;
 $phptpl['task'] = <<<EOF
+/**
+ * 任务系统 example
+ * 所有的任务最终由source/class/discuz/class_task.php 回调执行
+ * 脚本位置：source/plugin/{$plugin[identifier]}/task/task_{name}.php
+ * 语言包位置：source/language/task/lang_{name}.php
+ */
 class task_{name} {
 
 	public \$version = '$plugin[version]';	//脚本版本号
@@ -259,7 +311,15 @@ class task_{name} {
 	public \$icon = '';		//默认图标
 	public \$period = '';	//默认任务间隔周期
 	public \$periodtype = 0;//默认任务间隔周期单位
-	public \$conditions = array();	//任务附加条件
+	public \$conditions = array(	//任务附加条件
+		'text' => array(
+			'title' => '另外的设置项',//设置项目名称 (可填写语言项目)
+			'type' => 'mradio',//项目类型 mradio,radio:单选,text:框
+			'value' => array(),//项目选项 对应上面的值 参考task_post.php
+			'default' => 0,//项目默认值 从value中选择一个作为默认的值
+			'sort' => 'complete',//条件类型 (apply:申请任务条件 complete:完成任务条件)
+		)
+	);	
 
 	/**
 	 * 申请任务成功后的附加处理
@@ -312,6 +372,12 @@ class task_{name} {
 }
 EOF;
 $phptpl['secqaa'] = <<<EOF
+/**
+ * 验证问答类 example
+ * 最终由source/class/helper/helper_seccheck 执行
+ * 脚本位置：source/plugin/{$plugin[identifier]}/secqaa/secqaa_{name}.php
+ * 语言包位置：source/language/secqaa/lang_{name}.php
+ */
 class secqaa_{name} {
 
 	public \$version = '$plugin[version]';	//脚本版本号
@@ -329,6 +395,12 @@ class secqaa_{name} {
 }
 EOF;
 $phptpl['seccode'] = <<<EOF
+/**
+ * 验证问答类 example
+ * 最终由source/class/helper/helper_seccheck 执行
+ * 脚本位置：source/plugin/{$plugin[identifier]}/seccode/seccode_{name}.php
+ * 语言包位置：source/language/seccode/lang_{name}.php
+ */
 class seccode_{name} {
 
 	public \$version = '$plugin[version]';
