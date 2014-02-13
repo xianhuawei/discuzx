@@ -10,6 +10,5 @@ discuzx3.1
 =
 5,home_follow_feed 添加了 pid 以便点击广播 跳转到 对应的楼层
 =
-插件开发辅助工具
-http://youdiscuzpath/develop.php
+插件开发辅助工具 http://youdiscuzpath/develop.php
 =
