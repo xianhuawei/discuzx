@@ -1,0 +1,105 @@
+
+<!--{subtemplate common/header}-->
+
+<style type="text/css">
+	.pm-title{padding: 0; margin: 0; border:none;}
+	.pm-title h3{padding: 0.9em 0 0 0;}
+	.pmList li h4{padding:0;margin: 0;}
+	.pmList li span.say{color: #777;font-size: 0.8em;}
+	.pmList li span.say em{color: #555;font-size: 1em;font-style: normal;}
+	.deadline{font-size: 0.7em; color: #999;}
+	.pmChat{border-bottom: 1px dashed #ccc; border-top: 1px dashed #fff; padding:0 1em;}
+	.pmChat h3{padding:0;margin:0;font-size: 1.3em;}
+	.pmChat span.ui-li-aside{color:#999;font-size: 0.6em;}
+	
+	.pg a{padding:0.6em 1.8em 0.6em 2.5em;margin:0 0 0 -1px; display: inline; width:2em; width:2em; border: 1px solid #ccc;background:#eee; text-decoration: none; letter-spacing: 0.5em;}
+	.pg a:hover{background:#ddd;}
+	.pg a:active{background:#ccc;}
+	.pg{text-align:right; overflow: hidden; word-wrap: none; padding:0.6em 0; margin:0;border: none;}
+	</style>
+	<script type="text/javascript">
+		$("div.pg > a").attr("data-transition","none");
+		$("span.pgb > a").attr("data-transition","none");
+	</script>
+<div data-role="navbar" class="ui-bar-a">
+	<ul>
+		<li><a href="{if $forcefid}forum.php?mod=forumdisplay{$forcefid}{else}forum.php{/if}" title="{lang return_forum}" data-transition="none">{lang return_forum}</a></li>
+		<li><a href="home.php?mod=space&do=pm" title="{lang send_pm}" class="xw1" data-transition="none">{lang pm_center}</a></li>
+		<li><a href="home.php?mod=spacecp&ac=pm" title="{lang send_pm}" data-theme="b" data-transition="none">{lang send_pm}</a></li>
+	</ul>
+</div>
+<!--{if in_array($filter, array('privatepm')) || in_array($_GET[subop], array('view'))}-->
+<div data-role="header" class="ui-bar ui-bar-d pm-title"  data-position="inline">
+	<!--{if in_array($_GET[subop], array('view'))}-->
+		<!--{if $membernum >= 2 && $subject}-->
+		<h3>{$membernum}{lang pm_members_message}:$subject</h3>
+		<!--{elseif $tousername}-->
+		<h3>{lang pm_with}{$tousername}{lang pm_totail}</h3>
+		<!--{/if}-->
+		<a href="javascript:history.back();" data-icon="back" class="ui-btn-right">{lang back}</a>
+	<!--{else}-->
+	<h3>{lang pm}</h3>
+	<!--{/if}-->
+</div>
+<!--{if in_array($filter, array('privatepm'))}-->
+<ul data-role="listview" class="pmList">
+    <!--{loop $list $key $value}-->
+        <li {if $value[new]} data-theme="e" data-icon="info"{/if}>
+        	<a href="{if $value[touid]}home.php?mod=space&do=pm&subop=view&touid=$value[touid]{else}home.php?mod=space&do=pm&subop=view&plid={$value['plid']}&daterange=1&type=1{/if}" data-transition="none">
+        	<span class="say">
+        	<span class="ui-li-aside deadline"><!--{date($value[dateline], 'u')}--></span>
+	        <!--{if $value[touid]}-->
+	        	<!--{if $value[msgfromid] == $_G[uid]}-->
+	        		<em>{lang me}</em> {lang you_to} <em>{$value[tousername]}</em> {lang say} :
+	        	<!--{else}-->
+	        		<em>{$value[tousername]}</em> {lang you_to} <em>{lang me}</em> {lang say} :
+	        	<!--{/if}-->
+	            <!--{elseif $value['pmtype'] == 2}-->
+	        	{lang chatpm_author}:$value['firstauthor']
+	        <!--{/if}-->
+	        </span>
+	        <h4><!--{if $value['pmtype'] == 2}-->[{lang chatpm}]<!--{if $value[subject]}-->$value[subject]<br><!--{/if}--><!--{/if}--><!--{if $value['pmtype'] == 2 && $value['lastauthor']}-->$value['lastauthor'] : <!--{/if}-->$value[message]</h4>
+			</a>
+        </li>
+    
+    <!--{/loop}-->
+</ul>
+<!--{elseif in_array($_GET[subop], array('view'))}-->
+	<!--{if $list}-->
+			<!--{loop $list $key $value}-->
+				<!--{subtemplate home/space_pm_node}-->
+			<!--{/loop}-->
+	<!--{else}-->
+		<div data-role="content">
+			{lang no_corresponding_pm}
+		</div>
+	<!--{/if}-->
+	$multi
+	<!--{if $list}-->
+        <a name="last"></a>
+        <div data-role="content">
+            <form id="pmform" class="pmform" name="pmform" method="post" action="home.php?mod=spacecp&ac=pm&op=send&pmid=$pmid&daterange=$daterange&pmsubmit=yes&mobile=yes" data-ajax="false">
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<!--{if !$touid}-->
+			<input type="hidden" name="plid" value="$plid" />
+			<!--{else}-->
+			<input type="hidden" name="touid" value="$touid" />
+			<!--{/if}-->
+			<textarea rows="2" cols="40" name="message" class="txt" id="replymessage" onkeydown="ctrlEnter(event, 'pmsubmit');"></textarea>
+			<p class="mtn">
+				<input type="submit" name="pmsubmit" id="pmsubmit" value="{lang reply}"  />
+			</p>
+            </form>
+        </div>
+    
+    <!--{/if}-->
+
+<!--{/if}-->
+
+<!--{else}-->
+	<div data-role="content">
+		{lang user_mobile_pm_error}
+    </div>
+<!--{/if}-->
+
+<!--{subtemplate common/footer}-->

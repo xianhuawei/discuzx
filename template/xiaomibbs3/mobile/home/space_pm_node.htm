@@ -1,0 +1,8 @@
+
+<div class="pmChat">
+	<p><span class="ui-li-aside"><!--{date($value[dateline], 'u')}--></span></p>
+	<!--{if $value[msgfromid]}-->
+	<p><h3>{$value[msgfrom]}</h3></p>
+	<!--{/if}-->
+	<p><span class="comment">{if !$value['msgfromid'] && !$value['msgtoid']}$value[subject]<br>{/if}$value[message]</span></p>
+</div>

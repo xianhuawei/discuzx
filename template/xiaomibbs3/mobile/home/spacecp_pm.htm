@@ -1,0 +1,33 @@
+
+<!--{template common/header}-->
+<div data-role="navbar" class="ui-bar-a">
+	<ul>
+		<li><a href="{if $forcefid}forum.php?mod=forumdisplay{$forcefid}{else}forum.php{/if}" title="{lang return_forum}" data-transition="none">{lang return_forum}</a></li>
+		<li><a href="home.php?mod=space&do=pm" title="{lang pm}" data-transition="none">{lang pm}</a></li>
+		<li><a href="home.php?mod=spacecp&ac=pm" title="{lang send_pm}" data-transition="none">{lang send_pm}</a></li>
+	</ul>
+</div>
+
+<div class="bm mtn">
+	<div class="ui-bar ui-bar-d" style="text-align:center;"><h4>{lang send_pm}</h4></div>
+<!--{if $op != ''}-->
+	<div class="ui-bar ui-bar-d" style="text-align:center;"><h4>{lang user_mobile_pm_error}</h4></div>
+<!--{else}-->
+<div data-role="content">
+    <form id="pmform_{$pmid}" name="pmform_{$pmid}" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=pm&op=send&touid=$touid&pmid=$pmid&mobile=yes">
+        <div class="bm_c">
+            <input type="hidden" name="referer" value="{echo dreferer();}" />
+            <input type="hidden" name="pmsubmit" value="true" />
+            <input type="hidden" name="formhash" value="{FORMHASH}" />
+            <!--{if !$touid}-->
+            <label for="username"><strong>{lang addressee}</strong></label>
+            <input type="text" id="username" name="username" value="" class="txt" />
+            <!--{/if}-->
+            <textarea rows="8" cols="40" name="message" class="txt" id="sendmessage" ></textarea>
+            <input type="submit" name="pmsubmit_btn" id="pmsubmit_btn" value="{lang send}" />
+        </div>
+    </form>
+</div>
+<!--{/if}-->
+</div>
+<!--{template common/footer}-->

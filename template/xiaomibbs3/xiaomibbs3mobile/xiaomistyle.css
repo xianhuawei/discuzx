@@ -1,0 +1,1327 @@
+@charset "utf-8";
+
+
+
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+
+
+    
+    
+    
+
+
+
+    
+    
+    
+    
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+
+    
+    
+
+
+
+
+    
+
+
+
+    
+
+
+    
+    
+    
+    
+
+
+
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+    
+    
+
+
+
+
+
+    
+
+
+    
+
+
+    
+
+
+    
+    
+    
+
+
+
+    
+    
+
+
+    
+    
+
+
+
+.menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background: #2c2f33;
+    box-shadow: inset -30px 0 30px -30px #000;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-transform: translateX(-200px);
+    transform: translateX(-200px);
+    -webkit-transition: 0 -webkit-transform linear 0.2s;
+    transition: 0 transform linear 0.2s;
+}
+.menu.showMenu {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transition: 0 -webkit-transform linear 0;
+    transition: 0 transform linear 0;
+}
+.menu header {
+    height: 74px;
+}
+.menu header .img {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border: 2px solid #3a3c3f;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.menu header .img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+.menu header dl {
+    padding-top: 21px;
+}
+.menu header dl dt {
+    font-size: 15px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.menu header dl dd {
+    color: #50555d;
+}
+.menu header dl a {
+    color: #50555d;
+}
+.menu header dl.notLogin dt {
+    margin-top: 8px;
+}
+.menu .menu-container {
+    position: absolute;
+    left: 0;
+    top: 74px;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #161719;
+    border-bottom: 1px solid #3c3f42;
+    overflow: hidden;
+}
+.menu .menu-container ul {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-transition: 0.2s -webkit-transform ease-in-out 0;
+    transition: 0.2s transform ease-in-out 0;
+}
+.menu .menu-container ul.moving {
+    -webkit-transition: 0s all ease 0;
+    transition: 0s all ease 0;
+}
+.menu .menu-container ul li {
+    height: 44px;
+    line-height: 44px;
+    border-top: 1px solid #3c3f42;
+    border-bottom: 1px solid #161719;
+}
+.menu .menu-container ul li span,
+.menu .menu-container ul li a {
+    display: block;
+    height: 44px;
+    line-height: 44px;
+    color: #676e78;
+    font-size: 15px;
+}
+.menu .menu-container ul li span {
+    padding-left: 10px;
+}
+.menu .menu-container ul li a {
+    padding-left: 48px;
+}
+.menu .menu-container ul li a .icon {
+    display: inline-block;
+    width: 20px;
+    height: 46px;
+    margin: -1px 13px 0 0;
+    background: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/menu_icon.png") 0 46px no-repeat;
+    background-size: 40px 368px;
+    vertical-align: top;
+}
+.menu .menu-container ul li a .icon.icon-home {
+    background-position: 0 0;
+}
+.menu .menu-container ul li a .icon.icon-bbs {
+    background-position: 0 -46px;
+}
+.menu .menu-container ul li a .icon.icon-pai {
+    background-position: 0 -92px;
+}
+.menu .menu-container ul li a .icon.icon-hd {
+    background-position: 0 -138px;
+}
+.menu .menu-container ul li a .icon.icon-fav {
+    background-position: 0 -184px;
+}
+.menu .menu-container ul li a .icon.icon-veri {
+    background-position: 0 -230px;
+}
+.menu .menu-container ul li a .icon.icon-user {
+    background-position: 0 -276px;
+}
+.menu .menu-container ul li a .icon.icon-setting {
+    background-position: 0 -322px;
+}
+.menu .menu-container ul li.current {
+    background: #1f2124;
+}
+.menu .menu-container ul li.current a {
+    padding-left: 45px;
+    border-left: 3px solid #ff631f;
+    color: #fff;
+}
+.menu .menu-container ul li.current a .icon.icon-home {
+    background-position: -20px 0;
+}
+.menu .menu-container ul li.current a .icon.icon-bbs {
+    background-position: -20px -46px;
+}
+.menu .menu-container ul li.current a .icon.icon-pai {
+    background-position: -20px -92px;
+}
+.menu .menu-container ul li.current a .icon.icon-hd {
+    background-position: -20px -138px;
+}
+.menu .menu-container ul li.current a .icon.icon-fav {
+    background-position: -20px -184px;
+}
+.menu .menu-container ul li.current a .icon.icon-veri {
+    background-position: -20px -230px;
+}
+.menu .menu-container ul li.current a .icon.icon-user {
+    background-position: -20px -276px;
+}
+.menu .menu-container ul li.current a .icon.icon-setting {
+    background-position: -20px -322px;
+}
+
+.bg {
+    background: #f2f2f2;
+}
+.wrap {
+    width: 100%;
+    border-bottom: 1px solid transparent;
+    background: #f2f2f2;
+    
+}
+.wrap > * {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transition: 0.2s -webkit-transform ease-in-out 0;
+    transition: 0.2s transform ease-in-out 0;
+}
+.wrap.showMenu > * {
+    -webkit-transform: translateX(200px);
+    transform: translateX(200px);
+}
+.page_mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: none;
+    height: 100%;
+    width: 100%;
+    background: #000000 url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/loading_bg.gif") center no-repeat;
+    z-index: 1000;
+    opacity: 0.3;
+}
+
+.header {
+    
+    
+    
+    
+    
+}
+.header + * {
+    
+}
+.nav {
+    position: relative;
+    height: 44px;
+    border-top-color: #4a4f57;
+    border-top-style: solid;
+    border-top-width: 1px;
+    background: #353b44;
+
+    padding: 0; 
+}
+.nav .icon {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    background: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/header_icon.png") no-repeat;
+    background-size: 44px 264px;
+}
+.nav .icon.icon-menu {
+    background-position: 0 0;
+}
+.nav .icon.icon-post {
+    background-position: 0 -44px;
+}
+.nav .icon.icon-back {
+    background-position: 0 -88px;
+}
+.nav .icon.icon-fav {
+    background-position: 0 -132px;
+}
+.nav .icon.icon-reply {
+    background-position: 0 -176px;
+}
+.nav .icon.icon-send {
+    background-position: 0 -220px;
+}
+.header-tit {
+    display: block;
+    height: 44px;
+    line-height: 44px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #cfdae5;
+    text-align: center;
+}
+.header-tit .name {
+    display: block;
+    width: auto;
+    height: 44px;
+    margin: 0 50px;
+    padding: 0;
+    color: inherit;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+}
+.header-tit .name.name_narrow {
+    margin: 0 100px;
+}
+.category .name.display:after {
+    content: "";
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-width: 8px 6px 0;
+    border-style: solid dashed dashed dashed;
+    border-color: #fff transparent transparent transparent;
+    vertical-align: middle;
+}
+.category .subname_list {
+    top: 41px;
+}
+.category .subname_list:before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    height: 0;
+    width: 0;
+    margin-left: -6px;
+    border-width: 0 6px 6px 6px;
+    border-style: dashed dashed solid dashed;
+    border-color: transparent transparent #292e35 transparent;
+}
+.category .subname_list ul {
+    width: 180px;
+    border: none;
+    border-radius: 5px;
+    background: #292e35;
+    box-shadow: none;
+    overflow: auto;
+}
+.category .subname_list li {
+    border: none;
+    margin: 10px 15px;
+}
+.category .subname_list a {
+    margin: 0;
+    border-radius: 5px;
+    color: #828c99;
+    font-weight: normal;
+}
+.category .subname_list a:hover {
+    background: #828c99;
+    color: #292e35;
+}
+
+.header-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+.header-act {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+.header-btn {
+    float: left;
+    height: 100%;
+    width: 58.666666666666664px;
+    text-align: center;
+}
+.header-btn:active {
+    background: #212326;
+}
+button.header-btn {
+    border: none;
+    background: none;
+}
+.header-btn + .header-btn {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+.header-btn + button.header-btn {
+    width: 59.666666666666664px;
+}
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+
+
+    
+
+
+    
+    
+    
+
+
+    
+    
+    
+
+
+    
+    
+
+
+
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+.footer {
+    padding-bottom: 49px;
+}
+
+
+.topbar {
+    background: #f2f2f2;
+    border-bottom: 1px solid #ccc;
+}
+
+.topbar .tabs {
+    height: 45px;
+    line-height: 45px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+}
+.topbar .tabs li {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    box-flex: 1;
+}
+.topbar .tabs a {
+    display: block;
+    border-left: 1px solid #ccc;
+    color: #999;
+    font-size: 16px;
+    text-align: center;
+}
+.topbar .tabs li:first-child a {
+    border-left: none;
+}
+.topbar .tabs a.current {
+    background: #e6e6e6;
+    color: #353b44;
+}
+
+.topbar .crumbs {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    font-size: 16px;
+    overflow: hidden;
+
+    white-space: nowrap;
+    overflow: hidden;
+}
+.topbar .crumbs a,
+.topbar .crumbs em {
+    float: left;
+}
+.topbar .crumbs a {
+    color: #353b44;
+    margin-right: 2px;
+}
+.topbar .crumbs em {
+    width: 10px;
+    height: 10px;
+    margin-top: 14px;
+    margin-right: 7px;
+    border-top: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    vertical-align: middle;
+    text-indent: -9999px;
+}
+
+
+.wp {
+    background: #fff;
+}
+#wp {
+    overflow: auto;
+}
+
+.bmw {
+    border-top: 1px solid #ccc;
+}
+.bm_h {
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px solid #ccc;
+    background: none;
+}
+.bm_h h2 {
+    height: 35px;
+    line-height: 35px;
+    background: #f2f2f2;
+}
+.bm_h h2:before {
+    content: "";
+    float: right;
+    width: 10px;
+    height: 10px;
+    margin-top: 16px;
+    margin-right: 12px;
+    border-top: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    vertical-align: middle;
+
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.bmw.unfold .bm_h h2:before {
+    margin-top: 9px;
+
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+.bm_h h2 a {
+    height: 35px;
+    line-height: 35px;
+    color: #353b44;
+    font-size: 15px;
+}
+
+.sub_forum {
+    padding: 0 5px 10px;
+    border: none;
+    border-radius: 0;
+}
+.sub_forum ul {
+    max-height: 0;
+    margin: 0 auto;
+    overflow: hidden;
+
+    -webkit-transition: 0.5s max-height;
+    transition: 0.5s max-height;
+}
+.bmw.unfold .sub_forum ul {
+    max-height: 6000px;
+}
+
+@media (max-width:257px) {
+    .sub_forum ul {
+        width: 172px;
+    }
+}
+@media (min-width: 258px) and (max-width:343px) {
+    .sub_forum ul {
+        width: 258px;
+    }
+}
+@media (min-width: 344px) and (max-width:429px) {
+    .sub_forum ul {
+        width: 344px;
+    }
+}
+@media (min-width: 430px) and (max-width:515px) {
+    .sub_forum ul {
+        width: 430px;
+    }
+}
+@media (min-width: 516px) and (max-width:601px) {
+    .sub_forum ul {
+        width: 516px;
+    }
+}
+@media (min-width: 601px) {
+    .sub_forum ul {
+        width: auto;
+    }
+}
+.sub_forum li {
+    float: left;
+    width: 86px;
+    height: auto;
+    line-height: 22px;
+    border: none;
+    font-size: 14px;
+}
+.sub_forum li a {
+    padding: 0;
+    color: #9a9a9a;
+}
+.sub_forum li span {
+    display: block;
+    width: 76px;
+    height: 76px;
+    margin: 10px auto 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #e6e6e6;
+    overflow: hidden;
+}
+.sub_forum li span img {
+    width: 58px;
+    height: 58px;
+    margin: 9px;
+}
+.sub_forum li strong {
+    display: block;
+    padding: 10px 0 0;
+    height: 14px;
+    line-height: 14px;
+    color: #999;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.userinfo_wrap {
+    min-height: 100%;
+    background: #599fdb url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/userinfo_bg.jpg?v2") center 44px no-repeat;
+    background-size: 100% auto;
+}
+.userinfo {
+    padding-bottom: 40px;
+    background: #599fdb url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/userinfo_bg.jpg?v2") center top no-repeat;
+    background-size: 100% auto;
+}
+.user_avatar {
+    margin: 0;
+    height: 165px;
+    padding: 35px 0 0;
+}
+.user_avatar span {
+    position: relative;
+    display: block;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+.user_avatar span:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 3px 3px rgba(0, 0, 0, 0.1);
+}
+.user_avatar img {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 50%;
+    box-shadow: none;
+}
+.user_avatar .name {
+    color: #fff;
+    font-size: 18px;
+    font-weight: normal;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+.myinfo_list {
+    width: auto;
+    max-width: 330px;
+}
+.myinfo_list ul {
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.8);
+}
+.myinfo_list li {
+    float: none;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    background: none;
+}
+.myinfo_list li a {
+    line-height: 64px;
+    padding: 0 20px;
+    border-bottom: 1px solid #c6c2bc;
+    color: #353b44;
+    text-align: left;
+}
+.myinfo_list li a:hover {
+    background: #e6e2da;
+}
+.myinfo_list li:first-child a {
+    border-radius: 5px 5px 0 0;
+}
+.myinfo_list li:last-child a {
+    border-bottom: none;
+    border-radius: 0 0 5px 5px;
+}
+.myinfo_list li .icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 15px 0 0;
+    background: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/myinfo_icon.png?v2") 0 0 no-repeat;
+    background-size: 20px 100px;
+    vertical-align: middle;
+}
+.myinfo_list li .icon.icon-fav {
+    background-position: 0 0;
+}
+.myinfo_list li .icon.icon-list {
+    background-position: 0 -20px;
+}
+.myinfo_list li .icon.icon-msg {
+    background-position: 0 -40px;
+}
+.myinfo_list li .icon.icon-info {
+    background-position: 0 -60px;
+}
+.myinfo_list li .icon.icon-act {
+    background-position: 0 -80px;
+}
+.myinfo_list li:before {
+    content: "";
+    float: right;
+    width: 10px;
+    height: 10px;
+    margin-top: 26px;
+    margin-right: 22px;
+    border-top: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    vertical-align: middle;
+
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.tit_msg img {
+    left: 125px;
+}
+
+
+.search {
+    padding: 30px 20px;
+}
+.search .input {
+    height: 38px;
+    margin-top: 0;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    text-indent: 10px;
+}
+.search .search_button_outer {
+    border-radius: 0 5px 5px 0;
+    background: -webkit-linear-gradient(top, #6699ff, #5187f3);
+    background: -moz-linear-gradient(top, #6699ff, #5187f3);
+    background: linear-gradient(top, #6699ff, #5187f3);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+.search .search_button {
+    display: block;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/search_icon.png") center no-repeat;
+    background-size: 22.5px 22.5px;
+    text-indent: -9999px;
+}
+.keyword {
+    padding:0 20px !important;
+}
+
+
+.threadlist {
+    background: #fff;
+}
+.threadlist li {
+    padding: 0 10px;
+    border-bottom:1px solid #e6e6e6;
+}
+.threadlist li a {
+    line-height: 23px;
+    margin-left: 24px;
+    padding: 10px 0 0;
+    color: #353b44 !important;
+    font-size: 18px;
+    font-weight: normal !important;
+}
+.threadlist.orig li a {
+    margin-left: 0;
+    padding: 7px 10px;
+}
+.threadlist li a img {
+    display: inline-block !important;
+    width: 16px;
+    height: 16px;
+    margin-left: 0.5em;
+    vertical-align: text-top;
+}
+.threadlist .avatar {
+    float: left;
+    width: 32px;
+    height: 32px;
+    margin-top: 12px;
+    
+    border-radius: 2px;
+    overflow: hidden;
+}
+.threadlist .avatar img {
+    width: 100%;
+    height: 100%;
+}
+.threadlist .listicon {
+    float: left;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+.threadlist .listicon img {
+    width: 100%;
+    height: 100%;
+}
+.threadlist .icon_top,
+.threadlist .icon_tu {
+    position: static;
+    display: inline;
+}
+.threadlist .info {
+    line-height: 30px;
+    font-size:12px;
+    font-weight: normal;
+    text-align: right;
+}
+.threadlist .info span {
+    position: static;
+    display: inline;
+    margin-left: 0.5em;
+    color:#ccc;
+}
+.threadlist .info .num {
+    
+    
+    
+    padding: 0;
+    background: none;
+}
+.threadlist .info .time {
+    
+    
+    
+}
+.threadlist .info .num:before,
+.threadlist .info .time:before {
+    content: "/";
+    margin-right: 0.5em;
+}
+
+
+.postlist {
+    background: #fff;
+}
+.postlist h2 {
+    position: relative;
+    line-height: 27px;
+    margin: 0;
+    padding: 10px 10px 12px;
+    background: #e6e6e6;
+    color: #000;
+    font-size: 18px;
+}
+.postlist h2:after {
+    content: "";
+    position: absolute;
+    left: 23px;
+    bottom: 0;
+    height: 0;
+    width: 0;
+    border-width: 0 6px 6px 6px;
+    border-style: dashed dashed solid dashed;
+    border-color: transparent transparent #fff transparent;
+}
+.plc {
+    border-bottom: 1px solid #e6e6e6;
+}
+.plc .avatar {
+    left: 10px;
+    top: 15px;
+}
+.plc .avatar img {
+    height: 32px;
+    width: 32px;
+    
+    border: none;
+    border-radius: 2px;
+    padding: 0px;
+}
+.plc .pi {
+    margin-left: 53px;
+    margin-right: 10px;
+    padding: 10px 0;
+}
+.plc .pi .authi .auth {}
+.plc .pi .authi .auth > a {
+    color: #353b44;
+    font-size: 18px;
+}
+.plc .pi .authi .auth em {
+    margin-left: 1em;
+    color: #999;
+}
+.plc .pi .authi .rela {
+    color: #999;
+}
+.plc .pi .authi .rela .time {
+    padding-left: 15px;
+    background: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/icon_time.png") left center no-repeat;
+    background-size: 10px 10px;
+}
+.plc .pi .authi .rela em {
+    margin-left: 10px;
+}
+.plc .pi .authi .rela em a {
+    color: #999;
+}
+.plc .pi .message {
+    margin-top: 10px;
+    font-size: 15px;
+}
+.plc.first_plc {}
+.plc.first_plc .pi .message {
+    margin-left: -53px;
+    margin-right: -10px;
+    padding: 10px 10px 0;
+    border-top: 1px solid #e6e6e6;
+
+    color: #000 !important;
+}
+.plc.first_plc .pi .message * {
+    background: none !important;
+    color: #000 !important;
+    font-size: 15px !important;
+    text-decoration: none;
+}
+.plc.first_plc .pi .message a {
+    text-decoration: underline;
+}
+.plc.first_plc .pi .message .jammer {
+    color: #fff !important;
+}
+.plc.first_plc .pi .message table {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+.plc.first_plc .pi .message td {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.button {
+    width: auto;
+    height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    border-radius: 3px;
+    background: #69f;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+.button.icon_msg {
+    padding-left: 30px;
+    background-image: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/icon_msg.png");
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    background-size: 14px 11px;
+}
+
+
+.msgbox {
+    margin-top: 0;
+    padding-top: 10px;
+}
+
+.pmbox {
+    background: #fff;
+}
+.pmbox li {
+    height: auto;
+    padding: 0 10px;
+}
+.pmbox li a {
+    padding: 10px 0 10px 45px;
+}
+.pmbox li .avatar_img img {
+    left: 10px;
+    top: 13px;
+    padding: 0;
+    border: none;
+    border-radius: 2px;
+}
+.pmbox li .xiaomipm_content {
+    display: block;
+    max-height: 48px;
+}
+.pmbox li .xiaomipm_content .blue {
+    margin-left: 0.5em;
+    white-space: nowrap;
+}
+
+.dialog_green .dialog_c {
+    background-image: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/dialog_bg.png");
+}
+.dialog_green .dialog_t {
+    background-image: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/dialog_t.png");
+}
+.dialog_green .dialog_b {
+    background-image: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/dialog_b.png");
+}
+.dialog_white .dialog_c {
+    background-image: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/dialog_bg.png");
+}
+.dialog_white .dialog_t {
+    background-image: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/dialog_t.png");
+}
+.dialog_white .dialog_b {
+    background-image: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/dialog_b.png");
+}
+
+
+.jump_c {
+    padding: 275px 10px 75px;
+    background: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/mitu.png") center 75px no-repeat;
+    background-size: 208px 166px;
+    color: #999;
+    font-size: 18px;
+    text-align: center;
+}
+.jump_c .jump_button {
+    display: inline-block;
+    height: 48px;
+    line-height: 50px;
+    margin-top: 45px;
+    padding: 0 20px;
+    border: 1px solid #487ee9;
+    border-radius: 4px;
+    background: -webkit-linear-gradient(top, #6699ff, #5187f3);
+    background: -moz-linear-gradient(top, #6699ff, #5187f3);
+    background: linear-gradient(top, #6699ff, #5187f3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    color: #fff;
+    font-size: 18px;
+    vertical-align: top;
+}
+
+
+.tip {
+    width: auto;
+    height: auto;
+    border: none;
+    background: url("http://static.bbs.xiaomi.cn/static/image/xiaomibbs3mobile/images/m/tip_bg.png") center 25px no-repeat;
+    background-size: 113px 96px;
+}
+.tip dt {
+    height: auto;
+    line-height: 30px;
+    padding: 10px;
+    color: #999;
+    text-align: left;
+}
+.tip dt p {
+    position: relative;
+}
+.tip dt strong {
+    display: block;
+    font-size: 18px;
+    color: #000;
+}
+.tip dt textarea {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.15);
+    vertical-align: middle;
+}
+.tip dt .px {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.15);
+    vertical-align: middle;
+}
+.tip dd a {
+    margin-left: 8px;
+}
+.tip .tip_button {
+    display: inline-block;
+    height: 48px;
+    line-height: 50px;
+    width: 163px;
+    border: 1px solid #c5c5c5;
+    border-radius: 4px;
+    background: -webkit-linear-gradient(top, #eceef1, #e1e2e5);
+    background: -moz-linear-gradient(top, #eceef1, #e1e2e5);
+    background: linear-gradient(top, #eceef1, #e1e2e5);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.60);
+    color: #999;
+    font-size: 18px;
+    vertical-align: top;
+}
+.tip .tip_button.primary {
+    border-color: #487ee9;
+    background: -webkit-linear-gradient(top, #6699ff, #5187f3);
+    background: -moz-linear-gradient(top, #6699ff, #5187f3);
+    background: linear-gradient(top, #6699ff, #5187f3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    color: #fff;
+}
+.tip button.tip_button,
+.tip input.tip_button {
+    height: 50px;
+    width: 165px;
+}
+
+.tip.single dt {
+    padding: 160px 10px 0;
+}
+.tip.single dt textarea {
+    position: absolute;
+    right: 0;
+    left: 70px;
+    top: 0;
+    width: auto;
+}
+.tip.single dd {
+    margin-top: 40px;
+    border-top: none;
+    background: none;
+}
+
+.tip.pop {
+    width: 298px;
+    border: 1px solid #6b6b6b;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+}
+.tip.pop dt {
+    line-height: 28px;
+    padding: 40px 10px;
+    color: #353b44;
+    text-align: center;
+}
+.tip.pop dt strong {
+    display: inline;
+}
+.tip.pop dt textarea {
+    width: 90%;
+}
+.tip.pop dt p {
+    line-height: 40px;
+}
+.tip.pop dd {
+    margin-top: 0;
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    background: #e6e6e6;
+}
+.tip.pop .tip_button {
+    height: 38px;
+    line-height: 40px;
+    width: 133px;
+}
+.tip.pop button.tip_button,
+.tip.pop input.tip_button {
+    height: 40px;
+    width: 135px;
+}

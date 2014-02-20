@@ -1,0 +1,205 @@
+
+<!--{subtemplate common/header}-->
+<style>
+.hddiv{ display: block;}
+.postBtn{ padding:5px 4px 5px 0px; position: relative; border: none;}
+.postBtn span.disPosts{position: absolute; right:0.3em; top:0.35em;}
+.arrayBtn{ padding:5px 6px; position: relative; border: none; text-align:right;}
+
+.pstatus{font-size: 0.8em; margin:0;color:#aaa;}
+textarea, input{margin:0; padding: 0;}
+blockquote{ margin: 0.5em 1.5em; padding-left:1em; font-size:0.8em; line-height:1.3em; border-left: 0.5em solid #ccc;}
+
+.contentDiv{padding: 0.4em 0.8em 0.4em 0.5em;}
+.btnDiv{padding: 0.0em 0.2em 0.6em 0.2em;}
+.typeDiv{padding: 0.0em 0.2em 0.0em 0.2em;}
+.selectDiv{padding: 0.0em 0.4em 0.0em 0.5em}
+.pollDiv{padding: 0.0em 0.4em 0.0em 0.5em}
+.optionDiv{margin: 0.4em 0 0.3em 0;padding-left:0.3em;color:#888;}
+.daysDiv{margin: 0.4em 0 1em 0;}
+.daysDiv .ui-block-c, .multiDiv .ui-block-c, .daysDiv .ui-block-a, .multiDiv .ui-block-a{ text-align: center;}
+.bigFont{font-size: 1.2em;line-height: 1.9em;}
+
+
+</style>
+<!--{block actiontitle}-->
+<!--{if $_G['gp_action'] == 'newthread'}-->
+	<!--{if $special == 0}-->{lang post_newthread}
+	<!--{elseif $special == 1}-->{lang post_newthreadpoll}
+	<!--{elseif $special == 2}-->{lang post_newthreadtrade}
+	<!--{elseif $special == 3}-->{lang post_newthreadreward}
+	<!--{elseif $special == 4}-->{lang post_newthreadactivity}
+	<!--{elseif $special == 5}-->{lang post_newthreaddebate}
+	<!--{elseif $specialextra}-->{$_G['setting']['threadplugins'][$specialextra][name]}
+	<!--{/if}-->
+<!--{elseif $_G['gp_action'] == 'reply'}-->
+	{lang join_thread}
+<!--{elseif $_G['gp_action'] == 'edit'}-->
+	<!--{if $special == 2}-->{lang edit_trade}<!--{else}-->{lang edit_thread}<!--{/if}-->
+<!--{/if}-->
+<!--{/block}-->
+<!--{if $_G['gp_action'] != 'newthread'}-->
+	<!--{eval $subjectcut = cutstr($thread[subject], 30);}-->
+<!--{/if}-->
+<!--{block actionsubject}-->
+	<!--{if $_G['gp_action'] == 'reply'}-->
+		<em>&rsaquo;</em><a href="forum.php?mod=viewthread&tid=$thread[tid]" data-transition="none">$subjectcut</a>
+	<!--{elseif $_G['gp_action'] == 'edit'}-->
+		<em>&rsaquo;</em><a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$pid" data-transition="none">$subjectcut</a>
+	<!--{/if}-->
+<!--{/block}-->
+<!--{block upnavlink}-->
+	forum.php?mod=forumdisplay&fid={$_GET[fid]}&mobile=yes
+<!--{/block}-->
+
+
+<!--{if $_G['forum']['type'] == 'forum'}-->
+<div class="ui-bar ui-bar-b postBtn" data-position="inline">
+	<div data-role="controlgroup" data-type="horizontal">
+		<a href="forum.php" title="$_G['setting']['navs'][2]['navname']" data-icon="home" data-role="button" data-theme="b" data-transition="none">$_G['setting']['navs'][2]['navname']</a> 
+		<a href="forum.php?mod=forumdisplay&fid={$_G['forum']['fid']}" data-icon="arrow-r" data-role="button" data-theme="b" data-transition="none">{$_G['forum']['name']}</a>
+		<a href="#" data-icon="arrow-r" data-role="button" data-theme="e" data-transition="none">$actiontitle</a>
+	</div>
+</div>
+<!--{else}-->
+<div class="ui-bar ui-bar-b postBtn" data-position="inline">
+	<div data-role="controlgroup" data-type="horizontal">
+		<a href="forum.php" title="$_G['setting']['navs'][2]['navname']" data-icon="home" data-role="button" data-theme="b" data-transition="none">$_G['setting']['navs'][2]['navname']</a> 
+		<a href="forum.php?mod=forumdisplay&fid={$fup['fid']}" data-icon="arrow-r" data-role="button" data-theme="b" data-transition="none">$fup['name']</a>
+		<a href="forum.php?mod=forumdisplay&fid={$_G['forum']['fid']}" data-icon="arrow-r" data-role="button" data-theme="b" data-transition="none">{$_G['forum']['name']}</a>
+		<a href="#">$actiontitle</a>
+	</div>
+</div>
+<!--{/if}-->
+
+<div class="ui-bar ui-bar-c arrayBtn" data-position="inline">
+	<!--{if !$_G['forum']['allowspecialonly']}-->
+	<a href="forum.php?mod=post&action=newthread&fid=$_G[fid]" title="{lang send_threads}" data-role="button" data-theme="e" data-transition="none">{lang send_threads}</a> 
+	<!--{/if}-->
+	<!--{if $_G['group']['allowpostpoll']}-->
+	<a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=1" data-role="button" data-theme="b" data-transition="none">{lang post_newthreadpoll}</a> 
+	<!--{/if}-->
+	<!--{if $_G['group']['allowpostreward']}-->
+	<a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=3" data-role="button" data-theme="b" data-transition="none">{lang post_newthreadreward}</a> 
+	<!--{/if}-->
+	<!--{if $_G['group']['allowpostdebate']}-->
+	<a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=5" data-role="button" data-theme="b" data-transition="none">{lang post_newthreaddebate}</a> 
+	<!--{/if}-->
+	<!--{if $_G['setting']['threadplugins']}-->
+		<!--{loop $_G['forum']['threadplugin'] $tpid}-->
+			<!--{if array_key_exists($tpid, $_G['setting']['threadplugins']) && @in_array($tpid, $_G['group']['allowthreadplugin'])}-->
+			<a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&specialextra=$tpid" data-transition="none">{$_G[setting][threadplugins][$tpid][name]}</a>
+			<!--{/if}-->
+		<!--{/loop}-->
+	<!--{/if}-->
+</div>
+
+<div> 
+<ul data-role="listview">
+<!--{if $special != 2 && $special != 4 }-->
+<!--{eval $adveditor = $isfirstpost && $special && ($_G['gp_action'] == 'newthread' || $_G['gp_action'] == 'reply' && !empty($_G['gp_addtrade']) || $_G['gp_action'] == 'edit' );}-->
+<form method="post" id="postform" {if $_GET[action] == 'newthread'}action="forum.php?mod=post&action={if $special != 2}newthread{else}newtrade{/if}&fid=$_G[fid]&extra=$extra&topicsubmit=yes&mobile=yes" {elseif $_GET[action] == 'reply'}action="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&extra=$extra&replysubmit=yes&mobile=yes" {elseif $_GET[action] == 'edit'}action="forum.php?mod=post&action=edit&extra=$extra&editsubmit=yes&mobile=yes" $enctype {/if}>
+<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+<input type="hidden" name="posttime" id="posttime" value="{TIMESTAMP}" />
+<!--{if !empty($_G['gp_modthreadkey'])}--><input type="hidden" name="modthreadkey" id="modthreadkey" value="$_G['gp_modthreadkey']" /><!--{/if}-->
+<!--{if $_GET[action] == 'reply'}-->
+	<input type="hidden" name="noticeauthor" value="$noticeauthor" />
+	<input type="hidden" name="noticetrimstr" value="$noticetrimstr" />
+	<input type="hidden" name="noticeauthormsg" value="$noticeauthormsg" />
+	<!--{if $reppid}-->
+		<input type="hidden" name="reppid" value="$reppid" />
+	<!--{/if}-->
+	<!--{if $_GET[reppost]}-->
+		<input type="hidden" name="reppost" value="$_GET[reppost]" />
+	<!--{elseif $_GET[repquote]}-->
+		<input type="hidden" name="reppost" value="$_GET[repquote]" />
+	<!--{/if}-->
+<!--{/if}-->
+<!--{if $_GET[action] == 'edit'}-->
+	<input type="hidden" name="fid" id="fid" value="$_G[fid]" />
+	<input type="hidden" name="tid" value="$_G[tid]" />
+	<input type="hidden" name="pid" value="$pid" />
+	<input type="hidden" name="page" value="$_GET[page]" />
+<!--{/if}-->
+
+<!--{if $special}-->
+	<input type="hidden" name="special" value="$special" />
+<!--{/if}-->
+<!--{if $specialextra}-->
+	<input type="hidden" name="specialextra" value="$specialextra" />
+<!--{/if}-->
+
+
+<!--{if $adveditor}-->
+    <!--{if $special == 1}--><!--{template forum/post_poll}-->
+    <!--{elseif $special == 3}--><!--{template forum/post_reward}-->
+    <!--{elseif $special == 5}--><!--{template forum/post_debate}-->
+    <!--{elseif $specialextra}--><div>$threadplughtml</div>
+    <!--{/if}-->
+<!--{/if}-->
+
+<!--{if $isfirstpost && $sortid}-->
+<li class="typeDiv">
+	{lang threadsort_error}
+</li>
+<!--{else}-->
+<li class="contentDiv">
+	<!--{if $_G['gp_action'] != 'reply'}-->
+	<input type="text" name="subject" value="$postinfo[subject]" placeholder="{lang thread}{lang subject}"/>
+	<!--{else}-->
+	RE: $thread['subject']
+		<!--{if $quotemessage}-->
+			$quotemessage
+		<!--{/if}-->
+	<!--{/if}-->
+</li>
+
+<!--{if $isfirstpost && !empty($_G['forum'][threadtypes][types])}-->
+<li class="typeDiv">
+    <select name="typeid" id="typeid" width="80"  >
+        <option value="0">{lang select_thread_catgory} - ({lang required})</option>
+        <!--{loop $_G['forum'][threadtypes][types] $typeid $name}-->
+		<!--{if empty($_G['forum']['threadtypes']['moderators'][$typeid]) || $_G['forum']['ismoderator']}-->
+		<option value="$typeid"{if $thread['typeid'] == $typeid || $_G['gp_typeid'] == $typeid} selected="selected"{/if}><!--{echo strip_tags($name);}--></option>
+		<!--{/if}-->
+        <!--{/loop}-->
+    </select>
+</li>
+<!--{/if}-->
+
+
+<li class="contentDiv">
+  	<textarea name="$editor[textarea]" id="{$editorid}_textarea">$postinfo[message]</textarea>
+</li>
+
+<li class="secqaaDiv">
+	<!--{if $_GET[action] != 'edit' && checkperm('seccode') && ($secqaacheck || $seccodecheck)}-->
+	<!--{subtemplate common/seccheck}-->
+	<!--{/if}-->
+</li>
+
+<li class="btnDiv">
+	<div class="typeDiv">
+	<!--{if $_GET[action] == 'edit' && $isorigauthor && ($isfirstpost && $thread['replies'] < 1 || !$isfirstpost) && !$rushreply && $_G['setting']['editperdel']}-->
+	<label for="delete">{lang delete_check}</label>
+	<input type="checkbox" name="delete" id="delete" value="1" title="{lang post_delpost}{if $thread[special] == 3}{lang reward_price_back}{/if}" />
+	<!--{/if}-->
+	</div>
+	<input type="submit" id="postsubmit" name="{if $_GET[action] == 'newthread'}topicsubmit{elseif $_GET[action] == 'reply'}replysubmit{elseif $_GET[action] == 'edit'}editsubmit{/if}" value="<!--{if $_GET[action] == 'newthread'}-->{lang post_newthread}<!--{elseif $_GET[action] == 'reply'}-->{lang join_thread}<!--{elseif $_GET[action] == 'edit'}-->{lang edit_save}<!--{/if}-->" data-theme="b"/>
+    
+</li>
+<!--{/if}-->
+
+</form>
+<!--{else}-->
+	<li>
+	<!--{if $special == '2'}-->
+	{lang send_special_trade_error}
+    <!--{elseif $special == '4'}-->
+	{lang send_special_activity_error}
+    <!--{/if}-->
+    </li>
+<!--{/if}-->
+</ul>
+</div>
+<!--{subtemplate common/footer}-->

@@ -1,0 +1,53 @@
+
+<!--{template common/header}-->
+<style type="text/css">
+.pg a{padding:0.6em 1.8em 0.6em 2.5em;margin:0 0 0 -1px; display: inline; width:2em; width:2em; border: 1px solid #ccc;background:#eee; text-decoration: none; letter-spacing: 0.5em;}
+.pg a:hover{background:#ddd;}
+.pg a:active{background:#ccc;}
+.pg{text-align:right; overflow: hidden; word-wrap: none; padding:0.6em 0; margin:0;border: none;}
+</style>
+<script type="text/javascript">
+	$("div.pg > a").attr("data-transition","none");
+	$("span.pgb > a").attr("data-transition","none");
+</script>
+
+	<div class="ui-bar ui-bar-d" style="text-align:center;">{lang my_posts}</div>
+	<form method="post" autocomplete="off" name="delform" id="delform" action="home.php?mod=space&do=thread&view=all&order=dateline" onsubmit="showDialog('{lang del_select_thread_confirm}', 'confirm', '', '$(\'delform\').submit();'); return false;">
+        <input type="hidden" name="formhash" value="{FORMHASH}" />
+        <input type="hidden" name="delthread" value="true" />
+        <!--{if $list}-->
+        	<ul data-role="listview" data-count-theme="b">
+            <!--{loop $list $thread}-->
+            	<li>
+                    <!--{if $viewtype == 'reply' || $viewtype == 'postcomment'}-->
+                        <a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$thread[pid]"  data-transition="none">$thread[subject]
+                <!--{if $viewtype != 'postcomment'}-->
+                    <span class="ui-li-count">{lang forum_posts}$thread[replies]</span>
+                <!--{/if}-->
+                        </a>
+                    <!--{else}-->
+                        <a href="forum.php?mod=viewthread&tid=$thread[tid]"  {if $thread['displayorder'] == -1}class="recy"{/if} data-transition="none">$thread[subject]
+                <!--{if $viewtype != 'postcomment'}-->
+                    <span class="ui-li-count">{lang forum_posts}$thread[replies]</span>
+                <!--{/if}-->
+                        </a>
+                    <!--{/if}-->
+                <!--{if $viewtype != 'postcomment'}-->
+                    <!--{if !$actives[me]}-->
+					<p>$thread[author]$ - <em>thread[dateline]</em></p>
+                    <!--{/if}-->
+                <!--{/if}-->
+            </li>
+            <!--{/loop}-->
+            </ul>
+        <!--{else}-->
+        	<div data-role="content">
+            {lang no_related_posts}
+            </div>
+        <!--{/if}-->
+    </form>
+<!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
+
+
+
+<!--{template common/footer}-->

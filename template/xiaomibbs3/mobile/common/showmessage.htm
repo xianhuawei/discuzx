@@ -1,0 +1,24 @@
+
+<!--{subtemplate common/header}-->
+<div class="f_c">
+	<style type="text/css">
+		#messagetext{text-align:center; line-height: 2em;}
+		#messagetext h4{padding: 0 1.0em; line-height: 2.0em;}
+		#messagetext h4 a{font-size: 1.35em; line-height: 2.8em; text-decoration: none;}
+	</style>
+	<div id="messagetext" data-role="content">
+		<h4>$show_message</h4>
+        <!--{if $_G['forcemobilemessage']}-->
+        	<p >
+            	<a href="{$_G['setting']['mobile']['pageurl']}" data-role="button" data-transition="none" data-ajax="false">{lang continue}</a><br />
+                <a href="javascript:history.back();" data-role="button" data-transition="none" data-ajax="false">{lang goback}</a>
+            </p>
+        <!--{/if}-->
+		<!--{if $url_forward}-->
+			<p><a href="$url_forward" data-role="button" data-transition="none" data-ajax="false">{lang message_forward_mobile}</a></p>
+		<!--{elseif $allowreturn}-->
+			<p><a href="javascript:history.back();" data-role="button" data-transition="none" data-ajax="false">{lang message_go_back}</a></p>
+		<!--{/if}-->
+	</div>
+</div>
+<!--{subtemplate common/footer}-->

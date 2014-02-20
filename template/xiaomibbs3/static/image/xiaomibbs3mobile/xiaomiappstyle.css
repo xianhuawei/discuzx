@@ -1,0 +1,32 @@
+.menu {
+    background: #242629;
+}
+.menu header dl {
+    padding-top: 24px;
+}
+.menu header dl a {
+    color: #676e78;
+}
+.menu header dl dt {
+    color: #676e78;
+    font-size: 18px;
+}
+.menu header dl.notLogin dt {
+    margin-top: 0px;
+}
+.menu .menu-container ul li {
+    background: #2c2f33;
+}
+.menu .menu-container ul li.current {
+    background: #212326;
+}
+.menu .menu-container ul li a {
+    padding-left: 53px;
+}
+.menu .menu-container ul li.current a {
+    padding-left: 50px;
+}
+.menu .menu-container ul li span,
+.menu .menu-container ul li a {
+    font-size: 15px;
+}
