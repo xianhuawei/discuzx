@@ -18,9 +18,9 @@ $hsk_inarray = array(
 $_HSK['config']['var']					= '4.1.0';
 $_HSK['config']['lang']					= 'SC_UTF-8';
 $_HSK['config']['authorize_code']		= '';
-$_HSK['config']['d_anthor']				= '<a href="http://yinfu.cc/?1" target="_blank">靖飒</a>';
-$_HSK['config']['d_copyright']			= '【音符网】ddzz.cc';
-$_HSK['config']['d_site']				= 'http://yinfu.cc';
+$_HSK['config']['d_anthor']				= '视频中心';
+$_HSK['config']['d_copyright']			= '视频中心';
+$_HSK['config']['d_site']				= 'http://www.discuz.net';
 
 //授权设置
 $_HSK['anthorze']['key']				= 'X0ZyZWUgVmVyc2lvbl8=';
