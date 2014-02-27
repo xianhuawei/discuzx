@@ -99,11 +99,11 @@ if($supid){
 echo "<?xml version='1.0' encoding='UTF-8'?>";
 
 ?>
-<swf1 name="play" logo="http://yinfu.cc/logo.png">
-	<ad img="http://yinfu.cc/source/plugin/hsk_vcenter/ad/1.jpg" link="http://yinfu.cc"></ad>
-	<ad img="http://yinfu.cc/source/plugin/hsk_vcenter/ad/2.jpg" link="http://yinfu.cc"></ad>
-	<ad img="http://yinfu.cc/source/plugin/hsk_vcenter/ad/3.jpg" link="http://yinfu.cc"></ad>
-	<ad img="http://yinfu.cc/source/plugin/hsk_vcenter/ad/4.jpg" link="http://yinfu.cc"></ad>
+<swf1 name="play" logo="/static/image/common/logo.png">
+	<ad img="/static/image/common/logo.png" link="/"></ad>
+	<ad img="/static/image/common/logo1.png" link="/"></ad>
+	<ad img="/static/image/common/logo2.png" link="/"></ad>
+	<ad img="/static/image/common/logo3.png" link="/"></ad>
 </swf1>
 <video name="video" visible="true">
 	<video img="<?=$otherdata[0]['purl']?>" link="<?=$otherdata[0]['link']?>" txt="<?=$otherdata[0]['vsubject']?>" autoplay="1" playlink="<?=$otherdata[0]['link']?>"></video>

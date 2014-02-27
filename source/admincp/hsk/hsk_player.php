@@ -24,13 +24,13 @@ if($do == '1') {	//类别管理
 		if(!file_exists($cmp_config)){
 			//配置文件未找到！
 			$myarray = array(	'name'			=> 'Your site url',
-								'link'			=> 'http://yinfu.cc',
+								'link'			=> '/',
 								'description'	=> '',
-								'logo'			=> '{src:http://yinfu.cc/v/logo.png, xywh:[20,20,0,0]}',
+								'logo'			=> '{src:static/image/common/logo.png, xywh:[20,20,0,0]}',
 								'logo_alpha'	=> '0.5',
 								'auto_play'		=> '1',
 								'context_menu'	=> '0',
-								'imagesrc'		=> 'http://yinfu.cc/v/images/yinfu.png',
+								'imagesrc'		=> '/v/images/yinfu.png',
 								'senddomain'	=> 'youku.com,tudou.com,tudouui.com',
 								'defaultskin'	=> '',
 								'playername'	=> 'yinfu.swf',

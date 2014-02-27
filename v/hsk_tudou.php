@@ -5,7 +5,7 @@ $start = intval($start);
 $hd	 = intval($hd) >= 1 && intval($hd) <= 3 ? intval($hd) : 2;
 
 if(!$tid){
-	$filesrc = "http://yinfu.cc/v/images/yinfu.png";
+	$filesrc = "/v/yinfu.png";
 }else{
 	$hdsid = array(1=>'2', 2=>'4', 3=>'99');
 	$url = "http://v2.tudou.com/v.action?st=".$hdsid[$hd]."&pw=&ui=0&retc=1&mt=0&noCache=77667&si=10200&sid=10200&vn=02&it=".$tid;
