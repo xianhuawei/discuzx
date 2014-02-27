@@ -1,0 +1,249 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div id="ct" class="ct2 wp cl">
+		<div class="mn" style="width:690px;">
+
+
+			<form id="searchfrm" method="post" autocomplete="off" name="searchfrm" action="{PDIR}&mod=search">
+			<input type="hidden" name="skey" id="skey" value="$skey">
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<ul class="tb cl">
+				<li{if !$skey || $skey=='1'} class="a"{/if}>
+				<a href="javascript:;" onclick="setfrm(1,0);"><span class="xs2">{lang hsk_vcenter:thevod}</span></a></li>
+				<li{if $skey=='2'} class="a"{/if}>
+				<a href="javascript:;" onclick="setfrm(2,0);"><span class="xs2">{lang hsk_vcenter:thevlist}</span></a></li>
+				<li{if $skey=='3'} class="a"{/if}>
+				<a href="javascript:;" onclick="setfrm(3,0);"><span class="xs2">{lang hsk_vcenter:search_key_3}</span></a></li>
+				<li{if $skey=='4'} class="a"{/if}>
+				<a href="javascript:;" onclick="setfrm(4,0);"><span class="xs2">{lang hsk_vcenter:actor}</span></a></li>
+				<li{if $skey=='5'} class="a"{/if}>
+				<a href="javascript:;" onclick="setfrm(5,0);"><span class="xs2">{lang hsk_vcenter:tag}</span></a></li>
+				<li style="float:right;">
+					{lang hsk_vcenter:search_hot} : 
+						<!--{echo hsk_dis_select($search_hot, 'search')}-->
+				</li>
+			</ul>
+			<div class="cls" style="padding:10px;">
+				<input id="srchtxt" class="px xs2" value="$srchtxt" type="text" name="srchtxt" style="width:580px;height:22px;">
+				<button class="pn pnc" name="searchsubmit" id="searchsubmit" type="submit" value="true" style="height:28px;width:70px;"><strong>{lang hsk_vcenter:search}</strong></button>
+			</div>			
+			</form>
+
+			<!--{if $_ADOTHER[61][message]}-->
+			<div class="ad" style="padding-top:10px;padding-bottom:10px; width:690px; {if $_ADOTHER[61][height]}height:$_ADOTHER[61][height]px;{/if}">
+				$_ADOTHER[61][message]
+			</div>
+			<!--{/if}-->
+			
+			<ul class="tb cl">
+				<li{if !$types} class="a"{/if}>
+				<a href="{PDIR}&mod=search{$pageurl}"><span class="xs2">{lang hsk_vcenter:types0}</span></a></li>
+				<li{if $types == '1'} class="a"{/if}>
+				<a href="{PDIR}&mod=search{$pageurl}&types=1"><span class="xs2">{lang hsk_vcenter:types1}</span></a></li>
+				<li{if $types == '2'} class="a"{/if}>
+				<a href="{PDIR}&mod=search{$pageurl}&types=2"><span class="xs2">{lang hsk_vcenter:types2}</span></a></li>
+				<li{if $types == '3'} class="a"{/if}>
+				<a href="{PDIR}&mod=search{$pageurl}&types=3"><span class="xs2">{lang hsk_vcenter:types3}</span></a></li>
+				<li style="float:right;">
+					{lang hsk_vcenter:search_countmax}
+				</li>
+			</ul>
+
+			<!--{if $searchintvlist}-->
+			<div class="mod_video_list details" style="margin-bottom:-20px;">
+				<div id="content" class="mod_cont">
+					<!--{loop $searchtv $abvalue}-->
+					<div class="mod_item">
+						<div class="mod_pic">
+							<a href="{eval echo sendurl('show',0, $abvalue[id],0,0,0);}" target="_blank"><img src="$abvalue[purl]" class="clipImg"></a><span class="vpbg"></span><span class="vinf"><div class="z">$abvalue[timelong]</div><!--{if $abvalue[vprice]}--><div class="y" style="padding-right:5px;">{lang hsk_vcenter:pricevod}</div><!--{/if}--></span>
+						</div>
+						<div class="mod_txt">
+							<div class="mod_item_tit">
+								<a href="{eval echo sendurl('show',0, $abvalue[id],0,0,0);}" class="xs2" title="$abvalue[vsubject]" target="_blank">$abvalue[vsubjectc]</a><!--{if $abvalue[abtotal]}--><span class="xg1" style="padding-left:10px;">{lang hsk_vcenter:plistcount}</span><!--{/if}-->
+							</div>
+							<div class="mod_scores">
+								<span class="mod_number xg1">({$abvalue[evaluate_r]}{lang hsk_vcenter:viewtraeg})</span>
+								<strong class="xi1">$abvalue[valuate]</strong>
+							</div>
+							<ul class="mod_info">
+								<li class="director xg2">{lang hsk_vcenter:sort} : $abvalue[list_sort]
+								
+								</li>
+								<li class="date xg2">{lang hsk_vcenter:years} :
+								<a href="{eval echo sendurl('list', 'f', $abvalue[fid], 0, 0, 0, 0, 0, 0, $abvalue[years]);}" target="_blank">$years_new[$abvalue[years]]</a></li>
+								<li class="area xg2">{lang hsk_vcenter:address} : <a href="{eval echo sendurl('list', 'f', $abvalue[fid], 0, 0, 0, 0, 0, $abvalue[address]);}" target="_blank">$address_new[$abvalue[address]]</a></li>
+								<li class="category xg2">{lang hsk_vcenter:language} : <span>$language_new[$abvalue[language]]</span></li>
+								<li class="play_time xg2">{lang hsk_vcenter:play} : $abvalue[views]</li>
+								<li class="director xg2">{lang hsk_vcenter:suactor} : <a href="{eval echo sendurl('actor','f',$abvalue[directorid]);}">$abvalue[director]</a></li>
+								<li class="performer xg2">{lang hsk_vcenter:actor} : 
+									$abvalue[list_actor]
+								</li>
+							</ul>
+							<p class="xg2"><nobr><span id="vinfo">{lang hsk_vcenter:vinfo} : </span>$abvalue[vinfo]</nobr></p>
+							<div class="play_btn"><a href="{eval echo sendurl('acshow','first', $abvalue[id]);}"><img src="{MDIR}/play_first.gif" style="padding-right:10px;"></a><!--{if $abvalue[album]==3}--><a href="{eval echo sendurl('acshow','end', $abvalue[id]);}"><img src="{MDIR}/play_last.gif"></a><!--{/if}--></div>
+						</div>
+					</div>
+					<!--{/loop}-->
+				</div>
+			</div>			
+			<a href="{PDIR}&mod=search&mod=search&skey=3&srchtxt=$srchtxt"><img src="{MDIR}/search_more.gif" border="0" style="margin-top:1px;"></a>
+			<!--{/if}-->
+			
+			<!--{if $skey == 3}-->
+			<div class="mod_video_list details">
+				<div id="content" class="mod_cont">
+					<!--{loop $datalist $abvalue}-->
+					<div class="mod_item">
+						<div class="mod_pic">
+							<a href="{eval echo sendurl('show',0, $abvalue[id],0,0,0);}"><img src="$abvalue[purl]" class="clipImg"></a><span class="vpbg"></span><span class="vinf"><div class="z">$abvalue[timelong]</div><!--{if $abvalue[vprice]}--><div class="y" style="padding-right:5px;">{lang hsk_vcenter:pricevod}</div><!--{/if}--></span>
+						</div>
+						<div class="mod_txt">
+							<div class="mod_item_tit">
+								<a href="{eval echo sendurl('show',0, $abvalue[id],0,0,0);}" class="xs2" title="$abvalue[vsubject]">$abvalue[vsubjectc]</a><!--{if $abvalue[abtotal]}--><span class="xg1" style="padding-left:10px;">{lang hsk_vcenter:plistcount}</span><!--{/if}-->
+							</div>
+							<div class="mod_scores">
+								<span class="mod_number xg1">({$abvalue[evaluate_r]}{lang hsk_vcenter:viewtraeg})</span>
+								<strong class="xi1">$abvalue[valuate]</strong>
+							</div>
+							<ul class="mod_info">
+								<li class="director xg2">{lang hsk_vcenter:sort} : $abvalue[list_sort]
+								
+								</li>
+								<li class="date xg2">{lang hsk_vcenter:years} :
+								<a href="{eval echo sendurl('list', 'f', $abvalue[fid], 0, 0, 0, 0, 0, 0, $abvalue[years]);}" target="_blank">$years_new[$abvalue[years]]</a></li>
+								<li class="area xg2">{lang hsk_vcenter:address} : <a href="{eval echo sendurl('list', 'f', $abvalue[fid], 0, 0, 0, 0, 0, $abvalue[address]);}" target="_blank">$address_new[$abvalue[address]]</a></li>
+								<li class="category xg2">{lang hsk_vcenter:language} : <span>$language_new[$abvalue[language]]</span></li>
+								<li class="play_time xg2">{lang hsk_vcenter:play} : $abvalue[views]</li>
+								<li class="director xg2">{lang hsk_vcenter:suactor} : <a href="{eval echo sendurl('actor','f',$abvalue[directorid]);}">$abvalue[director]</a></li>
+								<li class="performer xg2">{lang hsk_vcenter:actor} : 
+									$abvalue[list_actor]
+								</li>
+							</ul>
+							<p class="xg2"><nobr><span id="vinfo">{lang hsk_vcenter:vinfo} : </span>$abvalue[vinfo]</nobr></p>
+							<div class="play_btn"><a href="{eval echo sendurl('acshow','first', $abvalue[id]);}"><img src="{MDIR}/play_first.gif" style="padding-right:10px;"></a><!--{if $abvalue[album]==3}--><a href="{eval echo sendurl('acshow','end', $abvalue[id]);}"><img src="{MDIR}/play_last.gif"></a><!--{/if}--></div>
+						</div>
+					</div>
+					<!--{/loop}-->
+				</div>
+			</div>
+			<!--{else}-->			
+			<div class="collgrid6t">
+				<div class="items">
+				{eval $i=1;}
+				<!--{loop $datalist $listloop}-->
+					<ul class="p{if $i%5==0} last{/if}">
+						<li class="p_thumb" style="height:{$sort_height}px;">
+							<a title="$listloop[vsubject]" href="{eval echo sendurl('show',0, $listloop[id],0,0,0);}"><img class="clipImg" alt="$listloop[vsubject]" src="$listloop[purl]" onerror="this.src='{MDIR}/noimages.gif';"></a><span class="vpbg"></span><span class="vinf"><div class="z">$listloop[timelong]</div><!--{if $listloop[vprice]}--><div class="y" style="padding-right:5px;">{lang hsk_vcenter:pricevod}</div><!--{/if}--></span>
+						</li>
+						<li class="p_title">
+							<a title="$listloop[vsubject]" href="{eval echo sendurl($listloop[isalbum],0, $listloop[id],0,0,0);}">$listloop[vsubjectc]</a>	
+						</li>
+						<li class="p_actor xg1"><div class="z">{lang hsk_vcenter:play}:$listloop[views]</div><div class="y xi1">$listloop[valuate]</div></li>
+					</ul>
+					{eval $i++;}
+				<!--{/loop}-->									
+				</div>
+			</div>
+			<!--{/if}-->
+			
+			<!--{if $multipage}-->
+			<span class="tps">$multipage</span>
+			<!--{/if}-->
+		</div>
+
+		<div class="sd" style="width:250px;">
+			<!--{if ($fid || $sid) && (!$vod_option || !$istv)}-->
+			<div class="bm">
+				<div class="bm_h cl">
+					<h2 class="xs2">{lang hsk_vcenter:sidlist} :</h2>
+				</div>
+				<div class="bm_c">
+					<u class="sortlist">
+						<li><nobr><a href="{eval echo sendurl('list','f',$fid,$types,$m,$s,1);}" {if !$sid} class="disb"{/if}>{lang hsk_vcenter:hsk_theall}</a></nobr></li>{eval echo "\n";}
+						<!--{loop $_SORT $datarow}-->
+						<!--{if $datarow[sup] == $fid}-->
+						<li><nobr><a href="{eval echo sendurl('list','s',$datarow[sid],$types,$m,$s,1);}" {if $datarow[sid] == $sid} class="disb"{/if}>$datarow[sort]</a></nobr></li>
+						<!--{/if}-->
+						<!--{/loop}-->
+					</u>
+				</div>
+			</div>
+			<!--{/if}-->
+
+			{subtemplate hsk_vcenter:inc_member}
+
+			<!--{if $_ADOTHER[62][message]}-->
+			<div class="ad" style="margin-bottom:10px; width:250px; {if $_ADOTHER[62][height]}height:$_ADOTHER[62][height]px;{/if}">
+				$_ADOTHER[62][message]
+			</div>
+			<!--{/if}-->
+
+			<!--{if $_NEWUPDATE}-->
+			<div class="bm">
+				<div class="bm_h cl">
+					<h2 class="xs2">{lang hsk_vcenter:update_ablist} :</h2>
+				</div>
+				<div class="bm_c">
+					<div class="xld xlda">
+						<!--{loop $_NEWUPDATE $i $abvalue}-->
+						<!--{if $i<10}-->
+						<dl class="pbn bbda cl" title="$abvalue[vsubject]">
+							<dd class="m avt">
+								<a href="{eval echo sendurl('dlist',0, $abvalue[id],0,0);}"><img border="0" src="$abvalue[purl]" onerror="this.src='{MDIR}/noimages.gif';"></a></dd>
+								<dd class="ptm xs2"><a href="{eval echo sendurl('dlist',0, $abvalue[id],0,0);}" class="xi1">$abvalue[vsubjectc]</a>
+							</dd>
+							<dd><!--{if $abvalue[abtotal]}--><span class="xg1">({lang hsk_vcenter:plistcount}) </span><!--{/if}--><span>{lang hsk_vcenter:plistsum}</span></dd>
+						</dl>
+						<!--{/if}-->
+						<!--{/loop}-->
+					</div>
+				</div>
+			</div>
+			<!--{/if}-->
+
+			<!--{if $_HOTUSER}-->
+			<div class="bm">
+				<div class="bm_h cl">
+					<h2 class="xs2">{lang hsk_vcenter:hotuser} :</h2>
+				</div>
+				<div class="bm_c">
+					<ul class="hskml hskmls cl">
+						<!--{loop $_HOTUSER $i $datarow}-->
+						<!--{if $i<9}-->
+						<li>
+							<a href="{eval echo sendurl('author', 0, $datarow[mid]);}"><!--{avatar($datarow[mid],middle)}--></a> 
+							<p><a href="home.php?mod=space&uid=$datarow[mid]">$datarow[usernamec]</a></p>
+							<span class="xg1">{lang hsk_vcenter:thevod}: $datarow[shares]</span>
+							<span class="xg1">{lang hsk_vcenter:vod_hot}: $datarow[hots]</span>
+						</li>
+						<!--{/if}-->
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+			<!--{/if}-->
+
+		</div>
+	</div>
+	<div style="height:20px;"></div>
+	
+<script language="javascript">
+function listpost(str, val, frmct)
+{
+	$(str).value = val;
+	$('liststyle').action = frmct;
+	$('liststyle').submit();
+}
+
+function setfrm(kid, kstr){
+	if(kid){
+		$('skey').value=kid;
+	}
+	if(kstr){
+		$('srchtxt').value=kstr;
+	}
+	$('searchsubmit').click();
+}
+</script>
+{subtemplate common/footer}

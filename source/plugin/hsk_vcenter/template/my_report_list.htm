@@ -1,0 +1,53 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div class="ct2_a wp cl">
+
+		<div class="mn">
+			<ul class="tb cl">
+				<li class="a">
+				<a href="{PDIR}&&mod=my&action=$action" onclick="return false;"><span class="xs2">{lang hsk_vcenter:my_report}</span></a></li>
+			</ul>
+			<br>
+			<div class="bm bw0">
+				<form enctype="multipart/form-data" id="frmedit" name="frmedit" method="post" autocomplete="off">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<table class="dt" cellSpacing="0" summary="" cellPadding="0">
+					<tr>
+						<th width="60"></th>
+						<th>{lang hsk_vcenter:thevod}{lang hsk_vcenter:vod_name}</th>
+						<th>{lang hsk_vcenter:theuser}</th>
+						<th>{lang hsk_vcenter:dateline}</th>
+						<th>{lang hsk_vcenter:submit}</th>
+					</tr>
+					<!--{loop $datalist $abvalue}-->
+					<tr>
+					<td align="center">
+					<a href="{eval echo sendurl('show',0, $abvalue[id]);}" target="_blank"><img src="$abvalue[purl]" border="0" align="absmiddle" height="40"></a></td>
+					<td><p style="margin-top: 0; margin-bottom: 3px;">
+					<!--{if $abvalue[tid]}--><a href="forum.php?mod=viewthread&tid=$abvalue[tid]" target="_blank" class="xi1">[ID:{$abvalue[id]}]</a><!--{else}--><span class="xi2">[ID:{$abvalue[id]}]</span><!--{/if}--> - <a href="{eval echo sendurl('show',0, $abvalue[id]);}" target="_blank" class="xs1">$abvalue[vsubject]</a></p>
+					<span class="xg1">$abvalue[message]</span></td>
+					<td><p style="margin-top: 0; margin-bottom: 3px;"><a href="home.php?mod=space&uid=$abvalue[uid]" class="xi2" target="_blank">$abvalue[username]</a></p><p>
+					<span class="xi1"><a href="{eval echo sendurl('author', 0, $abvalue[mid]);}" target="_blank">$abvalue[shares] {lang hsk_vcenter:thevod}</a></span></td>
+					<td class="xg2">$abvalue[dateline1]<p>$abvalue[dateline2]</td>
+					<td><!--{if $abvalue[onsend]}--><span class="xi1">{lang hsk_vcenter:report_1}</span><!--{else}--><span class="xi2">{lang hsk_vcenter:report_0}</span><!--{/if}--></td>
+					</tr>
+					<!--{/loop}-->
+
+				</table>
+				<div class="cls" style="height:15px;"></div>
+				<div class="pg">
+					$multipage
+				</div>
+				<button class="pn pnc" name="reportsubmit" id="reportsubmit" type="submit" value="true" style="width:100px; height:30px;"><strong style="font-size:14px;">{lang hsk_vcenter:share_btn}</strong></button>
+				<div class="cls" style="height:15px;"></div>
+				<input type="hidden" name="fid" value="$fid">
+				<input type="hidden" name="searchkey" value="$search">
+				<input type="hidden" name="types" value="$types">
+				</form>
+			</div>
+		</div>
+		{subtemplate hsk_vcenter:my_leftbar}
+	</div>
+	<br>
+{subtemplate common/footer}

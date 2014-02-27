@@ -1,0 +1,93 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div class="ct2_a wp cl">
+
+		<div class="mn">
+			<ul class="tb cl">
+				<li{if !$types || $types == 1} class="a"{/if}>
+				<a href="{PDIR}&mod=my&action=$action&types=1"><span class="xs2">{lang hsk_vcenter:my}<!--{if $action=='plist'}-->{lang hsk_vcenter:theplist}<!--{else}-->{lang hsk_vcenter:myself}{lang hsk_vcenter:thevlist}<!--{/if}--></span></a></li>
+				<li{if $types == 2} class="a"{/if}>
+				<a href="{PDIR}&mod=my&action=$action&types=2"><span class="xs2">{lang hsk_vcenter:notaudit}{lang hsk_vcenter:thevlist}</span></a></li>
+			</ul>
+		
+			<div class="bm bw0">
+				<div class="z">
+				<form id="liststyle" method="post" autocomplete="off" name="liststyle" action="">
+				<input type="hidden" name="pager" value="1">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr><td height="40" class="xs2">
+						<div class="z">
+						<span class="xs2">{lang hsk_vcenter:sidlist} : 
+							<select id="fid" name="fid" style="margin-right:15px;">
+							<option value="0"{if !$datarow[sid]} selected{/if}>{lang hsk_vcenter:hsk_theall}</option>
+							<!--{loop $newsort $datarow}-->
+							<option value="$datarow[sid]"{if $datarow[sid]==$fid} selected{/if}>$datarow[sort]</option>
+							<!--{/loop}-->
+							</select>{lang hsk_vcenter:search} : <input type="text" name="searchkey" id="searchkey" size="25" class="px vm" value="$search" style="margin-right:15px;"><button type="submit" name="search_button" class="pn pnc" value="true"><em>{lang search}</em></button>
+							</span>
+							</div>
+						</td></tr>
+					</table>
+				</form>
+				</div>
+				<form enctype="multipart/form-data" id="frmedit" name="frmedit" method="post" autocomplete="off">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<!--{if $action=='tvlist'}-->
+				<div class="y" style="padding-top:10px;"><label><input class="pc" id="hiddenfullbtn" onclick="return changfrm($hiddenfull);" type="checkbox" name="hiddenfullbtn"{if $hiddenfull} checked{/if}>{lang hsk_vcenter:hiddenfull}</label></div>
+				<script>
+				function changfrm(t){
+					if(t==0){
+						$('hiddenfull').value = 1;
+						$('frmedit').submit();
+					}else{
+						$('hiddenfull').value = 0;
+						$('frmedit').submit();
+					}
+				}
+				</script>
+				<!--{/if}-->
+				<br><br>
+				<table class="dt" cellSpacing="0" summary="" cellPadding="0">
+					<tr>
+						<th width="60"></th>
+						<th>{lang hsk_vcenter:thevod}{lang hsk_vcenter:vod_name}</th>
+						<th>{lang hsk_vcenter:chk_up}</th>
+						<th>{lang hsk_vcenter:dateline}</th>
+						<th>{lang hsk_vcenter:submit}</th>
+					</tr>
+					<!--{loop $datalist $abvalue}-->
+					<tr>
+					<td align="center">
+					<a href="{eval echo sendurl('show',0, $abvalue[id]);}" target="_blank"><img src="$abvalue[purl]" border="0" align="absmiddle" height="40"></a></td>
+					<td><p style="margin-top: 0; margin-bottom: 3px;">
+					<!--{if $abvalue[tid]}--><a href="forum.php?mod=viewthread&tid=$abvalue[tid]" target="_blank" class="xi1">[ID:{$abvalue[id]}]</a><!--{else}--><span class="xi2">[ID:{$abvalue[id]}]</span><!--{/if}--> - <span class="xi2">[{$abvalue[sort]}]</span> - <a href="{eval echo sendurl('show',0, $abvalue[id]);}" target="_blank" class="xs1">$abvalue[vsubject]</a></p>
+					<span class="xg1">[$abvalue[vprice] {$money_unit}$money_name] - {lang hsk_vcenter:play}: {$abvalue[views]}, {lang hsk_vcenter:polls}: {$abvalue[polls]}, {lang hsk_vcenter:timelong}: {$abvalue[timelong]}, {lang hsk_vcenter:rage}: {lang hsk_vcenter:ablistraeg}</span>
+					</td>
+					<td><p style="margin-top: 0; margin-bottom: 3px;" class="xi1">{lang hsk_vcenter:chk_up}: $abvalue[chk_up]</p><p>
+					$abvalue[vsum] <!--{if $action=="tvlist"}-->/ <b> <span class="xi2">$abvalue[abtotal]</span></b><!--{else}-->{lang hsk_vcenter:thevod}<!--{/if}--></td>
+					<td class="xg2">$abvalue[dateline1]<p>$abvalue[dateline2]</td>
+					<td>
+					<p style="margin-top: 0; margin-bottom: 3px;"><a href="{PDIR}&mod=topicadmin&action=edit&vid=$abvalue[id]" target="_blank" class="xi2">{lang hsk_vcenter:edit}</a><a href="{PDIR}&mod=my&action=$action&types=$types&vid=$abvalue[id]" class="xi2" style="margin-left:10px;">{lang hsk_vcenter:manage}</a></p><p>
+					<a href="javascript:;" onclick="showWindow('top_delete', '{PDIR}&mod=topicadmin&action=deleplist&vid=$abvalue[id]');return false;" class="xi1">{lang hsk_vcenter:delete}{lang hsk_vcenter:thevlist}</a>
+					</td>
+					</tr>
+					<!--{/loop}-->
+				</table>
+				<div class="cls" style="height:15px;"></div>
+				<div class="pg">
+					$multipage
+				</div>
+				<button class="pn pnc" name="reportsubmit" id="reportsubmit" type="submit" value="true" style="width:100px; height:30px;"><strong style="font-size:14px;">{lang hsk_vcenter:share_btn}</strong></button>
+				<div class="cls" style="height:15px;"></div>
+				<input type="hidden" name="fid" value="$fid">
+				<input type="hidden" name="searchkey" value="$search">
+				<input type="hidden" name="types" value="$types">
+				<input type="hidden" name="hiddenfull" id="hiddenfull" value="$hiddenfull">
+				</form>
+			</div>
+		</div>
+		{subtemplate hsk_vcenter:my_leftbar}
+	</div>
+	<br>
+{subtemplate common/footer}

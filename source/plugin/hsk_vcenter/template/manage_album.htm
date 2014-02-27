@@ -1,0 +1,68 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div class="ct2_a wp cl">
+
+		<form enctype="multipart/form-data" id="frm{$types}" name="frm{$types}" method="post" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<div class="mn">
+			<div class="bm bw0">
+				<div class="z">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr><td height="40" class="xs2">{lang hsk_vcenter:album_title}</b></td></tr>
+					</table>				
+				</div>
+				<div class="y">
+					<div class="pg">
+						$multipage
+					</div>
+				</div>
+				
+				<table cellSpacing="0" cellPadding="0" width="100%"><tr><td height="1" class="alt"></td></tr><tr><td height="16"></td></tr></table>
+				<table class="dt" cellSpacing="0" summary="" cellPadding="0">
+					<tr>
+						<th width="60"></th>
+						<th>{lang hsk_vcenter:thevod}{lang hsk_vcenter:vod_name}</th>
+						<th>{lang hsk_vcenter:byorder}</th>
+						<th>{lang hsk_vcenter:delete}</th>
+					</tr>
+					<!--{loop $datalist $datarow}-->
+					<!--{if $datarow[inpost]}-->
+					<tr>
+						<td><a href="{PDIR}&mod=view&vid=$datarow[vid]" target="_blank"><img src="$datarow[spic]" border="0" align="absmiddle" width="60" height="35" style="border: solid 1px #ddd;padding: 1px;"></a></td>
+						<td><a href="{PDIR}&mod=manage&action=album&vid=$datarow[id]" class="xi2">$datarow[vsubject]</a> <a href="{PDIR}&mod=manage&action=album&vid=$datarow[id]" class="xi1">{lang hsk_vcenter:edit}</a>
+						<br><span class="xg1">$datarow[title]</span></td>
+						<td><input id="newdps" class="px" value="$datarow[byorder]" type="text" name="newdps[{$datarow[id]}]" style="width:20px;"></td>
+						<td><input type="checkbox" name="deletes[]" value="$datarow[id]" align="absmiddle" class="pc"></td>
+					</tr>
+					<!--{else}-->
+					<tr>
+						<td align="center">{lang hsk_vcenter:disabled}</td>
+						<td><a href="{PDIR}&mod=view&vid=$datarow[vid]" target="_blank" class="xg2">$datarow[vsubject]</a></td>
+						<td><input id="newdps" class="px" value="$datarow[byorder]" type="text" name="newdps[{$datarow[id]}]" style="width:20px;"></td>
+						<td><input type="checkbox" name="deletes[]" value="$datarow[id]" align="absmiddle" class="pc"></td>
+					</tr>
+					<!--{/if}-->
+					<!--{/loop}-->
+
+					<tr>
+						<td align="center"><span class="xs2">{lang hsk_vcenter:m_addalbum}</span></td>
+						<td><input id="absup" class="px" value="" type="text" name="absup" style="width:80px;"> <a href="{PDIR}&mod=getablist" onclick="showWindow('getabwin', this.href); return false;"><button class="pn pnp" name="searchkey" type="button" value="false" style="margin-bottom:3px;"><strong>{lang hsk_vcenter:search}</strong></button></a></td>
+						<td><input id="newdps" class="px" type="text" name="byordernew" style="width:20px;" size="1"></td>
+						<td></td>
+					</tr>
+
+				</table>
+				<div class="cls" style="height:15px;"></div>
+				<div class="pg">
+					$multipage
+				</div>
+				<button class="pn pnp" name="reportsubmit" type="submit" value="true" onclick="if(!confirm('{lang hsk_vcenter:confirm}')) return false;"><strong>{lang hsk_vcenter:submit}</strong></button>
+				<div class="cls" style="height:15px;"></div>
+			</div>
+		</div>
+		</form>
+		{subtemplate hsk_vcenter:manage_leftbar}
+	</div>
+	
+{subtemplate common/footer}

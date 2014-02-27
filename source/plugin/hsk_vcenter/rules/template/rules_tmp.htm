@@ -1,0 +1,210 @@
+{subtemplate common/header}
+
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div class="ct2_a wp cl">
+
+		<div class="mn">
+			<div class="bm bw0">
+				<br>
+				<h1 align="center" style="font-size:12pt">视频数据采集中心</h1>
+				<br>
+				<form enctype="multipart/form-data" id="relefrm" name="relefrm" method="post" autocomplete="off" onsubmit="return hsk_checkfrm(this);">
+				<script type="text/javascript"> 
+					var max_obj = 4;
+					var p = 0;
+				</script>
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<table class="dt" cellSpacing="0" summary="" cellPadding="0">
+					<tr>
+						<th colspan="3">采集视频专辑</th>
+					</tr>
+					<tr>
+						<td width="90">专辑地址：</td>
+						<td><input id="keys" class="px" value="$datarow[keys]" type="text" name="keys" style="width:400px;"></td>
+						<td align="center" rowspan="3"><button class="pn pnp" name="reportsubmit" id="reportsubmit" type="submit" value="true" style="height:50px; width:150px;"><strong class="xs2">
+						开始采集</strong></button></td>
+					</tr>
+					<tr>
+						<td>指定分类：</td>
+						<td>
+							<select id="s1" name="s1" onChange="changelocation(document.relefrm.s1.options[document.relefrm.s1.selectedIndex].value);p=0;" style="margin-right:15px;">
+							<!--{loop $newsort $datarow}-->
+							<option value="$datarow[sid]"{if $datarow[sid]==$defaulefid} selected{/if}>$datarow[sort]</option>
+							<!--{/loop}-->
+							</select>&nbsp; 视频售价：<input id="vprice" class="px" value="$datarow[vprice]" type="text" name="vprice" style="width:30px;"> $money_unit{$money_name}
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><div id="loadrelesid"><script language="javascript">ajaxget('{PDIR}&mod=relesid&fid={$defaulefid}', 'loadrelesid');</script></div></td>
+					</tr>
+					<tr>
+						<td>可选项：</td>
+						<td>
+							<select id="s2" name="s2" style="margin-right:15px;">
+							<option value="0">地区</option>
+							<!--{loop $_ADDRESS $datarow}-->
+							<option value="$datarow[key]">$datarow[val]</option>
+							<!--{/loop}-->
+							</select>
+							<select id="s3" name="s3" style="margin-right:15px;">
+							<option value="0">年代</option>
+							<!--{loop $_YEARS $datarow}-->
+							<option value="$datarow[key]">$datarow[val]</option>
+							<!--{/loop}-->
+							</select>
+							<select id="s4" name="s4" style="margin-right:15px;">
+							<option value="0">语言</option>
+							<!--{loop $_LANGUAGE $datarow}-->
+							<option value="$datarow[key]">$datarow[val]</option>
+							<!--{/loop}-->
+							</select>
+							<!--{if $radio_any}-->
+							<span class="xs2" style="padding-left:10px;">此站可以自动采集到：<b>$radio_any</b></span><!--{/if}-->
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>专辑关联：</td>
+						<td colspan="2">
+						关联名称：<input class="px" type="text" name="absubject" id="absubject" size="20" value="{$actioname}">&nbsp;&nbsp;&nbsp;
+						关联专辑ID：<input class="px" type="text" name="absup" id="absup" size="10" value="0"> <a href="{PDIR}&mod=getablist&inmyweb=1&key=$actionkey&fid=" class="xi1" onclick="showWindow('getabwin', this.href+$('s1').value); return false;">搜索专辑</a>，关联专辑时可不选类别及地区等！</td>
+					</tr>
+					<!--{if $sendtv || $send_index}-->
+					<tr>
+						<td>生成剧集：</td>
+						<td colspan="2">
+						<!--{if $send_index}--><label><input class="pc" value="1" type="checkbox" name="ckindex">重新排序</label><!--{/if}--><!--{if $sendtv}--><label>&nbsp;&nbsp;&nbsp; <input class="pc" value="1" type="checkbox" name="tvsend">转换剧集模式</label> <span class="xg1">如果希望把普通的专辑转换为剧集模式，请勾选此项！</span><!--{/if}-->
+						</td>
+					</tr>
+					<tr>
+						<td>名称替换：</td>
+						<td colspan="2">将 <input type="text" name="rep_1" size="25" class="px"> 替换为 
+						<input type="text" name="rep_2" size="28" class="px"><br>
+						<span class="xg1">前后都为空不替换，只前面为空表示替换标题所有内容为后面。【<font color="#FF0000">#x#</font>】
+						红色符号表示自动集数。</span>
+						</td>
+					</tr>
+					<!--{/if}-->
+					<!--{if $acplay}-->
+					<tr>
+						<td>支持类型：</td>
+						<td colspan="2">$acplay</td>
+					</tr>
+					<!--{/if}-->
+					</table>
+				</form>
+							
+			</div>
+
+			<p>
+
+			<br>
+			
+			<!--{if $datalist1}-->
+			<div class="bm bw0">
+				<table class="dt" cellSpacing="0" summary="" cellPadding="0">
+					<tr>
+						<th></th>
+						<th>专辑名称</th>
+						<th>采集键</th>
+						<th>集数</th>
+						<th>最后更新</th>
+						<th>操作</th>
+					</tr>
+					<tr><td colspan="6">
+						$multipage
+						<button class="pn pnp" name="updateall" type="submit" value="true" style="height:30px; width:150px;" onclick="window.location='{RPDIR}&update=all';"><strong class="xs2">更新全部剧集</strong></button>
+					</td></tr>
+					<!--{loop $datalist1 $i $datarow}-->
+					<form enctype="multipart/form-data" id="frm{$i}" name="frm{$i}" method="post" autocomplete="off">
+					<input type="hidden" name="formhash" value="{FORMHASH}" />
+					<tr onmouseover="this.classname='alt';" onmouseout="this.classname='';">
+						<td>
+						<a href="plugin.php?id=hsk_vcenter&mod=view&vid=$datarow[id]" target="_blank"><img src="$datarow[purl]" border="0" align="absmiddle" height="50"></a></td>
+						<td><p style="margin-top: 0; margin-bottom: 5px" class="xi1">序列：$datarow[id] [<a href="plugin.php?id=hsk_vcenter&mod=manage&action=$datarow[action]&vid=$datarow[id]" target="_blank">管理</a>] </p>
+						[{$datarow[sort]}] - <a href="plugin.php?id=hsk_vcenter&mod=view&vid=$datarow[id]" target="_blank" class="xs1">$datarow[vsubject]</a></td>
+						<td><input id="keys" class="px" value="$datarow[flashid]" type="text" name="flashid" style="width:160px;" readonly>
+						<td>共<input class="px" type="text" name="thenewabtotal" id="thenewabtotal" size="1" value="$datarow[abtotal]">集<br><span class="xi1">已更新 $datarow[vsum]</span></td>
+						<td>$datarow[updateline]</td>
+						<td><button class="pn pnp" name="reportsubmit" type="submit" value="true" style="height:30px; width:100px;"><strong class="xs2">更新</strong></button></td>
+					</tr>
+					<input type="hidden" name="keys" value="$datarow[keys]">
+					<input type="hidden" name="page" value="$datarow[tpage]">
+					</form>
+					<!--{/loop}-->
+					<tr><td colspan="6">
+						$multipage
+						<button class="pn pnp" name="updateall" type="submit" value="true" style="height:30px; width:150px;" onclick="window.location='{RPDIR}&update=all';"><strong class="xs2">更新全部剧集</strong></button>
+					</td></tr>
+				</table>
+			</div>
+			<!--{/if}-->
+		</div>
+
+		<div class="appl">
+			<div class="tbn">
+				<h2 class="mt bbda">采集中心</h2>
+					<ul>
+						<li style="height:120px;"><!--{avatar($discuz_uid,middle)}--></li>
+						<li><center>$discuz_user</center></li>
+						<li style="height:2px;"></li>
+						<li style="height:15px;"></li>
+						<li{if !in_array($action, $rules_in)} class="a"{/if}><a href="plugin.php?id=hsk_vcenter:rules">功能首页</a></li>
+						<!--{loop $rules_in $rows}-->
+						<li{if $action==$rows} class="a"{/if}><a href="plugin.php?id=hsk_vcenter:rules&action={$rows}">$rows</a></li>
+						<!--{/loop}-->
+						<li style="height:15px;"></li>
+						<li style="height:2px;"></li>
+						<li class="cl"><a href="plugin.php?id=hsk_vcenter&mod=manage">管理视频</a></li>
+						<li class="cl"><a href="plugin.php?id=hsk_vcenter">视频中心</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<br>
+{subtemplate common/footer}
+
+
+
+<script language="javascript">
+
+function changelocation(val)
+{
+    var val=val;
+    ajaxget('{PDIR}&mod=relesid&fid='+val, 'loadrelesid');
+}
+
+function hsk_checkbox(obj) {
+	if(obj.checked) {
+		p++;
+		for (var i = 0; i < $('relefrm').elements.length; i++) {
+			var e = $('relefrm').elements[i];
+			if(p == max_obj) {
+				if(e.name.match('share_sid') && !e.checked) {
+					e.disabled = true;
+				}
+			}
+		}
+	} else {
+		p--;
+		for (var i = 0; i < $('relefrm').elements.length; i++) {
+			var e = $('relefrm').elements[i];
+			if(e.name.match('share_sid') && e.disabled) {
+				e.disabled = false;
+			}
+		}
+	}
+	$('reportsubmit').disabled = p <= max_obj && p > 0 ? false : true;
+}
+
+function hsk_checkfrm(theform){
+	if((!p || theform.s1.value==0) && $('absup').value==0) {
+		showError('请至少选择一个视频所属分类，或是关联一个专辑或视频');
+		return false;
+	}
+}
+</script>

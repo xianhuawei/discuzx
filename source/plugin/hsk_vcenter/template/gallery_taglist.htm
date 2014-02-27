@@ -1,0 +1,156 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div id="ct" class="ct2 wp cl">
+		<div class="mn" style="width:690px;">
+			<form id="liststyle" method="post" autocomplete="off" name="liststyle" action="">
+			<input type="hidden" name="m" id="m" value="$m">
+			<input type="hidden" name="s" id="s" value="$s">
+			<ul class="tb cl">
+				<li{if !$types} class="a"{/if}>
+					<a href="{eval echo sendurl($mod,0,$vid,0,0,$s,$page);}"><span class="xs2">{lang hsk_vcenter:thevod}</span></a></li>
+				<li{if $types == '1'} class="a"{/if}>
+					<a href="{eval echo sendurl($mod,0,$vid,1,0,$s,$page);}"><span class="xs2">{lang hsk_vcenter:thevlist}</span></a></li>
+				<li{if $types == '2'} class="a"{/if}>
+					<a href="{eval echo sendurl($mod,0,$vid,2,0,$s,$page);}"><span class="xs2">{lang hsk_vcenter:theplist}</span></a></li>
+				<li{if $types == '3'} class="a"{/if}>
+					<a href="{eval echo sendurl($mod,0,$vid,3,0,$s,$page);}"><span class="xs2">{lang hsk_vcenter:thedlist}</span></a></li>
+				<li style="float:right;">
+					<p class="xs2">
+					<span class="xi2" style="cursor:pointer;{if $s==0}font-weight:700;background:#ebebeb;padding-left:6px; padding-right:6px;padding-top:1px; padding-bottom:1px;{/if}" onclick="return listpost('s','0','{eval echo sendurl($mod,0,$vid,$types,0,0,$page);}')">{lang hsk_vcenter:s0}</span><span class="pipe">|</span>
+					<span class="xi2" style="cursor:pointer;{if $s==1}font-weight:700;background:#ebebeb;padding-left:6px; padding-right:6px;padding-top:1px; padding-bottom:1px;{/if}" onclick="return listpost('s','1','{eval echo sendurl($mod,0,$vid,$types,0,1,$page);}')">{lang hsk_vcenter:s1}</span>
+				</li>
+			</ul>
+			<div class="bm_c">
+				<u class="sortlist">
+					<!--{loop $_TAGIDLIST $datarow}-->
+					<li><nobr><a href="{eval echo sendurl($mod,0,$datarow[tagid],$types,0,$s,1);}" {if $datarow[tagid] == $vid} class="disb"{/if}>$datarow[tagname]<span class="xs0"><span class="xg1">($datarow[ashot])</span></span></a></nobr></li>
+					<!--{/loop}-->
+				</u>
+			</div>
+			<div class="alt" style="height:1px;"></div>
+			</form>
+			<!--{if $s == 1}-->
+			<div class="none" style="height:10px;"></div>
+			<table cellspacing="0" cellpadding="0" style="table-layout: fixed; word-wrap: break-word" width="100%">
+				<!--{loop $datalist $i $listloop}-->
+				<tr height="38">
+					<td width="75"><a href="home.php?mod=space&uid=$listloop[uid]" class="xi2">$listloop[username]</a></td>
+					<td width="5"></td>
+					<td title="$listloop[vsubject]"><a href="{eval echo sendurl($listloop[isalbum],0, $listloop[id],0,0,0);}" class="xs2"><nobr>$listloop[vsubjectc]</nobr></a></td>
+					<!--{if $types == 3 || $m>0}-->
+					<!--{if $m>0}-->
+					<td class="xg1" width="40" align="center" title="{lang hsk_vcenter:vodjoin}">$listloop[vsum]<span class="xs0"> {lang hsk_vcenter:thevod}</span></td>
+					<!--{else}-->
+					<td class="xs2" width="40" align="center" title="{lang hsk_vcenter:chk_up}"><span class="xg2">$listloop[chk_up]</span></td>
+					<!--{/if}-->
+					<!--{/if}-->
+					<td width="60" align="center" class="xs0" title="{lang hsk_vcenter:polls} / {lang hsk_vcenter:views}"><span class="xg2">$listloop[polls] / $listloop[views]</span></td>
+					<td class="xs2" width="40" align="center" title="{lang hsk_vcenter:rage}"><span class="xi1">$listloop[valuate]</span></td>
+					<td width="90" align="right" class="xs0"><span class="xg2">$listloop[dateline]</span></td>
+				</tr>
+				<tr><td class="alt" colspan="{if $types==3 || $m>0}7{else}6{/if}" height="1"></td></tr>
+				<!--{/loop}-->
+			</table>
+			<br>
+			<!--{else}-->
+			<div class="c">
+				<div id="playItems" class="playitems playalbum">
+					<div class="sc4">
+						{eval $cle=1;}
+						<!--{loop $datalist $i $listloop}-->
+						<!--{if $cle==1}-->
+						<div class="row">
+						<!--{/if}-->
+
+							<div class="pack pack_video_card">
+								<div class="pic">
+									<a title="$listloop[vsubject]" href="{eval echo sendurl($listloop[isalbum],0, $listloop[id],0,0,0);}"><img class="pack_clipImg" alt="$listloop[vsubject]" src="$listloop[purl]"></a><span class="vpbg"></span><span class="vinf"><div class="z">$listloop[timelong]</div><!--{if $listloop[vprice]}--><div class="y" style="padding-right:5px;">{lang hsk_vcenter:pricevod}</div><!--{/if}--></span>
+								</div>
+								<div class="alt" style="padding:2px 5px 2px 5px; margin-bottom:3px;margin-top:3px;">
+									<a title="$listloop[vsubject]" href="{eval echo sendurl($listloop[isalbum],0, $listloop[id],0,0,0);}"><nobr>$listloop[vsubjectc]</nobr></a>
+								</div>
+								<div class="y"><span class="xs0" style="background:url({MDIR}/views.gif) no-repeat;padding-left: 17px;">$listloop[views]</span></div><div class="z" style="background:url({MDIR}/author.gif) no-repeat;padding-left: 16px;"><a href="home.php?mod=space&uid=$listloop[uid]">$listloop[username]</a></div>
+							</div>
+						<!--{if $cle>=5}-->
+						</div>
+						<!--{/if}-->
+						{eval $cle++;if($cle>5)$cle=1;}
+						<!--{/loop}-->
+						{if $cle<6 && $cle >1}</div>{/if}
+					</div>
+				</div>
+			</div>
+			<!--{/if}-->
+			<!--{if $multipage}-->
+			<span class="tps" style="margin-bottom: 12px;">$multipage</span>
+			<!--{/if}-->
+		</div>
+
+		<div class="sd" style="width:250px;">
+
+			{subtemplate hsk_vcenter:inc_member}
+
+			
+			<div id="g_top" class="bm">
+				<div class="bm_h cl">
+					<div class="z"><h2 style="font-size:14px">{lang hsk_vcenter:system_newvod}</h2></div>
+				</div>
+				<div class="bm_c">
+					<!--{loop $_NEWLIST $i $datarow}-->
+					<!--{if $i<10}-->
+					<div style="margin:6px 0px 6px 0px">
+					<a href="{eval echo sendurl('show',0, $datarow[id]);}" title="$datarow[vsubject]" style="background:url({MDIR}/n{$i}.gif) no-repeat 0px 3px; padding-left:18px;">$datarow[vsubjectc]</a></div>
+					<hr style="margin: 0px;" class="da">
+					<!--{/if}-->
+					<!--{/loop}-->
+				</div>
+			</div>
+			
+			<!--{if $_NEWABLIST}-->
+			<div id="g_top" class="bm">
+				<div class="bm_h cl">
+					<div class="z"><h2 style="font-size:14px">{lang hsk_vcenter:system_newlist}</h2></div>
+				</div>
+				<div class="bm_c">
+					<!--{loop $_NEWABLIST $i $datarow}-->
+					<!--{if $i<10}-->
+					<div style="margin:6px 0px 6px 0px">
+					<a href="{eval echo sendurl('dlist',0, $datarow[id],0,0,0);}" title="$datarow[vsubject]" style="background:url({MDIR}/n{$i}.gif) no-repeat 0px 3px; padding-left:18px;">$datarow[vsubjectc]</a></div>
+					<hr style="margin: 0px;" class="da">
+					<!--{/if}-->
+					<!--{/loop}-->
+				</div>
+			</div>
+			<!--{/if}-->
+
+			<!--{if $_NEWABTOTAL}-->
+			<div id="g_top" class="bm">
+				<div class="bm_h cl">
+					<div class="z"><h2 style="font-size:14px">{lang hsk_vcenter:system_newtv}</h2></div>
+				</div>
+				<div class="bm_c">
+					<!--{loop $_NEWABTOTAL $i $datarow}-->
+					<!--{if $i<10}-->
+					<div style="margin:6px 0px 6px 0px">
+					<a href="{eval echo sendurl('dlist',0, $datarow[id],0,0,0);}" title="$datarow[vsubject]" style="background:url({MDIR}/n{$i}.gif) no-repeat 0px 3px; padding-left:18px;">$datarow[vsubjectc]</a></div>
+					<hr style="margin: 0px;" class="da">
+					<!--{/if}-->
+					<!--{/loop}-->
+				</div>
+			</div>
+			<!--{/if}-->
+
+
+		</div>
+	</div>	
+	
+<script language="javascript">
+function listpost(str, val, frmct)
+{
+	$(str).value = val;
+	$('liststyle').action = frmct;
+	$('liststyle').submit();
+}
+</script>
+{subtemplate common/footer}

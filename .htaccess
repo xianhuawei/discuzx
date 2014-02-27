@@ -16,3 +16,26 @@ RewriteRule ^space-(username|uid)-(.+)\.html$ home.php?mod=space&$1=$2&do=profil
 RewriteRule ^blog-([0-9]+)-([0-9]+)\.html$ home.php?mod=space&uid=$1&do=blog&id=$2
 RewriteRule ^archiver/(fid|tid)-([0-9]+)\.html$ archiver/index.php?action=$1&value=$2
 RewriteRule ^([a-z]+[a-z0-9_]*)-([a-z0-9_\-]+)\.html$ plugin.php?id=$1:$2
+
+######################【以下是视频中心所使用的伪静态规则】##############################################
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^alist-(f|s)-([0-9]+)-([0-3])-([0-3])-([0-2])-([0-9]+)-([0-9]+)-([0-9]+)\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter&mod=list&$1id=$2&types=$3&m=$4&s=$5&address=$6&years=$7&page=$8&%1
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^dlist-([0-9]+)-([0-2])-([0-2])-([0-9]+)\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter&mod=ablist&vid=$1&t=$2&s=$3&page=$4&%1
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^tag-([0-9]+)-([0-3])-([0-2])-([0-9]+)\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter&mod=tag&vid=$1&types=$2&s=$3&page=$4&%1
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^show-(v|t)-([0-9]+)\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter&mod=view&$1id=$2&%1
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^acshow-(prev|next|first|end)-([0-9]+)\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter&mod=acshow&action=$1&vid=$2&%1
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^author-([0-9]+)-([0-9]+)\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter&mod=author&uid=$1&page=$2&%1
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^actor-(f|s)-([0-9]+)-([0-9]+)\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter&mod=actor&action=$1&aid=$2&page=$3&%1
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^v\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^show-([0-9]+)\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter&mod=view&vid=$1&%1
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^today-([0-9]+)\.html$ plugin.php?id=hsk_vcenter:hsk_vcenter&mod=today&page=$1
+######################【以上是视频中心所使用的伪静态规则】##############################################

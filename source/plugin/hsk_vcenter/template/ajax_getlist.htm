@@ -1,0 +1,19 @@
+{subtemplate common/header}
+
+<table border="0" width="246" cellspacing="1" cellpadding="5" align="center">
+	<tr><td height="1"></td></tr>
+	<!--{loop $listarr $i $datarow}-->
+	<tr>
+		<td title="$datarow[vsubject]"{if $i%2} class="alt"{/if}><a href="{PDIR}&mod=release&types=$sendtypes&vid=$datarow[id]" class="xi2">$datarow[vsubjectc]</a></td>
+		<td{if $i%2} class="alt"{/if} align="right"><a href="" class="xi1" title="{lang hsk_vcenter:rele_click_list}">$datarow[vsum] 个</a></td>
+	</tr>
+	<!--{/loop}-->
+</table>
+<!--{if $multipage}-->
+<div style="margin-top:15px"></div>
+<span class="tps">$multipage</span>
+<!--{/if}-->
+&nbsp;
+&nbsp;
+
+{subtemplate common/footer}

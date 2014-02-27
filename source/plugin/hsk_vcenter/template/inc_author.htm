@@ -1,0 +1,39 @@
+<div class="bm">
+	<div class="bm_h cl">
+		<h2 class="xs2">{lang hsk_vcenter:abauthor}{lang hsk_vcenter:infos} :</h2>
+	</div>
+	<div class="my_inf">
+		<div class="user_pack">
+			<div class="pic">
+				<!--{avatar($author[uid],small)}--> 
+			</div>
+			<div class="txt">
+				<div class="name">
+					<a title="$author[username]" target="_blank" href="home.php?mod=space&uid=$author[uid]" class="xi1">$author[username]</a></div>
+				<div class="link">
+					<a title="$author[username] {lang hsk_vcenter:his_vod}" href="{eval echo sendurl('author', 0, $author[uid]);}">{lang hsk_vcenter:his_vod}</a>&nbsp;&nbsp;<a title="$author[username] {lang hsk_vcenter:his_vod}" href="{PDIR}&mod=my&action=favorites&uid=$author[uid]">{lang hsk_vcenter:his_fav}</a>
+				</div>
+			</div>
+		</div>
+		<div class="my_summary">
+			<ul>
+				<li><center><em>$author[myshare]</em><br> {lang hsk_vcenter:thevod}</center></li>
+				<li><center><em>$author[myablist]</em><br> {lang hsk_vcenter:thevlist}</center></li>
+				<li class="last"><center><em>$author[myhots]</em><br> {lang hsk_vcenter:vod_hot}</center></li>
+			</ul>
+		</div>
+	</div>
+	<!--{if $mod!='search'}-->
+	<div style="padding:10px;">
+		<form id="searchfrm" method="post" autocomplete="off" name="searchfrm" action="{PDIR}&mod=search">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<div class="z"><input id="srchtxt" type="text" name="srchtxt" style="width:170px;height:18px;" value="{lang enter_content}" onblur="javascript:if(''==this.value)this.value='{lang enter_content}';" class="px vm" onfocus="javascript:if('{lang enter_content}'==this.value)this.value='';"></div>
+		<div class="y"><input type="image" src="{MDIR}/search.gif" border="0" align="absmiddle"></div>
+		</form>
+	</div>
+	<div class="clr" style="height:5px;"></div>
+	<!--{/if}-->
+	<div>
+		<nobr><a href="{PDIR}&mod=release"><img src="{MDIR}/randfm.png" border="0"></a><a href="{PDIR}&mod=upload" onclick="showError('{lang hsk_vcenter:update_error}'); return false;"><img src="{MDIR}/privatefm.png" border="0"></a></nobr>
+	</div>
+</div>

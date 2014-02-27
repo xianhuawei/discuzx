@@ -1,0 +1,62 @@
+{subtemplate common/header}
+
+<div style="position: fixed; top: 47%" id="next_vod">
+	<ul>
+		<!--{if $prev_vid}-->
+		<li class="next_vod_page">
+			<a title="{lang hsk_vcenter:play}{lang hsk_vcenter:prev}" href="{eval echo sendurl('show',0, $prev_vid);}"><span>{lang hsk_vcenter:prev}</span>
+			<p align="left"><img title="$prev_subject" src="$prev_purl" width="50" height="50">$prev_subjectc</p></a>
+		</li>
+		<!--{/if}-->
+		<!--{if $next_vid}-->
+		<li class="prev_vod_page"><a title="{lang hsk_vcenter:play}{lang hsk_vcenter:next}" href="{eval echo sendurl('show',0, $next_vid);}"><span>{lang hsk_vcenter:next}</span>
+			<p align="left"><img title="$next_subject" src="$next_purl" width="50" height="50">$next_subjectc</p></a>
+		</li>
+		<!--{/if}-->
+	</ul>
+</div>
+
+<table border="0" width="950" cellspacing="0" cellpadding="0">
+	<tr>
+		<td colspan="5" height="5"></td>
+	</tr>
+	<tr>
+		<td colspan="5" height="24" align="left">
+			<div class="z"><p style="margin-left: 13px; margin-top: 0; margin-bottom: 0"><a href="{eval echo sendurl('dlist',0, $vid,0,0,0);}" class="xs2">$thesupname</a><span class="pipe">|</span><span class="xg2">{if $istv}{lang hsk_vcenter:plistcount}{else}{lang hsk_vcenter:listcount}{/if}</span></div>
+			<div class="y"><p style="margin-right: 10px; margin-top: 2px; margin-bottom: 0"><a href="{eval echo sendurl('acshow','first', $vid);}" class="xg2">{lang hsk_vcenter:play}{lang hsk_vcenter:first}</a><span class="pipe">|</span><a href="{eval echo sendurl('acshow','end', $vid);}" class="xg2">{lang hsk_vcenter:play}{lang hsk_vcenter:last}</a></div>
+		</td>
+	</tr>
+	<tr><td height="4"></td></tr>
+	<tr>
+		<td width="26" align="right" valign="top">$link_p</td><td width="13"></td>
+		<td width="872">
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<!--{loop $datalist2 $datarow}-->
+				<td width="9"></td>
+				<td align="left" width="90">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td align="center">
+						<div id="supdiv"><img src="$datarow[purl]" border="0" align="absmiddle" width="90" height="68">
+							<div><!--{if $datarow[id] == $seleid}--><img src="{MDIR}/ab_yes.png" border="0"><!--{else}--><a href="{eval echo sendurl('show',0, $datarow[id]);}"><img src="{MDIR}/ab_no.gif" border="0"></a><!--{/if}--></div>
+						</div>
+						</td>
+					</tr>
+					<tr><td height="5"></td></tr>
+					<tr>
+						<td align="center"><!--{if $datarow[id] == $seleid}--><nobr class="xg2">$datarow[vsubjectc]</nobr><!--{else}--><a href="{eval echo sendurl('show',0, $datarow[id]);}"><nobr>$datarow[vsubjectc]</nobr></a><!--{/if}--></td>
+					</tr>
+				</table>
+				</td>
+				<td width="9"></td>
+				<!--{/loop}-->
+			</tr>
+		</table>
+		</td>
+		<td width="13"></td>
+		<td width="26" align="left" valign="top">$link_n</td>
+	</tr>
+</table>
+
+{subtemplate common/footer}

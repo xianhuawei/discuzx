@@ -1,0 +1,28 @@
+{subtemplate common/header}
+	{eval $cle=1;}
+	<!--{loop $datalist $i $listloop}-->
+	<!--{if $cle==1}-->
+	<div class="row">
+	<!--{/if}-->
+		<div class="pack2 pack_video_card2">
+			<div class="pic">
+				<a title="$listloop[vsubject]" href="{eval echo sendurl('show',0, $listloop[id]);}"><img class="pack_clipImg2" alt="$listloop[vsubject]" src="$listloop[purl]" onerror="this.src='{MDIR}/noimages.gif';"></a>
+			</div>
+			<div style="padding-left:2px; padding-right:2px; margin-top:5px;">
+				<a title="$listloop[vsubject]" href="{eval echo sendurl('show',0, $listloop[id]);}"><nobr>$listloop[vsubjectc]</nobr></a>
+			</div>
+		</div>
+	<!--{if $cle>=7}-->
+	</div>
+	<!--{/if}-->
+	{eval $cle++;if($cle>7)$cle=1;}
+	<!--{/loop}-->
+	{if $cle<8 && $cle >1}</div>{/if}
+	<div class="clr" style="height:10px;"></div>
+	<!--{if !$datalist}-->
+	<div class="row" style="height:90px;" align="center">
+		<div class="none" style="height:40px;"></div>
+		<span class="xs2">{lang hsk_vcenter:nofindlike}</span>
+	</div>
+	<!--{/if}-->
+{subtemplate common/footer}

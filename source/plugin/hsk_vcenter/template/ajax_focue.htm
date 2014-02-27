@@ -1,0 +1,43 @@
+<!--{template common/header}-->
+<!--{if ($op == 'search')}-->
+	<!--{if $taglist}-->
+		<!--{loop $taglist $var}-->
+			<!--{if $s}-->
+			<a href="javascript:;" onclick="window.onbeforeunload = null; parent.document.getElementById('{$isinput}').value = '$var[name]'; doane();" class="xi2">$var[name]</a>
+			<!--{else}-->
+			<a href="javascript:;" onclick="if(this.className == 'xi2') { window.onbeforeunload = null; parent.document.getElementById('{$isinput}').value += parent.document.getElementById('{$isinput}').value == '' ? '$var[name]' : ',$var[name]'; doane(); this.className += ' marked'; }" class="xi2">$var[name]</a>
+			<!--{/if}-->			
+		<!--{/loop}-->
+	<!--{else}-->
+		<p class="emp">{lang hsk_vcenter:none_data}<p>
+	<!--{/if}-->
+<!--{else}-->
+	<h3 class="flb">
+		<em>{lang hsk_vcenter:findactor}</em>
+		<!--{if $_G[inajax]}--><span><a href="javascript:;" onclick="hideWindow('$_G[gp_handlekey]');" class="flbc" title="{lang close}">{lang close}</a></span><!--{/if}-->
+	</h3>
+	<div class="c bart">
+		<div class="pns mbn cl">
+			<input type="text" name="searchkey" id="searchkey" class="px vm" value="$searchkey" size="30" />&nbsp;
+			<button type="button" name="search_button" class="pn vm" value="false" onclick="tagsearch();"><em>{lang search}</em></button>
+		</div>
+		<div id="taglistarea" style="width: 400px;"></div>
+	</div>
+	<p class="o pns">
+		<button type="button" class="pn pnc" id="closebtn" onclick="hideWindow('$_G[gp_handlekey]');"><strong>{lang close}</strong></button>
+	</p>
+<!--{/if}-->
+	<script type="text/javascript">
+	function tagsearch() {
+		$('taglistarea').innerHTML = '';
+		var searchkey = $('searchkey').value;
+		var url = '{PDIR}&mod=focue&op=search&s={$s}&inajax=1&searchkey='+searchkey;
+		var x = new Ajax();
+		x.get(url, function(s){
+			if(s) {
+				$('taglistarea').innerHTML = s;
+			}
+		});
+	}
+	</script>
+<!--{template common/footer}-->

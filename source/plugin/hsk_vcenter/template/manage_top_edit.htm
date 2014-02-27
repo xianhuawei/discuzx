@@ -1,0 +1,81 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div class="ct2_a wp cl">
+
+		<div class="mn">
+			<div class="bm bw0">
+				<div class="z">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr><td height="40" class="xs2">{lang hsk_vcenter:album_edit} <a href="{PDIR}&mod=manage&action=top" class="xi2">{lang hsk_vcenter:return_list}</a></b></td></tr>
+					</table>				
+				</div>
+				<div class="y">
+					<div class="pg">
+						$multipage
+					</div>
+				</div>
+				
+				<table cellSpacing="0" cellPadding="0" width="100%"><tr><td height="1" class="alt"></td></tr><tr><td height="16"></td></tr></table>
+				<form enctype="multipart/form-data" id="frm{$types}" name="frm{$types}" method="post" autocomplete="off" action="">
+					<input type="hidden" name="formhash" value="{FORMHASH}" />
+					<table class="tfm" cellSpacing="0" summary="" cellPadding="0">
+						<tr>
+							<th class="xs2">{lang hsk_vcenter:thevod}{lang hsk_vcenter:vod_name}</th>
+							<td>
+							<input id="subject" class="px" value="$rows[title]" type="text" name="subject" style="width:300px;"> 
+						</tr>
+						<tr>
+						<th rowspan="3" class="xs2">{lang hsk_vcenter:album_bigpic}</th>
+						<td><img src="$rows[picture]" border="0" width="300" height="200"></td>
+						</tr>
+						<tr>
+						<td><label style="margin-right:15px;">
+						<input id="xpicstyle" class="pr" value="1" type="radio" name="xpicstyle" style="cursor: hand;" align="absmiddle" onclick="$('xfile1').style.display='none'; $('xfile2').style.display='';$('xopenimage').style.display=''" checked>{lang hsk_vcenter:pic_network} [<a href="javascript:;" onclick="$('xfile1').style.display='none'; $('xfile2').style.display='';$('xopenimage').style.display=''; $('xpicstyle').checked=true; showWindow('getpicwin', '{PDIR}&mod=getpic&action='+$('subject').value+'&size=3');" class="xi2">{lang hsk_vcenter:pic_more}</a>]</label><!--{if $isuploadimg}--><label><input id="xpicstyle" class="pr" value="2" type="radio" name="xpicstyle" style="cursor: hand;" align="absmiddle" onclick="$('xfile2').style.display='none'; $('xfile1').style.display='';$('xopenimage').style.display='none';">{lang hsk_vcenter:pic_update}</label><!--{/if}-->&nbsp;&nbsp; <span class="xi1">{lang hsk_vcenter:top_bigpic_s}</span>
+						</td>
+						</tr>
+						<tr>
+						<td><input type="file" class="px" name="xfile1" style="width:450px; height:24px; display: none" id="xfile1"><input id="xfile2" class="px" value="" type="text" name="xfile2" style="width:390px;" onblur="$('share_pic_look').src=this.value;"> 
+						<button class="pn pnp" name="xopenimage" id="xopenimage" type="button" style="margin-bottom:3px;" onclick="if($('xfile2').value){$('share_pic_look').src=$('xfile2').value; showMenu('myfile2');}else{alert('{lang hsk_vcenter:pic_get_err}');}" hidefocus="true"><strong>{lang hsk_vcenter:pic_look}</strong></button><span id="myfile2"></span></td>
+						</tr>
+						<tr>
+						<th></th>
+						<td>
+						<button class="pn pnc" name="reportsubmit" id="reportsubmit" type="submit" value="true" style="width:100px; height:30px;">
+						<strong style="font-size:14px;">{lang hsk_vcenter:share_btn}</strong></button>
+						</td>
+						</tr>
+						</table>
+					<input type="hidden" name="vid" value="$vid">
+				</form>
+			</div>
+		</div>
+		{subtemplate hsk_vcenter:manage_leftbar}
+	</div>
+	<ul id="myfile2_menu" class="p_pop" style="display: none;">
+	<li>
+		<img src="$file_get[purl]" border="0" id="share_pic_look">
+	</li>
+	</ul>
+	
+{subtemplate common/footer}
+
+
+<script language="javascript">
+
+function chang_page(page){
+	if(inpage != page){	//要进行换页
+		for(i=0;i<10;i++){
+			objstr = "img_"+i;
+			$(objstr).src = "{MDIR}/loadimg.gif";
+		}
+		for(i=0;i<10;i++){
+			this_id = (i+((page-1)*10));
+			objstr = "img_"+i;
+			$(objstr).src = send_img[this_id];
+		}
+		inpage = page;
+	}
+}
+</script>
+</script>

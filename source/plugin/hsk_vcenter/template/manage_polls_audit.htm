@@ -1,0 +1,87 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div class="ct2_a wp cl">
+
+		<div class="mn">
+			<ul class="tb cl">
+				<li{if !$types || $types == 1} class="a"{/if}>
+				<a href="###" onclick="return false;"><span class="xs2">{lang hsk_vcenter:polls}{lang hsk_vcenter:manage}</span></a></li>
+				<li{if $types == 2} class="a"{/if}>
+				<a href="{PDIR}&&mod=manage&action=$action&types=2"><span class="xs2">{lang hsk_vcenter:polls}{lang hsk_vcenter:audit}</span></a></li>
+			</ul>
+		
+			<div class="bm bw0">
+				<form enctype="multipart/form-data" id="frmedit" name="frmedit" method="post" autocomplete="off">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<div class="y" style="padding-top:10px;">
+					<a name="sellall2" onclick="hsk_checkAll(frmedit,1);" class="xi1" style="cursor:pointer;">[{lang hsk_vcenter:hsk_theall}{lang hsk_vcenter:audit_nothing}]</a>&nbsp;-&nbsp;
+					<a name="sellall3" onclick="hsk_checkAll(frmedit,2);" class="xi1" style="cursor:pointer;">[{lang hsk_vcenter:hsk_theall}{lang hsk_vcenter:audit_do}]</a>&nbsp;-&nbsp;
+					<a name="sellall4" onclick="hsk_checkAll(frmedit,3);" class="xi1" style="cursor:pointer;">[{lang hsk_vcenter:hsk_theall}{lang hsk_vcenter:delete}]</a>
+				</div>
+				<br><br>
+				<table class="dt" cellSpacing="0" summary="" cellPadding="0">
+					<tr>
+						<th width="10"></th>
+						<th>{lang hsk_vcenter:polls}</th>
+						<th>{lang hsk_vcenter:poller}</th>
+						<th>{lang hsk_vcenter:dateline}</th>
+						<th colspan="2">{lang hsk_vcenter:submit}</th>
+					</tr>
+					<!--{loop $datalist $abvalue}-->
+					<tr>
+					<td align="center"></td>
+					<td><p style="margin-top: 0; margin-bottom: 3px;">
+					<a href="{PDIR}&mod=view&vid=$abvalue[vid]" target="_blank" class="xi1">[vid:{$abvalue[vid]}]</a> - <a href="{eval echo sendurl('show',0, $abvalue[vid]);}" target="_blank" class="xi2">$abvalue[vsubject]</a></p>
+					<p style="margin-top: 0; margin-bottom: 3px;">
+					[pid:{$abvalue[id]}] $abvalue[post]</p>
+					</td>
+					<td><p style="margin-top: 0; margin-bottom: 3px;"><a href="home.php?mod=space&uid=$abvalue[uid]" class="xi2" target="_blank">$abvalue[username]</a></p></td>
+					<td class="xg2">$abvalue[dateline]</td>
+					<td><label><input type="radio" value="1" checked name="ptdata[{$abvalue[id]}]" class="pr">{lang hsk_vcenter:audit_nothing}</label></td>
+					<td>
+					<label><input type="radio" value="2" name="ptdata[{$abvalue[id]}]" class="pr">{lang hsk_vcenter:audit_do}</label><br><label><input type="radio" value="3" name="ptdata[{$abvalue[id]}]" class="pr">{lang hsk_vcenter:delete}</label></td>
+					</tr>
+					<!--{/loop}-->
+
+					<!--{if in_array($action, array("tvlist","ulist","plist")) && $vid}-->
+					<tr>
+					<td align="center"></td>
+					<td colspan="5"><label class="xi1"><input id="abtype" class="pr" value="1" type="radio" name="abtype" style="cursor: hand;" align="absmiddle" onclick="$('frmedit').action='';" checked>{lang hsk_vcenter:delete}{lang hsk_vcenter:thevod}</label>&nbsp;&nbsp;&nbsp;  <label><input id="abtype" class="pr" value="2" type="radio" name="abtype" style="cursor: hand;" align="absmiddle" onclick="$('frmedit').action='{PDIR}&mod=topicadmin&action=push';">{lang hsk_vcenter:topic_push}</label></td>
+					</tr>
+					<!--{/if}-->
+					
+				</table>
+				<div class="cls" style="height:15px;"></div>
+				<div class="pg">
+					$multipage
+				</div>
+				<button class="pn pnc" name="reportsubmit" id="reportsubmit" type="submit" value="true" style="width:100px; height:30px;"><strong style="font-size:14px;">{lang hsk_vcenter:share_btn}</strong></button>
+				<div class="cls" style="height:15px;"></div>
+				<input type="hidden" name="fid" value="$fid">
+				<input type="hidden" name="searchkey" value="$search">
+				<input type="hidden" name="types" value="$types">
+				</form>
+			</div>
+		</div>
+		{subtemplate hsk_vcenter:manage_leftbar}
+	</div>
+	<br>
+{subtemplate common/footer}
+
+
+
+<script language="javascript">
+
+function hsk_checkAll(form, tvalue) {
+	count = 0;
+	for(var i = 0; i < form.elements.length; i++) {
+		var e = form.elements[i];
+		if(e.name && e.type == 'radio' && e.value== tvalue) {
+			e.checked = true;			
+		}
+	}
+	return count;
+}
+
+</script>

@@ -1,0 +1,44 @@
+{subtemplate common/header}
+
+
+<table cellSpacing="0" cellPadding="0" border="0">
+	<tr>
+		<td id="fwin_content_sendlove" class="m_c" fwin="sendlove" width="$_width" height="40">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="600"><h3 style="CURSOR: move" id="fctrl_sendlove" class="flb">
+				<em>{lang hsk_vcenter:block_subject}</em></h3></td>
+				<td width="40"><a class="flbc" title="{lang hsk_vcenter:close}" onclick="hideWindow('getvalue');" href="javascript:;">{lang hsk_vcenter:close}</a></td>
+			</tr>
+		</table>
+		
+		</td>
+	</tr>
+	<tr>
+		<td id="fwin_content_getvalue" class="m_c" orgdisplay fwin="getvalue">
+		
+		<table border="0" width="100%" cellspacing="1" cellpadding="5">
+			<tr style="height:32px;">
+				<td align="center"><b>ID</b></td>
+				<td><b>{lang hsk_vcenter:adset_subject}</b></td>
+				<td><b>{lang hsk_vcenter:adset_height}</b></td>
+				<td></td>
+			</tr>
+			<!--{loop $adlist $i $datarow}-->
+			<tr>
+				<td align="center">$datarow[id]</td>
+				<td>$datarow[subject]</td>
+				<td>$datarow[width] X $datarow[height]</td>
+				<td><a href="###" onclick="$('valuenew').value='$datarow[id]';hideWindow('getvalue');">{lang hsk_vcenter:selected}</a></td>
+			</tr>
+			<!--{/loop}-->
+			<tr><td colspan="4" height="10"></td></tr>
+		</table>
+	</tr>
+	<tr><td class="o pns">
+		{lang hsk_vcenter:copyright} <span><a href="http://ddzz.cc" target="_blank" class="xg1">http://www.ddzz.cc</a></span></td>
+	</td></tr>
+</table>
+
+
+{subtemplate common/footer}

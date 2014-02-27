@@ -1,0 +1,11 @@
+{subtemplate common/header}
+
+{eval $i=1;}
+<!--{loop $_SORT $datarow}-->
+<!--{if $datarow[sup]==$fid}-->
+<label style="margin-right:10px;"><input id="share_id_$datarow[sid]" class="pc" onclick="hsk_checkbox(this)" value="$datarow[sid]" type="checkbox" name="share_sid[]"{if in_array($datarow[sid], $absid)} checked{/if}>$datarow[sort]</label>
+{eval $i++;}
+<!--{if $i>$relesid_br}--><br>{eval $i=1;}<!--{/if}-->
+<!--{/if}-->
+<!--{/loop}-->
+{subtemplate common/footer}

@@ -1,0 +1,44 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div class="ct2_a wp cl">
+
+		<form enctype="multipart/form-data" id="frm{$types}" name="frm{$types}" method="post" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<div class="mn">
+			<div class="bm bw0">
+				<div class="z">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr><td height="40" class="xs2">{lang hsk_vcenter:push_msg}</b></td></tr>
+					</table>				
+				</div>
+				
+				<table cellSpacing="0" cellPadding="0" width="100%"><tr><td height="1" class="alt"></td></tr><tr><td height="16"></td></tr></table>
+				<table class="dt" cellSpacing="0" summary="" cellPadding="0">
+					<tr>
+						<th width="20"></th>
+						<th width="60">{lang hsk_vcenter:thevod}ID</th>
+						<th>{lang hsk_vcenter:thevod}{lang hsk_vcenter:vod_name}</th>
+					</tr>
+					<!--{loop $pushrow $datarow}-->
+					<tr>
+						<td></td>
+						<td>$datarow[id]<input type="hidden" name="deletes[]" value="$datarow[id]"></td>
+						<td><a href="{eval echo sendurl('show', 'v', $datarow[id]);}" target="_blank" class="xi2">$datarow[vsubject]</a></td>
+					</tr>
+					<!--{/loop}-->
+					</table>
+				<div class="cls" style="height:15px;"></div>
+				<div class="pg">
+					$multipage
+				</div>
+				<input type="hidden" name="abid" value="$abid">
+				<button class="pn pnc" name="pushsumbit" type="submit" value="true" style="width:100px; height:32px;"><strong class="xs2">{lang hsk_vcenter:submit}</strong></button>
+				&nbsp;{lang hsk_vcenter:push_msg1} <div class="cls" style="height:15px;"></div>
+			</div>
+		</div>
+		</form>
+		{subtemplate hsk_vcenter:my_leftbar}
+	</div>
+	
+{subtemplate common/footer}

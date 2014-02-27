@@ -1,0 +1,461 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<script language="javascript">
+		var swf_width	 = $_PWIDTH;
+		var swf_height	 = $_PHEIGHT;
+		var swf_autoplay = $isautoplay;
+	</script>
+	<div class="ct wp cl">
+		<div class="y">
+			<!--{if $theplayer_style == 'cmp' && $cmphdstyle}-->
+			<div style="margin-top:25px;">
+				<a href='{PDIR}&mod=hdstyle&types=1&vid=$vid'{$click_disabled[1]}><img src="{MDIR}/hd{$onselein[1]}01.gif" border="0"></a><a href='{PDIR}&mod=hdstyle&types=2&vid=$vid' style="margin-left:10px;"{$click_disabled[2]}><img src="{MDIR}/hd{$onselein[2]}02.gif" border="0"></a><a href='{PDIR}&mod=hdstyle&types=3&vid=$vid' style="margin-left:10px;"{$click_disabled[3]}><img src="{MDIR}/hd{$onselein[3]}03.gif" border="0"></a>
+			</div>
+			<!--{else}-->
+				<!--{if $_ADOTHER[51][message]}-->
+				<div class="ad" style="{if $_ADOTHER[51][height]}width:360px; height:$_ADOTHER[51][height]px;{/if}">
+					$_ADOTHER[51][message]
+				</div>
+				<!--{/if}-->
+			<!--{/if}-->
+			
+		</div>
+		<div class="z">
+			<div class="viewthread"><!--{if $viewdata[absubject] || $istv}--><a href="{eval echo sendurl('dlist',0, $thesup,0,0,0);}" target="_blank">$viewdata[absubject]</a><span class="pipe">&raquo;</span><!--{/if}-->$viewdata[vsubject]</div>
+			<div class="viewsort"><a href="{eval echo sendurl('list','f',$fid,0,$m,$s,1);}">$sortname</a> <span class="pipe">&raquo;</span> 
+			<!--{loop $sidlistarray $i $datarow}-->
+			<!--{if $i}--><span class="pipe">/</span><!--{/if}--><a href="{eval echo sendurl('list','s',$datarow[sid],0,$m,$s,1);}">$datarow[sort]</a>
+			<!--{/loop}-->			
+			<!--{if $viewdata[address]}--><span class="pipe">/</span><a href="{eval echo sendurl('list','f',$fid,0,0,0,1,0,$viewdata[address],0);}" class="xg2">$address_new[$viewdata[address]]</a><!--{/if}--><!--{if $viewdata[years]}--><span class="pipe">/</span><a href="{eval echo sendurl('list','f',$fid,0,0,0,1,0,0,$viewdata[years]);}" class="xg2">$years_new[$viewdata[years]]</a><!--{/if}--><!--{if $viewdata[language]}--><span class="pipe">/</span><span class="xg2">$language_new[$viewdata[language]]</span><!--{/if}-->
+			<!--{if $viewdata[vprice]}--><span class="pipe">/</span><a href="javascript:;" onclick="showWindow('top_delete', '{PDIR}&mod=topicadmin&action=paylist&vid=$vid');" class="xi1">{lang hsk_vcenter:pay_8}</a></span><!--{/if}-->
+			</div>
+		</div>
+	</div>
+	
+	<div id="ct" class="ct wp cl">
+		<div class="mn">
+			<div class="viewvod">
+
+				<!--{if $buynow == 1}-->
+				<table border="0" width="100%" cellspacing="0" cellpadding="0">
+					<tr>
+						<td height="60"></td>
+					</tr>
+					<tr>
+						<td align="center">
+						<img border="0" src="{MDIR}/buyinfo.gif" width="48" height="49" align="absmiddle"></td>
+					</tr>
+					<tr>
+						<td align="center" height="50">
+						<span class="pay">{lang hsk_vcenter:pay_1}</span></td>
+					</tr>
+					<tr>
+						<td align="center"><span class="pay">{lang hsk_vcenter:pay_2}</span></td>
+					</tr>
+					<tr>
+						<td height="40"></td>
+					</tr>
+					<tr>
+						<td align="center"><span class="pay">
+						<span style="background-color: #FF6600">&nbsp; 
+						<a href="javascript:;" style="color:#ffffff;" onclick="showWindow('top_delete', '{PDIR}&mod=topicadmin&action=pay&vid=$vid');">{lang hsk_vcenter:pay_3}</a> &nbsp;</span>&nbsp;&nbsp; {lang hsk_vcenter:pay_4}&nbsp; </span>
+						<span class="pay" style="background-color: #CCFFFF">
+						<font color="#000080">&nbsp; 
+						<a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href);return false;" class="xi2">{lang hsk_vcenter:pay_5}</a>&nbsp;&nbsp;</font>
+						</span></td>
+					</tr>
+					<tr>
+						<td height="70"></td>
+					</tr>
+					<tr>
+						<td align="center"><span class="pay1">{lang hsk_vcenter:pay_6}<span class="xi1">$viewdata[vprice] {$money_unit}{$money_name}</span>{lang hsk_vcenter:pay_7}
+						<a href="javascript:;" onclick="showWindow('top_delete', '{PDIR}&mod=topicadmin&action=paylist&vid=$vid');" class="xi1">{lang hsk_vcenter:pay_8}</a></span></td>
+					</tr>
+					<tr>
+						<td align="center"><span class="pay1">{lang hsk_vcenter:pay_9}</span></td>
+					</tr>
+					<tr>
+						<td height="60"></td>
+					</tr>
+				</table>
+				<!--{elseif $theplayer_style == 'qvod'}-->
+				<div class="players">
+					<script>var swf_NextWebPage="$_G[siteurl]{eval echo sendurl('acshow','next', $vid);}";</script>
+					<iframe id="iframe_down" name="iframe_down" scrolling="no" frameborder="0" width="{$_PWIDTH}" height="{$_PHEIGHT}" style="display: none;" src="about:blank"></iframe>
+					<script>var swf_url = '$vodurl';</script>
+					<script src="{JSDIR}/flash_qvod.js" type="text/javascript"></script>
+				</div>
+				<!--{elseif $theplayer_style == 'bdhd'}-->
+				<div class="players">
+					<iframe id="iframe_down" name="iframe_down" scrolling="no" frameborder="0" width="{$_PWIDTH}" height="{$_PHEIGHT}" style="display: none;" src="about:blank"></iframe>
+					<script>var swf_NextWebPage="$_G[siteurl]{eval echo sendurl('acshow','next', $vid);}";</script>
+					<script>var swf_LastWebPage="$_G[siteurl]{eval echo sendurl('acshow','first', $thesup);}";</script>
+					<script>var swf_url = '$vodurl';</script>
+					<script src="{JSDIR}/flash_bdhd.js" type="text/javascript"></script>
+				</div>
+				<!--{elseif $theplayer_style == 'cmp'}-->
+				<div id="player" style="width:{$_PWIDTH}px;height:{$_PHEIGHT}px; POSITION: relative; MARGIN: 0px auto; padding:0px;"></div>
+				<script type="text/javascript" src="v/cmp.js"></script> 
+				<!--{if $inqvod}-->
+				<script>var swf_NextWebPage="$_G[siteurl]{eval echo sendurl('acshow','next', $vid);}";</script>
+				<script type="text/javascript" src="v/wmp.js"></script>
+				<!--{/if}-->
+				
+				<script type="text/javascript">
+					var cmpo;
+					<!--{if $viewdata[sup] && !$inqvod}-->
+					function cmp_loaded(key) { 
+						cmpo = CMP.get("cmp");
+						if (cmpo) { 
+							cmpo.addEventListener("model_state", "cmp_model_state");
+						}
+					}
+
+					function createXmlHttp() {
+						if (window.XMLHttpRequest) {
+							xmlHttp = new XMLHttpRequest();
+						} else {
+							xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+						}
+					}
+					function cmp_model_state(data) {
+						if (data == "completed") {
+							createXmlHttp();
+							xmlHttp.onreadystatechange = cmp_model_state2;
+							xmlHttp.open("GET", "{eval echo sendurl('acshow','next', $vid);}", true);
+							xmlHttp.send(null);
+						}
+					}
+
+					function cmp_model_state2(){
+						var vurl = xmlHttp.responseText;
+						if (vurl !== ""){
+							window.location = vurl;
+						}
+					}
+					
+					function cmp_model_state(state) {
+						if (state == "completed") {
+							window.location = "{eval echo sendurl('acshow','next', $vid);}";
+						}
+					}
+					<!--{/if}-->
+					<!--{if $inqvod}-->
+					function cmp_loaded(key) {
+						var cmpo = CMP.get("cmp");
+						if (!cmpo) {
+							alert("CMP ERROR!");
+							return false;
+						}
+						
+						var list = '<list>';
+						list += '<m type="wmp" label="$viewdata[vsubject]" src="$viewdata[vurl]" />';
+						list += '</list>';
+						cmpo.list_xml(list);
+
+						if (CMPEI) {
+							CMPEI.init(key, cmpo);
+						} else {
+							alert("error!");	
+						}
+
+					}
+	
+					var flashvars = {
+						lists : "",
+						skin:"skins/{$_CMP4[cmp_config][defaultskin]}",
+						auto_play: $isautoplay,
+						image : "$viewdata[purl]",
+						api : "cmp_loaded"
+					};
+					var htm = CMP.create("cmp", "100%", "100%", "v/{$_CMP4[cmp_config][playername]}?php=0", flashvars, {wmode:"opaque"});
+					document.getElementById("player").innerHTML = htm;
+					<!--{else}-->
+					<!--{if $isautoplay}-->
+					var flashvars = {
+						auto_play: 1
+					};
+					<!--{/if}-->
+					var htm = CMP.create("cmp", "100%", "100%", "v/{$_CMP4[cmp_config][playername]}?php=$vid/v.swf", <!--{if $isautoplay}-->flashvars<!--{else}-->''<!--{/if}-->, {wmode:"opaque"});
+					document.getElementById("player").innerHTML = htm;
+					<!--{/if}-->
+				</script>
+				<!--{else}-->
+				<div class="players">
+					<!--{if $indomain}-->
+						{eval include template("dp_$vod_style", "Kannol", PTEM."/domain/$vod_style");}
+					<!--{else}-->
+						<script type="text/javascript">
+							var swf_url = '$vodurl';
+							var swf_id = $getfiles;
+						</script><script language="javascript" src="{JSDIR}/flash_{$theplayer_style}.js"></script>
+					<!--{/if}-->
+				</div>
+				<!--{/if}-->
+
+			</div>
+		</div>
+		<!--{if $viewdata[ab_album]>0}-->
+		<div class="bm bml">
+			<div class="alt" id="load_thealbum" style="height:136px;" align="center">
+				<div class="plistcs">
+					<u class="plistcs">
+						<li title="{lang hsk_vcenter:play}{lang hsk_vcenter:prev}"><a href="{eval echo sendurl('acshow','prev', $vid);}">{lang hsk_vcenter:prev}</a></li>
+						<li title="{lang hsk_vcenter:play}{lang hsk_vcenter:next}"><a href="{eval echo sendurl('acshow','next', $vid);}">{lang hsk_vcenter:next}</a></li>
+					</u>
+				</div>
+				<script>ajaxget('{PDIR}&mod=loadsup&vid={$viewdata[sup]}&rid=$vid', 'load_thealbum');</script>
+			</div>
+		</div>
+		<!--{/if}-->
+		<div style="margin-top:10px;">
+			<div class="z" id="feed_div"><script>ajaxget('{PDIR}&mod=feed&vid=$vid', 'feed_div');</script></div>
+			<div class="y">
+				<ul class="vodsend">
+					<li title="{lang hsk_vcenter:feed}"><a href="javascript:;" class="feed" onmouseover="showMenu('feedbox');"><i></i>{lang hsk_vcenter:feed}</a></li></u>
+					<!--{if $viewdata[uid] == $discuz_uid}-->
+					<li><a href="{PDIR}&mod=topicadmin&action=edit&vid=$vid" class="fav"><i></i>{lang hsk_vcenter:edit}</a></li>
+					<li><a href="javascript:;" onclick="showWindow('top_delete', '{PDIR}&mod=topicadmin&action=delete&vid=$vid');return false;" class="fav"><i></i>{lang hsk_vcenter:delete}</a></li>
+					<!--{else}-->
+					<li title="{lang hsk_vcenter:chk_rep}"><a href="javascript:;" onclick="showWindow('top_delete', '{PDIR}&mod=getlist&types=report&vid=$vid'); return false;" class="rep"><i></i>{lang hsk_vcenter:chk_rep}</a></li>
+					<li title="{lang hsk_vcenter:chk_fav}"><a href="javascript:;" onclick="showWindow('getpicwin', '{PDIR}&mod=getlist&types=favorites&vid=$vid'); return false;" class="fav"><i></i>{lang hsk_vcenter:chk_fav}</a></li>
+					<!--{/if}-->
+					<!--{if $adminid==1}-->
+					<li title="{lang hsk_vcenter:manage}" onmouseover="showMenu('managebox');"><a href="javascript:;">{lang hsk_vcenter:manage}</a></li>
+					<!--{/if}-->
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="feedbox_menu" class="feedbox" style="display: none;">
+		<div class="z">
+			<p style="margin-bottom:6px;">
+				<span class="xs1"><strong>{lang hsk_vcenter:feed_f}</strong></span>
+			</p>
+			<span class="xg1">{lang hsk_vcenter:thevod}{lang hsk_vcenter:feed_d}:</span>
+			<input id="link1" class="px" value="$_G[siteurl]{eval echo sendurl('show',0,$vid);}" name="copy_link1" size="50" style="width:290px;">
+			<button class="pn pnp" name="copy_link_1" id="copy_link_1" type="button" onclick="return copyurl($('link1').value);" hidefocus="true" style="margin-bottom:3px;"><strong>{lang hsk_vcenter:copyurl1}</strong></button>
+			<p style="margin-bottom:6px; margin-top:6px;">
+				<span class="xs1"><strong>{lang hsk_vcenter:feed_h}</strong></span>
+			</p>
+	
+			<p style="margin-bottom:6px;">
+			<span class="xg1">flash{lang hsk_vcenter:feed_d}:</span>
+			<input id="link2" class="px" value="$flash_url" name="copy_link2" size="50" style="width:290px;">
+			<button class="pn pnp" name="copy_link_2" id="copy_link_2" type="button" onclick="return copyurl($('link2').value);" hidefocus="true" style="margin-bottom:3px;"><strong>{lang hsk_vcenter:copyurl1}</strong></button></p>
+			
+			<span class="xg1">html{lang hsk_vcenter:feed_d}:</span>
+			<input id="link3" class="px" value='<embed src="$flash_url" quality="high" width="640" height="480" align="middle" allowScriptAccess="always" allowFullScreen="true" mode="transparent" type="applicamod/x-shockwave-flash"></embed>' name="copy_link3" size="50" style="width:290px;">
+			<button class="pn pnp" name="copy_link_3" id="copy_link_3" type="button" onclick="return copyurl($('link3').value);" hidefocus="true" style="margin-bottom:3px;"><strong>{lang hsk_vcenter:copyurl1}</strong></button>
+		</div>
+		<div class="y p2" style="width:210px;">
+			<h3 style="margin-bottom:8px;">{lang hsk_vcenter:feed} :</h3>
+				{subtemplate hsk_vcenter:inc_feed}
+		</div>
+	</div>
+	<!--{if $adminid==1}-->
+	<div id="managebox_menu" class="managebox" style="display: none;">
+		<span class="xs2"><strong>{lang hsk_vcenter:manage_name}</strong></span><a href="{PDIR}&mod=topicadmin&action=edit&vid=$vid" class="xs2">{lang hsk_vcenter:edit}</a><span class="pipe xs2">|</span><a href="javascript:;" onclick="showWindow('top_delete', '{PDIR}&mod=topicadmin&action={if $editvar[album]>0}deleplist{else}delete{/if}&vid=$vid');return false;" class="xs2">{lang hsk_vcenter:delete}</a><span class="pipe xs2">|</span><a href="{PDIR}&mod=manage&action=top&sendid=$vid" class="xs2">{lang hsk_vcenter:sendtop}</a><span class="pipe xs2">|</span><a href="{PDIR}&mod=manage&action=$linkarr[$viewdata[ab_album]]&vid=$thesup"{if $viewdata[ab_album]>0} class="xs2"{else} class="xs2" disabled onclick="return false;"{/if}>{lang hsk_vcenter:manage}{lang hsk_vcenter:thevlist}</a><span class="pipe xs2">|</span><a href="{PDIR}&mod=topicadmin&action=edit&vid=$thesup"{if $viewdata[ab_album]>0} class="xs2"{else} class="xs2" disabled onclick="return false;"{/if}>{lang hsk_vcenter:edit}{lang hsk_vcenter:thevlist}</a>
+	</div>
+	<!--{/if}-->
+	
+	<div id="ct" class="ct2 wp cl" style="margin-top:10px;">
+		<div class="mn" style="width:690px;">
+			<ul class="tb cl">
+				{if $tag_radio}<li class="a" id="load_1"><a href="{PDIR}&mod=getloadlist&action=tag&vid=$vid" onclick="ajaxget(this.href, 'getloadlist'); getselect('load_1'); return false;"><span class="xs2">{lang hsk_vcenter:tag_like}</span></a></li>{/if}
+				<li id="load_2"{if !$tag_radio} class="a"{/if}><a href="{PDIR}&mod=getloadlist&action=sort&vid=$vid&fid=$fid" onclick="ajaxget(this.href, 'getloadlist'); getselect('load_2'); return false;"><span class="xs2">{lang hsk_vcenter:sort_link}</span></a></li>
+				<li id="load_3"><a href="{PDIR}&mod=getloadlist&action=top&vid=$vid" onclick="ajaxget(this.href, 'getloadlist'); getselect('load_3'); return false;"><span class="xs2">{lang hsk_vcenter:top_rand}</span></a></li>
+			</ul>
+			<div class="c">
+				<div id="playItems" class="playitems playalbum" style="margin-top:12px">
+					<div class="sc2" id="getloadlist">
+						<script>{if $tag_radio}ajaxget('{PDIR}&mod=getloadlist&action=tag&vid=$vid', 'getloadlist');{else}ajaxget('{PDIR}&mod=getloadlist&action=sort&vid=$vid&fid=$fid', 'getloadlist');{/if}</script>
+					</div>
+				</div>
+			</div>
+
+			<!--{if $_ADOTHER[53][message]}-->
+			<div class="ad" style="margin-bottom:15px; width:690px; {if $_ADOTHER[53][height]}height:$_ADOTHER[53][height]px;{/if}">
+				$_ADOTHER[53][message]
+			</div>
+			<!--{/if}-->
+			
+			<script type="text/javascript" src="{$_G['setting']['jspath']}seditor.js?{VERHASH}"></script>
+			<div style="width:688px; border: 1px solid #ccc; background:#fafafa">
+			<table border="0" cellspacing="0" cellpadding="0" align="center" width="100%" align="left">
+				<tr><td align="center">
+					<form method="post" autocomplete="off" id="fastpostform" action="{PDIR}&mod=reply&replysubmit=yes&infloat=yes&handlekey=fastpost" onSubmit="return hsk_myreply(this)">
+					<input type="hidden" name="formhash" value="{FORMHASH}" />
+					<input type="hidden" name="revid" value="$vid" />
+					<table border="0" cellspacing="0" cellpadding="0" style="margin:5px;">
+						<tr>
+							<td height="40"><div class="y"><div class="fpd">
+							<a id="fastpostsml" class="fsml" onclick="showMenu({'ctrlid':this.id,'evt':'click','layer':2});return false;" initialized="true" unselectable="true" outfunc="null" overfunc="null" href="javascript:;">Smilies</a>
+							<SCRIPT type=text/javascript reload="1">smilies_show('fastpostsmiliesdiv', 8, 'fastpost');</SCRIPT>
+							</div>
+							</div><div class="z">
+							<b><span class="xs2">{lang hsk_vcenter:poll_1}</span></b><span class="pipe">|</span><span class="xg2">{lang hsk_vcenter:poll_2}</span></div></td>
+						</tr>
+						<tr>
+							<td>
+							<textarea rows="5" name="message" id="fastpostmessage" class="pt" style="width:650px" onkeydown="javascript: hsk_myreply_ctlent(event);"<!--{if !$isevaluate}--> disabled<!--{/if}-->><!--{if !$isevaluate}-->{lang hsk_vcenter:poll_3}<!--{/if}--></textarea></td>
+						</tr>
+						<tr>
+							<td height="42"><div class="y"><!--{if $discuz_uid}-->{lang hsk_vcenter:poll_4}<!--{else}-->{lang hsk_vcenter:poll_5}<!--{/if}-->
+							<button type="submit" name="replysubmit" id="fastpostsubmit" class="pn pnc" value="replysubmit"<!--{if !$isevaluate}--> disabled<!--{/if}-->><strong>{lang hsk_vcenter:poll_6}</strong></button></div>
+							<div class="z"><span id="fastpostreturn">$auditviews</span></div>
+							</td>
+						</tr>
+						<tr><td height="30" id="poplepolls"><script>ajaxget('{PDIR}&mod=polls&vid={$viewdata[id]}', 'poplepolls');</script></td></tr>
+					</table>
+					</form>
+				</td></tr>
+			</table>
+			</div>
+		</div>
+		
+		
+		<!--{if $_ADOTHER[54][message]}-->
+		<div class="a_fl a_cb">$_ADOTHER[54][message]</div>
+		<div class="a_fr a_cb">$_ADOTHER[54][message]</div>
+		<!--{/if}-->
+		
+		<div class="sd" style="width:250px;">
+			{subtemplate hsk_vcenter:inc_author}
+
+
+			<!--{if $_ADOTHER[52][message]}-->
+			<div class="ad" style="margin-bottom:10px; width:250px; {if $_ADOTHER[52][height]}height:$_ADOTHER[52][height]px;{/if}">
+				$_ADOTHER[52][message]
+			</div>
+			<!--{/if}-->
+
+
+			<div class="bm">
+				<div class="bm_h cl">
+					<h2 class="xs2">{lang hsk_vcenter:sidlist} :</h2>
+				</div>
+				<div class="bm_c">
+					<u class="sortlist">
+						<li><nobr><a href="{eval echo sendurl('list','f',$fid,$types,$m,$s,1);}" {if !$sid} class="disb"{/if}>{lang hsk_vcenter:hsk_theall}</a></nobr></li>{eval echo "\n";}
+						<!--{loop $_SORT $datarow}-->
+						<!--{if $datarow[sup] == $fid}-->
+						<li><nobr><a href="{eval echo sendurl('list','s',$datarow[sid],$types,$m,$s,1);}" {if $datarow[sid] == $sid} class="disb"{/if}>$datarow[sort]</a></nobr></li>
+						<!--{/if}-->
+						<!--{/loop}-->
+					</u>
+				</div>
+			</div>
+
+			
+			<!--{if $tag_radio && $viewdata[tag]}-->
+			<div class="bm">
+				<div class="bm_h cl">
+					<h2 class="xs2">TAG :</h2>
+				</div>
+				<div class="bm_c">
+					<u class="sortlist">
+					<!--{loop $tagstrlist $datarow}-->
+						<li><nobr><a href="{eval echo sendurl('tag','0',$datarow[0]);}">$datarow[1]</a></nobr></li>
+					<!--{/loop}-->
+					</u>
+				</div>
+				<div class="alt" style="height:1px;"></div>
+			</div>
+			<!--{/if}-->
+
+			<!--{if $bokehot}-->
+			<div class="bm">
+				<div class="bm_h cl">
+					<div class="z"><h2 class="xs2">{lang hsk_vcenter:hotuser} :</h2></div><div class="y"></div>
+				</div>
+				<div class="bm_c">
+					<ul class="hskml hskmls cl">
+						<!--{loop $_HOTUSER $datarow}-->
+						<li>
+							<a href="{eval echo sendurl('author', 0, $datarow[mid]);}"><!--{avatar($datarow[mid],middle)}--></a> 
+							<p><a href="home.php?mod=space&uid=$datarow[mid]">$datarow[usernamec]</a></p>
+							<span class="xg1">{lang hsk_vcenter:thevod}: $datarow[shares]</span>
+							<span class="xg1">{lang hsk_vcenter:vod_hot}: $datarow[hots]</span>
+						</li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+			<!--{/if}-->			
+
+
+
+		</div>
+	</div>
+
+{subtemplate common/footer}	
+
+<script language="javascript" type="text/javascript"> 
+
+function hsk_myreply_ctlent(event) {
+	var e = event ? event : window.event;
+	var submited = $('fastpostsubmit').disabled;
+	if(!submited && ((e.ctrlKey && e.keyCode == 13) || (e.altKey && e.keyCode == 83))) {
+		hsk_myreply($('fastpostform'));
+	}
+}
+
+function hsk_myreply(theform, noajaxpost) {
+	noajaxpost = !noajaxpost ? 0 : noajaxpost;
+	s = '';
+	if(theform.fastpostmessage.value == '') {
+		s = '{lang hsk_vcenter:poll_7}';
+		theform.fastpostmessage.focus();
+	} else if(mb_strlen(theform.fastpostmessage.value) > 300 || mb_strlen(theform.fastpostmessage.value) < 6) {
+		s = '{lang hsk_vcenter:poll_8}';
+		theform.fastpostmessage.focus();
+	}
+	if(s) {
+		$('fastpostreturn').className = 'onerror';
+		$('fastpostreturn').innerHTML = s;
+		$('fastpostsubmit').disabled = false;
+		return false;
+	}
+	$('fastpostsubmit').disabled = true;
+	theform.fastpostmessage.value = parseurl(theform.fastpostmessage.value);
+	if(!noajaxpost) {
+		ajaxpost('fastpostform', 'fastpostreturn', 'fastpostreturn', 'onerror', $('fastpostsubmit'), 'pmsendappend()');
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function pmsendappend() {
+	var indiscuz = $discuz_uid;
+	$('fastpostmessage').value = '';
+	$('fastpostmessage').focus();
+	if(!indiscuz){
+		s = '{lang hsk_vcenter:poll_5}';
+	}else{
+		s = '{lang hsk_vcenter:poll_9}';
+	}
+	$('fastpostreturn').className = 'onerror';
+	$('fastpostreturn').innerHTML = s;
+	ajaxget('{PDIR}&mod=polls&vid={$viewdata[id]}', 'poplepolls');
+}
+
+function copyurl(urlstr) {
+	setCopy(urlstr, '{lang hsk_vcenter:copyurl2}');
+	return false;
+}
+
+function getselect(obj){
+	chki = $tag_radio ? 1 : 2;
+	for(i=chki;i<=3;i++){
+		loopid = "load_"+i;
+		$(loopid).className="";
+	}
+	$(obj).className="a";
+}
+
+</script>
+
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>

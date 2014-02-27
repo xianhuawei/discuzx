@@ -1,0 +1,86 @@
+<head>
+<link rel="stylesheet" type="text/css" href="./source/plugin/hsk_vcenter/template/hsk_style.css" />
+<script type="text/javascript" src="./source/plugin/hsk_vcenter/javascript/hsk_site.js"></script>
+<script  type="text/javascript">
+	$('scbar_form').action = '{PDIR}&mod=search';
+	$('scbar_type').innerHTML = '{lang hsk_vcenter:thevod}';
+</script>
+</head>
+
+
+<div class="cls" style="height:10px;"></div>
+<div id="pt" class="bm cl">
+	<div class="y">
+		<div class="vodinfo">
+			<ul>
+				<li><span class="xi2"><a href="$_PDIR">{lang hsk_vcenter:nav_vodsum}: $_TOTALFUN[1]</a></span></li>
+				<li><span class="pipe">|</span></li>
+				<li><span class="xi1">
+				<a href="{eval echo sendurl('today');}" class="xi1"{if !$_TOTALFUN[2]} onclick="showError('{lang hsk_vcenter:nofindnewvod}'); return false;"{/if}>{lang hsk_vcenter:nav_todays}: $_TOTALFUN[2]</a></span></li>
+				<li><span class="pipe">|</span></li>
+				<li><a href="javascript:;" id="mylook" onmouseover="showMenu(this.id)" hidefocus="true" class="showmenu">{lang hsk_vcenter:nav_mylook}</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a><em>&raquo;</em><a href="$_PDIR">{PNAME}</a><em> &rsaquo; </em>$navname
+	</div>
+</div>
+<hr class="da">
+<div class="cls" style="height:10px;"></div>
+
+<div id="mylook_menu" class="bm" style="display: none; width:250px;">
+	<div class="bm_c">
+		<!--{if $dvlist && $dvcount}-->
+		<!--{loop $dvlist $datarow}-->
+		<div style="MARGIN: 6px" id="play_list_$datarow[id]">
+			<!--{if $datarow[istv]}-->
+			<div class="y"><span style="padding-right:5px;"><a href="{eval echo sendurl('acshow', 'next', $datarow[id]);}" class="xg2">{lang hsk_vcenter:looknext}</a></span><a href="javascript:;" onclick="return deleplaylist($datarow[id]);"><img src="{MDIR}/deleis.gif"></a></div>
+			<a class="xi2" title="$datarow[subject]" href="{eval echo sendurl('show', 0, $datarow[id]);}">{eval echo cutstr($datarow[subject], 20, '..');}</a>
+			<!--{else}-->
+			<div class="y"><a href="javascript:;" onclick="return deleplaylist($datarow[id]);"><img src="{MDIR}/deleis.gif"></a></div>
+			<a class="xi2" title="$datarow[subject]" href="{eval echo sendurl('show', 0, $datarow[id]);}">{eval echo cutstr($datarow[subject], 28, '..');}</a>
+			<!--{/if}-->			
+			<hr class="da">
+		</div>
+		<!--{/loop}-->
+		<!--{else}-->
+		<div style="MARGIN: 6px">
+			<span style="padding-right:5px;">{lang hsk_vcenter:noplaylist}</span>
+			<hr class="da">
+		</div>
+		<!--{/if}-->
+		<div style="MARGIN: 6px">
+			<!--{if $_G['uid']}-->
+			<a class="xi1" href="{PDIR}&mod=my&action=favorites">{lang hsk_vcenter:playlist}</a>
+			<!--{else}-->
+			{lang hsk_vcenter:noplayfav}
+			<!--{/if}-->
+		</div>
+		<div class="clr" style="display:none" id="deleplayajax"></div>
+	</div>
+</div>
+
+<script language="javascript">
+function deleplaylist(pid){
+	delpid = "play_list_"+pid;
+	$(delpid).style.display='none';
+	ajaxget('{PDIR}&mod=getloadlist&action=deleplay&vid='+pid, 'deleplayajax');	
+}
+</script>
+
+<!--{if !$header_disabled}-->
+<div class="bm">
+		<u class="formulist">
+			<li><a hideFocus href="{eval echo sendurl('list',0,0,$mod == 'release' ? 0 : $types,$m,$s,1);}"{if !$fid && $mod == 'list'} class="disb"{/if}>{lang hsk_vcenter:hsk_theall}</a></li>{eval echo "\n";}
+			<!--{loop $_SORT $datarow}-->
+			<!--{if $datarow[sup]==0}-->
+			<li><a hideFocus href="{eval echo sendurl('list','f',$datarow['sid'],$mod == 'release' ? 0 : $types,$m,$s,1);}" style="color:$sortcolor[$datarow[scolor]];"{if $fid==$datarow['sid']} class="disb"{/if}>$datarow[sort]</a></li>
+			<!--{/if}-->
+			<!--{/loop}-->
+			<!--{if $mod}-->
+			<li><a hideFocus href="{if $hp}v.html{else}$_PDIR{/if}">{lang hsk_vcenter:indexs}</a></li>
+			<!--{/if}-->
+		</u>
+</div>
+<!--{/if}-->

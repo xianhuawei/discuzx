@@ -1,0 +1,106 @@
+{subtemplate common/header}
+
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div class="ct2_a wp cl">
+
+		<div class="mn">
+			<div class="bm bw0">
+				<br>
+				<h1 align="center" style="font-size:12pt">视频数据采集中心</h1>
+			</div>
+			<div class="bm bw0">
+				<div class="rules">
+					<hr>
+					<u class="rules">
+						<!--{loop $rules_in $i $rows}-->
+						<li>{eval echo strtoupper($rows);}<br /><a href="{RPDIR}&action=$rows">数据采集</a><a href="{RPDIR}&action=$rows&update=all">一键更新</a></li>
+						<!--{/loop}-->
+					</u>
+					<hr>
+				</div>
+			</div>
+		</div>
+
+		<div class="appl">
+			<div class="tbn">
+				<h2 class="mt bbda">采集中心</h2>
+					<ul>
+						<li style="height:120px;"><!--{avatar($discuz_uid,middle)}--></li>
+						<li><center>$discuz_user</center></li>
+						<li style="height:2px;"></li>
+						<li style="height:15px;"></li>
+						<li{if !in_array($action, $rules_in)} class="a"{/if}><a href="plugin.php?id=hsk_vcenter:rules">功能首页</a></li>
+						<!--{loop $rules_in $rows}-->
+						<li{if $action==$rows} class="a"{/if}><a href="plugin.php?id=hsk_vcenter:rules&action={$rows}">$rows</a></li>
+						<!--{/loop}-->
+						<li style="height:15px;"></li>
+						<li style="height:2px;"></li>
+						<li class="cl"><a href="plugin.php?id=hsk_vcenter&mod=manage">管理视频</a></li>
+						<li class="cl"><a href="plugin.php?id=hsk_vcenter">视频中心</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<br>
+{subtemplate common/footer}
+
+
+
+<script language="javascript">
+
+function changelocation(val)
+{
+    var val=val;
+    ajaxget('{PDIR}&mod=relesid&fid='+val, 'loadrelesid');
+}
+
+function hsk_checkbox(obj) {
+	if(obj.checked) {
+		p++;
+		for (var i = 0; i < $('relefrm').elements.length; i++) {
+			var e = $('relefrm').elements[i];
+			if(p == max_obj) {
+				if(e.name.match('share_sid') && !e.checked) {
+					e.disabled = true;
+				}
+			}
+		}
+	} else {
+		p--;
+		for (var i = 0; i < $('relefrm').elements.length; i++) {
+			var e = $('relefrm').elements[i];
+			if(e.name.match('share_sid') && e.disabled) {
+				e.disabled = false;
+			}
+		}
+	}
+	$('reportsubmit').disabled = p <= max_obj && p > 0 ? false : true;
+}
+
+function hsk_checkfrm(theform){
+	<!--{if $types != 3}-->
+	if(!p || theform.s1.value==0) {
+		showError('请至少选择一个视频所属分类');
+		return false;
+	}
+	<!--{/if}-->
+	
+	<!--{if $types != 2}-->
+	if(mb_strlen(theform.vurl.value) < 5){
+		showError('抱歉，您尚未输入有效的视频地址');
+		return false;
+	}
+	<!--{/if}-->
+	
+	if(theform.subject.value == "") {
+		showError('抱歉，您尚未输入标题或内容');
+		return false;
+	} else if(mb_strlen(theform.subject.value) > 90) {
+		showError('您的标题超过 90 个字符的限制');
+		return false;
+	}
+}
+</script>

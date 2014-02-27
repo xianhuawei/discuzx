@@ -1,0 +1,32 @@
+<!--{template common/header}-->
+<div class="f_c">
+	<h3 class="flb">
+		<em id="return_top_delete">{lang hsk_vcenter:pay_3}{lang hsk_vcenter:thevod}</em>
+		<span>
+			<a href="javascript:;" class="flbc" onclick="hideWindow('top_delete');" title="{lang close}">{lang close}</a>
+		</span>
+	</h3>
+	<div class="c floatwrap">
+		<table class="list" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<td>{lang username}</td>
+					<td>{lang hsk_vcenter:pay_3}{lang hsk_vcenter:time}</td>
+					<td>{$money_name}({$money_unit})</td>
+				</tr>
+			</thead>
+			<!--{if $loglist}-->
+				<!--{loop $loglist $log}-->
+					<tr>
+						<td><a href="home.php?mod=space&uid=$log[uid]">$log[username]</a></td>
+						<td>$log[dateline]</td>
+						<td>$log[price]{$money_unit}</td>
+					</tr>
+				<!--{/loop}-->
+			<!--{else}-->
+				<tr><td colspan="3">{lang hsk_vcenter:pay_nobuyers}</td></tr>
+			<!--{/if}-->
+		</table>
+	</div>
+</div>
+<!--{template common/footer}-->

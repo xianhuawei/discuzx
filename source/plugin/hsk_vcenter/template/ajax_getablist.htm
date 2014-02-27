@@ -1,0 +1,70 @@
+{subtemplate common/header}
+<table cellSpacing="0" cellPadding="0" border="0">
+	<tr>
+		<td id="fwin_content_sendlove" class="m_c" fwin="sendlove" height="40">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="480"><h3 style="CURSOR: move" id="fctrl_sendlove" class="flb">
+				<em>{lang hsk_vcenter:getablistsub}</em></h3></td>
+				<td width="40"><a class="flbc" title="{lang hsk_vcenter:close}" onclick="hideWindow('getabwin');" href="javascript:;">{lang hsk_vcenter:close}</a></td>
+			</tr>
+		</table>
+		
+		</td>
+	</tr>
+	<tr><td height="1" class="alt"></td></tr>
+	<tr><td height="35" style="background: #fff; padding:5px;">
+		<span class="xs2">{lang hsk_vcenter:sidlist} : 
+		<select id="s1" name="s1" style="margin-right:15px;">
+		<option value="0"{if !$datarow[sid]} selected{/if}>{lang hsk_vcenter:hsk_theall}</option>
+		<!--{loop $newsort $datarow}-->
+		<option value="$datarow[sid]"{if $datarow[sid]==$fid} selected{/if}>$datarow[sort]</option>
+		<!--{/loop}-->
+		</select>{lang hsk_vcenter:search} : <input type="text" name="searchkey" id="searchkey" size="15" class="px vm" value="$search" style="margin-right:15px;">
+		<label style="margin-right:15px;"><input id="inmyweb" class="pc" value="1" type="checkbox" name="inmyweb"{if $inmyweb} checked{/if}>{lang hsk_vcenter:dis_likesite}</label>
+		<button type="button" name="search_button" class="pn vm" value="false" onclick="tagsearch();"><em>{lang search}</em></button>
+		</span>
+	</td></tr>
+	<tr>
+		<td class="m_c" orgdisplay fwin="getabwin" width="620" height="480" valign="top">
+		<div id="taglistarea">
+			<table class="dt" cellSpacing="0" summary="" cellPadding="0">
+				<!--{loop $datalist $i $abvalue}-->
+				<tr>
+					<td align="center">
+					<a href="{eval echo sendurl('show',0, $abvalue[id]);}" target="_blank"><img src="$abvalue[purl]" border="0" align="absmiddle" height="40"></a></td>
+					<td><p style="margin-top: 0; margin-bottom: 3px;">
+					<span class="xi1">[ID:{$abvalue[id]}]</span> - <span class="xi2">[{$abvalue[sort]}]</span> - <a href="{eval echo sendurl('show',0, $abvalue[id]);}" target="_blank" class="xs1">$abvalue[vsubject]</a></p>
+					<span class="xg1">[$abvalue[keys]{$abvalue[absubject]}] - 发布于： $abvalue[dateline]</span>
+					</td>
+					<td>{lang hsk_vcenter:plistcount}<p>
+					<span class="xi1">{lang hsk_vcenter:updatetv} : $abvalue[vsum]</span></td>
+					<td class="xg2">{lang hsk_vcenter:updatetv}{lang hsk_vcenter:dateline} : <p>$abvalue[updateline]</td>
+					<td>
+					<button class="pn pnp" name="reportsubmit" type="buttom" value="true" onclick="$('absup').value='$abvalue[id]';hideWindow('getabwin');" style="width:70px; height:32px;"><strong class="xs2">{lang hsk_vcenter:selected}</strong></button></td>
+				</tr>
+				<!--{/loop}-->
+				<tr><td class="o pns" colspan="5">
+					<p><div class="z">$multipage</div><div class="y">{lang hsk_vcenter:copyright} <span><a href="http://ddzz.cc" target="_blank" class="xg1">http://www.ddzz.cc</a></span></div></td>
+				</td></tr>
+			</table>
+		</div>
+	</tr>
+</table>
+
+<script type="text/javascript">
+function tagsearch() {
+	var searchkey = $('searchkey').value;
+	var fids = $('s1').value;
+	if($('inmyweb').checked){
+		inwebvalue = 1;
+	}else{
+		inwebvalue = 0;
+	}
+	var url = '{PDIR}&mod=getablist&inmyweb='+inwebvalue+'&key=$key&fid='+fids+'&search='+searchkey+'&close='+$close;
+	hideWindow('getabwin');
+	showWindow('getabwin', url);
+}
+</script>
+
+{subtemplate common/footer}

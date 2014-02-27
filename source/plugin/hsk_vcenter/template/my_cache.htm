@@ -1,0 +1,43 @@
+{subtemplate common/header}
+
+	{subtemplate hsk_vcenter:inc_header}
+	<div class="ct2_a wp cl">
+
+		<form enctype="multipart/form-data" id="frm{$types}" name="frm{$types}" method="post" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<div class="mn">
+			<div class="bm bw0">
+				<div class="z">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr><td height="40" class="xs2">{lang hsk_vcenter:my_cache_title}</b></td></tr>
+					</table>				
+				</div>
+				
+				<table cellSpacing="0" cellPadding="0" width="100%"><tr><td height="1" class="alt"></td></tr><tr><td height="16"></td></tr></table>
+				<table class="dt" cellSpacing="0" summary="" cellPadding="0">
+					<tr>
+						<th width="20"></th>
+						<th>{lang hsk_vcenter:thevod}{lang hsk_vcenter:vod_name}</th>
+						<th><label><input class="pc" id="sellall" onclick="checkall(this.form, 'seleid');" type="checkbox" name="chkall">{lang hsk_vcenter:updatetv}</label></th>
+					</tr>
+					<!--{loop $cache_array $datarow}-->
+					<tr>
+						<td></td>
+						<td>$datarow[val]</td>
+						<td><input type="checkbox" name="seleid[{$datarow[key]}]" value="1" align="absmiddle" class="pc"></td>
+					</tr>
+					<!--{/loop}-->
+					</table>
+				<div class="cls" style="height:15px;"></div>
+				<div class="pg">
+					$multipage
+				</div>
+				<button class="pn pnp" name="reportsubmit" type="submit" value="true" onclick="if(!confirm('{lang hsk_vcenter:confirm}')) return false;"><strong>{lang hsk_vcenter:submit}</strong></button>
+				<div class="cls" style="height:15px;"></div>
+			</div>
+		</div>
+		</form>
+		{subtemplate hsk_vcenter:my_leftbar}
+	</div>
+	
+{subtemplate common/footer}
