@@ -521,6 +521,7 @@ EOF;
 	if($_G['cookie']['visitedfid']) {
 		loadcache('forums');
 		foreach(explode('D', $_G['cookie']['visitedfid']) as $fid) {
+			$fid = intval($fid);
 			$visitedforums[$fid] = $_G['cache']['forums'][$fid]['name'];
 		}
 	}

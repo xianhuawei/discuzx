@@ -421,7 +421,11 @@ function parsetrtd($bgcolor, $colspan, $rowspan, $width) {
 }
 
 function parseaudio($url, $width = 400) {
-	$ext = strtolower(substr(strrchr($url, '.'), 1, 5));
+	$url = addslashes($url);
+        if(!in_array(strtolower(substr($url, 0, 6)), array('http:/', 'https:', 'ftp://', 'rtsp:/', 'mms://')) && !preg_match('/^static\//', $url) && !preg_match('/^data\//', $url)) {
+		return dhtmlspecialchars($url);
+	}
+	$ext = fileext($url);
 	switch($ext) {
 		case 'mp3':
 			$randomid = 'mp3_'.random(3);
@@ -445,7 +449,7 @@ function parsemedia($params, $url) {
 
 	$url = addslashes($url);
         if(!in_array(strtolower(substr($url, 0, 6)), array('http:/', 'https:', 'ftp://', 'rtsp:/', 'mms://')) && !preg_match('/^static\//', $url) && !preg_match('/^data\//', $url)) {
-		$url = 'http://'.$url;
+		return dhtmlspecialchars($url);
 	}
 
 	if($flv = parseflv($url, $width, $height)) {

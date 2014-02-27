@@ -14,6 +14,17 @@ if(!defined('IN_DISCUZ')) {
 define('DISCUZ_CORE_FUNCTION', true);
 
 /**
+ * urlencode
+ *
+ * @param string $url
+ */
+function durlencode($url) {
+	static $fix = array('%21', '%2A','%3B', '%3A', '%40', '%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D');
+	static $replacements = array('!', '*', ';', ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]");
+	return str_replace($fix, $replacements, urlencode($url));
+}
+
+/**
  * 系统错误处理
  * @param <type> $message 错误信息
  * @param <type> $show 是否显示信息
@@ -1963,7 +1974,7 @@ function dreferer($default = '') {
 		$_G['referer'] = $_G['siteurl'].'./'.$_G['referer'];
 	}
 
-	$_G['referer'] = fixurl($_G['referer']);
+	$_G['referer'] = durlencode($_G['referer']);
 	return$_G['referer'];
 }
 
@@ -2071,7 +2082,7 @@ function sizecount($size) {
 	} elseif($size >= 1024) {
 		$size = round($size / 1024 * 100) / 100 . ' KB';
 	} else {
-		$size = $size . ' Bytes';
+		$size = intval($size) . ' Bytes';
 	}
 	return $size;
 }

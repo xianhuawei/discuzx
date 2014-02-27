@@ -34,6 +34,7 @@ if(!$special) {
 	$commonfids = array_unique($commonfids);
 
 	foreach($commonfids as $fid) {
+		$fid = intval($fid);
 		$commonlist .= '<li fid="'.$fid.'">'.$_G['cache']['forums'][$fid]['name'].'</li>';
 	}
 }

@@ -25,9 +25,9 @@ class plugin_soso_smilies_base {
 		if(strpos($smilieid, '_') === 0) {
 			$realsmilieid = $smiliekey = substr($smilieid, 1, -2);
 			$serverid = intval(substr($smilieid, -1));
-			$imgsrc = "http://soso{$serverid}.gtimg.cn/sosopic_f/0/{$realsmilieid}/0";
+			$imgsrc = "http://imgstore0{$serverid}.cdn.sogou.com/app/a/100520032/{$realsmilieid}";
 		} elseif(strpos($smilieid, 'e') === 0) {
-			$imgsrc = "http://cache.soso.com/img/img/{$smilieid}.gif";
+			$imgsrc = "http://imgstore01.cdn.sogou.com/app/a/100520032/{$smilieid}";
 		} else {
 			return "{:soso_$smilieid:}";
 		}

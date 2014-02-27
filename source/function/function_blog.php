@@ -11,6 +11,15 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+function blog_check_url($url) {
+	$url = durlencode(trim($url));
+	if(preg_match("/^(https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|thunder|qqdl|synacast){1}:\/\//i", $url)) {
+		$return = '<a href="'.$url.'" target="_blank">';
+	} else {
+		$return = '<a href="'.(!empty($GLOBALS['_G']['siteurl']) ? $GLOBALS['_G']['siteurl'] : 'http://').$url.'" target="_blank">';
+	}
+	return $return;
+}
 //添加博客
 function blog_post($POST, $olds=array()) {
 	global $_G, $space;
@@ -69,10 +78,10 @@ function blog_post($POST, $olds=array()) {
 		$POST['message'] = censor($POST['message']);
 		$POST['message'] = preg_replace(array(
 			"/\<div\>\<\/div\>/i",
-			"/\<a\s+href\=\"([^\>]+?)\"\>/i"
+			"/\<a\s+href\=\"([^\>]+?)\"\>/ie"
 		), array(
 			'',
-			'<a href="\\1" target="_blank">'
+			'blog_check_url(\'\\1\')'
 		), $POST['message']);
 	}
 	$message = $POST['message'];
