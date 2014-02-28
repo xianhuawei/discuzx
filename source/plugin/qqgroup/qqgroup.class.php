@@ -40,9 +40,9 @@ class plugin_qqgroup {
 
 		$tid = $_G['tid'];
 		$title = urlencode(trim($_G['forum_thread']['subject']));
-		$post = C::t('forum_post')->fetch_all_by_tid_position($_G['fotum_thread']['posttableid'], $_G['tid'], 1);
+		//$post = C::t('forum_post')->fetch_all_by_tid_position($_G['fotum_thread']['posttableid'], $_G['tid'], 1);
 		include_once libfile('function/discuzcode');
-		$content = preg_replace("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/ies", '', trim($post[0]['message']));
+		$content = preg_replace("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/ies", '', trim($_G['thread']['subject']));
 		$content = preg_replace("/\[flash(=(\d+),(\d+))?\]\s*([^\[\<\r\n]+?)\s*\[\/flash\]/ies", '', $content);
 		$content = preg_replace("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/ies", '', $content);
 		$content = preg_replace("/\[hide[=]?(d\d+)?[,]?(\d+)?\]\s*(.*?)\s*\[\/hide\]/is", '', $content);
