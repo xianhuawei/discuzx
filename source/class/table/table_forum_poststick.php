@@ -21,6 +21,12 @@ class table_forum_poststick extends discuz_table
 		parent::__construct();
 	}
 
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false){
+		//删除缓存
+		$cache_key = $this->_table.'_fetch_all_by_tid'.$data['tid'];
+		memory('rm',$cache_key);
+		return parent::insert($data, $return_insert_id, $replace, $silent);
+	}
 	/**
 	 * 通过tid获取置顶回帖列表
 	 * @param int $tid
@@ -28,7 +34,19 @@ class table_forum_poststick extends discuz_table
 	 */
 	public function fetch_all_by_tid($tid) {
 		//note 由于主键为tid,pid所以，使用tid查询时，pid不会重复
-		return DB::fetch_all('SELECT * FROM %t WHERE tid=%d ORDER BY dateline DESC', array($this->_table, $tid), 'pid');
+		$cache_key = $this->_table.'_fetch_all_by_tid'.$tid;
+		if(memory('check')){//从缓存中获取
+			$result = memory('get',$cache_key);
+			if( $result !== false){
+				return $result;
+			}
+		}
+		
+		$result = DB::fetch_all('SELECT * FROM %t WHERE tid=%d ORDER BY dateline DESC', array($this->_table, $tid), 'pid');
+		//缓存
+		memory('set',$cache_key,$result,86400);
+		
+		return  $result;
 	}
 
 
@@ -50,6 +68,22 @@ class table_forum_poststick extends discuz_table
 		if(empty($pids)) {
 			return false;
 		}
+		
+		//删除缓存
+		//获取tid
+		loadcache('posttableids');
+		$posttableids = !empty($_G['cache']['posttableids']) ? ($posttableid !== false && in_array($posttableid, $_G['cache']['posttableids']) ? array($posttableid) : $_G['cache']['posttableids']): array('0');
+		$thread = array();
+		foreach ($posttableids as $tableid){
+			if(empty($thread)){
+				$thread = C::t('forum_post')->fetch($tableid, $pid);
+			}else{
+				break;
+			}
+		}
+		$cache_key = $this->_table.'_fetch_all_by_tid'.$thread['tid'];
+		memory('rm',$cache_key);
+		
 		return DB::query('DELETE FROM %t WHERE '.DB::field('pid', $pids), array($this->_table));
 	}
 
@@ -62,6 +96,13 @@ class table_forum_poststick extends discuz_table
 		if(empty($tids)) {
 			return false;
 		}
+		
+		foreach ($tids as $tid){
+			//删除缓存
+			$cache_key = $this->_table.'_fetch_all_by_tid'.$tid;
+			memory('rm',$cache_key);
+		}
+		
 		return DB::query('DELETE FROM %t WHERE '.DB::field('tid', $tids), array($this->_table));
 	}
 
@@ -72,6 +113,9 @@ class table_forum_poststick extends discuz_table
 	 * @return bool
 	 */
 	public function delete($tid, $pid) {
+		//删除缓存
+		$cache_key = $this->_table.'_fetch_all_by_tid'.$tid;
+		memory('rm',$cache_key);
 		return DB::query('DELETE FROM %t WHERE tid=%d AND pid=%d', array($this->_table, $tid, $pid));
 	}
 

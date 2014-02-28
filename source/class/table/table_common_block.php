@@ -31,8 +31,7 @@ class table_common_block extends discuz_table
 		parent::__construct();
 		$this->_allowmem = null;
 		$this->cache_ttl = $this->_cache_ttl = getglobal('setting/memory/diyblock');
-		$this->allowmem = $this->_cache_ttl !== null && memory('check'); //是否允许缓存
-
+		$this->_allowmem = $this->_cache_ttl !== null && memory('check'); //是否允许缓存
 	}
 
 	public function fetch($bid) {
@@ -40,6 +39,10 @@ class table_common_block extends discuz_table
 			$block['param'] = $block['param'] ? dunserialize($block['param']) : array();
 		}
 		return $block;
+	}
+	
+	public function fetch_all($bids){
+		return parent::fetch_all($bids);
 	}
 
 	/**
@@ -153,7 +156,7 @@ class table_common_block extends discuz_table
 	 * @param int|array $bids 模块ID
 	 */
 	public function clear_cache($bids) {
-		if($this->allowmem) {
+		if($this->_allowmem) {
 			memory('rm', $bids,'blockcache_');
 			memory('rm', $bids, 'blockcache_htm_');
 			memory('rm', $bids, 'blockcache_js_');

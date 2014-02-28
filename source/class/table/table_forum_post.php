@@ -321,12 +321,21 @@ class table_forum_post extends discuz_table
 	public function fetch_all($tableid, $pids, $outmsg = true) {
 		$postlist = array();
 		if($pids) {
+			//取缓存
+			$cache = parent::fetch_cache($pids,$this->_pre_cache_key);
+			if($cache !== false && count($cache) == count($pids)){
+				return $cache;
+			}
+			
 			$query = DB::query('SELECT * FROM %t WHERE %i', array(self::get_tablename($tableid), DB::field($this->_pk, $pids)));
 			while($post = DB::fetch($query)) {
 				if(!$outmsg) {
 					unset($post['message']);
 				}
 				$postlist[$post[$this->_pk]] = $post;
+				
+				//缓存
+				parent::store_cache($post['pid'],$post,3600,$this->_pre_cache_key);
 			}
 		}
 		return $postlist;
@@ -715,8 +724,11 @@ class table_forum_post extends discuz_table
 		}
 		$return = DB::update(self::get_tablename($tableid), $data, implode(' AND ', $where), $unbuffered, $low_priority);
 		if($return && $this->_allowmem) {
+			//删除帖子缓存
+			parent::clear_cache($pid,$this->_pre_cache_key);
 			$this->update_cache($tableid, $pid, 'pid', $data, array('invisible' => $invisible, 'first' => $first, 'fid' => $fid, 'status' => $status));
 		}
+		
 		return $return;
 	}
 
@@ -747,7 +759,13 @@ class table_forum_post extends discuz_table
 		}
 		return $return;
 	}
-
+	/**
+	 * 根据fid更新成新的fid
+	 *
+	 * @param string $tableid 分表id
+	 * @param int $fid	板块id
+	 * @param int $newfid	新的板块id
+	 */
 	public function update_fid_by_fid($tableid, $fid, $newfid, $unbuffered = false, $low_priority = false) {
 		$where = array();
 		$where[] = DB::field('fid', $fid);
@@ -789,6 +807,9 @@ class table_forum_post extends discuz_table
 						}
 					}
 					if($updateflag) {
+						//删除帖子缓存
+						parent::clear_cache($pid,$this->_pre_cache_key);
+						
 						if($glue == 'merge') {
 							$memorydata[$v][$pid] = array_merge($post, $data);
 						} else {
@@ -825,6 +846,9 @@ class table_forum_post extends discuz_table
 						}
 					}
 					if($updateflag) {
+						//删除帖子缓存
+						parent::clear_cache($v,$this->_pre_cache_key);
+						
 						if($glue == 'merge') {
 							$memorydata[$memorytid[$v]][$v] = array_merge($memorydata[$memorytid[$v]][$v], $data);
 						} else {
@@ -927,6 +951,8 @@ class table_forum_post extends discuz_table
 		if($return && $this->_allowmem) {
 			$delpid = $this->fetch_cache('delpid');
 			$this->store_cache('delpid', array_merge((array)$pid, (array)$delpid));
+			//删除帖子缓存
+			parent::clear_cache($pid,$this->_pre_cache_key);
 		}
 		return $return;
 	}

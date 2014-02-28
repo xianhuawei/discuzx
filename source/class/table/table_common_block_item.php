@@ -49,6 +49,9 @@ class table_common_block_item extends discuz_table
 	 * @return array
 	 */
 	public function fetch_all_by_bid($bids, $sort = false) {
+		if($sort == false){
+			return parent::fetch_all($bids);
+		}
 		return ($bids = dintval($bids, true)) ? DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field('bid', $bids).($sort ? ' ORDER BY displayorder, itemtype DESC' : ''), null, $this->_pk) : array();
 	}
 
