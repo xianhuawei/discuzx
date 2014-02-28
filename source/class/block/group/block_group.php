@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
@@ -57,12 +57,13 @@ class block_group extends discuz_block {
 		global $_G;
 		$settings = $this->setting;
 
+		// group type
 		if($settings['gtids']) {
 			loadcache('grouptype');
 			$settings['gtids']['value'][] = array(0, lang('portalcp', 'block_all_type'));
 			foreach($_G['cache']['grouptype']['first'] as $gid=>$group) {
 				$settings['gtids']['value'][] = array($gid, $group['name']);
-				if($group['secondlist']) {
+				if($group['secondlist']) {//子群组
 					foreach($group['secondlist'] as $subgid) {
 						$settings['gtids']['value'][] = array($subgid, '&nbsp;&nbsp;'.$_G['cache']['grouptype']['second'][$subgid]['name']);
 					}
@@ -101,6 +102,7 @@ class block_group extends discuz_block {
 			);
 	}
 
+	//可转换到的模块类型
 	function fieldsconvert() {
 		return array(
 				'forum_forum' => array(
@@ -121,8 +123,10 @@ class block_group extends discuz_block {
 	function getdata($style, $parameter) {
 		global $_G;
 
+		// Hook for inherited class 不同数据源绑定不同默认参数
 		$parameter = $this->cookparameter($parameter);
 
+		//参数准备
 		loadcache('grouptype');
 		$typeids = array();
 		if(!empty($parameter['gtids'])) {
@@ -141,11 +145,12 @@ class block_group extends discuz_block {
 		$bannedids = !empty($parameter['bannedids']) ? explode(',', $parameter['bannedids']) : array();
 		$sqlban = !empty($bannedids) ? ' AND f.fid NOT IN ('.dimplode($bannedids).')' : '';
 
-		if($fids) {
+		if($fids) {// 指定群组
 			$wheresql = "f.fid IN (".dimplode($fids).") AND f.status='3' AND f.type='sub' $sqlban";
-		} else {
+		} else {// 指定条件
 			$wheresql = !empty($typeids) ? "f.fup IN (".dimplode($typeids).") AND f.status='3' AND f.type='sub' $sqlban" : "0";
 		}
+		//群组未审核为0
 		$wheresql .= " AND f.level > '0'";
 
 		if(in_array($orderby, array('posts', 'todayposts', 'threads', 'level', 'commoncredits'))) {

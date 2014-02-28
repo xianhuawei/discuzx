@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//分页
 $perpage = 24;
 $perpage = mob_perpage($perpage);
 
@@ -22,6 +23,7 @@ $start = ($page-1)*$perpage;
 
 if(empty($_GET['view']) || $_GET['view'] == 'all') $_GET['view'] = 'me';
 
+//检查开始数
 ckstart($start, $perpage);
 
 if($_GET['view'] == 'online') {
@@ -132,6 +134,7 @@ if($_GET['view'] == 'online') {
 
 } else {
 
+	//处理查询
 	$theurl = "home.php?mod=space&uid=$space[uid]&do=$do";
 	$actives = array('me'=>' class="a"');
 
@@ -206,11 +209,13 @@ if($_GET['view'] == 'online') {
 		$theurl .= "&from=space";
 	}
 
+	//分页
 	$multi = multi($count, $perpage, $page, $theurl);
 
 	if($space['self']) {
 		$groupselect = array($group => ' class="a"');
 
+		//好友个数
 		$maxfriendnum = checkperm('maxfriendnum');
 		if($maxfriendnum) {
 			$maxfriendnum = checkperm('maxfriendnum') + $space['addfriend'];
@@ -218,6 +223,7 @@ if($_GET['view'] == 'online') {
 	}
 }
 
+//在线状态
 if($fuids) {
 	foreach(C::app()->session->fetch_all_by_uid($fuids) as $value) {
 		if(!$value['invisible']) {
@@ -228,6 +234,7 @@ if($fuids) {
 		}
 	}
 	if($_GET['view'] != 'me') {
+		//验证是否为好友
 		require_once libfile('function/friend');
 		friend_check($fuids);
 	}
@@ -255,6 +262,7 @@ include_once template("diy:home/space_friend");
 
 function getfollowflag($data) {
 	global $_G;
+	//验证哪些用户是我关注过的
 	if($data) {
 		$follows = C::t('home_follow')->fetch_all_by_uid_followuid($_G['uid'], array_keys($data));
 		foreach($data as $uid => $value) {

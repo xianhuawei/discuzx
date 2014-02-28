@@ -12,6 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 if(!empty($_POST)) {
+    // debug $result是论坛产生的，这里直接用
 	if($result['member']['conisbind']) {
 		showmessage('qqconnect:connect_register_bind_already');
 	}
@@ -19,15 +20,18 @@ if(!empty($_POST)) {
 		showmessage('qqconnect:connect_register_bind_need_inactive');
 	}
 
+	// debug connect.class.php里从connect_guest取出的数据
 	$conuin = $this->connect_guest['conuin'];
 	$conuinsecret = $this->connect_guest['conuinsecret'];
 	$conopenid = $this->connect_guest['conopenid'];
 	$conuintoken = $this->connect_guest['conuintoken'];
 
+	// debug 发帖同步选项
 	$user_auth_fields = 1;
 	$conispublishfeed = 0;
 	$conispublisht = 0;
 
+	// debug 是否使用QQ头像作为论坛头像
 	$is_use_qqshow = !empty($_GET['use_qqshow']) ? 1 : 0;
 
 	if ($conopenid) {
@@ -35,6 +39,7 @@ if(!empty($_POST)) {
 		C::t('common_member')->update($uid, array('conisbind' => '1'));
 		C::t('#qqconnect#connect_memberbindlog')->insert(array('uid' => $uid, 'uin' => $conopenid, 'type' => '1', 'dateline' => $_G['timestamp']));
 
+		// debug QQ互联游客用户表操作
 		C::t('#qqconnect#common_connect_guest')->delete($conopenid);
 
 		dsetcookie('connect_js_name', 'user_bind', 86400);

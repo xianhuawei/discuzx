@@ -62,6 +62,7 @@ if($_GET['op'] == 'add') {
 		showmessage('click_no_self');
 	}
 
+	//黑名单
 	if(isblacklist($item['uid'])) {
 		showmessage('is_blacklist');
 	}
@@ -70,6 +71,7 @@ if($_GET['op'] == 'add') {
 		showmessage('click_have');
 	}
 
+	//参与
 	$setarr = array(
 		'uid' => $space['uid'],
 		'username' => $_G['username'],
@@ -82,11 +84,13 @@ if($_GET['op'] == 'add') {
 
 	C::t($tablename)->update_click($id, $clickid, 1);
 
+	//更新热度
 	hot_update($idtype, $id, $item['hotuser']);
 
 	$q_note = '';
 	$q_note_values = array();
 
+	//动态
 	$fs = array();
 	switch ($idtype) {
 		case 'blogid':
@@ -142,17 +146,21 @@ if($_GET['op'] == 'add') {
 			break;
 	}
 
+	//事件发布
 	if(empty($item['friend']) && ckprivacy('click', 'feed')) {
 		require_once libfile('function/feed');
 		$fs['title_data']['hash_data'] = "{$idtype}{$id}";
 		feed_add('click', $fs['title_template'], $fs['title_data'], '', array(), $fs['body_general'],$fs['images'], $fs['image_links']);
 	}
 
+	//奖励访客
 	updatecreditbyaction('click', 0, array(), $idtype.$id);
 
+	//统计
 	require_once libfile('function/stat');
 	updatestat('click');
 
+	//通知
 	notification_add($item['uid'], 'click', $q_note, $q_note_values);
 
 	showmessage('click_success', '', array('idtype' => $idtype, 'id' => $id, 'clickid' => $clickid), array('msgtype' => 3, 'showmsg' => true, 'closetime' => true));

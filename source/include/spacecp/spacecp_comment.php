@@ -12,11 +12,14 @@ if(!defined('IN_DISCUZ')) {
 }
 
 
+//共用变量
 $tospace = $pic = $blog = $album = $share = $poll = array();
 
+//bbcode转换
 include_once libfile('class/bbcode');
 $bbcode = & bbcode::instance();
 
+//如果是留言放行验证码验证
 if($_POST['idtype'] == 'uid' && ($seccodecheck || $secqaacheck)) {
 	$seccodecheck = 0;
 	$secqaacheck = 0;
@@ -28,8 +31,10 @@ if(submitcheck('commentsubmit', 0, $seccodecheck, $secqaacheck)) {
 		showmessage('no_privilege_comment', '', array(), array('return' => true));
 	}
 
+	//note 新用户见习
 	cknewuser();
 
+	//note 判断是否发布太快
 	$waittime = interval_check('post');
 	if($waittime > 0) {
 		showmessage('operating_too_fast', '', array('waittime' => $waittime), array('return' => true));
@@ -56,6 +61,7 @@ if(submitcheck('commentsubmit', 0, $seccodecheck, $secqaacheck)) {
 
 $cid = empty($_GET['cid'])?0:intval($_GET['cid']);
 
+//note 编辑
 if($_GET['op'] == 'edit') {
 	if($_G['adminid'] != 1 && $_GET['modcommentkey'] != modauthkey($_GET['cid'])) {
 		$authorid = intval($_G['uid']);
@@ -66,6 +72,7 @@ if($_GET['op'] == 'edit') {
 		showmessage('no_privilege_comment_edit');
 	}
 
+	//提交编辑
 	if(submitcheck('editsubmit')) {
 
 		$message = getstr($_POST['message'], 0, 0, 0, 2);
@@ -101,6 +108,7 @@ if($_GET['op'] == 'edit') {
 	if(!$comment = C::t('home_comment')->fetch($cid)) {
 		showmessage('comments_do_not_exist');
 	}
+	//如果是留言放行验证码验证
 	if($comment['idtype'] == 'uid' && ($seccodecheck || $secqaacheck)) {
 		$seccodecheck = 0;
 		$secqaacheck = 0;

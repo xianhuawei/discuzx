@@ -13,6 +13,11 @@ if(!defined('IN_DISCUZ')) {
 
 require_once libfile('function/home');
 
+/**
+ * 删除用户
+ * @param string $uids 待删的 ID 数组
+ * @param boolean $delpost 是否包含帖子信息
+ */
 function deletemember($uids, $delpost = true) {
 	global $_G;
 	if(!$uids) {
@@ -81,6 +86,7 @@ function deletemember($uids, $delpost = true) {
 	}
 	deletepicfiles($pics);
 
+	//note 删除相册封面图片
 	include_once libfile('function/home');
 	$query = C::t('home_album')->fetch_all_by_uid($arruids);
 	foreach($query as $value) {
@@ -103,6 +109,13 @@ function deletemember($uids, $delpost = true) {
 	return $numdeleted;
 }
 
+/**
+ * 删除帖子
+ * @param array $ids 待删的 ID 数组
+ * @param string $idtype authorid/tid/pid
+ * @param boolean $credit 是否处理积分
+ * @param int $posttableid post分表ID
+ */
 function deletepost($ids, $idtype = 'pid', $credit = false, $posttableid = false, $recycle = false) {
 	global $_G;
 	$recycle = $recycle && $idtype == 'pid' ? true : false;
@@ -115,12 +128,14 @@ function deletepost($ids, $idtype = 'pid', $credit = false, $posttableid = false
 		return 0;
 	}
 
+	//note post分表缓存
 	loadcache('posttableids');
 	$posttableids = !empty($_G['cache']['posttableids']) ? ($posttableid !== false && in_array($posttableid, $_G['cache']['posttableids']) ? array($posttableid) : $_G['cache']['posttableids']): array('0');
 
 	$count = count($ids);
 	$idsstr = dimplode($ids);
 
+	//处理积分
 	if($credit) {
 		$tuidarray = $ruidarray = array();
 		foreach($posttableids as $id) {
@@ -151,11 +166,13 @@ function deletepost($ids, $idtype = 'pid', $credit = false, $posttableid = false
 		if($tuidarray || $ruidarray) {
 			require_once libfile('function/post');
 		}
+		//处理发贴的积分
 		if($tuidarray) {
 			foreach($tuidarray as $fid => $tuids) {
 				updatepostcredits('-', $tuids, 'post', $fid);
 			}
 		}
+		//处理回帖的积分
 		if($ruidarray) {
 			foreach($ruidarray as $fid => $ruids) {
 				updatepostcredits('-', $ruids, 'reply', $fid);
@@ -248,6 +265,13 @@ function deletethreadcover($tids) {
 	}
 }
 
+/**
+ * 删除主题
+ * @param array $ids 待删的 ID 数组
+ * @param boolean $membercount 是否更新用户帖数统计
+ * @param boolean $credit 是否处理积分
+ * @param boolean $ponly 是否只处理分表、入回收站时使用
+ */
 function deletethread($tids, $membercount = false, $credit = false, $ponly = false) {
 	global $_G;
 	if($_G['setting']['plugins']['func'][HOOKTYPE]['deletethread']) {
@@ -263,9 +287,11 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 	$arrtids = $tids;
 	$tids = dimplode($tids);
 
+	//note 主题分表缓存
 	loadcache(array('threadtableids', 'posttableids'));
 	$threadtableids = !empty($_G['cache']['threadtableids']) ? $_G['cache']['threadtableids'] : array();
 	$posttableids = !empty($_G['cache']['posttableids']) ? $_G['cache']['posttableids'] : array('0');
+	//补充主题主表
 	if(!in_array(0, $threadtableids)) {
 		$threadtableids = array_merge(array(0), $threadtableids);
 	}
@@ -274,10 +300,12 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 	C::t('forum_threadclosed')->delete($arrtids);
 	C::t('forum_newthread')->delete_by_tids($arrtids);
 
+	//note 收集待删的tid、fid、posttableid、threadtables
 	$cachefids = $atids = $fids = $postids = $threadtables = array();
 	foreach($threadtableids as $tableid) {
 		foreach(C::t('forum_thread')->fetch_all_by_tid($arrtids, 0, 0, $tableid) as $row) {
 			$atids[] = $row['tid'];
+			//note 整理出回帖分表
 			$row['posttableid'] = !empty($row['posttableid']) && in_array($row['posttableid'], $posttableids) ? $row['posttableid'] : '0';
 			$postids[$row['posttableid']][$row['tid']] = $row['tid'];
 			if($tableid) {
@@ -290,9 +318,11 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 		}
 	}
 
+	//更新主题、帖子的积分或用户统计
 	if($credit || $membercount) {
 		$losslessdel = $_G['setting']['losslessdel'] > 0 ? TIMESTAMP - $_G['setting']['losslessdel'] * 86400 : 0;
 
+		//note 从分表中得到所有的post列表
 		$postlist = $uidarray = $tuidarray = $ruidarray = array();
 		foreach($postids as $posttableid => $posttabletids) {
 			foreach(C::t('forum_post')->fetch_all_by_tid($posttableid, $posttabletids, false) as $post) {
@@ -306,6 +336,7 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 			$replycredit_rule[$rule['tid']] = $rule;
 		}
 
+		//note 处理post
 		foreach($postlist as $post) {
 			if($post['dateline'] < $losslessdel) {
 				if($membercount) {
@@ -347,6 +378,7 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 					updatepostcredits('-', $ruids, 'reply', $fid);
 				}
 			}
+			//note 处理附件积分
 			$auidarray = $attachtables = array();
 			foreach($atids as $tid) {
 				$attachtables[getattachtableid($tid)][] = $tid;
@@ -365,6 +397,7 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 		}
 	}
 
+	//note 删除淘专辑内主题
 	$relatecollection = C::t('forum_collectionthread')->fetch_all_by_tids($arrtids);
 	if(count($relatecollection) > 0) {
 		$collectionids = array();
@@ -391,6 +424,7 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 		}
 		C::t('forum_collectionrelated')->delete($arrtids);
 	}
+	//清除帖子列表缓存数据
 	if($cachefids) {
 		C::t('forum_thread')->clear_cache($cachefids, 'forumdisplay_');
 	}
@@ -405,22 +439,25 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 		return $count;
 	}
 
+	//note 回帖奖励积分清理
 	C::t('forum_replycredit')->delete($arrtids);
 	C::t('forum_post_location')->delete_by_tid($arrtids);
 	C::t('common_credit_log')->delete_by_operation_relatedid(array('RCT', 'RCA', 'RCB'), $arrtids);
 	C::t('forum_threadhidelog')->delete_by_tid($arrtids);
 	deletethreadcover($arrtids);
+	//note 删除主题
 	foreach($threadtables as $tableid) {
 		C::t('forum_thread')->delete_by_tid($arrtids, false, $tableid);
 	}
 
+	//删除帖子、附件
 	if($atids) {
 		foreach($postids as $posttableid=>$oneposttids) {
 			deletepost($oneposttids, 'tid', false, $posttableid);
 		}
 		deleteattach($atids, 'tid');
 	}
-
+	//note 更新分表主题帖子数
 	if($fids) {
 		loadcache('forums');
 		foreach($fids as $fid => $tableids) {
@@ -438,13 +475,14 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 		}
 	}
 
+	//note 处理附属表 新增主题相关表的时候要在这里添加
 	foreach(array('forum_forumrecommend', 'forum_polloption', 'forum_poll', 'forum_polloption_image', 'forum_activity', 'forum_activityapply', 'forum_debate',
 		'forum_debatepost', 'forum_threadmod', 'forum_relatedthread',
 		'forum_pollvoter', 'forum_threadimage', 'forum_threadpreview') as $table) {
 		C::t($table)->delete_by_tid($arrtids);
 	}
-	C::t('forum_typeoptionvar')->delete_by_tid($arrtids);
-	C::t('forum_poststick')->delete_by_tid($arrtids);
+	C::t('forum_typeoptionvar')->delete_by_tid($arrtids);//note 从上面移动到这里处理
+	C::t('forum_poststick')->delete_by_tid($arrtids);//note 从上面移动到这里处理
 	C::t('forum_filter_post')->delete_by_tid($arrtids);
 	C::t('forum_hotreply_member')->delete_by_tid($arrtids);
 	C::t('forum_hotreply_number')->delete_by_tid($arrtids);
@@ -457,6 +495,11 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 	return $count;
 }
 
+/**
+ * 删除论坛附件
+ * @param type $ids 待删的 ID 数组
+ * @param type $idtype uid/authorid/tid/pid
+ */
 function deleteattach($ids, $idtype = 'aid') {
 	global $_G;
 	if(!$ids || !in_array($idtype, array('authorid', 'uid', 'tid', 'pid'))) {
@@ -504,6 +547,10 @@ function deleteattach($ids, $idtype = 'aid') {
 	}
 }
 
+/**
+ * 删除评论
+ * @param array $cids 待删除的 ID 数组
+ */
 function deletecomments($cids) {
 	global $_G;
 
@@ -533,11 +580,13 @@ function deletecomments($cids) {
 		C::t('common_moderate')->delete($newcids[$i], $deltypes[$i]);
 	}
 
+	//扣除相应的积分
 	if($counts) {
 		foreach ($counts as $uid => $setarr) {
 			batchupdatecredit('comment', $uid, array(), $setarr['coef']);
 		}
 	}
+	//更新统计
 	if($blognums) {
 		$nums = renum($blognums);
 		foreach ($nums[0] as $num) {
@@ -547,9 +596,14 @@ function deletecomments($cids) {
 	return $dels;
 }
 
-function deleteblogs($blogids, $force = false) {
+/**
+ * 删除博客
+ * @param array $blogids 待删除的 ID 数组
+ */
+function deleteblogs($blogids) {
 	global $_G;
 
+	//获取博客信息
 	$blogs = $newblogids = $counts = array();
 	$allowmanage = checkperm('manageblog');
 
@@ -558,8 +612,8 @@ function deleteblogs($blogids, $force = false) {
 		if($allowmanage || $value['uid'] == $_G['uid']) {
 			$blogs[] = $value;
 			$newblogids[] = $value['blogid'];
-
-			if($value['status'] == 0) {
+			//积分
+			if($value['status'] == 0) {//note 如果没有通过审核就删除，则不需要处理积分和用户日志数
 				if($value['uid'] != $_G['uid']) {
 					$counts[$value['uid']]['coef'] -= 1;
 				}
@@ -569,6 +623,7 @@ function deleteblogs($blogids, $force = false) {
 	}
 	if(empty($blogs)) return array();
 
+	//数据删除
 	C::t('common_moderate')->delete($newblogids, 'blogid');
 	C::t('common_moderate')->delete($newblogids, 'blogid_cid');
 
@@ -582,17 +637,23 @@ function deleteblogs($blogids, $force = false) {
 	C::t('home_feed')->delete_by_id_idtype($newblogids, 'blogid');
 	C::t('home_clickuser')->delete_by_id_idtype($newblogids, 'blogid');
 
+	//更新统计
 	if($counts) {
 		foreach ($counts as $uid => $setarr) {
 			batchupdatecredit('publishblog', $uid, array('blogs' => $setarr['blogs']), $setarr['coef']);
 		}
 	}
 
+	//删除标签关系
 	C::t('common_tagitem')->delete(0, $newblogids, 'blogid');
 
 	return $blogs;
 }
 
+/**
+ * 删除事件
+ * @param array $feedids 待删除的 ID 数组
+ */
 function deletefeeds($feedids) {
 	global $_G;
 
@@ -601,7 +662,7 @@ function deletefeeds($feedids) {
 	$feeds = $newfeedids = array();
 	$query = C::t('home_feed')->fetch_all($feedids);
 	foreach($query as $value) {
-		if($allowmanage || $value['uid'] == $_G['uid']) {
+		if($allowmanage || $value['uid'] == $_G['uid']) {//管理员/作者
 			$newfeedids[] = $value['feedid'];
 			$feeds[] = $value;
 		}
@@ -614,6 +675,10 @@ function deletefeeds($feedids) {
 	return $feeds;
 }
 
+/**
+ * 删除分享
+ * @param array $sids 待删除的 ID 数组
+ */
 function deleteshares($sids) {
 	global $_G;
 
@@ -621,10 +686,11 @@ function deleteshares($sids) {
 
 	$shares = $newsids = $counts = array();
 	foreach(C::t('home_share')->fetch_all($sids) as $value) {
-		if($allowmanage || $value['uid'] == $_G['uid']) {
+		if($allowmanage || $value['uid'] == $_G['uid']) {//管理员/作者
 			$shares[] = $value;
 			$newsids[] = $value['sid'];
 
+			//积分
 			if($value['uid'] != $_G['uid']) {
 				$counts[$value['uid']]['coef'] -= 1;
 			}
@@ -639,6 +705,7 @@ function deleteshares($sids) {
 	C::t('common_moderate')->delete($newsids, 'sid');
 	C::t('common_moderate')->delete($newsids, 'sid_cid');
 
+	//更新统计
 	if($counts) {
 		foreach ($counts as $uid => $setarr) {
 			batchupdatecredit('createshare', $uid, array('sharings' => $setarr['sharings']), $setarr['coef']);
@@ -648,6 +715,10 @@ function deleteshares($sids) {
 	return $shares;
 }
 
+/**
+ * 删除记录
+ * @param array $ids 待删除的 ID 数组
+ */
 function deletedoings($ids) {
 	global $_G;
 
@@ -656,10 +727,11 @@ function deletedoings($ids) {
 	$doings = $newdoids = $counts = array();
 	$query = C::t('home_doing')->fetch_all($ids);
 	foreach($query as $value) {
-		if($allowmanage || $value['uid'] == $_G['uid']) {
+		if($allowmanage || $value['uid'] == $_G['uid']) {//管理员/作者
 			$doings[] = $value;
 			$newdoids[] = $value['doid'];
 
+			//积分
 			if($value['uid'] != $_G['uid']) {
 				$counts[$value['uid']]['coef'] -= 1;
 			}
@@ -674,6 +746,7 @@ function deletedoings($ids) {
 	C::t('home_feed')->delete_by_id_idtype($newdoids, 'doid');
 	C::t('common_moderate')->delete($newdoids, 'doid');
 
+	//更新统计
 	if($counts) {
 		foreach ($counts as $uid => $setarr) {
 			if ($uid) {
@@ -688,11 +761,16 @@ function deletedoings($ids) {
 	return $doings;
 }
 
+/**
+ * 删除空间
+ * @param array $uid 待删除的用户 ID
+ */
 function deletespace($uid) {
 	global $_G;
 
 	$allowmanage = checkperm('managedelspace');
 
+	//软删除
 	if($allowmanage) {
 		C::t('common_member')->update($uid, array('status' => 1));
 		manyoulog('user', $uid, 'delete');
@@ -702,6 +780,10 @@ function deletespace($uid) {
 	}
 }
 
+/**
+ * 删除图片
+ * @param array $picids 待删除的 ID 数组
+ */
 function deletepics($picids) {
 	global $_G;
 
@@ -712,6 +794,7 @@ function deletepics($picids) {
 	$query = C::t('home_pic')->fetch_all($picids);
 	foreach($query as $value) {
 		if($allowmanage || $value['uid'] == $_G['uid']) {
+			//删除文件
 			$pics[] = $value;
 			$newids[] = $value['picid'];
 			$sizes[$value['uid']] = $sizes[$value['uid']] + $value['size'];
@@ -736,6 +819,7 @@ function deletepics($picids) {
 	C::t('common_moderate')->delete($newids, 'picid');
 	C::t('common_moderate')->delete($newids, 'picid_cid');
 
+	//更新统计
 	if($sizes) {
 		foreach ($sizes as $uid => $setarr) {
 			$attachsize = intval($sizes[$uid]);
@@ -743,6 +827,7 @@ function deletepics($picids) {
 		}
 	}
 
+	//更新相册封面
 	require_once libfile('function/spacecp');
 	foreach ($albumids as $albumid) {
 		if($albumid) {
@@ -750,11 +835,16 @@ function deletepics($picids) {
 		}
 	}
 
+	//删除图片
 	deletepicfiles($pics);
 
 	return $pics;
 }
 
+/**
+ * 删除图片文件
+ * @param array $pics 待删除的图片数组
+ */
 function deletepicfiles($pics) {
 	global $_G;
 	$remotes = array();
@@ -764,6 +854,10 @@ function deletepicfiles($pics) {
 	}
 }
 
+/**
+ * 删除相册
+ * @param array $albumids 待删除的 ID 数组
+ */
 function deletealbums($albumids) {
 	global $_G;
 
@@ -787,6 +881,7 @@ function deletealbums($albumids) {
 
 	if(empty($dels)) return array();
 
+	//获取积分
 	$pics = $picids = array();
 	$query = C::t('home_pic')->fetch_all_by_albumid($newids);
 	foreach($query as $value) {
@@ -795,8 +890,9 @@ function deletealbums($albumids) {
 		$sizes[$value['uid']] = $sizes[$value['uid']] + $value['size'];
 	}
 
+	//删除图片
 	if($picids) {
-		deletepics($picids);
+		deletepics($picids);//删除图片
 	}
 	C::t('home_album')->delete($newids);
 	C::t('home_feed')->delete_by_id_idtype($newids, 'albumid');
@@ -841,6 +937,11 @@ function deletetrasharticle($aids) {
 	return $articles;
 }
 
+/**
+ * 删除门户文章
+ * @param array $aids 待删除的 ID 数组
+ * @param boolean $istrash
+ */
 function deletearticle($aids, $istrash = true) {
 	global $_G;
 
@@ -858,6 +959,7 @@ function deletearticle($aids, $istrash = true) {
 			if($istrash) {
 				$trasharr[] = array('aid' => $value['aid'], 'content'=>serialize($value));
 			} elseif($value['pic']) {
+				//删除封面图片
 				pic_delete($value['pic'], 'portal', $value['thumb'], $value['remote']);
 				$attachaid[] = $value['aid'];
 				if($value['madehtml'] && $value['htmldir'] && $value['htmlname']) {
@@ -875,6 +977,7 @@ function deletearticle($aids, $istrash = true) {
 		C::t('portal_article_title')->delete($dels);
 		C::t('common_moderate')->delete($dels, 'aid');
 
+		// 相关文章分类文章数目
 		$catids = array_unique($catids);
 		if($catids) {
 			foreach($catids as $catid) {
@@ -886,6 +989,9 @@ function deletearticle($aids, $istrash = true) {
 	return $article;
 }
 
+/**
+ * 清除生成文章的标识
+ */
 function deletearticlepush($pushs) {
 	if(!empty($pushs) && is_array($pushs)) {
 		foreach($pushs as $idtype=> $fromids) {
@@ -901,11 +1007,17 @@ function deletearticlepush($pushs) {
 	}
 }
 
+/**
+ * 删除文章相关的数据
+ */
 function deletearticlerelated($dels) {
 
+	//统计
 	C::t('portal_article_count')->delete($dels);
+	//内容
 	C::t('portal_article_content')->delete_by_aid($dels);
 
+	//附件
 	if($attachment = C::t('portal_attachment')->fetch_all_by_aid($dels)) {
 		require_once libfile('function/home');
 		foreach ($attachment as $value) {
@@ -914,9 +1026,11 @@ function deletearticlerelated($dels) {
 		C::t('portal_attachment')->delete(array_keys($attachment));
 	}
 
+	//评论
 	C::t('portal_comment')->delete_by_id_idtype($dels, 'aid');
 	C::t('common_moderate')->delete($dels, 'aid_cid');
 
+	//相关文章
 	C::t('portal_article_related')->delete_by_aid_raid($dels);
 
 }
@@ -929,11 +1043,13 @@ function deleteportaltopic($dels) {
 	}
 	C::t('common_diy_data')->delete($targettplname, null);
 
+	//删除模块权限
 	require_once libfile('class/blockpermission');
 	$tplpermission = & template_permission::instance();
 	$templates = array();
 	$tplpermission->delete_allperm_by_tplname($targettplname);
 
+	//删除指定的域名
 	deletedomain($dels, 'topic');
 	C::t('common_template_block')->delete_by_targettplname($targettplname);
 
@@ -958,19 +1074,30 @@ function deleteportaltopic($dels) {
 	C::t('portal_comment')->delete_by_id_idtype($dels, 'topicid');
 	C::t('common_moderate')->delete($dels, 'topicid_cid');
 
+	//清除模块
 	include_once libfile('function/block');
 	block_clear();
 
+	// 更新缓存
 	include_once libfile('function/cache');
 	updatecache('diytemplatename');
 }
 
+/**
+ * 跟据id、idtype删除指定的域名
+ * @param Integer $ids: 指写ids
+ * @param String $idtype:对象类型subarea:分区、forum:版块、home:个人空间、group:群组、topic:专题、channel:频道
+ */
 function deletedomain($ids, $idtype) {
 	if($ids && $idtype) {
 		C::t('common_domain')->delete_by_id_idtype($ids, $idtype);
 	}
 }
 
+/**
+ * 删除指定淘帖专辑
+ * @param int $ctid 专题ID
+ */
 function deletecollection($ctid) {
 	$tids = array();
 	$threadlist = C::t('forum_collectionthread')->fetch_all_by_ctid($ctid);
@@ -980,6 +1107,7 @@ function deletecollection($ctid) {
 
 	$collectionteamworker = C::t('forum_collectionteamworker')->fetch_all_by_ctid($ctid);
 	foreach ($collectionteamworker as $worker) {
+		//向参与者发送关闭通知
 		notification_add($worker['uid'], "system", 'collection_removed', array('ctid'=>$collectiondata['ctid'], 'collectionname'=>$collectiondata['name']), 1);
 	}
 
@@ -991,6 +1119,11 @@ function deletecollection($ctid) {
 	C::t('forum_collection')->delete($ctid, true);
 }
 
+/**
+ * 删除指定主题中的淘专辑
+ * @param array $tids 主题ID数组
+ * @param int $ctid 指定淘专辑
+ */
 function deleterelatedtid($tids, $ctid) {
 	$loadreleated = C::t('forum_collectionrelated')->fetch_all($tids, true);
 	foreach($loadreleated as $loadexist) {
@@ -1007,7 +1140,7 @@ function deleterelatedtid($tids, $ctid) {
 			$newcollection = implode("\t", $collectionlist);
 			if (trim($newcollection) == '') {
 				C::t('forum_collectionrelated')->delete($loadexist['tid']);
-				C::t('forum_thread')->update_status_by_tid($loadexist['tid'], '1111111011111111', '&');
+				C::t('forum_thread')->update_status_by_tid($loadexist['tid'], '1111111011111111', '&'); //标记forum_thread
 			} else {
 				C::t('forum_collectionrelated')->update_collection_by_ctid_tid($newcollection, $loadexist['tid'], true);
 			}

@@ -205,6 +205,7 @@ if($_GET['op'] == 'base') {
 	if(!$_G['setting']['exchangestatus']) {
 		showmessage('action_closed', NULL);
 	}
+	//UC远程兑换，生成的积分缓存文件
 	$_CACHE['creditsettings'] = array();
 	if(file_exists(DISCUZ_ROOT.'/uc_client/data/cache/creditsettings.php')) {
 		include_once(DISCUZ_ROOT.'/uc_client/data/cache/creditsettings.php');

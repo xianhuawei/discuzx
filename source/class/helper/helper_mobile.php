@@ -14,6 +14,9 @@ if(!defined('IN_DISCUZ')) {
 class helper_mobile {
 
 
+	/**
+	* 手机的output函数
+	*/
 	public static function mobileoutput() {
 		global $_G;
 		if(!defined('TPL_DEFAULT')) {
@@ -35,6 +38,7 @@ class helper_mobile {
 			exit();
 
 		} elseif (defined('TPL_DEFAULT') && !$_G['cookie']['dismobilemessage'] && $_G['mobile']) {
+			//noteX 当检测到手机浏览器，但又没有某个页面的模板时，需要进行此操作
 			ob_end_clean();
 			ob_start();
 			$_G['forcemobilemessage'] = true;
@@ -47,6 +51,12 @@ class helper_mobile {
 		}
 	}
 
+	/**
+	* 手机模式下替换所有链接为mobile=yes形式
+	* @param $file - 正则匹配到的文件字符串
+	* @param $file - 要被替换的字符串
+	* @$replace 替换后字符串
+	*/
 	function mobilereplace($file, $replace) {
 		if(strpos($replace, 'mobile=') === false) {
 			if(strpos($replace, '?') === false) {

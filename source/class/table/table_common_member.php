@@ -18,12 +18,16 @@ class table_common_member extends discuz_table_archive
 		$this->_table = 'common_member';
 		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'common_member_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
-		
+		//$this->_cache_ttl = 0; //在setting/memory中设置
+
 		parent::__construct();
 	}
 
+	/**
+	 * 更新会员积分
+	 * @param int $uid
+	 * @param int $credits
+	 */
 	public function update_credits($uid, $credits) {
 		if($uid) {
 			$data = array('credits'=>intval($credits));
@@ -46,6 +50,11 @@ class table_common_member extends discuz_table_archive
 		}
 	}
 
+	/**
+	 * 累加指定会员的某统一数据的值
+	 * @param array $uids 会员ID
+	 * @param array $setarr 要累加的字段和累加值
+	 */
 	public function increase($uids, $setarr) {
 		$uids = dintval((array)$uids, true);
 		$sql = array();
@@ -61,6 +70,12 @@ class table_common_member extends discuz_table_archive
 		}
 	}
 
+	/**
+	 * 根据会员名获取会员数据
+	 * @param string $username 会员名
+	 * @param int $fetch_archive 0：只查询当前表，1：查询当前表和存档表
+	 * @return array
+	 */
 	public function fetch_by_username($username, $fetch_archive = 0) {
 		$user = array();
 		if($username) {
@@ -72,6 +87,12 @@ class table_common_member extends discuz_table_archive
 		return $user;
 	}
 
+	/**
+	 * 根据多个会员名获取会员数据，会员名为返回数组的主键
+	 * @param array $usernames 会员名数组
+	 * @param int $fetch_archive 0：只查询当前表，1：查询当前表和存档表
+	 * @return array 多会员数据数组
+	 */
 	public function fetch_all_by_username($usernames, $fetch_archive = 1) {
 		$users = array();
 		if(!empty($usernames)) {
@@ -83,6 +104,12 @@ class table_common_member extends discuz_table_archive
 		return $users;
 	}
 
+	/**
+	 * 根据会员名只获取会员UID
+	 * @param string $username 会员名
+	 * @param int $fetch_archive 0：只查询当前表，1：查询当前表和存档表
+	 * @return int 会员UID
+	 */
 	public function fetch_uid_by_username($username, $fetch_archive = 0) {
 		$uid = 0;
 		if($username) {
@@ -94,6 +121,12 @@ class table_common_member extends discuz_table_archive
 		return $uid;
 	}
 
+	/**
+	 * 根据多个会员名获取会员UID，会员名为返回数组的主键
+	 * @param array $usernames 会员名数组
+	 * @param int $fetch_archive 0：只查询当前表，1：查询当前表和存档表
+	 * @return array 多会员UID数组
+	 */
 	public function fetch_all_uid_by_username($usernames, $fetch_archive = 1) {
 		$uids = array();
 		if($usernames) {
@@ -104,6 +137,12 @@ class table_common_member extends discuz_table_archive
 		return $uids;
 	}
 
+	/**
+	 * 获取指定管理组ID的所有会员
+	 * @param int|array $adminids 管理组ID
+	 * @param int $fetch_archive 0：只查询当前表，1：查询当前表和存档表
+	 * @return array
+	 */
 	public function fetch_all_by_adminid($adminids, $fetch_archive = 1) {
 		$users = array();
 		$adminids = dintval((array)$adminids, true);
@@ -116,6 +155,11 @@ class table_common_member extends discuz_table_archive
 		return $users;
 	}
 
+	/**
+	 * 根据多个会员ID获取会员名，会员ID为返回数组的主键
+	 * @param array $uids 会员ID数组
+	 * @return array 多会员名数组
+	 */
 	public function fetch_all_username_by_uid($uids) {
 		$users = array();
 		if(($uids = dintval($uids, true))) {
@@ -126,10 +170,20 @@ class table_common_member extends discuz_table_archive
 		return $users;
 	}
 
+	/**
+	 * 统计指定会员组的个数
+	 * @param int $groupid 会员组ID
+	 * @return array
+	 */
 	public function count_by_groupid($groupid) {
 		return $groupid ? DB::result_first('SELECT COUNT(*) FROM %t WHERE '.DB::field('groupid', $groupid), array($this->_table)) : 0;
 	}
 
+	/**
+	 * 根据多个会员ID获取会员名，会员ID为返回数组的主键
+	 * @param array $uids 会员ID数组
+	 * @return array 多会员名数组
+	 */
 	public function fetch_all_by_groupid($groupid, $start = 0, $limit = 0) {
 		$users = array();
 		if(($groupid = dintval($groupid, true))) {
@@ -138,14 +192,29 @@ class table_common_member extends discuz_table_archive
 		return $users;
 	}
 
+	/**
+	 * 获取所有的会员组ID
+	 * @return array
+	 */
 	public function fetch_all_groupid() {
 		return DB::fetch_all('SELECT DISTINCT(groupid) FROM '.DB::table($this->_table), null, 'groupid');
 	}
 
+	/**
+	 * 获取管理权限相关人员的数据
+	 * @param int $val 数据值
+	 * @param string(=,like,in,+,-,|,&,>,<,<>,<=,>=) $glue 连接符 参考DB::field的$glue
+	 * @return array
+	 */
 	public function fetch_all_by_allowadmincp($val, $glue = '=') {
 		return DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field('allowadmincp', intval($val), $glue), NULL, 'uid');
 	}
 
+	/**
+	 * 将管理字段的第一位标记为1
+	 * @param array $uids 会员ID
+	 * @return bool
+	 */
 	public function update_admincp_manage($uids) {
 		if(($uids = dintval($uids, true))) {
 			$data = DB::query('UPDATE '.DB::table($this->_table).' SET allowadmincp=allowadmincp | 1 WHERE uid IN ('.dimplode($uids).')');
@@ -155,6 +224,11 @@ class table_common_member extends discuz_table_archive
 		return false;
 	}
 
+	/**
+	 * 将管理字段的第一位标记为0
+	 * @param array $uids 会员ID
+	 * @return bool
+	 */
 	public function clean_admincp_manage($uids) {
 		if(($uids = dintval($uids, true))) {
 			$data = DB::query('UPDATE '.DB::table($this->_table).' SET allowadmincp=allowadmincp & 0xFE WHERE uid IN ('.dimplode($uids).')');
@@ -164,19 +238,36 @@ class table_common_member extends discuz_table_archive
 		return false;
 	}
 
+	/**
+	 * 获取指定过期时间的禁言用户
+	 * @param int $timestamp 过期时间
+	 * @return array
+	 */
 	public function fetch_all_ban_by_groupexpiry($timestamp) {
 		return ($timestamp = intval($timestamp)) ? DB::fetch_all("SELECT uid, groupid, credits FROM ".DB::table($this->_table)." WHERE groupid IN ('4', '5') AND groupexpiry>'0' AND groupexpiry<'$timestamp'", array(), 'uid') : array();
 	}
 
+	/**
+	 * 统计会员数
+	 * @param int $fetch_archive 0：只查询当前表，1：
+	 * @return int
+	 */
 	public function count($fetch_archive = 1) {
 		$count = DB::result_first('SELECT COUNT(*) FROM %t', array($this->_table));
 		if(isset($this->membersplit) && $fetch_archive) {
 			$count += C::t($this->_table.'_archive')->count(0);
 		}
+		//增加QQ互联临时用户数
 		$count += intval(DB::result_first('SELECT COUNT(*) FROM '.DB::table('common_connect_guest'), null, true));
 		return $count;
 	}
 
+	/**
+	 * 获取指定邮箱会员的数据
+	 * @param string $email email
+	 * @param int $fetch_archive 0：只查询当前表，1：查询当前表和存档表
+	 * @return array
+	 */
 	public function fetch_by_email($email, $fetch_archive = 0) {
 		$user = array();
 		if($email) {
@@ -188,6 +279,12 @@ class table_common_member extends discuz_table_archive
 		return $user;
 	}
 
+	/**
+	 * 通过邮箱获取会员数据
+	 * @param array $emails 邮箱数组
+	 * @param int $fetch_archive 0：只查询当前表，1：查询当前表和存档表
+	 * @return array
+	 */
 	public function fetch_all_by_email($emails, $fetch_archive = 1) {
 		$users = array();
 		if(!empty($emails)) {
@@ -199,6 +296,12 @@ class table_common_member extends discuz_table_archive
 		return $users;
 	}
 
+	/**
+	 * 统计指定邮箱的会员数
+	 * @param string $email
+	 * @param int $fetch_archive 0：只查询当前表，1：查询当前表和存档表
+	 * @return int
+	 */
 	public function count_by_email($email, $fetch_archive = 0) {
 		$count = 0;
 		if($email) {
@@ -210,6 +313,15 @@ class table_common_member extends discuz_table_archive
 		return $count;
 	}
 
+	/**
+	 * 根据会员名前缀模糊搜索
+	 * @param string $username 要搜索的会员名
+	 * @param int $start 开始数
+	 * @param int $limit 长度
+	 * @param string $field 排序字段
+	 * @param string $sort 是否排序：ASC|DESC
+	 * @return array
+	 */
 	public function fetch_all_by_like_username($username, $start = 0, $limit = 0) {
 		$data = array();
 		if($username) {
@@ -218,23 +330,50 @@ class table_common_member extends discuz_table_archive
 		return $data;
 	}
 
+	/**
+	 * 统计模糊搜索会员名的结果数
+	 * @param string $username 会员名
+	 * @return int 结果数
+	 */
 	public function count_by_like_username($username) {
 		return !empty($username) ? DB::result_first('SELECT COUNT(*) FROM %t WHERE username LIKE %s', array($this->_table, stripsearchkey($username).'%')) : 0;
 	}
 
 
+	/**
+	 * 获取站点运行时间
+	 * @return int 运行天数
+	 */
 	public function fetch_runtime() {
 		return DB::result_first("SELECT (MAX(regdate)-MIN(regdate))/86400 AS runtime FROM ".DB::table($this->_table));
 	}
 
+	/**
+	 * 统计管理员的个数
+	 * @return int 会员数
+	 */
 	public function count_admins() {
 		return DB::result_first("SELECT COUNT(*) FROM ".DB::table($this->_table)." WHERE adminid<>'0' AND adminid<>'-1'");
 	}
 
+	/**
+	 * 统计指定注册时间以后的注册会员数
+	 * @param int $timestamp 注册时间
+	 * @return int 会员数
+	 */
 	public function count_by_regdate($timestamp) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE regdate>%d', array($this->_table, $timestamp));
 	}
 
+	/**
+	 * misc_stat.php文件使用，获取会员列表
+	 * @param string $username 会员名
+	 * @param string $orderby 排序字段
+	 * @param string $sort  是否排序：ASC|DESC
+	 * @param int $start 开始数
+	 * @param int $limit 长度
+	 * @return array
+	 */
 	public function fetch_all_stat_memberlist($username, $orderby = '', $sort = '', $start = 0, $limit =  0) {
 		$orderby = in_array($orderby, array('uid','credits','regdate', 'gender','username','posts','lastvisit'), true) ? $orderby : 'uid';
 		$sql = '';
@@ -257,6 +396,10 @@ class table_common_member extends discuz_table_archive
 		return $memberlist;
 	}
 
+	/**
+	 * 删除没有验证的指定会员ID的数据
+	 * @param array $uids 没有验证的会员ID
+	 */
 	public function delete_no_validate($uids) {
 		if(($uids = dintval($uids, true))) {
 			$delnum = $this->delete($uids);
@@ -271,6 +414,16 @@ class table_common_member extends discuz_table_archive
 		return false;
 	}
 
+	/**
+	 * 添加新会员
+	 * @param int $uid 会员ID
+	 * @param string $username 会员名
+	 * @param string $email 邮件地址
+	 * @param string $ip IP地址
+	 * @param int $groupid 用户组ID
+	 * @param array $extdata 如： 目前有三个KEY:emailstatus、profile、credits;积分数组：$extdata['credits'] 共9个值，其中$credits[0]为总积分值，$credits[1]为extcredits1积分值，以此类推。
+	 * @param int $adminid 管理组ID
+	 */
 	public function insert($uid, $username, $password, $email, $ip, $groupid, $extdata, $adminid = 0) {
 		if(($uid = dintval($uid))) {
 			$credits = isset($extdata['credits']) ? $extdata['credits'] : array();
@@ -319,26 +472,40 @@ class table_common_member extends discuz_table_archive
 		}
 	}
 
+	/**
+	 * 依据主键删除某条记录
+	 * @param string|int $val 主键值
+	 * @return boolean
+	 */
 	public function delete($val, $unbuffered = false, $fetch_archive = 0) {
 		$ret = false;
 		if(($val = dintval($val, true))) {
 			$ret = parent::delete($val, $unbuffered, $fetch_archive);
-			if($this->_allowmem) {
+			if($this->_allowmem) { //todo 此处需要判断是否有其它表缓存打开，如主题和回帖
 				$data = ($data = memory('get', 'deleteuids')) === false ? array() : $data;
 				foreach((array)$val as $uid) {
 					$data[$uid] = $uid;
 				}
-				memory('set', 'deleteuids', $data, 86400*2);
+				memory('set', 'deleteuids', $data, 86400*2); //删除的用户缓存2天的时间
 			}
 		}
 		return $ret;
 	}
 
+	/**
+	 * 统计可优化的用户数
+	 * @return int 可优化的用户数
+	 */
 	public function count_zombie() {
 		$dateline = TIMESTAMP - 7776000;//60*60*24*90
 		return DB::result_first('SELECT count(*) FROM %t mc, %t ms WHERE mc.posts<5 AND ms.lastvisit<%d AND ms.uid=mc.uid', array('common_member_count', 'common_member_status', $dateline));
 	}
 
+	/**
+	 * 优化用户表
+	 * @param int $splitnum 一次优化处理的用户个数
+	 * @return bool true为可继续优化，false为没有可以优化的用户
+	 */
 	public function split($splitnum, $iscron = false) {
 		loadcache('membersplitdata');
 		@set_time_limit(0);
@@ -356,11 +523,13 @@ class table_common_member extends discuz_table_archive
 		if(DB::result_first('SELECT COUNT(*) FROM '.$temptablename)) {
 
 
+			//计划任务时不关闭索引
 			if(!$iscron && getglobal('setting/memberspliting') === null) {
 				$this->switch_keys('disable');
 			}
 			$uidlist = DB::fetch_all('SELECT uid FROM '.$temptablename, null, 'uid');
 			$uids = dimplode(array_keys($uidlist));
+			//用户存档
 			$movesql = 'REPLACE INTO %t SELECT * FROM %t WHERE uid IN ('.$uids.')';
 			$deletesql = 'DELETE FROM %t WHERE uid IN ('.$uids.')';
 			if(DB::query($movesql, array('common_member_archive', 'common_member'), false, true)) {
@@ -390,6 +559,7 @@ class table_common_member extends discuz_table_archive
 			}
 			savecache('membersplitdata', array('membercount' => $membersplitdata['membercount'], 'zombiecount' => $zombiecount, 'dateline' => TIMESTAMP));
 			C::t('common_setting')->delete('memberspliting');
+			//可继续优化
 			return true;
 		} else {
 			DB::query('DROP TABLE '.$temptablename);
@@ -416,10 +586,23 @@ class table_common_member extends discuz_table_archive
 		updatecache('setting');
 	}
 
+	/**
+	 * 统计总积分大于某值的会员数量
+	 * @param int $credits 积分值
+	 * @return int
+	 */
 	public function count_by_credits($credits) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE credits>%d', array($this->_table, $credits));
 	}
 
+	/**
+	 * 前台用户搜索功能
+	 * @param array $wherearr
+	 * @param array $fromarr
+	 * @param int $start
+	 * @param type $limit
+	 * @return array
+	 */
 	public function fetch_all_for_spacecp_search($wherearr, $fromarr, $start = 0, $limit = 100) {
 		if(!$start && !$limit) {
 			$start = 100;
@@ -433,6 +616,13 @@ class table_common_member extends discuz_table_archive
 		return DB::fetch_all("SELECT s.* FROM ".implode(',', $fromarr)." WHERE ".implode(' AND ', $wherearr).DB::limit($start, $limit));
 	}
 
+	/**
+	 * 仅ranklist使用
+	 * @param int $offset
+	 * @param int $limit
+	 * @param string $orderby
+	 * @return array
+	 */
 	public function fetch_all_girls_for_ranklist($offset = 0, $limit = 20, $orderby = 'ORDER BY s.unitprice DESC, s.credit DESC') {
 		$members = array();
 		$query = DB::query("SELECT m.uid, m.username, mc.*, mp.gender
@@ -451,6 +641,12 @@ class table_common_member extends discuz_table_archive
 	}
 
 
+	/**
+	 * 仅ranklist使用
+	 * @param int $num
+	 * @param int|string $orderby
+	 * @return array
+	 */
 	public function fetch_all_order_by_credit_for_ranklist($num, $orderby) {
 		$data = array();
 		if(!($num = intval($num))) {
@@ -478,6 +674,11 @@ class table_common_member extends discuz_table_archive
 
 	}
 
+	/**
+	 * 仅ranklist使用
+	 * @param int $num
+	 * @return array
+	 */
 	public function fetch_all_order_by_friendnum_for_ranklist($num) {
 
 		$num = intval($num);
@@ -498,6 +699,7 @@ class table_common_member extends discuz_table_archive
 				$users[$value['uid']] = array_merge($users[$value['uid']], $value);
 			}
 
+			//还原顺序
 			foreach($oldorder as $uid) {
 				$data[] = $users[$uid];
 			}
@@ -507,10 +709,20 @@ class table_common_member extends discuz_table_archive
 
 	}
 
+	/**
+	 * 获取最大的uid
+	 * @return int
+	 */
 	public function max_uid() {
 		return DB::result_first('SELECT MAX(uid) FROM %t', array($this->_table));
 	}
 
+	/**
+	 * 获取部分用户信息 by uid
+	 * @param int $from 起始>uid
+	 * @param int $limit 获取的数量
+	 * @return array
+	 */
 	public function range_by_uid($from, $limit) {
 		return DB::fetch_all('SELECT * FROM %t WHERE uid >= %d ORDER BY uid LIMIT %d', array($this->_table, $from, $limit), $this->_pk);
 	}

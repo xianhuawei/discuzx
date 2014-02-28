@@ -15,6 +15,7 @@ require_once libfile('block_member', 'class/block/member');
 
 class block_membershow extends block_member {
 	function block_membershow() {
+		// 初始化设置项
 		$this->setting = array(
 			'startrow' => array(
 				'title' => 'memberlist_startrow',

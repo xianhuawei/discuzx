@@ -25,6 +25,7 @@ class control extends adminbase {
 		$this->load('misc');
 	}
 
+	// public 应用
 	function onls() {
 		$status = $affectedrows = 0;
 		if(!empty($_POST['delete'])) {
@@ -38,6 +39,7 @@ class control extends adminbase {
 			$this->writelog('app_delete', 'appid='.implode(',', $_POST['delete']));
 			$status = 2;
 
+			// 通知
 			$this->_add_note_for_app();
 		}
 
@@ -67,7 +69,7 @@ class control extends adminbase {
 			$ip = getgpc('ip', 'P');
 			$viewprourl = getgpc('viewprourl', 'P');
 			$authkey = getgpc('authkey', 'P');
-			$authkey = $this->authcode($authkey, 'ENCODE', UC_MYKEY);
+			$authkey = $this->authcode($authkey, 'ENCODE', UC_MYKEY);// 增强uckey的安全性
 			$synlogin = getgpc('synlogin', 'P');
 			$recvnote = getgpc('recvnote', 'P');
 			$apifilename = trim(getgpc('apifilename', 'P'));
@@ -103,6 +105,7 @@ class control extends adminbase {
 				$appid = $this->db->insert_id();
 			}
 
+			// 通知
 			$this->_add_note_for_app();
 
 			$this->load('cache');
@@ -136,6 +139,7 @@ class control extends adminbase {
 
 	}
 
+	// public 应用详情
 	function ondetail() {
 		$appid = getgpc('appid');
 		$updated = false;
@@ -148,7 +152,7 @@ class control extends adminbase {
 			$viewprourl = getgpc('viewprourl', 'P');
 			$apifilename = trim(getgpc('apifilename', 'P'));
 			$authkey = getgpc('authkey', 'P');
-			$authkey = $this->authcode($authkey, 'ENCODE', UC_MYKEY);
+			$authkey = $this->authcode($authkey, 'ENCODE', UC_MYKEY);// 增强uckey的安全性
 			$synlogin = getgpc('synlogin', 'P');
 			$recvnote = getgpc('recvnote', 'P');
 			$extraurl = getgpc('extraurl', 'P');
@@ -174,6 +178,7 @@ class control extends adminbase {
 			} else {
 				$app['extra']['apppath'] = '';
 			}
+			// 判断该路径村不存在
 			$app['extra']['extraurl'] = array();
 			if($extraurl) {
 				foreach(explode("\n", $extraurl) as $val) {
@@ -205,6 +210,7 @@ class control extends adminbase {
 			$this->cache('settings');
 			$this->writelog('app_edit', "appid=$appid");
 
+			// 通知
 			$this->_add_note_for_app();
 			$app = $_ENV['app']->get_app_by_appid($appid);
 		}
@@ -265,6 +271,7 @@ class control extends adminbase {
 		return $arr;
 	}
 
+	// 相对路径转绝对路径
 	function _realpath($path) {
 		return realpath($path).'/';
 	}

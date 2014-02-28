@@ -20,6 +20,11 @@ class table_common_member_archive extends table_common_member
 		$this->_pk    = 'uid';
 	}
 
+	/**
+	 * 依据主键值， 取得一条记录
+	 * @param int $id 键值
+	 * @return array
+	 */
 	public function fetch($id){
 		$data = array();
 		if(isset($this->membersplit) && ($id = dintval($id)) && ($data = DB::fetch_first('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $id)))) {
@@ -28,6 +33,11 @@ class table_common_member_archive extends table_common_member
 		return $data;
 	}
 
+	/**
+	 * 根据会员名获取会员数据
+	 * @param string $username 会员名
+	 * @return array
+	 */
 	public function fetch_by_username($username) {
 		$user = array();
 		if(isset($this->membersplit) && $username && ($user = DB::fetch_first('SELECT * FROM %t WHERE username=%s', array($this->_table, $username)))) {
@@ -36,6 +46,11 @@ class table_common_member_archive extends table_common_member
 		return $user;
 	}
 
+	/**
+	 * 根据会员名只获取会员UID
+	 * @param string $username 会员名
+	 * @return int 会员UID
+	 */
 	public function fetch_uid_by_username($username) {
 		$uid = 0;
 		if(isset($this->membersplit) && $username) {
@@ -44,10 +59,19 @@ class table_common_member_archive extends table_common_member
 		return $uid;
 	}
 
+	/**
+	 * 统计会员数
+	 * @return int
+	 */
 	public function count() {
 		return isset($this->membersplit) ? DB::result_first('SELECT COUNT(*) FROM %t', array($this->_table)) : 0;
 	}
 
+	/**
+	 * 获取指定邮箱会员的数据
+	 * @param string $email email
+	 * @return array
+	 */
 	public function fetch_by_email($email) {
 		$user = array();
 		if(isset($this->membersplit) && $email && ($user = DB::fetch_first('SELECT * FROM %t WHERE email=%s', array($this->_table, $email)))) {
@@ -57,6 +81,11 @@ class table_common_member_archive extends table_common_member
 	}
 
 
+	/**
+	 * 统计指定邮箱的会员数
+	 * @param string $email
+	 * @return int
+	 */
 	public function count_by_email($email) {
 		$count = 0;
 		if(isset($this->membersplit) && $email) {
@@ -65,6 +94,11 @@ class table_common_member_archive extends table_common_member
 		return $count;
 	}
 
+	/**
+	 * 依据多个主键值， 返回一组数据
+	 * @param array $ids 主键值的数组
+	 * @return array
+	 */
 	public function fetch_all($ids) {
 		$data = array();
 		if(isset($this->membersplit) && ($ids = dintval($ids, true))) {
@@ -77,6 +111,10 @@ class table_common_member_archive extends table_common_member
 		return $data;
 	}
 
+	/**
+	 * 用户激活，从存档表转移到主表
+	 * @param int $uid 用户ID
+	 */
 	public function move_to_master($uid){
 		if(isset($this->membersplit) && ($uid = intval($uid)) && ($member = $this->fetch($uid))) {
 			unset($member['_inarchive']);
@@ -95,13 +133,20 @@ class table_common_member_archive extends table_common_member
 		}
 	}
 
+	/**
+	 * 依据主键删除某条记录
+	 * @param string|int $val 主键值
+	 * @return boolean
+	 */
 	public function delete($val, $unbuffered = false) {
 		return isset($this->membersplit) && ($val = dintval($val, true)) && DB::delete($this->_table, DB::field($this->_pk, $val), null, $unbuffered);
 	}
 
 	public function check_table() {
+		//存档表已经存在,则进行结构对比
 		if(DB::fetch_first("SHOW TABLES LIKE '".DB::table('common_member_archive')."'")){
 			return false;
+		//存档表不存在，则进行创建
 		} else {
 			$mastertables = array('common_member', 'common_member_count', 'common_member_status', 'common_member_profile', 'common_member_field_home', 'common_member_field_forum');
 			foreach($mastertables as $tablename) {
@@ -124,6 +169,7 @@ class table_common_member_archive extends table_common_member
 
 		$mastercols = DB::fetch_all('SHOW COLUMNS FROM '.$mastertable, null, 'Field');
 		$archivecols = DB::fetch_all('SHOW COLUMNS FROM '.$archivetable, null, 'Field');
+		//需要删除的字段
 		foreach(array_diff(array_keys($archivecols), array_keys($mastercols)) as $field) {
 			$updates[] = "DROP `$field`";
 		}
@@ -184,6 +230,7 @@ class table_common_member_archive extends table_common_member
 		}
 
 		$ret = true;
+		//升级处理
 		if(!empty($updates)) {
 			if(!DB::query("ALTER TABLE ".$archivetable." ".implode(', ', $updates), 'SILENT')) {
 				$ret = $mastertable;
@@ -193,6 +240,7 @@ class table_common_member_archive extends table_common_member
 		return $ret;
 	}
 
+	//正则匹配,获取字段/索引/关键字信息
 	private function getcolumn($creatsql) {
 
 		$creatsql = preg_replace("/ COMMENT '.*?'/i", '', $creatsql);
@@ -204,8 +252,8 @@ class table_common_member_archive extends table_common_member
 		foreach ($cols as $value) {
 			$value = trim($value);
 			if(empty($value)) continue;
-			$value = $this->remakesql($value);
-			if(substr($value, -1) == ',') $value = substr($value, 0, -1);
+			$value = $this->remakesql($value);//特使字符替换
+			if(substr($value, -1) == ',') $value = substr($value, 0, -1);//去掉末尾逗号
 
 			$vs = explode(' ', $value);
 			$cname = $vs[0];
@@ -232,9 +280,10 @@ class table_common_member_archive extends table_common_member
 		return $newcols;
 	}
 
+	//整理sql文
 	private function remakesql($value) {
-		$value = trim(preg_replace("/\s+/", ' ', $value));
-		$value = str_replace(array('`',', ', ' ,', '( ' ,' )', 'mediumtext'), array('', ',', ',','(',')','text'), $value);
+		$value = trim(preg_replace("/\s+/", ' ', $value));//空格标准化
+		$value = str_replace(array('`',', ', ' ,', '( ' ,' )', 'mediumtext'), array('', ',', ',','(',')','text'), $value);//去掉无用符号
 		return $value;
 	}
 }

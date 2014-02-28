@@ -11,9 +11,11 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//添加博客
 function blog_post($POST, $olds=array()) {
 	global $_G, $space;
 
+	//操作者角色切换
 	$isself = 1;
 	if(!empty($olds['uid']) && $olds['uid'] != $_G['uid']) {
 		$isself = 0;
@@ -22,26 +24,30 @@ function blog_post($POST, $olds=array()) {
 		$_G['username'] = addslashes($olds['username']);
 	}
 
+	//标题
 	$POST['subject'] = getstr(trim($POST['subject']), 80);
 	$POST['subject'] = censor($POST['subject']);
 	if(strlen($POST['subject'])<1) $POST['subject'] = dgmdate($_G['timestamp'], 'Y-m-d');
 	$POST['friend'] = intval($POST['friend']);
 
+	//隐私
 	$POST['target_ids'] = '';
 	if($POST['friend'] == 2) {
+		//特定好友
 		$uids = array();
 		$names = empty($_POST['target_names'])?array():explode(',', preg_replace("/(\s+)/s", ',', $_POST['target_names']));
 		if($names) {
 			$uids = C::t('common_member')->fetch_all_uid_by_username($names);
 		}
 		if(empty($uids)) {
-			$POST['friend'] = 3;
+			$POST['friend'] = 3;//仅自己可见
 		} else {
 			$POST['target_ids'] = implode(',', $uids);
 		}
 	} elseif($POST['friend'] == 4) {
+		//加密
 		$POST['password'] = trim($POST['password']);
-		if($POST['password'] == '') $POST['friend'] = 0;
+		if($POST['password'] == '') $POST['friend'] = 0;//公开
 	}
 	if($POST['friend'] !== 2) {
 		$POST['target_ids'] = '';
@@ -51,10 +57,10 @@ function blog_post($POST, $olds=array()) {
 	}
 
 	$POST['tag'] = dhtmlspecialchars(trim($POST['tag']));
-	$POST['tag'] = getstr($POST['tag'], 500);
+	$POST['tag'] = getstr($POST['tag'], 500);	//语词屏蔽
 	$POST['tag'] = censor($POST['tag']);
 
-	$POST['message'] = checkhtml($POST['message']);
+	//内容
 	if($_G['mobile']) {
 		$POST['message'] = getstr($POST['message'], 0, 0, 0, 1);
 		$POST['message'] = censor($POST['message']);
@@ -76,8 +82,10 @@ function blog_post($POST, $olds=array()) {
 		$blog_status = 0;
 	}
 
+	//个人分类
 	if(empty($olds['classid']) || $POST['classid'] != $olds['classid']) {
 		if(!empty($POST['classid']) && substr($POST['classid'], 0, 4) == 'new:') {
+			//分类名
 			$classname = dhtmlspecialchars(trim(substr($POST['classid'], 4)));
 			$classname = getstr($classname);
 			$classname = censor($classname);
@@ -102,11 +110,13 @@ function blog_post($POST, $olds=array()) {
 		$classid = $olds['classid'];
 	}
 	if($classid && empty($classname)) {
+		//是否是自己的
 		$query = C::t('home_class')->fetch($classid);
 		$classname = ($query['uid'] == $_G['uid']) ? $query['classname'] : '';
 		if(empty($classname)) $classid = 0;
 	}
 
+	//主表
 	$blogarr = array(
 		'subject' => $POST['subject'],
 		'classid' => $classid,
@@ -117,8 +127,10 @@ function blog_post($POST, $olds=array()) {
 		'status' => $blog_status,
 	);
 
+	//标题图片
 	$titlepic = '';
 
+	//获取上传的图片
 	$uploads = array();
 	if(!empty($POST['picids'])) {
 		$picids = array_keys($POST['picids']);
@@ -137,7 +149,9 @@ function blog_post($POST, $olds=array()) {
 		}
 	}
 
+	//插入文章
 	if($uploads) {
+		//更新上传的相册
 		$albumid = 0;
 		if($POST['savealbumid'] < 0 && !empty($POST['newalbum'])) {
 			$albumname = addslashes(dhtmlspecialchars(trim($POST['newalbum'])));
@@ -147,10 +161,12 @@ function blog_post($POST, $olds=array()) {
 		} else {
 			$albumid = $POST['savealbumid'] < 0 ? 0 : intval($POST['savealbumid']);
 		}
+		//相册封面图片更新
 		if($albumid) {
 			C::t('home_pic')->update_for_uid($_G['uid'], $picids, array('albumid' => $albumid));
 			album_update_pic($albumid);
 		}
+		//插入内容中的图片不再显示
 		preg_match_all("/\s*\<img src=\"(.+?)\".*?\>\s*/is", $message, $mathes);
 		if(!empty($mathes[1])) {
 			foreach ($mathes[1] as $key => $value) {
@@ -160,23 +176,27 @@ function blog_post($POST, $olds=array()) {
 				}
 			}
 		}
+		//未插入文章
 		foreach ($uploads as $value) {
 			$picurl = pic_get($value['filepath'], 'album', $value['thumb'], $value['remote'], 0);
 			$message .= "<div class=\"uchome-message-pic\"><img src=\"$picurl\"><p>$value[title]</p></div>";
 		}
 	}
 
+	//没有填写任何东西
 	$ckmessage = preg_replace("/(\<div\>|\<\/div\>|\s|\&nbsp\;|\<br\>|\<p\>|\<\/p\>)+/is", '', $message);
 	if(empty($ckmessage)) {
 		return false;
 	}
 
 
+	//热度
 	if(checkperm('manageblog')) {
 		$blogarr['hot'] = intval($POST['hot']);
 	}
 
 	if($olds['blogid']) {
+		//更新
 
 		if($blogarr['catid'] != $olds['catid']) {
 			if($olds['catid']) {
@@ -196,6 +216,7 @@ function blog_post($POST, $olds=array()) {
 		$blogarr['username'] = $olds['username'];
 	} else {
 
+		//系统分类
 		if($blogarr['catid']) {
 			C::t('home_blog_category')->update_num_by_catid(1, $blogarr['catid']);
 		}
@@ -212,6 +233,7 @@ function blog_post($POST, $olds=array()) {
 	$blogarr['blogid'] = $blogid;
 	$class_tag = new tag();
 	$POST['tag'] = $olds ? $class_tag->update_field($POST['tag'], $blogid, 'blogid') : $class_tag->add_tag($POST['tag'], $blogid, 'blogid');
+	//附表
 	$fieldarr = array(
 		'message' => $message,
 		'postip' => $_G['clientip'],
@@ -225,6 +247,7 @@ function blog_post($POST, $olds=array()) {
 	}
 
 	if($olds) {
+		//更新
 		C::t('home_blogfield')->update($blogid, $fieldarr);
 	} else {
 		$fieldarr['blogid'] = $blogid;
@@ -232,24 +255,30 @@ function blog_post($POST, $olds=array()) {
 		C::t('home_blogfield')->insert($fieldarr);
 	}
 
+	//空间更新
 	if($isself && !$olds && $blog_status == 0) {
+		//积分
 		updatecreditbyaction('publishblog', 0, array('blogs' => 1));
 
+		//统计
 		include_once libfile('function/stat');
 		updatestat('blog');
 	}
 
 	if($olds['blogid'] && $blog_status == 1) {
 		updatecreditbyaction('publishblog', 0, array('blogs' => -1), '', -1);
+		//统计
 		include_once libfile('function/stat');
 		updatestat('blog');
 	}
 
+	//产生feed
 	if($POST['makefeed'] && $blog_status == 0) {
 		include_once libfile('function/feed');
 		feed_publish($blogid, 'blogid', $olds?0:1);
 	}
 
+	//角色切换
 	if(!empty($__G)) $_G = $__G;
 	if($blog_status == 1) {
 		updatemoderate('blogid', $blogid);
@@ -258,6 +287,7 @@ function blog_post($POST, $olds=array()) {
 	return $blogarr;
 }
 
+//屏蔽html
 function checkhtml($html) {
 	if(!checkperm('allowhtml')) {
 
@@ -302,10 +332,12 @@ function checkhtml($html) {
 	return $html;
 }
 
+//视频标签处理
 function blog_bbcode($message) {
 	$message = preg_replace("/\[flash\=?(media|real|mp3)*\](.+?)\[\/flash\]/ie", "blog_flash('\\2', '\\1')", $message);
 	return $message;
 }
+//视频
 function blog_flash($swf_url, $type='') {
 	$width = '520';
 	$height = '390';

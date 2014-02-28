@@ -19,21 +19,26 @@ if(empty($_POST)) {
 	$_G['qc']['connect_auth_hash'] = $_GET['con_auth_hash'];
 	$_G['qc']['dreferer'] = dreferer();
 
+	// debug TODO cookie中也存了一样的数据，统一用cookie的值
 	if(!$_G['qc']['connect_auth_hash']) {
 		$_G['qc']['connect_auth_hash'] = $_G['cookie']['con_auth_hash'];
 	}
 	$conopenid = authcode($_G['qc']['connect_auth_hash']);
-
-	if (empty($conopenid)) {
+	
+	// debug 如果cookie中没找到openid 提示 重新使用qq号登录
+	if (empty($conopenid)) {	
 		showmessage('qqconnect:connect_login_first', $referer);
 	}
 
+	// debug 用户个人信息显示控制
 	$_G['qc']['connect_is_feed'] = true;
 
+	// debug 用户头像id
 	$_G['qc']['connect_app_id'] = $_G['setting']['connectappid'];
 	$_G['qc']['connect_openid'] = $conopenid;
 	unset($auth_code, $conopenid);
 
+	// debug 注册成功后是否同步用户信息
 	$_G['qc']['connect_is_notify'] = true;
 
 	foreach($_G['cache']['fields_register'] as $field) {
@@ -47,20 +52,26 @@ if(empty($_POST)) {
 
 } else {
 
+	// debug 是否限制QQ号创建论坛账号个数；uin是旧版用户
+	// debug TODO 确认一下$_GET['uin']
 	if(!empty($_G['setting']['checkuinlimit']) && !empty($_GET['uin'])) {
+		// debug 已达上限，去绑定已有账号
 		if($_G['qc']['uinlimit']) {
 			showmessage('qqconnect:connect_register_uinlimit', '', array('limit' => $this->setting['connect']['register_uinlimit']));
 		}
+		// debug 不允许QC注册，提示QQ注册已经关闭
 		if(!$_G['setting']['regconnect']) {
 			showmessage('qqconnect:connect_register_closed');
 		}
 	}
 
+	// debug connect.class.php里从connect_guest取出的数据
 	$conuin = $this->connect_guest['conuin'];
 	$conuinsecret = $this->connect_guest['conuinsecret'];
 	$conuintoken = $this->connect_guest['conuintoken'];
 	$conopenid = $this->connect_guest['conopenid'];
 
+	// debug 通过QQ登录的QQ登录态；论坛登录的用户解绑时，提醒他换QQ号登录先
 	$cookie_expires = 2592000;
 	dsetcookie('client_created', TIMESTAMP, $cookie_expires);
 	dsetcookie('client_token', 1, $cookie_expires);
@@ -117,18 +128,22 @@ if(empty($_POST)) {
 
 	C::t('#qqconnect#connect_memberbindlog')->insert(array('uid' => $uid, 'uin' => $conopenid, 'type' => '1', 'dateline' => $_G['timestamp']));
 	dsetcookie('con_auth_hash');
-
+	
+	// debug QQ互联游客用户表操作
 	C::t('#qqconnect#common_connect_guest')->delete($conopenid);
+	//更新会员数缓存
 	if(!function_exists('build_cache_userstats')) {
 		require_once libfile('cache/userstats', 'function');
 	}
 	build_cache_userstats();
 
 	if($_G['setting']['connect']['register_groupid']) {
+		// debug初始用户组
 		$userdata['groupid'] = $groupinfo['groupid'] = $_G['setting']['connect']['register_groupid'];
 	}
 	C::t('common_member')->update($uid, $userdata);
 
+	// debug QC注册加分
 	if($_G['setting']['connect']['register_addcredit']) {
 		$addcredit = array('extcredits'.$_G['setting']['connect']['register_rewardcredit'] => $_G['setting']['connect']['register_addcredit']);
 	}

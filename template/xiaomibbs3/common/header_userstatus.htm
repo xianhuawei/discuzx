@@ -7,7 +7,7 @@
                 <!--{avatar($_G[uid],small)}-->
                 {$_G[member][username]}
             </a>
-			<!--{if $_G['uid'] || getIsUvipUser($_G[member][miid])}-->
+			<!--{if $_G['uid'] || $isuvip}-->
 			<!--<span class="xm_avt_veri">-->
                 <a href="http://uvip.xiaomi.cn" target="_blank">
                     <img src="$_G['setting']['verify']['1'][icon]" class="vm" alt="$_G['setting']['verify']['1']['title']" title="$_G['setting']['verify']['1']['title']" />&nbsp;

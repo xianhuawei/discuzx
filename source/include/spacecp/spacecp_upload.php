@@ -37,21 +37,24 @@ if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 
 		$_POST['friend'] = intval($_POST['friend']);
 
+		//隐私
 		$_POST['target_ids'] = '';
 		if($_POST['friend'] == 2) {
+			//特定好友
 			$uids = array();
 			$names = empty($_POST['target_names']) ? array() : explode(' ', str_replace(array(lang('spacecp', 'tab_space'), "\r\n", "\n", "\r"), ' ', $_POST['target_names']));
 			if($names) {
 				$uids = C::t('common_member')->fetch_all_uid_by_username($names);
 			}
 			if(empty($uids)) {
-				$_POST['friend'] = 3;
+				$_POST['friend'] = 3;//仅自己可见
 			} else {
 				$_POST['target_ids'] = implode(',', $uids);
 			}
 		} elseif($_POST['friend'] == 4) {
+			//加密
 			$_POST['password'] = trim($_POST['password']);
-			if($_POST['password'] == '') $_POST['friend'] = 0;
+			if($_POST['password'] == '') $_POST['friend'] = 0;//公开
 		}
 		if($_POST['friend'] !== 2) {
 			$_POST['target_ids'] = '';
@@ -60,6 +63,7 @@ if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 			$_POST['password'] = '';
 		}
 
+		//创建相册
 		$setarr = array();
 		$setarr['albumname'] = $_POST['albumname'];
 		$setarr['catid'] = intval($_POST['catid']);
@@ -73,10 +77,12 @@ if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 
 		$albumid = C::t('home_album')->insert($setarr ,true);
 
+		//系统分类
 		if($setarr['catid']) {
 			C::t('home_album_category')->update_num_by_catid('1', $setarr[catid]);
 		}
 
+		//更新用户统计
 		if(empty($space['albumnum'])) {
 			$space['albums'] = C::t('home_album')->count_by_uid($space['uid']);
 			C::t('common_member_count')->update($_G['uid'], array('albums' => $space['albums']));
@@ -87,6 +93,7 @@ if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 	} else {
 		$albumid = intval($_POST['albumid']);
 	}
+	//判断是否有填写描述
 	$havetitle = trim(implode('', $_POST['title']));
 	if(!empty($havetitle)) {
 		foreach($_POST['title'] as $picid => $title) {
@@ -97,10 +104,12 @@ if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 		$picids = array_keys($_POST['title']);
 		C::t('home_pic')->update_for_uid($_G['uid'], $picids, array('albumid' => $albumid));
 	}
+	//相册封面图片更新
 	if($albumid) {
 		album_update_pic($albumid);
 	}
 
+	//相册feed
 	if(ckprivacy('upload', 'feed')) {
 		require_once libfile('function/feed');
 		feed_publish($albumid, 'albumid');
@@ -114,28 +123,34 @@ if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 		showmessage('no_privilege_upload', '', array(), array('return' => true));
 	}
 
+	//新用户见习
 	cknewuser();
 
 	$config = urlencode($_G['siteroot'].'home.php?mod=misc&ac=swfupload&op=config'.($_GET['op'] == 'cam'? '&cam=1' : ''));
 
+	//获取相册
 	$albums = getalbums($_G['uid']);
 
+	//激活
 	$actives = ($_GET['op'] == 'flash' || $_GET['op'] == 'cam')?array($_GET['op']=>' class="a"'):array('js'=>' class="a"');
 
+	//空间大小
 	$maxspacesize = checkperm('maxspacesize');
 	if(!empty($maxspacesize)) {
 
 		space_merge($space, 'count');
 		space_merge($space, 'field_home');
-		$maxspacesize = $maxspacesize + $space['addsize'] * 1024 * 1024;
+		$maxspacesize = $maxspacesize + $space['addsize'] * 1024 * 1024;//额外空间
 		$haveattachsize = ($maxspacesize < $space['attachsize'] ? '-':'').formatsize($maxspacesize - $space['attachsize']);
 	} else {
 		$haveattachsize = 0;
 	}
 
+	//好友组
 	require_once libfile('function/friend');
 	$groups = friend_group_list();
 
+	//系统分类
 	loadcache('albumcategory');
 	$category = $_G['cache']['albumcategory'];
 
@@ -150,6 +165,7 @@ $navtitle = lang('core', 'title_'.(!empty($_GET['op']) ? $_GET['op'] : 'normal')
 require_once libfile('function/upload');
 $swfconfig = getuploadconfig($_G['uid'], 0, false);
 
+//模版
 include_once template("home/spacecp_upload");
 
 ?>

@@ -17,11 +17,14 @@ if($page<1) $page=1;
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 $opactives['thread'] = 'class="a"';
 
+//默认显示
 if(empty($_GET['view'])) $_GET['view'] = 'me';
 $_GET['order'] = empty($_GET['order']) ? 'dateline' : $_GET['order'];
 
+//判断是否有权限看其它人的贴子
 $allowviewuserthread = $_G['setting']['allowviewuserthread'];
 
+//分页
 $perpage = 20;
 $start = ($page-1)*$perpage;
 ckstart($start, $perpage);
@@ -68,6 +71,7 @@ $listcount = 0;
 
 if($_GET['view'] == 'me') {
 
+	//自定义识别
 	if($_GET['from'] == 'space') $diymode = 1;
 	$allowview = true;
 	$viewtype = in_array($_GET['type'], array('reply', 'thread', 'postcomment')) ? $_GET['type'] : 'thread';
@@ -77,6 +81,7 @@ if($_GET['view'] == 'me') {
 			$allowview = false;
 		}
 		if($allowview) {
+			//将原来在这里限制查看版块的放到循环中判断
 			$viewuserthread = true;
 			$viewfids = str_replace("'", '', $allowviewuserthread);
 			if(!empty($viewfids)) {
@@ -85,6 +90,7 @@ if($_GET['view'] == 'me') {
 		}
 	}
 
+	//查看个人的
 	if($viewtype == 'thread' && $allowview) {
 		$authorid = $space['uid'];
 
@@ -180,11 +186,12 @@ if($_GET['view'] == 'me') {
 		require_once libfile('function/post');
 		$posts = C::t('forum_post')->fetch_all_by_authorid(0, $space['uid'], true, 'DESC', $start, $perpage, 0, $invisible, $vfid);
 		$listcount = count($posts);
+		//过滤不能看的版块
 		foreach($posts as $pid => $post) {
 			$delrow = false;
 			if($post['anonymous'] && $post['authorid'] != $_G['uid']) {
 				$delrow = true;
-			} elseif($viewuserthread && $post['authorid'] != $_G['uid']) {
+			} elseif($viewuserthread && $post['authorid'] != $_G['uid']) {	//判断是否是查看别人的帖子
 				if(($_G['adminid'] != 1 && !empty($viewfids) && !in_array($post['fid'], $viewfids))) {
 					$delrow = true;
 				}
@@ -200,13 +207,14 @@ if($_GET['view'] == 'me') {
 			}
 		}
 
+		//取出相应的主题
 		if(!empty($tids)) {
 
 			$threads = C::t('forum_thread')->fetch_all_by_tid_displayorder(array_keys($tids), $displayorder, $dglue, array(), $closed);
 
 			foreach($threads as $tid => $thread) {
 				$delrow = false;
-				if($_G['adminid'] != 1 && $thread['displayorder'] < 0) {
+				if($_G['adminid'] != 1 && $thread['displayorder'] < 0) {	//判断是否是查看别人的帖子
 					$delrow = true;
 				} elseif($_G['adminid'] != 1 && $_G['uid'] != $thread['authorid'] && getstatus($thread['status'], 2)) {
 					$delrow = true;
@@ -218,6 +226,7 @@ if($_GET['view'] == 'me') {
 					}
 				}
 				if($delrow) {
+					//释放部份post
 					foreach($tids[$tid] as $pid) {
 						unset($posts[$pid]);
 						$hiddennum++;
@@ -231,6 +240,7 @@ if($_GET['view'] == 'me') {
 				}
 
 			}
+			//重新获取群组的名称
 			if(!empty($gids)) {
 				$groupforums = C::t('forum_forum')->fetch_all_name_by_fid(array_keys($gids));
 				foreach($gids as $fid => $tid) {
@@ -239,6 +249,7 @@ if($_GET['view'] == 'me') {
 				}
 			}
 			if(!empty($tids)) {
+				//过滤没取到主题的回复
 				foreach($tids as $tid => $pids) {
 					foreach($pids as $pid) {
 						if(!isset($threads[$tid])) {
@@ -271,6 +282,7 @@ if($_GET['view'] == 'me') {
 
 		$fuid_actives = array();
 
+		//查看指定好友的
 		require_once libfile('function/friend');
 		$fuid = intval($_GET['fuid']);
 		if($fuid && friend_check($fuid, $space['uid'])) {
@@ -293,6 +305,7 @@ $actives = array($_GET['view'] =>' class="a"');
 
 if($need_count) {
 
+	//搜索
 	if($searchkey = stripsearchkey($_GET['searchkey'])) {
 		$searchkey = dhtmlspecialchars($searchkey);
 	}
@@ -306,6 +319,7 @@ if($need_count) {
 			$hiddennum++;
 			continue;
 		} elseif($viewuserthread && $value['authorid'] != $_G['uid']) {
+			//判断是否是查看别人的帖子
 			if(($_G['adminid'] != 1 && !empty($viewfids) && !in_array($value['fid'], $viewfids)) || $value['displayorder'] < 0) {
 				$hiddennum++;
 				continue;
@@ -333,6 +347,7 @@ if($need_count) {
 	$threads = &$list;
 
 
+	//分页
 	if($_GET['view'] != 'all') {
 		$listcount = count($list)+$hiddennum;
 		$multi = simplepage($listcount, $perpage, $page, $theurl);

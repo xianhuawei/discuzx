@@ -15,6 +15,14 @@ class Cloud {
 
 	static private $_loaded = array();
 
+	/**
+	 * loadClass
+	 * 单例方式载入 Cloud Service
+	 *
+	 * @param string $className Cloud类名(可以省略Cloud_)
+     * @param array $params 构造函数参数
+	 * @return object
+	 */
 	public static function loadClass($className, $params = null) {
 
 		if (strpos($className, 'Cloud_') !== 0) {
@@ -32,7 +40,7 @@ class Cloud {
 
 		$items = explode('_', $className);
 		if ($items[0] == 'Cloud') {
-			unset($items[0]);
+			unset($items[0]); // 第一级Cloud_不需要
 		}
 
 		$loadKey = implode('_', $items);

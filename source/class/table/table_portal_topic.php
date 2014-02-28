@@ -35,6 +35,11 @@ class table_portal_topic extends discuz_table
 		return $name ? DB::fetch_first('SELECT * FROM %t WHERE name=%s LIMIT 1', array($this->_table, $name)) : false;
 	}
 
+	/**
+	 * 累加数据的值
+	 * @param array $uids 会员ID
+	 * @param array $data 要累加的字段和累加值
+	 */
 	public function increase($ids, $data) {
 		$ids = array_map('intval', (array)$ids);
 		$sql = array();

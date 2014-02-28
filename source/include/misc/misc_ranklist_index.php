@@ -30,6 +30,7 @@ function is_ranklistcache_available($name) {
 
 function getranklistcache($name, $dateline = '') {
 	global $_G;
+	//note $_G['ranklist_cacheupdated'] 控制每次最多只更新一个缓存
 	if(is_ranklistcache_available($name) || $_G['ranklist_cacheupdated']) {
 		$ranklist = $_G['cache']['ranklist_index'][$name];
 		unset($ranklist['lastupdated']);
@@ -61,6 +62,9 @@ function getranklistcache($name, $dateline = '') {
 	return $ranklist;
 }
 
+/**
+	设置新缓存内容
+*/
 function ranklist_cache_push($name, $ranklist) {
 	global $_G;
 	$_G['cache']['ranklist_index'][$name] = $ranklist;

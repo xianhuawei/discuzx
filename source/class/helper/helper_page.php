@@ -14,12 +14,28 @@ if(!defined('IN_DISCUZ')) {
 class helper_page {
 
 
+	/**
+	* 分页
+	* @param $num - 总数
+	* @param $perpage - 每页数
+	* @param $curpage - 当前页
+	* @param $mpurl - 跳转的路径
+	* @param $maxpages - 允许显示的最大页数
+	* @param $page - 最多显示多少页码
+	* @param $autogoto - 最后一页，自动跳转
+	* @param $simple - 是否简洁模式（简洁模式不显示上一页、下一页和页码跳转）
+	* @param $jsfunc - js callback 
+	* @return 返回分页代码
+	*/
 	public static function multi($num, $perpage, $curpage, $mpurl, $maxpages = 0, $page = 10, $autogoto = FALSE, $simple = FALSE, $jsfunc = FALSE) {
 		global $_G;
+		//debug 加入 ajaxtarget 属性
 		$ajaxtarget = !empty($_GET['ajaxtarget']) ? " ajaxtarget=\"".dhtmlspecialchars($_GET['ajaxtarget'])."\" " : '';
 
+		//note 处理#描点
 		$a_name = '';
-
+                
+                //处理特殊字符
                 $mpurl = str_replace(array("'", '"', "\\"), array('%27', '%22', '%5c'), $mpurl);
 
 		if(strpos($mpurl, '#') !== FALSE) {
@@ -32,6 +48,7 @@ class helper_page {
 			$a_name = $jsfunc;
 			$pagevar = '';
 		} else {
+			//非JS模式下输出page=
 			$pagevar = 'page=';
 		}
 
@@ -43,6 +60,7 @@ class helper_page {
 		} else {
 			$shownum = $showkbd = FALSE;
 			$showpagejump = TRUE;
+			//noteX 手机模式下使用语言包的上下翻页(IN_MOBILE)
 			if(defined('IN_MOBILE') && !defined('TPL_DEFAULT')) {
 				$lang['prev'] = lang('core', 'prevpage');
 				$lang['next'] = lang('core', 'nextpage');
@@ -54,6 +72,7 @@ class helper_page {
 			$lang['total'] = lang('core', 'total');
 			$lang['pagejumptip'] = lang('core', 'pagejumptip');
 		}
+		//noteX 手机模式下使用较小的页数和小点(IN_MOBILE)
 		if(defined('IN_MOBILE') && !defined('TPL_DEFAULT')) {
 			$dot = '..';
 			$page = intval($page) < 10 && intval($page) > 0 ? $page : 4 ;
@@ -136,7 +155,14 @@ class helper_page {
 			return $mpurl.$separator.$pagevar.$page;
 		}
 	}
-
+	/**
+	* 只有上一页下一页的分页（无需知道数据总数）
+	* @param $num - 本次所取数据条数
+	* @param $perpage - 每页数
+	* @param $curpage - 当前页
+	* @param $mpurl - 跳转的路径
+	* @return 返回分页代码
+	*/
 	public static function simplepage($num, $perpage, $curpage, $mpurl) {
 		$return = '';
 		$lang['next'] = lang('core', 'nextpage');

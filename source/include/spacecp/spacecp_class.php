@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//检查信息
 $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 $op = empty($_GET['op'])?'':$_GET['op'];
 
@@ -37,6 +38,7 @@ if ($op == 'edit') {
 	}
 
 } elseif ($op == 'delete') {
+	//删除分类
 	if(submitcheck('deletesubmit')) {
 		C::t('home_blog')->update_classid_by_classid($classid, 0);
 		C::t('home_class')->delete($classid);
@@ -45,6 +47,7 @@ if ($op == 'edit') {
 	}
 }
 
+//模版
 include_once template("home/spacecp_class");
 
 ?>

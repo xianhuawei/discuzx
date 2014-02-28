@@ -11,16 +11,17 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+// [to do: 在获取member数据时作映射]
 $space['credit'] = $space['credits'];
 
 $op = empty($_GET['op']) ? "view" : $_GET['op'];
 $mid = empty($_GET['mid']) ? '' : trim($_GET['mid']);
 
 if(!checkperm('allowmagics')) {
-	showmessage('magic_groupid_not_allowed');
+	showmessage('magic_groupid_not_allowed');//您所在的用户组被禁止使用道具
 }
 
-if($op == 'cancelflicker') {
+if($op == 'cancelflicker') {//取消彩虹炫
 
 	$mid = 'flicker';
 	$_GET['idtype'] = 'cid';
@@ -35,10 +36,11 @@ if($op == 'cancelflicker') {
 		showmessage('do_success', dreferer(), array(), array('showdialog' => 1, 'closetime' => true));
 	}
 
-} elseif($op == 'cancelcolor') {
+} elseif($op == 'cancelcolor') {//取消彩色灯
 
 	$mid = 'color';
 	$_GET['id'] = intval($_GET['id']);
+	//idtype到含有magiccolor字段的表映射
 	$mapping = array('blogid'=>'blogfield', 'tid'=>'thread');
 	$tablename = $mapping[$_GET['idtype']];
 	if(empty($tablename)) {
@@ -63,7 +65,7 @@ if($op == 'cancelflicker') {
 		showmessage('do_success', dreferer(), 0);
 	}
 
-} elseif($op == 'receivegift') {
+} elseif($op == 'receivegift') {//note 领取红包
 
 	$uid = intval($_GET['uid']);
 	$mid = 'gift';
@@ -89,7 +91,7 @@ if($op == 'cancelflicker') {
 	}
 	showmessage('space_no_red_bag', dreferer(), array(), array('showdialog' => 1, 'locationtime' => true));
 
-} elseif($op == 'retiregift') {
+} elseif($op == 'retiregift') {//note 回收红包
 
 	$mid = 'gift';
 	$memberfieldhome = C::t('common_member_field_home')->fetch($_G['uid']);

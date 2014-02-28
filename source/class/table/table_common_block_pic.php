@@ -21,6 +21,11 @@ class table_common_block_pic extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 根据BID和ITEMID获取数据
+	 * @param int $bid 模块ID
+	 * @param int|array $itemid 数据ID
+	 */
 	public function fetch_all_by_bid_itemid($bid, $itemid = array()) {
 		return $bid ? DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field('bid', $bid).($itemid ? ' AND '.DB::field('itemid', $itemid) : '')) : array();
 	}

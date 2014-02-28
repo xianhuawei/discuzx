@@ -13,6 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 require_once libfile('block_thread', 'class/block/forum');
 
+// 精华贴
 class block_threaddigest extends block_thread {
 
 	function block_threaddigest() {

@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//获得指定用户好友列表fuid/fusername
 function friend_list($uid, $limit, $start=0) {
 	$list = array();
 	$query = C::t('home_friend')->fetch_all_by_uid($uid, $start, $limit, true);
@@ -20,6 +21,7 @@ function friend_list($uid, $limit, $start=0) {
 	return $list;
 }
 
+//获得当前用户的好友用户组
 function friend_group_list() {
 	global $_G;
 
@@ -46,6 +48,12 @@ function friend_group_list() {
 	return $groups;
 }
 
+/**
+ * 是否为好友
+ * @param mix $touids 要判断的id列表
+ * @param int $isfull 是否返回好友表的其它信息
+ * @return bool 返回是否为好友 同时在$_G变量中存储了好友关系和好友信息
+*/
 function friend_check($touids, $isfull = 0) {
 	global $_G;
 
@@ -64,7 +72,7 @@ function friend_check($touids, $isfull = 0) {
 			}
 		}
 
-		if(count($query) != count($touids)) {
+		if(count($query) != count($touids)) { //增加数组传递情况的返回值，判断是否全部为好友。
 			return false;
 		} else {
 			return true;
@@ -91,6 +99,7 @@ function friend_check($touids, $isfull = 0) {
 
 }
 
+//是否对方在我的好友请求里面
 function friend_request_check($touid) {
 	global $_G;
 
@@ -102,15 +111,20 @@ function friend_request_check($touid) {
 	return $_G[$var];
 }
 
+//添加好友 $touid要添加的用户UID $gid好友用户组 $note申请理由
+//返回 -2 已经是好友 -1 已经申请过，等待验证 1 添加成功
 function friend_add($touid, $gid=0, $note='') {
 	global $_G;
 
+	//检查是否已经是好友
 	if($touid == $_G['uid']) return -2;
-	if(friend_check($touid)) return -2;
+	if(friend_check($touid)) return -2;//已经是双向好友
 
 	include_once libfile('function/stat');
+	//检查对方是否在我的好友请求里面	
 	$freind_request = C::t('home_friend_request')->fetch_by_uid_fuid($_G['uid'], $touid);
 	if($freind_request) {
+		//添加我的好友列表
 		$setarr = array(
 			'uid' => $_G['uid'],
 			'fuid' => $freind_request['fuid'],
@@ -120,10 +134,13 @@ function friend_add($touid, $gid=0, $note='') {
 		);
 		C::t('home_friend')->insert($setarr);
 
+		//从我的好友申请中删除
 		friend_request_delete($touid);
 
+		//更新我的好友缓存
 		friend_cache($_G['uid']);
 
+		//将我添加为对方的好友
 		$setarr = array(
 			'uid' => $touid,
 			'fuid' => $_G['uid'],
@@ -134,15 +151,19 @@ function friend_add($touid, $gid=0, $note='') {
 		C::t('home_friend')->insert($setarr);
 
 		addfriendlog($_G['uid'], $touid);
+		//更新对方的好友缓存
 		friend_cache($touid);
+		//统计
 		updatestat('friend');
 	} else {
 
+		//判断我是否已经在对方的好友申请里面
 		$to_freind_request = C::t('home_friend_request')->fetch_by_uid_fuid($touid, $_G['uid']);
 		if($to_freind_request) {
-			return -1;
+			return -1;//已经申请过，等待验证
 		}
 
+		//向对方的好友申请表中添加好友申请
 		$setarr = array(
 			'uid' => $touid,
 			'fuid' => $_G['uid'],
@@ -153,23 +174,27 @@ function friend_add($touid, $gid=0, $note='') {
 		);
 		C::t('home_friend_request')->insert($setarr);
 
+		//统计
 		updatestat('addfriend');
 	}
 
 	return 1;
 }
 
+//直接成为双向好友
 function friend_make($touid, $tousername, $checkrequest=true) {
 	global $_G;
 
 	if($touid == $_G['uid']) return false;
 
 	if($checkrequest) {
+		//判断我是否已经在对方的好友申请里面
 		$to_freind_request = C::t('home_friend_request')->fetch_by_uid_fuid($touid, $_G['uid']);
 		if($to_freind_request) {
 			C::t('home_friend_request')->delete_by_uid_fuid($touid, $_G['uid']);
 		}
 
+		//判断对方是否在我的好友申请里面
 		$to_freind_request = C::t('home_friend_request')->fetch_by_uid_fuid($_G['uid'], $touid);
 		if($to_freind_request) {
 			C::t('home_friend_request')->delete_by_uid_fuid($_G['uid'], $touid);
@@ -194,12 +219,14 @@ function friend_make($touid, $tousername, $checkrequest=true) {
 	C::t('home_friend')->insert($insertarray, false, true);
 
 	addfriendlog($_G['uid'], $touid);
+	//增加统计
 	include_once libfile('function/stat');
 	updatestat('friend');
 	friend_cache($touid);
 	friend_cache($_G['uid']);
 }
 
+//添加好友日志
 function addfriendlog($uid, $touid, $action = 'add') {
 	global $_G;
 
@@ -218,6 +245,7 @@ function addfriendlog($uid, $touid, $action = 'add') {
 
 }
 
+//更新好友热度
 function friend_addnum($touid) {
 	global $_G;
 
@@ -226,14 +254,17 @@ function friend_addnum($touid) {
 	}
 }
 
+//更新好友缓存
 function friend_cache($touid) {
 	global $_G;
 
 	$tospace = array('uid' => $touid);
 	space_merge($tospace, 'field_home');
 
+	//屏蔽的用户组
 	$filtergids = empty($tospace['privacy']['filter_gid'])?array():$tospace['privacy']['filter_gid'];
 
+	//好友缓存
 	$uids = array();
 	$count = 0;
 	$fcount = 0;
@@ -255,20 +286,25 @@ function friend_cache($touid) {
 }
 
 
+//删除我的一个好友申请
 function friend_request_delete($touid) {
 	global $_G;
 
 	return C::t('home_friend_request')->delete_by_uid_fuid($_G['uid'], $touid);
 }
 
+//删除双向好友
 function friend_delete($touid) {
 	global $_G;
 
+	//判断是否是好友关系
 	if(!friend_check($touid)) return false;
 
 	C::t('home_friend')->delete_by_uid_fuid_dual($_G['uid'], $touid);
 
+	//更新统计数
 	if(DB::affected_rows()) {
+		//增加好友日志
 		addfriendlog($_G['uid'], $touid, 'delete');
 		friend_cache($_G['uid']);
 		friend_cache($touid);

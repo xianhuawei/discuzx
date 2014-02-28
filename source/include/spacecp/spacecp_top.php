@@ -28,6 +28,7 @@ if(submitcheck('friendsubmit')) {
 		showmessage('showcredit_error');
 	}
 
+	//检测好友
 	$_POST['fusername'] = trim($_POST['fusername']);
 	$friend = C::t('home_friend')->fetch_all_by_uid_username($space['uid'], $_POST['fusername'], 0, 1);
 	$friend = $friend[0];
@@ -36,6 +37,7 @@ if(submitcheck('friendsubmit')) {
 		showmessage('showcredit_fuid_error', '', array(), array('return' => 1));
 	}
 
+	//赠送
 	$count = getcount('home_show', array('uid'=>$fuid));
 	if($count) {
 		C::t('home_show')->update_credit_by_uid($fuid, $showcredit, false);
@@ -43,11 +45,14 @@ if(submitcheck('friendsubmit')) {
 		C::t('home_show')->insert(array('uid'=>$fuid, 'username'=>$_POST['fusername'], 'credit'=>$showcredit), false, true);
 	}
 
+	//减少自己的积分
 	updatemembercount($space['uid'], array($_G['setting']['creditstransextra'][6] => (0-$showcredit)), true, 'RKC', $space['uid']);
 
+	//给好友通知
 	notification_add($fuid, 'credit', 'showcredit', array('credit'=>$showcredit));
 
 
+	//feed
 	if(ckprivacy('show', 'feed')) {
 		require_once libfile('function/feed');
 		feed_add('show', 'feed_showcredit', array(

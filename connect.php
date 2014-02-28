@@ -7,6 +7,7 @@
 */
 
 
+// debug 用QQ号登陆论坛，且QQ号未绑定任何论坛账号时，走此论坛注册（或直接绑定已有论坛账号）流程
 if($_GET['mod'] == 'register') {
 	$_GET['mod'] = 'connect';
 	$_GET['action'] = 'register';

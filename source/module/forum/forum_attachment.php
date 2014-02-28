@@ -73,6 +73,7 @@ if(!$requestmode && $_G['setting']['attachrefcheck'] && $_SERVER['HTTP_REFERER']
 
 periodscheck('attachbanperiods');
 
+// 取得thread分表
 loadcache('threadtableids');
 $threadtableids = !empty($_G['cache']['threadtableids']) ? $_G['cache']['threadtableids'] : array();
 if(!in_array(0, $threadtableids)) {
@@ -81,6 +82,7 @@ if(!in_array(0, $threadtableids)) {
 $archiveid = in_array($_GET['archiveid'], $threadtableids) ? intval($_GET['archiveid']) : 0;
 
 
+// 检查附件aid 的数据记录，取得附件和主题信息
 $attachexists = FALSE;
 if(!empty($aid) && is_numeric($aid)) {
 	$attach = C::t('forum_attachment_n')->fetch($tableid, $aid);
@@ -108,10 +110,12 @@ if(!$attachexists) {
 }
 
 if(!$requestmode) {
+	// 取得附件所在版块信息
 	$forum = C::t('forum_forumfield')->fetch_info_for_attach($thread['fid'], $_G['uid']);
 
 	$_GET['fid'] = $forum['fid'];
 
+	// 会员附件下载权限判断
 	if($attach['isimage']) {
 		$allowgetattach = !empty($forum['allowgetimage']) || (($_G['group']['allowgetimage'] || $_G['uid'] == $attach['uid']) && !$forum['getattachperm']) || forumperm($forum['getattachperm']);
 	} else {
@@ -123,6 +127,7 @@ if(!$requestmode) {
 
 	$ismoderator = in_array($_G['adminid'], array(1, 2)) ? 1 : ($_G['adminid'] == 3 ? C::t('forum_moderator')->fetch_uid_by_tid($attach['tid'], $_G['uid'], $archiveid) : 0);
 
+	// 附件所在的主题权限判断（该主题进行出售)
 	$ispaid = FALSE;
 	$exemptvalue = $ismoderator ? 128 : 16;
 	if(!$thread['special'] && $thread['price'] > 0 && (!$_G['uid'] || ($_G['uid'] != $attach['uid'] && !($_G['group']['exempt'] & $exemptvalue)))) {
@@ -131,6 +136,7 @@ if(!$requestmode) {
 		}
 	}
 
+	// 附件出售以及需要购买判断
 	$exemptvalue = $ismoderator ? 64 : 8;
 	if($attach['price'] && (!$_G['uid'] || ($_G['uid'] != $attach['uid'] && !($_G['group']['exempt'] & $exemptvalue)))) {
 		$payrequired = $_G['uid'] ? !C::t('common_credit_log')->count_by_uid_operation_relatedid($_G['uid'], 'BAC', $attach['aid']) : 1;
@@ -141,6 +147,7 @@ if(!$requestmode) {
 $isimage = $attach['isimage'];
 $_G['setting']['ftp']['hideurl'] = $_G['setting']['ftp']['hideurl'] || ($isimage && !empty($_GET['noupdate']) && $_G['setting']['attachimgpost'] && strtolower(substr($_G['setting']['ftp']['attachurl'], 0, 3)) == 'ftp');
 
+// 图片附件的预览图输出
 if(empty($_GET['nothumb']) && $attach['isimage'] && $attach['thumb']) {
 	$db = DB::object();
 	$db->close();
@@ -157,6 +164,8 @@ if(empty($_GET['nothumb']) && $attach['isimage'] && $attach['thumb']) {
 
 $filename = $_G['setting']['attachdir'].'/forum/'.$attach['attachment'];
 if(!$attach['remote'] && !is_readable($filename)) {
+	// 旋风存储附件，当附件不可读取的时候，检查是否是旋风附件
+	// 目前为全部不可读的附件都检测，避免关闭服务后不能下载旋风附件
 	$storageService = Cloud::loadClass('Service_Storage');
 	$storageService->checkAttachment($attach);
 	if(!$requestmode) {
@@ -168,6 +177,7 @@ if(!$attach['remote'] && !is_readable($filename)) {
 
 
 if(!$requestmode) {
+	// 检查版块权限，如果该附件已经被付款，则允许访问
 	if(!$ispaid && !$forum['allowgetattach']) {
 		if(!$forum['getattachperm'] && !$allowgetattach) {
 			showmessage('getattachperm_none_nopermission', NULL, array(), array('login' => 1));
@@ -176,6 +186,7 @@ if(!$requestmode) {
 		}
 	}
 
+	// 非图片附件下载时候进行积分检查
 	$exemptvalue = $ismoderator ? 32 : 4;
 	if(!$isimage && !($_G['group']['exempt'] & $exemptvalue)) {
 		$creditlog = updatecreditbyaction('getattach', $_G['uid'], array(), '', 1, 0, $thread['fid']);
@@ -195,11 +206,13 @@ if(!$requestmode) {
 
 }
 
+// 取得多线程下载的rager值
 $range = 0;
 if($readmod == 4 && !empty($_SERVER['HTTP_RANGE'])) {
 	list($range) = explode('-',(str_replace('bytes=', '', $_SERVER['HTTP_RANGE'])));
 }
 
+// 更新附件的点击数
 if(!$requestmode && !$range && empty($_GET['noupdate'])) {
 	if($_G['setting']['delayviewcount']) {
 		$_G['forum_logfile'] = './data/cache/forum_attachviews_'.intval(getglobal('config/server/id')).'.log';
@@ -218,6 +231,7 @@ if(!$requestmode && !$range && empty($_GET['noupdate'])) {
 	}
 }
 
+// 及时关闭数据库以及开始输出附件内容
 $db = DB::object();
 $db->close();
 !$_G['config']['output']['gzip'] && ob_end_clean();
@@ -227,6 +241,7 @@ if($attach['remote'] && !$_G['setting']['ftp']['hideurl'] && $isimage) {
 	dheader('location:'.$_G['setting']['ftp']['attachurl'].'forum/'.$attach['attachment']);
 }
 
+// 为了兼容以前的一处filesize获取的问题
 $filesize = !$attach['remote'] ? filesize($filename) : $attach['filesize'];
 $attach['filename'] = '"'.(strtolower(CHARSET) == 'utf-8' && strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? urlencode($attach['filename']) : $attach['filename']).'"';
 
@@ -262,6 +277,7 @@ if(!empty($xsendfile)) {
 	}
 }
 
+// 支持下载软件的多线程下载头信息处理
 if($readmod == 4) {
 	dheader('Accept-Ranges: bytes');
 	if(!empty($_SERVER['HTTP_RANGE'])) {
@@ -272,6 +288,7 @@ if($readmod == 4) {
 	}
 }
 
+// 输出附件内容
 $attach['remote'] ? getremotefile($attach['attachment']) : getlocalfile($filename, $readmod, $range);
 
 function getremotefile($file) {

@@ -68,6 +68,7 @@ class block_forum extends discuz_block {
 				);
 	}
 
+	//可转换到的模块类型
 	function fieldsconvert() {
 		return array(
 				'group_group' => array(
@@ -89,6 +90,7 @@ class block_forum extends discuz_block {
 		global $_G;
 
 		$settings = $this->setting;
+		// 加工特殊信息
 		loadcache('forums');
 		$settings['fups']['value'][] = array(0, lang('portalcp', 'block_all_forum'));
 		if(empty($_G['cache']['forums'])) $_G['cache']['forums'] = array();
@@ -102,6 +104,7 @@ class block_forum extends discuz_block {
 		global $_G;
 
 		$parameter = $this->cookparameter($parameter);
+		//参数准备
 		$fids	= !empty($parameter['fids']) ? explode(',',$parameter['fids']) : array();
 		$fups		= isset($parameter['fups']) && !in_array(0, (array)$parameter['fups']) ? $parameter['fups'] : '';
 		$orderby	= isset($parameter['orderby']) ? (in_array($parameter['orderby'],array('displayorder','threads','posts', 'todayposts')) ? $parameter['orderby'] : 'displayorder') : 'displayorder';

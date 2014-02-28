@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//检查信息
 $blogid = empty($_GET['blogid'])?0:intval($_GET['blogid']);
 $op = empty($_GET['op'])?'':$_GET['op'];
 
@@ -20,6 +21,7 @@ if($blogid) {
 		C::t('home_blog')->fetch($blogid),
 		C::t('home_blogfield')->fetch($blogid)
 	);
+	//标签显示处理
 	if($blog['tag']) {
 		$tagarray_all = $array_temp = $blogtag_array = array();
 		$tagarray_all = explode("\t", $blog['tag']);
@@ -35,18 +37,22 @@ if($blogid) {
 	}
 }
 
+//权限检查
 if(empty($blog)) {
 	if(!helper_access::check_module('blog') || !checkperm('allowblog')) {
 		showmessage('no_authority_to_add_log', '', array(), array('return' => true));
 	}
 
+	//新用户见习
 	cknewuser();
 
+	//判断是否发布太快
 	$waittime = interval_check('post');
 	if($waittime > 0) {
 		showmessage('operating_too_fast', '', array('waittime' => $waittime), array('return' => true));
 	}
 
+	//接收外部标题
 	$blog['subject'] = empty($_GET['subject'])?'':getstr($_GET['subject'], 80);
 	$blog['message'] = empty($_GET['message'])?'':getstr($_GET['message'], 5000);
 
@@ -57,6 +63,7 @@ if(empty($blog)) {
 	}
 }
 
+//添加编辑操作
 if(submitcheck('blogsubmit', 0, $seccodecheck, $secqaacheck) && helper_access::check_module('blog')) {
 
 	if(empty($blog['blogid'])) {
@@ -88,6 +95,7 @@ if(submitcheck('blogsubmit', 0, $seccodecheck, $secqaacheck) && helper_access::c
 }
 
 if($_GET['op'] == 'delete') {
+	//删除
 	if(submitcheck('deletesubmit')) {
 		require_once libfile('function/delete');
 		if(deleteblogs(array($blogid))) {
@@ -98,10 +106,13 @@ if($_GET['op'] == 'delete') {
 	}
 
 } elseif($_GET['op'] == 'stick') {
+	//删除
 	space_merge($space, 'field_home');
 
+	//0 为取消置顶标记，1 设置置顶标记
 	$stickflag = $_GET['stickflag'] ? 1 : 0;
 	if(submitcheck('sticksubmit')) {
+		//自己的日志并且为正常状态
 		if($space['uid'] === $blog['uid'] && empty($blog['status'])) {
 			$stickblogs = explode(',', $space['stickblogs']);
 			$pos = array_search($blogid, $stickblogs);
@@ -121,6 +132,7 @@ if($_GET['op'] == 'delete') {
 	}
 
 } elseif($_GET['op'] == 'edithot') {
+	//权限
 	if(!checkperm('manageblog')) {
 		showmessage('no_privilege_edithot_blog');
 	}
@@ -139,7 +151,10 @@ if($_GET['op'] == 'delete') {
 	}
 
 } else {
+	//添加编辑
+	//获取个人分类
 	$classarr = $blog['uid']?getclassarr($blog['uid']):getclassarr($_G['uid']);
+	//获取相册
 	$albums = getalbums($_G['uid']);
 
 	$friendarr = array($blog['friend'] => ' selected');
@@ -163,10 +178,12 @@ if($_GET['op'] == 'delete') {
 
 	$allowhtml = checkperm('allowhtml');
 
+	//好友组
 	require_once libfile('function/friend');
 	$groups = friend_group_list();
 
 	if($_G['setting']['blogcategorystat']) {
+		//系统分类
 		loadcache('blogcategory');
 		$category = $_G['cache']['blogcategory'];
 
@@ -176,6 +193,7 @@ if($_GET['op'] == 'delete') {
 			$categoryselect = category_showselect('blog', 'catid', !$_G['setting']['blogcategoryrequired'] ? true : false, $blog['catid']);
 		}
 	}
+	//菜单激活
 	$menuactives = array('space'=>' class="active"');
 }
 require_once libfile('function/upload');

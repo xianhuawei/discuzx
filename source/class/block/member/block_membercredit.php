@@ -15,6 +15,7 @@ require_once libfile('block_member', 'class/block/member');
 
 class block_membercredit extends block_member {
 	function block_membercredit() {
+		// 初始化设置项
 		$this->setting = array(
 			'orderby' => array(
 				'title' => 'memberlist_orderby',

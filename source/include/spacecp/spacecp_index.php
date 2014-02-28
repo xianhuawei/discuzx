@@ -13,6 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 $op = in_array($_GET['op'], array('start', 'layout', 'block', 'style', 'diy', 'image', 'getblock', 'edit', 'setmusic', 'getspaceinfo', 'savespaceinfo', 'editnv', 'getpersonalnv')) ? $_GET['op'] : 'start';
 
+//模块处理功能
 require_once libfile('function/space');
 require_once libfile('function/portalcp');
 
@@ -27,6 +28,7 @@ if ($op == 'start') {
 	$themes = gettheme('space');
 
 } elseif ($op == 'block') {
+	//所有模块
 	$block = getblockdata();
 } elseif ($op == 'diy' || $op == 'image') {
 
@@ -34,21 +36,26 @@ if ($op == 'start') {
 	$page = empty($_GET['page'])?1:intval($_GET['page']);
 	if($page<1) $page=1;
 
+	//图片列表
 	$perpage = 6;
 	$perpage = mob_perpage($perpage);
 
 	$start = ($page-1)*$perpage;
 
+	//检查开始数
 	ckstart($start, $perpage);
 
 	$albumlist = array();
+	//查询相册
 	$query = C::t('home_album')->fetch_all_by_uid($space['uid'], 'updatetime');
 	foreach($query as $value) {
+		//最新更新的相册的id
 		if (!isset($_GET['albumid']) && empty($albumid)) $albumid = $value['albumid'];
 
 		$albumlist[$value['albumid']] = $value;
 	}
 
+	//默认相册
 	$count = C::t('home_pic')->check_albumpic(0, NULL, $space['uid']);
 	$albumlist[0] = array(
 		'uid' => $space['uid'],
@@ -58,15 +65,18 @@ if ($op == 'start') {
 	);
 
 	if ($albumid > 0) {
+		//相册不存在
 		if (!isset($albumlist[$albumid])) {
 			showmessage('to_view_the_photo_does_not_exist');
 		}
 
 		$count = $albumlist[$albumid]['picnum'];
 	} else {
+		//默认相册
 		$wheresql = "albumid='0' AND uid='$space[uid]'";
 	}
 
+	//图片列表
 	$list = array();
 	if($count) {
 		$query = C::t('home_pic')->fetch_all_by_albumid($albumid, $start, $perpage, 0, 0, 1, ($albumid > 0 ? 0 : $space['uid']));
@@ -77,6 +87,7 @@ if ($op == 'start') {
 	}
 
 	$_GET['ajaxtarget'] = empty($_GET['ajaxtarget']) ? 'diyimages' : $_GET['ajaxtarget'];
+	//分页
 	$multi = multi($count, $perpage, $page, "home.php?mod=spacecp&ac=index&op=image&albumid=$albumid");
 
 } elseif ($op == 'getblock') {
@@ -107,6 +118,7 @@ if ($op == 'start') {
 	$personalnv = !empty($blockposition) && isset($blockposition['nv']) ? $blockposition['nv'] : '';
 } elseif ($op == 'savespaceinfo') {
 	space_merge($space,'field_home');
+	//保存个人空间名称和简介
 	if (submitcheck('savespaceinfosubmit')) {
 
 		$spacename = getstr($_POST['spacename'], 30);
@@ -130,6 +142,7 @@ if ($op == 'start') {
 		$personalnv['nvhidden'] = 0;
 	}
 }
+//模块设置数据保存
 if (submitcheck('blocksubmit')) {
 
 	$blockname = getstr($_GET['blockname'],15);
@@ -137,6 +150,7 @@ if (submitcheck('blocksubmit')) {
 		space_merge($space,'field_home');
 		$blockdata = dunserialize($space['blockposition']);
 
+		//共同的标题
 		$title = getstr($_POST['blocktitle'],50);
 		$blockdata['parameters'][$blockname]['title'] = $title;
 
@@ -156,12 +170,14 @@ if (submitcheck('blocksubmit')) {
 		} elseif(in_array($blockname, array('personalinfo'))) {
 
 		} else {
+			//部分共同的的显示条数
 			$shownum = max(1,intval($_POST['shownum']));
 			if ($shownum <= 20) {
 				$blockdata['parameters'][$blockname]['shownum'] = $shownum;
 			}
 		}
 
+		//个性的参数
 		if($blockname == 'blog') {
 			$blockdata['parameters'][$blockname]['showmessage'] = min(100000, abs(intval($_GET['showmessage'])));
 		} elseif($blockname == 'myapp') {
@@ -178,6 +194,7 @@ if (submitcheck('blocksubmit')) {
 	}
 }
 
+//导航数据保存
 if (submitcheck('editnvsubmit')) {
 
 	$hidden = intval($_POST['nvhidden']);
@@ -193,6 +210,7 @@ if (submitcheck('editnvsubmit')) {
 		$personalnv['banitems'][$value] = empty($_POST['ban'.$value]) ? 0 : 1;
 	}
 	$blockdata['nv'] = $personalnv;
+	//保存
 	$setarr = array();
 	$setarr['blockposition'] = serialize($blockdata);
 	C::t('common_member_field_home')->update($space['uid'], $setarr);
@@ -201,6 +219,7 @@ if (submitcheck('editnvsubmit')) {
 
 }
 
+//音乐盒设置数据保存
 if (submitcheck('musicsubmit')) {
 
 	$blockname = getstr($_GET['blockname'],15);
@@ -265,6 +284,7 @@ if (submitcheck('musicsubmit')) {
 	showmessage('do_success', 'home.php?mod=spacecp&ac=index&op=getblock&blockname='.$blockname, array('blockname'=>$blockname));
 }
 
+//diy数据保存
 if (submitcheck('diysubmit')) {
 
 	$blockdata = array();
@@ -275,13 +295,14 @@ if (submitcheck('diysubmit')) {
 	$spacecss = preg_replace("/(\<|\>)/is", '', $spacecss);
 
 	$currentlayout = getstr($_POST['currentlayout'],5);
-	$style = empty($_POST['style'])?'':preg_replace("/[^0-9a-z]/i", '', $_POST['style']);
+	$style = empty($_POST['style'])?'':preg_replace("/[^0-9a-z]/i", '', $_POST['style']); //风格样式
 
 	$layoutdata = $_POST['layoutdata'];
 	require_once libfile('class/xml');
 	$layoutdata = xml2array($layoutdata);
 	if (empty($layoutdata)) showmessage('space_data_format_invalid');
 	$layoutdata = $layoutdata['diypage'];
+	//确定文件是否存在
 	if($style && $style != 'uchomedefault') {
 		$cssfile = DISCUZ_ROOT.'./static/space/'.$style.'/style.css';
 		if(!file_exists($cssfile)) {
@@ -301,7 +322,9 @@ if (submitcheck('diysubmit')) {
 	showmessage('do_success','home.php?mod=space'.($_G['adminid'] == 1 && $_G['setting']['allowquickviewprofile'] ? '&view=admin' : ''));
 }
 
+//上传图片数据保存
 if (submitcheck('uploadsubmit')) {
+	//上传图片
 	$albumid = $picid = 0;
 
 	if(!checkperm('allowupload')) {

@@ -17,9 +17,11 @@ if($page<1) $page=1;
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 $opactives['activity'] = 'class="a"';
 
+//默认显示
 if(empty($_GET['view'])) $_GET['view'] = 'we';
 $_GET['order'] = empty($_GET['order']) ? 'dateline' : $_GET['order'];
 
+//分页
 $perpage = 20;
 $perpage = mob_perpage($perpage);
 $start = ($page-1)*$perpage;
@@ -57,6 +59,7 @@ if($_GET['view'] == 'me') {
 
 	if($space['feedfriend']) {
 		$fuid_actives = array();
+		//查看指定好友的
 		require_once libfile('function/friend');
 		$fuid = intval($_GET['fuid']);
 		if($fuid && friend_check($fuid, $space['uid'])) {

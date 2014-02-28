@@ -14,6 +14,12 @@ if(!defined('IN_DISCUZ')) {
 class helper_seo {
 
 
+	/**
+	 * 获取 SEO设置
+	 * @param string $page 调用哪个页面的
+	 * @param array $data 可替换数据
+	 * @return array('seotitle', 'seodescription', 'seokeywords')
+	 */
 	public static function get_seosetting($page, $data = array(), $defset = array()) {
 		global $_G;
 		$searchs = array('{bbname}');
@@ -27,6 +33,7 @@ class helper_seo {
 		if($pageparams) {
 			foreach($pageparams[1] as $var) {
 				$searchs[] = '{'.$var.'}';
+				//处理分页，分页数大于1时显示
 				if($var == 'page') {
 					$data['page'] = $data['page'] > 1 ? lang('core', 'page', array('page' => $data['page'])) : '';
 				}
@@ -46,12 +53,25 @@ class helper_seo {
 	}
 
 
+	/**
+	 * 需处理连续分隔符的str_replace()
+	 * @param array $searchs 被替换的数组
+	 * @param array $replaces 用于替换的数组
+	 * @param string $str 目标字符串
+	 */
 	public static function strreplace_strip_split($searchs, $replaces, $str) {
 		$searchspace = array('((\s*\-\s*)+)', '((\s*\,\s*)+)', '((\s*\|\s*)+)', '((\s*\t\s*)+)', '((\s*_\s*)+)');
 		$replacespace = array('-', ',', '|', ' ', '_');
 		return trim(preg_replace($searchspace, $replacespace, str_replace($searchs, $replaces, $str)), ' ,-|_');
 	}
 
+	/**
+	 * 返回带第几页的title
+	 * @global  $_G
+	 * @param string $navtitle 源标题
+	 * @param int $page 页码
+	 * @return string
+	 */
 	public static function get_title_page($navtitle, $page){
 		if($page > 1) {
 			$navtitle .= ' - '.lang('core', 'page', array('page' => $page));
@@ -59,6 +79,12 @@ class helper_seo {
 		return $navtitle;
 	}
 
+	/**
+	 * 获取批定类型的关联连接
+	 *
+	 * @param string $extent 内容所需关联链接范围　article, forum, group, blog
+	 * @return string 有效的关联链接
+	 */
 	public static function get_related_link($extent) {
 		global $_G;
 		loadcache('relatedlink');
@@ -76,6 +102,13 @@ class helper_seo {
 		return $links;
 	}
 
+	/**
+	 * 在给定内容中加入关联连接
+	 *
+	 * @param string $content 需要加入关联链接的内容
+	 * @param string $extent 内容所需关联链接范围　article, forum, group, blog
+	 * @return string 变更后的内容
+	 */
 	public static function parse_related_link($content, $extent) {
 		global $_G;
 		loadcache('relatedlink');
@@ -100,6 +133,15 @@ class helper_seo {
 	}
 
 
+	/**
+	 * 用于正则替换的特殊base64
+	 *
+	 * @param string $type encode OR decode
+	 * @param string $prefix 结果前缀
+	 * @param string $string 要操作的字符串
+	 * @param string $suffix 结果后缀
+	 * @return string 变更后的内容
+	 */
 	public static function base64_transform($type, $prefix, $string, $suffix) {
 		global $_G;
 		if($type == 'encode') {

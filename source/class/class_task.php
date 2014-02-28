@@ -29,6 +29,9 @@ class task {
 		return $object;
 	}
 
+	/*
+	 * 任务列表
+	 */
 	function tasklist($item) {
 		global $_G;
 
@@ -139,6 +142,9 @@ class task {
 
 		return $tasklist;
 	}
+	/*
+	 * 返回任务条目
+	 */
 	function view($id) {
 		global $_G;
 
@@ -311,6 +317,9 @@ class task {
 		return array($allowapply, $nextapplytime);
 	}
 
+	/*
+	 * 任务申请
+	 */
 	function apply($id) {
 		global $_G;
 
@@ -367,6 +376,9 @@ class task {
 		return true;
 	}
 
+	/*
+	 * 任务进度
+	 */
 	function draw($id) {
 		global $_G;
 
@@ -470,6 +482,9 @@ class task {
 		}
 	}
 
+	/*
+	 * 任务放弃
+	 */
 	function giveup($id) {
 		global $_G;
 
@@ -485,6 +500,9 @@ class task {
 		C::t('common_task')->update_applicants($id, -1);
 	}
 
+	/*
+	 * 任务参与者
+	 */
 	function parter($id) {
 		$parterlist = array();
 		foreach(C::t('common_mytask')->fetch_all_by_taskid($id, 8) as $parter) {
@@ -496,6 +514,9 @@ class task {
 		return $parterlist;
 	}
 
+	/*
+	 * 任务放弃
+	 */
 	function delete($id) {
 		global $_G;
 		$mytask = C::t('common_mytask')->fetch($_G['uid'], $id);
@@ -513,6 +534,9 @@ class task {
 		return true;
 	}
 
+	/*
+	 * 任务奖励
+	 */
 	function reward() {
 		switch($this->task['reward']) {
 			case 'credit': return $this->reward_credit($this->task['prize'], $this->task['bonus']); break;
@@ -523,6 +547,11 @@ class task {
 		}
 	}
 
+	/**
+	* 奖励积分
+	* @param $extcreditid - 扩展积分ID
+	* @param $credits - 积分数量
+	*/
 	function reward_credit($extcreditid, $credits) {
 		global $_G;
 
@@ -530,6 +559,11 @@ class task {
 		updatemembercount($_G['uid'], $creditsarray, 1, 'TRC', $this->task['taskid']);
 	}
 
+	/**
+	* 奖励道具
+	* @param $magicid - 道具ID
+	* @param $num - 道具数量
+	*/
 	function reward_magic($magicid, $num) {
 		global $_G;
 
@@ -544,6 +578,11 @@ class task {
 		}
 	}
 
+	/**
+	* 奖励勋章
+	* @param $medalid - 勋章ID
+	* @param $day - 勋章有效期
+	*/
 	function reward_medal($medalid, $day) {
 		global $_G;
 
@@ -565,6 +604,11 @@ class task {
 		}
 	}
 
+	/**
+	* 奖励邀请码
+	* @param $day - 邀请码有效期
+	* @param $num - 邀请码数量
+	*/
 	function reward_invite($num, $day) {
 		global $_G;
 		$day = empty($day) ? 5 : $day;
@@ -585,6 +629,11 @@ class task {
 
 	}
 
+	/**
+	* 奖励特殊用户组
+	* @param $gid - 特殊用户组ID
+	* @param $day - 用户组有效期
+	*/
 	function reward_group($gid, $day = 0) {
 		global $_G;
 
@@ -613,6 +662,9 @@ class task {
 		}
 	}
 
+	/**
+	 * 任务信息
+	 */
 	function message($csc, $msg, $values = array()) {
 		include template('common/header_ajax');
 		$msg = lang('message', $msg, $values);

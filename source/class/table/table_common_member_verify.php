@@ -18,8 +18,8 @@ class table_common_member_verify extends discuz_table
 		$this->_table = 'common_member_verify';
 		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'common_member_verify_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
+		//$this->_cache_ttl = 0;
+
 		parent::__construct();
 	}
 

@@ -10,6 +10,13 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+/**
+ * 处理搜索的关键字
+ * @param string $keyword 关键字
+ * @param string $field 字段名 "t.subject LIKE '%{text}%'"
+ * @param bool $returnsrchtxt 是否返回关键字
+ * @return string
+ */
 function searchkey($keyword, $field, $returnsrchtxt = 0) {
 	$srchtxt = '';
 	if($field && $keyword) {

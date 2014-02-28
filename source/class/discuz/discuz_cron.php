@@ -14,6 +14,12 @@ if(!defined('IN_DISCUZ')) {
 class discuz_cron
 {
 
+	/**
+	 * 运行cron
+	 *
+	 * @param int $cronid 执行某个cron，如果不指定则运行当前需要运行的
+	 * @return true
+	 */
 	public static function run($cronid = 0) {
 		global $_G;
 		$cron = $cronid ? C::t('common_cron')->fetch($cronid) : C::t('common_cron')->fetch_nextrun(TIMESTAMP);
@@ -57,6 +63,10 @@ class discuz_cron
 		return true;
 	}
 
+	/**
+	 * 设定下一个计划任务将要执行的时间 here...
+	 *
+	 */
 	private static function nextcron() {
 		$cron = C::t('common_cron')->fetch_nextcron();
 		if($cron && isset($cron['nextrun'])) {
@@ -67,6 +77,12 @@ class discuz_cron
 		return true;
 	}
 
+	/**
+	 * 设定某个计划任务下次执行时间
+	 *
+	 * @param array $cron
+	 * @return true
+	 */
 	private static function setnextime($cron) {
 
 		if(empty($cron)) return FALSE;
@@ -119,6 +135,14 @@ class discuz_cron
 		return true;
 	}
 
+	/**
+	 * 计算计划任务今日执行状态
+	 *
+	 * @param int $cron
+	 * @param int $hour
+	 * @param int $minute
+	 * @return int
+	 */
 	private static function todaynextrun($cron, $hour = -2, $minute = -2) {
 
 		$hour = $hour == -2 ? gmdate('H', TIMESTAMP + getglobal('setting/timeoffset') * 3600) : $hour;
@@ -159,6 +183,13 @@ class discuz_cron
 		return $nexttime;
 	}
 
+	/**
+	 * 计算计划任务执行时刻
+	 *
+	 * @param int $nextminutes
+	 * @param int $minutenow
+	 * @return int
+	 */
 	private static function nextminute($nextminutes, $minutenow) {
 		foreach($nextminutes as $nextminute) {
 			if($nextminute > $minutenow) {

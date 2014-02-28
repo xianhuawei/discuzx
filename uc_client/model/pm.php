@@ -9,15 +9,15 @@
 
 !defined('IN_UC') && exit('Access Denied');
 
-define('PMINBALCKLIST_ERROR', -6);
-define('PMSENDSELF_ERROR', -8);
-define('PMSENDNONE_ERROR', -9);
-define('PMSENDCHATNUM_ERROR', -10);
-define('PMTHREADNONE_ERROR', -11);
-define('PMPRIVILEGENONE_ERROR', -12);
-define('PMCHATTYPE_ERROR', -13);
-define('PMUIDTYPE_ERROR', -14);
-define('PMDATA_ERROR', -15);
+define('PMINBALCKLIST_ERROR', -6);// 在忽略列表中
+define('PMSENDSELF_ERROR', -8);// 不能给自己发短消息
+define('PMSENDNONE_ERROR', -9);// 收件人为空
+define('PMSENDCHATNUM_ERROR', -10);// 发起群聊人数小于两人
+define('PMTHREADNONE_ERROR', -11);// 会话不存在
+define('PMPRIVILEGENONE_ERROR', -12);// 没有权限
+define('PMCHATTYPE_ERROR', -13);// 不是群聊类型
+define('PMUIDTYPE_ERROR', -14);// 不是两人类型
+define('PMDATA_ERROR', -15);// 数据有误
 
 class pmmodel {
 
@@ -36,6 +36,12 @@ class pmmodel {
 		return @is_numeric($pmid) ? $pmid : 0;
 	}
 
+	/**
+		根据pmid获取短消息内容
+		@param int $uid 提取数据的用户id
+		@param int $pmid 指定的短消息id
+		@return array
+	 */
 	function getpmbypmid($uid, $pmid) {
 		if(!$pmid) {
 			return array();
@@ -49,6 +55,12 @@ class pmmodel {
 		return $arr;
 	}
 
+	/**
+		判断是否有权限
+		@param int $plid 会话plid
+		@param int $uid 判断的用户id
+		@return boolean
+	 */
 	function isprivilege($plid, $uid) {
 		if(!$plid || !$uid) {
 			return true;
@@ -61,6 +73,15 @@ class pmmodel {
 		}
 	}
 
+	/**
+		通过会话id查找聊天记录
+		@param int $uid 操作的当前用户id
+		@param int $plid 查找的会话id
+		@param int $starttime 开始时间时间戳
+		@param int $endtime 结束时间时间戳
+		@param int $type 是否为群聊 0为两人会话，1为群聊会话
+		@return array
+	 */
 	function getpmbyplid($uid, $plid, $starttime, $endtime, $start, $ppp, $type = 0) {
 		if(!$type) {
 			$pm = $this->getprivatepmbyplid($uid, $plid, $starttime, $endtime, $start, $ppp);
@@ -70,6 +91,11 @@ class pmmodel {
 		return $this->getpostlist($pm);
 	}
 
+	/**
+		现有数据转化成原有老的数据格式 原始数据使用pm_messages_n表和pm_lists表联合而成
+		@param array $list 原始数据列表
+		@return array
+	 */
 	function getpostlist($list) {
 		if(empty($list)) {
 			return array();
@@ -95,6 +121,7 @@ class pmmodel {
 			}
 			$value['author'] = $authorarr[$value['authorid']];
 
+			// 与原来数据兼容
 			$value['msgfromid'] = $value['authorid'];
 			$value['msgfrom'] = $value['author'];
 			$value['msgtoid'] = $value['touid'];
@@ -107,6 +134,14 @@ class pmmodel {
 		return $list;
 	}
 
+	/**
+		改变已读未读状态
+		@param int $uid 当前用户id
+		@param array $touids 改变与该用户对话的状态
+		@param array $plids 改变与该会话的状态
+		@param int $status 改变的状态
+		@return boolean
+	 */
 	function setpmstatus($uid, $touids, $plids, $status = 0) {
 		if(!$uid) {
 			return false;
@@ -121,7 +156,7 @@ class pmmodel {
 		if($touids) {
 			foreach($touids as $key => $value) {
 				if($uid == $value || !$value) {
-					return false;
+					return false;// 防数据有问题
 				}
 				$relastionship[] = $this->relationship($uid, $value);
 			}
@@ -140,14 +175,29 @@ class pmmodel {
 		return true;
 	}
 
+	/**
+		忽略新短消息提示
+		@param int $uid 当前用户id
+		@return boolean
+	 */
 	function set_ignore($uid) {
 		return $this->db->query("DELETE FROM ".UC_DBTABLEPRE."newpm WHERE uid='$uid'");
 	}
 
+	/**
+		判断用户是否有新的短消息
+		@param int $uid 当前用户id
+		@return int
+	 */
 	function isnewpm($uid) {
 		return $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."newpm WHERE uid='$uid'");
 	}
 
+	/**
+		收到的最后一条短消息
+		@param int $uid 当前操作用户id
+		@return array
+	 */
 	function lastpm($uid) {
 		$lastpm = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."pm_members m LEFT JOIN ".UC_DBTABLEPRE."pm_lists t ON m.plid=t.plid WHERE m.uid='$uid' ORDER BY m.lastdateline DESC LIMIT 1");
 		$lastmessage = unserialize($lastpm['lastmessage']);
@@ -163,6 +213,13 @@ class pmmodel {
 		return $lastpm;
 	}
 
+	/**
+		获取短消息数目
+		@param int $uid 用户id
+		@param int $type 短消息类型
+		@param int $isnew 是否只取未读短消息数目
+		@return int
+	 */
 	function getpmnum($uid, $type = 0, $isnew = 0) {
 		$newsql = '';
 		$newnum = 0;
@@ -178,10 +235,26 @@ class pmmodel {
 		return $newnum;
 	}
 
+	/**
+		获取某个会话的id
+		@param int $uid  操作人
+		@param int $plid 会话id
+		return int
+	 */
 	function getpmnumbyplid($uid, $plid) {
 		return $this->db->result_first("SELECT pmnum FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$plid' AND uid='$uid'");
 	}
 
+	/**
+		发起两人短消息和群聊短消息
+		@param int $fromuid 发短消息用户id
+		@param string $fromusername 发短消息用户名
+		@param array $touids 接收短消息用户
+		@param string $subject 消息标题
+		@param string $message 消息内容
+		@param int $type 是否为群聊
+		@return int
+	 */
 	function sendpm($fromuid, $fromusername, $touids, $subject, $message, $type = 0) {
 		if(!$fromuid || !$fromusername || !$touids || !$message) {
 			return 0;
@@ -194,13 +267,14 @@ class pmmodel {
 
 		foreach($tmptouidarr as $key => $value) {
 			if($fromuid == $value || !$value) {
-				return PMSENDSELF_ERROR;
+				return PMSENDSELF_ERROR;// 不能给自己发送短消息
 			}
 
 			if(in_array('{ALL}', $blackls[$value])) {
 				unset($touids[$key]);
 				continue;
 			}
+			// 处理忽略列表
 			$blackls[$value] = $_ENV['user']->name2id($blackls[$value]);
 			if(!(isset($blackls[$value]) && !in_array($fromuid, $blackls[$value]))) {
 				unset($touids[$key]);
@@ -209,12 +283,13 @@ class pmmodel {
 			}
 		}
 		if(empty($touids)) {
-			return PMSENDNONE_ERROR;
+			return PMSENDNONE_ERROR;// 没有收件人
 		}
 		if($type == 1 && count($touids) < 2) {
-			return PMSENDCHATNUM_ERROR;
+			return PMSENDCHATNUM_ERROR;// 如果是群聊则收件人须大于2
 		}
 
+		// 处理 subject message
 		$_CACHE['badwords'] = $this->base->cache('badwords');
 		if($_CACHE['badwords']['findpattern']) {
 			$subject = @preg_replace($_CACHE['badwords']['findpattern'], $_CACHE['badwords']['replace'], $subject);
@@ -228,10 +303,12 @@ class pmmodel {
 		$lastsummary = $this->removecode(trim($message), 150);
 
 		if(!$type) {
+			// 两人对话消息中特有处理，两人对话只有一个plid
 			$query = $this->db->query("SELECT plid, min_max FROM ".UC_DBTABLEPRE."pm_lists WHERE min_max IN (".$this->base->implode($relationship).")");
 			while($thread = $this->db->fetch_array($query)) {
 				$existplid[$thread['min_max']] = $thread['plid'];
 			}
+			// 两人对话处理
 			$lastmessage = array('lastauthorid' => $fromuid, 'lastauthor' => $fromusername, 'lastsummary' => $lastsummary);
 			$lastmessage = addslashes(serialize($lastmessage));
 			foreach($relationship as $key => $value) {
@@ -248,11 +325,11 @@ class pmmodel {
 					$this->db->query("INSERT INTO ".UC_DBTABLEPRE."pm_indexes(plid) VALUES('$plid')");
 					$pmid = $this->db->insert_id();
 					$this->db->query("INSERT INTO ".UC_DBTABLEPRE.$this->getposttablename($plid)."(pmid, plid, authorid, message, dateline, delstatus) VALUES('$pmid', '$plid', '$fromuid', '$message', '".$this->base->time."', 0)");
-					$result = $this->db->query("INSERT INTO ".UC_DBTABLEPRE."pm_members(plid, uid, isnew, pmnum, lastupdate, lastdateline) VALUES('$plid', '$key', '1', '1', '0', '".$this->base->time."')", 'SILENT');
+					$result = $this->db->query("INSERT INTO ".UC_DBTABLEPRE."pm_members(plid, uid, isnew, pmnum, lastupdate, lastdateline) VALUES('$plid', '$key', '1', '1', '0', '".$this->base->time."')", 'SILENT');// 尝试插入，可能已经删除
 					if(!$result) {
 						$this->db->query("UPDATE ".UC_DBTABLEPRE."pm_members SET isnew=1, pmnum=pmnum+1, lastdateline='".$this->base->time."' WHERE plid='$plid' AND uid='$key'");
 					}
-					$result = $this->db->query("INSERT INTO ".UC_DBTABLEPRE."pm_members(plid, uid, isnew, pmnum, lastupdate, lastdateline) VALUES('$plid', '$fromuid', '0', '1', '".$this->base->time."', '".$this->base->time."')", 'SILENT');
+					$result = $this->db->query("INSERT INTO ".UC_DBTABLEPRE."pm_members(plid, uid, isnew, pmnum, lastupdate, lastdateline) VALUES('$plid', '$fromuid', '0', '1', '".$this->base->time."', '".$this->base->time."')", 'SILENT');// 尝试插入，可能已经删除
 					if(!$result) {
 						$this->db->query("UPDATE ".UC_DBTABLEPRE."pm_members SET isnew=0, pmnum=pmnum+1, lastupdate='".$this->base->time."', lastdateline='".$this->base->time."' WHERE plid='$plid' AND uid='$fromuid'");
 					}
@@ -282,6 +359,14 @@ class pmmodel {
 		return $pmid;
 	}
 
+	/**
+		回复两人或群聊短消息
+		@param int $plid 会话id
+		@param int $fromuid 回复人id
+		@param string $fromusername 回复人用户名
+		@param string $message 消息内容
+		@return int
+	 */
 	function replypm($plid, $fromuid, $fromusername, $message) {
 		if(!$plid || !$fromuid || !$fromusername || !$message) {
 			return 0;
@@ -289,7 +374,7 @@ class pmmodel {
 
 		$threadpm = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='$plid'");
 		if(empty($threadpm)) {
-			return PMTHREADNONE_ERROR;
+			return PMTHREADNONE_ERROR;// 该会话不存在
 		}
 
 		if($threadpm['pmtype'] == 1) {
@@ -299,9 +384,10 @@ class pmmodel {
 			} elseif($users[1] == $fromuid) {
 				$touid = $users[0];
 			} else {
-				return PMPRIVILEGENONE_ERROR;
+				return PMPRIVILEGENONE_ERROR;// 没有权限回复该会话
 			}
 
+			// 处理忽略列表
 			$blackls = $this->get_blackls($fromuid, $touid);
 			if(in_array('{ALL}', $blackls[$touid])) {
 				return PMINBALCKLIST_ERROR;
@@ -319,9 +405,10 @@ class pmmodel {
 			$memberuid[$member['uid']] = "('$member[uid]')";
 		}
 		if(!isset($memberuid[$fromuid])) {
-			return PMPRIVILEGENONE_ERROR;
+			return PMPRIVILEGENONE_ERROR;// 没有权限回复该会话
 		}
 
+		// 处理 message
 		$_CACHE['badwords'] = $this->base->cache('badwords');
 		if($_CACHE['badwords']['findpattern']) {
 			$message = @preg_replace($_CACHE['badwords']['findpattern'], $_CACHE['badwords']['replace'], $message);
@@ -334,7 +421,7 @@ class pmmodel {
 		if($threadpm['pmtype'] == 1) {
 			$lastmessage = array('lastauthorid' => $fromuid, 'lastauthor' => $fromusername, 'lastsummary' => $lastsummary);
 			$lastmessage = addslashes(serialize($lastmessage));
-			$result = $this->db->query("INSERT INTO ".UC_DBTABLEPRE."pm_members(plid, uid, isnew, pmnum, lastupdate, lastdateline) VALUES('$plid', '$touid', '1', '1', '0', '".$this->base->time."')", 'SILENT');
+			$result = $this->db->query("INSERT INTO ".UC_DBTABLEPRE."pm_members(plid, uid, isnew, pmnum, lastupdate, lastdateline) VALUES('$plid', '$touid', '1', '1', '0', '".$this->base->time."')", 'SILENT');// 尝试插入，可能已经删除
 			if(!$result) {
 				$this->db->query("UPDATE ".UC_DBTABLEPRE."pm_members SET isnew=1, pmnum=pmnum+1, lastdateline='".$this->base->time."' WHERE plid='$plid' AND uid='$touid'");
 			}
@@ -353,21 +440,29 @@ class pmmodel {
 		return $pmid;
 	}
 
+	/**
+		增加群聊人数
+		@param int $plid 会话id
+		@param int $uid 操作人id
+		@param int $touid 要加入的人id
+		@return int
+	 */
 	function appendchatpm($plid, $uid, $touid) {
 		if(!$plid || !$uid || !$touid) {
 			return 0;
 		}
 		$threadpm = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='$plid'");
 		if(empty($threadpm)) {
-			return PMTHREADNONE_ERROR;
+			return PMTHREADNONE_ERROR;// 会话不存在
 		}
 		if($threadpm['pmtype'] != 2) {
-			return PMCHATTYPE_ERROR;
+			return PMCHATTYPE_ERROR;// 不是群聊会话
 		}
 		if($threadpm['authorid'] != $uid) {
-			return PMPRIVILEGENONE_ERROR;
+			return PMPRIVILEGENONE_ERROR;// 不是发起者
 		}
 
+		// 处理忽略列表
 		$blackls = $this->get_blackls($uid, $touid);
 		if(in_array('{ALL}', $blackls[$touid])) {
 			return PMINBALCKLIST_ERROR;
@@ -380,29 +475,42 @@ class pmmodel {
 
 		$pmnum = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE.$this->getposttablename($plid)." WHERE plid='$plid'");
 		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."pm_members(plid, uid, isnew, pmnum, lastupdate, lastdateline) VALUES('$plid', '$touid', '1', '$pmnum', '0', '0')", 'SILENT');
-		$num = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$plid'");
+		$num = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$plid'");// 群聊参与人数可能已经不准，重新计算
 		$this->db->query("UPDATE ".UC_DBTABLEPRE."pm_lists SET members='$num' WHERE plid='$plid'");
 
 		return 1;
 	}
 
+	/**
+		减少群聊人数
+		@param int $plid 会话id
+		@param int $uid 操作人id
+		@param int $touid 要加入的人id
+		@return int
+	 */
 	function kickchatpm($plid, $uid, $touid) {
 		if(!$uid || !$touid || !$plid || $uid == $touid) {
 			return 0;
 		}
 		$threadpm = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='$plid'");
 		if($threadpm['pmtype'] != 2) {
-			return PMCHATTYPE_ERROR;
+			return PMCHATTYPE_ERROR;// 不是群聊会话
 		}
 		if($threadpm['authorid'] != $uid) {
-			return PMPRIVILEGENONE_ERROR;
+			return PMPRIVILEGENONE_ERROR;// 不是发起者，没有权限
 		}
 		$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$plid' AND uid='$touid'");
-		$num = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$plid'");
+		$num = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$plid'");// 群聊参与人数可能已经不准，重新计算
 		$this->db->query("UPDATE ".UC_DBTABLEPRE."pm_lists SET members='$num' WHERE plid='$plid'");
 		return 1;
 	}
 
+	/**
+		退出群聊
+		@param int $uid 退出用户id
+		@param array $plids 会话id数组
+		@return int
+	 */
 	function quitchatpm($uid, $plids) {
 		if(!$uid || !$plids) {
 			return 0;
@@ -414,7 +522,7 @@ class pmmodel {
 				return PMCHATTYPE_ERROR;
 			}
 			if($threadpm['authorid'] == $uid) {
-				return PMPRIVILEGENONE_ERROR;
+				return PMPRIVILEGENONE_ERROR;// 发起者只能删除群聊会话，不能退出群聊
 			}
 			$list[] = $threadpm['plid'];
 		}
@@ -427,24 +535,32 @@ class pmmodel {
 		return 1;
 	}
 
+	/**
+		通过pmid删除短消息，仅两人会话使用
+		@param int $uid 操作人
+		@param int $pmid 短消息pmid
+		@return int
+	 */
 	function deletepmbypmid($uid, $pmid) {
 		if(!$uid || !$pmid) {
 			return 0;
 		}
 		$index = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."pm_indexes i LEFT JOIN ".UC_DBTABLEPRE."pm_lists t ON i.plid=t.plid WHERE i.pmid='$pmid'");
 		if($index['pmtype'] != 1) {
-			return PMUIDTYPE_ERROR;
+			return PMUIDTYPE_ERROR;// 不是两人会话
 		}
 		$users = explode('_', $index['min_max']);
 		if(!in_array($uid, $users)) {
-			return PMPRIVILEGENONE_ERROR;
+			return PMPRIVILEGENONE_ERROR;// 不是该会话成员
 		}
 		if($index['authorid'] != $uid) {
+			// delstatus为2 他人删除
 			$this->db->query("UPDATE ".UC_DBTABLEPRE.$this->getposttablename($index['plid'])." SET delstatus=2 WHERE pmid='$pmid' AND delstatus=0");
 			$updatenum = $this->db->affected_rows();
 			$this->db->query("DELETE FROM ".UC_DBTABLEPRE.$this->getposttablename($index['plid'])." WHERE pmid='$pmid' AND delstatus=1");
 			$deletenum = $this->db->affected_rows();
 		} else {
+			// delstatus为1 发起者删除
 			$this->db->query("UPDATE ".UC_DBTABLEPRE.$this->getposttablename($index['plid'])." SET delstatus=1 WHERE pmid='$pmid' AND delstatus=0");
 			$updatenum = $this->db->affected_rows();
 			$this->db->query("DELETE FROM ".UC_DBTABLEPRE.$this->getposttablename($index['plid'])." WHERE pmid='$pmid' AND delstatus=2");
@@ -461,6 +577,12 @@ class pmmodel {
 		return 1;
 	}
 
+	/**
+		通过pmid删除短消息，仅两人会话使用
+		@param int $uid 操作人
+		@param array $pmids 短消息pmid数组
+		@return int
+	 */
 	function deletepmbypmids($uid, $pmids) {
 		if($pmids) {
 			foreach($pmids as $key => $pmid) {
@@ -481,7 +603,7 @@ class pmmodel {
 		while($index = $this->db->fetch_array($query)) {
 			$users = explode('_', $index['min_max']);
 			if(!in_array($uid, $users)) {
-				return PMPRIVILEGENONE_ERROR;
+				return PMPRIVILEGENONE_ERROR;// 不是该会话成员
 			}
 			if($index['authorid'] == $uid) {
 				$delstatus1pm[$this->getposttablename($index['plid'])][] = $index['pmid'];
@@ -495,6 +617,7 @@ class pmmodel {
 			return 0;
 		}
 
+		// delstatus为1 发起者删除
 		if($delstatus1pm) {
 			foreach($delstatus1pm as $key => $value) {
 				$this->db->query("UPDATE ".UC_DBTABLEPRE."$key SET delstatus=1 WHERE pmid IN (".$this->base->implode($value).") AND delstatus=0");
@@ -502,6 +625,7 @@ class pmmodel {
 			}
 		}
 
+		// delstatus为2 他人删除
 		if($delstatus2pm) {
 			foreach($delstatus2pm as $key => $value) {
 				$this->db->query("UPDATE ".UC_DBTABLEPRE."$key SET delstatus=2 WHERE pmid IN (".$this->base->implode($value).") AND delstatus=0");
@@ -525,6 +649,13 @@ class pmmodel {
 	}
 */
 
+	/**
+		通过plid删除短消息
+		@param int $uid 操作人
+		@param int $plid 会话plid
+		@param int $isuser 是否为uid
+		@return int
+	 */
 	function deletepmbyplid($uid, $plid, $isuser = 0) {
 		if(!$uid || !$plid) {
 			return 0;
@@ -578,6 +709,13 @@ class pmmodel {
 		return 1;
 	}
 
+	/**
+		通过plid删除短消息
+		@param int $uid 操作人
+		@param array $plids 会话plid数组
+		@param int $isuser 是否为uid
+		@return int
+	 */
 	function deletepmbyplids($uid, $plids, $isuser = 0) {
 		if($plids) {
 			foreach($plids as $key => $plid) {
@@ -600,7 +738,7 @@ class pmmodel {
 			$relationship = array();
 			foreach($plids as $key => $value) {
 				if($uid == $value || !$value) {
-					return PMDATA_ERROR;
+					return PMDATA_ERROR;// 数据有误
 				}
 				$relationship[] = $this->relationship($uid, $value);
 			}
@@ -617,7 +755,7 @@ class pmmodel {
 				} elseif($users[1] == $uid) {
 					$touid = $users[0];
 				} else {
-					continue;
+					continue;// 不是两人会话成员
 				}
 
 				if($threadpm['authorid'] == $uid) {
@@ -629,7 +767,7 @@ class pmmodel {
 				$privatepm[] = $threadpm['plid'];
 			} else {
 				if($uid != $threadpm['authorid']) {
-					continue;
+					continue;// 不是群聊发起者
 				}
 				$chatpm[] = $threadpm['plid'];
 				$chatpmpost[$this->getposttablename($threadpm['plid'])][] = $threadpm['plid'];
@@ -676,16 +814,24 @@ class pmmodel {
 	}
 */
 
+	/**
+		通过plid获取两人会话短消息
+		@param int $uid 当前会话id
+		@param int $plid 查询的会话id
+		@param int $starttime 开始时间时间戳
+		@param int $endtime 结束时间时间戳
+		@return mix
+	 */
 	function getprivatepmbyplid($uid, $plid, $starttime = 0, $endtime = 0, $start = 0, $ppp = 0) {
 		if(!$uid || !$plid) {
 			return 0;
 		}
 		if(!$this->isprivilege($plid, $uid)) {
-			return 0;
+			return 0;// 没有权限
 		}
 		$thread = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='$plid'");
 		if($thread['pmtype'] != 1) {
-			return 0;
+			return 0;// 不是两人会话
 		}
 		$pms = $addsql = array();
 		$addsql[] = "p.plid='$plid'";
@@ -715,12 +861,20 @@ class pmmodel {
 		return array_reverse($pms);
 	}
 
+	/**
+		通过plid获取群聊会话短消息
+		@param int $uid 当前会话id
+		@param int $plid 查询的会话id
+		@param int $starttime 开始时间时间戳
+		@param int $endtime 结束时间时间戳
+		@return mix
+	 */
 	function getchatpmbyplid($uid, $plid, $starttime = 0, $endtime = 0, $start = 0, $ppp = 0) {
 		if(!$uid || !$plid) {
 			return 0;
 		}
 		if(!$this->isprivilege($plid, $uid)) {
-			return 0;
+			return 0;// 没有权限
 		}
 		$pms = $addsql = array();
 		$addsql[] = "p.plid='$plid'";
@@ -751,6 +905,14 @@ class pmmodel {
 		return array_reverse($pms);
 	}
 
+	/**
+		得到消息列表
+		@param int $uid 当前用户id
+		@param string $filter 消息类型
+		@param int $start 列表的开始位置
+		@param int $ppp 取多少数据
+		@return mix
+	 */
 	function getpmlist($uid, $filter, $start, $ppp = 10) {
 		if(!$uid) {
 			return 0;
@@ -789,6 +951,7 @@ class pmmodel {
 			$tousernamearr = $_ENV['user']->id2name($touidarr);
 			foreach($members as $key => $data) {
 
+				// 与原来数据兼容
 				$daterange = 5;
 				$data['founddateline'] = $data['dateline'];
 				$data['dateline'] = $data['lastdateline'];
@@ -830,6 +993,11 @@ class pmmodel {
 		return $array;
 	}
 
+	/**
+		通过pmid查询plid
+		@param int $pmid 查找的pmid
+		@return int
+	 */
 	function getplidbypmid($pmid) {
 		if(!$pmid) {
 			return false;
@@ -837,6 +1005,12 @@ class pmmodel {
 		return $this->db->result_first("SELECT plid FROM ".UC_DBTABLEPRE."pm_indexes WHERE pmid='$pmid'");
 	}
 
+	/**
+		通过touid查找plid
+		@param int $uid 操作人id
+		@param int $touid 查询的用户id
+		return int
+	 */
 	function getplidbytouid($uid, $touid) {
 		if(!$uid || !$touid) {
 			return 0;
@@ -844,6 +1018,11 @@ class pmmodel {
 		return $this->db->result_first("SELECT plid FROM ".UC_DBTABLEPRE."pm_lists WHERE min_max='".$this->relationship($uid, $touid)."'");
 	}
 
+	/**
+		得到参与短消息的人员列表
+		@param int $plid 会话id
+		@return array
+	 */
 	function getuidbyplid($plid) {
 		if(!$plid) {
 			return array();
@@ -856,6 +1035,12 @@ class pmmodel {
 		return $uidarr;
 	}
 
+	/**
+		获取群聊成员列表
+		@param int $uid 当前用户id
+		@param int $plid 会话id
+		@return mix
+	 */
 	function chatpmmemberlist($uid, $plid) {
 		if(!$uid || !$plid) {
 			return 0;
@@ -865,12 +1050,18 @@ class pmmodel {
 			return 0;
 		}
 		if(!isset($uidarr[$uid])) {
-			return 0;
+			return 0;// 不在成员列表中，没有权限查看
 		}
 		$authorid = $this->db->result_first("SELECT authorid FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='$plid'");
 		return array('author' => $authorid, 'member' => $uidarr);
 	}
 
+	/**
+		生成两人关系的唯一标识
+		@param int $fromuid 一个用户id
+		@param int $touid 另外一个id
+		@return string
+	 */
 	function relationship($fromuid, $touid) {
 		if($fromuid < $touid) {
 			return $fromuid.'_'.$touid;
@@ -881,6 +1072,11 @@ class pmmodel {
 		}
 	}
 
+	/**
+		获取分表表名称
+		@param int $plid 会话id 按照plid进行分表
+		@return string
+	 */
 	function getposttablename($plid) {
 		$id = substr((string)$plid, -1, 1);
 		return 'pm_messages_'.$id;
@@ -960,6 +1156,12 @@ class pmmodel {
 		return trim($this->base->cutstr(strip_tags($str), $length));
 	}
 
+	/**
+		权限相关 判断用户两次发短消息是否超出设置间隔
+		@param int $uid 发短消息用户id
+		@param int $interval 最大间隔时间，0为不限制
+		@return int
+	 */
 	function ispminterval($uid, $interval = 0) {
 		if(!$uid) {
 			return 0;
@@ -976,6 +1178,12 @@ class pmmodel {
 		}
 	}
 
+	/**
+		权限相关 判断用户发两人会话消息是否超出最大上限
+		@param int $uid 发短消息用户id
+		@param int $maxnum 最大上限，0为不限制
+		@return int
+	 */
 	function isprivatepmthreadlimit($uid, $maxnum = 0) {
 		if(!$uid) {
 			return 0;
@@ -992,6 +1200,12 @@ class pmmodel {
 		}
 	}
 
+	/**
+		权限相关 判断用户发群聊会话消息是否超出最大上限
+		@param int $uid 发短消息用户id
+		@param int $maxnum 最大上限，0为不限制
+		@return int
+	 */
 	function ischatpmthreadlimit($uid, $maxnum = 0) {
 		if(!$uid) {
 			return 0;

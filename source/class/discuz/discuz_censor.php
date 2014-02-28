@@ -11,10 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-define('DISCUZ_CENSOR_SUCCEED', 0);
-define('DISCUZ_CENSOR_BANNED', 1);
-define('DISCUZ_CENSOR_MODERATED', 2);
-define('DISCUZ_CENSOR_REPLACED', 3);
+define('DISCUZ_CENSOR_SUCCEED', 0);	//成功
+define('DISCUZ_CENSOR_BANNED', 1);	//禁止
+define('DISCUZ_CENSOR_MODERATED', 2);	//审核
+define('DISCUZ_CENSOR_REPLACED', 3);	//替换
 
 class discuz_censor {
 	var $table = 'common_word';
@@ -23,6 +23,7 @@ class discuz_censor {
 	var $result;
 	var $words_found = array();
 
+	//note 关键字高亮颜色
 	var $highlight;
 
 	public function __construct() {
@@ -49,6 +50,12 @@ class discuz_censor {
 		return $message;
 	}
 
+	/**
+		检查文本
+		@param $message string 要检查的文本字符串，如果有被替换的关键字，直接替换
+		@param $modword string 将需要审核的关键字替换成 $modword
+		@return 处理结果
+	*/
 	function check(&$message, $modword = NULL) {
 		$limitnum = 500;
 		$this->words_found = array();
@@ -93,18 +100,30 @@ class discuz_censor {
 		return DISCUZ_CENSOR_SUCCEED;
 	}
 
+	/**
+		检测上一次处理的结果是否为“被禁止”
+	*/
 	function modbanned() {
 		return $this->result == DISCUZ_CENSOR_BANNED;
 	}
 
+	/**
+		上一次处理结果是否为“需要审核”
+	*/
 	function modmoderated() {
 		return $this->result == DISCUZ_CENSOR_MODERATED;
 	}
 
+	/**
+		上一次处理结果是否有被替换的关键字
+	*/
 	function modreplaced() {
 		return $this->result == DISCUZ_CENSOR_REPLACED;
 	}
 
+	/**
+		上次处理结果是否成功通过
+	*/
 	function modsucceed() {
 		return $this->result == DISCUZ_CENSOR_SUCCEED;
 	}

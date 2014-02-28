@@ -36,7 +36,9 @@ if(!submitcheck('modsubmit')) {
 		}
 	}
 	$toforum['threadsorts_arr'] = unserialize($toforum['threadsorts']);
+	//note 提取内容插入新主题到thread, post中
 
+	//note 提取分类信息
 	if($thread['sortid'] != 0 && $toforum['threadsorts_arr']['types'][$thread['sortid']]) {
 		foreach(C::t('forum_typeoptionvar')->fetch_all_by_search($thread['sortid'], null, $thread['tid']) as $result) {
 			$typeoptionvar[] = $result;
@@ -69,9 +71,11 @@ if(!submitcheck('modsubmit')) {
 		$pid = insertpost($post);
 	}
 
+	//复制tag
 	$class_tag = new tag();
 	$class_tag->copy_tag($_G['tid'], $threadid, 'tid');
 
+	// note 复制主题时将新的分类信息复制入库
 	if($typeoptionvar) {
 		foreach($typeoptionvar AS $key => $value) {
 			$value['tid'] = $threadid;
@@ -79,8 +83,10 @@ if(!submitcheck('modsubmit')) {
 			C::t('forum_typeoptionvar')->insert($value);
 		}
 	}
+	//note 更新主题积分
 	updatepostcredits('+', $post['authorid'], 'post', $copyto);
 
+	//note 更新缓存
 	updateforumcount($copyto);
 	updateforumcount($_G['fid']);
 

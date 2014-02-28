@@ -29,6 +29,7 @@ if($notifydata['validator']) {
 
 		if($order['status'] == 1) {
 			C::t('forum_order')->update($orderid, array('status' => '2', 'buyer' => "$notifydata[trade_no]\t$apitype", 'confirmdate' => $_G['timestamp']));
+			// 生成邀请码
 			$codes = $codetext = array();
 			$dateline = TIMESTAMP;
 			for($i=0; $i<$order['amount']; $i++) {
@@ -50,6 +51,7 @@ if($notifydata['validator']) {
 
 			$submitdate = dgmdate($order['submitdate']);
 			$confirmdate = dgmdate(TIMESTAMP);
+			// 发送邮件
 			if(!function_exists('sendmail')) {
 				include libfile('function/mail');
 			}

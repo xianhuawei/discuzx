@@ -21,18 +21,47 @@ class table_home_userapp extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 *
+	 * 根据Uid、AppID获取单条用户应用记录
+	 * @param int $uid:用户UID
+	 * @param int $appid:应用ID
+	 * @return 返回一条userapp记录
+	 */
 	public function fetch_by_uid_appid($uid, $appid) {
 		return DB::fetch_first('SELECT * FROM %t WHERE uid=%d AND appid=%d', array($this->_table, $uid, $appid));
 	}
 
+	/**
+	 *
+	 * 根据Uid获取最大的menuorder
+	 * @param int $uid:用户Uid
+	 * @return 返回menuorder值
+	 */
 	public function fetch_max_menuorder_by_uid($uid) {
 		return DB::result_first('SELECT MAX(menuorder) FROM %t WHERE uid=%d', array($this->_table, $uid));
 	}
 
+	/**
+	 * 获取用户应用数
+	 * @param int $uid
+	 * @return int
+	 */
 	public function count_by_uid($uid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE uid=%d', array($this->_table, $uid));
 	}
 
+	/**
+	 *
+	 * 根据Uid、AppID获取用户应用列表
+	 * @param int|arrray $uid:允许传一个Uid或者Uid数组
+	 * @param int|arrray $appid:应用ID
+	 * @param string $order:排序字段
+	 * @param string $sort:排序方式可选值DESC, ASC
+	 * @param int $start:开始记录
+	 * @param int $limit:获取的记录数
+	 * @return 返回userapp列表
+	 */
 	public function fetch_all_by_uid_appid($uid = 0, $appid = 0, $order = null, $sort = 'DESC' , $start = 0, $limit = 0) {
 		$parameter = array($this->_table);
 		$wherearr = array();
@@ -55,6 +84,14 @@ class table_home_userapp extends discuz_table
 		return DB::fetch_all("SELECT * FROM %t $wheresql $ordersql ".DB::limit($start, $limit), $parameter);
 	}
 
+	/**
+	 *
+	 * 根据Uid、appid更新用户应用记录
+	 * @param int|array $uid:用户Uid
+	 * @param int|array $appid:应用ID
+	 * @param int|array $data:更新的数据
+	 * @return 返回受影响的记录数
+	 */
 	public function update_by_uid_appid($uid = 0, $appid = 0, $data = array()) {
 		if($data && is_array($data)) {
 			$wherearr = array();
@@ -72,6 +109,13 @@ class table_home_userapp extends discuz_table
 		return 0;
 	}
 
+	/**
+	 *
+	 * 根据Uid、appid删除用户应用记录
+	 * @param int|array $uid:用户Uid
+	 * @param int|array $appid:应用ID
+	 * @return 返回受影响的记录数
+	 */
 	public function delete_by_uid_appid($uid = 0, $appid = 0) {
 		$parameter = array($this->_table);
 		$wherearr = array();

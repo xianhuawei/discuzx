@@ -17,11 +17,12 @@ $pt = in_array($_GET['anchor'], array('thread', 'post')) ? $_GET['anchor'] : 'th
 
 $current = array($_GET['anchor'] => 1);
 
+//post表与恶意表，操作结果对照
 $operateresultmap = array(
-	'0' => 1,
-	'-1' => 0,
-	'-5' => 0
-);
+						'0' => 1, //恢复
+						'-1' => 0, //主帖未处理
+						'-5' => 0 //回帖未处理
+						);
 
 $securitynav = array();
 
@@ -37,10 +38,12 @@ if (!$_G['inajax']) {
 	showsubmenu('menu_cloud_security', $securitynav);
 }
 
+// thread 与 post 共用的信息
 $tpp = !empty($_GET['tpp']) ? $_GET['tpp'] : '20';
 $start_limit = ($page - 1) * $tpp;
 require_once libfile('function/discuzcode');
 require_once libfile('function/core');
+// 共用
 $datas = $data = $eviluids = $evilPids = $evilTids = $members = $thread = $post = '';
 
 if($_GET['anchor'] != 'reopen') {
@@ -63,6 +66,7 @@ if ($_GET['anchor'] == 'index') {
 		$evilposts = C::t('common_setting')->fetch('cloud_security_stats_post');
 		$evilmembers = C::t('common_setting')->fetch('cloud_security_stats_member');
 
+		// 用户组白名单
 		$usergroupswhitelist = $_G['setting']['security_usergroups_white_list'];
 		$groupselect = array();
 
@@ -76,6 +80,7 @@ if ($_GET['anchor'] == 'index') {
 			($groupselect['specialadmin'] ? '<optgroup label="'.$lang['usergroups_specialadmin'].'">'.$groupselect['specialadmin'].'</optgroup>' : '').
 			'<optgroup label="'.$lang['usergroups_system'].'">'.$groupselect['system'].'</optgroup>';
 
+		// 版块白名单
 		$forumswhitelist = $_G['setting']['security_forums_white_list'];
 		require_once libfile('function/forumlist');
 		loadcache('forums');
@@ -99,6 +104,7 @@ if ($_GET['anchor'] == 'index') {
 							'security_forums_white_list' => serialize($forums)
 						);
 
+		// 将数据记入setting表，并更新缓存
 		C::t('common_setting')->update_batch($updateData);
 		updatecache('setting');
 
@@ -262,6 +268,9 @@ $jsScript = <<<EOF
 EOF;
 echo $jsScript;
 
+/**
+ * 数值转换为对应状态
+ */
 function convertIdtoStr($id, $type = 'security_type', $subtype = 'thread') {
 	global $lang;
 	if ($type == 'security_type') {
@@ -292,6 +301,9 @@ function convertIdtoStr($id, $type = 'security_type', $subtype = 'thread') {
 	return $result;
 }
 
+/**
+ * 生成用户资料
+ */
 function convertMemberInfo($value) {
 	global $lang;
 	$result = '';
@@ -305,6 +317,9 @@ function convertMemberInfo($value) {
 	return $result;
 }
 
+/**
+ * 转换ID为操作类型
+ */
 function convertOperate($id = 0) {
 	$ids = array('1' => 'delete',
 				 '2' => 'restore');
@@ -314,13 +329,18 @@ function convertOperate($id = 0) {
 	return $ids[$id];
 }
 
+/**
+ * 获取该页需要显示的数据和id
+ */
 function getEvilList($type, $start, $ppp) {
 	$datas = $data = $evilids = '';
 
+	//合并类型
 	if ($type == 'member') {
 		$type = 'user';
 	}
 
+	// 根据不同的数据类型获取不同的 tid
 	if ($type == 'user') {
 		$query = C::t('#security#security_eviluser')->fetch_range($start, $ppp);
 		$idtype = 'uid';
@@ -332,6 +352,7 @@ function getEvilList($type, $start, $ppp) {
 		$idtype = 'pid';
 	}
 
+	// 获取id列表，如果有tid则tid也获取一份
 	foreach ($query as $data) {
 		$datas[$data[$idtype]] = $data;
 		$evilids[] = $data[$idtype];
@@ -349,13 +370,17 @@ function getEvilList($type, $start, $ppp) {
 		return false;
 	}
 	if ($type == 'user') {
+
+		//获取用户组信息
 		$usergroups = array();
 		foreach (C::t('common_usergroup')->range() as $group) {
 			$usergroups[$group['groupid']] = $group['grouptitle'];
 		}
 
+		// 获取用户注册ip
 		$regips = C::t('common_member_status')->fetch_all($evilids);
 
+		// 获取用户信息
 		$query = C::t('common_member')->fetch_all($evilids);
 		foreach ($query as $key => $user) {
 			if(!empty($user) && !in_array($user['groupid'], array(4,5,6))) {
@@ -379,6 +404,7 @@ function getEvilList($type, $start, $ppp) {
 
 	foreach ($query as $data) {
 
+		// 主题和回复需要考虑 post 分表的情况，thread 存档表的情况不考虑
 		if ($type == 'thread' || $type == 'post') {
 			foreach($threadPid[$data['tid']] as $pid) {
 				$isFirst = ($type == 'thread') ? 1 : 0;
@@ -398,6 +424,9 @@ function getEvilList($type, $start, $ppp) {
 	return array($datas, $evilids);
 }
 
+/**
+ * 根据fid获取版块名
+ */
 function getNamebyFid($fid) {
 	global $_G;
 	if (!$fid) {
@@ -409,6 +438,9 @@ function getNamebyFid($fid) {
 	return $name;
 }
 
+/**
+ * 转换IP和标题
+ */
 function convertSubjectandIP($value, $viewlink = '') {
 	global $lang;
 	if ($viewlink) {
@@ -434,6 +466,9 @@ function convertMessage($value) {
 	return $value['message'];
 }
 
+/**
+ * 作者 + 发帖时间
+ */
 function convertAuthorAndDate($value) {
 	if (!$value['author']) {
 		return false;
@@ -444,6 +479,9 @@ function convertAuthorAndDate($value) {
 	return $result;
 }
 
+/**
+ * 整理上报数据
+ */
 function getDataToReport($operateType, $datatosync, $datas) {
 	$datatoreport = array();
 	foreach($datatosync as $operateresult => $ids) {

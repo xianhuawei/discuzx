@@ -11,6 +11,14 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * 检查域名是否有效
+ * @param String $domain: 需要检查的域名前缀
+ * @param String $domainroot：根域名
+ * @param Integer $domainlength: 允许的最小域名长度
+ * @param Integer $msgtype: 1:showmessage报错、0: cpmsg报错
+ *
+ */
 function domaincheck($domain, $domainroot, $domainlength, $msgtype = 1) {
 
 	if(strlen($domain) < $domainlength) {
@@ -34,6 +42,7 @@ function domaincheck($domain, $domainroot, $domainlength, $msgtype = 1) {
 	return true;
 }
 
+//是否屏蔽二级域名
 function isholddomain($domain) {
 	global $_G;
 

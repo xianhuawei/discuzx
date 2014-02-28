@@ -39,6 +39,7 @@ class control extends adminbase {
 		$this->load('user');
 	}
 
+	// public 管理员登陆
 	function onlogin() {
 		$authkey = md5(UC_KEY.$_SERVER['HTTP_USER_AGENT'].$this->onlineip);
 
@@ -54,7 +55,7 @@ class control extends adminbase {
 		*/
 		$rand = rand(100000, 999999);
 		$seccodeinit = rawurlencode($this->authcode($rand, 'ENCODE', $authkey, 180));
-		$errorcode = 0;
+		$errorcode = 0;// 变量初始化
 		if($this->submitcheck()) {
 			$failedlogin = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."failedlogins WHERE ip='$this->onlineip'");
 			if($failedlogin['count'] > 4) {
@@ -80,22 +81,25 @@ class control extends adminbase {
 						$this->user['username'] = 'UCenterAdministrator';
 						$md5password =  md5(md5($password).UC_FOUNDERSALT);
 						if($md5password == UC_FOUNDERPW) {
+							// 创始人成功登陆
 							$username = $this->user['username'];
 							$this->view->sid = $this->sid_encode($this->user['username']);
 						} else {
-							$errorcode = UC_LOGIN_ERROR_FOUNDER_PW;
+							$errorcode = UC_LOGIN_ERROR_FOUNDER_PW;// 创始人密码错误
 						}
 					} else {
+						// 查询 uc_admins 表
 						$admin = $this->db->fetch_first("SELECT a.uid,m.username,m.salt,m.password FROM ".UC_DBTABLEPRE."admins a LEFT JOIN ".UC_DBTABLEPRE."members m USING(uid) WHERE a.username='$username'");
 						if(!empty($admin)) {
 							$md5password =  md5(md5($password).$admin['salt']);
 							if($admin['password'] == $md5password) {
+								// 管理员成功登陆
 								$this->view->sid = $this->sid_encode($admin['username']);
 							} else {
-								$errorcode = UC_LOGIN_ERROR_ADMIN_PW;
+								$errorcode = UC_LOGIN_ERROR_ADMIN_PW;// 管理员密码错误
 							}
 						} else {
-							$errorcode = UC_LOGIN_ERROR_ADMIN_NOT_EXISTS;
+							$errorcode = UC_LOGIN_ERROR_ADMIN_NOT_EXISTS;// 该管理员不存在
 						}
 					}
 
@@ -135,12 +139,14 @@ class control extends adminbase {
 		$this->view->display('admin_login');
 	}
 
+	// public 管理员退出
 	function onlogout() {
 		$this->writelog('logout');
 		$this->setcookie('sid', '');
 		header('location: admin.php');
 	}
 
+	// public 内部接口
 	function onadd() {
 		if(!$this->submitcheck('submit')) {
 			exit;
@@ -171,6 +177,7 @@ class control extends adminbase {
 		$this->message('user_add_succeed', 'admin.php?m=user&a=ls');
 	}
 
+	// public 内部接口
 	function onls() {
 
 		include_once UC_ROOT.'view/default/admin.lang.php';
@@ -270,10 +277,12 @@ class control extends adminbase {
 			$rmrecques = getgpc('rmrecques', 'P');
 			$sqladd = '';
 			if($username != $newusername) {
+				// 判断是否已经存在用户名
 				if($_ENV['user']->get_user_by_username($newusername)) {
 					$this->message('admin_user_exists');
 				}
 				$sqladd .= "username='$newusername', ";
+				// 通知改名
 				$this->load('note');
 				$_ENV['note']->add('renameuser', 'uid='.$uid.'&oldusername='.urlencode($username).'&newusername='.urlencode($newusername));
 			}
@@ -304,6 +313,7 @@ class control extends adminbase {
 		$this->view->display('admin_user');
 	}
 
+	// private 校验用户名
 
 	function _check_username($username) {
 		$username = addslashes(trim(stripslashes($username)));
@@ -317,6 +327,7 @@ class control extends adminbase {
 		return 1;
 	}
 
+	// private 校验email
 	function _check_email($email) {
 		if(!$_ENV['user']->check_emailformat($email)) {
 			return UC_USER_EMAIL_FORMAT_ILLEGAL;

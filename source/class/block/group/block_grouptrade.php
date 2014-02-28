@@ -10,6 +10,7 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+// 高级自定义
 class block_grouptrade extends discuz_block {
 	var $setting = array();
 
@@ -127,6 +128,7 @@ class block_grouptrade extends discuz_block {
 			);
 	}
 
+	//可转换到的模块类型
 	function fieldsconvert() {
 		return array(
 				'forum_trade' => array(
@@ -142,12 +144,14 @@ class block_grouptrade extends discuz_block {
 		global $_G;
 		$settings = $this->setting;
 
+		// 处理特殊字段
+		// group type
 		if($settings['gtids']) {
 			loadcache('grouptype');
 			$settings['gtids']['value'][] = array(0, lang('portalcp', 'block_all_type'));
 			foreach($_G['cache']['grouptype']['first'] as $gid=>$group) {
 				$settings['gtids']['value'][] = array($gid, $group['name']);
-				if($group['secondlist']) {
+				if($group['secondlist']) {//子群组
 					foreach($group['secondlist'] as $subgid) {
 						$settings['gtids']['value'][] = array($subgid, '&nbsp;&nbsp;'.$_G['cache']['grouptype']['second'][$subgid]['name']);
 					}
@@ -162,6 +166,7 @@ class block_grouptrade extends discuz_block {
 
 		$parameter = $this->cookparameter($parameter);
 
+		//参数准备
 		loadcache('grouptype');
 		$typeids = array();
 		if(!empty($parameter['gtids'])) {
@@ -187,10 +192,11 @@ class block_grouptrade extends discuz_block {
 		$bannedids = !empty($parameter['bannedids']) ? explode(',', $parameter['bannedids']) : array();
 		$gviewperm = isset($parameter['gviewperm']) ? intval($parameter['gviewperm']) : -1;
 
+		//是否有群组浏览权限
 		$gviewwhere = $gviewperm == -1 ? '' : " AND ff.gviewperm='$gviewperm'";
 
 		$groups = array();
-		if(empty($fids) && $typeids) {
+		if(empty($fids) && $typeids) {// 未指定群组时，查找指定分类下群组
 			$query = DB::query('SELECT f.fid, f.name, ff.description FROM '.DB::table('forum_forum')." f LEFT JOIN ".DB::table('forum_forumfield')." ff ON f.fid = ff.fid WHERE f.fup IN (".dimplode($typeids).") AND threads > 0$gviewwhere");
 			while($value = DB::fetch($query)) {
 				$groups[$value['fid']] = $value;
@@ -211,6 +217,7 @@ class block_grouptrade extends discuz_block {
 			.($digest ? ' AND t.digest IN ('.dimplode($digest).')' : '')
 			.($stick ? ' AND t.displayorder IN ('.dimplode($stick).')' : '');
 
+		//没有找到指定的群组，则使用下面条件
 		if(empty($fids)) {
 			$sql .= " AND t.isgroup='1'";
 			if($gviewwhere) {
@@ -247,12 +254,14 @@ class block_grouptrade extends discuz_block {
 		}
 
 		$sqlfield = '';
+		//没有找到指定的群组时，需要链表查询出群组的名字，还有可能会用到forum_forumfield的gviewperm群组浏览权限字段
 		if(empty($fids)) {
 			$sqlfield = ', f.name groupname';
 			$sqlfrom .= ' LEFT JOIN '.DB::table('forum_forum').' f ON t.fid=f.fid LEFT JOIN '.DB::table('forum_forumfield').' ff ON f.fid = ff.fid';
 		}
 		$sqlfield = $highlight ? ', t.highlight' : '';
 
+		//数据获取
 		$query = DB::query("SELECT tr.pid, tr.tid, tr.aid, tr.price, tr.credit, tr.subject, tr.totalitems, tr.seller, tr.sellerid$sqlfield
 			FROM ".DB::table('forum_trade')." tr $sqlfrom
 			WHERE 1$where
@@ -262,6 +271,7 @@ class block_grouptrade extends discuz_block {
 		require_once libfile('block_thread', 'class/block/forum');
 		$bt = new block_thread();
 		while($data = DB::fetch($query)) {
+			//查询获取帖子简介
 			if($style['getsummary']) {
 				$threadpids[$data['posttableid']][] = $data['pid'];
 			}
@@ -286,6 +296,7 @@ class block_grouptrade extends discuz_block {
 					'price' => ($data['price'] > 0 ? '&yen; '.$data['price'] : '').($data['credit'] > 0 ? ($data['price'] > 0 ? lang('block/grouptrade', 'grouptrade_price_add') : '').$data['credit'].' '.$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['unit'].$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['title'] : ''),
 				)
 			);
+			//高亮的处理
 			if($highlight && $data['highlight']) {
 				$list[$data['tid']]['fields']['showstyle'] = $bt->getthreadstyle($data['highlight']);
 			}
@@ -299,6 +310,7 @@ class block_grouptrade extends discuz_block {
 				}
 			}
 
+			//附件分表查询
 			foreach($attachtables as $tableid => $taids) {
 				$query = DB::query('SELECT aid, attachment, remote FROM '.DB::table('forum_attachment_'.$tableid).' WHERE aid IN ('.dimplode($taids).')');
 				while($avalue = DB::fetch($query)) {
@@ -307,6 +319,7 @@ class block_grouptrade extends discuz_block {
 				}
 			}
 
+			//还原$list顺序
 			foreach($listpids as $key => $value) {
 				$datalist[] = $list[$value];
 			}

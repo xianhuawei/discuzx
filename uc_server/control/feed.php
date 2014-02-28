@@ -53,6 +53,7 @@ class feedcontrol extends base {
 		return $this->db->insert_id();
 	}
 
+	// private 删除事件
 	function ondelete() {
 		$start = $this->input('start');
 		$limit = $this->input('limit');
@@ -60,6 +61,7 @@ class feedcontrol extends base {
 		$this->db->query("DELETE FROM ".UC_DBTABLEPRE."feeds WHERE feedid>'$start' AND feedid<'$end'");
 	}
 
+	// public 取得事件的接口, 取完以后是否删除?
 	function onget() {
 		$this->load('misc');
 		$limit = intval($this->input('limit'));
@@ -73,6 +75,7 @@ class feedcontrol extends base {
 				$feedlist[$key] = $feed;
 			}
 		}
+		// 删除过期的feed
 		if(!empty($feedlist)) {
 			if(!isset($delete) || $delete) {
 				$this->_delete(0, $maxfeedid);

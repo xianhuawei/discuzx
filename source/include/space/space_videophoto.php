@@ -15,11 +15,13 @@ if(empty($_G['setting']['verify'][7]['available'])) {
 	showmessage('no_open_videophoto');
 }
 
+//视频认证
 require_once libfile('function/spacecp');
 ckvideophoto($space);
 
 $videophoto = getvideophoto($space['videophoto']);
 
+//个人头像
 include_once template("home/space_videophoto");
 
 ?>

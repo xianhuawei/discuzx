@@ -17,9 +17,6 @@ class table_common_tag extends discuz_table
 
 		$this->_table = 'common_tag';
 		$this->_pk    = 'tagid';
-        $this->_pre_cache_key = 'common_tag_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 
@@ -40,11 +37,27 @@ class table_common_tag extends discuz_table
 		return DB::fetch_all("SELECT * FROM %t WHERE $statussql $namesql ORDER BY ".DB::order('tagid', $order)." ".DB::limit($startlimit, $count), $data);
 	}
 
+	/**
+	 * 添加记录
+	 * @param string $tagname
+	 * @param int $status
+	 * @return int tagid
+	 */
 	public function insert($tagname, $status = 0) {
-		DB::query('INSERT INTO %t (tagname, status) VALUES (%s, %d)', array($this->_table, $tagname, $status));
-		return DB::insert_id();
+		$data = array(
+			'tagname'=>$tagname,
+			'status'=>$status
+		);
+		return parent::insert($data,true);
+//		DB::query('INSERT INTO %t (tagname, status) VALUES (%s, %d)', array($this->_table, $tagname, $status));
+//		return DB::insert_id();
 	}
 
+	/**
+	 * 通过ID获取记录
+	 * @param array $ids 主键值
+	 * @return array
+	 */
 	public function get_byids($ids) {
 		if(empty($ids)) {
 			return array();
@@ -52,8 +65,15 @@ class table_common_tag extends discuz_table
 		if(!is_array($ids)) {
 			$ids = array($ids);
 		}
-		return DB::fetch_all('SELECT * FROM %t WHERE tagid IN (%n)', array($this->_table, $ids), 'tagid');
+		return parent::fetch_all($ids);
+		//return DB::fetch_all('SELECT * FROM %t WHERE tagid IN (%n)', array($this->_table, $ids), 'tagid');
 	}
+	/**
+	 * 通过tagname获取记录
+	 * @param string $tagname 主键值
+	 * @param string $type 区分uid 和非uid类的tag
+	 * @return array
+	 */
 	public function get_bytagname($tagname, $type) {
 		if(empty($tagname)) {
 			return array();
@@ -77,6 +97,11 @@ class table_common_tag extends discuz_table
 		return DB::fetch_first("SELECT tagid,tagname,status FROM ".DB::table('common_tag')." WHERE $addsql");
 	}
 
+	/**
+	 * 删除记录
+	 * @param array $ids 主键值
+	 * @return boolean
+	 */
 	public function delete_byids($ids) {
 		if(empty($ids)) {
 			return false;
@@ -84,7 +109,8 @@ class table_common_tag extends discuz_table
 		if(!is_array($ids)) {
 			$ids = array($ids);
 		}
-		return DB::query('DELETE FROM %t WHERE tagid IN (%n)', array($this->_table, $ids));
+		return parent::delete($ids);
+		//return DB::query('DELETE FROM %t WHERE tagid IN (%n)', array($this->_table, $ids));
 	}
 }
 

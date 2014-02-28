@@ -14,7 +14,13 @@ if(!defined('IN_DISCUZ')) {
 class table_common_block extends discuz_table
 {
 
+	/**
+	 * @var string 缓存时间
+	 */
 	public $cache_ttl;
+	/**
+	 * @var string 是否允许缓存
+	 */
 	public $allowmem;
 
 	public function __construct() {
@@ -25,7 +31,7 @@ class table_common_block extends discuz_table
 		parent::__construct();
 		$this->_allowmem = null;
 		$this->cache_ttl = $this->_cache_ttl = getglobal('setting/memory/diyblock');
-		$this->allowmem = $this->_cache_ttl !== null && memory('check');
+		$this->allowmem = $this->_cache_ttl !== null && memory('check'); //是否允许缓存
 
 	}
 
@@ -36,11 +42,24 @@ class table_common_block extends discuz_table
 		return $block;
 	}
 
+	/**
+	 * 仅供后台管理使用函数
+	 * @param string $wheresql 外层处理安全问题
+	 * @return int
+	 */
 	public function count_by_admincpwhere($wheresql) {
 		$wheresql = $wheresql ? ' WHERE '.(string)$wheresql : '';
 		return DB::result_first('SELECT COUNT(*) FROM '.DB::table($this->_table).' b LEFT JOIN '.DB::table('common_template_block').' tb ON tb.bid=b.bid'.$wheresql);
 	}
 
+	/**
+	 * 仅供后台管理使用函数
+	 * @param string $wheresql  外层处理安全问题
+	 * @param string $ordersql  外层处理安全问题
+	 * @param int $start
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_admincpwhere($wheresql, $ordersql, $start, $limit) {
 		$wheresql = $wheresql ? ' WHERE '.(string)$wheresql : '';
 		return DB::fetch_all('SELECT b.*, tb.targettplname FROM '.DB::table($this->_table).' b LEFT JOIN '.DB::table('common_template_block').' tb ON tb.bid=b.bid'.$wheresql.' '.(string)$ordersql.DB::limit($start, $limit), null, $this->_pk ? $this->_pk : '');
@@ -77,14 +96,35 @@ class table_common_block extends discuz_table
 	}
 
 
+	/**
+	 * 仅供后台管理使用函数
+	 * @param string $wheresql
+	 * @return int
+	 */
 	public function count_by_where($wheresql, $leftjoin = '') {
 		return DB::result_first("SELECT COUNT(*) FROM ".DB::table($this->_table).' b'." $leftjoin $wheresql");
 	}
 
+	/**
+	 * 仅供后台管理使用函数
+	 * @param string $wheresql
+	 * @param string $ordersql
+	 * @param int $start
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_where($wheresql, $start = 0, $limit = 0, $leftjoin = '', $fields = '') {
 		return DB::fetch_all("SELECT b.bid,b.blockclass,b.name,b.script,b.param$fields FROM ".DB::table($this->_table).' b'." $leftjoin $wheresql ORDER BY b.bid DESC ".DB::limit($start, $limit));
 	}
 
+	/**
+	 * 依据主键更新记录
+	 * @param string|int $val 主键值
+	 * @param array $data 更新的字段和值的list
+	 * @param boolean $unbuffered 迅速返回
+	 * @param boolan $low_priority 延迟更新
+	 * @return boolean
+	 */
 	public function update($val, $data, $unbuffered = false, $low_priority = false) {
 		if(($val = dintval($val, true)) && $data && is_array($data)) {
 			$ret = parent::update($val, $data, $unbuffered, $low_priority);
@@ -94,6 +134,11 @@ class table_common_block extends discuz_table
 		return false;
 	}
 
+	/**
+	 * 依据主键删除某条记录
+	 * @param string|int $val 主键值
+	 * @return boolean
+	 */
 	public function delete($val, $unbuffered = false) {
 		if(($val = dintval($val, true))) {
 			$ret = parent::delete($val, $unbuffered);
@@ -103,6 +148,10 @@ class table_common_block extends discuz_table
 		return false;
 	}
 
+	/**
+	 * 清除模块相关缓存
+	 * @param int|array $bids 模块ID
+	 */
 	public function clear_cache($bids) {
 		if($this->allowmem) {
 			memory('rm', $bids,'blockcache_');

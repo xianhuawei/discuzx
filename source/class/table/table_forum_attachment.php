@@ -23,10 +23,22 @@ class table_forum_attachment extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 更新附件下载数
+	 * @param int/array $aid 附件id
+	 * @return boolean
+	 */
 	public function update_download($aid, $count = 1) {
 		return DB::query("UPDATE %t SET downloads=downloads+%d WHERE aid IN (%n)", array($this->_table, $count, (array)$aid), false, true);
 	}
 
+	/**
+	 * 通过 id 获取数据
+	 * @param string $idtype 类型 aid、tid、pid、uid
+	 * @param int/array $id 待操作的 id
+	 * @param string $orderby 默认排序
+	 * @return array
+	 */
 	public function fetch_all_by_id($idtype, $ids, $orderby = '') {
 		$attachments = array();
 		if($orderby) {
@@ -42,22 +54,44 @@ class table_forum_attachment extends discuz_table
 		return $attachments;
 	}
 
+	/**
+	 * 通过 id 删除数据
+	 * @param string $idtype 类型 aid、tid、pid、uid
+	 * @param int/array $id 待操作的 id
+	 */
 	public function delete_by_id($idtype, $ids) {
 		if(in_array($idtype, array('aid', 'tid', 'pid', 'uid')) && $ids) {
 			DB::query('DELETE FROM %t WHERE %i IN (%n)', array($this->_table, $idtype, (array)$ids), false, true);
 		}
 	}
 
+	/**
+	 * 通过 id 更新附件 tid
+	 * @param string $idtype 类型 tid、pid
+	 * @param int/array $id 待操作的 id
+	 * @param int $newtid 新 tid
+	 */
 	public function update_by_id($idtype, $ids, $newtid) {
 		if(in_array($idtype, array('tid', 'pid')) && $ids) {
 			DB::query("UPDATE %t SET tid=%d,tableid=%d WHERE %i IN (%n)", array($this->_table, $newtid, getattachtableid($newtid), $idtype, (array)$ids), false, true);
 		}
 	}
 
+	/**
+	 * 获取指定主题的附件数量
+	 * @param int $tid 主题 id
+	 * @return int
+	 */
 	public function count_by_tid($tid) {
 		return $tid ? DB::result_first("SELECT COUNT(*) FROM %t WHERE tid=%d", array($this->_table, $tid)) : 0;
 	}
 
+	/**
+	 * 通过 aid、uid 获取指定附件
+	 * @param int $aid 附件 id
+	 * @param int $uid 附件作者 id
+	 * @return array
+	 */
 	public function fetch_by_aid_uid($aid, $uid) {
 		$query = DB::query("SELECT * FROM %t WHERE aid=%d AND uid=%d", array($this->_table, $aid, $uid));
 		return DB::fetch($query);

@@ -28,6 +28,7 @@ class usercontrol extends base {
 		$this->load('user');
 	}
 
+	// public 外部接口
 	// -1 未开启
 	function onsynlogin() {
 		$this->init_input();
@@ -49,6 +50,7 @@ class usercontrol extends base {
 		return '';
 	}
 
+	// public 外部接口
 	function onsynlogout() {
 		$this->init_input();
 		if($this->app['synlogin']) {
@@ -66,6 +68,7 @@ class usercontrol extends base {
 		return '';
 	}
 
+	// public 外部接口 注册校验接口
 	function onregister() {
 		$this->init_input();
 		$username = $this->input('username');
@@ -86,6 +89,7 @@ class usercontrol extends base {
 		return $uid;
 	}
 
+	// public 外部接口 编辑帐户信息
 	function onedit() {
 		$this->init_input();
 		$username = $this->input('username');
@@ -109,6 +113,7 @@ class usercontrol extends base {
 		return $status;
 	}
 
+	// public 外部接口 登陆接口
 	function onlogin() {
 		$this->init_input();
 		$isuid = $this->input('isuid');
@@ -126,6 +131,7 @@ class usercontrol extends base {
 		}
 
 		$passwordmd5 = preg_match('/^\w{32}$/', $password) ? $password : md5($password);
+		// 用户名不存在
 		if(empty($user)) {
 			$status = -1;
 		} elseif($user['password'] != md5($passwordmd5.$user['salt'])) {
@@ -139,12 +145,14 @@ class usercontrol extends base {
 		return array($status, $user['username'], $password, $user['email'], $merge);
 	}
 
+	// public 外部接口 ajax 校验 EMAIL
 	function oncheck_email() {
 		$this->init_input();
 		$email = $this->input('email');
 		return $this->_check_email($email);
 	}
 
+	// public 外部接口 ajax 校验用户名
 	function oncheck_username() {
 		$this->init_input();
 		$username = $this->input('username');
@@ -155,6 +163,7 @@ class usercontrol extends base {
 		}
 	}
 
+	// public 外部接口
 	function onget_user() {
 		$this->init_input();
 		$username = $this->input('username');
@@ -171,11 +180,13 @@ class usercontrol extends base {
 	}
 
 
+	// public 得到保护的用户列表
 	function ongetprotected() {
 		$protectedmembers = $this->db->fetch_all("SELECT uid,username FROM ".UC_DBTABLEPRE."protectedmembers GROUP BY username");
 		return $protectedmembers;
 	}
 
+	// 用户中心, 非外部接口.
 	function ondelete() {
 		$this->init_input();
 		$uid = $this->input('uid');
@@ -235,6 +246,7 @@ class usercontrol extends base {
 		return NULL;
 	}
 
+	// private 校验用户名
 	function _check_username($username) {
 		$username = addslashes(trim(stripslashes($username)));
 		if(!$_ENV['user']->check_username($username)) {
@@ -247,6 +259,7 @@ class usercontrol extends base {
 		return 1;
 	}
 
+	// private 校验email
 	function _check_email($email, $username = '') {
 		if(!$_ENV['user']->check_emailformat($email)) {
 			return UC_USER_EMAIL_FORMAT_ILLEGAL;
@@ -278,6 +291,12 @@ class usercontrol extends base {
 	}
 
 
+	/**
+	 * -1 身份不合法
+	 * -2 上传的数据流不合法
+	 * -3 没有上传头象
+	 */
+	// public 外部接口 flash 上传头像
 	function onuploadavatar() {
 		@header("Expires: 0");
 		@header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
@@ -299,7 +318,7 @@ class usercontrol extends base {
 			return -4;
 		}
 		$imgtype = array(1 => '.gif', 2 => '.jpg', 3 => '.png');
-		$filetype = $imgtype[$type];
+		$filetype = $imgtype[$type];// FLASH 通过 MIME 头判断。
 		if(!$filetype) $filetype = '.jpg';
 		$tmpavatar = UC_DATADIR.'./tmp/upload'.$uid.$filetype;
 		file_exists($tmpavatar) && @unlink($tmpavatar);
@@ -318,6 +337,7 @@ class usercontrol extends base {
 		return $avatarurl;
 	}
 
+	// public 外部接口 flash 方式裁剪头像 COOKIE 判断身份
 	function onrectavatar() {
 		@header("Expires: 0");
 		@header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
@@ -366,7 +386,7 @@ class usercontrol extends base {
 			$success = 0;
 		}
 
-		$filetype = '.jpg';
+		$filetype = '.jpg';// FLASH 通过 MIME 头判断。
 		@unlink(UC_DATADIR.'./tmp/upload'.$uid.$filetype);
 
 		if($success) {

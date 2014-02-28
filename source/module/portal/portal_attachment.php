@@ -71,6 +71,7 @@ if($operation == 'delete') {
 	dheader('Content-Type: '.$attach['filetype']);
 	dheader('Content-Length: '.$filesize);
 
+	//note 支持下载软件的多线程下载头信息处理
 	if($readmod == 4) {
 		dheader('Accept-Ranges: bytes');
 		if(!empty($_SERVER['HTTP_RANGE'])) {
@@ -81,6 +82,7 @@ if($operation == 'delete') {
 		}
 	}
 
+	//note 输出附件内容
 	$attach['remote'] ? getremotefile($attach['attachment']) : getlocalfile($filename, $readmod, $range);
 }
 function getremotefile($file) {

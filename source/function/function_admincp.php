@@ -116,7 +116,7 @@ function siteinformation() {
 
 		$comma = '';
 		foreach(C::t('common_patch')->fetch_patch_by_status(array(1, 2)) as $patch) {
-			$update['patch'] .= $comma.$patch['serial'];
+			$update['patch'] .= $comma.$patch['serial'];//note 传递成功打补丁的编号
 			$comma = ',';
 		}
 	}
@@ -129,6 +129,25 @@ function siteinformation() {
 	return 'os=dx&update='.rawurlencode(base64_encode($data)).'&md5hash='.substr(md5($_SERVER['HTTP_USER_AGENT'].implode('', $update).TIMESTAMP), 8, 8).'&timestamp='.TIMESTAMP;
 }
 
+/**
+ * 升级信息反馈
+ * @global array $_G
+ * @global array $upgrade_step
+ * @param int $status
+ * @return string
+ * $status说明: -1、没有找到更新版本的升级信息
+ *		-2、没有找到升级更新文件列表
+ *		-3、下载文件步骤下载出现错误
+ *		-4、本地校验文件不存在
+ *		-5、备份原始文件出错
+ *		-6、ftp 上传文件出错
+ *		-7、升级中复制文件出错
+ *		0、完成当前步骤
+ *		1、当前步骤正在处理中
+ *		2、正在备份原始文件
+ *		3、原始文件备份完成
+ *		4、正在升级完成，并调转到数据库升级
+ */
 function upgradeinformation($status = 0) {
 	global $_G, $upgrade_step;
 
@@ -145,7 +164,7 @@ function upgradeinformation($status = 0) {
 	$update['upgradeversion'] = $upgrade_step['version'];
 	$update['upgraderelease'] = $upgrade_step['release'];
 	$update['step'] = $upgrade_step['step'] == 'dbupdate' ? 4 : $upgrade_step['step'];
-	$update['status'] = $status;
+	$update['status'] = $status;//note 步骤的执行状态
 
 	$data = '';
 	foreach($update as $key => $value) {
@@ -162,6 +181,14 @@ function isfounder($user = '') {
 }
 
 
+/**
+ * 后台语言显示或转换
+ *
+ * @param string $name 语言名称
+ * @param array $replace 替换变量数组 key =>val, 当为 false 且此语言不存在,则不会输出或返回任何内容
+ * @param boolean $output 是否直接输出
+ * @return string
+ */
 function cplang($name, $replace = array(), $output = false) {
 	global $_G;
 	$ret = '';
@@ -216,8 +243,10 @@ function admincustom($title, $url, $sort = 0) {
 }
 
 function cpurl($type = 'parameter', $filters = array('sid', 'frames')) {
+	//note 解析后面的字符串
 	parse_str($_SERVER['QUERY_STRING'], $getarray);
 	$extra = $and = '';
+	//note 重新组合url上的参数
 	foreach($getarray as $key => $value) {
 		if(!in_array($key, $filters)) {
 			@$extra .= $and.$key.($type == 'parameter' ? '%3D' : '=').rawurlencode($value);
@@ -227,6 +256,7 @@ function cpurl($type = 'parameter', $filters = array('sid', 'frames')) {
 	return $extra;
 }
 
+//note 以下函数控制后台输出
 
 function showheader($key, $url) {
 	list($action, $operation, $do) = explode('_', $url.'___');
@@ -505,6 +535,15 @@ function showtips($tips, $id = 'tips', $display = TRUE, $title = '') {
 	showtablefooter();
 }
 
+/**
+ * 显示表单开始, 自动添加 formash 隐藏域
+ *
+ * @param string $action 表单action的一部分，程序会自动添加 admincp.php?action= 这些内容。
+ * @param string $name	表单 name 和 id
+ * @param string $extra 表单附加属性  可以是样式等  等于 enctype 时表示可上传文件
+ *
+ * @example showformheader('members'), 则该form的action则是 admincp.php?action=members
+ */
 function showformheader($action, $extra = '', $name = 'cpform', $method = 'post') {
 	global $_G;
 	$anchor = isset($_GET['anchor']) ? dhtmlspecialchars($_GET['anchor']) : '';
@@ -514,6 +553,12 @@ function showformheader($action, $extra = '', $name = 'cpform', $method = 'post'
 		'<input type="hidden" name="anchor" value="'.$anchor.'" />';
 }
 
+/**
+ * 显示hidden表单域
+ *
+ * @param array $hiddenfields 隐藏表单域的数组
+ * @example showhiddenfields(array('formash' => '123456', 'pid' => 3))
+ */
 function showhiddenfields($hiddenfields = array()) {
 	if(is_array($hiddenfields)) {
 		foreach($hiddenfields as $key => $val) {
@@ -523,6 +568,14 @@ function showhiddenfields($hiddenfields = array()) {
 	}
 }
 
+/**
+ * 显示表格头部
+ *
+ * @param string $title 如果输入title则显示标题，class为header，否则仅显示一个table头
+ * @example showtableheader('members_edit')
+ * @example showtableheader();
+ *
+ */
 function showtableheader($title = '', $classname = '', $extra = '', $titlespan = 15) {
 	global $_G;
 	$classname = str_replace(array('nobottom', 'notop'), array('nobdb', 'nobdt'), $classname);
@@ -591,6 +644,19 @@ function showsubtitle($title = array(), $rowclass='header', $tdstyle=array()) {
 	}
 }
 
+/**
+ * 显示表格一行内容
+ *
+ * @param string $trstyle 此行 tr 标签的格式定义，如 class="partition"
+ * @param string or array $tdstyle TD 标签的格式定义，如 class，colspan 等
+ * @param string or array $tdtext TD内显示的内容
+ *
+ * @example showtablerow('class="nobg"', '', array('abc', '123', 456'))
+ *          此处显示一行三列内容，TD 无格式
+ * @example showtablerow('', array('class="nobg"', '', 'colspan="2"'), array('abc', 'edf', 'cccc'))
+ * 	显示一行三列内容，TR 无格式，第一列class为nobg，第二列无格式，第三列colspan是2
+ * @example 当 tdstyle 和 tdtext 均为字符串的时候，可以显示一行一列内容
+ */
 function showtablerow($trstyle = '', $tdstyle = array(), $tdtext = array(), $return = FALSE) {
 	$rowswapclass = '';
 	if(!preg_match('/class\s*=\s*[\'"]([^\'"<>]+)[\'"]/i', $trstyle, $matches)) {
@@ -732,6 +798,7 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 		$value = sprintf('%0'.$checkboxs.'b', $value);$i = 1;
 		$s .= '<ul class="nofloat" onmouseover="altStyle(this'.$check['disabledaltstyle'].');">';
 		foreach($varname[1] as $key => $var) {
+			//设为false可跳过某单项
 			if($var !== false) {
 				$s .= '<li'.($value{$checkboxs - $i} ? ' class="checked"' : '').'><input class="checkbox" type="checkbox"'.($varnameid ? ' id="_v'.md5($i).'_'.$varnameid.'"' : '').' name="'.$varname[0].'['.$i.']" value="1"'.($value{$checkboxs - $i} ? ' checked' : '').' '.(!empty($varname[2][$key]) ? $varname[2][$key] : '').'>&nbsp;'.$var.'</li>';
 			}
@@ -918,6 +985,12 @@ function showtagfooter($tagname) {
 	echo '</'.$tagname.'>';
 }
 
+/**
+ * 显示表格结束符号
+ *
+ * @param string $before 结束表格之前需要额外显示的内容
+ * @param string $after 结束表格之后需要额外显示的内容
+ */
 function showtablefooter() {
 	global $_G;
 	if(!empty($_G['showsetting_multi'])) {
@@ -926,6 +999,12 @@ function showtablefooter() {
 	echo '</table>'."\n";
 }
 
+/**
+ * 显示表单的结束
+ *
+ * @param string $before 结束表单之前额外显示的内容
+ * @param string $after 结束表单之后额外显示的内容
+ */
 function showformfooter() {
 	global $_G;
 	if(!empty($_G['setting_JS'])) {
@@ -987,6 +1066,10 @@ EOT;
 
 }
 
+/**
+ * 输出ajax XML请求需要返回的头部数据，如果为搜索引擎或者直接点开，则显示普通页面头尾。
+ *
+ */
 if(!function_exists('ajaxshowheader')) {
 	function ajaxshowheader() {
 		global $_G;
@@ -999,6 +1082,10 @@ if(!function_exists('ajaxshowheader')) {
 	}
 }
 
+/**
+ * 输出ajax XML请求需要返回的尾部数据
+ *
+ */
 if(!function_exists('ajaxshowfooter')) {
 	function ajaxshowfooter() {
 		echo ']]></root>';
@@ -1114,6 +1201,7 @@ function exportarray($array, $method) {
 	return $tmp;
 }
 
+//获取限制条件
 function getwheres($intkeys, $strkeys, $randkeys, $likekeys, $pre='') {
 
 	$wherearr = array();
@@ -1168,6 +1256,7 @@ function getwheres($intkeys, $strkeys, $randkeys, $likekeys, $pre='') {
 	return array('wherearr'=>$wherearr, 'urls'=>$urls);
 }
 
+//获取排序
 function getorders($alloworders, $default, $pre='') {
 	$orders = array('sql'=>'', 'urls'=>array());
 	if(empty($_GET['orderby']) || !in_array($_GET['orderby'], $alloworders)) {
@@ -1188,6 +1277,7 @@ function getorders($alloworders, $default, $pre='') {
 }
 
 
+//日志回复数
 function blog_replynum_stat($start, $perpage) {
 	global $_G;
 
@@ -1210,6 +1300,7 @@ function blog_replynum_stat($start, $perpage) {
 	return $next;
 }
 
+//空间好友数
 function space_friendnum_stat($start, $perpage) {
 	global $_G;
 
@@ -1231,6 +1322,7 @@ function space_friendnum_stat($start, $perpage) {
 	return $next;
 }
 
+//相册图片数
 function album_picnum_stat($start, $perpage) {
 	global $_G;
 
@@ -1299,6 +1391,7 @@ function set_pluginsetting($pluginvars) {
 	updatecache('plugin');
 }
 
+//检验权限公式语法
 function checkformulaperm($formula) {
 	$formula = preg_replace('/(\{([\d\.\-]+?)\})/', "'\\1'", $formula);
 	return checkformulasyntax(
@@ -1324,6 +1417,10 @@ function getposttableselect() {
 	return $posttableselect;
 }
 
+/**
+ * 根据setting设置获取rewrite规则
+ * @return array
+ */
 function rewritedata($alldata = 1) {
 	global $_G;
 	$data = array();

@@ -59,13 +59,13 @@ class block_friendlink extends commonblock_html {
 		}
 		$type = intval($b, '2');
 		$query = C::t('common_friendlink')->fetch_all_by_displayorder($type);
-		$group1 = $group2 = $group3 = array();
+		$group1 = $group2 = $group3 = array(); //note  1: 图文； 2： logo； 3： 文字
 		foreach ($query as $value) {
-			if($parameter['content']=='logo') {
+			if($parameter['content']=='logo') {//仅logo
 				$group2[] = $value;
-			} elseif($parameter['content']=='text') {
+			} elseif($parameter['content']=='text') {//仅文字
 				$group3[] = $value;
-			} else {
+			} else {//图文
 				if($value['description']) {
 					$group1[] = $value;
 				} elseif($value['logo']) {
@@ -76,7 +76,7 @@ class block_friendlink extends commonblock_html {
 			}
 		}
 		$return = '<div class="bn lk">';
-		if($group1) {
+		if($group1) {//图文区
 			$return .= '<ul class="m cl">';
 			foreach($group1 as $value) {
 				$return .= '<li class="cl">'
@@ -86,14 +86,14 @@ class block_friendlink extends commonblock_html {
 			}
 			$return .= '</ul>';
 		}
-		if($group2) {
+		if($group2) {//note logo区
 			$return .= '<div class="cl mbm">';
 			foreach($group2 as $value) {
 				$return .= '<a target="_blank" href="'.$value['url'].'"><img border="0" alt="'.$value['name'].'" src="'.$value['logo'].'"></a>';
 			}
 			$return .= '</div>';
 		}
-		if($group3) {
+		if($group3) {//文字区
 			$return .= '<ul class="x cl">';
 			foreach($group3 as $value) {
 				$return .= '<li><a target="_blank" href="'.$value['url'].'">'.$value['name'].'</a></li>';

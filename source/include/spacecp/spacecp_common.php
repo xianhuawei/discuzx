@@ -31,8 +31,10 @@ if($op == 'ignore') {
 	$formid = random(8);
 
 } elseif($op == 'getuserapp') {
+	//处理
 	getuserapp();
 	if(empty($_GET['subop'])) {
+		//展开
 		$my_userapp = array();
 		foreach($_G['my_userapp'] as $value) {
 			if($value['allowsidenav'] && !isset($_G['cache']['userapp'][$value['appid']])) {

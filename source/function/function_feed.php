@@ -11,12 +11,15 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//事件发布
 function feed_add($icon, $title_template='', $title_data=array(), $body_template='', $body_data=array(), $body_general='', $images=array(), $image_links=array(), $target_ids='', $friend='', $appid='', $returnid=0, $id=0, $idtype='', $uid=0, $username='') {
 	global $_G;
 
+	//关闭家园时不产生动态
 	if(!helper_access::check_module('feed')) {
 		return false;
 	}
+	//语言包
 	$title_template = $title_template?lang('feed', $title_template):'';
 	$body_template = $body_template?lang('feed', $body_template):'';
 	$body_general = $body_general?lang('feed', $body_general):'';
@@ -47,11 +50,15 @@ function feed_add($icon, $title_template='', $title_data=array(), $body_template
 		'idtype' => $idtype
 	);
 
-	$feedarr['title_data'] = serialize($title_data);
-	$feedarr['body_data'] = serialize($body_data);
+	$feedarr['title_data'] = serialize($title_data);//数组转化
+	$feedarr['body_data'] = serialize($body_data);//数组转化
+	
+	
 	$feedarr['hash_data'] = empty($title_data['hash_data'])?'':$title_data['hash_data'];
 
+	//去重
 	if(is_numeric($icon)) {
+		//应用动态
 		$feed_table = 'home_feed_app';
 		unset($feedarr['id'], $feedarr['idtype']);
 	} else {
@@ -67,6 +74,7 @@ function feed_add($icon, $title_template='', $title_data=array(), $body_template
 	return C::t($feed_table)->insert($feedarr, $returnid);
 }
 
+//整理feed
 function mkfeed($feed, $actors=array()) {
 	global $_G;
 	$feed['title_data'] = empty($feed['title_data'])?array():(is_array($feed['title_data'])?$feed['title_data']:@dunserialize($feed['title_data']));
@@ -74,6 +82,7 @@ function mkfeed($feed, $actors=array()) {
 
 	$feed['body_data'] = empty($feed['body_data'])?array():(is_array($feed['body_data'])?$feed['body_data']:@dunserialize($feed['body_data']));
 	if(!is_array($feed['body_data'])) $feed['body_data'] = array();
+	//title
 	$searchs = $replaces = array();
 	if($feed['title_data']) {
 		foreach (array_keys($feed['title_data']) as $key) {
@@ -87,6 +96,7 @@ function mkfeed($feed, $actors=array()) {
 	$feed['title_template'] = str_replace($searchs, $replaces, $feed['title_template']);
 	$feed['title_template'] = feed_mktarget($feed['title_template']);
 
+	//body
 	$searchs = $replaces = array();
 	$searchs[] = '{actor}';
 	$replaces[] = empty($actors)?"<a href=\"home.php?mod=space&uid=$feed[uid]\" target=\"_blank\">$feed[username]</a>":implode(lang('core', 'dot'), $actors);
@@ -107,6 +117,7 @@ function mkfeed($feed, $actors=array()) {
 
 	$feed['body_general'] = feed_mktarget($feed['body_general']);
 
+	//icon
 	if(is_numeric($feed['icon'])) {
 		$feed['icon_image'] = "http://appicon.manyou.com/icons/{$feed['icon']}";
 	} else {
@@ -132,12 +143,14 @@ function feed_mktarget($html) {
 }
 
 
+//发布操作产生动态
 function feed_publish($id, $idtype, $add=0) {
 	global $_G;
 	$id = intval($id);
 	if(empty($id)) {
 		return;
 	}
+	//关闭家园时不产生动态
 	if(!helper_access::check_module('feed')) {
 		return false;
 	}
@@ -150,6 +163,7 @@ function feed_publish($id, $idtype, $add=0) {
 			);
 			if($value) {
 				if($value['friend'] != 3) {
+					//基本
 					$setarr['icon'] = 'blog';
 					$setarr['id'] = $value['blogid'];
 					$setarr['idtype'] = $idtype;
@@ -161,11 +175,12 @@ function feed_publish($id, $idtype, $add=0) {
 					$setarr['hot'] = $value['hot'];
 					$status = $value['status'];
 
+					//详细
 					$url = "home.php?mod=space&uid=$value[uid]&do=blog&id=$value[blogid]";
-					if($value['friend'] == 4) {
+					if($value['friend'] == 4) {//加密
 						$setarr['title_template'] = 'feed_blog_password';
 						$setarr['title_data'] = array('subject' => "<a href=\"$url\">$value[subject]</a>");
-					} else {
+					} else {//非私人
 						if($value['pic']) {
 							$setarr['image_1'] = pic_cover_get($value['pic'], $value['picflag']);
 							$setarr['image_1_link'] = $url;
@@ -188,6 +203,7 @@ function feed_publish($id, $idtype, $add=0) {
 				foreach($query as $value) {
 					if($value['friend'] <= 2) {
 						if(empty($setarr['icon'])) {
+							//基本
 							$setarr['icon'] = 'album';
 							$setarr['id'] = $value['albumid'];
 							$setarr['idtype'] = $idtype;
@@ -197,6 +213,7 @@ function feed_publish($id, $idtype, $add=0) {
 							$setarr['target_ids'] = $value['target_ids'];
 							$setarr['friend'] = $value['friend'];
 							$status = $value['status'];
+							//详细
 							$setarr['title_template'] = 'feed_album_title';
 							$setarr['body_template'] = 'feed_album_body';
 							$setarr['body_data'] = array(
@@ -217,7 +234,8 @@ function feed_publish($id, $idtype, $add=0) {
 			$plussql = $id>0 ? 'p.'.DB::field('picid', $id) : 'p.'.DB::field('uid', $_G[uid]).' ORDER BY dateline DESC LIMIT 1';
 			$query = C::t('home_pic')->fetch_all_by_sql($plussql);
 			if($value = $query[0]) {
-				if(empty($value['friend'])) {
+				if(empty($value['friend'])) {//隐私
+					//基本
 					$setarr['icon'] = 'album';
 					$setarr['id'] = $value['picid'];
 					$setarr['idtype'] = $idtype;
@@ -228,6 +246,7 @@ function feed_publish($id, $idtype, $add=0) {
 					$setarr['friend'] = $value['friend'];
 					$setarr['hot'] = $value['hot'];
 					$status = $value['status'];
+					//详细
 					$url = "home.php?mod=space&uid=$value[uid]&do=album&picid=$value[picid]";
 					$setarr['image_1'] = pic_get($value['filepath'], 'album', $value['thumb'], $value['remote']);
 					$setarr['image_1_link'] = $url;
@@ -240,14 +259,15 @@ function feed_publish($id, $idtype, $add=0) {
 	}
 
 	if($setarr['icon']) {
+		//语言包
 		$setarr['title_template'] = $setarr['title_template']?lang('feed', $setarr['title_template']):'';
 		$setarr['body_template'] = $setarr['body_template']?lang('feed', $setarr['body_template']):'';
 		$setarr['body_general'] = $setarr['body_general']?lang('feed', $setarr['body_general']):'';
 
+		//数据处理
 		$setarr['title_data']['hash_data'] = "{$idtype}{$id}";
-		$setarr['title_data'] = serialize($setarr['title_data']);
-		$setarr['body_data'] = serialize($setarr['body_data']);
-
+		$setarr['title_data'] = serialize($setarr['title_data']);//数组转化
+		$setarr['body_data'] = serialize($setarr['body_data']);//数组转化
 		$feedid = 0;
 		if(!$add && $setarr['id']) {
 			$feedid = C::t('home_feed')->fetch($id, $idtype);

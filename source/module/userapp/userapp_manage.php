@@ -11,10 +11,12 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//验证是否有权限玩应用
 if(!checkperm('allowmyop')) {
 	showmessage('no_privilege_myop', '', array(), array('return' => true));
 }
 
+//uchome地址
 $uchUrl = getsiteurl().'userapp.php?mod=manage';
 
 if(submitcheck('ordersubmit')) {
@@ -37,6 +39,7 @@ if(submitcheck('ordersubmit')) {
 	showmessage('do_success', 'userapp.php?mod=manage&ac=menu');
 }
 
+//manyou
 $my_prefix = 'http://uchome.manyou.com';
 if(empty($_GET['my_suffix'])) {
 	$appId = intval($_GET['appid']);
@@ -59,11 +62,12 @@ $delimiter = strrpos($my_suffix, '?') ? '&' : '?';
 $myUrl = $my_prefix.urldecode($my_suffix.$delimiter.'my_extra='.$my_extra);
 
 
+//本地列表
 
 $my_userapp = $my_default_userapp = array();
 
 if($_GET['ac'] == 'menu' && $my_suffix == '/userapp/list') {
-	$_GET['op'] = 'menu';
+	$_GET['op'] = 'menu';//模板
 	$max_order = 0;
 	if(is_array($_G['cache']['userapp'])) {
 		foreach($_G['cache']['userapp'] as $value) {

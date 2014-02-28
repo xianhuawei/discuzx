@@ -18,14 +18,16 @@ if($_G['setting']['creditstrans']) {
 	showmessage('trade_credit_invalid', '', array(), array('return' => 1));
 }
 
+//获取扩展积分
 space_merge($space, 'count');
 
 $baseurl = 'home.php?mod=spacecp&ac=invite';
 
 $siteurl = getsiteurl();
 
-$maxcount = 50;
+$maxcount = 50;//最多好友邀请
 
+//获取邀请规则
 $config = $_G['setting']['inviteconfig'];
 $creditname = $config['inviterewardcredit'];
 $allowinvite = ($_G['setting']['regstatus'] > 1 && $creditname && $_G['group']['allowinvite']) ? 1 : 0;
@@ -39,6 +41,7 @@ $appid = empty($_GET['app']) ? 0 : intval($_GET['app']);
 $creditkey = 'extcredits'.$creditid;
 $extcredits = $_G['setting']['extcredits'][$creditid];
 
+//邮件变量
 $mailvar = array(
 	'avatar' => avatar($space['uid'], 'middle'),
 	'uid' => $space['uid'],
@@ -47,6 +50,7 @@ $mailvar = array(
 	'siteurl' => $siteurl
 );
 
+//取出相应的应用
 $appinfo = array();
 if($appid) {
 	$appinfo = C::t('common_myapp')->fetch($appid);
@@ -59,6 +63,7 @@ if($appid) {
 	}
 }
 
+//邀请连接
 if(!$creditnum) {
 	$inviteurl = getinviteurl(0, 0, $appid);
 }
@@ -66,6 +71,7 @@ if(!$allowinvite) {
 	showmessage('close_invite', '', array(), $_G['inajax'] ? array('showdialog'=>1, 'showmsg' => true, 'closetime' => true) : array());
 }
 
+//处理邮件邀请
 if(submitcheck('emailinvite')) {
 
 	if(!$_G['group']['allowmailinvite']) {
@@ -88,8 +94,10 @@ if(submitcheck('emailinvite')) {
 		showmessage('mail_can_not_be_empty', $baseurl);
 	}
 
+	//积分判断
 	$msetarr = array();
 	if($creditnum) {
+		//计算积分扣减积分
 		$allcredit = $invitenum * $creditnum;
 		if($space[$creditkey] < $allcredit) {
 			showmessage('mail_credit_inadequate', $baseurl);
@@ -115,6 +123,7 @@ if(submitcheck('emailinvite')) {
 			createmail($value, $mailvar);
 		}
 
+		//扣减积分
 		updatemembercount($_G['uid'], array($creditkey => "-$allcredit"));
 
 	} else {
@@ -132,6 +141,7 @@ if(submitcheck('emailinvite')) {
 	$invitenum = intval($_POST['invitenum']);
 	if($invitenum < 1) $invitenum = 1;
 
+	//24小时限制
 	if($_G['group']['maxinvitenum']) {
 		$daytime = $_G['timestamp'] - 24*3600;
 		$invitecount = C::t('common_invite')->count_by_uid_dateline($_G['uid'], $daytime);
@@ -140,6 +150,7 @@ if(submitcheck('emailinvite')) {
 		}
 	}
 
+	//积分判断
 	$allcredit = $invitenum * $creditnum;
 	if($space[$creditkey] < $allcredit) {
 		showmessage('mail_credit_inadequate', $baseurl, array(), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true));
@@ -161,6 +172,7 @@ if(submitcheck('emailinvite')) {
 	}
 
 	if($havecode) {
+		//扣减积分
 		require_once libfile('class/credit');
 		$creditobj = new credit();
 		$creditobj->updatemembercount(array($creditkey=>0-$allcredit), $_G['uid']);
@@ -225,6 +237,7 @@ if($_GET['op'] == 'resend') {
 			$invitedcount++;
 		} else {
 
+			//检查过期
 			if($_G['timestamp'] > $value['endtime']) {
 				$dels[] = $value['id'];
 				continue;
@@ -232,19 +245,20 @@ if($_GET['op'] == 'resend') {
 
 			$inviteurl = getinviteurl($value['id'], $value['code'], $value['appid']);
 
-			if($value['type']) {
+			if($value['type']) {//邮件
 				$maillist[] = array(
 					'email' => $value['email'],
 					'url' => $inviteurl,
 					'id' => $value['id']
 				);
 			} else {
-				$list[$value[code]] = $inviteurl;
+				$list[$value[code]] = $inviteurl;//没有发送的
 				$count++;
 			}
 		}
 	}
 
+	//删除失效的
 	if($dels) {
 		C::t('common_invite')->delete($dels);
 	}
@@ -259,9 +273,11 @@ $navtitle = lang('core', 'title_invite_friend');
 
 include template('home/spacecp_invite');
 
+//创建邮件
 function createmail($mail, $mailvar) {
 	global $_G, $space, $appinfo;
 
+	//要说的话
 	$mailvar['saymsg'] = empty($_POST['saymsg'])?'':getstr($_POST['saymsg'], 500);
 
 	require_once libfile('function/mail');
@@ -274,6 +290,7 @@ function createmail($mail, $mailvar) {
 	}
 }
 
+//获得邀请连接
 function getinviteurl($inviteid, $invitecode, $appid) {
 	global $_G;
 

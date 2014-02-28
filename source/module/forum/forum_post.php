@@ -29,6 +29,7 @@ $_GET['extra'] = http_build_query($_GET['extra']);
 $postinfo = array('subject' => '');
 $thread = array('readperm' => '', 'pricedisplay' => '', 'hiddenreplies' => '');
 
+// 初始化表单控件 $optionslist
 $_G['forum_dtype'] = $_G['forum_checkoption'] = $_G['forum_optionlist'] = $tagarray = $_G['forum_typetemplate'] = array();
 
 
@@ -80,6 +81,7 @@ if($_GET['action'] == 'reply') {
 	$addfeedcheck = !empty($space['privacy']['feed']['newthread']) ? 'checked="checked"': '';
 }
 
+// 页面导航设置
 
 $navigation = $navtitle = '';
 
@@ -120,30 +122,36 @@ if($_G['forum']['status'] == 3) {
 	$returnurl = 'forum.php?mod=forumdisplay&fid='.$_G['fid'].(!empty($_GET['extra']) ? '&'.preg_replace("/^(&)*/", '', $_GET['extra']) : '');
 	$navigation = ' <em>&rsaquo;</em> <a href="forum.php">'.$_G['setting']['navs'][2]['navname'].'</a>';
 
+	//追加子版块所在分区链接
 	if($_G['forum']['type'] == 'sub') {
 		$fup = $_G['cache']['forums'][$_G['forum']['fup']]['fup'];
 		$t_link = $_G['cache']['forums'][$fup]['type'] == 'group' ? 'forum.php?gid='.$fup : 'forum.php?mod=forumdisplay&fid='.$fup;
 		$navigation .= ' <em>&rsaquo;</em> <a href="'.$t_link.'">'.($_G['cache']['forums'][$fup]['name']).'</a>';
 	}
 
+	//追加上级板块链接
 	if($_G['forum']['fup']) {
 		$fup = $_G['forum']['fup'];
 		$t_link = $_G['cache']['forums'][$fup]['type'] == 'group' ? 'forum.php?gid='.$fup : 'forum.php?mod=forumdisplay&fid='.$fup;
 		$navigation .= ' <em>&rsaquo;</em> <a href="'.$t_link.'">'.($_G['cache']['forums'][$fup]['name']).'</a>';
 	}
 
+	//追加当前板块链接
 	$t_link = 'forum.php?mod=forumdisplay&fid='.$_G['fid'].($_GET['extra'] && !IS_ROBOT ? '&'.$_GET['extra'] : '');
 	$navigation .= ' <em>&rsaquo;</em> <a href="'.$t_link.'">'.($_G['forum']['name']).'</a>';
 
 	unset($t_link, $t_name);
 }
 
+// 当前时段是否允许发帖
 periodscheck('postbanperiods');
 
+// 当前论坛是否需要密码进入
 if($_G['forum']['password'] && $_G['forum']['password'] != $_G['cookie']['fidpw'.$_G['fid']]) {
 	showmessage('forum_passwd', "forum.php?mod=forumdisplay&fid=$_G[fid]");
 }
 
+// 用户在当前栏目的权限判断
 if(empty($_G['forum']['allowview'])) {
 	if(!$_G['forum']['viewperm'] && !$_G['group']['readaccess']) {
 		showmessage('group_nopermission', NULL, array('grouptitle' => $_G['group']['grouptitle']), array('login' => 1));
@@ -154,14 +162,18 @@ if(empty($_G['forum']['allowview'])) {
 	showmessage('forum_access_view_disallow');
 }
 
+// 根据论坛权限公式计算用户权限
 formulaperm($_G['forum']['formulaperm']);
 
+// 论坛post权限检查: 新手实习期限
 if(!$_G['adminid'] && $_G['setting']['newbiespan'] && (!getuserprofile('lastpost') || TIMESTAMP - getuserprofile('lastpost') < $_G['setting']['newbiespan'] * 60) && TIMESTAMP - $_G['member']['regdate'] < $_G['setting']['newbiespan'] * 60) {
 	showmessage('post_newbie_span', '', array('newbiespan' => $_G['setting']['newbiespan']));
 }
 
+// 检查特殊主题的合法性
 $special = $special > 0 && $special < 7 || $special == 127 ? intval($special) : 0;
 
+// 附件相关设置
 $_G['forum']['allowpostattach'] = isset($_G['forum']['allowpostattach']) ? $_G['forum']['allowpostattach'] : '';
 $_G['group']['allowpostattach'] = $_G['forum']['allowpostattach'] != -1 && ($_G['forum']['allowpostattach'] == 1 || (!$_G['forum']['postattachperm'] && $_G['group']['allowpostattach']) || ($_G['forum']['postattachperm'] && forumperm($_G['forum']['postattachperm'])));
 $_G['forum']['allowpostimage'] = isset($_G['forum']['allowpostimage']) ? $_G['forum']['allowpostimage'] : '';
@@ -192,13 +204,16 @@ $allowpostimg = $_G['group']['allowpostimage'] && $imgexts;
 $enctype = ($_G['group']['allowpostattach'] || $_G['group']['allowpostimage']) ? 'enctype="multipart/form-data"' : '';
 $maxattachsize_mb = $_G['group']['maxattachsize'] / 1048576 >= 1 ? round(($_G['group']['maxattachsize'] / 1048576), 1).'MB' : round(($_G['group']['maxattachsize'] / 1024)).'KB';
 
+// 最大交易积分
 $_G['group']['maxprice'] = isset($_G['setting']['extcredits'][$_G['setting']['creditstrans']]) ? $_G['group']['maxprice'] : 0;
 
+// 用于发帖页面显示的设置
 $extra = !empty($_GET['extra']) ? rawurlencode($_GET['extra']) : '';
 $notifycheck = empty($emailnotify) ? '' : 'checked="checked"';
 $stickcheck = empty($sticktopic) ? '' : 'checked="checked"';
 $digestcheck = empty($addtodigest) ? '' : 'checked="checked"';
 
+// 一些页面变量的初始化
 $subject = isset($_GET['subject']) ? dhtmlspecialchars(censor(trim($_GET['subject']))) : '';
 $subject = !empty($subject) ? str_replace("\t", ' ', $subject) : $subject;
 $message = isset($_GET['message']) ? censor($_GET['message']) : '';
@@ -206,15 +221,18 @@ $polloptions = isset($polloptions) ? censor(trim($polloptions)) : '';
 $readperm = isset($_GET['readperm']) ? intval($_GET['readperm']) : 0;
 $price = isset($_GET['price']) ? intval($_GET['price']) : 0;
 
+// 检查用户是否使用了hide代码
 if(empty($bbcodeoff) && !$_G['group']['allowhidecode'] && !empty($message) && preg_match("/\[hide=?\d*\].*?\[\/hide\]/is", preg_replace("/(\[code\](.+?)\[\/code\])/is", ' ', $message))) {
 	showmessage('post_hide_nopermission');
 }
 
 
+// 初始化一些页面变量
 $urloffcheck = $usesigcheck = $smileyoffcheck = $codeoffcheck = $htmloncheck = $emailcheck = '';
-
+// 发帖时是否显示验证码或者验证问答
 list($seccodecheck, $secqaacheck) = seccheck('post', $_GET['action']);
 
+// 当前用户在当前栏目中允许发布或者使用的特殊主题
 $_G['group']['allowpostpoll'] = $_G['group']['allowpost'] && $_G['group']['allowpostpoll'] && ($_G['forum']['allowpostspecial'] & 1);
 $_G['group']['allowposttrade'] = $_G['group']['allowpost'] && $_G['group']['allowposttrade'] && ($_G['forum']['allowpostspecial'] & 2);
 $_G['group']['allowpostreward'] = $_G['group']['allowpost'] && $_G['group']['allowpostreward'] && ($_G['forum']['allowpostspecial'] & 4);
@@ -235,8 +253,10 @@ if($specialextra && $_G['group']['allowpost'] && $_G['setting']['threadplugins']
 if($special == 3 && !isset($_G['setting']['extcredits'][$_G['setting']['creditstrans']])) {
 	showmessage('reward_credits_closed');
 }
+// 当前栏目或者用户组是否允许发布匿名主题
 $_G['group']['allowanonymous'] = $_G['forum']['allowanonymous'] || $_G['group']['allowanonymous'] ? 1 : 0;
 
+// 如果当前栏目强制发布特殊主题，则根据默认顺序，自动选择使用某种特殊主题
 if($_GET['action'] == 'newthread' && $_G['forum']['allowspecialonly'] && !$special) {
 	if($_G['group']['allowpostpoll']) {
 		$special = 1;
@@ -270,6 +290,7 @@ if(!$sortid && !$specialextra) {
 	$postspecialcheck[$special] = ' class="a"';
 }
 
+// 初始化编辑器相关设置
 $editorid = 'e';
 $_G['setting']['editoroptions'] = str_pad(decbin($_G['setting']['editoroptions']), 3, 0, STR_PAD_LEFT);
 $editormode = $_G['setting']['editoroptions']{0};
@@ -321,12 +342,14 @@ $posturl = "action=$_GET[action]&fid=$_G[fid]".
 	(!empty($_GET['firstpid']) ? "&firstpid=$firstpid" : '').
 	(!empty($_GET['addtrade']) ? "&addtrade=$addtrade" : '');
 
+// 加载不同的模块 新主题 新回复 编辑帖
 if($_GET['action'] == 'reply') {
 	check_allow_action('allowreply');
 } else {
 	check_allow_action('allowpost');
 }
 
+// 活动主题时处理
 if($special == 4) {
 	$_G['setting']['activityfield'] = $_G['setting']['activityfield'] ? dunserialize($_G['setting']['activityfield']) : array();
 }

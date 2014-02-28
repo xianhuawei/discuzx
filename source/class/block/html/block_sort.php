@@ -103,6 +103,7 @@ class block_sort extends commonblock_html {
 		global $_G;
 		$settings = $this->setting;
 
+		// 处理特殊字段// fid
 		if($settings['fids']) {
 			loadcache('forums');
 			$settings['fids']['value'][] = array(0, lang('portalcp', 'block_all_forum'));
@@ -110,6 +111,7 @@ class block_sort extends commonblock_html {
 				$settings['fids']['value'][] = array($fid, ($forum['type'] == 'forum' ? str_repeat('&nbsp;', 4) : ($forum['type'] == 'sub' ? str_repeat('&nbsp;', 8) : '')).$forum['name']);
 			}
 		}
+		// 分类信息
 		if($settings['sortids']) {
 			$defaultvalue = '';
 			$query = DB::query("SELECT typeid, name, special FROM ".DB::table('forum_threadtype')." ORDER BY typeid DESC");
@@ -131,6 +133,7 @@ class block_sort extends commonblock_html {
 
 		$parameter = $this->cookparameter($parameter);
 
+		//参数准备
 		loadcache('forums');
 		$tids		= !empty($parameter['tids']) ? explode(',', $parameter['tids']) : array();
 		$fids		= isset($parameter['fids']) && !in_array(0, (array)$parameter['fids']) ? $parameter['fids'] : array_keys($_G['cache']['forums']);
@@ -144,13 +147,13 @@ class block_sort extends commonblock_html {
 		$sortid	= isset($parameter['sortids']) ? intval($parameter['sortids']) : '';
 
 		if($fids) {
-			$thefids = array();
+			$thefids = array();//分区fid
 			foreach($fids as $fid) {
 				if($_G['cache']['forums'][$fid]['type']=='group') {
 					$thefids[] = $fid;
 				}
 			}
-			if($thefids) {
+			if($thefids) {//如果选择了分区，添加分区下的版块
 				foreach($_G['cache']['forums'] as $value) {
 					if($value['fup'] && in_array($value['fup'], $thefids)) {
 						$fids[] = intval($value['fid']);
@@ -190,7 +193,9 @@ class block_sort extends commonblock_html {
 		sortthreadsortselectoption($sortid);
 		$templatearray[$sortid] = $_G['cache']['threadsort_template_'.$sortid]['block'];
 		$sortoptionarray[$sortid] = $_G['cache']['threadsort_option_'.$sortid];
+		//是否显示主题分类
 		$isthreadtype = (strpos($templatearray[$sortid], '{typename}') !== false || strpos($templatearray[$sortid], '{typename_url}') !== false ) ? true : false;
+		//主题分类
 		$threadtypes = array();
 		if($isthreadtype && $fids) {
 			foreach(C::t('forum_forumfield')->fetch_all($fids) as $fid => $forum) {
@@ -200,6 +205,7 @@ class block_sort extends commonblock_html {
 
 		$html = '';
 		$threadlist = $verify = $verifyuids = array();
+		//数据获取
 		$query = DB::query("SELECT t.*
 			$sqlfrom WHERE 1 $sql
 			AND t.readperm='0'
@@ -210,6 +216,7 @@ class block_sort extends commonblock_html {
 
 		while($thread = DB::fetch($query)) {
 
+			//待查询的认证用户
 			if(isset($_G['setting']['verify']['enabled']) && $_G['setting']['verify']['enabled']) {
 				$verifyuids[$thread['authorid']] = $thread['authorid'];
 			}
@@ -248,6 +255,7 @@ class block_sort extends commonblock_html {
 		}
 
 		if(!empty($threadlist)) {
+			//查询认证
 			if($verifyuids) {
 				foreach(C::t('common_member_verify')->fetch_all($verifyuids) as $value) {
 					foreach($_G['setting']['verify'] as $vid => $vsetting) {

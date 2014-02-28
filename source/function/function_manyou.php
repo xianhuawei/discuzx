@@ -11,6 +11,9 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * 获取我的中心中展示的应用
+ */
 
 function manyou_getuserapp($panel = 0) {
 	global $_G;
@@ -59,13 +62,16 @@ function manyou_getuserapp($panel = 0) {
 					}
 				}
 			} elseif (!$value['allowsidenav']) {
+				//移除被设为不在左侧列表显示的应用
 				if(isset($_G['cache']['userapp'][$value['appid']])) {
 					unset($_G['cache']['userapp'][$value['appid']]);
 				}
 			}
 
 		}
+		//整理菜单
 		if(!empty($userapplist)) {
+			//过滤出默认应用在区域中的重名问题
 			foreach($panelapp as $appid => $value) {
 				if(isset($_G['cache']['userapp'][$value['appid']])) {
 					unset($_G['cache']['userapp'][$appid]);
@@ -86,6 +92,7 @@ function manyou_getuserapp($panel = 0) {
 	}
 }
 
+// 下载manyou应用图标到本地
 function downloadmyappicon($appid) {
 	$iconpath = getglobal('setting/attachdir').'./'.'myapp/icon/'.$appid.'.jpg';
 	if(!is_dir(dirname($iconpath))) {

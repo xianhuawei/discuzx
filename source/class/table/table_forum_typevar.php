@@ -21,10 +21,21 @@ class table_forum_typevar extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 获取指定类型的分类信息项数量
+	 * @param int $search
+	 * @return bool
+	 */
 	public function count_by_search($search) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE search>%d', array($this->_table, $search));
 	}
 
+	/**
+	 * 获取指定搜索类型和分类信息项类型的分类信息对应项
+	 * @param int $search
+	 * @param string|array $optiontypes
+	 * @return array
+	 */
 	public function fetch_all_by_search_optiontype($search, $optiontypes) {
 		if(empty($optiontypes)) {
 			return array();
@@ -33,10 +44,26 @@ class table_forum_typevar extends discuz_table
 				array($this->_table, 'forum_typeoption', $search));
 	}
 
+	/**
+	 * 获取指定分类信息的分类信息项
+	 * @param int $sortid
+	 * @param string $order 指定排序
+	 * @return array
+	 */
 	public function fetch_all_by_sortid($sortid, $order = '') {
+		//note 由于sortid,optionid是唯一索引，索引根据sortid查询，optionid不会重复
 		return DB::fetch_all('SELECT * FROM %t WHERE sortid=%d '.($order ? 'ORDER BY '.DB::order('displayorder', $order) : ''), array($this->_table, $sortid), 'optionid');
 	}
 
+	/**
+	 * 根据主键更新
+	 * @param int $sortid
+	 * @param int $optionid
+	 * @param array $data
+	 * @param bool $unbuffered
+	 * @param bool $low_priority
+	 * @return bool
+	 */
 	public function update($sortid, $optionid, $data, $unbuffered = false, $low_priority = false) {
 		if(empty($data)) {
 			return false;
@@ -44,6 +71,14 @@ class table_forum_typevar extends discuz_table
 		return DB::update($this->_table, $data, array('sortid' => $sortid, 'optionid' => $optionid), $unbuffered, $low_priority);
 	}
 
+	/**
+	 * 根据search类型更新
+	 * @param int $search
+	 * @param array $data
+	 * @param bool $unbuffered
+	 * @param bool $low_priority
+	 * @return bool
+	 */
 	public function update_by_search($search, $data, $unbuffered = false, $low_priority = false) {
 		if(empty($data)) {
 			return false;
@@ -51,6 +86,12 @@ class table_forum_typevar extends discuz_table
 		return DB::update($this->_table, $data, array('search' => $search), $unbuffered, $low_priority);
 	}
 
+	/**
+	 * 根据主键删除
+	 * @param int|array $sortids
+	 * @param int|array $optionids
+	 * @return bool
+	 */
 	public function delete($sortids = null, $optionids = null) {
 		$where = array();
 		$sortids && $where[] = DB::field('sortid', $sortids);

@@ -3,6 +3,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//表态分类
 loadcache('click');
 $clicks = empty($_G['cache']['click']['picid'])?array():$_G['cache']['click']['picid'];
 

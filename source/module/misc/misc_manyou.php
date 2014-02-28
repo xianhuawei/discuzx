@@ -10,7 +10,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 if($_GET['action'] == 'inviteCode') {
-	$my_register_url = 'http://api.manyou.com/uchome.php';
+	$my_register_url = 'http://api.manyou.com/uchome.php';//note 注册接口
 	$response = dfsockopen($my_register_url, 0, 'action=inviteCode&app=search');
 	showmessage($response, '', array(), array('msgtype' => 3, 'handle' => false));
 }elseif($_GET['action'] == 'menu') {

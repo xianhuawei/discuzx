@@ -20,12 +20,14 @@ space_merge($space, 'profile');
 space_merge($space, 'status');
 getonlinemember(array($space['uid']));
 
-if($space['videophoto'] && ckvideophoto($space, 1)) {
+//视频认证
+if($space['videophoto'] && ckvideophoto($space, 1)) {//权限
 	$space['videophoto'] = getvideophoto($space['videophoto']);
 } else {
 	$space['videophoto'] = '';
 }
 
+//用户组
 $space['admingroup'] = $_G['cache']['usergroups'][$space['adminid']];
 $space['admingroup']['icon'] = g_icon($space['adminid'], 1);
 
@@ -33,6 +35,7 @@ $space['group'] = $_G['cache']['usergroups'][$space['groupid']];
 $space['group']['icon'] = g_icon($space['groupid'], 1);
 $encodeusername = rawurlencode($space['username']);
 
+//扩展用户组
 if($space['extgroupids']) {
 	$newgroup = array();
 	$e_ids = explode(',', $space['extgroupids']);
@@ -52,6 +55,7 @@ if($space['lastpost']) $space['lastpost'] = dgmdate($space['lastpost']);
 if($space['lastsendmail']) $space['lastsendmail'] = dgmdate($space['lastsendmail']);
 
 
+//地址
 if($_G['uid'] == $space['uid'] || $_G['group']['allowviewip']) {
 	require_once libfile('function/misc');
 	$space['regip_loc'] = convertip($space['regip']);
@@ -84,14 +88,17 @@ $space['timeoffset'] = empty($space['timeoffset']) ? '9999' : $space['timeoffset
 if(strtotime($space['regdate']) + $space['oltime'] * 3600 > TIMESTAMP) {
 	$space['oltime'] = 0;
 }
+//好友关系
 require_once libfile('function/friend');
 $isfriend = friend_check($space['uid'], 1);
 
+//个人资料
 loadcache('profilesetting');
 include_once libfile('function/profile');
 $profiles = array();
 $privacy = $space['privacy']['profile'] ? $space['privacy']['profile'] : array();
 
+//用户认证
 if($_G['setting']['verify']['enabled']) {
 	space_merge($space, 'verify');
 }
@@ -106,7 +113,9 @@ foreach($_G['cache']['profilesetting'] as $fieldid => $field) {
 	) {
 		$val = profile_show($fieldid, $space);
 		if($val !== false) {
+			//判断是否为真实姓名
 			if($fieldid == 'realname' && $_G['uid'] != $space['uid'] && !ckrealname(1)) {
+				//获取当前用户是否通过实名认证
 				continue;
 			}
 			if($field['formtype'] == 'file' && $val) {
@@ -119,6 +128,7 @@ foreach($_G['cache']['profilesetting'] as $fieldid => $field) {
 	}
 }
 
+//如果用户是版主的话，查出管理什么板块
 $count = C::t('forum_moderator')->count_by_uid($space['uid']);
 if($count) {
 	foreach(C::t('forum_moderator')->fetch_all_by_uid($space['uid']) as $result) {
@@ -130,6 +140,7 @@ if($count) {
 	}
 }
 
+//显示该用户所加入的群组，ajax模式不显示
 if(!$_G['inajax'] && $_G['setting']['groupstatus']) {
 	$gorupcount = C::t('forum_groupuser')->fetch_all_group_for_user($space['uid'], 1);
 	if($groupcount > 0) {
@@ -159,11 +170,13 @@ $navtitle = lang('space', 'sb_profile', array('who' => $space['username']));
 $metakeywords = lang('space', 'sb_profile', array('who' => $space['username']));
 $metadescription = lang('space', 'sb_profile', array('who' => $space['username']));
 
+//验证是否允许查看视频认证照
 $showvideophoto = true;
 if($space['videophotostatus'] > 0 && $_G['uid'] != $space['uid'] && !ckvideophoto($space, 1)) {
 	$showvideophoto = false;
 }
 
+//note 是否可以查看违规操作记录
 $clist = array();
 if(in_array($_G['adminid'], array(1, 2, 3))) {
 	include_once libfile('function/member');

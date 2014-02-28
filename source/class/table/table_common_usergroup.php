@@ -21,6 +21,11 @@ class table_common_usergroup extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 根据积分值获取积分值所在的用户组数据
+	 * @param mixed $credits 积分值；为数组时分别为比较的前后积分
+	 * @return array
+	 */
 	public function fetch_by_credits($credits, $type = 'member') {
 		if(is_array($credits)) {
 			$creditsf = intval($credits[0]);
@@ -69,6 +74,11 @@ class table_common_usergroup extends discuz_table
 	}
 
 
+	/**
+	 * 根据groupid获取特殊管理组 ...
+	 * @param array $gid
+	 * @return array
+	 */
 	public function fetch_all_by_groupid($gid) {
 		if(!$gid) {
 			return null;
@@ -92,6 +102,11 @@ class table_common_usergroup extends discuz_table
 			return DB::result_first($sql);
 		}
 	}
+	/**
+	 * 获取指定IDS的一组数据，根据类型和关联关管理组排序,
+	 * @param int|array $ids 组ID
+	 * @return array
+	 */
 	public function fetch_all($ids) {
 		if(!$ids) {
 			return null;

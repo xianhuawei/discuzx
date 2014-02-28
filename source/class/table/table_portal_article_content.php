@@ -27,11 +27,22 @@ class table_portal_article_content extends discuz_table
 		}
 		return 0;
 	}
+	/**
+	 * 获取指定文章指定分页的内容
+	 * @param int $aid 文章ID
+	 * @param int $page 分页
+	 * @return mixed
+	 */
 	public function fetch_by_aid_page($aid, $page = 1) {
 		if(($page = dintval($page))<1) $page = 1;
 		return $aid ? DB::fetch_first('SELECT * FROM %t WHERE aid=%d ORDER BY pageorder'.DB::LIMIT($page-1, 1), array($this->_table, $aid)) : false;
 	}
 
+	/**
+	 * 获取指定文章ID的所有分页的内容
+	 * @param int $aid 文章ID
+	 * @return array
+	 */
 	public function fetch_all($aid) {
 		return $aid ? DB::fetch_all('SELECT * FROM %t WHERE aid=%d ORDER BY pageorder', array($this->_table, $aid)) : array();
 	}
@@ -55,6 +66,11 @@ class table_portal_article_content extends discuz_table
 		return $aid ? DB::result_first('SELECT COUNT(*) FROM %t WHERE aid=%d', array($this->_table, $aid)) : 0;
 	}
 
+	/**
+	 * 根据文章ID删除文章内容
+	 * @param int|array $aid 文章ID
+	 * @return int
+	 */
 	public function delete_by_aid($aid) {
 		return dintval($aid, true) ? DB::delete($this->_table, DB::field('aid', $aid)) : 0;
 	}

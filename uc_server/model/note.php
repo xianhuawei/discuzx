@@ -9,9 +9,9 @@
 
 !defined('IN_UC') && exit('Access Denied');
 
-define('UC_NOTE_REPEAT', 5);
-define('UC_NOTE_TIMEOUT', 15);
-define('UC_NOTE_GC', 10000);
+define('UC_NOTE_REPEAT', 5); // 通知重复次数
+define('UC_NOTE_TIMEOUT', 15); // 通知超时时间(秒)
+define('UC_NOTE_GC', 10000); // 过期通知的回收概率，该值越大，概率越低
 
 define('API_RETURN_FAILED', '-1');
 
@@ -31,6 +31,12 @@ class notemodel {
 		$this->base = $base;
 		$this->db = $base->db;
 		$this->apps = $this->base->cache('apps');
+		/** note
+		 * 1. 操作的名称，如：删除用户，测试连通，删除好友，取TAG数据，更新客户端缓存
+		 * 2. 调用的应用的接口参数，拼接规则为 APP_URL/api/uc.php?action=test&ids=1,2,3
+		 * 3. 回调的模块名称
+		 * 4. 回调的模块方法（$appid, $content）
+		 */
 		$this->operations = array(
 			'test'=>array('', 'action=test'),
 			'deleteuser'=>array('', 'action=deleteuser'),
@@ -49,12 +55,25 @@ class notemodel {
 		);
 	}
 
+	/**
+	 * 统计通知的总条数
+	 *
+	 * @return int
+	 */
 	function get_total_num($all = TRUE) {
 		$closedadd = $all ? '' : ' WHERE closed=\'0\'';
 		$data = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."notelist $closedadd");
 		return $data;
 	}
 
+	/**
+	 * Enter 得到通知列表
+	 *
+	 * @param int $page
+	 * @param int$ppp
+	 * @param int $totalnum
+	 * @return array 结果集
+	 */
 	function get_list($page, $ppp, $totalnum, $all = TRUE) {
 		$start = $this->base->page_get_start($page, $ppp, $totalnum);
 		$closedadd = $all ? '' : ' WHERE closed=\'0\'';
@@ -67,12 +86,28 @@ class notemodel {
 		return $data;
 	}
 
+	/**
+	 * 删除通知
+	 *
+	 * @param string/array $ids
+	 * @return 受影响的行数
+	 */
 	function delete_note($ids) {
 		$ids = $this->base->implode($ids);
 		$this->db->query("DELETE FROM ".UC_DBTABLEPRE."notelist WHERE noteid IN ($ids)");
 		return $this->db->affected_rows();
 	}
 
+	/**
+	 * 添加通知列表
+	 *
+	 * @param string 操作
+	 * @param string getdata
+	 * @param string postdata
+	 * @param array appids 指定通知的 APPID
+	 * @param int pri 优先级，值越大表示越高
+	 * @return int 插入的ID
+	 */
 	function add($operation, $getdata='', $postdata='', $appids=array(), $pri = 0) {
 		$extra = $varextra = '';
 		foreach((array)$this->apps as $appid => $app) {
@@ -106,16 +141,22 @@ class notemodel {
 	}
 
 	function _send() {
+		// 判断是否有通知
 
+		// 如果内存表记录不存在，那么可能 mysql 被重启，需要再次判断通知是否存在
 
+		// 查看是否有通知
 		$note = $this->_get_note();
 		if(empty($note)) {
+			// 标示为不需要通知
 			$this->db->query("REPLACE INTO ".UC_DBTABLEPRE."vars SET name='noteexists', value='0'");
 			return NULL;
 		}
 
+		// 遍历所有应用标识, 看哪个需要再次发送通知, 通知成功, 标识为1 否则-1
 		$closenote = TRUE;
 		foreach((array)$this->apps as $appid => $app) {
+			// 只循环一轮，一个一个的发。
 			$appnotes = $note['app'.$appid];
 			if($app['recvnote'] && $appnotes != 1 && $appnotes > -UC_NOTE_REPEAT) {
 				$this->sendone($appid, 0, $note);
@@ -127,6 +168,7 @@ class notemodel {
 			$this->db->query("UPDATE ".UC_DBTABLEPRE."notelist SET closed='1' WHERE noteid='$note[noteid]'");
 		}
 
+		// 垃圾清理
 		$this->_gc();
 	}
 
@@ -157,7 +199,7 @@ class notemodel {
 			$response = trim($_ENV['misc']->dfopen2($url, 0, $note['postdata'], '', 1, $app['ip'], UC_NOTE_TIMEOUT, TRUE));
 		}
 
-		$returnsucceed = $response != '' && ($response == 1 || is_array(xml_unserialize($response)));
+		$returnsucceed = $response != '' && ($response == 1 || is_array(xml_unserialize($response)));// 当确实返回为1的时候才认为是通知成功
 
 		$closedsqladd = $this->_close_note($note, $this->apps, $returnsucceed, $appid) ? ",closed='1'" : '';//
 
@@ -185,6 +227,7 @@ class notemodel {
 		rand(0, UC_NOTE_GC) == 0 && $this->db->query("DELETE FROM ".UC_DBTABLEPRE."notelist WHERE closed='1'");
 	}
 
+	// 判断是否需要关闭通知
 	function _close_note($note, $apps, $returnsucceed, $appid) {
 		$note['app'.$appid] = $returnsucceed ? 1 : $note['app'.$appid] - 1;
 		$appcount = count($apps);

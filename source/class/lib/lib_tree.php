@@ -10,6 +10,9 @@ if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * Use PHP array as a tree with sub nodes
+ */
 class lib_tree {
 
 	public $data = array();
@@ -21,6 +24,12 @@ class lib_tree {
 	public function __construct() {
 	}
 
+	/**
+	 * add data into tree
+	 * @param string $id
+	 * @param string $parent
+	 * @param mix $value
+	 */
 	public function setNode($id, $parent, $value) {
 
 		$parent = $parent ? $parent : 0;
@@ -56,6 +65,7 @@ class lib_tree {
 	}
 
 	public function getLayer($id, $space = false) {
+		//重新计算级数
 		$this->layer[$id] = 0;
 		$this->countid = $id;
 		$this->reSetLayer($id);
@@ -71,8 +81,8 @@ class lib_tree {
 			$id = $parent[$this->layer[$id]] = $this->parent[$id];
 		}
 
-		ksort($parent);
-		reset($parent);
+		ksort($parent); //按照键名排序
+		reset($parent); //数组指针移回第一个单元
 
 		return $parent;
 	}

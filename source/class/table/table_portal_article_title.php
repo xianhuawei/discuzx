@@ -22,6 +22,13 @@ class table_portal_article_title extends discuz_table
 	}
 
 
+	/**
+	 * 更新点击数
+	 * @param int $cid 要变更点击数的id
+	 * @param int $clickid click字段id
+	 * @param int $incclick 点击数叠加数
+	 * @return result
+	 */
 	public function update_click($cid, $clickid, $incclick) {
 		$clickid = intval($clickid);
 		if($clickid < 1 || $clickid > 8 || empty($cid) || empty($incclick)) {
@@ -52,6 +59,12 @@ class table_portal_article_title extends discuz_table
 		}
 		return DB::update($this->_table, $data, DB::field('catid', $catid));
 	}
+	/**
+	 * 获取指定范围的数据, 不带参数返回所有数据
+	 * @param int $start 开始
+	 * @param int $limit 条数
+	 * @return array
+	 */
 	public function range($start = 0, $limit = 0) {
 		return DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' ORDER BY dateline DESC'.DB::limit($start, $limit));
 	}

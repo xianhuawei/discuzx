@@ -44,6 +44,14 @@ if(empty($random)) {
 header('Location: '.UC_API.'/'.$avatar_url);
 exit;
 
+/**
+ * 根据用户的 uid 得到用户的头像
+ *
+ * @param	int		$uid
+ * @param	string	$size 	big OR middle OR small 默认为 middle
+ * @param	string	$type	头像类型，默认为空，表示虚拟
+ * @return	string
+ */
 function get_avatar($uid, $size = 'middle', $type = '') {
 	$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'middle';
 	$uid = abs(intval($uid));

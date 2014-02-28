@@ -7,6 +7,7 @@
  *      $Id: index.php 33892 2013-08-28 06:27:12Z hypowang $
  */
 
+//快速访问优先
 if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 	$_ENV['curapp'] = 'home';
 	$_GET = array('mod'=>'space', 'uid'=>$_SERVER['QUERY_STRING']);
@@ -15,6 +16,7 @@ if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 	$url = '';
 	$domain = $_ENV = array();
 	$jump = false;
+	//二级域名
 	@include_once './data/sysdata/cache_domain.php';
 	$_ENV['domain'] = $domain;
 	if(empty($_ENV['domain'])) {
@@ -23,8 +25,10 @@ if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 		$_ENV['defaultapp'] = array('portal.php' => 'portal', 'forum.php' => 'forum', 'group.php' => 'group', 'home.php' => 'home');
 		$_ENV['hostarr'] = explode('.', $_SERVER['HTTP_HOST']);
 		$_ENV['domainroot'] = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.')+1);
+		//判断是否为应用域名
 		if(!empty($_ENV['domain']['app']) && is_array($_ENV['domain']['app']) && in_array($_SERVER['HTTP_HOST'], $_ENV['domain']['app'])) {
 			$_ENV['curapp'] = array_search($_SERVER['HTTP_HOST'], $_ENV['domain']['app']);
+			//判断是否使用手机入口(IN_MOBILE)
 			if($_ENV['curapp'] == 'mobile') {
 				$_ENV['curapp'] = 'forum';
 				if(!isset($_GET['mobile'])) {
@@ -37,6 +41,7 @@ if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 		} elseif(!empty($_ENV['domain']['root']) && is_array($_ENV['domain']['root']) && in_array($_ENV['domainroot'], $_ENV['domain']['root'])) {
 
 			$_G['setting']['holddomain'] = $_ENV['domain']['holddomain'] ? $_ENV['domain']['holddomain'] : array('www');
+			// 判断是否为版块、分区、专题、频道二级域名
 			$list = $_ENV['domain']['list'];
 			if(isset($list[$_SERVER['HTTP_HOST']])) {
 				$domain = $list[$_SERVER['HTTP_HOST']];
@@ -114,6 +119,7 @@ if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 	}
 }
 if(!empty($url)) {
+	//处理访问推广的URL
 	$delimiter = strrpos($url, '?') ? '&' : '?';
 	if(isset($_GET['fromuid']) && $_GET['fromuid']) {
 		$url .= sprintf('%sfromuid=%d', $delimiter, $_GET['fromuid']);

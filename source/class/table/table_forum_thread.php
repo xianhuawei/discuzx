@@ -20,12 +20,17 @@ class table_forum_thread extends discuz_table
 		$this->_table = 'forum_thread';
 		$this->_pk    = 'tid';
 		$this->_pre_cache_key = 'forum_thread_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
-		
+		//$this->_cache_ttl = 86400*2;	//note 缓存两天 //在setting/memory中设置
 		parent::__construct();
 	}
 
+	/**
+	 *
+	 * 根据tid获取主题
+	 * @param integer $tid:单个tid
+	 * @param integer $tableid: thread表后缀，默认从主表中取
+	 * @return 单个主题
+	 */
 	public function fetch($tid, $tableid = 0) {
 		$tid = intval($tid);
 		$data = array();
@@ -37,6 +42,15 @@ class table_forum_thread extends discuz_table
 		return $data;
 	}
 
+	/**
+	 * 根据tid、displayorder、authorid获取主题信息
+	 * @param integer $tid:主题ID
+	 * @param integer $displayorder: displayorder值
+	 * @param string $glue: 支持=/==、>、<、>=、<=、<>
+	 * @param integer $authorid: 作者uid
+	 * @param integer $tableid: 分表ID
+	 * @return Ambigous <multitype:, 单个主题, miexd, boolean, mix, NULL, string, mixed>
+	 */
 	public function fetch_by_tid_displayorder($tid, $displayorder = null, $glue = '>=',  $authorid = null, $tableid = 0) {
 		$data = $this->fetch($tid, $tableid);
 		if(!empty($data)) {
@@ -47,6 +61,14 @@ class table_forum_thread extends discuz_table
 		return $data;
 	}
 
+	/**
+	 * 根据fid、displayorder获取一条记录
+	 * @param unknown_type $fid
+	 * @param unknown_type $displayorder
+	 * @param unknown_type $glue
+	 * @param unknown_type $order
+	 * @param unknown_type $sort
+	 */
 	public function fetch_by_fid_displayorder($fid, $displayorder = 0, $glue = '>=', $order = 'lastpost', $sort = 'DESC') {
 		$fid = intval($fid);
 		if(!empty($fid)) {
@@ -88,6 +110,18 @@ class table_forum_thread extends discuz_table
 		return $threadtableids;
 	}
 
+	/**
+	 *
+	 * 根据$digest、$displayorder获取数据
+	 * @param integer $digest
+	 * @param string $digestglue
+	 * @param integer $displayorder
+	 * @param string $glue
+	 * @param integer $start
+	 * @param integer $limit
+	 * @param integer $tableid: 分表ID
+	 * @return 返回主题列表
+	 */
 	public function fetch_all_by_digest_displayorder($digest, $digestglue = '=', $displayorder = 0, $glue = '>=', $start = 0, $limit = 0, $tableid = 0) {
 		$parameter = array($this->get_table_name($tableid), $digest, $displayorder);
 		$digestglue = helper_util::check_glue($digestglue);
@@ -113,6 +147,14 @@ class table_forum_thread extends discuz_table
 		$wheresql = !empty($wherearr) && is_array($wherearr) ? ' WHERE '.implode(' AND ', $wherearr) : '';
 		return DB::fetch_all("SELECT * FROM %t $wheresql ORDER BY lastpost DESC ".DB::limit($start, $limit), $parameter, $this->_pk);
 	}
+	/**
+	 *
+	 * 根据fid,lastpost范围取出100条记录
+	 * @param int|array $fid: 版块id
+	 * @param int $lstart: lastpost开始时间
+	 * @param int $lend: lastpost结束时间
+	 * @param int $tableid:分表ID
+	 */
 	public function fetch_all_by_fid_lastpost($fid, $lstart = 0, $lend = 0, $tableid = 0) {
 		$parameter = array($this->get_table_name($tableid), $fid);
 		$wherearr = array();
@@ -170,6 +212,15 @@ class table_forum_thread extends discuz_table
 		return DB::fetch_all("SELECT * FROM %t $wheresql ORDER BY dateline DESC ".DB::limit($start, $limit), $parameter, $this->_pk);
 	}
 
+	/**
+	 *
+	 * 根据tid获取主题
+	 * @param array $tids:tid数组
+	 * @param integer $start: 开始记录数
+	 * @param integer $limit: 获取记录数
+	 * @param integer $tableid: thread表后缀
+	 * @return 返回主题列表
+	 */
 	public function fetch_all_by_tid($tids, $start = 0, $limit = 0, $tableid = 0) {
 		$data = array();
 		if(($data = $this->fetch_cache($tids)) === false || count($tids) != count($data)) {
@@ -197,6 +248,15 @@ class table_forum_thread extends discuz_table
 		return $data;
 	}
 
+	/**
+	 *
+	 * 根据tids获取获取相关主题
+	 * @param mixed $tids:单个tid或者tid数组
+	 * @param integer $displayorder: displayorder状态位
+	 * @param string $glue: displayorder的比较运算符>=、<=、=、<、>
+	 * @param mixed $fids:单个fid或者fid数组
+	 * @return 返回主题列表
+	 */
 	public function fetch_all_by_tid_displayorder($tids, $displayorder = null, $glue = '>=', $fids = array(), $closed = null) {
 		$data = array();
 		if(!empty($tids)) {
@@ -262,11 +322,28 @@ class table_forum_thread extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE %i '.DB::limit($start, $limit), array($this->get_table_name($tableid), DB::field('displayorder', $displayorder, $glue)));
 	}
 
+	/**
+	 *
+	 * 根据authorid获取用户主题按时间降序排列
+	 * @param integer/array $authorid: 用户ID
+	 * @param integer $start: 从第几条开始取
+	 * @param integer $limit: 一次取多少条
+	 * @param integer $tableid: 从哪个表取
+	 */
 	public function fetch_all_by_authorid($authorid, $start = 0, $limit = 0, $tableid = 0) {
 		$authorid = dintval($authorid, true);
 		return DB::fetch_all("SELECT * FROM %t WHERE %i ORDER BY dateline DESC ".DB::limit($start, $limit), array($this->get_table_name($tableid), DB::field('authorid', $authorid)), $this->_pk);
 	}
 
+	/**
+	 *
+	 * 根据时间搜索大于某一个时间段的帖子
+	 * @param integer $starttime: 发帖时间大于$starttime的帖子
+	 * @param integer $start: 开始记录
+	 * @param integer $limit: 获取条数
+	 * @param string $order: 排序字段
+	 * @param string $sort: 排序方式
+	 */
 	public function fetch_all_by_dateline($starttime, $start = 0, $limit = 0, $order = 'dateline', $sort = 'DESC') {
 		if($starttime) {
 			$orderby = '';
@@ -457,6 +534,17 @@ class table_forum_thread extends discuz_table
 				LEFT JOIN '.DB::table('forum_forum').' f ON f.fid=t.fid '.$sql[0].' ORDER BY t.dateline DESC '.DB::limit($start, $limit), $sql[1]);
 	}
 
+	/**
+	 *
+	 * 主题审核查询
+	 * @param integer $fid: 版块ID
+	 * @param integer $displayorder: 帖子状态
+	 * @param integer $isgroup: 是否为群组
+	 * @param integer $dateline: 发帖时间
+	 * @param string $author: 发帖者
+	 * @param string $subject: 帖子标题
+	 * @return 返回帖子列表
+	 */
 	public function fetch_all_moderate($fid = 0, $displayorder = null, $isgroup = null, $dateline = null, $author = null, $subject = null) {
 		$parameter = $this->make_query_condition(null, $fid, $isgroup, $author, $subject, $displayorder, $dateline);
 		return DB::fetch_all('SELECT * FROM %t '.$parameter[0], $parameter[1], $this->_pk);
@@ -498,6 +586,7 @@ class table_forum_thread extends discuz_table
 		$data = array();
 		$tlkey = !empty($conditions['inforum']) && !is_array($conditions['inforum']) ? $conditions['inforum'] : '';
 		$firstpage = false;
+		//判断是否取的是第一页
 		$defult = count($conditions) < 5 ? true : false;
 		if(count($conditions) < 5) {
 			foreach(array_keys($conditions) as $key) {
@@ -518,6 +607,7 @@ class table_forum_thread extends discuz_table
 				}
 			}
 			if($firstpage && !empty($tlkey) && ($ttl = getglobal('setting/memory/forum_thread_forumdisplay')) !== null && ($data = $this->fetch_cache($tlkey, 'forumdisplay_')) !== false) {
+				//验证是否有被删除的用户，如果存在，则清空缓存，重新获取
 				$delusers = $this->fetch_cache('deleteuids', '');
 				if(!empty($delusers)) {
 					foreach($data as $tid => $value) {
@@ -556,6 +646,17 @@ class table_forum_thread extends discuz_table
 
 	}
 
+	/**
+	 *
+	 * 根据指定的tids、$fids、$isgroup、$author、$subject生成查询条件
+	 * @param array $tids: tid数组
+	 * @param array $fids: fid数组
+	 * @param integer $isgroup: 是否群组帖子: -1: 不限; 0: 不是; 1: 是;
+	 * @param array $author: 帖子作者
+	 * @param integer $displayorder:
+	 * @param array $subject: 标题支持模糊查找
+	 * @return array(where, parameter)
+	 */
 	private function make_query_condition($tids, $fids = array(), $isgroup = -1, $author = '', $subject = '', $displayorder = null, $dateline = null) {
 		$parameter = array($this->get_table_name());
 		$wherearr = array();
@@ -834,6 +935,11 @@ class table_forum_thread extends discuz_table
 		return $wheresql;
 	}
 
+	/**
+	 *
+	 * 获取posttableid数组
+	 * @return 该方法依赖一些生成posttableid的操作否则返回空数组
+	 */
 	public function get_posttableid() {
 		return $this->_posttableid;
 	}
@@ -841,6 +947,13 @@ class table_forum_thread extends discuz_table
 		return $this->_urlparam;
 	}
 
+	/**
+	 *
+	 * 根据tids和displayorder更新displayorder状态位
+	 * @param array $tids: tid 数组
+	 * @param integer $olddisplayorder: 原displayorder状态位
+	 * @param integer $newdisplayorder: 新displayorder状态位
+	 */
 	public function update_displayorder_by_tid_displayorder($tids, $olddisplayorder, $newdisplayorder) {
 		$tids = dintval((array)$tids, true);
 		if($tids) {
@@ -849,6 +962,15 @@ class table_forum_thread extends discuz_table
 		return 0;
 	}
 
+	/**
+	 * 更新主题内容
+	 * @param mixed $tid
+	 * @param array $data
+	 * @param int $tableid
+	 * @param Boolean $unbuffered
+	 * @param Boolean $low_priority
+	 * @param Boolean $realdata //已经处理好的SET sql数据
+	 */
 	public function update($tid, $data, $unbuffered = false, $low_priority = false, $tableid = 0, $realdata = false) {
 		$tid = dintval($tid, true);
 		if($data && is_array($data) && $tid) {
@@ -871,6 +993,14 @@ class table_forum_thread extends discuz_table
 		}
 		return array();
 	}
+	/**
+	 * 根据tid、displayorder更新数据
+	 * @param mixed $tid: 单个tid或数组
+	 * @param int $displayorder: displayorder状态
+	 * @param array $data: 需要更新的内容
+	 * @param mixed $fid: 单个版块fid或者fid数组
+	 * @param int $tableid: thread分表后缀,默认主表
+	 */
 	public function update_by_tid_displayorder($tid, $displayorder, $data, $fid = 0, $tableid = 0) {
 		$condition = array();
 		$tid = dintval($tid, true);
@@ -902,6 +1032,7 @@ class table_forum_thread extends discuz_table
 	public function update_status_by_tid($tids, $value, $glue = '|') {
 		$tids = dintval($tids, true);
 		if($tids) {
+			//清除这类主题的缓存
 			$this->clear_cache((array)$tids);
 			$glue = helper_util::check_glue($glue);
 			return DB::query("UPDATE %t SET status=status{$glue}%s WHERE tid IN(%n)", array($this->get_table_name(), $value, (array)$tids));
@@ -936,6 +1067,7 @@ class table_forum_thread extends discuz_table
 			}
 		}
 		if($getsetarr) {
+			//note 为了合并更新
 			return $sql;
 		}
 		if(!empty($sql)){
@@ -948,6 +1080,7 @@ class table_forum_thread extends discuz_table
 
 	public function insert($data, $return_insert_id = false, $replace = false, $silent = false) {
 		if($data && is_array($data)) {
+			//删除首页版块缓存
 			$this->clear_cache($data['fid'], 'forumdisplay_');
 			//删除缓存
 			$cache_key = $this->_pre_cache_key.'count_by_fid_displayorder_authorid'.$data['fid'].'-'.$data['displayorder'].'-'.$data['authorid'];
@@ -966,6 +1099,13 @@ class table_forum_thread extends discuz_table
 		}
 	}
 
+	/**
+	 *
+	 * 根据authorid统计主题数
+	 * @param integer $tableid: 分表Id
+	 * @param integer $authorid: 帖子作者uid
+	 * @return 返回主题数
+	 */
 	public function count_by_authorid($authorid, $tableid = 0) {
 		return DB::result_first("SELECT COUNT(*) FROM %t WHERE authorid=%d", array($this->get_table_name($tableid), $authorid));
 	}
@@ -1002,8 +1142,15 @@ class table_forum_thread extends discuz_table
 		$wheresql = !empty($wherearr) && is_array($wherearr) ? ' WHERE '.implode(' AND ', $wherearr) : '';
 		return DB::result_first("SELECT COUNT(*) FROM %t $wheresql", $parameter);
 	}
+	/**
+	 * 统计版块帖子数与主题数
+	 * @param int $fid: 单个版块ID
+	 * @param int $forcetableid: thread表后缀，默认全库遍历
+	 * @return 返回array('threads' => 0, 'posts' => 0)的数组
+	 */
 	public function count_posts_by_fid($fid, $forcetableid = null) {
 		$data = array('threads' => 0, 'posts' => 0);
+		//获得 thread 分表信息
 		loadcache('threadtableids');
 		$threadtableids = array(0);
 		$tableids = getglobal('cache/threadtableids');
@@ -1014,6 +1161,7 @@ class table_forum_thread extends discuz_table
 				$threadtableids = array(intval($forcetableid));
 			}
 		}
+		//过滤重复值
 		$threadtableids = array_unique($threadtableids);
 		foreach($threadtableids as $tableid) {
 			$value = DB::fetch_first('SELECT COUNT(*) AS threads, SUM(replies)+COUNT(*) AS posts FROM %t WHERE fid=%d AND displayorder>=0', array($this->get_table_name($tableid), $fid));
@@ -1055,19 +1203,43 @@ class table_forum_thread extends discuz_table
 		return DB::result_first("SELECT COUNT(*) FROM %t", array($this->get_table_name($tableid)));
 	}
 
+	/**
+	 *
+	 * 根据指定的tids、$fids、$author、$subject统计有多少条审核
+	 * @param array $tids: tid数组
+	 * @param array $fids: fid数组
+	 * @param integer $isgroup: 是否群组帖子: -1: 不限; 0: 不是; 1: 是;
+	 * @param array $author: 帖子作者
+	 * @param array $subject: 标题支持模糊查找
+	 */
 	public function count_by_tid_fid($tids, $fids = array(), $isgroup = -1, $author = '', $subject = '') {
 		$condition = $this->make_query_condition($tids, $fids, $isgroup, $author, $subject);
 		return DB::result_first("SELECT COUNT(*) FROM %t $condition[0]", $condition[1]);
 	}
 
 
+	/**
+	 *
+	 * 统计群组成员主题数
+	 * @param integer $fid: 群组id
+	 */
 	public function count_group_thread_by_fid($fid) {
 		return DB::fetch_all('SELECT COUNT(*) AS num, authorid FROM %t WHERE fid=%d GROUP BY authorid', array($this->get_table_name(), $fid));
 	}
+	/**
+	 * 在指定的表中进行fid分组后统计主题数
+	 * @param int $tableid: 主题表后缀ID
+	 * @return 返回版块主题数列表
+	 */
 	public function count_group_by_fid($tableid = 0) {
 		return DB::fetch_all('SELECT fid, COUNT(*) AS threads, SUM(replies)+COUNT(*) AS posts FROM %t GROUP BY fid', array($this->get_table_name($tableid)));
 	}
 
+	/**
+	 *
+	 * 根据special分组统计special记录数
+	 * @return 返回special分组统计结果
+	 */
 	public function count_special_group_by_special() {
 		return DB::fetch_all('SELECT special, count(*) AS spcount FROM %t GROUP BY special', array($this->get_table_name()));
 	}
@@ -1080,6 +1252,7 @@ class table_forum_thread extends discuz_table
 	public function delete_by_tid($tids, $unbuffered = false, $tableid = 0, $limit = 0) {
 		$tids = dintval($tids, true);
 		if($tids) {
+			//清空缓存
 			$this->clear_cache($tids);
 			C::t('forum_newthread')->delete_by_tids($tids);
 			return DB::delete($this->get_table_name($tableid), DB::field('tid', $tids), $limit, $unbuffered);
@@ -1092,6 +1265,7 @@ class table_forum_thread extends discuz_table
 	public function delete_by_fid($fid, $unbuffered = false, $tableid = 0, $limit = 0) {
 		$fid = dintval($fid, true);
 		if($fid) {
+			//删除首页版块缓存
 			foreach((array)$fid as $delfid) {
 				$this->clear_cache($delfid, 'forumdisplay_');
 			}
@@ -1148,6 +1322,13 @@ class table_forum_thread extends discuz_table
 	public function fetch_max_tid() {
 		return DB::result_first("SELECT MAX(tid) as maxtid FROM ".DB::table('forum_thread'));
 	}
+	/**
+	 * 根据tid移动主题，移动后删除源记录
+	 * @param array $tids: tid数组
+	 * @param int $source: 源thread表后缀
+	 * @param int $target: 目标thread表后缀
+	 * @return 返回false或被删除的记录数
+	 */
 	public function move_thread_by_tid($tids, $source, $target) {
 		$source = intval($source);
 		$target = intval($target);
@@ -1230,6 +1411,11 @@ class table_forum_thread extends discuz_table
 		$wheresql = !empty($wherearr) && is_array($wherearr) ? ' WHERE '.implode(' AND ', $wherearr) : '';
 		return array($wheresql, $parameter);
 	}
+	/**
+	 * 创建一个thread
+	 * @param int $maxtableid: 将要创建的表后缀ID
+	 * @return boolean
+	 */
 	public function create_table($maxtableid) {
 		if($maxtableid) {
 			DB::query('SET SQL_QUOTE_SHOW_CREATE=0', 'SILENT');

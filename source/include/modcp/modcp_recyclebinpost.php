@@ -11,11 +11,14 @@ if(!defined('IN_DISCUZ') || !defined('IN_MODCP')) {
 	exit('Access Denied');
 }
 
+//note ================================================================
+//note 回帖回收站管理
+//note ================================================================
 
 $op = !in_array($op , array('list', 'delete', 'search', 'restore')) ? 'list' : $op;
 $do = !empty($_GET['do']) ? dhtmlspecialchars($_GET['do']) : '';
 
-$pidarray = array();
+$pidarray = array(); //note 存储确认删除或者恢复的pid
 $action = $_GET['action'];
 
 $result = array();
@@ -28,15 +31,19 @@ foreach (array('starttime', 'endtime', 'keywords', 'users') as $key) {
 $postlist = array();
 $total = $multipage = '';
 
+//帖子分表ID
 $posttableid = intval($_GET['posttableid']);
+//帖子分表下拉列表
 $posttableselect = getposttableselect();
 
+//缓存名
 $cachekey = 'srchresult_recycle_post_'.$posttableid.'_'.$_G['fid'];
 
 if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['fid']]) {
 
 	$srchupdate = false;
 
+	//note 删除和恢复回帖
 	if(in_array($_G['adminid'], array(1, 2, 3)) && ($op == 'delete' || $op == 'restore') && submitcheck('dosubmit')) {
 		if($ids = dimplode($_GET['moderate'])) {
 			$pidarray = array();
@@ -48,13 +55,16 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 			}
 			if($pidarray) {
 				require_once libfile('function/misc');
+				//删除回帖
 				if ($op == 'delete' && $_G['group']['allowclearrecycle']){
 					recyclebinpostdelete($pidarray, $posttableid);
 				}
+				//恢复回帖
 				if ($op == 'restore') {
 					recyclebinpostundelete($pidarray, $posttableid);
 				}
 
+				//note 如果删除或者恢复的帖子位于搜索结果内，则需要更新一下搜索结果
 				if($_GET['oldop'] == 'search') {
 					$srchupdate = true;
 				}
@@ -67,6 +77,7 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 
 	}
 
+	//note 根据条件搜索主题
 	if($op == 'search' &&  submitcheck('searchsubmit')) {
 
 
@@ -99,6 +110,7 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 	$query = $multipage = '';
 	$fields = 'message, useip, attachment, htmlon, smileyoff, bbcodeoff, pid, tid, fid, author, dateline, subject, authorid, anonymous';
 
+	//note 显示常规列表
 	if($op == 'list') {
 		$total = C::t('forum_post')->count_by_fid_invisible($posttableid, $_G['fid'], '-5');
 		$tpage = ceil($total / $_G['tpp']);
@@ -112,12 +124,14 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 		}
 	}
 
+	//note 显示搜索结果列表
 	if($op == 'search') {
 
 		$result = $modsession->get($cachekey);
 
 		if($result) {
 
+			//note 更新搜索结果
 			if($srchupdate && $result['count'] && $pidarray) {
 				$pd = explode(',', $result['pids']);
 				$newpids = $comma = $newcount = '';

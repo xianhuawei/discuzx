@@ -13,6 +13,13 @@ if(!defined('IN_DISCUZ')) {
 
 class discuz_process
 {
+	/**
+	 * 查询进程是否锁定
+	 *
+	 * @param 进程名称 $process
+	 * @param 过期时间 $ttl
+	 * @return boolean
+	 */
 	public static function islocked($process, $ttl = 0) {
 		$ttl = $ttl < 1 ? 600 : intval($ttl);
 		return discuz_process::_status('get', $process) || discuz_process::_find($process, $ttl);

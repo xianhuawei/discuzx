@@ -23,12 +23,25 @@ class discuz_admincp
 
 	var $panel = 1;
 
+	// 是否是创始人
 	var $isfounder = false;
 
 	var $cpsetting = array();
 
+	/**
+	 * 管理面板状态值
+	 *  0: 无身份
+	 *  1: 首次登录
+	 *  2:再次登录
+	 *  3: 登录成功
+	 * -1: 面板锁定
+	 * -2: 无后台权限
+	 * -3: 无某单项操作权限
+	 * -4: 无身份登录锁定
+	 */
 	var $cpaccess = 0;
 
+	// session 有效期
 	var $sessionlife = 1800;
 	var $sessionlimit = 0;
 
@@ -86,27 +99,35 @@ class discuz_admincp
 				$session = C::t('common_admincp_session')->fetch($this->adminuser['uid'], $this->panel);
 			}
 
+			// 没有权限记录或者创始人没有session记录
 			if(empty($session)) {
 				$this->cpaccess = $this->isfounder ? 1 : -2;
 
+			// IP 不在允许范围内
 			} elseif($_G['setting']['adminipaccess'] && !ipaccess($_G['clientip'], $_G['setting']['adminipaccess'])) {
 				$this->do_user_login();
 
+			// 有权限记录,但是没有session
 			} elseif ($session && empty($session['uid'])) {
 				$this->cpaccess = 1;
 
+			// 有权限记录,有session, 但是 session 过期
 			} elseif ($session['dateline'] < $this->sessionlimit) {
 				$this->cpaccess = 1;
 
+			// 有权限记录,有session, 尚未过期, 但是 ip 变更 且后台设置必须追踪ip
 			} elseif ($this->cpsetting['checkip'] && ($session['ip'] != $this->core->var['clientip'])) {
 				$this->cpaccess = 1;
 
+			// 有权限记录, 但是尚未登录成功,并在允许登录次数内
 			} elseif ($session['errorcount'] >= 0 && $session['errorcount'] <= 3) {
 				$this->cpaccess = 2;
 
+			// 有权限记录, 且正常状态
 			} elseif ($session['errorcount'] == -1) {
 				$this->cpaccess = 3;
 
+			// 有权限记录,但是面板已经锁定
 			} else {
 				$this->cpaccess = -1;
 			}
@@ -120,6 +141,7 @@ class discuz_admincp
 
 		$this->adminsession = $session;
 
+		// 有post提交,但无身份或者尚未登录成功, 则判断登录情况
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['admin_password'])) {
 			if($this->cpaccess == 2) {
 				$this->check_admin_login();

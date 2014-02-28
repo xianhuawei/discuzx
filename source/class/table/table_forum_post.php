@@ -26,6 +26,12 @@ class table_forum_post extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 根据主题id获取所在分表表名
+	 * @param int $tableid 分表id or tid:主题id
+	 * @param int $primary 是否是主表forum_post
+	 * @return string
+	 */
 	public static function get_tablename($tableid, $primary = 0) {
 		list($type, $tid) = explode(':', $tableid);
 		if(!isset(self::$_tableid_tablename[$tableid])) {
@@ -38,10 +44,22 @@ class table_forum_post extends discuz_table
 		return self::$_tableid_tablename[$tableid];
 	}
 
+	/**
+	 * 取得一个主题包括回复中所有的参与人总数，调用了1次
+	 * @param int $tid 主题id
+	 * @return int 返回人数
+	 */
 	public function count_author_by_tid($tid) {
 		return DB::result_first('SELECT count(DISTINCT authorid) FROM %t WHERE tid=%d', array(self::get_tablename('tid:'.$tid), $tid));
 	}
 
+	/**
+	 * 获取一个主题在某个时间段的帖子数量
+	 * @param string $tableid 所在分表id
+	 * @param int $tid 主题id
+	 * @param int $dateline 小于此时间戳的时间
+	 * @return int
+	 */
 	public function count_by_tid_dateline($tableid, $tid, $dateline) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE tid=%d AND invisible=0 AND dateline<=%d',
 				array(self::get_tablename($tableid), $tid, $dateline));
@@ -51,6 +69,14 @@ class table_forum_post extends discuz_table
 		return DB::result_first('SELECT position FROM %t WHERE tid=%d ORDER BY position DESC LIMIT 1',
 				array(self::get_tablename($tableid), $tid));
 	}
+	/**
+	 * 按position方式，获取某一页回复
+	 * @param string $tableid 所在分表id
+	 * @param int $tid 主题id
+	 * @param int $start, $end, $maxposition 开始，结束的position值，最大楼层（取缓存需要） 1楼到10楼显示时，$start=1,$end=11
+	 * @param int $ordertype 是否倒序看帖
+	 * @return array()
+	 */
 	public function fetch_all_by_tid_range_position($tableid, $tid, $start, $end, $maxposition, $ordertype = 0) {
 		$storeflag = false;
 		if($this->_allowmem) {
@@ -59,7 +85,7 @@ class table_forum_post extends discuz_table
 				if($data && count($data) == ($end - $start)) {
 					$delauthorid = $this->fetch_cache('delauthorid');
 					$updatefid = $this->fetch_cache('updatefid');
-					$delpid = $this->fetch_cache('delpid');
+					$delpid = $this->fetch_cache('delpid');//note 这个数组会不会过大？
 					foreach($data as $k => $post) {
 						if(in_array($post['pid'], $delpid) || $post['invisible'] < 0 || in_array($post['authorid'], $delauthorid)) {
 							$data[$k]['invisible'] = 0;
@@ -87,43 +113,102 @@ class table_forum_post extends discuz_table
 	public function fetch_all_by_tid_position($tableid, $tid, $position) {
 		return DB::fetch_all('SELECT * FROM %t WHERE tid=%d AND '.DB::field('position', $position), array(self::get_tablename($tableid), $tid));
 	}
+	/**
+	 * 获取某个用户在主题及回复中的数量
+	 * @param int $tid 所在主题id
+	 * @param int $authorid 帖子作者id
+	 * @return int
+	 */
 	public function count_by_tid_invisible_authorid($tid, $authorid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE tid=%d AND invisible=0 AND authorid=%d',
 				array(self::get_tablename('tid:'.$tid), $tid, $authorid));
 	}
 
+	/**
+	 * 获取主题中可见帖子数量
+	 * @param int $tid 主题id
+	 * @return int
+	 */
 	public function count_visiblepost_by_tid($tid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE tid=%d AND invisible=0', array(self::get_tablename('tid:'.$tid), $tid));
 	}
 
+	/**
+	 * 获取主题中小于某个帖子的帖子数,调用了1次
+	 * @param int $tid 主题id
+	 * @param int $pid 帖子id
+	 * @return int
+	 */
 	public function count_by_tid_pid($tid, $pid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE tid=%d AND pid<%d', array(self::get_tablename('tid:'.$tid), $tid, $pid));
 	}
 
+	/**
+	 * 获取一个主题中某个用户的回帖数
+	 * @param int $tid 主题id,同时作为查询分表参数
+	 * @param int $authorid 用户id
+	 * @return int 回帖数
+	 */
 	public function count_by_tid_authorid($tid, $authorid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE tid=%d AND first=0 AND authorid=%d', array(self::get_tablename('tid:'.$tid), $tid, $authorid));
 	}
 
+	/**
+	 * 获取用户的发帖数，用于后台更新帖子数
+	 * @param string $tableid 分表id
+	 * @param int $authorid 用户id
+	 * @return int 用户发帖数
+	 */
 	public function count_by_authorid($tableid, $authorid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE authorid=%d AND invisible=0', array(self::get_tablename($tableid), $authorid));
 	}
 
+	/**
+	 * 获取群组/版块 每个用户回复数
+	 * @param string $tableid 分表id
+	 * @param int $fid 版块id
+	 * @return array 用户及其回复数
+	 */
 	public function count_group_authorid_by_fid($tableid, $fid) {
 		return DB::fetch_all('SELECT COUNT(*) as num, authorid FROM %t WHERE fid=%d AND first=0 GROUP BY authorid', array(self::get_tablename($tableid), $fid));
 	}
 
+	/**
+	 * 获取总的主题数或回复数
+	 * @param string $tableid 分表id
+	 * @param int $first 1主题 0回复
+	 * @return int
+	 */
 	public function count_by_first($tableid, $first) {
 		return DB::result_first('SELECT count(*) FROM %t WHERE %i', array(self::get_tablename($tableid), DB::field('first', $first)));
 	}
 
+	/**
+	 * 通过invisible统计帖子数
+	 * @param string $tableid 分表id
+	 * @param int $invisible invisible值
+	 * @return int
+	 */
 	public function count_by_invisible($tableid, $invisible) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE %i', array(self::get_tablename($tableid), DB::field('invisible', $invisible)));
 	}
 
+	/**
+	 * 获取帖子总数
+	 * @param string $tableid 分表id
+	 * @return int
+	 */
 	public function count_table($tableid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t', array(self::get_tablename($tableid)));
 	}
 
+	/**
+	 * 通过fid invisible获取帖子数
+	 * @param string $tableid 分表id
+	 * @param int $fid 版块id
+	 * @param int $invisible 帖子可见状态
+	 * @return int
+	 */
 	public function count_by_fid_invisible($tableid, $fid, $invisible) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE fid=%d AND invisible=%d', array(self::get_tablename($tableid), $fid, $invisible));
 	}
@@ -132,6 +217,13 @@ class table_forum_post extends discuz_table
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE dateline>=%d AND invisible=0', array(self::get_tablename($tableid), $dateline));
 	}
 
+	/**
+	 * 重写fetch方法，根据pid返回帖子信息 tableid表示该帖子在哪一个分表中
+	 * @param string $tableid 分表id or tid:主题id
+	 * @param int $pid 帖子id
+	 * @param bool $outmsg 是否返回message内容,默认返回
+	 * @return array 返回帖子信息
+	 */
 	public function fetch($tableid, $pid, $outmsg = true) {
 		$post = DB::fetch_first('SELECT * FROM %t WHERE pid=%d', array(self::get_tablename($tableid), $pid));
 		if(!$outmsg) {
@@ -140,28 +232,63 @@ class table_forum_post extends discuz_table
 		return $post;
 	}
 
+	/**
+	 * 获取主题下的指定的某一条帖子
+	 * @param string $tableid 所在的分表id
+	 * @param int $tid 主题id
+	 * @param int $start 指定的开始位置
+	 * @return array
+	 */
 	public function fetch_visiblepost_by_tid($tableid, $tid, $start = 0, $order = 0) {
 		return DB::fetch_first('SELECT * FROM %t WHERE tid=%d AND invisible=0 ORDER BY dateline '. ($order ? 'DESC' : '').' '. DB::limit($start, 1),
 				array(self::get_tablename($tableid), $tid));
 	}
 
+	/**
+	 * 获取主题贴
+	 * @param int $tid 主题id,同时作为查询分表参数
+	 * @param int $invisible 是否可见参数
+	 * @return array
+	 */
 	public function fetch_threadpost_by_tid_invisible($tid, $invisible = null) {
 		return DB::fetch_first('SELECT * FROM %t WHERE tid=%d AND first=1'.($invisible !== null ? ' AND '.DB::field('invisible', $invisible) : ''),
 				array(self::get_tablename('tid:'.$tid), $tid));
 	}
 
+	/**
+	 * 判断用户是否参与了该主题
+	 * @param int $tid 主题id,同时作为查询分表参数
+	 * @param int $authorid 用户id
+	 * @return int
+	 */
 	public function fetch_pid_by_tid_authorid($tid, $authorid) {
 		return DB::result_first('SELECT pid FROM %t WHERE tid=%d AND authorid=%d LIMIT 1', array(self::get_tablename('tid:'.$tid), $tid, $authorid));
 	}
 
+	/**
+	 * 判断游客是否参与了该主题
+	 * @param int $tid 主题id,同时作为查询分表参数
+	 * @param string $clientip ip地址
+	 * @return int
+	 */
 	public function fetch_pid_by_tid_clientip($tid, $clientip) {
 		return DB::result_first('SELECT pid FROM %t WHERE tid=%d AND authorid=0 AND useip=%s LIMIT 1', array(self::get_tablename('tid:'.$tid), $tid, $clientip));
 	}
 
+	/**
+	 * 判断主题是否有附件,调用了1次
+	 * @param int $tid 主题id,同时作为分表参数
+	 * @return int
+	 */
 	public function fetch_attachment_by_tid($tid) {
 		return DB::result_first('SELECT attachment FROM %t WHERE tid=%d AND invisible=0 AND attachment>0 LIMIT 1', array(self::get_tablename('tid:'.$tid), $tid));
 	}
 
+	/**
+	 * 获取分表的最大pid
+	 * @param string $tableid 分表id
+	 * @return int
+	 */
 	public function fetch_maxid($tableid) {
 		return DB::result_first('SELECT MAX(pid) FROM %t', array(self::get_tablename($tableid)));
 	}
@@ -170,12 +297,27 @@ class table_forum_post extends discuz_table
 		return DB::fetch_first('SELECT COUNT(*) AS posts, (MAX(dateline)-MIN(dateline))/86400 AS runtime FROM %t', array(self::get_tablename($tableid)));
 	}
 
+	/**
+	 * 根据pid 和其它条件返回指定字段的内容，不安全的，慎用
+	 * @param string $tableid
+	 * @param int $pid
+	 * @param string $addcondiction 额外条件
+	 * @param string $fields 字段
+	 * @return array
+	 */
 	public function fetch_by_pid_condition($tableid, $pid, $addcondiction = '', $fields = '*') {
 		return DB::fetch_first('SELECT %i FROM %t WHERE pid=%d %i LIMIT 1',
 			array($fields, self::get_tablename($tableid), $pid, $addcondiction));
 	}
 
 
+	/**
+	 * 根据多个帖子id获取帖子信息
+	 * @param string $tableid 分表id or tid:所在主题的tid
+	 * @param array $pids 帖子id数组
+	 * @param bool $outmsg 是否返回message内容，默认返回
+	 * @return array 返回多条帖子信息
+	 */
 	public function fetch_all($tableid, $pids, $outmsg = true) {
 		$postlist = array();
 		if($pids) {
@@ -190,6 +332,18 @@ class table_forum_post extends discuz_table
 		return $postlist;
 	}
 
+	/**
+	 * 获取商品帖子页面数据，调用了1次
+	 * @param int $tid 所在主题id
+	 * @param int $visibleflag 是否仅查看可见帖子
+	 * @param int $authorid 是否仅查看某个人的帖子
+	 * @param array $pids 去掉商品的帖子的id数组
+	 * @param int $forum_pagebydesc 分页二分法，是否为倒序首页 决定排序
+	 * @param int $ordertype 排序类别
+	 * @param int $start 开始点
+	 * @param int $limit 取多少条数据
+	 * @return array
+	 */
 	public function fetch_all_tradepost_viewthread_by_tid($tid, $visibleallflag, $authorid, $pids, $forum_pagebydesc, $ordertype, $start, $limit) {
 		if(empty($pids)) {
 			return array();
@@ -208,6 +362,18 @@ class table_forum_post extends discuz_table
 		return $data;
 	}
 
+	/**
+	 * 获取辩论帖页面数据，调用了1次
+	 * @param int $tid 所在主题id
+	 * @param int $visibleflag 是否仅查看可见帖子
+	 * @param int $authorid 是否仅查看某个人的帖子
+	 * @param int $stand 支持观点
+	 * @param int $forum_pagebydesc 分页二分法，是否为倒序首页 决定排序
+	 * @param int $ordertype 排序类别
+	 * @param int $start 开始点
+	 * @param int $limit 取多少条数据
+	 * @return array
+	 */
 	public function fetch_all_debatepost_viewthread_by_tid($tid, $visibleallflag, $authorid, $stand, $forum_pagebydesc, $ordertype, $start, $limit) {
 		$data = array();
 		$parameter = $this->handle_viewthread_parameter($visibleallflag, $authorid, $forum_pagebydesc, $ordertype, 'p.');
@@ -223,6 +389,19 @@ class table_forum_post extends discuz_table
 		return $data;
 	}
 
+	/**
+	 * 获取普通帖页面数据
+	 * @param string $tableid 分表id
+	 * @param int $tid 所在主题id
+	 * @param int $visibleflag 是否仅查看可见帖子
+	 * @param int $authorid 是否仅查看某个人的帖子
+	 * @param int $forum_pagebydesc 分页二分法，是否为倒序首页 决定排序
+	 * @param int $ordertype 排序类别
+	 * @param int $count 主题帖子总数
+	 * @param int $start 开始点
+	 * @param int $limit 取多少条数据
+	 * @return array
+	 */
 	public function fetch_all_common_viewthread_by_tid($tid, $visibleallflag, $authorid, $forum_pagebydesc, $ordertype, $count, $start, $limit) {
 		$data = array();
 		$storeflag = false;
@@ -234,6 +413,7 @@ class table_forum_post extends discuz_table
 					$updatefid = $this->fetch_cache('updatefid');
 					$delpid = $this->fetch_cache('delpid');
 					foreach($data as $k => $post) {
+						//note 这里要处理数据，将删除的,有各种情况，都需要判断。invisible修改为负数的情况也需要判断
 						if(in_array($post['pid'], $delpid) || $post['invisible'] < 0 || in_array($post['authorid'], $delauthorid)) {
 							$data[$k]['invisible'] = 0;
 							$data[$k]['authorid'] = 0;
@@ -291,6 +471,16 @@ class table_forum_post extends discuz_table
 		return $return;
 	}
 
+	/**
+	 *
+	 * 根据用户Uid获取用户的回复
+	 * @param string $tableid:分表ID
+	 * @param int $authorid: 用户Uid
+	 * @param int $start: 开始记录数
+	 * @param int $limit: 获取多少条
+	 * @param int $invisible: 是否通过审核
+	 * @param int $fid: 单个版块或多个版块
+	 */
 	public function fetch_all_by_authorid($tableid, $authorid, $outmsg = true, $order = '', $start = 0, $limit = 0, $first = null, $invisible = null, $fid = null, $filterfid = null) {
 		$postlist = $sql = array();
 		if($first !== null && $invisible !== null) {
@@ -324,10 +514,28 @@ class table_forum_post extends discuz_table
 		return $postlist;
 	}
 
+	/**
+	 * 通过 first 获取帖子id列表, 调用了1次
+	 * @param string $tableid 分表id
+	 * @param int $first 1 or 0
+	 * @param int $start 分页起始位置
+	 * @param int $limit 取多少条
+	 * @return array
+	 */
 	public function fetch_all_tid_by_first($tableid, $first, $start = 0, $limit = 0) {
 		return DB::fetch_all('SELECT tid FROM %t WHERE first=%d '.DB::limit($start, $limit), array(self::get_tablename($tableid), $first));
 	}
 
+	/**
+	 * 获取多个主题的帖子信息,多处调用，但有瓶颈，返回数据量可能很大
+	 * @param string $tableid 分表id
+	 * @param int|array $tids 主题id数组
+	 * @param bool $outmsg 是否返回message信息，默认返回
+	 * @param string $order dateline的排序方式，为空则不加order by
+	 * @param int $start 分页开始数
+	 * @param int $limit 取多少条数据
+	 * @return array
+	 */
 	public function fetch_all_by_tid($tableid, $tids, $outmsg = true, $order = '', $start = 0, $limit = 0, $first = null, $invisible = null, $authorid = null, $fid = null) {
 		$postlist = $sql = array();
 		if($first !== null && $invisible !== null) {
@@ -360,11 +568,27 @@ class table_forum_post extends discuz_table
 		return $postlist;
 	}
 
+	/**
+	 * 获取一个主题中大于pid的帖子id,调用了1次
+	 * @param int $tid 主题id,同时用于分表参数
+	 * @param int $lastpid 大于的pid
+	 * @param int $round 取多少个
+	 * @return array
+	 */
 	public function fetch_all_pid_by_tid_lastpid($tid, $lastpid, $round) {
 		return DB::fetch_all("SELECT pid FROM %t WHERE tid=%d AND pid>%d ORDER BY pid ASC %i",
 				array(self::get_tablename('tid:'.$tid), $tid, $lastpid, DB::limit(0, $round)));
 	}
 
+	/**
+	 * 通过fid invisible获取帖子信息,调用了1次
+	 * @param string $tableid 分表id
+	 * @param int $fid 版块id
+	 * @param int $invisible invisible值
+	 * @param int $start 分页开始位置
+	 * @param int $limit 取多少条
+	 * @return array
+	 */
 	public function fetch_all_by_fid($tableid, $fid, $outmsg = true, $order = '', $start = 0, $limit = 0, $first = null, $invisible = null) {
 		$postlist = $sql = array();
 		if($first !== null && $invisible !== null) {
@@ -391,6 +615,14 @@ class table_forum_post extends discuz_table
 		return $postlist;
 	}
 
+	/**
+	 * 获取帖子信息，与fetch_all不同，可以分页，调用了1次
+	 * @param string $tableid 分表id
+	 * @param int|array $pids 帖子id数组
+	 * @param int $start 分页开始位置
+	 * @param int $limit 取多少条数据
+	 * @return array
+	 */
 	public function fetch_all_by_pid($tableid, $pids, $outmsg = true, $order = '', $start = 0, $limit = 0, $fid = null, $invisible = null) {
 		$postlist = $sql = array();
 		if($fid !== null) {
@@ -410,6 +642,14 @@ class table_forum_post extends discuz_table
 		return $postlist;
 	}
 
+	/**
+	 * 通过tid stand 获取辩论帖信息
+	 * @param int $tid 主题id,同时作为分表参数
+	 * @param int $stand 正方反方
+	 * @param int $start 分页开始位置
+	 * @param int $limit 取多少条
+	 * @return array
+	 */
 	public function fetch_all_debatepost_by_tid_stand($tid, $stand, $start, $limit) {
 		return DB::fetch_all('
 			SELECT author, authorid
@@ -419,6 +659,12 @@ class table_forum_post extends discuz_table
 			array(self::get_tablename('tid:'.$tid), 'forum_debatepost', $tid, $stand, DB::limit($start, $limit)));
 	}
 
+	/**
+	 * 获取一个主题中，每个用户发的一个帖子数据,调用了1次
+	 * @param string $tableid 分表id
+	 * @param int $tid 主题id
+	 * @return array
+	 */
 	public function fetch_all_visiblepost_by_tid_groupby_authorid($tableid, $tid) {
 		return DB::fetch_all('SELECT pid, tid, authorid, subject, dateline FROM %t WHERE tid=%d AND invisible=0 GROUP BY authorid ORDER BY dateline',
 				array(self::get_tablename($tableid), $tid));
@@ -428,6 +674,7 @@ class table_forum_post extends discuz_table
 		return DB::fetch_all('SELECT pid FROM %t WHERE invisible=%d AND dateline<%d %i', array(self::get_tablename($tableid), $invisible, $dateline, DB::limit($start, $limit)));
 	}
 
+	//note 统计用户发帖数前几名
 	public function fetch_all_top_post_author($tableid, $timelimit, $num) {
 		return DB::fetch_all('SELECT DISTINCT(author) AS username, authorid AS uid, COUNT(pid) AS posts
 			FROM %t
@@ -442,6 +689,15 @@ class table_forum_post extends discuz_table
 			WHERE dateline>=%d AND %i AND invisible=0 GROUP BY authorid', array(self::get_tablename($tableid), $dateline, DB::field('authorid', $authorid)));
 	}
 
+	/**
+	 * 重写update方法，post表更新，必须带分表的id，为0或空则默认forum_post表
+	 * @param string $tableid 分表id
+	 * @param int|array $pid 帖子id
+	 * @param array $data 更新的数据field-value
+	 * @param bool $unbuffered 迅速返回？
+	 * @param bool $low_priority 延迟更新？
+	 * @return bool
+	 */
 	public function update($tableid, $pid, $data, $unbuffered = false, $low_priority = false, $first = null, $invisible = null, $fid = null, $status = null) {
 		$where = array();
 		$where[] = DB::field('pid', $pid);
@@ -464,6 +720,15 @@ class table_forum_post extends discuz_table
 		return $return;
 	}
 
+	/**
+	 * 根据tid更新主题中所有帖子数据,包括主题帖
+	 * @param string $tableid 分表id
+	 * @param int $tid 主题id
+	 * @param array $data 更新的数据field-value
+	 * @param bool $unbuffered 迅速返回？
+	 * @param bool $low_priority 延迟更新？
+	 * @return bool
+	 */
 	public function update_by_tid($tableid, $tid, $data, $unbuffered = false, $low_priority = false, $first = null, $invisible = null, $status = null) {
 		$where = array();
 		$where[] = DB::field('tid', $tid);
@@ -496,6 +761,8 @@ class table_forum_post extends discuz_table
 	}
 
 	public function update_cache($tableid, $id, $idtype, $data, $condition = array(), $glue = 'merge') {
+		//note 更新缓存时，invisible更新为0,且在第一页时，不会显示，更新为负数时，也显示已被设置为不可见。缓存到期后，会重新自动生成，数据才能正常显示
+		//note tid修改时，就和键值不对应了
 		if(!$this->_allowmem) return;
 
 		if($idtype == 'tid') {
@@ -576,6 +843,12 @@ class table_forum_post extends discuz_table
 		}
 	}
 
+	/**
+	 * 更新主题标签,使用concat函数进行连接
+	 * @param int $tid 主题id,同时作为分表参数
+	 * @param string $tags 标签
+	 * @return bool
+	 */
 	public function concat_threadtags_by_tid($tid, $tags) {
 		$return = DB::query('UPDATE %t SET tags=concat(tags, %s) WHERE tid=%d AND first=1', array(self::get_tablename('tid:'.$tid), $tags, $tid));
 		if($return && $this->_allowmem) {
@@ -585,6 +858,14 @@ class table_forum_post extends discuz_table
 	}
 
 
+	/**
+	 * 增加帖子的评分及评分次数
+	 * @param string $tableid 分表id or tid:所在主题id, 用于查询分表
+	 * @param int $pid 帖子id
+	 * @param int $rate 增加的评分分数
+	 * @param int $ratetimes 增加的评分次数
+	 * @return bool
+	 */
 	public function increase_rate_by_pid($tableid, $pid, $rate, $ratetimes) {
 		$return = DB::query('UPDATE %t SET rate=rate+\'%d\', ratetimes=ratetimes+\'%d\' WHERE pid=%d',
 				array(self::get_tablename($tableid), $rate, $ratetimes, $pid));
@@ -593,12 +874,24 @@ class table_forum_post extends discuz_table
 		}
 		return $return;
 	}
+	/*
+	 * 仅合并、分割帖子时使用，临时改变position，防止冲突
+	 */
 	public function increase_position_by_tid($tableid, $tid, $position) {
 		$return = DB::query('UPDATE %t SET position=position+\'%d\' WHERE '.DB::field('tid', $tid),
 				array(self::get_tablename($tableid), $position));
 		return $return;
 	}
 
+	/**
+	 * 更新帖子状态
+	 * @param string $tableid 分表id
+	 * @param int $pid 帖子id
+	 * @param int $status 更新的状态值
+	 * @param string $glue 连接操作符
+	 * @param bool $unbuffered 迅速返回
+	 * @return bool
+	 */
 	public function increase_status_by_pid($tableid, $pid, $status, $glue, $unbuffered = false) {
 		$return = DB::query('UPDATE %t SET %i WHERE %i', array(self::get_tablename($tableid), DB::field('status', $status, $glue), DB::field('pid', $pid)), $unbuffered);
 		if($return && $this->_allowmem) {
@@ -607,12 +900,28 @@ class table_forum_post extends discuz_table
 		return $return;
 	}
 
+	/**
+	 * 插入一条数据
+	 * @param string $tableid 分表id
+	 * @param array $data
+	 * @param boolean $return_insert_id 是否返回插入的id
+	 * @param boolean $replace 是否是replace
+	 * @param boolean $silent 是否屏蔽错误
+	 * @return int|boolean 是否成功或者返回id
+	 */
 	public function insert($tableid, $data, $return_insert_id = false, $replace = false, $silent = false) {
 		$maxposition = $this->fetch_maxposition_by_tid($tableid,$data['tid']);
 		$data['position'] = $maxposition + 1 ;
 		return DB::insert(self::get_tablename($tableid), $data, $return_insert_id, $replace, $silent);
 	}
 
+	/**
+	 * 删除帖子
+	 * @param string $tableid 分表id
+	 * @param int|array $pid 帖子id
+	 * @param bool $unbuffered 迅速返回
+	 * @return bool
+	 */
 	public function delete($tableid, $pid, $unbuffered = false) {
 		$return = DB::delete(self::get_tablename($tableid), DB::field($this->_pk, $pid), 0, $unbuffered);
 		if($return && $this->_allowmem) {
@@ -622,14 +931,26 @@ class table_forum_post extends discuz_table
 		return $return;
 	}
 
+	/**
+	 * 通过主题id删除帖子
+	 * @param string $tableid 分表id
+	 * @param int|array $tids 主题id数组
+	 * @return bool
+	 */
 	public function delete_by_tid($tableid, $tids, $unbuffered = false) {
 		$return = DB::delete(self::get_tablename($tableid), DB::field('tid', $tids), 0, $unbuffered);
 		if($return && $this->_allowmem) {
-			$this->clear_cache($tids, $this->_pre_cache_key.'tid_');
+			$this->clear_cache($tids, $this->_pre_cache_key.'tid_');//note pid会自动过期，不需考虑
 		}
 		return $return;
 	}
 
+	/**
+	 * 通过用户id删除帖子
+	 * @param string $tableid 分表id
+	 * @param int|array $authorids 用户id数组
+	 * @return bool
+	 */
 	public function delete_by_authorid($tableid, $authorids, $unbuffered = false) {
 		$return = DB::delete(self::get_tablename($tableid), DB::field('authorid', $authorids), 0, $unbuffered);
 		if($return && $this->_allowmem) {
@@ -639,26 +960,60 @@ class table_forum_post extends discuz_table
 		return $return;
 	}
 
+	/**
+	 * 删除指定fid的帖子
+	 * @param int $tableid 分表id
+	 * @param int|array $fids 版块id数组
+	 * @param bool $unbuffered 迅速返回
+	 * @return bool
+	 */
 	public function delete_by_fid($tableid, $fids, $unbuffered = false) {
 		return DB::delete(self::get_tablename($tableid), DB::field('fid', $fids), 0, $unbuffered);
 	}
 
+	/**
+	 * 获取表结构信息
+	 * @return array
+	 */
 	public function show_table() {
 		return DB::fetch_all("SHOW TABLES LIKE '".DB::table('forum_post')."\_%'");
 	}
 
+	/**
+	 * 获取分表的表结构信息
+	 * @param string $tableid 分表id
+	 * @return array
+	 */
 	public function show_table_by_tableid($tableid) {
 		return DB::fetch_first('SHOW CREATE TABLE %t', array(self::get_tablename($tableid)));
 	}
 
+	/**
+	 * 删除一个分表
+	 * @param string $tableid 分表id
+	 * @return bool
+	 */
 	public function drop_table($tableid) {
 		return ($tableid = dintval($tableid)) ? DB::query('DROP TABLE %t', array(self::get_tablename($tableid))) : false;
 	}
 
+	/**
+	 * 优化一个分表
+	 * @param string $tableid 分表id
+	 * @return bool
+	 */
 	public function optimize_table($tableid) {
 		return DB::query('OPTIMIZE TABLE %t', array(self::get_tablename($tableid)), true);
 	}
 
+	/**
+	 * 根据tid 移动一个分表到另一个分表
+	 * @param string $tableid 目标分表id
+	 * @param string $fieldstr 移动的字段列表
+	 * @param string $fromtable 源分表
+	 * @param int $tid 移动帖子的tid
+	 * @return bool
+	 */
 	public function move_table($tableid, $fieldstr, $fromtable, $tid) {
 		$tidsql = is_array($tid) ? 'tid IN(%n)' : 'tid=%d';
 		return DB::query("INSERT INTO %t ($fieldstr) SELECT $fieldstr FROM $fromtable WHERE $tidsql", array(self::get_tablename($tableid), $tid), true);
@@ -758,6 +1113,13 @@ class table_forum_post extends discuz_table
 		}
 	}
 
+	/**
+	 * 根据pid获取最新帖子
+	 * @param int $pid: 从哪个pid开始
+	 * @param int $start: 开始
+	 * @param int $limit: 取多少条
+	 * @param int $tableid: 表后缀
+	 */
 	public function fetch_all_new_post_by_pid($pid, $start = 0, $limit = 0, $tableid = 0, $glue = '>', $sort = 'ASC') {
 		return $limit ? DB::fetch_all('SELECT * FROM '.DB::table($this->get_tablename($tableid)).
 				' WHERE '.DB::field('pid', $pid, $glue).
@@ -811,6 +1173,15 @@ class table_forum_post extends discuz_table
 	}
 
 
+	//note post分表相关函数
+	/**
+	 *
+	 * 通过tid得到相应的单一post表名或post表集合
+	 * @param <mix> $tids: 允许传进单个tid，也可以是tid集合
+	 * @param $primary: 是否只查主题表 0:遍历所有表;1:只查主表
+	 * @return 当传进来的是单一的tid将直接返回表名，否则返回表集合的二维数组例:array('forum_post' => array(tids),'forum_post_1' => array(tids))
+	 * @TODO tid传进来的是字符串的，返回单个表名，传进来的是数组的，不管是不是一个数组，返回的还是数组，保证进出值对应
+	 */
 	public static function getposttablebytid($tids, $primary = 0) {
 
 		$isstring = false;
@@ -822,7 +1193,9 @@ class table_forum_post extends discuz_table
 			$tids = array(intval($tids));
 			$isstring = true;
 		}
+		//note 过滤重复的tid
 		$tids = array_unique($tids);
+		//note 反转数组、便于下面的踢除操作
 		$tids = array_flip($tids);
 		if(!$primary) {
 			loadcache('threadtableids');
@@ -868,10 +1241,17 @@ class table_forum_post extends discuz_table
 		return $data;
 	}
 
+	/**
+	 * 获取论坛帖子表名
+	 * @param <int> $tableid: 分表ID，默认为：fourm_post表
+	 * @param <boolean> $prefix: 是否默认带有表前缀
+	 * @return forum_post or forum_post_*
+	 */
 	public static function getposttable($tableid = 0, $prefix = false) {
 		global $_G;
 		$tableid = intval($tableid);
 		if($tableid) {
+			//TODO 可以考虑在此加入验证表名
 			loadcache('posttableids');
 			$tableid = $_G['cache']['posttableids'] && in_array($tableid, $_G['cache']['posttableids']) ? $tableid : 0;
 			$tablename = 'forum_post'.($tableid ? "_$tableid" : '');

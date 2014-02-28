@@ -125,6 +125,7 @@ if($view == 'groupthread' || $view == 'mythread') {
 	$grouplist = mygrouplist($_G['uid'], 'lastupdate', array('f.name', 'ff.icon'), $perpage, $start, $ismanager);
 }
 
+//note 取右侧数据
 $frienduidarray = $friendgrouplist = $randgroupdata = $randgrouplist = $randgroup = array();
 loadcache('groupindex');
 $randgroupdata = $_G['cache']['groupindex']['randgroupdata'];

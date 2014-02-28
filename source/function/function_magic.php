@@ -16,6 +16,16 @@ function checkmagicperm($perms, $id) {
 	return strexists("\t".trim($perms)."\t", "\t".trim($id)."\t") || !$perms;
 }
 
+/**
+ * 给某一个用户添加道具
+ * @param Integer $magicid: 道具ID
+ * @param Integer $magicnum: 添加数量
+ * @param Integer $weight: 道具重量
+ * @param Integer $totalweight: 用户现有道具重量
+ * @param Integer $uid: 目标用户
+ * @param Integer $totalweight: 用户道具重量上限
+ * @param Integer $force: 是否强制不判断道具重量　0 否　1 是
+ */
 function getmagic($magicid, $magicnum, $weight, $totalweight, $uid, $maxmagicsweight, $force = 0) {
 	if($weight + $totalweight > $maxmagicsweight && !$force) {
 		showmessage('magics_weight_range_invalid', '', array('less' => $weight + $totalweight - $maxmagicsweight));
@@ -199,6 +209,16 @@ function updatemagicthreadlog($tid, $magicid, $action = 'MAG', $expiration = 0, 
 	memory('rm',$cache_key);
 }
 
+/**
+ * 道具记录
+ * @param Integer $magicid: 道具ID
+ * @param Integer $action: 动作类型  1 购买 2 使用 3 赠送
+ * @param Integer $amount: 道具数量
+ * @param Integer $price: 道具 价格|积分
+ * @param Integer $targetuid: 赠送给谁，只在赠送/获赠时显示使用
+ * @param Integer $idtype: 操作类型
+ * @param Integer $targetid: 操作目标id
+ */
 function updatemagiclog($magicid, $action, $amount, $price, $targetuid = 0, $idtype = '', $targetid = 0) {
 	global $_G;
 	list($price, $credit) = explode('|', $price);
@@ -221,9 +241,11 @@ function updatemagiclog($magicid, $action, $amount, $price, $targetuid = 0, $idt
 
 
 
+//检查输入参数
 function magic_check_idtype($id, $idtype) {
 	global $_G;
 
+	//检查场合
 	include_once libfile('function/spacecp');
 	$value = '';
 	$tablename = gettablebyidtype($idtype);

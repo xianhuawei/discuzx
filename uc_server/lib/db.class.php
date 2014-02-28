@@ -21,7 +21,7 @@ class ucserver_db {
 	var $tablepre;
 	var $time;
 
-	var $goneaway = 5;
+	var $goneaway = 5;//note 最多重试几次
 
 	function connect($dbhost, $dbuser, $dbpw, $dbname = '', $dbcharset = '', $pconnect = 0, $tablepre='', $time = 0) {
 		$this->dbhost = $dbhost;

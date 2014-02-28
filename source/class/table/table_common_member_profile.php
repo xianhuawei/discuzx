@@ -20,8 +20,7 @@ class table_common_member_profile extends discuz_table_archive
 		$this->_table = 'common_member_profile';
 		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'common_member_profile_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
+		//$this->_cache_ttl = 0; //在setting/memory中设置
 		$this->_fields = array('uid', 'realname', 'gender', 'birthyear', 'birthmonth', 'birthday', 'constellation',
 				'zodiac', 'telephone', 'mobile', 'idcardtype', 'idcard', 'address', 'zipcode', 'nationality', 'birthprovince', 'birthcity', 'birthdist',
 				'birthcommunity', 'resideprovince', 'residecity', 'residedist', 'residecommunity', 'residesuite', 'graduateschool', 'education', 'company',
@@ -31,6 +30,13 @@ class table_common_member_profile extends discuz_table_archive
 		parent::__construct();
 	}
 
+	/**
+	 * 依据多个主键值， 返回一组数据
+	 * @param array $uids 主键值的数组
+	 * @param bool $force_from_db 强制使用数据库
+	 * @param int $fetch_archive 0：只查询主表，1：查询主表和存档表
+	 * @return array
+	 */
 	public function fetch_all($uids, $force_from_db = false, $fetch_archive = 1) {
 		$data = array();
 		if(!empty($uids)) {
@@ -47,6 +53,7 @@ class table_common_member_profile extends discuz_table_archive
 					}
 				}
 			}
+			//查询存档表
 			if(isset($this->membersplit) && $fetch_archive && count($data) != count($uids)) {
 				$data = $data + C::t($this->_table.'_archive')->fetch_all(array_diff($uids, array_keys($data)), null, 0);
 			}
@@ -55,6 +62,12 @@ class table_common_member_profile extends discuz_table_archive
 		return $data;
 	}
 
+	/**
+	 * 统计某一指定字段和值的个数
+	 * @param string $field 字段
+	 * @param string|int $val 值
+	 * @return int
+	 */
 	public function count_by_field($field, $val) {
 		$count = 0;
 		if(in_array($field, $this->_fields, true)) {
@@ -63,6 +76,10 @@ class table_common_member_profile extends discuz_table_archive
 		return $count;
 	}
 
+	/**
+	 * 获取某指定字段的所有值
+	 * @return array
+	 */
 	public function fetch_all_field_value($field) {
 		return in_array($field, $this->_fields, true) ? DB::fetch_all('SELECT DISTINCT(`'.$field.'`) FROM '.DB::table($this->_table), null, $field) : array();
 	}
@@ -72,7 +89,7 @@ class table_common_member_profile extends discuz_table_archive
 		if(!empty($uids)) {
 			$uids = explode(',', (string)$uids);
 			$uids = dimplode(dintval($uids, true));
-			list($s_month, $s_day) = explode('-', dgmdate(TIMESTAMP-3600*24*3, 'n-j'));
+			list($s_month, $s_day) = explode('-', dgmdate(TIMESTAMP-3600*24*3, 'n-j'));//过期3天
 			list($n_month, $n_day) = explode('-', dgmdate(TIMESTAMP, 'n-j'));
 			list($e_month, $e_day) = explode('-', dgmdate(TIMESTAMP+3600*24*7, 'n-j'));
 			if($e_month == $s_month) {

@@ -15,14 +15,17 @@ if(submitcheck('avatarsubmit')) {
 	showmessage('do_success', 'cp.php?ac=avatar&quickforward=1');
 }
 
+//头像
 loaducenter();
 $uc_avatarflash = uc_avatar($_G['uid'], 'virtual', 0);
 
 if(empty($space['avatarstatus']) && uc_check_avatar($_G['uid'], 'middle')) {
 	C::t('common_member')->update($_G['uid'], array('avatarstatus'=>'1'));
 
+	//奖励积分
 	updatecreditbyaction('setavatar');
 
+	//变更记录
 	manyoulog('user', $_G['uid'], 'update');
 }
 $reload = intval($_GET['reload']);

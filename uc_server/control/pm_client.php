@@ -133,7 +133,7 @@ class pm_clientcontrol extends base {
 				!empty($_GET['message']) && $tmp['message'] = $_GET['message'];
 			}
 
-			if($this->settings['sendpmseccode']) {
+			if($this->settings['sendpmseccode']) {// 开启了验证码需要显示验证码出来
 				$authkey = md5(UC_KEY.$_SERVER['HTTP_USER_AGENT'].$this->onlineip);
 				$rand = rand(100000, 999999);
 				$seccodeinit = rawurlencode($this->authcode($rand, 'ENCODE', $authkey, 720));
@@ -162,7 +162,7 @@ class pm_clientcontrol extends base {
 
 		} else {
 
-			if($this->settings['sendpmseccode']) {
+			if($this->settings['sendpmseccode']) {// 开启了验证码需要验证验证码是否正确
 				$authkey = md5(UC_KEY.$_SERVER['HTTP_USER_AGENT'].$this->onlineip);
 				$seccodehidden = urldecode(getgpc('seccodehidden', 'P'));
 				$seccode = strtoupper(getgpc('seccode', 'P'));
@@ -210,6 +210,7 @@ class pm_clientcontrol extends base {
 			$msgto = array_unique($msgto);
 			$countmsgto = count($msgto);
 
+			// 处理设置的权限
 			if($this->settings['pmsendregdays']) {
 				if($user['regdate'] > $this->time - $this->settings['pmsendregdays'] * 86400) {
 					$this->message('pm_send_regdays_error', 'BACK', 1, array('$pmsendregdays' => $this->settings['pmsendregdays']));
@@ -344,7 +345,7 @@ class pm_clientcontrol extends base {
 			$pms[$key]['dateline'] = $this->date($pms[$key]['dateline']);
 		}
 
-		if($this->settings['sendpmseccode']) {
+		if($this->settings['sendpmseccode']) {// 开启了验证码需要显示验证码出来
 			$authkey = md5(UC_KEY.$_SERVER['HTTP_USER_AGENT'].$this->onlineip);
 			$rand = rand(100000, 999999);
 			$seccodeinit = rawurlencode($this->authcode($rand, 'ENCODE', $authkey, 720));

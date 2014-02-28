@@ -70,7 +70,7 @@ EOF;
 		showtagfooter('tbody');
 		showtablefooter();
 
-	} elseif($_G['setting']['my_app_status']) {
+	} elseif($_G['setting']['my_app_status']) {//开启漫游
 
 
 		$uchUrl = $_G['siteurl'].'/'.ADMINSCRIPT.'?action=cloud&operation=manyou&anchor=' . $_GET['anchor'];
@@ -132,6 +132,7 @@ EOF;
 
 } else {
 
+	//noteX 去掉全局变量依赖
 	$settingnew = $_GET['settingnew'];
 
 	$settings = array();

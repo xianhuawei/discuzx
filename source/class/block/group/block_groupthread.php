@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
@@ -185,6 +185,7 @@ class block_groupthread extends discuz_block {
 			);
 	}
 
+	//可转换到的模块类型
 	function fieldsconvert() {
 		return array(
 				'portal_article' => array(
@@ -212,12 +213,13 @@ class block_groupthread extends discuz_block {
 		global $_G;
 		$settings = $this->setting;
 
+		// group type
 		if($settings['gtids']) {
 			loadcache('grouptype');
 			$settings['gtids']['value'][] = array(0, lang('portalcp', 'block_all_type'));
 			foreach($_G['cache']['grouptype']['first'] as $gid=>$group) {
 				$settings['gtids']['value'][] = array($gid, $group['name']);
-				if($group['secondlist']) {
+				if($group['secondlist']) {//子群组
 					foreach($group['secondlist'] as $subgid) {
 						$settings['gtids']['value'][] = array($subgid, '&nbsp;&nbsp;'.$_G['cache']['grouptype']['second'][$subgid]['name']);
 					}
@@ -232,6 +234,7 @@ class block_groupthread extends discuz_block {
 
 		$parameter = $this->cookparameter($parameter);
 
+		//参数准备
 		loadcache('grouptype');
 		$typeids = array();
 		if(!empty($parameter['gtids'])) {
@@ -261,10 +264,11 @@ class block_groupthread extends discuz_block {
 
 		$bannedids = !empty($parameter['bannedids']) ? explode(',', $parameter['bannedids']) : array();
 
+		//是否有群组浏览权限
 		$gviewwhere = $gviewperm == -1 ? '' : " AND ff.gviewperm='$gviewperm'";
 
 		$groups = array();
-		if(empty($fids) && $typeids) {
+		if(empty($fids) && $typeids) {// 未指定群组时，查找指定分类下群组
 			$query = DB::query('SELECT f.fid, f.name, ff.description FROM '.DB::table('forum_forum')." f LEFT JOIN ".DB::table('forum_forumfield')." ff ON f.fid = ff.fid WHERE f.fup IN (".dimplode($typeids).") AND threads > 0$gviewwhere");
 			while($value = DB::fetch($query)) {
 				$groups[$value['fid']] = $value;
@@ -292,6 +296,7 @@ class block_groupthread extends discuz_block {
 			.($stick ? ' AND t.displayorder IN ('.dimplode($stick).')' : '')
 			.$keyword;
 
+		//没有找到指定的群组，则使用下面条件
 		if(empty($fids)) {
 			$sql .= " AND t.isgroup='1'";
 			if($gviewwhere) {
@@ -311,8 +316,10 @@ class block_groupthread extends discuz_block {
 		}
 		$sqlfrom = $sqlfield = $joinmethodpic = '';
 
+		//必须包括图片时使用inner join
 		if($picrequired) {
 			$joinmethodpic = 'INNER';
+		//模板中使用图片时使用left join
 		} else if($style['getpic']) {
 			$joinmethodpic = 'LEFT';
 		}
@@ -320,11 +327,13 @@ class block_groupthread extends discuz_block {
 			$sqlfrom .= " $joinmethodpic JOIN `".DB::table('forum_threadimage')."` ti ON t.tid=ti.tid AND ti.tid>0";
 			$sqlfield = ', ti.attachment as attachmenturl, ti.remote';
 		}
+		//没有找到指定的群组时，需要链表查询出群组的名字，还有可能会用到forum_forumfield的gviewperm群组浏览权限字段
 		if(empty($fids)) {
 			$sqlfield .= ', f.name groupname';
 			$sqlfrom .= ' LEFT JOIN '.DB::table('forum_forum').' f ON t.fid=f.fid LEFT JOIN '.DB::table('forum_forumfield').' ff ON f.fid = ff.fid';
 		}
 
+		//数据获取
 		$query = DB::query("SELECT t.* $sqlfield
 			FROM `".DB::table('forum_thread')."` t
 			$sqlfrom WHERE t.readperm='0'
@@ -335,10 +344,13 @@ class block_groupthread extends discuz_block {
 			);
 
 		require_once libfile('block_thread', 'class/block/forum');
-		$bt = new block_thread();
+		$bt = new block_thread();// 使用 thread getthread 函数调用详细内容
 		while($data = DB::fetch($query)) {
+			//帖子为从群组推到版时不显示，所以可能会出现结果数比 $items 数少
 			if($data['closed'] > 1 && $data['closed'] < $data['tid']) continue;
+			//放入缓存，以便获取图片和summary时少一个查询
 			$_G['block_thread'][$data['tid']] = $data;
+			//查询获取帖子简介
 			if($style['getsummary']) {
 				$threadtids[$data['posttableid']][] = $data['tid'];
 			}
@@ -370,6 +382,7 @@ class block_groupthread extends discuz_block {
 					'groupurl' => 'forum.php?mod=group&fid='.$data['fid'],
 				)
 			);
+			//高亮的处理
 			if($highlight && $data['highlight']) {
 				$list[$data['tid']]['fields']['showstyle'] = $bt->getthreadstyle($data['highlight']);
 			}
@@ -381,6 +394,7 @@ class block_groupthread extends discuz_block {
 			}
 		}
 
+		//还原$list顺序
 		if($listtids) {
 			foreach($listtids as $key => $value) {
 				$datalist[] = $list[$value];

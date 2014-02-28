@@ -11,6 +11,11 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * 根据UID获取可以维护的专辑列表
+ * @param $uid 用户ID
+ * @return 可以维护的专辑列表 
+ */
 function getmycollection($uid) {
 	$collections = C::t('forum_collection')->fetch_all_by_uid($uid);
 	$collectionteamworker = C::t('forum_collectionteamworker')->fetch_all_by_uid($uid);
@@ -27,7 +32,13 @@ function getHotCollection($number = 500, $pK = true) {
 	}
 	return $collection;
 }
-
+/**
+ * 获取专辑维护权限
+ * @param $collection 专辑数组
+ * @param $uid 用户ID
+ * @param $allowteamworker 是否允许共同维护
+ * @return bool 是否可以维护 
+ */
 function checkcollectionperm($collection, $uid, $allowteamworker = false) {
 	global $_G;
 	if($_G['group']['allowmanagecollection'] == 1) {
@@ -47,6 +58,11 @@ function checkcollectionperm($collection, $uid, $allowteamworker = false) {
 	return false;
 }
 
+/**
+ * 处理专辑数据
+ * @param int $collection 未处理的专辑数组
+ * @return array 处理过的专辑数组
+ */
 function processCollectionData($collection, $tf = array(), $orderby = '') {
 	if(count($collection) <= 0) {
 		return array();
@@ -82,6 +98,14 @@ function processCollectionData($collection, $tf = array(), $orderby = '') {
 	return $collection;
 }
 
+/**
+ * 处理淘帖主题列表
+ * 
+ * @param array $threadlist 主题列表
+ * @param boolean $foruminfo 是否读取版块信息
+ * @param int $lastvisit 最后淘专辑访问时间
+ * @param array $collectiontids 淘帖原始tid列表
+ */
 function collectionThread(&$threadlist, $foruminfo = false, $lastvisit = null, &$collectiontids = null) {
 	global $todaytime;
 
@@ -109,6 +133,7 @@ function collectionThread(&$threadlist, $foruminfo = false, $lastvisit = null, &
 		$curvalue['lastpost'] = dgmdate($curvalue['lastpost'], 'u');
 		$curvalue['lastposterenc'] = rawurlencode($curvalue['lastposter']);
 	}
+	//note 排序
 	if($collectiontids) {
 		foreach($collectiontids as $curkey=>&$curthread) {
 			if(!$threadlist[$curthread['tid']]) {
@@ -125,6 +150,14 @@ function imgdisplayrate($rate) {
 	return $roundscore;
 }
 
+/**
+ * 处理淘帖关键词
+ *
+ * @param string $keyword
+ * @param bool $string 是否按字符串返回
+ * @param bool $filter 是否过滤关键词
+ * @return array
+ */
 function parse_keyword($keywords, $string = false, $filter = true) {
 	if($keywords == '') {
 		return $string === true ? '' : array();

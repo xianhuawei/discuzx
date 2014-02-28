@@ -11,6 +11,39 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * 显示提示信息
+ * @param $message - 提示信息，可中文也可以是 lang_message.php 中的数组 key 值
+ * @param $url_forward - 提示后跳转的 url
+ * @param $values - 提示信息中可替换的变量值 array(key => value ...) 形式
+ * @param $extraparam - 扩展参数 array(key => value ...) 形式
+ *	跳转控制
+		header		header跳转
+		location	location JS 跳转，限于 msgtype = 2、3
+		timeout		定时跳转
+		refreshtime	自定义跳转时间
+		closetime	自定义关闭时间，限于 msgtype = 2，值为 true 时为默认
+		locationtime	自定义跳转时间，限于 msgtype = 2，值为 true 时为默认
+ 		break		函数终止 (为嵌入点而设计)
+	内容控制
+		alert		alert 图标样式 right/info/error
+		return		显示请返回
+		redirectmsg	下载时用的提示信息，当跳转时显示的信息样式
+ 					0:如果您的浏览器没有自动跳转，请点击此链接
+ 					1:如果 n 秒后下载仍未开始，请点击此链接
+		msgtype		信息样式
+ 					1:非 Ajax
+ 					2:Ajax 弹出框
+ 					3:Ajax 只显示信息文本
+		showmsg		显示信息文本
+		showdialog	关闭原弹出框显示 showDialog 信息，限于 msgtype = 2
+		login		未登录时显示登录链接
+		extrajs		扩展 js
+		striptags	过滤 HTML 标记
+	Ajax 控制
+		handle		执行 js 回调函数
+		showid		控制显示的对象 ID
+ */
 function dshowmessage($message, $url_forward = '', $values = array(), $extraparam = array(), $custom = 0) {
 	global $_G, $show_message;
 	$_G['messageparam'] = func_get_args();
@@ -22,6 +55,7 @@ function dshowmessage($message, $url_forward = '', $values = array(), $extrapara
 	}
 	$_G['inshowmessage'] = true;
 
+	//note 初始参数
 	$param = array(
 		'header'	=> false,
 		'timeout'	=> null,
@@ -53,6 +87,8 @@ function dshowmessage($message, $url_forward = '', $values = array(), $extrapara
 	$_G['setting']['msgforward'] = @dunserialize($_G['setting']['msgforward']);
 	$handlekey = $leftmsg = '';
 
+	//noteX 强制手机客户端访问不使用ajax(IN_MOBILE)
+	//在mobile提交过来的信息对showmessage中的$url_forward添加mobile=yes
 	if(defined('IN_MOBILE')) {
 		unset($extraparam['showdialog']);
 		unset($extraparam['closetime']);
@@ -91,6 +127,7 @@ function dshowmessage($message, $url_forward = '', $values = array(), $extrapara
 		}
 	}
 
+	//note 函数参数
 	foreach($extraparam as $k => $v) {
 		$param[$k] = $v;
 	}
@@ -154,6 +191,7 @@ function dshowmessage($message, $url_forward = '', $values = array(), $extrapara
 		$param['login'] = false;
 		$param['alert'] = 'info';
 		if (defined('IN_MOBILE')) {
+			// 过滤掉手机版发帖无权限提示里的登录链接
 			if ($message == 'postperm_login_nopermission_mobile') {
 				$show_message = lang('plugin/qqconnect', 'connect_register_mobile_bind_error');
 			}

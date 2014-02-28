@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+// DIY 模式下检查权限：是否有权限创建专题
 if($_GET['diy']=='yes' && !$_G['group']['allowaddtopic'] && !$_G['group']['allowmanagetopic']) {
 	$_GET['diy'] = '';
 	showmessage('topic_edit_nopermission');
@@ -18,9 +19,9 @@ if($_GET['diy']=='yes' && !$_G['group']['allowaddtopic'] && !$_G['group']['allow
 
 $topicid = $_GET['topicid'] ? intval($_GET['topicid']) : 0;
 
-if($topicid) {
+if($topicid) {// 通过 id 访问
 	$topic = C::t('portal_topic')->fetch($topicid);
-} elseif($_GET['topic']) {
+} elseif($_GET['topic']) {// 通过title访问
 	$topic = C::t('portal_topic')->fetch_by_name($_GET['topic']);
 }
 
@@ -28,10 +29,12 @@ if(empty($topic)) {
 	showmessage('topic_not_exist');
 }
 
+// 关闭状态需检查是否有编辑权限
 if($topic['closed'] && !$_G['group']['allowmanagetopic'] && !($topic['uid'] == $_G['uid'] && $_G['group']['allowaddtopic'])) {
 	showmessage('topic_is_closed');
 }
 
+// DIY 模式下检查权限：是否是自己创建的专题
 if($_GET['diy'] == 'yes' && $topic['uid'] != $_G['uid'] && !$_G['group']['allowmanagetopic']) {
 	$_GET['diy'] = '';
 	showmessage('topic_edit_nopermission');
@@ -43,8 +46,10 @@ if(!empty($_G['setting']['makehtml']['flag']) && $topic['htmlmade'] && !isset($_
 
 $topicid = intval($topic['topicid']);
 
+//增加查看数
 C::t('portal_topic')->increase($topicid, array('viewnum' => 1));
 
+//seo title、description、keywords
 $navtitle = $topic['title'];
 $metadescription = empty($topic['summary']) ? $topic['title'] : $topic['summary'];
 $metakeywords =  empty($topic['keyword']) ? $topic['title'] : $topic['keyword'];

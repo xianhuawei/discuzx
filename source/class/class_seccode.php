@@ -13,23 +13,23 @@ if(!defined('IN_DISCUZ')) {
 
 class seccode {
 
-	var $code;
-	var $type 	= 0;
-	var $width 	= 150;
-	var $height 	= 60;
-	var $background	= 1;
-	var $adulterate	= 1;
-	var $ttf 	= 0;
-	var $angle 	= 0;
-	var $warping 	= 0;
-	var $scatter	= 0;
-	var $color 	= 1;
-	var $size 	= 0;
-	var $shadow 	= 1;
-	var $animator 	= 0;
-	var $fontpath	= '';
-	var $datapath	= '';
-	var $includepath= '';
+	var $code;			//note 100000-999999 范围内随机
+	var $type 	= 0;		//note 0 英文图片验证码  1 中文图片验证码  2 Flash 验证码  3 语音验证码
+	var $width 	= 150;		//note 宽度
+	var $height 	= 60;		//note 高度
+	var $background	= 1;		//note 随机图片背景
+	var $adulterate	= 1;		//note 随机背景图形
+	var $ttf 	= 0;		//note 随机 TTF 字体
+	var $angle 	= 0;		//note 随机倾斜度(TTF)
+	var $warping 	= 0;		//note 随机扭曲(TTF)
+	var $scatter	= 0;		//note 图片打散
+	var $color 	= 1;		//note 随机颜色
+	var $size 	= 0;		//note 随机大小
+	var $shadow 	= 1;		//note 文字阴影
+	var $animator 	= 0;		//note /GIF 动画
+	var $fontpath	= '';		//note TTF 字库目录
+	var $datapath	= '';		//note 图片、声音、Flash 等数据目录
+	var $includepath= '';		//note 其它包含文件目录
 
 	var $fontcolor;
 	var $im;
@@ -464,4 +464,29 @@ class seccode {
 
 }
 
+/*
+用法:
+include_once './include/seccode.class.php';
+$code = new seccode();
+$code->code = $seccode;						//100000-999999 范围内随机
+$code->type = $_G['setting']['seccodedata']['type'];                             //0 英文图片验证码		相关数据目录:/fonts/gif, /fonts/en
+								//1 中文图片验证码		相关数据目录:/fonts/ch
+								//2 Flash 验证码		相关数据目录:/seccode/flash
+								//3 语音验证码			相关数据目录:/seccode/sound, /seccode/flash
+$code->width = $_G['setting']['seccodedata']['width'];                           //宽度
+$code->height = $_G['setting']['seccodedata']['height'];                         //高度
+$code->background = $_G['setting']['seccodedata']['background'];                 //随机图片背景			相关数据目录:/seccode/background
+$code->adulterate = $_G['setting']['seccodedata']['adulterate'];                 //随机背景图形
+$code->ttf = $_G['setting']['seccodedata']['ttf'];                               //随机 TTF 字体			相关数据目录:/fonts/en, /fonts/ch
+$code->angle = $_G['setting']['seccodedata']['angle'];                           //随机倾斜度
+$code->color = $_G['setting']['seccodedata']['color'];                           //随机颜色
+$code->size = $_G['setting']['seccodedata']['size'];                             //随机大小
+$code->shadow = $_G['setting']['seccodedata']['shadow'];                         //文字阴影
+$code->animator = $_G['setting']['seccodedata']['animator'];                     //GIF 动画			相关Class:/include/gifmerge.class.php
+$code->fontpath = DISCUZ_ROOT.'./static/image/seccode/font/';		//TTF 字库目录
+$code->datapath = DISCUZ_ROOT.'./static/image/common/seccode/';		//图片、声音、Flash 等数据目录
+$code->includepath = DISCUZ_ROOT.'./include/';			//其它包含文件目录
+$code->display();
+
+*/
 ?>

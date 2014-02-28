@@ -38,6 +38,11 @@ class table_forum_collectionfollow extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE '.$sql, array($this->_table));
 	}
 
+	/**
+	 * 读取用户关注的专辑
+	 * @param int $uid 用户ID
+	 * @return array 数据数组
+	 */
 	public function fetch_all_by_uid($uid) {
 		if(!$uid) {
 			return null;
@@ -56,10 +61,20 @@ class table_forum_collectionfollow extends discuz_table
 		return $result; 
 	}
 
+	/**
+	 * 读取指定关注数据
+	 * @param int $ctid 专辑ID
+	 * @param int $uid 用户ID
+	 * @return array 数据数组
+	 */
 	public function fetch_by_ctid_uid($ctid, $uid) {
 		return DB::fetch_first('SELECT * FROM %t WHERE uid=%d AND ctid=%d', array($this->_table, $uid, $ctid));
 	}
 
+	/**
+	 * 删除专辑的数据
+	 * @param int $ctid 专辑ID
+	 */
 	public function delete_by_ctid($ctid) {
 		if(!$ctid) {
 			return false;
@@ -67,6 +82,11 @@ class table_forum_collectionfollow extends discuz_table
 		return DB::delete($this->_table, DB::field('ctid', $ctid));
 	}
 
+	/**
+	 * 删除指定用户的关注数据
+	 * @param int $ctid 专辑ID
+	 * @param int $uid 用户ID
+	 */
 	public function delete_by_ctid_uid($ctid, $uid) {
 		//删除缓存
 		$cache_key = $this->_pre_cache_key.'fetch_all_by_uid'.$uid;
@@ -86,10 +106,21 @@ class table_forum_collectionfollow extends discuz_table
 		return DB::query("DELETE FROM %t WHERE %i", array($this->_table, DB::field('uid', $uid)));
 	}
 
+	/**
+	 * 读取指定用户是否关注
+	 * @param int $uid 用户ID
+	 * @param int $ctid 专辑ID
+	 * @return int 关注某专辑情况
+	 */
 	public function count_by_ctid_uid($uid, $ctid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE uid=%d AND ctid=%d', array($this->_table, $uid, $ctid), $this->_pk);
 	}
 
+	/**
+	 * 读取指定用户关注淘专辑数量
+	 * @param int $uid 用户ID
+	 * @return int 关注数量
+	 */
 	public function count_by_uid($uid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE uid=%d', array($this->_table, $uid));
 	}

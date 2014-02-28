@@ -12,8 +12,14 @@ if(!defined('IN_DISCUZ')) {
 }
 class discuz_database {
 
+	/**
+	 * @var db_driver_mysql 数据库引擎
+	 */
 	public static $db;
 
+	/**
+	 * @var string 数据库引擎的类名
+	 */
 	public static $driver;
 
 	public static function init($driver, $config) {
@@ -23,14 +29,33 @@ class discuz_database {
 		self::$db->connect();
 	}
 
+	/**
+	 * 返回 DB object 指针
+	 *
+	 * @return db_driver_mysql
+	 */
 	public static function object() {
 		return self::$db;
 	}
 
+	/**
+	 * 给表名加上前缀(pre_$table)
+	 *
+	 * @param string $table 原始表名
+	 * @return string
+	 */
 	public static function table($table) {
 		return self::$db->table_name($table);
 	}
 
+	/**
+	 * 删除一条或者多条记录
+	 *
+	 * @param string $table 原始表名
+	 * @param string $condition 条件语句，不需要写WHERE, 可以支持数组
+	 * @param int $limit 删除条目数
+	 * @param boolean $unbuffered 立即返回？
+	 */
 	public static function delete($table, $condition, $limit = 0, $unbuffered = true) {
 		if (empty($condition)) {
 			return false;
@@ -48,6 +73,16 @@ class discuz_database {
 		return self::query($sql, ($unbuffered ? 'UNBUFFERED' : ''));
 	}
 
+	/**
+	 * 插入一条记录
+	 *
+	 * @param string $table 原始表名
+	 * @param array $data 数组field->value 对
+	 * @param boolen $return_insert_id 返回 InsertID?
+	 * @param boolen $replace 是否是REPLACE模式
+	 * @param boolen $silent 屏蔽错误？
+	 * @return InsertID or Result
+	 */
 	public static function insert($table, $data, $return_insert_id = false, $replace = false, $silent = false) {
 
 		$sql = self::implode($data);
@@ -60,6 +95,16 @@ class discuz_database {
 		return self::query("$cmd $table SET $sql", null, $silent, !$return_insert_id);
 	}
 
+	/**
+	 * 更新一条或者多条数据记录
+	 *
+	 * @param string $table 原始表名
+	 * @param array $data 数据field-value
+	 * @param string $condition 条件语句，不需要写WHERE
+	 * @param boolean $unbuffered 迅速返回？
+	 * @param boolan $low_priority 延迟更新？
+	 * @return result
+	 */
 	public static function update($table, $data, $condition, $unbuffered = false, $low_priority = false) {
 		$sql = self::implode($data);
 		if(empty($sql)) {
@@ -79,14 +124,32 @@ class discuz_database {
 		return $res;
 	}
 
+	/**
+	 * 返回插入的ID
+	 *
+	 * @return int
+	 */
 	public static function insert_id() {
 		return self::$db->insert_id();
 	}
 
-	public static function fetch($resourceid, $type = 'MYSQL_ASSOC') {
+	/**
+	 * 依据查询结果，返回一行数据
+	 *
+	 * @param resourceID $resourceid
+	 * @return array
+	 */
+	public static function fetch($resourceid, $type = MYSQL_ASSOC) {
 		return self::$db->fetch_array($resourceid, $type);
 	}
 
+	/**
+	 * 依据SQL文，返回一条查询结果
+	 * @param string $sql SQL文， 支持%格式化
+	 * @param array $arg 格式化参数值, 如果为空， 则不对SQL文处理
+	 * @param boolean $silent 是否静默方式运行
+	 * @return array
+	 */
 	public static function fetch_first($sql, $arg = array(), $silent = false) {
 		$res = self::query($sql, $arg, $silent, false);
 		$ret = self::$db->fetch_array($res);
@@ -94,6 +157,30 @@ class discuz_database {
 		return $ret ? $ret : array();
 	}
 
+	/**
+	 * 依据SQL文，返回所有查询结果
+
+	 * @param string $sql SQL文， 支持%格式化
+	 * @param string $arg 格式化参数值，如果为空， 则不对SQL文处理
+	 * @param string $keyfield 使用某个字段值作为返回数组的键值
+	 * @param boolean $silent 是否使用静默方式
+	 * @return array
+	 *
+	 * <code>
+	 * Exp: fetch_all('SELECT * FROM %t WHERE uid>20', array('common_member'), 'uid');
+	 * Ret: array(
+	 * 	21=> array('uid'=>21, 'username'=>'admin'),
+	 * 	22=> array('uid'=>22, 'username'=>'admin')
+	 * 	)
+	 *
+	 * Exp: fetch_all('SELECT * FROM %t WHERE uid>20', array('common_member'));
+	 * Ret: array(
+	 * 	0 => array('uid'=>21, 'username'=>'admin'),
+	 * 	1 => array('uid'=>22, 'username'=>'admin')
+	 * 	)
+	 *
+	 * </code>
+	 */
 	public static function fetch_all($sql, $arg = array(), $keyfield = '', $silent=false) {
 
 		$data = array();
@@ -109,10 +196,23 @@ class discuz_database {
 		return $data;
 	}
 
+	/**
+	 * 依据查询结果，返回结果数值
+	 *
+	 * @param resourceid $resourceid
+	 * @return string or int
+	 */
 	public static function result($resourceid, $row = 0) {
 		return self::$db->result($resourceid, $row);
 	}
 
+	/**
+	 * 返回查询结果的第一行，第一列
+	 * @param string $sql SQL 文
+	 * @param array $arg  SQL替换参数值，如果为空， 则不对SQL文处理
+	 * @param boolean $silent 是否静默方式
+	 * @return string
+	 */
 	public static function result_first($sql, $arg = array(), $silent = false) {
 		$res = self::query($sql, $arg, $silent, false);
 		$ret = self::$db->result($res, 0);
@@ -120,13 +220,31 @@ class discuz_database {
 		return $ret;
 	}
 
+	/**
+	 * 执行 Mysql 查询
+	 *
+	 * <code>
+	 * Exp: query('SELECT * FROM %t WHERE uid=%d AND username=%s LIMIT %d', array('common_member', 1, 'admin', 1));
+	 * </code>
+	 *
+	 * @see discuz_database::format
+	 *
+	 * @param string $sql SQL文， 支持使用 %t,%f,%d, %s 定义参数, 见 db::format
+	 * @param array $arg 替换变量， 将 SQL 文中定义的参数替换成具体数值，如果为空， 则不对SQL文处理
+	 * @param boolean $silent 是否使用静默方式（当查询进行时，不进行报错）
+	 * @param boolean $unbuffered 是否使用 unbuffered 参数
+	 * @return resource
+	 */
 	public static function query($sql, $arg = array(), $silent = false, $unbuffered = false) {
 		if (!empty($arg)) {
+			/* 用arg中的数值替代 sql 文中的 % 内容 */
 			if (is_array($arg)) {
 				$sql = self::format($sql, $arg);
+				/* 兼容旧代码 */
 			} elseif ($arg === 'SILENT') {
 				$silent = true;
 
+				/* 兼容旧代码 */
 			} elseif ($arg === 'UNBUFFERED') {
 				$unbuffered = true;
 			}
@@ -147,10 +265,21 @@ class discuz_database {
 		return $ret;
 	}
 
+	/**
+	 * 返回select的结果行数
+	 *
+	 * @param resource $resourceid
+	 * @return int
+	 */
 	public static function num_rows($resourceid) {
 		return self::$db->num_rows($resourceid);
 	}
 
+	/**
+	 * 返回sql语句所影响的记录行数
+	 *
+	 * @return int
+	 */
 	public static function affected_rows() {
 		return self::$db->affected_rows();
 	}
@@ -171,6 +300,16 @@ class discuz_database {
 		return discuz_database_safecheck::checkquery($sql);
 	}
 
+	/**
+	 * 使用单引号包裹字串且进行addslashes处理
+	 * <code>
+	 * exp: quote("test'test");
+	 * out:  'test\\\'test'
+	 * </code>
+	 * @param string|array $str
+	 * @param boolean $noarray 不处理数组
+	 * @return mix
+	 */
 	public static function quote($str, $noarray = false) {
 
 		if (is_string($str))
@@ -196,6 +335,15 @@ class discuz_database {
 		return '\'\'';
 	}
 
+	/**
+	 * 格式化输出字段, 字段名两端使用 ` 包裹
+	 * <code>
+	 * Exp: quote_field('uid')
+	 * Out: `uid`
+	 * </code>
+	 * @param string|array $field
+	 * @return mix
+	 */
 	public static function quote_field($field) {
 		if (is_array($field)) {
 			foreach ($field as $k => $v) {
@@ -209,6 +357,20 @@ class discuz_database {
 		return $field;
 	}
 
+	/**
+	 * 格式化输出 LIMIT
+	 * <code>
+	 * Exp: limit(1)
+	 * out: LIMIT 1
+	 * Exp: limit(1,5)
+	 * out: LIMIT 1,5
+	 * Exp: limit(0, 8)
+	 * Out: LIMIT 8
+	 * </code>
+	 * @param int $start 起始点
+	 * @param int $limit 条目数
+	 * @return string
+	 */
 	public static function limit($start, $limit = 0) {
 		$limit = intval($limit > 0 ? $limit : 0);
 		$start = intval($start > 0 ? $start : 0);
@@ -223,6 +385,16 @@ class discuz_database {
 		}
 	}
 
+	/**
+	 * 格式化输出 ORDER
+	 * <code>
+	 * Exp: order('username', 'desc');
+	 * Out: `username` DESC
+	 * </code>
+	 * @param string $field
+	 * @param string $order
+	 * @return string
+	 */
 	public static function order($field, $order = 'ASC') {
 		if(empty($field)) {
 			return '';
@@ -231,6 +403,24 @@ class discuz_database {
 		return self::quote_field($field) . ' ' . $order;
 	}
 
+	/**
+	 * 格式化字段与字段数值, 使用 $glue 定义的字符连接字段名与字段值
+	 *
+	 * <code>
+	 * Exp: field('username', 'admin')
+	 * Out: `username`='admin';
+	 *
+	 * Exp: field('credits', 3, '+')
+	 * Out: `credits`=`credits`+3
+	 *
+	 * Exp: field('uid', array(1,2,3))
+	 * Out: `uid` IN('1','2','3')
+	 *
+	 * @param string $field
+	 * @param string|array $val 字段值, 连接符为"in"时,支持数组
+	 * @param string(=,like,in,notin,+,-,|,&,>,<,<>,<=,>=) $glue 连接符
+	 * @return string
+	 */
 	public static function field($field, $val, $glue = '=') {
 
 		$field = self::quote_field($field);
@@ -277,6 +467,13 @@ class discuz_database {
 		}
 	}
 
+	/**
+	 * 格式化field字段和value，并组成一个字符串
+	 *
+	 * @param array $array 格式为 key=>value 数组
+	 * @param 分割符 $glue
+	 * @return string
+	 */
 	public static function implode($array, $glue = ',') {
 		$sql = $comma = '';
 		$glue = ' ' . trim($glue) . ' ';
@@ -287,10 +484,32 @@ class discuz_database {
 		return $sql;
 	}
 
+	/**
+	 * 准备废弃了, 简写成 DB::implode
+	 */
 	public static function implode_field_value($array, $glue = ',') {
 		return self::implode($array, $glue);
 	}
 
+	/**
+	 * 格式化输出 SQL 字符串
+	 * @param string $sql 支持使用 %t,%f,%d, %s, %i定义参数
+	 * @param array $arg 参数替换数组
+	 * @return string
+	 * <code>
+	 * EXP:
+	 * 	%t table名字参数， 替换时候自动加上 table的前缀
+	 * 	%s 字符串， 替换时候自动使用 '' 进行包裹，并进行 addslashes 处理
+	 * 	%d 整数字串， 替换时自动取整
+	 * 	%f 浮点字串， 替换时格式化为浮点
+	 * 	%i 忽略字串， 替换时不进行任何处理
+	 *
+	 * ATT:
+	 * 	1. 其他未定义的 % 命令，将会自动作为 %s 处理
+	 * 	2. 当SQL文中定义的 %参数个数大于传递进入的 $arg 的个数， 则系统报错并终止
+	 *
+	 * </code>
+	 */
 	public static function format($sql, $arg) {
 		$count = substr_count($sql, '%');
 		if (!$count) {
@@ -344,6 +563,13 @@ class discuz_database_safecheck {
 	protected static $checkcmd = array('SEL'=>1, 'UPD'=>1, 'INS'=>1, 'REP'=>1, 'DEL'=>1);
 	protected static $config;
 
+	/**
+	 *
+	 * @staticvar string $status
+	 * @staticvar array $checkcmd
+	 * @param type $sql
+	 * @return type
+	 */
 	public static function checkquery($sql) {
 		if (self::$config === null) {
 			self::$config = getglobal('config/security/querysafe');

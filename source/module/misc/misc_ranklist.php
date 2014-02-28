@@ -164,6 +164,12 @@ function getranklist_pictures_index($num = 20, $dateline = 0, $orderby = 'hot DE
 	return $picturelist;
 }
 
+/**
+	针对会员的排行
+	@param $offset
+	@param $limit
+	@return array 会员列表
+*/
 function getranklist_members($offset = 0, $limit = 20) {
 	require_once libfile('function/forum');
 	$members = array();
@@ -180,6 +186,13 @@ function getranklist_girls($offset = 0, $limit = 20, $orderby = 'ORDER BY s.unit
 	return C::t('common_member')->fetch_all_girls_for_ranklist($offset, $limit, $orderby);
 }
 
+/**
+	日志排行
+	@param $orderby 排行 ORDER BY 子句
+	@param $offset
+	@param $limit
+	@return 排序后的日志列表
+*/
 function getranklist_blog($num = 20, $view = 'hot', $orderby = 'all') {
 	$dateline = $timestamp = '';
 	if($orderby == 'today') {

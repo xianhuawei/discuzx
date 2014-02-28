@@ -22,6 +22,12 @@ class table_common_credit_rule_log extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 更新指定策略执行记录的值
+	 * @param int $clid 策略日志ID
+	 * @param array $logarr 要更新的字段
+	 * @return bool
+	 */
 	public function increase($clid, $logarr) {
 		if($clid && !empty($logarr) && is_array($logarr)) {
 			return DB::query('UPDATE %t SET %i WHERE clid=%d', array($this->_table, implode(',', $logarr), $clid));
@@ -29,6 +35,12 @@ class table_common_credit_rule_log extends discuz_table
 		return 0;
 	}
 
+	/**
+	 * 获取指定策略和指定版块的策略日志id集合
+	 * @param int $rid 策略ID
+	 * @param int $fid 版块ID
+	 * @return array
+	 */
 	public function fetch_ids_by_rid_fid($rid, $fid) {
 		$lids = array();
 		if($rid && $fid) {
@@ -40,6 +52,13 @@ class table_common_credit_rule_log extends discuz_table
 		return $lids;
 	}
 
+	/**
+	 * 获取某一用户指定策略的执行日志
+	 * @param int $rid 策略ID
+	 * @param int $uid 用户ID
+	 * @param int $fid 版块ID
+	 * @return array 策略日志
+	 */
 	public function fetch_rule_log($rid, $uid, $fid = 0){
 		$log = array();
 		if($rid && $uid) {

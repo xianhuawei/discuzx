@@ -13,6 +13,12 @@ if(!defined('IN_DISCUZ')) {
 
 class helper_sysmessage {
 
+	/**
+	* 显示系统消息（简易模式，无需加载 Style)
+	* @param string $message 消息，语言包 message
+	* @param string $title 标题， 支持语言包 message， 默认 system message
+	* @param array $msgvar 消息语言的拓展变量参数
+	*/
 	public static function show($message, $title = '', $msgvar = array()) {
 		if(function_exists('lang')) {
 			$message = lang('message', $message, $msgvar);

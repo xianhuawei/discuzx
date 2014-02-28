@@ -10,6 +10,13 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ *
+ * 获取上传配置内容
+ * @param int $uid
+ * @param unknown_type $isimage
+ * @param unknown_type $fid
+ */
 function getuploadconfig($uid=0, $fid=0, $limit=true) {
 	global $_G;
 
@@ -79,8 +86,10 @@ function getuploadconfig($uid=0, $fid=0, $limit=true) {
 			$config['max'] = $config['max']*1024*1024*1024;
 		}
 	}
+	//单位用KB，默认可不填写
 	$config['max'] = $config['max'] / 1024;
 
+	//每天附件限制
 	if($limit) {
 		if($_G['group']['maxattachnum']) {
 			$todayattachs = getuserprofile('todayattachs');
@@ -96,6 +105,12 @@ function getuploadconfig($uid=0, $fid=0, $limit=true) {
 	}
 	return $config;
 }
+/**
+ *
+ * 踢除被排除掉后缀
+ * @param array $needle
+ * @param array $haystack
+ */
 function filterexts($needle, $haystack) {
 
 	foreach($needle as $key => $value) {

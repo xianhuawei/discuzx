@@ -26,6 +26,7 @@ if(in_array($action, array('join', 'out', 'create', 'manage', 'recommend'))) {
 if(empty($_G['fid']) && $action != 'create') {
 	showmessage('group_rediret_now', 'group.php');
 }
+// 群组分类
 $first = &$_G['cache']['grouptype']['first'];
 $second = &$_G['cache']['grouptype']['second'];
 $rssauth = $_G['rssauth'];
@@ -103,6 +104,7 @@ if(in_array($action, array('index')) && $status != 2) {
 
 }
 
+// 特殊类型主题过滤连接
 $showpoll = $showtrade = $showreward = $showactivity = $showdebate = 0;
 if($_G['forum']['allowpostspecial']) {
 	$showpoll = $_G['forum']['allowpostspecial'] & 1;
@@ -112,6 +114,7 @@ if($_G['forum']['allowpostspecial']) {
 	$showdebate = $_G['forum']['allowpostspecial'] & 16;
 }
 
+// 特殊类型主题发布按钮
 if($_G['group']['allowpost']) {
 	$_G['group']['allowpostpoll'] = $_G['group']['allowpostpoll'] && $showpoll;
 	$_G['group']['allowposttrade'] = $_G['group']['allowposttrade'] && $showtrade;
@@ -188,6 +191,7 @@ if($action == 'index') {
 		}
 	}
 
+	// 浏览过的群组
 	write_groupviewed($_G['fid']);
 	include template('diy:group/group:'.$_G['fid']);
 
@@ -217,7 +221,7 @@ if($action == 'index') {
 
 	include template('diy:group/group:'.$_G['fid']);
 
-} elseif($action == 'join') {
+} elseif($action == 'join') { // 加入群组
 	$inviteuid = 0;
 	$membermaximum = $_G['current_grouplevel']['specialswitch']['membermaximum'];
 	if(!empty($membermaximum)) {
@@ -259,13 +263,14 @@ if($action == 'index') {
 			}
 			C::t('forum_forumfield')->update($_G['fid'], array('lastupdate' => TIMESTAMP));
 		}
+		//统计
 		include_once libfile('function/stat');
 		updatestat('groupjoin');
 		delgroupcache($_G['fid'], array('activityuser', 'newuserlist'));
 		showmessage($showmessage, "forum.php?mod=group&fid=$_G[fid]");
 	}
 
-} elseif($action == 'out') {
+} elseif($action == 'out') { // 退出群组
 
 	if($_G['uid'] == $_G['forum']['founderuid']) {
 		showmessage('group_exit_founder');
@@ -277,7 +282,7 @@ if($action == 'index') {
 	delgroupcache($_G['fid'], array('activityuser', 'newuserlist'));
 	showmessage($showmessage, "forum.php?mod=forumdisplay&fid=$_G[fid]");
 
-} elseif($action == 'create') {
+} elseif($action == 'create') { // 新建群组
 
 	if(!$_G['group']['allowbuildgroup']) {
 		showmessage('group_create_usergroup_failed', "group.php");
@@ -363,7 +368,7 @@ if($action == 'index') {
 
 	include template('diy:group/group:'.$_G['fid']);
 
-} elseif($action == 'manage'){
+} elseif($action == 'manage'){ // 群组设置
 	if(!$_G['forum']['ismoderator']) {
 		showmessage('group_admin_noallowed');
 	}
@@ -381,12 +386,14 @@ if($action == 'index') {
 	if($_GET['op'] == 'group') {
 		$domainlength = checkperm('domainlength');
 		if(submitcheck('groupmanage')) {
+			// 检查二级域名更改
 			$forumarr = array();
 			if(isset($_GET['domain']) && $_G['forum']['domain'] != $_GET['domain']) {
 				$domain = strtolower(trim($_GET['domain']));
 				if($_G['setting']['allowgroupdomain'] && !empty($_G['setting']['domain']['root']['group']) && $domainlength) {
 					checklowerlimit('modifydomain');
 				}
+				//删除该域名记录
 				require_once libfile('function/delete');
 				if(empty($domainlength) || empty($domain)) {
 					$domain = '';
@@ -394,12 +401,14 @@ if($action == 'index') {
 				} else {
 					require_once libfile('function/domain');
 					if(domaincheck($domain, $_G['setting']['domain']['root']['group'], $domainlength)) {
+						//删除该域名记录
 						deletedomain($_G['fid'], 'group');
 						C::t('common_domain')->insert(array('domain' => $domain, 'domainroot' => $_G['setting']['domain']['root']['group'], 'id' => $_G['fid'], 'idtype' => 'group'));
 					}
 
 				}
 				$forumarr['domain'] = $domain;
+				//积分
 				updatecreditbyaction('modifydomain');
 			}
 
@@ -466,7 +475,7 @@ if($action == 'index') {
 				@unlink($_G['forum']['banner']);
 			}
 			require_once libfile('function/discuzcode');
-			$_GET['descriptionnew'] = discuzcode(censor(trim($_GET['descriptionnew'])), 0, 0, 0, 0, 1, 1, 0, 0, 1);
+			$_GET['descriptionnew'] = discuzcode(censor(trim($_GET['descriptionnew'])), 0, 0, 0, 0, 1, 1, 0, 0, 1);// 公告
 			$censormod = censormod($_GET['descriptionnew']);
 			if($censormod) {
 				showmessage('group_description_failed');
@@ -504,6 +513,7 @@ if($action == 'index') {
 			}
 		}
 	} elseif($_GET['op'] == 'checkuser') {
+		// 1通过　2忽略
 		$checktype = 0;
 		$checkusers = array();
 		if(!empty($_GET['uid'])) {
@@ -516,7 +526,7 @@ if($action == 'index') {
 				$checkusers[] = $row['uid'];
 			}
 		}
-		if($checkusers) {
+		if($checkusers) {//审核成员
 			foreach($checkusers as $uid) {
 				$notification = $checktype == 1 ? 'group_member_check' : 'group_member_check_failed';
 				notification_add($uid, 'group', $notification, array('fid' => $_G['fid'], 'groupname' => $_G['forum']['name'], 'url' => $_G['siteurl'].'forum.php?mod=group&fid='.$_G['fid']), 1);
@@ -588,7 +598,7 @@ if($action == 'index') {
 		if($_G['uid'] != $_G['forum']['founderuid'] && $_G['adminid'] != 1) {
 			showmessage('group_threadtype_only_founder');
 		}
-		$typenumlimit = 20;
+		$typenumlimit = 20; // 最大主题分类数
 		if(!submitcheck('groupthreadtype')) {
 			$threadtypes = $checkeds = array();
 			if(empty($_G['forum']['threadtypes'])) {
@@ -643,6 +653,7 @@ if($action == 'index') {
 					if(!empty($threadtypesnew['options']['enable'])) {
 						$typeids = array_keys($threadtypesnew['options']['enable']);
 					} else {
+						//TODO 确认零的作用
 						$typeids = array(0);
 					}
 					if(!empty($threadtypesnew['options']['delete'])) {
@@ -673,7 +684,7 @@ if($action == 'index') {
 			C::t('forum_forumfield')->update($_G['fid'], array('threadtypes' => $threadtypesnew));
 			showmessage('group_threadtype_edit_succeed', $url);
 		}
-	} elseif($_GET['op'] == 'demise') {
+	} elseif($_GET['op'] == 'demise') { // 群组转让
 		if((!empty($_G['forum']['founderuid']) && $_G['forum']['founderuid'] == $_G['uid']) || $_G['adminid'] == 1) {
 			$ucresult = $allowbuildgroup = $groupnum = 0;
 			if(count($groupmanagers) <= 1) {
@@ -716,7 +727,7 @@ if($action == 'index') {
 	}
 	include template('diy:group/group:'.$_G['fid']);
 
-} elseif($action == 'recommend') {
+} elseif($action == 'recommend') { //推荐到版块
 	if(!$_G['forum']['ismoderator'] || !in_array($_G['adminid'], array(1,2))) {
 		showmessage('group_admin_noallowed');
 	}

@@ -73,6 +73,7 @@ if($_GET['action'] == 'paysucceed') {
 		showmessage('attachment_forum_nopermission', NULL, array(), array('login' => 1));
 	}
 
+	// $status == 0 普通用户购买下载，$status == 1 钱不够，$status == 2 版主免费下载
 	$balance = getuserprofile('extcredits'.$_G['setting']['creditstransextra'][1]);
 	$status = $balance < $attach['price'] ? 1 : 0;
 
@@ -487,11 +488,11 @@ IconIndex=1
 
 if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
-	if(!$_G['group']['allowvote']) {
+	if(!$_G['group']['allowvote']) {// 是否有投票权
 		showmessage('group_nopermission', NULL, array('grouptitle' => $_G['group']['grouptitle']), array('login' => 1));
-	} elseif(!empty($thread['closed'])) {
+	} elseif(!empty($thread['closed'])) {// 主题已经关闭
 		showmessage('thread_poll_closed', NULL, array(), array('login' => 1));
-	} elseif(empty($_GET['pollanswers'])) {
+	} elseif(empty($_GET['pollanswers'])) {// 是否做了选择
 		showmessage('thread_poll_invalid', NULL, array(), array('login' => 1));
 	}
 
@@ -499,9 +500,9 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	$overt = $pollarray['overt'];
 	if(!$pollarray) {
 		showmessage('poll_not_found');
-	} elseif($pollarray['expiration'] && $pollarray['expiration'] < TIMESTAMP) {
+	} elseif($pollarray['expiration'] && $pollarray['expiration'] < TIMESTAMP) {//debug 是否已经过期
 		showmessage('poll_overdue', NULL, array(), array('login' => 1));
-	} elseif($pollarray['maxchoices'] && $pollarray['maxchoices'] < count($_GET['pollanswers'])) {
+	} elseif($pollarray['maxchoices'] && $pollarray['maxchoices'] < count($_GET['pollanswers'])) {//debug 是否选多了
 		showmessage('poll_choose_most', NULL, array('maxchoices' => $pollarray['maxchoices']), array('login' => 1));
 	}
 
@@ -582,6 +583,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		$polloptions[] = $options;
 	}
 
+	// 针对管理员，分页显示某项的投票用户
 	$arrvoterids = array();
 	if($overt || $_G['adminid'] == 1 || $thread['authorid'] == $_G['uid']) {
 		$polloptioninfo = C::t('forum_polloption')->fetch($polloptionid);
@@ -605,6 +607,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
 } elseif($_GET['action'] == 'rate' && $_GET['pid']) {
 
+	//推送完继续评分提示
 	if($_GET['showratetip']) {
 		include template('forum/rate');
 		exit();
@@ -666,7 +669,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		$reason = checkreasonpm();
 		$rate = $ratetimes = 0;
 		$creditsarray = $sub_self_credit = array();
-		getuserprofile('extcredits1');
+		getuserprofile('extcredits1');// 获取当前用户积分值
 		foreach($_G['group']['raterange'] as $id => $rating) {
 			$score = intval($_GET['score'.$id]);
 			if(isset($_G['setting']['extcredits'][$id]) && !empty($score)) {
@@ -1049,7 +1052,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
 	showmessage('reward_completion', $forward);
 
-} elseif($_GET['action'] == 'activityapplies') {
+} elseif($_GET['action'] == 'activityapplies') {// 活动申请
 
 	if(!$_G['uid']) {
 		showmessage('not_loggedin', NULL, array(), array('login' => 1));
@@ -1069,6 +1072,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		$payment = $_GET['payment'] ? $payvalue : -1;
 		$message = cutstr(dhtmlspecialchars($_GET['message']), 200);
 		$verified = $thread['authorid'] == $_G['uid'] ? 1 : 0;
+		// 自定义项目
 		if($activity['ufield']) {
 			$ufielddata = array();
 			$activity['ufield'] = dunserialize($activity['ufield']);
@@ -1084,6 +1088,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 					if($_G['cache']['profilesetting'][$filedname]['formtype'] == 'file' && !preg_match("/^https?:\/\/(.*)?\.(jpg|png|gif|jpeg|bmp)$/i", $value)) {
 						showmessage('activity_imgurl_error');
 					}
+					//对四级城市的特殊判断，省级和市级为必填项
 					if(empty($value) && $filedname != 'residedist' && $filedname != 'residecommunity') {
 						showmessage('activity_exile_field');
 					}
@@ -1098,6 +1103,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 			}
 			$ufielddata = !empty($ufielddata) ? serialize($ufielddata) : '';
 		}
+		// 看是否需要扣除积分
 		if($_G['setting']['activitycredit'] && $activity['credit'] && empty($applyinfo['verified'])) {
 			checklowerlimit(array('extcredits'.$_G['setting']['activitycredit'] => '-'.$activity['credit']));
 			updatemembercount($_G['uid'], array($_G['setting']['activitycredit'] => '-'.$activity['credit']), true, 'ACC', $_G['tid']);
@@ -1144,7 +1150,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		}
 		showmessage('activity_completion', "forum.php?mod=viewthread&tid=$_G[tid]".($_GET['from'] ? '&from='.$_GET['from'] : ''), array(), array('showdialog' => 1, 'showmsg' => true, 'locationtime' => true, 'alert' => 'right'));
 
-	} elseif(submitcheck('activitycancel')) {
+	} elseif(submitcheck('activitycancel')) {// 取消报名
 		C::t('forum_activityapply')->delete_for_user($_G['uid'], $_G['tid']);
 		$applynumber = C::t('forum_activityapply')->fetch_count_for_thread($_G['tid']);
 		C::t('forum_activity')->update($_G['tid'], array('applynumber' => $applynumber));
@@ -1159,7 +1165,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		showmessage('activity_cancel_success', "forum.php?mod=viewthread&tid=$_G[tid]&do=viewapplylist".($_GET['from'] ? '&from='.$_GET['from'] :''), array(), array('showdialog' => 1, 'closetime' => true));
 	}
 
-} elseif($_GET['action'] == 'getactivityapplylist') {
+} elseif($_GET['action'] == 'getactivityapplylist') {// 查看活动已通过列表
 	$pp = $_G['setting']['activitypp'];
 	$page = max(1, $_G['page']);
 	$start = ($page - 1) * $pp;
@@ -1174,7 +1180,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	}
 	$multi = multi($activity['applynumber'], $pp, $page, "forum.php?mod=misc&action=getactivityapplylist&tid=$_G[tid]&pid=$_GET[pid]");
 	include template('forum/activity_applist_more');
-} elseif($_GET['action'] == 'activityapplylist') {
+} elseif($_GET['action'] == 'activityapplylist') {// 活动申请列表
 
 	$isactivitymaster = $thread['authorid'] == $_G['uid'] ||
 						(in_array($_G['group']['radminid'], array(1, 2)) || ($_G['group']['radminid'] == 3 && $_G['forum']['ismoderator'])
@@ -1284,6 +1290,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 				showmessage('activity_delete_completion', "forum.php?mod=viewthread&tid=$_G[tid]&do=viewapplylist".($_GET['from'] ? '&from='.$_GET['from'] : ''), array(), array('showdialog' => 1, 'closetime' => true));
 			} else {
 				if($unverified) {
+					// 2:需要完善资料
 					$verified = $_GET['operation'] == 'replenish' ? 2 : 1;
 
 					C::t('forum_activityapply')->update_verified_for_thread($verified, $_G['tid'], $_GET['applyidarray']);
@@ -1304,7 +1311,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		}
 	}
 
-} elseif($_GET['action'] == 'activityexport') {
+} elseif($_GET['action'] == 'activityexport') {// 活动导出
 
 	$isactivitymaster = $thread['authorid'] == $_G['uid'] ||
 						(in_array($_G['group']['radminid'], array(1, 2)) || ($_G['group']['radminid'] == 3 && $_G['forum']['ismoderator'])
@@ -1445,6 +1452,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
 } elseif($_GET['action'] == 'debatevote') {
 
+	// 主题已经关闭
 	if(!empty($thread['closed'])) {
 		showmessage('thread_poll_closed');
 	}
@@ -1453,10 +1461,14 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		showmessage('debate_poll_nopermission', NULL, array(), array('login' => 1));
 	}
 
+	// 分为两种，一种是对辩论观点进行投票，另一种是对辩论选手(每一层)进行投票。
+	// 不指定 pid, 则视为对辩论观点进行投票
 	$isfirst = empty($_GET['pid']) ? TRUE : FALSE;
 
+	/note 对楼主进行投票
 	$debate = C::t('forum_debate')->fetch($_G['tid']);
 
+	// 辩论是否存在
 	if(empty($debate)) {
 		showmessage('debate_nofound');
 	}
@@ -1464,18 +1476,22 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	if($isfirst) {
 		$stand = intval($_GET['stand']);
 
+		// 只能投一方，一旦确定立场，不能更改。
 		if($stand == 1 || $stand == 2) {
 			if(strpos("\t".$debate['affirmvoterids'], "\t{$_G['uid']}\t") !== FALSE || strpos("\t".$debate['negavoterids'], "\t{$_G['uid']}\t") !== FALSE) {
 				showmessage('debate_poll_voted');
+			// 是否已经投过
 			} elseif($debate['endtime'] && $debate['endtime'] < TIMESTAMP) {
 				showmessage('debate_poll_end');
 			}
 		}
+		// 更新正/反方的总投票数
 		C::t('forum_debate')->update_voters($_G['tid'], $_G['uid'], $stand);
 
 		showmessage('debate_poll_succeed', 'forum.php?mod=viewthread&tid='.$_G['tid'], array(), array('showmsg' => 1, 'locationtime' => true));
 	}
 
+	// 取出该楼的信息
 	$debatepost = C::t('forum_debatepost')->fetch($_GET['pid']);
 	if(empty($debatepost) || $debatepost['tid'] != $_G['tid']) {
 		showmessage('debate_nofound');
@@ -1483,10 +1499,13 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	$debate = array_merge($debate, $debatepost);
 	unset($debatepost);
 
+	// 不能给自己投票
 	if($debate['uid'] == $_G['uid']) {
 		showmessage('debate_poll_myself', "forum.php?mod=viewthread&tid=$_G[tid]".($_GET['from'] ? '&from='.$_GET['from'] : ''), array(), array('showmsg' => 1));
+	// 是否已经投过
 	} elseif(strpos("\t".$debate['voterids'], "\t$_G[uid]\t") !== FALSE) {
 		showmessage('debate_poll_voted', "forum.php?mod=viewthread&tid=$_G[tid]".($_GET['from'] ? '&from='.$_GET['from'] : ''), array(), array('showmsg' => 1));
+	// 判断投票是否已经结束
 	} elseif($debate['endtime'] && $debate['endtime'] < TIMESTAMP) {
 		showmessage('debate_poll_end', "forum.php?mod=viewthread&tid=$_G[tid]".($_GET['from'] ? '&from='.$_GET['from'] : ''), array(), array('showmsg' => 1));
 	}
@@ -1495,12 +1514,15 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
 	showmessage('debate_poll_succeed', "forum.php?mod=viewthread&tid=$_G[tid]".($_GET['from'] ? '&from='.$_GET['from'] : ''), array(), array('showmsg' => 1));
 
+// 裁判发表观点
 } elseif($_GET['action'] == 'debateumpire') {
 
 	$debate = C::t('forum_debate')->fetch($_G['tid']);
 
+	// 辩论是否存在
 	if(empty($debate)) {
 		showmessage('debate_nofound');
+	// 评判后 一小时后 不能再次进行更改
 	}elseif(!empty($thread['closed']) && TIMESTAMP - $debate['endtime'] > 3600) {
 		showmessage('debate_umpire_edit_invalid');
 	} elseif($_G['member']['username'] != $debate['umpire']) {
@@ -1523,6 +1545,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		}
 		$winnerchecked = array($debate['winner'] => ' checked="checked"');
 
+		// 这里用 explode() substr() 居然不管用。找不到 \t
 		list($debate['bestdebater']) = preg_split("/\s/", $debate['bestdebater']);
 
 		include template('forum/debate_umpire');
@@ -1534,6 +1557,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		} elseif(empty($_GET['umpirepoint'])) {
 			showmessage('debate_umpire_nofound_point');
 		}
+		// 最佳辩手的合法性，为了用到索引，先查 members 表，再查 debateposts。
 		$bestdebateruid = C::t('common_member')->fetch_uid_by_username($_GET['bestdebater']);
 		if(!$bestdebateruid) {
 			showmessage('debate_umpire_bestdebater_invalid');
@@ -1541,11 +1565,13 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		if(!($bestdebaterstand = C::t('forum_debatepost')->get_stand_by_bestuid($_G['tid'], $bestdebateruid, array($debate['uid'], $_G['uid'])))) {
 			showmessage('debate_umpire_bestdebater_invalid');
 		}
+		// 总得票数 总回复数
 		list($bestdebatervoters, $bestdebaterreplies) = C::t('forum_debatepost')->get_numbers_by_bestuid($_G['tid'], $bestdebateruid);
 
 		$umpirepoint = dhtmlspecialchars($_GET['umpirepoint']);
 		$bestdebater = dhtmlspecialchars($_GET['bestdebater']);
 		$winner = intval($_GET['winner']);
+		// 关闭主题
 		C::t('forum_thread')->update($_G['tid'], array('closed' => 1));
 		C::t('forum_debate')->update($_G['tid'], array('umpirepoint' => $umpirepoint, 'winner' => $winner, 'bestdebater' => "$bestdebater\t$bestdebateruid\t$bestdebaterstand\t$bestdebatervoters\t$bestdebaterreplies", 'endtime' => $_G['timestamp']));
 		showmessage('debate_umpire_comment_succeed', 'forum.php?mod=viewthread&tid='.$_G['tid'].($_GET['from'] ? '&from='.$_GET['from'] : ''));
@@ -1675,7 +1701,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 			$tagarray = $class_tag->add_tag($_GET['tags'], 0, 'uid', 1);
 			if($tagarray) {
 				$uids = '';
-				if($_G['thread']['special'] == 1) {
+				if($_G['thread']['special'] == 1) { // 投票
 					if($_GET['polloptions']) {
 						$query = C::t('forum_polloption')->fetch_all($_GET['polloptions']);
 					} else {
@@ -1701,6 +1727,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 				$uids = @array_unique($uids);
 				$count = count($uids);
 				$limit = intval($_GET['limit']);
+				// 分批，每次设置200个用户的标签
 				$per = 200;
 				$uids = @array_slice($uids, $limit, $per);
 				if($uids) {
@@ -1837,6 +1864,10 @@ function getratelist($raterange) {
 	return $ratelist;
 }
 
+/**
+	return how much quota of rating left today
+	param $raterange -- 评分上下限
+*/
 function getratingleft($raterange) {
 	global $_G;
 	$maxratetoday = array();

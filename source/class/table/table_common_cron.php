@@ -21,11 +21,20 @@ class table_common_cron extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 取得当前时间需要要运行的任务
+	 * @param intval $timestamp
+	 * @return array
+	 */
 	public function fetch_nextrun($timestamp) {
 		$timestamp = intval($timestamp);
 		return DB::fetch_first('SELECT * FROM '.DB::table($this->_table)." WHERE available>'0' AND nextrun<='$timestamp' ORDER BY nextrun LIMIT 1");
 	}
 
+	/**
+	 * 取得下一个计划任务
+	 * @return array
+	 */
 	public function fetch_nextcron() {
 		return DB::fetch_first('SELECT * FROM '.DB::table($this->_table)." WHERE available>'0' ORDER BY nextrun LIMIT 1");
 	}

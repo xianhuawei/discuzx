@@ -37,6 +37,7 @@ if($op == "finish") {
 
 	$albumid = intval($_GET['albumid']);
 
+	//相册更新
 	if($albumid > 0) {
 		album_update_pic($albumid);
 	}
@@ -60,6 +61,7 @@ if($op == "finish") {
 		}
 	} else {
 		$filearr = $dirstr = array();
+		//大头贴背景图
 		if($iscamera) {
 			$directory = dreaddir(DISCUZ_ROOT.'./static/image/foreground');
 			foreach($directory as $key => $value) {
@@ -99,6 +101,7 @@ if($op == "finish") {
 		}
 	}
 	$albums = getalbums($_G['uid']);
+	//系统分类
 	loadcache('albumcategory');
 	$categorys = $_G['cache']['albumcategory'];
 	$categorystat = $_G['setting']['albumcategorystat'] && !empty($categorys) ? intval($_G['setting']['albumcategorystat']) : 0;
@@ -120,6 +123,7 @@ if($op == "finish") {
 		}
 	}
 
+	//如果为空则代表发送过来的流有错误
 	if($dosave && !empty($GLOBALS['HTTP_RAW_POST_DATA'])) {
 		$_SERVER['HTTP_ALBUMID'] = addslashes(diconv(urldecode($_SERVER['HTTP_ALBUMID']), 'UTF-8'));
 		$from = false;
@@ -128,7 +132,7 @@ if($op == "finish") {
 		} elseif($_GET['from'] == 'album') {
 			$from = 'uploadimage';
 		}
-		$_G['setting']['allowwatermark'] = 0;
+		$_G['setting']['allowwatermark'] = 0;	//禁止添加水印
 		$uploadfiles = stream_save($GLOBALS['HTTP_RAW_POST_DATA'], $_SERVER['HTTP_ALBUMID'], 'jpg', '', '', 0, $from);
 	}
 
@@ -149,6 +153,7 @@ if($op == "finish") {
 			require_once libfile('function/magic');
 			usemagic($magic['magicid'], $magic['num'], 1);
 			updatemagiclog($magic['magicid'], '2', '1', '0');
+			//更新相册数
 			if($albumid > 0) {
 				album_update_pic($albumid);
 			}

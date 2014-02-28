@@ -51,6 +51,7 @@ if(!submitcheck('modsubmit')) {
 
 	$authorcount = count(array_keys($authors));
 
+	//note 违规记录查询
 	if($modpostsnum == 1 || $authorcount == 1) {
 		include_once libfile('function/member');
 		$crimenum = crime('getcount', $posts[0]['authorid'], 'crime_delpost');

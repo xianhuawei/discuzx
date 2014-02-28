@@ -7,12 +7,14 @@
  *      $Id: portal.php 33234 2013-05-08 04:13:19Z andyzheng $
  */
 
+// 定义应用 ID
 define('APPTYPEID', 4);
 define('CURSCRIPT', 'portal');
 
 require './source/class/class_core.php';
 $discuz = C::app();
 
+//核心类
 $cachelist = array('userapp', 'portalcategory', 'diytemplatenameportal');
 $discuz->cachelist = $cachelist;
 $discuz->init();

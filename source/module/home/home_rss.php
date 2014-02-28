@@ -21,6 +21,7 @@ if(!empty($uid)) {
 	$space = getuserbyuid($uid, 1);
 }
 if(empty($space)) {
+	//站点更新rss
 	$space['username'] = $_G['setting']['sitename'];
 	$space['name'] = $_G['setting']['sitename'];
 	$space['email'] = $_G['setting']['adminemail'];
@@ -30,6 +31,7 @@ if(empty($space)) {
 	$space['space_url'] = $siteurl."home.php?mod=space&amp;uid=$space[uid]";
 }
 
+//10篇最新日志
 $uidsql = empty($space['uid'])?'':" AND b.uid='$space[uid]'";
 
 $data_blog = C::t('home_blog')->range(0, $pagenum, 'DESC', 'dateline', 0, null, $uid);

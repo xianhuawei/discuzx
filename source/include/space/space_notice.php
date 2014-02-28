@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//分页
 $perpage = 30;
 $perpage = mob_perpage($perpage);
 
@@ -18,6 +19,7 @@ $page = empty($_GET['page'])?0:intval($_GET['page']);
 if($page<1) $page = 1;
 $start = ($page-1)*$perpage;
 
+//检查开始数
 ckstart($start, $perpage);
 
 $list = array();
@@ -33,6 +35,7 @@ $opactives[$view] = 'class="a"';
 $categorynum = $newprompt = array();
 if($view == 'userapp') {
 
+	//更新统计
 	space_merge($space, 'status');
 
 	if($_GET['op'] == 'del') {
@@ -69,6 +72,7 @@ if($view == 'userapp') {
 		C::t('home_notification')->ignore($_G['uid']);
 	}
 
+	//通知类型
 	foreach (array('wall', 'piccomment', 'blogcomment', 'clickblog', 'clickpic', 'sharecomment', 'doing', 'friend', 'credit', 'bbs', 'system', 'thread', 'task', 'group') as $key) {
 		$noticetypes[$key] = lang('notification', "type_$key");
 	}
@@ -125,6 +129,7 @@ if($view == 'userapp') {
 		$multi = multi($count, $perpage, $page, "home.php?mod=space&do=$do&isread=1");
 	}
 
+	//更新状态为已看
 	if($newnotify) {
 		C::t('home_notification')->ignore($_G['uid'], $type, $category, true, true);
 		if($_G['setting']['cloud_status']) {
@@ -151,6 +156,7 @@ if($view == 'userapp') {
 
 
 }
+//关闭提醒功能
 dsetcookie('promptstate_'.$_G['uid'], $newprompt, 31536000);
 include_once template("diy:home/space_notice");
 

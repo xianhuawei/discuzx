@@ -33,6 +33,7 @@ if(!empty($_G['setting']['makehtml']['flag']) && $article['htmlmade'] && !isset(
 $article_count = C::t('portal_article_count')->fetch($aid);
 if($article_count) $article = array_merge($article_count, $article);
 
+//更新统计
 if($article_count) {
 	C::t('portal_article_count')->increase($aid, array('viewnum'=>1));
 	unset($article_count);
@@ -51,8 +52,10 @@ if($article['url']) {
 }
 
 
+//重新组装分类
 $cat = category_remake($article['catid']);
 
+//封面图片
 $article['pic'] = pic_get($article['pic'], '', $article['thumb'], $article['remote'], 1, 1);
 
 $page = intval($_GET['page']);
@@ -63,6 +66,7 @@ $multi = '';
 
 $content = C::t('portal_article_content')->fetch_by_aid_page($aid, $page);
 
+//显示页内分页导航
 if($article['contents'] && $article['showinnernav']) {
 	foreach(C::t('portal_article_content')->fetch_all($aid) as $value) {
 		$contents[] = $value;
@@ -72,6 +76,7 @@ if($article['contents'] && $article['showinnernav']) {
 	}
 }
 
+//处理视频标签
 require_once libfile('function/blog');
 $content['content'] = blog_bbcode($content['content']);
 
@@ -133,6 +138,7 @@ if($article['idtype'] == 'tid' || $content['idtype']=='pid') {
 	}
 }
 
+//相关文章
 $article['related'] = array();
 if(($relateds = C::t('portal_article_related')->fetch_all_by_aid($aid))) {
 	foreach(C::t('portal_article_title')->fetch_all(array_keys($relateds)) as $raid => $value) {
@@ -140,13 +146,16 @@ if(($relateds = C::t('portal_article_related')->fetch_all_by_aid($aid))) {
 		$article['related'][$raid] = $value;
 	}
 }
+// 评论
+// 如果分类设定允许评论，以文章自己的设定为准；如果分类不允许评论，则不允许评论！
 $article['allowcomment'] = !empty($cat['allowcomment']) && !empty($article['allowcomment']) ? 1 : 0;
+//初始化全局变量，头部文件的判断会用到
 $_G['catid'] = $_GET['catid'] = $article['catid'];
 $common_url = '';
 $commentlist = array();
-if($article['allowcomment']) {
+if($article['allowcomment']) {//note 只有在允许评论的情况下才取评论数据
 
-	if($org && empty($article['owncomment'])) {
+	if($org && empty($article['owncomment'])) {//note 同步源帖子/评论
 
 		if($article['idtype'] == 'blogid') {
 
@@ -179,6 +188,7 @@ if($article['allowcomment']) {
 				foreach(C::t('forum_post')->fetch_all_by_tid('tid:'.$article['id'], $article['id'], true, 'ASC', 0, 20, null, 0) as $value) {
 					$value['uid'] = $value['authorid'];
 					$value['username'] = $value['author'];
+					//通过审核的
 					if($value['status'] != 1 && !$value['first']) {
 						$value['message'] = discuzcode($value['message'], $value['smileyoff'], $value['bbcodeoff'], $value['htmlon']);
 						$value['cid'] = $value['pid'];
@@ -217,10 +227,12 @@ if($article['allowcomment']) {
 	}
 }
 
+//表态
 $hash = md5($article['uid']."\t".$article['dateline']);
 $id = $article['aid'];
 $idtype = 'aid';
 
+//表态分类
 loadcache('click');
 $clicks = empty($_G['cache']['click']['aid'])?array():$_G['cache']['click']['aid'];
 $maxclicknum = 0;
@@ -231,6 +243,7 @@ foreach ($clicks as $key => $value) {
 	$clicks[$key] = $value;
 }
 
+//点评
 $clickuserlist = array();
 foreach(C::t('home_clickuser')->fetch_all_by_id_idtype($id, $idtype, 0, 24) as $value) {
 	$value['clickname'] = $clicks[$value['clickid']]['name'];
@@ -277,6 +290,7 @@ if(strpos($articleprimaltplname, ':') !== false) {
 }
 include_once template("diy:portal/view:{$catid}", NULL, $tpldirectory, NULL, $articleprimaltplname);
 
+//debug 处理附件
 function parseforumattach(&$post, $aids) {
 	global $_G;
 	if(($aids = array_unique($aids))) {

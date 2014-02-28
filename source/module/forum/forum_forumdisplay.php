@@ -33,6 +33,7 @@ $_GET['dateline'] = isset($_GET['dateline']) ? intval($_GET['dateline']) : 0;
 $_GET['digest'] = isset($_GET['digest']) ? 1 : '';
 $_GET['archiveid'] = isset($_GET['archiveid']) ? intval($_GET['archiveid']) : 0;
 
+// 是否显示在线列表
 $showoldetails = isset($_GET['showoldetails']) ? $_GET['showoldetails'] : '';
 switch($showoldetails) {
 	case 'no': dsetcookie('onlineforum', ''); break;
@@ -52,6 +53,7 @@ if(!is_array($_G['forum']['extra'])) {
 	$_G['forum']['extra'] = array();
 }
 
+// 论坛存档区列表
 
 $threadtable_info = !empty($_G['cache']['threadtable_info']) ? $_G['cache']['threadtable_info'] : array();
 $forumarchive = array();
@@ -68,6 +70,7 @@ if($_G['forum']['archive']) {
 	}
 }
 
+// 论坛页面标题
 
 $forum_up = $_G['cache']['forums'][$_G['forum']['fup']];
 if($_G['forum']['type'] == 'forum') {
@@ -155,12 +158,14 @@ if(!$metakeywords) {
 if(!$metadescription) {
 	$metadescription = $_G['forum']['name'];
 }
+// 论坛浏览权限判断
 if($_G['forum']['viewperm'] && !forumperm($_G['forum']['viewperm']) && !$_G['forum']['allowview']) {
 	showmessagenoperm('viewperm', $_G['fid'], $_G['forum']['formulaperm']);
 } elseif($_G['forum']['formulaperm']) {
 	formulaperm($_G['forum']['formulaperm']);
 }
 
+// 论坛访问需要密码
 if($_G['forum']['password']) {
 	if($_GET['action'] == 'pwverify') {
 		if($_GET['pw'] != $_G['forum']['password']) {
@@ -202,18 +207,22 @@ if(!isset($_G['cookie']['collapse']) || strpos($_G['cookie']['collapse'], 'forum
 	$collapse['forum_rulesimg'] = 'yes';
 }
 
+//最后访问cookie
 $forumlastvisit = 0;
 if(empty($_G['forum']['picstyle']) && isset($_G['cookie']['forum_lastvisit']) && strexists($_G['cookie']['forum_lastvisit'], 'D_'.$_G['fid'])) {
 	preg_match('/D\_'.$_G['fid'].'\_(\d+)/', $_G['cookie']['forum_lastvisit'], $a);
 	$forumlastvisit = $a[1];
 	unset($a);
 }
+//记录最后访问cookie
 dsetcookie('forum_lastvisit', preg_replace("/D\_".$_G['fid']."\_\d+/", '', $_G['cookie']['forum_lastvisit']).'D_'.$_G['fid'].'_'.TIMESTAMP, 604800);
 
 $threadtableids = !empty($_G['cache']['threadtableids']) ? $_G['cache']['threadtableids'] : array();
 
+// 对应的 thread 表
 $tableid = $_GET['archiveid'] && in_array($_GET['archiveid'], $threadtableids) ? intval($_GET['archiveid']) : 0;
 
+// 待审核帖对自己可见
 if($_G['setting']['allowmoderatingthread'] && $_G['uid']) {
 	$threadmodcount = C::t('forum_thread')->count_by_fid_displayorder_authorid($_G['fid'], -2, $_G['uid'], $tableid);
 }
@@ -251,11 +260,13 @@ if(!empty($_G['forum']['threadsorts']['types'])) {
 $_GET['sortid'] = intval($_GET['sortid']);
 $moderatedby = $_G['forum']['status'] != 3 ? moddisplay($_G['forum']['moderators'], 'forumdisplay') : '';
 $_GET['highlight'] = empty($_GET['highlight']) ? '' : dhtmlspecialchars($_GET['highlight']);
+// 论坛是否自动关闭
 if($_G['forum']['autoclose']) {
 	$closedby = $_G['forum']['autoclose'] > 0 ? 'dateline' : 'lastpost';
 	$_G['forum']['autoclose'] = abs($_G['forum']['autoclose']) * 86400;
 }
 
+// 处理子论坛
 $subexists = 0;
 foreach($_G['cache']['forums'] as $sub) {
 	if($sub['type'] == 'sub' && $sub['fup'] == $_G['fid'] && (!$_G['setting']['hideprivate'] || !$sub['viewperm'] || forumperm($sub['viewperm']) || strstr($sub['users'], "\t$_G[uid]\t"))) {
@@ -340,9 +351,11 @@ if($_GET['filter'] != 'hot') {
 	$page = $_G['setting']['threadmaxpages'] && $page > $_G['setting']['threadmaxpages'] ? 1 : $page;
 }
 
+// 版主推荐主题处理
 if($_G['forum']['modrecommend'] && $_G['forum']['modrecommend']['open']) {
 	$_G['forum']['recommendlist'] = recommendupdate($_G['fid'], $_G['forum']['modrecommend'], '', 1);
 }
+// 推荐群组
 $recommendgroups = array();
 if($_G['forum']['status'] != 3 && helper_access::check_module('group')) {
 	loadcache('forumrecommend');
@@ -473,6 +486,7 @@ $check[$filter] = $check[$_GET['orderby']] = $check[$_GET['ascdesc']] = 'selecte
 if(($_G['forum']['status'] != 3 && $_G['forum']['allowside']) || !empty($_G['forum']['threadsorts']['templatelist'])) {
 	updatesession();
 	$onlinenum = C::app()->session->count_by_fid($_G['fid']);
+	// 论坛在线状态 0 不显示 1 仅在首页显示 2 仅在分论坛显示 3 在首页和分论坛显示
 	if(!IS_ROBOT && ($_G['setting']['whosonlinestatus'] == 2 || $_G['setting']['whosonlinestatus'] == 3)) {
 		$_G['setting']['whosonlinestatus'] = 1;
 		$detailstatus = $showoldetails == 'yes' || (((!isset($_G['cookie']['onlineforum']) && !$_G['setting']['whosonline_contract']) || $_G['cookie']['onlineforum']) && !$showoldetails);
@@ -552,6 +566,7 @@ if(empty($filter) && empty($_GET['sortid']) && empty($_G['forum']['relatedgroup'
 	}
 }
 
+// 全局置顶
 $thisgid = $_G['forum']['type'] == 'forum' ? $_G['forum']['fup'] : (!empty($_G['cache']['forums'][$_G['forum']['fup']]['fup']) ? $_G['cache']['forums'][$_G['forum']['fup']]['fup'] : 0);
 $forumstickycount = $stickycount = 0;
 $stickytids = '';
@@ -576,6 +591,7 @@ if($showsticky) {
 			}
 		}
 
+// 多版块置顶
 		if($_G['forum']['allowglobalstick']) {
 			$forumstickycount = 0;
 			$forumstickfid = $_G['forum']['status'] != 3 ? $_G['fid'] : $_G['forum']['fup'];
@@ -607,6 +623,7 @@ if($_G['forum']['picstyle']) {
 	}
 }
 
+// 如果存在$digest 并且开启全局置顶，那么页数为 $threadcount + $stickycount，也就是包含了置顶帖
 if($filter != 'hot' && @ceil($_G['forum_threadcount']/$_G['tpp']) < $page) {
 	$page = 1;
 }
@@ -641,8 +658,9 @@ if($filter !== 'hot') {
 		if($filterarr['digest']) {
 			$indexadd = " FORCE INDEX (digest) ";
 		}
-		
+	// 有置顶主题	
 	} elseif($showsticky && $stickytids && is_array($stickytids)) {
+		// 查询置顶帖，并根据所在页，找出该取出的置顶帖
 		$filterarr1 = $filterarr;
 		$filterarr1['inforum'] = '';
 		$filterarr1['intids'] = $stickytids;
@@ -652,6 +670,7 @@ if($filter !== 'hot') {
 	}
 	$threadlist = array_merge($threadlist, C::t('forum_thread')->fetch_all_search($filterarr, $tableid, $start_limit, $_G['tpp'], $_order, '', $indexadd));
 	unset($_order);
+	//做一下兼容处理，如果是手动点击的话修正一下主题数
 	if(empty($threadlist) && $page <= ceil($_G['forum_threadcount'] / $_G['tpp'])) {
 		require_once libfile('function/post');
 		updateforumcount($_G['fid']);
@@ -688,8 +707,10 @@ $_G['showrows'] = $_G['hiddenexists'] = 0;
 $threadindex = 0;
 foreach($threadlist as $thread) {
 	$thread['allreplies'] = $thread['replies'] + $thread['comments'];
+	// 倒序看帖标记
 	$thread['ordertype'] = getstatus($thread['status'], 4);
 	if($_G['forum']['picstyle'] && empty($_G['cookie']['forumdefstyle'])) {
+		// 图片列表样式时不显示非本版的主题
 		if($thread['fid'] != $_G['fid'] && empty($thread['cover'])) {
 			continue;
 		}
@@ -865,6 +886,7 @@ if(!empty($threadids)) {
 		$_G['forum_threadlist'][$index]['views'] += $value['addviews'];
 	}
 }
+//查询认证
 if($_G['setting']['verify']['enabled'] && $verifyuids) {
 	foreach(C::t('common_member_verify')->fetch_all($verifyuids) as $value) {
 		foreach($_G['setting']['verify'] as $vid => $vsetting) {
@@ -941,6 +963,7 @@ if($fastpost || $livethread) {
 	$fastpostdisabled = true;
 }
 
+// 特殊类型主题过滤连接
 $showpoll = $showtrade = $showreward = $showactivity = $showdebate = 0;
 if($_G['forum']['allowpostspecial']) {
 	$showpoll = $_G['forum']['allowpostspecial'] & 1;
@@ -950,6 +973,7 @@ if($_G['forum']['allowpostspecial']) {
 	$showdebate = $_G['forum']['allowpostspecial'] & 16;
 }
 
+// 特殊类型主题发布按钮
 if($_G['group']['allowpost']) {
 	$_G['group']['allowpostpoll'] = $_G['group']['allowpostpoll'] && $showpoll;
 	$_G['group']['allowposttrade'] = $_G['group']['allowposttrade'] && $showtrade;

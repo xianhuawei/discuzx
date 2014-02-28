@@ -40,17 +40,49 @@ abstract class discuz_model extends discuz_base
 		return getglobal('config/'.$name);
 	}
 
+	/**
+	 * 获取当前 APP 全局setting 的某个键值
+	 *
+	 * <code>
+	 * EXP: $this->setting('bbname');
+	 * RET: (string) Discuz Board
+	 *
+	 * EXP: $this->setting('ec_credit/rank');
+	 * RET: array(1=>4, 2=>11 ...)
+	 *
+	 * </code>
+	 * @param string $name
+	 * @return Mixed
+	 */
 	public function setting($name = null, $val = null) {
 		if(isset($val)) {
 			return $this->setvar($this->setting, $name, $val);
 		}
 		return $this->getvar($this->setting, $name);
 	}
-
+	
+	/**
+	 * table loader 获取某个 table 对象， 作用同 C::t($name)
+	 * @param type $name table名
+	 * @return discuz_table
+	 */
 	public function table($name) {
 		return C::t($name);
 	}
 
+	/**
+	 * Setting cache loader, 自动加载某个系统缓存，同时返回键值
+	 * <code>
+	 * EXP: $this->cache('grouptype');
+	 * RET: arrary('first'=> ...)
+	 *
+	 * EXP: $this->cache('onlinelist/legend');
+	 * RET: string(....)
+	 *
+	 * </code>
+	 * @param type $name 缓存名称， 支持 缓存名称/缓存键值 这种形式
+	 * @return mixed
+	 */
 	public function cache($name, $val = null) {
 		if(isset($val)) {
 			savecache($name, $val);

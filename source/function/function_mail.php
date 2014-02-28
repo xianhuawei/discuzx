@@ -12,12 +12,14 @@ if(!defined('IN_DISCUZ')) {
 }
 
 set_time_limit(0);
+//直接给指定邮箱发邮件
 function sendmail($toemail, $subject, $message, $from = '') {
 	global $_G;
 	if(!is_array($_G['setting']['mail'])) {
 		$_G['setting']['mail'] = dunserialize($_G['setting']['mail']);
 	}
 	$_G['setting']['mail']['server'] = $_G['setting']['mail']['port'] = $_G['setting']['mail']['auth'] = $_G['setting']['mail']['from'] = $_G['setting']['mail']['auth_username'] = $_G['setting']['mail']['auth_password'] = '';
+	//随机取一个邮件服务器
 	if($_G['setting']['mail']['mailsend'] != 1) {
 		$smtpnum = count($_G['setting']['mail']['smtp']);
 		if($smtpnum) {
@@ -31,6 +33,7 @@ function sendmail($toemail, $subject, $message, $from = '') {
 			$_G['setting']['mail']['auth_password'] = $smtp['auth_password'];
 		}
 	}
+	//note 补全完整的URL地址
 	$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['siteurl'].'\\2"', $message);
 
 $message = <<<EOT
@@ -46,11 +49,15 @@ $message
 </html>
 EOT;
 
+	//邮件头的分隔符
 	$maildelimiter = $_G['setting']['mail']['maildelimiter'] == 1 ? "\r\n" : ($_G['setting']['mail']['maildelimiter'] == 2 ? "\r" : "\n");
+	//收件人地址中包含用户名
 	$mailusername = isset($_G['setting']['mail']['mailusername']) ? $_G['setting']['mail']['mailusername'] : 1;
+	//端口
 	$_G['setting']['mail']['port'] = $_G['setting']['mail']['port'] ? $_G['setting']['mail']['port'] : 25;
 	$_G['setting']['mail']['mailsend'] = $_G['setting']['mail']['mailsend'] ? $_G['setting']['mail']['mailsend'] : 1;
 
+	//发信者
 	if($_G['setting']['mail']['mailsend'] == 3) {
 		$email_from = empty($from) ? $_G['setting']['adminemail'] : $from;
 	} else {
@@ -183,10 +190,12 @@ EOT;
 	}
 }
 
+//给指定邮箱发邮件（放入队列）
 function sendmail_cron($toemail, $subject, $message) {
 
 	$toemail = addslashes($toemail);
 
+	//检查是否存在当前队列
 	$value = C::t('common_mailcron')->fetch_all_by_email($toemail, 0, 1);
 	$value = $value[0];
 	if($value) {
@@ -194,7 +203,9 @@ function sendmail_cron($toemail, $subject, $message) {
 	} else {
 		$cid = C::t('common_mailcron')->insert(array('email' => $toemail), true);
 	}
+	//note 补全完整的URL地址
 	$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['siteurl'].'\\1"', $message);
+	//插入邮件内容队列
 	$setarr = array(
 		'cid' => $cid,
 		'subject' => $subject,
@@ -206,25 +217,29 @@ function sendmail_cron($toemail, $subject, $message) {
 	return true;
 }
 
+//给指定时间内未登陆的用户发送邮件（队列）
 function sendmail_touser($touid, $subject, $message, $mailtype='') {
 	global $_G;
 
-	if(empty($_G['setting']['sendmailday'])) return false;
+	if(empty($_G['setting']['sendmailday'])) return false;//不开启给用户发邮件功能
 
 	require_once libfile('function/home');
 	$tospace = getuserbyuid($touid);
-	if(empty($tospace['email'])) return false;
+	if(empty($tospace['email'])) return false;//未填写邮箱
 
+	//关联附属表
 	space_merge($tospace, 'field_home');
 	space_merge($tospace, 'status');
 
-	$acceptemail = $tospace['acceptemail'];
+	$acceptemail = $tospace['acceptemail'];//接受邮件通知类型
 	if(!empty($acceptemail[$mailtype]) && $_G['timestamp'] - $tospace['lastvisit'] > $_G['setting']['sendmailday']*86400) {
+		//获得下次发送时间
 		if(empty($tospace['lastsendmail'])) {
 			$tospace['lastsendmail'] = $_G['timestamp'];
 		}
 		$sendtime = $tospace['lastsendmail'] + $acceptemail['frequency'];
 
+		//检查是否存在当前用户队列
 		$value = C::t('common_mailcron')->fetch_all_by_touid($touid, 0, 1);
 		$value = $value[0];
 		if($value) {

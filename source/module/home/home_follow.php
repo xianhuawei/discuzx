@@ -13,9 +13,11 @@ if(!defined('IN_DISCUZ')) {
 if(!$_G['uid']) {
 	showmessage('login_before_enter_home', null, array(), array('showmsg' => true, 'login' => 1));
 }
+//允许动作
 $dos = array('feed', 'follower', 'following', 'view');
 $do = (!empty($_GET['do']) && in_array($_GET['do'], $dos)) ? $_GET['do'] : (!$_GET['uid'] ? 'feed' : 'view');
 
+//处理分页
 $page = empty($_GET['page']) ? 1 : intval($_GET['page']);
 if($page<1) $page=1;
 $perpage = 20;
@@ -28,6 +30,7 @@ $space = $viewself ? $_G['member'] : getuserbyuid($uid, 1);
 if(empty($space)) {
 	showmessage('follow_visituser_not_exist');
 } elseif(in_array($space['groupid'], array(4, 5, 6)) && ($_G['adminid'] != 1 && $space['uid'] != $_G['uid'])) {
+	//被禁言用户只能查看个人资料
 	dheader("Location:home.php?mod=space&uid=$uid&do=profile");
 }
 space_merge($space, 'count');
@@ -40,12 +43,15 @@ if($viewself) {
 	$theurl .= $uid ? '&uid='.$uid : '';
 	$do = $do == 'feed' ? 'view' : $do;
 
+	//查询相互的关注状态
 	$flag = C::t('home_follow')->fetch_status_by_uid_followuid($_G['uid'], $uid);
 }
 $showrecommend = true;
 $archiver = $primary = 1;
 $followerlist = array();
+//裁切一部份个人简介
 $space['bio'] = cutstr($space['bio'], 200);
+//获取上次阅读的Cookie同时记录当前Cookie
 $lastviewtime = 0;
 if($do == 'feed') {
 	$view = 'follow';
@@ -58,12 +64,14 @@ if($do == 'feed') {
 	$list = getfollowfeed($vuid, $view, false, $start, $perpage);
 	if((empty($list['feed']) || count($list['feed']) < 20) && (!empty($list['user']) || $view == 'other')) {
 		$primary = 0;
+		//没有取到值，重新取一次存档表
 		$alist = getfollowfeed($vuid, $view, true, $start, $perpage);
 		if(empty($list['feed']) && empty($alist['feed'])) {
 			$showguide = true;
 			$archiver = 0;
 		} else {
 			$showguide = false;
+			//合并数据
 			foreach($alist as $key => $values) {
 				if($key != 'user') {
 					foreach($values as $id => $value) {
@@ -102,6 +110,7 @@ if($do == 'feed') {
 		C::t('home_notification')->delete_by_type('follow', $_G['uid']);
 		helper_notification::update_newprompt($_G['uid'], 'follow');
 	}
+	//推荐收听
 	$recommend = $users = array();
 	if(helper_access::check_module('follow')) {
 		loadcache('recommend_follow');
@@ -109,9 +118,12 @@ if($do == 'feed') {
 			foreach(C::t('home_specialuser')->fetch_all_by_status(0, 10) as $value) {
 				$recommend[$value['uid']] = $value['username'];
 			}
+			//踢掉有可能是自已的用户
 			unset($recommend[$_G['uid']]);
 			if(count($recommend) < 10) {
+				//取听众数最多的100个，然后根据这些用户再进行最后更新时间排序取20个
 				$followuser = C::t('common_member_count')->range_by_field(0, 100, 'follower', 'DESC');
+				//根据最新发帖者取出20个用户
 				$userstatus = C::t('common_member_status')->fetch_all_orderby_lastpost(array_keys($followuser), 0, 20);
 				$users = C::t('common_member')->fetch_all_username_by_uid(array_keys($userstatus));
 			}
@@ -122,6 +134,7 @@ if($do == 'feed') {
 		}
 		if(!empty($users)) {
 			if(count($recommend) < 10) {
+				//补齐10个用户，有可能取出的是自已，所以额外多取一个
 				$randkeys = array_rand($users, 11 - count($recommend));
 				foreach($randkeys as $ruid) {
 					if($ruid != $_G['uid']) {
@@ -137,6 +150,7 @@ if($do == 'feed') {
 				}
 			}
 		}
+		//进一步踢除已关注的用户
 		if($recommend) {
 			$users = C::t('home_follow')->fetch_all_by_uid_followuid($_G['uid'], array_keys($recommend));
 			foreach($users as $ruid => $user) {
@@ -149,27 +163,30 @@ if($do == 'feed') {
 
 	$navactives = array('feed' => ' class="a"');
 	$actives = array($view => ' class="a"');
-
+	//note 发帖时是否显示验证码或者验证问答
 	list($seccodecheck, $secqaacheck) = seccheck('publish');
 
-} elseif($do == 'view') {
+} elseif($do == 'view') { //note 查看特定的一个人
 	$list = getfollowfeed($uid, 'self', false, $start, $perpage);
 	if(empty($list['feed'])) {
 		$primary = 0;
+		//没有取到值，重新取一次存档表
 		$list = getfollowfeed($uid, 'self', true, $start, $perpage);
 		if(empty($list['user'])) {
 			$archiver = 0;
 		}
 	}
+	//在这里过滤一下含有分类信息的版块
 	if(!isset($_G['cache']['forums'])) {
 		loadcache('forums');
 	}
+	//开启模块时才查询
 	if(helper_access::check_module('follow')) {
 		$followerlist = C::t('home_follow')->fetch_all_following_by_uid($uid, 0, 9);
 	}
 	$seccodecheck = ($_G['setting']['seccodestatus'] & 4) && (!$_G['setting']['seccodedata']['minposts'] || getuserprofile('posts') < $_G['setting']['seccodedata']['minposts']);
 	$secqaacheck = $_G['setting']['secqaa']['status'] & 2 && (!$_G['setting']['secqaa']['minposts'] || getuserprofile('posts') < $_G['setting']['secqaa']['minposts']);
-} elseif($do == 'follower') {
+} elseif($do == 'follower') { //note 关注我的人
 	$count = C::t('home_follow')->count_follow_user($uid, 1);
 	if($viewself && !empty($_G['member']['newprompt_num']['follower'])) {
 		$newfollower = C::t('home_notification')->fetch_all_by_uid($uid, -1, 'follower', 0, $_G['member']['newprompt_num']['follower']);
@@ -182,17 +199,19 @@ if($do == 'feed') {
 	}
 	if($count) {
 		$list = C::t('home_follow')->fetch_all_follower_by_uid($uid, $start, $perpage);
+		//分页
 		$multi = multi($count, $perpage, $page, $theurl);
 	}
 	if(helper_access::check_module('follow')) {
 		$followerlist = C::t('home_follow')->fetch_all_following_by_uid($uid, 0, 9);
 	}
 	$navactives = array($do => ' class="a"');
-} elseif($do == 'following') {
+} elseif($do == 'following') { //note 我关注的人
 	$count = C::t('home_follow')->count_follow_user($uid);
 	if($count) {
 		$status = $_GET['status'] ? 1 : 0;
 		$list = C::t('home_follow')->fetch_all_following_by_uid($uid, $status, $start, $perpage);
+		//分页
 		$multi = multi($count, $perpage, $page, $theurl);
 	}
 	if(helper_access::check_module('follow')) {
@@ -201,6 +220,7 @@ if($do == 'feed') {
 	$navactives = array($do => ' class="a"');
 }
 
+//note 取最近动作
 if(($do == 'follower' || $do == 'following') && $list) {
 	$uids = array_keys($list);
 	$fieldhome = C::t('common_member_field_home')->fetch_all($uids);
@@ -210,6 +230,7 @@ if(($do == 'follower' || $do == 'following') && $list) {
 	$memberinfo = C::t('common_member_count')->fetch_all($uids);
 	$memberprofile = C::t('common_member_profile')->fetch_all($uids);
 
+	//note 当不是查看自已的列表时更新列表用户与自已的关注状态
 	if(!$viewself) {
 		$myfollow = C::t('home_follow')->fetch_all_by_uid_followuid($_G['uid'], $uids);
 		foreach($uids as $muid) {
@@ -220,10 +241,12 @@ if(($do == 'follower' || $do == 'following') && $list) {
 
 		}
 	}
+	//取出Ta特别关注的用户
 	$specialfollow = C::t('home_follow')->fetch_all_following_by_uid($uid, 1, 10);
 }
 
 if($viewself) {
+	//在这里过滤一下含有分类信息的版块
 	if(!isset($_G['cache']['forums'])) {
 		loadcache('forums');
 	}
@@ -240,6 +263,7 @@ if($viewself) {
 	$swfconfig = getuploadconfig($_G['uid']);
 }
 
+//处理导航
 if($do == 'feed') {
 	$navigation = ' <em>&rsaquo;</em> <a href="home.php?mod=follow&view='.$view.'">'.lang('space', 'follow_view_'.$view).'</a>';
 	$navtitle = lang('space', 'follow_view_'.$view);

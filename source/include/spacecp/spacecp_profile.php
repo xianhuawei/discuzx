@@ -27,11 +27,13 @@ space_merge($space, 'profile');
 list($seccodecheck, $secqaacheck) = seccheck('password');
 @include_once DISCUZ_ROOT.'./data/cache/cache_domain.php';
 $spacedomain = isset($rootdomain['home']) && $rootdomain['home'] ? $rootdomain['home'] : array();
+//note 过滤插件ID
 $_GET['id'] = $_GET['id'] ? preg_replace("/[^A-Za-z0-9_:]/", '', $_GET['id']) : '';
 if($operation != 'password') {
 
 	include_once libfile('function/profile');
 
+	// 获取 profile setting
 	loadcache('profilesetting');
 	if(empty($_G['cache']['profilesetting'])) {
 		require_once libfile('function/cache');
@@ -40,6 +42,7 @@ if($operation != 'password') {
 	}
 }
 
+// 是否允许自定义个人头衔
 $allowcstatus = !empty($_G['group']['allowcstatus']) ? true : false;
 $verify = C::t('common_member_verify')->fetch($_G['uid']);
 $validate = array();
@@ -54,7 +57,7 @@ if($_G['setting']['connect']['allow']) {
 	$conisregister = $operation == 'password' && $_G['setting']['connect']['allow'] && $connect['conisregister'];
 }
 
-if(submitcheck('profilesubmit')) {
+if(submitcheck('profilesubmit')) {// 更新用户资料
 
 	require_once libfile('function/discuzcode');
 
@@ -63,6 +66,7 @@ if(submitcheck('profilesubmit')) {
 
 	$censor = discuz_censor::instance();
 
+	//取认证的资料
 	if($_GET['vid']) {
 		$vid = intval($_GET['vid']);
 		$verifyconfig = $_G['setting']['verify'][$vid];
@@ -71,6 +75,7 @@ if(submitcheck('profilesubmit')) {
 			if(!empty($verifyinfo)) {
 				$verifyinfo['field'] = dunserialize($verifyinfo['field']);
 			}
+			//补全需要认证的字段
 			foreach($verifyconfig['field'] as $key => $field) {
 				if(!isset($verifyinfo['field'][$key])) {
 					$verifyinfo['field'][$key] = $key;
@@ -81,6 +86,7 @@ if(submitcheck('profilesubmit')) {
 			$verifyconfig = array();
 		}
 	}
+	//特殊处理,当有提交省级变更
 	if(isset($_POST['birthprovince'])) {
 		$initcity = array('birthprovince', 'birthcity', 'birthdist', 'birthcommunity');
 		foreach($initcity as $key) {
@@ -95,26 +101,28 @@ if(submitcheck('profilesubmit')) {
 	}
 	foreach($_POST as $key => $value) {
 		$field = $_G['cache']['profilesetting'][$key];
+		// 检查敏感词
 		if(in_array($field['formtype'], array('text', 'textarea')) || in_array($key, $forumfield)) {
 			$censor->check($value);
 			if($censor->modbanned() || $censor->modmoderated()) {
 				profile_showerror($key, lang('spacecp', 'profile_censor'));
 			}
 		}
-		if(in_array($key, $forumfield)) {
+		if(in_array($key, $forumfield)) {// 论坛项
 			if($key == 'sightml') {
 				loadcache(array('smilies', 'smileytypes'));
+				//截取签名长度
 				$value = cutstr($value, $_G['group']['maxsigsize'], '');
 				foreach($_G['cache']['smilies']['replacearray'] AS $skey => $smiley) {
 					$_G['cache']['smilies']['replacearray'][$skey] = '[img]'.$_G['siteurl'].'static/image/smiley/'.$_G['cache']['smileytypes'][$_G['cache']['smilies']['typearray'][$skey]]['directory'].'/'.$smiley.'[/img]';
 				}
 				$value = preg_replace($_G['cache']['smilies']['searcharray'], $_G['cache']['smilies']['replacearray'], trim($value));
 				$forum[$key] = discuzcode($value, 1, 0, 0, 0, $_G['group']['allowsigbbcode'], $_G['group']['allowsigimgcode'], 0, 0, 1);
-			} elseif($key=='customstatus' && $allowcstatus) {
+			} elseif($key=='customstatus' && $allowcstatus) {// 个人头衔
 				$forum[$key] = dhtmlspecialchars(trim($value));
 			}
 			continue;
-		} elseif($field && !$field['available']) {
+		} elseif($field && !$field['available']) {//未启用的资料项
 			continue;
 		} elseif($key == 'timeoffset') {
 			if($value >= -12 && $value <= 12 || $value == 9999) {
@@ -125,6 +133,7 @@ if(submitcheck('profilesubmit')) {
 				$value = 'http://'.$value;
 			}
 		}
+		//处理file类型的字段
 		if($field['formtype'] == 'file') {
 			if((!empty($_FILES[$key]) && $_FILES[$key]['error'] == 0) || (!empty($space[$key]) && empty($_GET['deletefile'][$key]))) {
 				$value = '1';
@@ -132,11 +141,11 @@ if(submitcheck('profilesubmit')) {
 				$value = '';
 			}
 		}
-		if(empty($field)) {
+		if(empty($field)) {//非资料项数据
 			continue;
-		} elseif(profile_check($key, $value, $space)) {
+		} elseif(profile_check($key, $value, $space)) {//有效数据
 			$setarr[$key] = dhtmlspecialchars(trim($value));
-		} else {
+		} else {// 有误
 			if($key=='birthprovince') {
 				$key = 'birthcity';
 			} elseif($key=='resideprovince' || $key=='residecommunity'||$key=='residedist') {
@@ -146,15 +155,18 @@ if(submitcheck('profilesubmit')) {
 			}
 			profile_showerror($key);
 		}
+		//删除文件类型的内容
 		if($field['formtype'] == 'file') {
 			unset($setarr[$key]);
 		}
+		//判断是否为认证数据
 		if($vid && $verifyconfig['available'] && isset($verifyconfig['field'][$key])) {
 			if(isset($verifyinfo['field'][$key]) && $setarr[$key] !== $space[$key]) {
 				$verifyarr[$key] = $setarr[$key];
 			}
 			unset($setarr[$key]);
 		}
+		// 该项合法但需要审核
 		if(isset($setarr[$key]) && $_G['cache']['profilesetting'][$key]['needverify']) {
 			if($setarr[$key] !== $space[$key]) {
 				$verifyarr[$key] = $setarr[$key];
@@ -162,6 +174,7 @@ if(submitcheck('profilesubmit')) {
 			unset($setarr[$key]);
 		}
 	}
+	//note 删除图片
 	if($_GET['deletefile'] && is_array($_GET['deletefile'])) {
 		foreach($_GET['deletefile'] as $key => $value) {
 			if(isset($_G['cache']['profilesetting'][$key])) {
@@ -194,12 +207,14 @@ if(submitcheck('profilesubmit')) {
 			if(!$upload->error()) {
 				$upload->save();
 
+				//验证写入的文件是否是图片，不是删除
 				if(!$upload->get_image_info($attach['target'])) {
 					@unlink($attach['target']);
 					continue;
 				}
 				$setarr[$key] = '';
 				$attach['attachment'] = dhtmlspecialchars(trim($attach['attachment']));
+				//判断是否为认证数据
 				if($vid && $verifyconfig['available'] && isset($verifyconfig['field'][$key])) {
 					if(isset($verifyinfo['field'][$key])) {
 						@unlink(getglobal('setting/attachdir').'./profile/'.$verifyinfo['field'][$key]);
@@ -207,19 +222,23 @@ if(submitcheck('profilesubmit')) {
 					}
 					continue;
 				}
+				// 该项合法但需要审核
 				if(isset($setarr[$key]) && $_G['cache']['profilesetting'][$key]['needverify']) {
 					@unlink(getglobal('setting/attachdir').'./profile/'.$verifyinfo['field'][$key]);
 					$verifyarr[$key] = $attach['attachment'];
 					continue;
 				}
+				//删除原图片
 				@unlink(getglobal('setting/attachdir').'./profile/'.$space[$key]);
 				$setarr[$key] = $attach['attachment'];
 			}
 
 		}
 	}
+	//如果图片保持默认，将值复制回审核资料中
 	if($vid && !empty($verifyinfo['field']) && is_array($verifyinfo['field'])) {
 		foreach($verifyinfo['field'] as $key => $fvalue) {
+			//踢除不需不认证的数据
 			if(!isset($verifyconfig['field'][$key])) {
 				unset($verifyinfo['field'][$key]);
 				continue;
@@ -230,6 +249,7 @@ if(submitcheck('profilesubmit')) {
 		}
 	}
 	if($forum) {
+		//关闭签名清空签名内容
 		if(!$_G['group']['maxsigsize']) {
 			$forum['sightml'] = '';
 		}
@@ -243,10 +263,12 @@ if(submitcheck('profilesubmit')) {
 	if(isset($_POST['birthyear']) && $space['birthyear'] != $_POST['birthyear']) {
 		$setarr['zodiac'] = get_zodiac($_POST['birthyear']);
 	}
+	// 直接修改
 	if($setarr) {
 		C::t('common_member_profile')->update($_G['uid'], $setarr);
 	}
 
+	// 需要审核的字段
 	if($verifyarr) {
 		C::t('common_member_verify_info')->delete_by_uid($_G['uid'], $vid);
 		$setverify = array(
@@ -275,8 +297,10 @@ if(submitcheck('profilesubmit')) {
 		C::t('common_member_field_home')->update($space['uid'], array('privacy'=>serialize($space['privacy'])));
 	}
 
+	//变更记录
 	manyoulog('user', $_G['uid'], 'update');
 
+	// 资料更新feed
 	include_once libfile('function/feed');
 	feed_add('profile', 'feed_profile_update_'.$operation, array('hash_data'=>'profile'));
 	countprofileprogress();
@@ -389,6 +413,7 @@ if($operation == 'password') {
 	}
 
 	if($_GET['resend'] && $resend) {
+		//重新发送邮箱验证
 		$toemail = $space['newemail'] ? $space['newemail'] : $space['email'];
 		emailcheck_send($space['uid'], $toemail);
 		dsetcookie('newemail', "$space[uid]\t$toemail\t$_G[timestamp]", 31536000);
@@ -417,6 +442,7 @@ if($operation == 'password') {
 
 	$vid = $_GET['vid'] ? intval($_GET['vid']) : 0;
 
+	// 隐私
 	$privacy = $space['privacy']['profile'] ? $space['privacy']['profile'] : array();
 	$_G['setting']['privacy'] = $_G['setting']['privacy'] ? $_G['setting']['privacy'] : array();
 	$_G['setting']['privacy'] = is_array($_G['setting']['privacy']) ? $_G['setting']['privacy'] : dunserialize($_G['setting']['privacy']);
@@ -425,10 +451,12 @@ if($operation == 'password') {
 
 	$actives = array('profile' =>' class="a"');
 	$opactives = array($operation =>' class="a"');
+	//归类选项
 	$allowitems = array();
 	if(in_array($operation, array('base', 'contact', 'edu', 'work', 'info'))) {
 		$allowitems = $profilegroup[$operation]['field'];
 	} elseif($operation == 'verify') {
+		//如果为空默认取一个
 		if($vid == 0) {
 			foreach($_G['setting']['verify'] as $key => $setting) {
 				if($setting['available'] && (empty($setting['groupid']) || in_array($_G['groupid'], $setting['groupid']))) {
@@ -445,10 +473,12 @@ if($operation == 'password') {
 		}
 	}
 	$showbtn = ($vid && $verify['verify'.$vid] != 1) || empty($vid);
+	//取出认证通过的资料，禁止修改
 	if(!empty($verify) && is_array($verify)) {
 		foreach($verify as $key => $flag) {
 			if(in_array($key, array('verify1', 'verify2', 'verify3', 'verify4', 'verify5', 'verify6', 'verify7')) && $flag == 1) {
 				$verifyid = intval(substr($key, -1, 1));
+				//关闭认证允许修改
 				if($_G['setting']['verify'][$verifyid]['available']) {
 					foreach($_G['setting']['verify'][$verifyid]['field'] as $field) {
 						$_G['cache']['profilesetting'][$field]['unchangeable'] = 1;
@@ -457,6 +487,7 @@ if($operation == 'password') {
 			}
 		}
 	}
+	//如果是认证页面直接显示提交的值
 	if($vid) {
 		if($value = C::t('common_member_verify_info')->fetch_by_uid_verifytype($_G['uid'], $vid)) {
 			$field = dunserialize($value['field']);

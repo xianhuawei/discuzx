@@ -20,8 +20,10 @@ if(helper_access::check_module('doing')) {
 			showmessage('no_privilege_doing');
 		}
 
+		//新用户见习
 		cknewuser();
 
+		//判断是否操作太快
 		$waittime = interval_check('post');
 		if($waittime > 0) {
 			showmessage('operating_too_fast', '', array('waittime' => $waittime));
@@ -56,6 +58,7 @@ if(helper_access::check_module('doing')) {
 		);
 		$newdoid = C::t('home_doing')->insert($setarr, 1);
 
+		//更新空间note
 		$setarr = array('recentnote'=>$message, 'spacenote'=>$message);
 		$credit = $experience = 0;
 		$extrasql = array('doings' => 1);
@@ -64,6 +67,7 @@ if(helper_access::check_module('doing')) {
 
 		C::t('common_member_field_home')->update($_G['uid'], $setarr);
 
+		//同步到签名
 		if($_POST['to_signhtml'] && $_G['group']['maxsigsize']) {
 			if($_G['group']['maxsigsize'] < 200) {
 				$signhtml = getstr($_POST['message'], $_G['group']['maxsigsize'], 0, 0, 1);
@@ -74,6 +78,7 @@ if(helper_access::check_module('doing')) {
 			C::t('common_member_field_forum')->update($_G['uid'], array('sightml'=>$signhtml));
 		}
 
+		//事件feed
 		if(helper_access::check_module('feed') && ckprivacy('doing', 'feed') && $doing_status == '0') {
 			$feedarr = array(
 				'appid' => '',
@@ -95,6 +100,7 @@ if(helper_access::check_module('doing')) {
 			manage_addnotify('verifydoing');
 		}
 
+		//统计
 		require_once libfile('function/stat');
 		updatestat('doing');
 		C::t('common_member_status')->update($_G['uid'], array('lastpost' => TIMESTAMP), 'UNBUFFERED');
@@ -106,11 +112,14 @@ if(helper_access::check_module('doing')) {
 
 	} elseif (submitcheck('commentsubmit')) {
 
+		//权限验证 pass:
 		if(!checkperm('allowdoing')) {
 			showmessage('no_privilege_doing_comment');
 		}
+		//新用户见习
 		cknewuser();
 
+		//判断是否操作太快
 		$waittime = interval_check('post');
 		if($waittime > 0) {
 			showmessage('operating_too_fast', '', array('waittime' => $waittime));
@@ -134,6 +143,7 @@ if(helper_access::check_module('doing')) {
 		if(empty($updo)) {
 			showmessage('docomment_error');
 		} else {
+			//黑名单
 			if(isblacklist($updo['uid'])) {
 				showmessage('is_blacklist');
 			}
@@ -153,28 +163,33 @@ if(helper_access::check_module('doing')) {
 			'grade' => $updo['grade']+1
 		);
 
+		//最多层级
 		if($updo['grade'] >= 3) {
-			$setarr['upid'] = $updo['upid'];
+			$setarr['upid'] = $updo['upid'];//更母一个级别
 		}
 
 		$newid = C::t('home_docomment')->insert($setarr, true);
 
 		C::t('home_doing')->update_replynum_by_doid(1, $updo['doid']);
 
+		//通知
 		if($updo['uid'] != $_G['uid']) {
 			notification_add($updo['uid'], 'comment', 'doing_reply', array(
 				'url'=>"home.php?mod=space&uid=$updo[uid]&do=doing&view=me&doid=$updo[doid]&highlight=$newid",
 				'from_id'=>$updo['doid'],
 				'from_idtype'=>'doid'));
+			//奖励积分
 			updatecreditbyaction('comment', 0, array(), 'doing'.$updo['doid']);
 		}
 
+		//统计
 		include_once libfile('function/stat');
 		updatestat('docomment');
 		C::t('common_member_status')->update($_G['uid'], array('lastpost' => TIMESTAMP), 'UNBUFFERED');
 		showmessage('do_success', dreferer(), array('doid' => $updo['doid']));
 	}
 }
+//删除
 if($_GET['op'] == 'delete') {
 
 	if(submitcheck('deletesubmit')) {
@@ -184,10 +199,13 @@ if($_GET['op'] == 'delete') {
 				$home_doing = C::t('home_doing')->fetch($value['doid']);
 				$value['duid'] = $home_doing['uid'];
 				if($allowmanage || $value['uid'] == $_G['uid'] || $value['duid'] == $_G['uid'] ) {
+					//更新内容
 					C::t('home_docomment')->update($id, array('uid' => 0, 'username' => '', 'message' => ''));
 					if($value['uid'] != $_G['uid'] && $value['duid'] != $_G['uid']) {
+						//扣除积分
 						batchupdatecredit('comment', $value['uid'], array(), -1);
 					}
+					//更新回复数
 					C::t('home_doing')->update_replynum_by_doid(-1, $updo['doid']);
 				}
 			}

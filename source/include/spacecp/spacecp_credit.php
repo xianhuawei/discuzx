@@ -20,8 +20,10 @@ $perpage = 20;
 $page = empty($_GET['page']) ? 1 : intval($_GET['page']);
 if($page < 1) $page = 1;
 $start = ($page-1) * $perpage;
+//检查开始数
 ckstart($start, $perpage);
 
+//检查用户组
 checkusergroup();
 
 $operation = in_array($_GET['op'], array('base', 'buy', 'transfer', 'exchange', 'log', 'rule')) ? trim($_GET['op']) : 'base';
@@ -32,6 +34,12 @@ if(in_array($operation, array('base', 'buy', 'transfer', 'exchange', 'rule'))) {
 include_once libfile('spacecp/credit_'.$operation, 'include');
 
 
+/**
+ *
+ * 格式化积分详情的语言包
+ * @param array $log: 积分记录
+ * @param array $otherinfo: 涉及到的积分相关的数据
+ */
 function makecreditlog($log, $otherinfo=array()) {
 	global $_G;
 
@@ -160,17 +168,20 @@ function getotherinfo($aids, $pids, $tids, $taskids, $uids) {
 			}
 		}
 	}
+	//获取帖子ID
 	if(!empty($pids)) {
 		foreach(C::t('forum_post')->fetch_all(0, $pids) as $value) {
 			$tids[$value['tid']] = $value['tid'];
 			$otherinfo['post'][$value['pid']] = $value['tid'];
 		}
 	}
+	//取出帖子主题
 	if(!empty($tids)) {
 		foreach(C::t('forum_thread')->fetch_all_by_tid($tids) as $value) {
 			$otherinfo['threads'][$value['tid']] = $value;
 		}
 	}
+	//查询任务名称
 	if(!empty($taskids)) {
 		foreach(C::t('common_task')->fetch_all($taskids) as $value) {
 			$otherinfo['tasks'][$value['taskid']] = $value['name'];

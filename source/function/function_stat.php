@@ -11,6 +11,13 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ *
+ * 趋势统计
+ * @param String $type: 统计类型
+ * @param Integer $primary: 是否防重
+ * @param Integer $num: 统计次数，默认累加1次
+ */
 function updatestat($type, $primary=0, $num=1) {
 	$uid = getglobal('uid');
 	$updatestat = getglobal('setting/updatestat');

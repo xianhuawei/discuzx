@@ -129,66 +129,66 @@ class block_stat extends commonblock_html {
 		}
 		$index = count($parameter['option']) - 1;
 		$html = '<div class="tns"><table cellspacing="0" cellpadding="4" border="0"><tbody><tr>';
-		if(in_array('posts', $parameter['option'])) {
+		if(in_array('posts', $parameter['option'])) {//统计帖子总数
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($forum['posts']).'</p>'.(!empty($parameter['posts_title']) ? $parameter['posts_title'] : lang('block/stat', 'stat_posts')).'</th>';
 		}
-		if(in_array('groups', $parameter['option'])) {
+		if(in_array('groups', $parameter['option'])) {//统计群组总数
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 		    $html .= "<th$class><p>".intval($_G['cache']['groupindex']['groupnum']).'</p>'.(!empty($parameter['groups_title']) ? $parameter['groups_title'] : lang('block/stat', 'stat_groups')).'</th>';
 		}
-		if(in_array('members', $parameter['option'])) {
+		if(in_array('members', $parameter['option'])) {//统计会员总数
 			loadcache('userstats');
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($_G['cache']['userstats']['totalmembers']).'</p>'.(!empty($parameter['members_title']) ? $parameter['members_title'] : lang('block/stat', 'stat_members')).'</th>';
 		}
-		if(in_array('groupnewposts', $parameter['option'])) {
+		if(in_array('groupnewposts', $parameter['option'])) {//群组今日发帖
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($_G['cache']['groupindex']['todayposts']).'</p>'.(!empty($parameter['groupnewposts_title']) ? $parameter['groupnewposts_title'] : lang('block/stat', 'stat_groupnewposts')).'</th>';
 		}
-		if(in_array('bbsnewposts', $parameter['option'])) {
+		if(in_array('bbsnewposts', $parameter['option'])) {//论坛今日发帖
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($forum['todayposts']).'</p>'.(!empty($parameter['bbsnewposts_title']) ? $parameter['bbsnewposts_title'] : lang('block/stat', 'stat_bbsnewposts')).'</th>';
 		}
-		if(in_array('bbslastposts', $parameter['option'])) {
+		if(in_array('bbslastposts', $parameter['option'])) {//论坛昨日发帖
 			loadcache('historyposts');
 			$postdata = $_G['cache']['historyposts'] ? explode("\t", $_G['cache']['historyposts']) : array();
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($postdata[0]).'</p>'.(!empty($parameter['bbslastposts_title']) ? $parameter['bbslastposts_title'] : lang('block/stat', 'stat_bbslastposts')).'</th>';
 		}
-		if(in_array('onlinemembers', $parameter['option'])) {
+		if(in_array('onlinemembers', $parameter['option'])) {//在线会员数
 			$num = !empty($_G['cookie']['onlineusernum']) ? intval($_G['cookie']['onlineusernum']) : C::app()->session->count();
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($num).'</p>'.(!empty($parameter['onlinemembers_title']) ? $parameter['onlinemembers_title'] : lang('block/stat', 'stat_onlinemembers')).'</th>';
 		}
-		if(in_array('maxmembers', $parameter['option'])) {
+		if(in_array('maxmembers', $parameter['option'])) {//历史最高会员数
 			loadcache('onlinerecord');
 			$onlineinfo = explode("\t", $_G['cache']['onlinerecord']);
 			$num = !empty($onlineinfo[0]) ? intval($onlineinfo[0]) : 0;
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($num).'</p>'.(!empty($parameter['maxmembers_title']) ? $parameter['maxmembers_title'] : lang('block/stat', 'stat_maxmembers')).'</th>';
 		}
-		if(in_array('doings', $parameter['option'])) {
+		if(in_array('doings', $parameter['option'])) {//动态数
 			$num = C::t('home_doing')->count();
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($num).'</p>'.(!empty($parameter['doings_title']) ? $parameter['doings_title'] : lang('block/stat', 'stat_doings')).'</th>';
 		}
-		if(in_array('blogs', $parameter['option'])) {
+		if(in_array('blogs', $parameter['option'])) {//日志数
 			$num = C::t('home_blog')->count();
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($num).'</p>'.(!empty($parameter['blogs_title']) ? $parameter['blogs_title'] : lang('block/stat', 'stat_blogs')).'</th>';
 		}
-		if(in_array('albums', $parameter['option'])) {
+		if(in_array('albums', $parameter['option'])) {//相册数
 			$num = C::t('home_album')->count();
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($num).'</p>'.(!empty($parameter['albums_title']) ? $parameter['albums_title'] : lang('block/stat', 'stat_albums')).'</th>';
 		}
-		if(in_array('pics', $parameter['option'])) {
+		if(in_array('pics', $parameter['option'])) {//图片数
 			$num = C::t('home_pic')->count();
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($num).'</p>'.(!empty($parameter['pics_title']) ? $parameter['pics_title'] : lang('block/stat', 'stat_pics')).'</th>';
 		}
-		if(in_array('shares', $parameter['option'])) {
+		if(in_array('shares', $parameter['option'])) {//分享数
 			$num = C::t('home_share')->count();
 			$class = ($index-- == 0) ? ' class="bbn"' : '';
 			$html .= "<th$class><p>".intval($num).'</p>'.(!empty($parameter['shares_title']) ? $parameter['shares_title'] : lang('block/stat', 'stat_shares')).'</th>';

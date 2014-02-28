@@ -11,9 +11,21 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * Description of helper_form
+ *
+ * @author zhangguosheng
+ */
 class helper_form {
 
 
+	/**
+	* 检查是否正确提交了表单
+	* @param $var 需要检查的变量
+	* @param $allowget 是否允许GET方式
+	* @param $seccodecheck 验证码检测是否开启
+	* @return 返回是否正确提交了表单
+	*/
 	public static function submitcheck($var, $allowget = 0, $seccodecheck = 0, $secqaacheck = 0) {
 		if(!getgpc($var)) {
 			return FALSE;
@@ -36,6 +48,11 @@ class helper_form {
 		}
 	}
 
+	/**
+	 * 词语过滤
+	 * @param $message - 词语过滤文本
+	 * @return 成功返回原始文本，否则提示错误或被替换
+	 */
 	public static function censor($message, $modword = NULL, $return = FALSE) {
 		global $_G;
 		$censor = discuz_censor::instance();
@@ -82,6 +99,9 @@ class helper_form {
 		return $message;
 	}
 
+	/**
+		词语过滤，检测是否含有需要审核的词
+	*/
 	public static function censormod($message) {
 		global $_G;
 		if($_G['group']['ignorecensor']) {
@@ -106,6 +126,13 @@ class helper_form {
 		return $censor->modmoderated();
 	}
 
+	/**
+	 * 获取文字内的url列表
+	 *
+	 * @param $message 文字
+	 * @return <array> url列表
+	 *
+	 */
 	public static function get_url_list($message) {
 		$return = array();
 
@@ -125,6 +152,12 @@ class helper_form {
 		return $return;
 	}
 
+	/**
+	 * 更新数据的审核状态
+	 * @param <string> $idtype 数据类型 tid=thread pid=post blogid=blog picid=picture doid=doing sid=share aid=article uid_cid/blogid_cid/sid_cid/picid_cid/aid_cid/topicid_cid=comment
+	 * @param <array/int> $ids ID 数组、ID 值
+	 * @param <int> $status 状态 0=加入审核(默认) 1=忽略审核 2=审核通过
+	 */
 	public static function updatemoderate($idtype, $ids, $status = 0) {
 		$ids = is_array($ids) ? $ids : array($ids);
 		if(!$ids) {

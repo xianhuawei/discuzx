@@ -45,10 +45,12 @@ if(!submitcheck('imgcroppersubmit')) {
 
 	require_once libfile('class/image');
 	$image = new image();
+	//缩小图片
 	$prefix = $_GET['picflag'] == 2 ? $_G['setting']['ftp']['attachurl'] : $_G['setting']['attachurl'];
 	if(!$image->Thumb($prefix.$_GET['cutimg'], $cropfile, $picwidth, $picheight)) {
 		showmessage('imagepreview_errorcode_'.$image->errorcode, null, null, array('showdialog' => true, 'closetime' => true));
 	}
+	//裁切图片
 	$image->Cropper($image->target, $cropfile, $cutwidth, $cutheight, $left, $top);
 	showmessage('do_success', dreferer(), array('icurl' => $cropfile), array('showdialog' => true, 'closetime' => true));
 }

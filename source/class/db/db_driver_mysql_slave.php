@@ -19,6 +19,11 @@ class db_driver_mysql_slave extends db_driver_mysql
 
 	public $slaveexcept = false;
 
+	/**
+	 * @var <array> tables that do not use slave.
+	 * 本变量来自 config db ['common']['slave_except_table']
+	 * 使用逗号分离后取得的数组
+	 */
 	public $excepttables = array();
 
 	public $tablename = '';
@@ -30,6 +35,7 @@ class db_driver_mysql_slave extends db_driver_mysql
 	function set_config($config) {
 		parent::set_config($config);
 
+		//处理不使用 slave 的表
 		if($this->config['common']['slave_except_table']) {
 			$this->excepttables = explode(',', str_replace(' ', '', $this->config['common']['slave_except_table']));
 		}
@@ -37,6 +43,7 @@ class db_driver_mysql_slave extends db_driver_mysql
 
 	public function table_name($tablename) {
 		$this->tablename = $tablename;
+		// 判断当前表是否许使用slave
 		if(!$this->slaveexcept && $this->excepttables) {
 			$this->slaveexcept = in_array($tablename, $this->excepttables, true);
 		}
@@ -44,6 +51,9 @@ class db_driver_mysql_slave extends db_driver_mysql
 		return $this->tablepre.$tablename;
 	}
 
+	/**
+	 * 将当前数据库连接转换至SLAVE服务器
+	 */
 	protected function _slave_connect() {
 		if(!empty($this->config[$this->serverid]['slave'])) {
 			$this->_choose_slave();

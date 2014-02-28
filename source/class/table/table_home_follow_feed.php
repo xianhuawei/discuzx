@@ -22,11 +22,18 @@ class table_home_follow_feed extends discuz_table
 
 		$this->_table = 'home_follow_feed';
 		$this->_pk    = 'feedid';
-		$this->_pre_cache_key = 'home_follow_feed_';
-		$this->_allowmem = memory('check');
+
 		parent::__construct();
 	}
 
+	/**
+	 *
+	 * 根据用户ID获取指定用户的动态信息
+	 * @param mixed $uids:单个uid或者uid数组或者不限制uid
+	 * @param integer $start: 从$start开始取值
+	 * @param integer $limit: 获取的记录数
+	 * @return 返回关注的内容列表同时产生cids列表
+	 */
 	public function fetch_all_by_uid($uids = 0, $archiver = false, $start = 0, $limit = 0) {
 		//主页的首页缓存
 		if($this->_allowmem && $start == 0 && !empty($uids) && count($uids) == 1 ){
@@ -69,6 +76,14 @@ class table_home_follow_feed extends discuz_table
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE uid=%d AND tid=%d', array($archiver ? $this->_archiver_table : $this->_table, $uid, $tid));
 	}
 
+	/**
+	 *
+	 * 获取关注用户的Feed总数
+	 * @param array $uids: uid数组
+	 * @param integer $dateline: 从什么时间开始
+	 * @param integer $archiver: 是否是存档表
+	 * @return 返回给定条件的Feed总数
+	 */
 	public function count_by_uid_dateline($uids = array(), $dateline = 0, $archiver = 0) {
 		$count = 0;
 		$parameter = array($archiver ? $this->_archiver_table : $this->_table);

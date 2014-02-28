@@ -39,6 +39,7 @@ if(empty($url) || empty($_G['inajax'])) {
 }
 $urlkey = md5($url);
 if(submitcheck('reportsubmit')) {
+	//是否已经举报且未处理
 	$message = censor(cutstr(dhtmlspecialchars(trim($_GET['message'])), 200, ''));
 	$message = $_G['username'].'&nbsp;:&nbsp;'.rtrim($message, "\\");
 	if($reportid = C::t('common_report')->fetch_by_urlkey($urlkey)) {

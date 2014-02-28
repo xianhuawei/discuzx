@@ -21,6 +21,7 @@ if($op == 'add') {
 	if($_G['uid'] == $followuid) {
 		showmessage('follow_not_follow_self');
 	}
+	//note 1:加为特别收听  2：取消特别收听
 	$special = intval($_GET['special']) ? intval($_GET['special']) : 0;
 	$followuser = getuserbyuid($followuid);
 	$mutual = 0;
@@ -64,6 +65,7 @@ if($op == 'add') {
 	}
 	$affectedrows = C::t('home_follow')->delete_by_uid_followuid($_G['uid'], $delfollowuid);
 	if($affectedrows) {
+		//note 去掉相互关注标记
 		C::t('home_follow')->update_by_uid_followuid($delfollowuid, $_G['uid'], array('mutual'=>0));
 		C::t('common_member_count')->increase($_G['uid'], array('following' => -1));
 		C::t('common_member_count')->increase($delfollowuid, array('follower' => -1, 'newfollower' => -1));
@@ -88,17 +90,21 @@ if($op == 'add') {
 
 	if(submitcheck('topicsubmit')) {
 
+		//判断是否同步到论坛
 		if(empty($_GET['syncbbs'])) {
 			$fid = intval($_G['setting']['followforumid']);
+			//校验版块是否存在
 			if(!($fid && C::t('forum_forum')->fetch($fid))) {
 				$fid = 0;
 			}
 			if(!$fid) {
 				$gid = C::t('forum_forum')->fetch_fid_by_name(lang('spacecp', 'follow_specified_group'));
 				if(!$gid) {
+					//创建主分类
 					$gid = C::t('forum_forum')->insert(array('type' => 'group', 'name' => lang('spacecp', 'follow_specified_group'), 'status' => 0), true);
 					C::t('forum_forumfield')->insert(array('fid' => $gid));
 				}
+				//创建新群组
 				$forumarr = array(
 						'fup' => $gid,
 						'type' => 'forum',
@@ -130,8 +136,8 @@ if($op == 'add') {
 		include_once libfile('function/forum');
 		require_once libfile('function/post');
 		loadforum();
-		$_G['forum']['picstyle'] = 0;
-		$skipmsg = 1;
+		$_G['forum']['picstyle'] = 0;	//note跳过图片版块限制
+		$skipmsg = 1;//note 成功发表后不停止
 		include_once libfile('forum/post', 'module');
 	}
 } elseif($op == 'relay') {
@@ -156,8 +162,10 @@ if($op == 'add') {
 		if(strlen($_GET['note'])>140) {
 			showmessage('follow_input_word_limit');
 		}
+		//确定是否被转播过，如果被转播过，则要求在回帖时进行转播否则不放行
 		$count = C::t('home_follow_feed')->count_by_uid_tid($_G['uid'], $tid);
 		if(!$count) {
+			//判断是否在存档表中
 			$count = C::t('home_follow_feed')->count_by_uid_tid($_G['uid'], $tid);
 		}
 		if($count && empty($_GET['addnewreply'])) {
@@ -168,6 +176,7 @@ if($op == 'add') {
 			$_G['setting']['seccodestatus'] = 0;
 			$_G['setting']['secqaa']['status'] = 0;
 
+			//note 模拟提交
 			$_POST['replysubmit'] = true;
 			$_GET['tid'] = $tid;
 			$_GET['action'] = 'reply';
@@ -176,7 +185,7 @@ if($op == 'add') {
 			require_once libfile('function/post');
 			loadforum();
 
-			$inspacecpshare = 1;
+			$inspacecpshare = 1;//note 成功发表后不停止
 			include_once libfile('forum/post', 'module');
 		}
 		require_once libfile('function/discuzcode');
@@ -192,6 +201,7 @@ if($op == 'add') {
 		C::t('home_follow_feed')->insert($followfeed);
 		C::t('common_member_count')->increase($_G['uid'], array('feeds'=>1));
 		if(empty($preview)) {
+			//是否取消广播操作
 			require_once libfile('function/discuzcode');
 			require_once libfile('function/followcode');
 			$feedcontent = array(
@@ -199,7 +209,8 @@ if($op == 'add') {
 					'content' => followcode($post['message'], $post['tid'], $post['pid'], 1000),
 			);
 			C::t('forum_threadpreview')->insert($feedcontent);
-			C::t('forum_thread')->update_status_by_tid($tid, '512');
+			//更新转播标记位
+			C::t('forum_thread')->update_status_by_tid($tid, '512'); //note 标记forum_thread
 		} else {
 			C::t('forum_threadpreview')->update_relay_by_tid($tid, 1);
 		}
@@ -207,9 +218,11 @@ if($op == 'add') {
 	}
 	$fastpost = $_G['setting']['fastpost'];
 } elseif($op == 'checkfeed') {
-
+	
+	//设置返回文档类型
 	header('Content-Type: text/javascript');
 
+	//检测是否有最新的关注动态
 	require_once libfile("function/member");
 	checkfollowfeed();
 	exit;
@@ -220,6 +233,7 @@ if($op == 'add') {
 	if($page<1) $page=1;
 	$perpage = 20;
 	$start = ($page-1)*$perpage;
+	//查看一个人
 	if($uid) {
 		$list = getfollowfeed($uid, 'self', $archiver, $start, $perpage);
 	} else {
@@ -229,6 +243,7 @@ if($op == 'add') {
 	if(empty($list['feed'])) {
 		$list = false;
 	}
+	//在这里过滤一下含有分类信息的版块
 	if(!isset($_G['cache']['forums'])) {
 		loadcache('forums');
 	}
@@ -236,6 +251,7 @@ if($op == 'add') {
 	$archiver = false;
 	$feed = C::t('home_follow_feed')->fetch_by_feedid($_GET['feedid']);
 	if(empty($feed)) {
+		//判断是否在存档表中
 		$feed = C::t('home_follow_feed')->fetch_by_feedid($_GET['feedid'], true);
 		$archiver = true;
 	}
@@ -245,6 +261,7 @@ if($op == 'add') {
 		showmessage('quickclear_noperm', '', array(), array('return' => true));
 	}
 
+	//删除
 	if(submitcheck('deletesubmit')) {
 		if(C::t('home_follow_feed')->delete_by_feedid($_GET['feedid'], $archiver)) {
 			C::t('common_member_count')->increase($feed['uid'], array('feeds'=>-1));

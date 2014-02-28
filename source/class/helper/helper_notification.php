@@ -14,15 +14,25 @@ if(!defined('IN_DISCUZ')) {
 class helper_notification {
 
 
+	/**
+	 * 通知
+	 * @param Integer $touid: 通知给谁
+	 * @param String $type: 通知类型
+	 * @param String $note: 语言key
+	 * @param Array $notevars: 语言变量对应的值
+	 * @param Integer $system: 是否为系统通知 0:非系统通知; 1:系统通知
+	 */
 	public static function notification_add($touid, $type, $note, $notevars = array(), $system = 0, $category = -1) {
 		global $_G;
 
+		//已经存档用户将不再接收通知
 		if(!($tospace = getuserbyuid($touid))) {
 			return false;
 		}
 		space_merge($tospace, 'field_home');
 		$filter = empty($tospace['privacy']['filter_note'])?array():array_keys($tospace['privacy']['filter_note']);
 
+		//检查用户屏蔽
 		if($filter && (in_array($type.'|0', $filter) || in_array($type.'|'.$_G['uid'], $filter))) {
 			return false;
 		}
@@ -67,6 +77,7 @@ class helper_notification {
 			$categoryname = $type;
 		}
 		$notevars['actor'] = "<a href=\"home.php?mod=space&uid=$_G[uid]\">".$_G['member']['username']."</a>";
+		//非漫游通知
 		if(!is_numeric($type)) {
 			$vars = explode(':', $note);
 			if(count($vars) == 2) {
@@ -80,6 +91,7 @@ class helper_notification {
 			$notestring = $note;
 		}
 
+		//note去重
 		$oldnote = array();
 		if($notevars['from_id'] && $notevars['from_idtype']) {
 			$oldnote = C::t('home_notification')->fetch_by_fromid_uid($notevars['from_id'], $notevars['from_idtype'], $touid);
@@ -112,6 +124,7 @@ class helper_notification {
 			$pkId = C::t('home_notification')->insert($setarr, true);
 		}
 		$banType = array('task');
+		//上报消息中心
 		if($_G['setting']['cloud_status'] && !in_array($type, $banType)) {
 			$noticeService = Cloud::loadClass('Service_Client_Notification');
 			if($oldnote['id']) {
@@ -123,6 +136,7 @@ class helper_notification {
 			}
 		}
 
+		//更新用户通知
 		if(empty($oldnote['new'])) {
 			C::t('common_member')->increase($touid, array('newprompt' => 1));
 			$newprompt = C::t('common_member_newprompt')->fetch($touid);
@@ -142,11 +156,16 @@ class helper_notification {
 			sendmail_touser($touid, $mail_subject, $notestring, $frommyapp ? 'myapp' : $type);
 		}
 
+		//更新我的好友关系热度
 		if(!$system && $_G['uid'] && $touid != $_G['uid']) {
 			C::t('home_friend')->update_num_by_uid_fuid(1, $_G['uid'], $touid);
 		}
 	}
 
+	/**
+	* 发送管理通知
+	* @param $type - 通知类型
+	*/
 	public static function manage_addnotify($type, $from_num = 0, $langvar = array()) {
 		global $_G;
 		$notifyusers = dunserialize($_G['setting']['notifyusers']);

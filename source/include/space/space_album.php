@@ -20,19 +20,24 @@ if($page<1) $page=1;
 
 if($id) {
 
+	//图片列表
 	$perpage = 20;
 	$perpage = mob_perpage($perpage);
 
 	$start = ($page-1)*$perpage;
 
+	//检查开始数
 	ckstart($start, $perpage);
 
+	//查询相册
 	if($id > 0) {
 		$album = C::t('home_album')->fetch($id, $space['uid']);
+		//相册不存在
 		if(empty($album)) {
 			showmessage('to_view_the_photo_does_not_exist');
 		}
 
+		//检查好友权限
 		ckfriend_album($album);
 
 
@@ -59,6 +64,7 @@ if($id) {
 		);
 	}
 
+	//相册列表
 	$albumlist = array();
 	$maxalbum = $nowalbum = $key = 0;
 	$query = C::t('home_album')->fetch_all_by_uid($space['uid'], 'updatetime', 0, 100);
@@ -75,6 +81,7 @@ if($id) {
 	}
 	$maxalbum = count($albumlist);
 
+	//图片列表
 	$list = array();
 	$pricount = 0;
 	if($count) {
@@ -88,6 +95,7 @@ if($id) {
 			}
 		}
 	}
+	//分页
 	$multi = multi($count, $perpage, $page, "home.php?mod=space&uid=$album[uid]&do=$do&id=$id#comment");
 
 	$actives = array('me' =>' class="a"');
@@ -123,6 +131,7 @@ if($id) {
 	$picid = $pic['picid'];
 	$theurl = "home.php?mod=space&uid=$pic[uid]&do=$do&picid=$picid";
 
+	//获取相册
 	$album = array();
 	if($pic['albumid']) {
 		$album = C::t('home_album')->fetch($pic['albumid']);
@@ -132,12 +141,14 @@ if($id) {
 	}
 
 	if($album) {
+		//相册好友权限
 		ckfriend_album($album);
 	} else {
 		$album['picnum'] = C::t('home_pic')->check_albumpic(0, NULL, $pic['uid']);
 		$album['albumid'] = $pic['albumid'] = '-1';
 	}
 
+	//检索图片
 	$piclist = $list = $keys = array();
 	$keycount = 0;
 	$query = C::t('home_pic')->fetch_all_by_albumid($pic['albumid'], 0, 0, 0, 0, 1, $space['uid']);
@@ -149,6 +160,7 @@ if($id) {
 		}
 	}
 
+	//前面两张
 	$upid = $nextid = 0;
 	$nowkey = $keys[$picid];
 	$endkey = $keycount - 1;
@@ -190,9 +202,11 @@ if($id) {
 		$piclist[$key] = $value;
 	}
 
+	//图片地址
 	$pic['pic'] = pic_get($pic['filepath'], 'album', $pic['thumb'], $pic['remote'], 0);
 	$pic['size'] = formatsize($pic['size']);
 
+	//图片的EXIF信息
 	$exifs = array();
 	$allowexif = function_exists('exif_read_data');
 	if(isset($_GET['exif']) && $allowexif) {
@@ -200,11 +214,13 @@ if($id) {
 		$exifs = getexif($pic['pic']);
 	}
 
+	//图片评论
 	$perpage = 20;
 	$perpage = mob_perpage($perpage);
 
 	$start = ($page-1)*$perpage;
 
+	//检查开始数
 	ckstart($start, $perpage);
 
 	$cid = empty($_GET['cid'])?0:intval($_GET['cid']);
@@ -219,21 +235,26 @@ if($id) {
 		}
 	}
 
+	//分页
 	$multi = multi($count, $perpage, $page, $theurl);
 
+	//标题
 	if(empty($album['albumname'])) $album['albumname'] = lang('space', 'default_albumname');
 
+	//图片全路径
 	$pic_url = $pic['pic'];
 	if(!preg_match("/^(http|https)\:\/\/.+?/i", $pic['pic'])) {
 		$pic_url = getsiteurl().$pic['pic'];
 	}
 	$pic_url2 = rawurlencode($pic['pic']);
 
+	//表态
 	$hash = md5($pic['uid']."\t".$pic['dateline']);
 	$id = $pic['picid'];
 	$idtype = 'picid';
 
 	$maxclicknum = 0;
+	//表态分类
 	loadcache('click');
 	$clicks = empty($_G['cache']['click']['picid'])?array():$_G['cache']['click']['picid'];
 	foreach ($clicks as $key => $value) {
@@ -243,8 +264,10 @@ if($id) {
 		$clicks[$key] = $value;
 	}
 
+	//点评
 	$clickuserlist = array();
 	foreach(C::t('home_clickuser')->fetch_all_by_id_idtype($id, $idtype, 0, 20) as $value) {
+		//实名
 		$value['clickname'] = $clicks[$value['clickid']]['name'];
 		$clickuserlist[] = $value;
 	}
@@ -268,18 +291,23 @@ if($id) {
 
 } else {
 
+	//系统分类
 	loadcache('albumcategory');
 	$category = $_G['cache']['albumcategory'];
 
+	//相册列表
 	$perpage = 20;
 	$perpage = mob_perpage($perpage);
 
 	$start = ($page-1)*$perpage;
 
+	//检查开始数
 	ckstart($start, $perpage);
 
+	//权限过滤
 	$_GET['friend'] = intval($_GET['friend']);
 
+	//处理查询
 	$default = array();
 	$f_index = '';
 	$list = array();
@@ -287,7 +315,7 @@ if($id) {
 	$picmode = 0;
 
 	if(empty($_GET['view'])) {
-		$_GET['view'] = 'we';
+		$_GET['view'] = 'we';//默认显示
 	}
 
 	$gets = array(
@@ -308,6 +336,7 @@ if($id) {
 
 	if($_GET['view'] == 'all') {
 
+		//大家的相册
 		$wheresql = '1';
 
 		if($_GET['order'] == 'hot') {
@@ -347,6 +376,7 @@ if($id) {
 
 			$fuid_actives = array();
 
+			//查看指定好友的
 			require_once libfile('function/friend');
 			$fuid = intval($_GET['fuid']);
 			if($fuid && friend_check($fuid)) {
@@ -355,6 +385,7 @@ if($id) {
 				$fuid_actives = array($fuid=>' selected');
 			}
 
+			//好友列表
 			$query = C::t('home_friend')->fetch_all_by_uid($space['uid'], 0, 500, true);
 			foreach($query as $value) {
 				$userlist[] = $value;
@@ -365,6 +396,7 @@ if($id) {
 
 	} else {
 
+		//自定义识别
 		if($_GET['from'] == 'space') $diymode = 1;
 
 		$uids = array($space['uid']);
@@ -372,11 +404,13 @@ if($id) {
 
 	if($need_count) {
 
+		//搜索
 		if($searchkey = stripsearchkey($_GET['searchkey'])) {
 			$sqlSearchKey = $searchkey;
 			$searchkey = dhtmlspecialchars($searchkey);
 		}
 
+		//系统分类
 		$catid = empty($_GET['catid'])?0:intval($_GET['catid']);
 
 		$count = C::t('home_album')->fetch_all_by_search(3, $uids, $sqlSearchKey, true, $catid, 0, 0, '');
@@ -396,6 +430,7 @@ if($id) {
 		}
 	}
 
+	//分页
 	$multi = multi($count, $perpage, $page, $theurl);
 
 	dsetcookie('home_diymode', $diymode);
@@ -424,14 +459,17 @@ if($id) {
 	include_once template("diy:home/space_album_list");
 }
 
+//检查好友权限
 function ckfriend_album($album) {
 	global $_G, $space;
 
 	if($_G['adminid'] != 1) {
 		if(!ckfriend($album['uid'], $album['friend'], $album['target_ids'])) {
+			//未登陆
 			if(empty($_G['uid'])) {
 				showmessage('to_login', null, array(), array('showmsg' => true, 'login' => 1));
 			}
+			//没有权限
 			require_once libfile('function/friend');
 			$isfriend = friend_check($album['uid']);
 			space_merge($space, 'count');
@@ -441,6 +479,7 @@ function ckfriend_album($album) {
 			include template('home/space_privacy');
 			exit();
 		} elseif(!$space['self'] && $album['friend'] == 4) {
+			//密码输入问题
 			$cookiename = "view_pwd_album_$album[albumid]";
 			$cookievalue = empty($_G['cookie'][$cookiename])?'':$_G['cookie'][$cookiename];
 			if($cookievalue != md5(md5($album['password']))) {

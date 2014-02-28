@@ -23,14 +23,15 @@ class table_forum_forumfield extends discuz_table
 
 		parent::__construct();
 	}
+	/**
+	 *
+	 * 根据fid获取版块附属表信息
+	 * @param array $fids: 传入fid数组
+	 * @return 返回指定fid的版块附属信息
+	 */
 	public function fetch_all_by_fid($fids) {
 		$fids = array_map('intval', (array)$fids);
 		return parent::fetch_all($fids);
-//		if(!empty($fids)) {
-//			return DB::fetch_all("SELECT * FROM %t WHERE fid IN(%n)", array($this->_table, $fids), $this->_pk);
-//		} else {
-//			return array();
-//		}
 	}
 	public function fetch_all_field_perm() {
 		return DB::fetch_all("SELECT fid, viewperm, postperm, replyperm, getattachperm, postattachperm, postimageperm FROM ".DB::table($this->_table)." WHERE founderuid=0");

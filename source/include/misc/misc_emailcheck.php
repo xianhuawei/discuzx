@@ -40,11 +40,14 @@ if($uid && isemail($email) && $time > TIMESTAMP - 86400) {
 		$membergroup = C::t('common_usergroup')->fetch_by_credits($member['credits']);
 		$setarr['groupid'] = $membergroup['groupid'];
 	}
+	//奖励积分
 	updatecreditbyaction('realemail', $uid);
+	//修改资料
 	C::t('common_member')->update($uid, $setarr);
 	C::t('common_member_validate')->delete($uid);
 	dsetcookie('newemail', "", -1);
 
+	//跳转页面
 	showmessage('email_check_sucess', 'home.php?mod=spacecp&ac=profile&op=password', array('email' => $email));
 } else {
 	showmessage('email_check_error', 'index.php');

@@ -150,11 +150,11 @@ if(!submitcheck('modsubmit')) {
 	if(empty($operations)) {
 		showmessage('admin_nonexistence');
 	} else {
-		$images = array();
+		$images = array();//note 初始化变量，放置帖子内容和附件图片，feed中使用
 		foreach($operations as $operation) {
 
 			$updatemodlog = TRUE;
-			if($operation == 'stick') {
+			if($operation == 'stick') {//note 置顶
 				$sticklevel = intval($_GET['sticklevel']);
 				if($sticklevel < 0 || $sticklevel > 3 || $sticklevel > $_G['group']['allowstickthread']) {
 					showmessage('no_privilege_stickthread');
@@ -192,7 +192,7 @@ if(!submitcheck('modsubmit')) {
 
 				$stampstatus = 1;
 
-			} elseif($operation == 'highlight') {
+			} elseif($operation == 'highlight') {//note 高亮
 				if(!$_G['group']['allowhighlightthread']) {
 					showmessage('no_privilege_highlightthread');
 				}
@@ -224,7 +224,7 @@ if(!submitcheck('modsubmit')) {
 
 				C::t('forum_threadmod')->update_by_tid_action($tidsarr, array('HLT', 'UHL', 'EHL', 'UEH'), array('status' => 0));
 
-			} elseif($operation == 'digest') {
+			} elseif($operation == 'digest') {//note 精华
 				$digestlevel = intval($_GET['digestlevel']);
 				if($digestlevel < 0 || $digestlevel > 3 || $digestlevel > $_G['group']['allowdigestthread']) {
 					showmessage('no_privilege_digestthread');
@@ -391,10 +391,12 @@ if(!submitcheck('modsubmit')) {
 				$modaction = 'DEL';
 				require_once libfile('function/delete');
 				$tids = array_keys($threadlist);
+				//note 论坛是否使用回收站
 				if($_G['forum']['recyclebin']) {
 
 					deletethread($tids, true, true, true);
 					manage_addnotify('verifyrecycle', $modpostsnum);
+					//debug 如果是直接删除
 				} else {
 
 					deletethread($tids, true, true);
@@ -410,10 +412,10 @@ if(!submitcheck('modsubmit')) {
 				C::t('common_setting')->update('forumstickthreads', $forumstickthreads);
 
 				C::t('forum_forum_threadtable')->delete_none_threads();
-				if(!empty($deleteredirect)) {
+				if(!empty($deleteredirect)) {//note 群组删帖时把推荐到版块的帖子记录也删掉
 					deletethread($deleteredirect);
 				}
-				if(!empty($remarkclosed)) {
+				if(!empty($remarkclosed)) {//note 删帖群组推荐贴时去掉群组原帖标记
 					C::t('forum_thread')->update($remarkclosed, array('closed'=>0));
 				}
 
@@ -424,6 +426,7 @@ if(!submitcheck('modsubmit')) {
 
 				updateforumcount($_G['fid']);
 
+				//note 记入违规档案
 				if($_GET['crimerecord']) {
 					include_once libfile('function/member');
 					foreach($threadlist as $thread) {
@@ -467,6 +470,7 @@ if(!submitcheck('modsubmit')) {
 					}
 				}
 
+				//debug 版主在目标论坛有没有版主操作权限
 				if($_G['adminid'] == 3) {
 					$priv = C::t('forum_forumfield')->check_moderator_for_uid($moveto, $_G['uid'], $_G['member']['accessmasks']);
 					if((($priv['postperm'] && !in_array($_G['groupid'], explode("\t", $priv['postperm']))) || ($_G['member']['accessmasks'] && ($priv['allowview'] || $priv['allowreply'] || $priv['allowgetattach'] || $priv['allowpostattach']) && !$priv['allowpost'])) && !$priv['istargetmod']) {
@@ -651,6 +655,7 @@ if(!submitcheck('modsubmit')) {
 					}
 				}
 				if(!$moderatetids = implode(',', $moderate)) {
+					//note 如果没有操作任何主题，直接提示成功。
 					showmessage('admin_succeed', $_G['referer']);
 				}
 				$modaction = 'REG';

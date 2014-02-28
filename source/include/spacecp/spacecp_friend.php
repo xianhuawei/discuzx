@@ -26,6 +26,7 @@ if($op == 'add') {
 		showmessage('no_privilege_addfriend');
 	}
 
+	//检测用户
 	if($uid == $_G['uid']) {
 		showmessage('friend_self_error');
 	}
@@ -39,15 +40,18 @@ if($op == 'add') {
 		showmessage('space_does_not_exist');
 	}
 
+	//黑名单
 	if(isblacklist($tospace['uid'])) {
 		showmessage('is_blacklist');
 	}
 
+	//用户组
 	$groups = friend_group_list();
 
 	space_merge($space, 'count');
 	space_merge($space, 'field_home');
 
+	//检查数目
 	$maxfriendnum = checkperm('maxfriendnum');
 	if($maxfriendnum && $space['friends'] >= $maxfriendnum + $space['addfriend']) {
 		if($_G['magic']['friendnum']) {
@@ -59,16 +63,19 @@ if($op == 'add') {
 
 	if(friend_request_check($uid)) {
 
+		//好友请求，确认
 		if(submitcheck('add2submit')) {
 
 			$_POST['gid'] = intval($_POST['gid']);
 			friend_add($uid, $_POST['gid']);
 
+			//产生feed
 			if(ckprivacy('friend', 'feed')) {
 				require_once libfile('function/feed');
 				feed_add('friend', 'feed_friend_title', array('touser'=>"<a href=\"home.php?mod=space&uid=$tospace[uid]\">$tospace[username]</a>"));
 			}
 
+			//发送通知
 			notification_add($uid, 'friend', 'friend_add');
 			showmessage('friends_add', dreferer(), array('username' => $tospace['username'], 'uid'=>$uid, 'from' => $_GET['from']), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true));
 		}
@@ -81,10 +88,12 @@ if($op == 'add') {
 
 	} else {
 
+		//我是否发起过好友请求
 		if(C::t('home_friend_request')->count_by_uid_fuid($uid, $_G['uid'])) {
 			showmessage('waiting_for_the_other_test', '', array(), array('alert' => 'info'));
 		}
 
+		//添加单向好友
 		if(submitcheck('addsubmit')) {
 
 			$_POST['gid'] = intval($_POST['gid']);
@@ -99,8 +108,10 @@ if($op == 'add') {
 				'note' => !empty($_POST['note']) ? lang('spacecp', 'friend_request_note', array('note' => $_POST['note'])) : ''
 			);
 
+			//发送提醒
 			notification_add($uid, 'friend', 'friend_request', $note);
 
+			//发送邮件通知
 			require_once libfile('function/mail');
 			$values = array(
 				'username' => $tospace['username'],
@@ -117,9 +128,11 @@ if($op == 'add') {
 
 } elseif($op == 'ignore') {
 
+	//检测用户
 	if($uid) {
 		if(submitcheck('friendsubmit')) {
 
+			//检查是否是好友
 			if(friend_check($uid)) {
 				friend_delete($uid);
 			} else {
@@ -128,10 +141,13 @@ if($op == 'add') {
 			showmessage('do_success', 'home.php?mod=spacecp&ac=friend&op=request', array('uid'=>$uid, 'from' => $_GET['from']), array('showdialog' => 1, 'showmsg' => true, 'closetime' => 0));
 		}
 	} elseif($_GET['key'] == $space['key']) {
+		//批量忽略好友请求
 		$count = C::t('home_friend_request')->count_by_uid($_G['uid']);
 		if($count) {
+			//从我的好友申请中删除
 			C::t('home_friend_request')->delete_by_uid($_G['uid']);
 
+			//关闭提醒功能
 			dsetcookie('promptstate_'.$_G['uid'], $space['newprompt'], 31536000);
 		}
 		showmessage('do_success', 'home.php?mod=spacecp&ac=friend&op=request');
@@ -144,6 +160,7 @@ if($op == 'add') {
 	}
 	if($_GET['key'] == $space['key']) {
 
+		//检查数目
 		$maxfriendnum = checkperm('maxfriendnum');
 		space_merge($space, 'field_home');
 		space_merge($space, 'count');
@@ -157,7 +174,9 @@ if($op == 'add') {
 		}
 
 		if($value = C::t('home_friend_request')->fetch_by_uid($space['uid'])) {
+			//添加好友
 			friend_add($value['fuid']);
+			//不产生feed
 			showmessage('friend_addconfirm_next', 'home.php?mod=spacecp&ac=friend&op=addconfirm&key='.$space['key'], array('username' => $value['fusername']), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true));
 		}
 	}
@@ -166,8 +185,10 @@ if($op == 'add') {
 
 } elseif($op == 'find') {
 
+	//自动找好友
 	$maxnum = 36;
 
+	//我的好友
 	$recommenduser = $myfuids = $fuids =array();
 
 	$i = 0;
@@ -181,10 +202,12 @@ if($op == 'add') {
 	}
 	$myfuids[$space['uid']] = $space['uid'];
 
+	//推荐用户
 	foreach(C::t('home_specialuser')->range() as $value) {
 		$recommenduser[$value['uid']] = $value;
 	}
 
+	//就在您附近的
 	$i = 0;
 	$nearlist = array();
 	foreach(C::app()->session->fetch_all_by_ip($_G['clientip'], 200) as $value) {
@@ -195,6 +218,7 @@ if($op == 'add') {
 		}
 	}
 
+	//好友的好友
 	$i = 0;
 	$friendlist = array();
 	if($fuids) {
@@ -211,6 +235,7 @@ if($op == 'add') {
 		}
 	}
 
+	//当前在线的好友
 	$i = 0;
 	$onlinelist = array();
 	foreach(C::app()->session->fetch_member(1, 2, 200) as $value) {
@@ -230,6 +255,7 @@ if($op == 'add') {
 		showmessage('do_success', dreferer(), array('gid'=>intval($_POST['group'])), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true));
 	}
 
+	//获得当前用户group
 	$query = C::t('home_friend')->fetch_all_by_uid_fuid($_G['uid'], $uid);
 	if(!$friend = $query[0]) {
 		showmessage('specified_user_is_not_your_friend');
@@ -332,6 +358,7 @@ if($op == 'add') {
 		$maxfriendnum = $maxfriendnum + $space['addfriend'];
 	}
 
+	//好友请求
 	$perpage = 20;
 	$perpage = mob_perpage($perpage);
 
@@ -350,10 +377,12 @@ if($op == 'add') {
 		}
 	} else {
 
+		//关闭提醒功能
 		dsetcookie('promptstate_'.$space['uid'], $newprompt, 31536000);
 
 	}
 
+	//分页
 	$multi = multi($count, $perpage, $page, "home.php?mod=spacecp&ac=friend&op=request");
 
 	$navtitle = lang('core', 'title_friend_request');
@@ -388,7 +417,7 @@ if($op == 'add') {
 			$ignore = true;
 		}
 		privacy_update();
-		friend_cache($_G['uid']);
+		friend_cache($_G['uid']);//缓存更新
 
 		showmessage('do_success', dreferer(), array('group' => $group, 'ignore' => $ignore), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true));
 	}
@@ -412,6 +441,7 @@ if($op == 'add') {
 			showmessage('unable_to_manage_self');
 		}
 
+		//删除好友
 		friend_delete($tospace['uid']);
 
 		C::t('home_blacklist')->insert(array('uid'=>$space['uid'], 'buid'=>$tospace['uid'], 'dateline'=>$_G['timestamp']), false, false, true);
@@ -426,6 +456,7 @@ if($op == 'add') {
 	$userlist = $randuids = array();
 	space_merge($space, 'count');
 	if($space['friends']<5) {
+		//附近在线的朋友
 		$userlist = C::app()->session->fetch_member(1, 2, 100);
 	} else {
 		$query = C::t('home_friend')->fetch($_G['uid']);
@@ -442,6 +473,7 @@ if($op == 'add') {
 
 	$fuid = empty($_GET['fuid']) ? 0 : intval($_GET['fuid']);
 
+	//共同的好友
 	$list = array();
 	if($fuid) {
 		$friend = $friendlist = array();

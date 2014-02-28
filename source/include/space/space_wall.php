@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//分页
 $perpage = 20;
 $perpage = mob_perpage($perpage);
 
@@ -18,10 +19,13 @@ $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
 $start = ($page-1)*$perpage;
 
+//检查开始数
 ckstart($start, $perpage);
 
+//处理查询
 $theurl = "home.php?mod=space&uid=$space[uid]&do=$do";
 
+//自定义识别
 $diymode = 1;
 
 $cid = empty($_GET['cid'])?0:intval($_GET['cid']);
@@ -35,6 +39,7 @@ if($count) {
 	}
 }
 
+//分页
 $multi = multi($count, $perpage, $page, $theurl);
 
 $navtitle = lang('space', 'sb_wall', array('who' => $space['username']));

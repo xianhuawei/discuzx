@@ -115,6 +115,7 @@ class block_member extends discuz_block {
 				'default' => 0
 			),
 		);
+		//站点的所有认证
 		$verifys = getglobal('setting/verify');
 		if(!empty($verifys)) {
 			foreach($verifys as $key => $value) {
@@ -171,12 +172,13 @@ class block_member extends discuz_block {
 		global $_G;
 		$settings = $this->setting;
 
-		if($settings['extcredit']) {
+		// 加工特殊信息
+		if($settings['extcredit']) {// 扩展积分选项
 			foreach($_G['setting']['extcredits'] as $id => $credit) {
 				$settings['extcredit']['value'][] = array($id, $credit['title']);
 			}
 		}
-		if($settings['groupid']) {
+		if($settings['groupid']) {// 用户组
 			$settings['groupid']['value'][] = array(0, lang('portalcp', 'block_all_group'));
 			foreach(C::t('common_usergroup')->fetch_all_by_type(array('member', 'special')) as $value) {
 				$settings['groupid']['value'][] = array($value['groupid'], $value['grouptitle']);
@@ -190,6 +192,7 @@ class block_member extends discuz_block {
 
 		$parameter = $this->cookparameter($parameter);
 
+		//参数准备
 		$uids		= !empty($parameter['uids']) ? explode(',',$parameter['uids']) : array();
 		$groupid	= !empty($parameter['groupid']) && !in_array(0, $parameter['groupid']) ? $parameter['groupid'] : array();
 		$startrow	= !empty($parameter['startrow']) ? intval($parameter['startrow']) : 0;
@@ -211,10 +214,11 @@ class block_member extends discuz_block {
 
 		$bannedids = !empty($parameter['bannedids']) ? explode(',', $parameter['bannedids']) : array();
 
+		//数据获取
 		$list = $todayuids = $todayposts = array();
 		$tables = $wheres = array();
 		$sqlorderby = '';
-		$olditems = $items;
+		$olditems = $items; //备份要获取的数据数量
 		$tables[] = DB::table('common_member').' m';
 		if($groupid) {
 			$wheres[] = 'm.groupid IN ('.dimplode($groupid).')';
@@ -252,16 +256,17 @@ class block_member extends discuz_block {
 		}
 
 		$reason = $show = '';
-		if($special !== null) {
+		if($special !== null) {//特殊用户
 			$special = in_array($special, array(-1, 0, 1)) ? $special : -1;
 			$tables[] = DB::table('home_specialuser').' su';
+			//-1是所有特殊用户
 			if($special != -1) {
 				$wheres[] = "su.status='$special'";
 			}
 			$wheres[] = 'su.uid=m.uid';
 			$reason = ', su.reason';
 		}
-		if($lastpost && $orderby != 'todayposts') {
+		if($lastpost && $orderby != 'todayposts') {//note 指定最后发帖时间，今日发帖排序时此选项无效
 			$time = TIMESTAMP - $lastpost;
 			$tables[] = DB::table('common_member_status')." ms";
 			$wheres[] = "ms.uid=m.uid";
@@ -297,13 +302,14 @@ class block_member extends discuz_block {
 			case 'todayposts':
 				$todaytime = strtotime(dgmdate(TIMESTAMP, 'Ymd'));
 				$inuids = $uids ? ' AND uid IN ('.dimplode($uids).')' : '';
-				$items = $items * 5;
+				$items = $items * 5; //取5倍的数据量，以便下面的条件选择
 				$query = DB::query('SELECT uid, count(*) as sum FROM '.DB::table('common_member_action_log')."
 						WHERE dateline>=$todaytime AND action='".getuseraction('pid')."'$inuids GROUP BY uid ORDER BY sum DESC LIMIT $items");
 				while($value = DB::fetch($query)) {
 					$todayposts[$value['uid']] = $value['sum'];
 					$todayuids[] = $value['uid'];
 				}
+				//没有发帖的数据
 				if(empty($todayuids)) {
 					$todayuids = array(0);
 				}
@@ -314,6 +320,7 @@ class block_member extends discuz_block {
 		if($uids) {
 			$wheres[] = 'm.uid IN ('.dimplode($uids).')';
 		}
+		//过滤掉禁止发言、禁止访问、用户IP被禁止、游客、等待验证的会员
 		$wheres[] = '(m.groupid < 4 OR m.groupid > 8)';
 
 		$tables = array_unique($tables);
@@ -356,6 +363,7 @@ class block_member extends discuz_block {
 				)
 			);
 		}
+		// 补充 profile 资料
 		if($resultuids) {
 			include_once libfile('function/profile');
 			$profiles = array();
@@ -377,6 +385,7 @@ class block_member extends discuz_block {
 				}
 			}
 
+			//今日发帖排序
 			if(!empty($todayuids)) {
 				$datalist = array();
 				foreach($todayuids as $uid) {
@@ -386,6 +395,7 @@ class block_member extends discuz_block {
 							break;
 						}
 					}
+					//达到要获取的数据量时退出
 					if(count($datalist) >= $olditems) {
 						break;
 					}

@@ -11,11 +11,15 @@ if(!defined('IN_DISCUZ') || !defined('IN_MODCP')) {
 	exit('Access Denied');
 }
 
+//note ================================================================
+//note 回收站管理
+//note 只有管理员可以管理，版主只能查阅
+//note ================================================================
 
 $op = !in_array($op , array('list', 'delete', 'search', 'restore')) ? 'list' : $op;
 $do = !empty($_GET['do']) ? dhtmlspecialchars($_GET['do']) : '';
 
-$tidarray = array();
+$tidarray = array(); //note 存储确认删除或者恢复的tid
 $action = $_GET['action'];
 
 $result = array();
@@ -36,11 +40,13 @@ $postlist = array();
 
 $total = $multipage = '';
 
+//缓存KEY
 $cachekey = 'srchresult_recycle_thread'.$_G['fid'];
 if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['fid']]) {
 
 	$srchupdate = false;
 
+	//note 删除和恢复主题
 	if(in_array($_G['adminid'], array(1, 2, 3)) && ($op == 'delete' || $op == 'restore') && submitcheck('dosubmit')) {
 		if(!empty($_GET['moderate'])) {
 			foreach(C::t('forum_thread')->fetch_all_by_tid_displayorder($_GET['moderate'], -1, '=', $_G['fid']) as $tid) {
@@ -57,6 +63,7 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 					undeletethreads($tidarray);
 				}
 
+				//note 如果删除或者恢复的帖子位于搜索结果内，则需要更新一下搜索结果
 				if($_GET['oldop'] == 'search') {
 					$srchupdate = true;
 				}
@@ -69,8 +76,10 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 
 	}
 
+	//note 初始并格式化搜索表单的内容
 
 
+	//note 根据条件搜索主题
 	if($op == 'search' &&  submitcheck('searchsubmit')) {
 
 		$conditions = array();
@@ -137,6 +146,7 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 	$total = 0;
 	$query = $multipage = '';
 
+	//note 显示常规列表
 	if($op == 'list') {
 		$total = C::t('forum_thread')->count_by_fid_typeid_displayorder($_G['fid'], $_GET['typeid'], -1);
 		$tpage = ceil($total / $_G['tpp']);
@@ -148,12 +158,14 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 		}
 	}
 
+	//note 显示搜索结果列表
 	if($op == 'search') {
 
 		$result = $modsession->get($cachekey);
 
 		if($result) {
 
+			//note 更新搜索结果
 			if($srchupdate && $result['count'] && $tidarray) {
 				$td = explode(',', $result['tids']);
 				$newtids = $comma = $newcount = '';

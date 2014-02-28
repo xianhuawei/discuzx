@@ -18,11 +18,16 @@ class table_common_member_status extends discuz_table_archive
 		$this->_table = 'common_member_status';
 		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'common_member_status_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
+		//$this->_cache_ttl = 0;
+
 		parent::__construct();
 	}
 
+	/**
+	 * 累加指定会员的某统一数据的值
+	 * @param array $uids 会员ID
+	 * @param array $setarr 要累加的字段和累加值
+	 */
 	public function increase($uids, $setarr) {
 		$uids = array_map('intval', (array)$uids);
 		$sql = array();
@@ -38,10 +43,22 @@ class table_common_member_status extends discuz_table_archive
 		}
 	}
 
+	/**
+	 * 根据IP获取统计数据
+	 * @param array $ips IP
+	 * @return int
+	 */
 	public function count_by_ip($ips) {
 		return !empty($ips) ? DB::result_first('SELECT COUNT(*) FROM %t WHERE regip IN(%n) OR lastip IN (%n)', array($this->_table, $ips, $ips)) : 0;
 	}
 
+	/**
+	 * 根据IP获取数据
+	 * @param array $ips IP
+	 * @param int $start 开始数
+	 * @param int $limit 条数
+	 * @return array
+	 */
 	public function fetch_all_by_ip($ips, $start, $limit) {
 		$data = array();
 		if(!empty($ips) && $limit) {
@@ -58,6 +75,11 @@ class table_common_member_status extends discuz_table_archive
 		return array();
 	}
 
+	/**
+	 * 统计在线数据
+	 * @param int $timestamp 在线的时间值
+	 * @param int $invisible 是否过滤隐身 0所有 1仅隐身 2仅非隐身
+	 */
 	public function count_by_lastactivity_invisible($timestamp, $invisible = 0) {
 		$addsql = '';
 		if($invisible === 1) {
@@ -69,6 +91,14 @@ class table_common_member_status extends discuz_table_archive
 	}
 
 
+	/**
+	 * 在线数据
+	 * @param int $timestamp 在线的时间值
+	 * @param int $invisible 是否过滤隐身 0所有 1仅隐身 2仅非隐身
+	 * @param int $start 开始位置
+	 * @param int $limit 数据条数
+	 * @return array 在线数据
+	 */
 	public function fetch_all_by_lastactivity_invisible($timestamp, $invisible = 0, $start = 0, $limit = 0) {
 		$data = array();
 		if($timestamp) {
@@ -83,6 +113,14 @@ class table_common_member_status extends discuz_table_archive
 		return $data;
 	}
 
+	/**
+	 * 根据UIDS获取在线用户
+	 * @param array $uids
+	 * @param int $lastactivity 标识在线的时间戳
+	 * @param int $start 开始位置
+	 * @param int $limit 数据条数
+	 * @return array
+	 */
 	public function fetch_all_onlines($uids, $lastactivity, $start = 0, $limit = 0) {
 		$data = array();
 		$uids = dintval($uids, true);

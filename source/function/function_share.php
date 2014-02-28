@@ -11,9 +11,11 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//整理分享
 function mkshare($share) {
 	$share['body_data'] = unserialize($share['body_data']);
 
+	//body
 	$searchs = $replaces = array();
 	if($share['body_data']) {
 		if(isset($share['body_data']['flashaddr'])) {

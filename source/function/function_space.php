@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//获得模块的HTML
 function getblockhtml($blockname,$parameters = array()) {
 	global $_G, $space;
 
@@ -29,10 +30,12 @@ function getblockhtml($blockname,$parameters = array()) {
 			$do = 'profile';
 			space_merge($space, 'profile');
 
+			//好友关系
 			require_once libfile('function/friend');
 			$isfriend = friend_check($space['uid']);
 			require_once libfile('function/spacecp');
 
+			//个人资料
 			loadcache('profilesetting');
 			include_once libfile('function/profile');
 			$profiles = array();
@@ -43,18 +46,24 @@ function getblockhtml($blockname,$parameters = array()) {
 					continue;
 				}
 				if(
+					//此项可用 && 不隐藏 && 有值
 					$field['available'] && $field['invisible'] != '1' && strlen($space[$fieldid]) > 0 &&
 					(
+						//在帖子中显示
 						$field['showinthread'] ||
+						//在名片中显示
 						$field['showincard'] ||
 						(
+							//是自己 || 隐私设置为开公 || 是好友 && 隐私设置为好友
 							$space['self'] || empty($privacy[$fieldid]) || ($isfriend && $privacy[$fieldid] == 1)
 						)
 					)
 				) {
 					$val = profile_show($fieldid, $space);
 					if($val !== false) {
+						//判断是否为真实姓名
 						if($fieldid == 'realname' && $_G['uid'] != $space['uid'] && !ckrealname(1)) {
+							//获取当前用户是否通过实名认证
 							continue;
 						}
 						if($field['formtype'] == 'file' && $val) {
@@ -182,6 +191,7 @@ function getblockhtml($blockname,$parameters = array()) {
 					$html .= '</ul>';
 				}
 			}
+			// 道具红包卡
 			if($_G['setting']['magicstatus'] && $_G['setting']['magics']['gift']) {
 				$info = !empty($space['magicgift']) ? dunserialize($space['magicgift']) : array();
 				if($space['self']) {
@@ -394,6 +404,7 @@ function getblockhtml($blockname,$parameters = array()) {
 			$do = $blockname;
 			$view = 'me';
 			$from = 'space';
+			//判断是否有权限看其它人的贴子
 			if ($_G['setting']['allowviewuserthread'] !== -1) {
 				$fidsql = empty($_G['setting']['allowviewuserthread']) ? '' : " AND fid IN({$_G[setting][allowviewuserthread]}) ";
 				$viewfids = str_replace("'", '', $_G['setting']['allowviewuserthread']);
@@ -405,7 +416,7 @@ function getblockhtml($blockname,$parameters = array()) {
 					if(!empty($viewfids) && $_G['adminid'] != 1 && !in_array($thread['fid'], $viewfids)) {
 						continue;
 					}
-					if($thread['author']) {
+					if($thread['author']) {//匿名
 						$html .= "<li><a href=\"forum.php?mod=viewthread&tid={$thread['tid']}\" target=\"_blank\">{$thread['subject']}</a></li>";
 					}
 				}
@@ -554,6 +565,7 @@ function getblockhtml($blockname,$parameters = array()) {
 		case 'music':
 			if(!empty($parameters['mp3list'])) {
 				$authcode = substr(md5($_G['authkey'].$uid), 6, 16);
+				//默认查看个人资料 以后添加参数&view=admin
 				$view = ($_G['adminid'] == 1 && $_G['setting']['allowquickviewprofile']) ? '&view=admin' : '';
 				$querystring = urlencode("home.php?mod=space&uid=$uid&do=index&op=getmusiclist&hash=$authcode$view&t=".TIMESTAMP);
 				$swfurl = STATICURL.'image/common/mp3player.swf?config='.$querystring;
@@ -582,6 +594,7 @@ function getblockhtml($blockname,$parameters = array()) {
 			}
 			foreach($userapps as $value) {
 				$value['iconstatus'] = $myapps[$value['appid']]['iconstatus'];
+				//可显示的应用
 				if(!empty($value['appname'])) {
 					$replace = array('appid'=>$value['appid'], 'appname'=>$value['appname']);
 					$parameters['logotype'] = !empty($parameters['logotype']) && in_array($parameters['logotype'], array('icon', 'logo')) ? $parameters['logotype'] : 'logo';
@@ -702,7 +715,9 @@ function mkfeedhtml($value) {
 	return $html;
 }
 
+//得到布局
 function &getlayout($layout='') {
+	//全部布局
 	$layoutarr = array(
 			'1:2:1' => array('240', '480', '240'),
 			'1:1:2' => array('240', '240', '480'),
@@ -730,6 +745,7 @@ function &getlayout($layout='') {
 	return $rt;
 }
 
+//得到模块数据
 function getblockdata($blockname = '') {
 	$blockarr = lang('space', 'blockdata');
 	$r = empty($blockname) ? $blockarr : (isset($blockarr[$blockname]) ? $blockarr[$blockname] : false);

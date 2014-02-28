@@ -20,6 +20,7 @@ if($_GET['op'] == 'delete') {
 		showmessage('do_success', $_GET['type']=='view'?'home.php?mod=space&quickforward=1&do=share':dreferer(), array('sid' => $sid), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true));
 	}
 } elseif($_GET['op'] == 'edithot') {
+	//权限
 	if(!checkperm('manageshare')) {
 		showmessage('no_privilege_edithot_share');
 	}
@@ -44,6 +45,7 @@ if($_GET['op'] == 'delete') {
 		showmessage('no_privilege_share');
 	}
 
+	//新用户见习
 	cknewuser();
 
 	$type = empty($_GET['type'])?'':$_GET['type'];
@@ -66,6 +68,7 @@ if($_GET['op'] == 'delete') {
 			if(empty($tospace)) {
 				showmessage('space_does_not_exist');
 			}
+			//黑名单
 			if(isblacklist($tospace['uid'])) {
 				showmessage('is_blacklist');
 			}
@@ -85,6 +88,7 @@ if($_GET['op'] == 'delete') {
 			$arr['image'] = $isavatar?avatar($id, 'middle', true):UC_API.'/images/noavatar_middle.gif';
 			$arr['image_link'] = "home.php?mod=space&uid=$id";
 
+			//通知
 			$note_uid = $id;
 			$note_message = 'share_space';
 
@@ -106,6 +110,7 @@ if($_GET['op'] == 'delete') {
 			if($blog['friend']) {
 				showmessage('logs_can_not_share');
 			}
+			//黑名单
 			if(isblacklist($blog['uid'])) {
 				showmessage('is_blacklist');
 			}
@@ -122,6 +127,7 @@ if($_GET['op'] == 'delete') {
 				$arr['image'] = pic_cover_get($blog['pic'], $blog['picflag']);
 				$arr['image_link'] = "home.php?mod=space&uid=$blog[uid]&do=blog&id=$blog[blogid]";
 			}
+			//通知
 			$note_uid = $blog['uid'];
 			$note_message = 'share_blog';
 			$note_values = array('url'=>"home.php?mod=space&uid=$blog[uid]&do=blog&id=$blog[blogid]", 'subject'=>$blog['subject'], 'from_id' => $id, 'from_idtype' => 'blogid');
@@ -139,6 +145,7 @@ if($_GET['op'] == 'delete') {
 			if($album['friend']) {
 				showmessage('album_can_not_share');
 			}
+			//黑名单
 			if(isblacklist($album['uid'])) {
 				showmessage('is_blacklist');
 			}
@@ -153,6 +160,7 @@ if($_GET['op'] == 'delete') {
 			);
 			$arr['image'] = pic_cover_get($album['pic'], $album['picflag']);
 			$arr['image_link'] = "home.php?mod=space&uid=$album[uid]&do=album&id=$album[albumid]";
+			//通知
 			$note_uid = $album['uid'];
 			$note_message = 'share_album';
 			$note_values = array('url'=>"home.php?mod=space&uid=$album[uid]&do=album&id=$album[albumid]", 'albumname'=>$album['albumname'], 'from_id' => $id, 'from_idtype' => 'albumid');
@@ -174,6 +182,7 @@ if($_GET['op'] == 'delete') {
 			if($pic['friend']) {
 				showmessage('image_can_not_share');
 			}
+			//黑名单
 			if(isblacklist($pic['uid'])) {
 				showmessage('is_blacklist');
 			}
@@ -191,6 +200,7 @@ if($_GET['op'] == 'delete') {
 			);
 			$arr['image'] = pic_get($pic['filepath'], 'album', $pic['thumb'], $pic['remote']);
 			$arr['image_link'] = "home.php?mod=space&uid=$pic[uid]&do=album&picid=$pic[picid]";
+			//通知
 			$note_uid = $pic['uid'];
 			$note_message = 'share_pic';
 			$note_values = array('url'=>"home.php?mod=space&uid=$pic[uid]&do=album&picid=$pic[picid]", 'albumname'=>$pic['albumname'], 'from_id' => $id, 'from_idtype' => 'picid');
@@ -228,6 +238,7 @@ if($_GET['op'] == 'delete') {
 				$arr['image_link'] = "forum.php?mod=viewthread&tid=$id";
 			}
 
+			//通知
 			$note_uid = $thread['authorid'];
 			$note_message = 'share_thread';
 			$note_values = array('url'=>"forum.php?mod=viewthread&tid=$id", 'subject'=>$thread['subject'], 'from_id' => $id, 'from_idtype' => 'tid');
@@ -260,6 +271,7 @@ if($_GET['op'] == 'delete') {
 				$arr['image'] = pic_get($article['pic'], 'portal', $article['thumb'], $article['remote'], 1, 1);
 				$arr['image_link'] = $article_url;
 			}
+			//通知
 			$note_uid = $article['uid'];
 			$note_message = 'share_article';
 			$note_values = array('url'=>$article_url, 'subject'=>$article['title'], 'from_id' => $id, 'from_idtype' => 'aid');
@@ -277,8 +289,10 @@ if($_GET['op'] == 'delete') {
 			break;
 	}
 
+	//note 分享时可以同时评论的对象
 	$commentcable = array('blog' => 'blogid', 'pic' => 'picid', 'thread' => 'thread', 'article' => 'article');
 
+	//添加分享
 	if(submitcheck('sharesubmit', 0, $seccodecheck, $secqaacheck)) {
 
 		$magvalues = array();
@@ -323,11 +337,13 @@ if($_GET['op'] == 'delete') {
 				$arr['body_data']['host'] = 'flash';
 				$arr['body_data']['imgurl'] = $flashvar['imgurl'];
 			}
+			// 判断是否音乐 mp3、wma
 			if(preg_match("/\.(mp3|wma)$/i", $link)) {
 				$arr['title_template'] = lang('spacecp', 'share_music');
 				$arr['body_data']['musicvar'] = $link;
 				$type = 'music';
 			}
+			// 判断是否 Flash
 			if(preg_match("/\.swf$/i", $link)) {
 				$arr['title_template'] = lang('spacecp', 'share_flash');
 				$arr['body_data']['flashaddr'] = $link;
@@ -335,6 +351,7 @@ if($_GET['op'] == 'delete') {
 			}
 		}
 
+		//note 同时发表评论
 		if($_GET['iscomment'] && $_POST['general'] && $commentcable[$type] && $id) {
 
 			$_POST['general'] = censor($_POST['general']);
@@ -389,6 +406,7 @@ if($_GET['op'] == 'delete') {
 
 			} elseif($currenttype == 'article') {
 
+				//权限检查
 				if(!checkperm('allowcommentarticle')) {
 					showmessage('group_nopermission', NULL, array('grouptitle' => $_G['group']['grouptitle']), array('login' => 1));
 				}
@@ -396,8 +414,10 @@ if($_GET['op'] == 'delete') {
 				include_once libfile('function/spacecp');
 				include_once libfile('function/portalcp');
 
+				//新用户见习
 				cknewuser();
 
+				//判断是否发布太快
 				$waittime = interval_check('post');
 				if($waittime > 0) {
 					showmessage('operating_too_fast', '', array('waittime' => $waittime), array('return' => true));
@@ -416,7 +436,9 @@ if($_GET['op'] == 'delete') {
 				if(!checkperm('allowcomment')) {
 					showmessage('no_privilege_comment', '', array(), array('return' => true));
 				}
+				//note 新用户见习
 				cknewuser();
+				//note 判断是否发布太快
 				$waittime = interval_check('post');
 				if($waittime > 0) {
 					showmessage('operating_too_fast', '', array('waittime' => $waittime), array('return' => true));
@@ -425,6 +447,7 @@ if($_GET['op'] == 'delete') {
 				if(strlen($message) < 2) {
 					showmessage('content_is_too_short', '', array(), array('return' => true));
 				}
+				//bbcode转换
 				include_once libfile('class/bbcode');
 				$bbcode = & bbcode::instance();
 
@@ -452,6 +475,7 @@ if($_GET['op'] == 'delete') {
 		$arr['dateline'] = $_G['timestamp'];
 
 
+		//动态
 		if($arr['status'] == 0 && ckprivacy('share', 'feed')) {
 			require_once libfile('function/feed');
 			feed_add('share',
@@ -465,7 +489,7 @@ if($_GET['op'] == 'delete') {
 			);
 		}
 
-		$arr['body_data'] = serialize($arr['body_data']);
+		$arr['body_data'] = serialize($arr['body_data']);//数组转化
 
 		$sid = C::t('home_share')->insert($arr, true);
 
@@ -502,10 +526,12 @@ if($_GET['op'] == 'delete') {
 			updatestat('share');
 		}
 
+		//被分享通知当事人
 		if($note_uid && $note_uid != $_G['uid']) {
 			notification_add($note_uid, 'sharenotice', $note_message, $note_values);
 		}
 
+		//更新用户统计、积分
 		$needle = $id ? $type.$id : '';
 		updatecreditbyaction('createshare', $_G['uid'], array('sharings' => 1), $needle);
 
@@ -521,7 +547,8 @@ if($_GET['op'] == 'delete') {
 		showmessage($showmessagecontent, $redirecturl, $magvalues, ($_G['inajax'] && $_GET['view'] != 'me' ? array('showdialog'=>1, 'showmsg' => true, 'closetime' => true) : array()));
 	}
 
-	$arr['body_data'] = serialize($arr['body_data']);
+	//显示
+	$arr['body_data'] = serialize($arr['body_data']);//数组转化
 
 	require_once libfile('function/share');
 	$arr = mkshare($arr);

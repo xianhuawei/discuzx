@@ -11,6 +11,13 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+* 检查积分下限
+* @param string $action: 策略动作Action或者需要检测的操作积分值使如extcredits1积分进行减1操作检测array('extcredits1' => -1)
+* @param Integer $uid: 用户UID
+* @param Integer $coef: 积分放大倍数/负数为减分操作
+* @param Integer $returnonly: 只要返回结果，不用中断程序运行
+*/
 function _checklowerlimit($action, $uid = 0, $coef = 1, $fid = 0, $returnonly = 0) {
 	global $_G;
 
@@ -51,6 +58,15 @@ function _checklowerlimit($action, $uid = 0, $coef = 1, $fid = 0, $returnonly = 
 	}
 }
 
+/**
+ * 添加积分
+ * @param Integer $uids: 用户uid或者uid数组
+ * @param String $dataarr: member count相关操作数组，例: array('threads' => 1, 'doings' => -1)
+ * @param Boolean $checkgroup: 是否检查用户组 true or false
+ * @param String $operation: 操作类型
+ * @param Integer $relatedid: 关联id或者关联id数组
+ * @param String $ruletxt: 积分规则文本
+ */
 
 function _updatemembercount($uids, $dataarr = array(), $checkgroup = true, $operation = '', $relatedid = 0, $ruletxt = '', $customtitle = '', $custommemo = '') {
 	if(empty($uids)) return;
@@ -85,6 +101,13 @@ function _updatemembercount($uids, $dataarr = array(), $checkgroup = true, $oper
 	}
 }
 
+/**
+ * 用户积分变更记录
+ * @param int|array $uids 用户id或id数组
+ * @param string $operation 操作类型
+ * @param int|array $relatedid 关联id或数组 数组时与uids一一对应
+ * @param array $data 积分变更数据 array('extcredits1' => '1')
+ */
 function credit_log($uids, $operation, $relatedid, $data, $customtitle, $custommemo) {
 	if((!$operation || empty($relatedid)) && !strlen($customtitle) || empty($uids) || empty($data)) {
 		return;

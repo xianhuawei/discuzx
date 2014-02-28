@@ -21,6 +21,11 @@ class table_portal_topic_pic extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 统计指定专题的图片数
+	 * @param int $topicid 专题id
+	 * @return int
+	 */
 	public function count_by_topicid($topicid) {
 		return $topicid ? DB::result_first('SELECT COUNT(*) FROM %t WHERE topicid=%d', array($this->_table, $topicid)) : 0;
 	}

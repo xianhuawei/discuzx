@@ -11,10 +11,12 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//初始化一些来自 GP 的变量
 foreach(array('pid', 'ptid', 'authorid', 'ordertype', 'postno') as $k) {
 	$$k = !empty($_GET[$k]) ? intval($_GET[$k]) : 0;
 }
 
+//跳楼请求, 当中没有 goto 参数, 如果带 ptid , 则认为是跳楼请求, 指向 findpost
 if(empty($_GET['goto']) && $ptid) {
 	$_GET['goto'] = 'findpost';
 }
@@ -23,10 +25,12 @@ if($_GET['goto'] == 'findpost') {
 
 	$post = $thread = array();
 
+	//确定当前主题
 	if($ptid) {
 		$thread = get_thread_by_tid($ptid);
 	}
 
+	//依据pid取主题和帖子
 	if($pid) {
 
 		if($thread) {
@@ -40,15 +44,18 @@ if($_GET['goto'] == 'findpost') {
 		}
 	}
 
+	//主题不存在, 则退出
 	if(empty($thread)) {
 		showmessage('thread_nonexistence');
 	} else {
 		$tid = $thread['tid'];
 	}
 
+	//跳楼请求,  无 pid 参数, 所以需要根据 ptid 和 $postno(楼层) 获得 post 数据
 	if(empty($pid)) {
 
 		if($postno) {
+			//抢楼贴, 则尝试从 forum_postposition 数据表直接取得 pid
 			if(getstatus($thread['status'], 3)) {
 				$rowarr = C::t('forum_post')->fetch_all_by_tid_position($thread['posttableid'], $ptid, $postno);
 				$pid = $rowarr[0]['pid'];
@@ -67,6 +74,7 @@ if($_GET['goto'] == 'findpost') {
 
 	}
 
+	// 没找到帖子, 显示出错信息, 或尝试跳转到主题
 	if(empty($post)) {
 		if($ptid) {
 			header("HTTP/1.1 301 Moved Permanently");
@@ -78,8 +86,10 @@ if($_GET['goto'] == 'findpost') {
 		$pid = $post['pid'];
 	}
 
+	//确定pid 所在的页码
 	$ordertype = !isset($_GET['ordertype']) && getstatus($thread['status'], 4) ? 1 : $ordertype;
-	if($thread['special'] == 2 || C::t('forum_threaddisablepos')->fetch($tid)) {
+	// 有记录且不是抢楼时，也不用position方式
+	if($thread['special'] == 2 || C::t('forum_threaddisablepos')->fetch($tid)) { //商品帖不使用最大 position
 		$curpostnum = C::t('forum_post')->count_by_tid_dateline($thread['posttableid'], $tid, $post['dateline']);
 	} else {
 		if($thread['maxposition']) {
@@ -103,12 +113,16 @@ if($_GET['goto'] == 'findpost') {
 		dheader("Location: forum.php?mod=viewthread&do=tradeinfo&tid=$tid&pid=$pid");
 	}
 
+	// 跳转到新地址
 	$authoridurl = $authorid ? '&authorid='.$authorid : '';
 	$ordertypeurl = $ordertype ? '&ordertype='.$ordertype : '';
 	header("HTTP/1.1 301 Moved Permanently");
 	dheader("Location: forum.php?mod=viewthread&tid=$tid&page=$page$authoridurl$ordertypeurl".(isset($_GET['modthreadkey']) && ($modthreadkey = modauthkey($tid)) ? "&modthreadkey=$modthreadkey": '')."#pid$pid");
 }
 
+/**
+ * 以下为常规跳转, 需要传递 tid 参数, 主题不存在则终止
+ */
 
 if(empty($_G['thread'])) {
 	showmessage('thread_nonexistence');

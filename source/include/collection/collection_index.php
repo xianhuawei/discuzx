@@ -18,7 +18,7 @@ if(!in_array($op, $oplist)) {
 	$op = '';
 }
 
-$cpp = 20;
+$cpp = 20; //note 每页显示专辑数
 $start = ($page-1)*$cpp;
 
 if($op == 'all' || $op == 'search') {
@@ -60,7 +60,7 @@ if($op == 'all' || $op == 'search') {
 	$ctidlist = array_merge($myctid, $twctid, $followctid);
 
 	if(count($ctidlist) > 0) {
-		$tfcollection = $mycollection + $teamworker + $follow;
+		$tfcollection = $mycollection + $teamworker + $follow; //note 为了获取lastvisit
 		$collectiondata = C::t('forum_collection')->fetch_all($ctidlist, 'dateline', 'DESC');
 		$collectiondata = processCollectionData($collectiondata, $tfcollection);
 	}
@@ -87,7 +87,7 @@ if($op == 'all' || $op == 'search') {
 		}
 		unset($collection);
 		$collectiondata = processCollectionData($collectiondata);
-	} else {
+	} else {  //note 更多相关淘专辑
 		$tidrelate = C::t('forum_collectionrelated')->fetch($tid);
 		$ctids = explode("\t", $tidrelate['collection'], -1);
 		$count = count($ctids);

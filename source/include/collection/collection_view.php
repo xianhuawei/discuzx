@@ -26,7 +26,7 @@ if(!$_G['collection']['ctid']) {
 
 $navtitle = $_G['collection']['name'].' - '.lang('core', 'title_collection');
 
-$permission = checkcollectionperm($_G['collection'], $_G['uid']);
+$permission = checkcollectionperm($_G['collection'], $_G['uid']); //note 淘专辑管理权限
 $avgrate = number_format($_G['collection']['rate'], 1);
 
 $start = ($page-1)*$tpp;
@@ -34,6 +34,7 @@ $start = ($page-1)*$tpp;
 $collectionfollowdata = C::t('forum_collectionfollow')->fetch_by_ctid_uid($ctid, $_G['uid']);
 $collectionteamworker = C::t('forum_collectionteamworker')->fetch_all_by_ctid($_G['collection']['ctid']);
 
+//note 淘专辑关键词
 $_G['collection']['arraykeyword'] = parse_keyword($_G['collection']['keyword'], false, false);
 if($_G['collection']['arraykeyword']) {
 	foreach ($_G['collection']['arraykeyword'] as $kid=>$s_keyword) {
@@ -48,12 +49,13 @@ if($_G['collection']['ratenum']) {
 }
 
 if(!$op || $op == 'related') {
-	$isteamworkers = in_array($_G['uid'], array_keys($collectionteamworker));
+	$isteamworkers = in_array($_G['uid'], array_keys($collectionteamworker)); //note 判断是否为共同维护成员
 
 	$cloud_apps = (array)unserialize($_G['setting']['cloud_apps']);
 	$search_status = $cloud_apps['search']['status'] == 'normal' ? TRUE : FALSE;
 
 	if(!$op && $op != 'related') {
+		//note 获取并更新最后访问
 		if($_G['collection']['uid'] == $_G['uid']) {
 			$lastvisit = $_G['collection']['lastvisit'];
 			if($_G['collection']['lastupdate'] >= $lastvisit) {

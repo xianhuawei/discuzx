@@ -11,10 +11,12 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//允许动作
 $dos = array('index', 'doing', 'blog', 'album', 'friend', 'wall',
 	'notice', 'share', 'home', 'pm', 'videophoto', 'favorite',
 	'thread', 'trade', 'poll', 'activity', 'debate', 'reward', 'profile', 'plugin', 'follow');
 
+//获取变量
 $do = (!empty($_GET['do']) && in_array($_GET['do'], $dos))?$_GET['do']:'index';
 
 if(!in_array($do, array('home', 'doing', 'blog', 'album', 'share', 'wall'))) {
@@ -26,6 +28,7 @@ if(empty($_G['uid']) && in_array($_GET['do'], array('thread', 'trade', 'poll', '
 $uid = empty($_GET['uid']) ? 0 : intval($_GET['uid']);
 
 $member = array();
+//跳转
 if($_GET['username']) {
 	$member = C::t('common_member')->fetch_by_username($_GET['username']);
 	if(empty($member) && !($member = C::t('common_member_archive')->fetch_by_username($_GET['username']))) {
@@ -35,9 +38,11 @@ if($_GET['username']) {
 	$member['self'] = $uid == $_G['uid'] ? 1 : 0;
 }
 
+//控制程序去向
 if($_GET['view'] == 'admin') {
 	$_GET['do'] = $do;
 }
+//获取空间
 if(empty($uid) || in_array($do, array('notice', 'pm'))) $uid = $_G['uid'];
 if(empty($_GET['do']) && !isset($_GET['diy'])) {
 	if($_G['adminid'] == 1) {
@@ -75,6 +80,7 @@ if($uid && empty($member)) {
 }
 
 if(empty($space)) {
+	//游客
 	if(in_array($do, array('doing', 'blog', 'album', 'share', 'home', 'trade', 'poll', 'activity', 'debate', 'reward', 'group'))) {
 		$_GET['view'] = 'all';
 		$space['uid'] = 0;
@@ -85,14 +91,17 @@ if(empty($space)) {
 
 	$navtitle = $space['username'];
 
+	//验证空间是否被锁定
 	if($space['status'] == -1 && $_G['adminid'] != 1) {
 		showmessage('space_has_been_locked');
 	}
 
+	//被禁言用户只能查看个人资料
 	if(in_array($space['groupid'], array(4, 5, 6)) && ($_G['adminid'] != 1 && $space['uid'] != $_G['uid'])) {
 		$_GET['do'] = $do = 'profile';
 	}
 
+	//隐私检查
 	if($do != 'profile' && $do != 'index' && !ckprivacy($do, 'view')) {
 		$_G['privacy'] = 1;
 		require_once libfile('space/profile', 'include');
@@ -100,19 +109,24 @@ if(empty($space)) {
 		exit();
 	}
 
+	//别人只查看自己
 	if(!$space['self'] && $_GET['view'] != 'eccredit' && $_GET['view'] != 'admin') $_GET['view'] = 'me';
 
+	//用户应用菜单
 	get_my_userapp();
 
+	//漫游默认应用
 	get_my_app();
 }
 
 $diymode = 0;
 
+//验证码开关
 list($seccodecheck, $secqaacheck) = seccheck('publish');
 if($do != 'index') {
 	$_G['disabledwidthauto'] = 0;
 }
+//处理
 require_once libfile('space/'.$do, 'include');
 
 ?>

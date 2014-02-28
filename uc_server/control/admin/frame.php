@@ -35,6 +35,7 @@ class control extends adminbase {
 		$ucinfo = '<sc'.'ript language="Jav'.'aScript" src="ht'.'tp:/'.'/cus'.'tome'.'r.disc'.'uz.n'.'et/ucn'.'ews'.'.p'.'hp?'.$this->_get_uc_info().'"></s'.'cri'.'pt>';
 		$this->view->assign('ucinfo', $ucinfo);
 
+		// 统计信息
 		$members = $this->_get_uc_members();
 		$applist = $this->_get_uc_apps();
 		$notes = $this->_get_uc_notes();
@@ -51,6 +52,7 @@ class control extends adminbase {
 		$this->view->assign('pms', $pms);
 		$this->view->assign('iframe', getgpc('iframe', 'G'));
 
+		// 系统信息
 		$serverinfo = PHP_OS.' / PHP v'.PHP_VERSION;
 		$serverinfo .= @ini_get('safe_mode') ? ' Safe Mode' : NULL;
 		$dbversion = $this->db->result_first("SELECT VERSION()");
@@ -71,6 +73,7 @@ class control extends adminbase {
 		$this->view->assign('magic_quote_gpc', $magic_quote_gpc);
 		$this->view->assign('allow_url_fopen', $allow_url_fopen);
 
+		// 开发团队
 		$this->view->display('admin_frame_main');
 	}
 
@@ -147,6 +150,11 @@ class control extends adminbase {
 		return $error;
 	}
 
+	/**
+	* 格式化附件单位
+	* @param $filesize - 文件大小(字节)
+	* @return 返回格式化后的文本
+	*/
 	function _sizecount($filesize) {
 		if($filesize >= 1073741824) {
 			$filesize = round($filesize / 1073741824 * 100) / 100 . ' GB';

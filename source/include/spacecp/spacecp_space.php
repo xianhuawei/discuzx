@@ -33,6 +33,17 @@ $actives = array($ac => ' class="active"');
 include_once template("home/spacecp_space");
 
 
+/**
+ * 更新Manyou端的UserApp信息
+ *
+ * @param integer $uId UCHome里的用户id
+ * @param integer $appId 应用id
+ * @param integer $privacy 隐私设置
+ * @param boolean $allowProfileLink 是否允许在个人主页显示相应链接
+ * @return array
+ * 		- errCode 0 成功；其他代表失败
+ *		- errMessage 出错信息
+ */
 function my_userapp_update($uId, $appId, $privacy = null, $allowProfileLink = null) {
 	global $my_register_url, $_G;
 

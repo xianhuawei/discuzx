@@ -48,6 +48,7 @@ class logging_ctl {
 		$seccodestatus = !empty($_GET['lssubmit']) ? false : $seccodecheck;
 		$invite = getinvite();
 
+		//note 用户登录界面
 		if(!submitcheck('loginsubmit', 1, $seccodestatus)) {
 
 			$auth = '';
@@ -59,8 +60,10 @@ class logging_ctl {
 				$auth = dhtmlspecialchars($_GET['auth']);
 			}
 
+			//note 设置cookie有效期
 			$cookietimecheck = !empty($_G['cookie']['cookietime']) || !empty($_GET['cookietime']) ? 'checked="checked"' : '';
 
+			//note 产生验证码
 			if($seccodecheck) {
 				$seccode = random(6, 1) + $seccode{0} * 1000000;
 			}
@@ -121,6 +124,7 @@ class logging_ctl {
 				}
 
 				setloginstatus($result['member'], $_GET['cookietime'] ? 2592000 : 0);
+				//检测是否有最新的关注动态
 				checkfollowfeed();
 				if($_G['group']['forcelogin']) {
 					if($_G['group']['forcelogin'] == 1) {
@@ -215,6 +219,7 @@ class logging_ctl {
 				}
 
 				if($invite['id']) {
+					//邀请过的禁止再邀请
 					$result = C::t('common_invite')->count_by_uid_fuid($invite['uid'], $uid);
 					if(!$result) {
 						C::t('common_invite')->update($invite['id'], array('fuid'=>$uid, 'fusername'=>$_G['username']));
@@ -224,9 +229,11 @@ class logging_ctl {
 					}
 				}
 				if($invite['uid']) {
+					//成为好友
 					require_once libfile('function/friend');
 					friend_make($invite['uid'], $invite['username'], false);
 					dsetcookie('invite_auth', '');
+					//应用邀请
 					if($invite['appid']) {
 						updatestat('appinvite');
 					}
@@ -255,15 +262,15 @@ class logging_ctl {
 					$_GET['lssubmit'] = 0;
 				}
 				if(empty($_GET['handlekey']) || !empty($_GET['lssubmit'])) {
-					if(defined('IN_MOBILE')) {
+					if(defined('IN_MOBILE')) {//note 手机登录成功
 						showmessage($loginmessage, $location, $param, array('location' => true));
 					} else {
-						if(!empty($_GET['lssubmit'])) {
+						if(!empty($_GET['lssubmit'])) {//note 顶部登录成功
 							if(!$ucsynlogin) {
 								$extra['location'] = true;
 							}
 							showmessage($loginmessage, $location, $param, $extra);
-						} else {
+						} else {//note 新窗口登录成功
 							$href = str_replace("'", "\'", $location);
 							showmessage('location_login_succeed', $location, array(),
 								array(
@@ -280,7 +287,7 @@ class logging_ctl {
 							);
 						}
 					}
-				} else {
+				} else {//note 浮动窗口登录成功
 					showmessage($loginmessage, $location, $param, $extra);
 				}
 			} else {
@@ -461,6 +468,7 @@ class register_ctl {
 			if(!empty($_GET['hash'])) {
 				$_GET['hash'] = preg_replace("/[^\[A-Za-z0-9_\]%\s+-\/=]/", '', $_GET['hash']);
 				$hash = explode("\t", authcode($_GET['hash'], 'DECODE', $_G['config']['security']['authkey']));
+				//三天内有效
 				if(is_array($hash) && isemail($hash[0]) && TIMESTAMP - $hash[1] < 259200) {
 					$sendurl = false;
 				}
@@ -533,6 +541,7 @@ class register_ctl {
 			if(!$activationauth && ($sendurl || !$_G['setting']['forgeemail'])) {
 				checkemail($_GET['email']);
 			}
+			//发送注册地址
 			if($sendurl) {
 				$hashstr = urlencode(authcode("$_GET[email]\t$_G[timestamp]", 'ENCODE', $_G['config']['security']['authkey']));
 				$registerurl = "{$_G[siteurl]}member.php?mod=".$this->setting['regname']."&amp;hash={$hashstr}&amp;email={$_GET[email]}";
@@ -548,11 +557,14 @@ class register_ctl {
 			}
 			$emailstatus = 0;
 			if($this->setting['sendregisterurl'] && !$sendurl) {
+				//默认使用加密的邮箱
 				$_GET['email'] = strtolower($hash[0]);
 				$this->setting['regverify'] = $this->setting['regverify'] == 1 ? 0 : $this->setting['regverify'];
+				//去掉邮箱验证操作
 				if(!$this->setting['regverify']) {
 					$groupinfo['groupid'] = $this->setting['newusergroupid'];
 				}
+				//通出邮箱验证
 				$emailstatus = 1;
 			}
 
@@ -672,11 +684,13 @@ class register_ctl {
 
 			$profile = $verifyarr = array();
 			foreach($_G['cache']['fields_register'] as $field) {
+				//noteX 手机模式下用户栏目项不入库(IN_MOBILE)
 				if(defined('IN_MOBILE')) {
 					break;
 				}
 				$field_key = $field['fieldid'];
 				$field_val = $_GET[''.$field_key];
+				//单独处理file类型的字段
 				if($field['formtype'] == 'file' && !empty($_FILES[$field_key]) && $_FILES[$field_key]['error'] == 0) {
 					$field_val = true;
 				}
@@ -699,6 +713,15 @@ class register_ctl {
 			}
 
 			if(!$activation) {
+				/**UC	检查注册用户是否有效
+					>0 : UID
+					-1 : 用户名不合法
+					-2 : 包含要允许注册的词语
+					-3 : 用户名已经存在
+					-4 : email 格式有误
+					-5 : email 不允许注册
+					-6 : 该 email 已经被注册
+				**/
 				$uid = uc_user_register(addslashes($username), $password, $email, $questionid, $answer, $_G['clientip']);
 				if($uid <= 0) {
 					if($uid == -1) {
@@ -731,10 +754,10 @@ class register_ctl {
 			$password = md5(random(10));
 			$secques = $questionid > 0 ? random(8) : '';
 
-			if(isset($_POST['birthmonth']) && isset($_POST['birthday'])) {
+			if(isset($_POST['birthmonth']) && isset($_POST['birthday'])) {//计算星座
 				$profile['constellation'] = get_constellation($_POST['birthmonth'], $_POST['birthday']);
 			}
-			if(isset($_POST['birthyear'])) {
+			if(isset($_POST['birthyear'])) {// 计算生肖
 				$profile['zodiac'] = get_zodiac($_POST['birthyear']);
 			}
 
@@ -751,12 +774,14 @@ class register_ctl {
 						if(!$upload->error()) {
 							$upload->save();
 
+							//验证写入的文件是否是图片，不是删除
 							if(!$upload->get_image_info($attach['target'])) {
 								@unlink($attach['target']);
 								continue;
 							}
 
 							$attach['attachment'] = dhtmlspecialchars(trim($attach['attachment']));
+							// 该项合法但需要审核
 							if($_G['cache']['fields_register'][$field_key]['needverify']) {
 								$verifyarr[$key] = $attach['attachment'];
 							} else {
@@ -776,13 +801,16 @@ class register_ctl {
 			}
 
 			if($invite && $this->setting['inviteconfig']['invitegroupid']) {
+				//初始用户组
 				$groupinfo['groupid'] = $this->setting['inviteconfig']['invitegroupid'];
 			}
 
 			$init_arr = array('credits' => explode(',', $this->setting['initcredits']), 'profile'=>$profile, 'emailstatus' => $emailstatus);
 
 			C::t('common_member')->insert($uid, $username, $password, $email, $_G['clientip'], $groupinfo['groupid'], $init_arr);
+			//通过邮件验证执行积分策略
 			if($emailstatus) {
+				//奖励积分
 				updatecreditbyaction('realemail', $uid);
 			}
 			if($verifyarr) {
@@ -832,9 +860,11 @@ class register_ctl {
 				'password' => $password,
 				'groupid' => $groupinfo['groupid'],
 			), 0);
+			//统计
 			include_once libfile('function/stat');
 			updatestat('register');
 
+			//邀请注册
 			if($invite['id']) {
 				$result = C::t('common_invite')->count_by_uid_fuid($invite['uid'], $uid);
 				if(!$result) {
@@ -851,16 +881,19 @@ class register_ctl {
 				if($this->setting['inviteconfig']['invitedaddcredit']) {
 					updatemembercount($invite['uid'], array($this->setting['inviteconfig']['inviterewardcredit'] => $this->setting['inviteconfig']['invitedaddcredit']));
 				}
+				//成为好友
 				require_once libfile('function/friend');
 				friend_make($invite['uid'], $invite['username'], false);
 				notification_add($invite['uid'], 'friend', 'invite_friend', array('actor' => '<a href="home.php?mod=space&uid='.$invite['uid'].'" target="_blank">'.$invite['username'].'</a>'), 1);
 
+				//产生feed
 				space_merge($invite, 'field_home');
 				if(!empty($invite['privacy']['feed']['invite'])) {
 					require_once libfile('function/feed');
 					$tite_data = array('username' => '<a href="home.php?mod=space&uid='.$_G['uid'].'">'.$_G['username'].'</a>');
 					feed_add('friend', 'feed_invite', $tite_data, '', array(), '', array(), array(), '', '', '', 0, 0, '', $invite['uid'], $invite['username']);
 				}
+				//应用邀请
 				if($invite['appid']) {
 					updatestat('appinvite');
 				}
@@ -908,6 +941,7 @@ class register_ctl {
 					}
 					$message = 'register_email_verify';
 					$locationmessage = 'register_email_verify_location';
+					//邮件验证需要停留的时间长一些
 					$refreshtime = 10000;
 					break;
 				case 2:
@@ -941,6 +975,9 @@ class register_ctl {
 
 }
 
+/**
+ * 用户违规操作记录类
+ */
 class crime_action_ctl {
 
 	static $actions = array('all', 'crime_delpost', 'crime_warnpost', 'crime_banpost', 'crime_banspeak', 'crime_banvisit', 'crime_banstatus', 'crime_avatar', 'crime_sightml', 'crime_customstatus');
@@ -955,6 +992,14 @@ class crime_action_ctl {
 		return $object;
 	}
 
+	/**
+	 * 记录用户违规记录
+	 * @global <type> $_G
+	 * @param integer $uid 违规用户id
+	 * @param string $action 违规行为
+	 * @param string $reason 违规原因
+	 * @return bool 是否成功
+	 */
 	function recordaction($uid, $action, $reason) {
 		global $_G;
 
@@ -975,6 +1020,12 @@ class crime_action_ctl {
 		return true;
 	}
 
+	/**
+	 * 取得用户违规记录列表
+	 * @global  $_G
+	 * @param integer $uid 违规用户id
+	 * @return array 违规记录列表
+	 */
 	function getactionlist($uid) {
 		$uid = intval($uid);
 		$clist = array();
@@ -985,6 +1036,12 @@ class crime_action_ctl {
 		return $clist;
 	}
 
+	/**
+	 * 取得用户某项违规的次数
+	 * @param integer $uid 违规用户id
+	 * @param string $action 违规用户行为
+	 * @return integer 返回次数
+	 */
 	function getcount($uid, $action) {
 		$uid = intval($uid);
 		$key = array_search($action, self::$actions);
@@ -994,6 +1051,18 @@ class crime_action_ctl {
 		return C::t('common_member_crime')->count_by_uid_action($uid, $key);
 	}
 
+	/**
+	 * 搜索违规记录
+	 * @param integer $action 违规行为id
+	 * @param string $username 违规用户名
+	 * @param string $operator 操作者用户名
+	 * @param string $startime 搜索开始时间
+	 * @param string $endtime 搜索结束时间
+	 * @param string $reason 根据原因搜索
+	 * @param integer $start
+	 * @param integer $limit
+	 * @return array 返回总数和列表
+	 */
 	function search($action, $username, $operator, $startime, $endtime, $reason, $start, $limit) {
 		$action = intval($action);
 		$operator = daddslashes(trim($operator));

@@ -19,7 +19,7 @@ if(!$_G['collection']['ctid'] || $_G['collection']['uid'] == $_G['uid']) {
 	showmessage('collection_permission_deny');
 }
 $_GET['handlekey'] = 'followcollection';
-if($op == 'follow') {
+if($op == 'follow') { //note 关注专辑
 	$follownum = C::t('forum_collectionfollow')->count_by_uid($_G['uid']);
 	if($follownum >= $_G['group']['allowfollowcollection']) {
 		showmessage('collection_follow_limited', '', array('limit' => $_G['group']['allowfollowcollection']), array('closetime' => '2', 'showmsg' => '1'));
@@ -42,16 +42,16 @@ if($op == 'follow') {
 		
 		C::t('forum_collection')->update_by_ctid($ctid, 0, 1, 0);
 
-		if($_G['collection']['uid'] != $_G['uid']) {
-			updatecreditbyaction('followedcollection', $_G['collection']['uid']);
-			notification_add($_G['collection']['uid'], "system", 'collection_befollowed', array('from_id'=>$_G['collection']['ctid'], 'from_idtype'=>'collectionfollow', 'ctid'=>$_G['collection']['ctid'], 'collectionname'=>$_G['collection']['name']), 1);
+		if($_G['collection']['uid'] != $_G['uid']) {  //note 他人订阅时
+			updatecreditbyaction('followedcollection', $_G['collection']['uid']); //note 积分奖励
+			notification_add($_G['collection']['uid'], "system", 'collection_befollowed', array('from_id'=>$_G['collection']['ctid'], 'from_idtype'=>'collectionfollow', 'ctid'=>$_G['collection']['ctid'], 'collectionname'=>$_G['collection']['name']), 1); //发送通知
 		}
 
 		showmessage('collection_follow_succ', dreferer(), array('status'=>1), array('closetime' => '2', 'showmsg' => '1'));
 	}
 
 
-} elseif($op == 'unfo') {
+} elseif($op == 'unfo') { //note 取消关注专辑
 	$collectionfollow = C::t('forum_collectionfollow')->fetch_by_ctid_uid($ctid, $_G['uid']);
 	if($collectionfollow['ctid']) {
 		C::t('forum_collectionfollow')->delete_by_ctid_uid($ctid, $_G['uid']);

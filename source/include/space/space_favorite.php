@@ -11,8 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+// 收藏只能查看自己的
 $space = getuserbyuid($_G['uid']);
 
+//分页
 $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
 $id = empty($_GET['id'])?0:intval($_GET['id']);
@@ -21,6 +23,7 @@ $perpage = 20;
 
 $_G['disabledwidthauto'] = 0;
 
+//检查开始数
 $start = ($page-1)*$perpage;
 ckstart($start, $perpage);
 

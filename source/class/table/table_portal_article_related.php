@@ -21,10 +21,20 @@ class table_portal_article_related extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 根据aid或相关aid删除数据
+	 * @param int|array $aid 文章ID
+	 * @param int|array $raid 相关文章ID
+	 */
 	public function delete_by_aid_raid($aid, $raid = null) {
 		return ($aid = dintval($aid, true)) ? DB::delete($this->_table, DB::field('aid', $aid).($raid = dintval($raid) ? ' OR '.DB::field('raid', $raid) : '')) : false;
 	}
 
+	/**
+	 * 批量插入指定AID的相关文章
+	 * @param int $aid 文章ID
+	 * @param array $list 相关文章
+	 */
 	public function insert_batch($aid, $list) {
 		$replaces = array();
 		if(($aid = dintval($aid))) {
@@ -43,6 +53,11 @@ class table_portal_article_related extends discuz_table
 		}
 	}
 
+	/**
+	 * 获取指定文章ID的相关文章
+	 * @param int $aid 文章ID
+	 * @return array
+	 */
 	public function fetch_all_by_aid($aid) {
 		return ($aid = dintval($aid)) ? DB::fetch_all('SELECT * FROM %t WHERE aid=%d ORDER BY displayorder', array($this->_table, $aid), 'raid') : array();
 	}

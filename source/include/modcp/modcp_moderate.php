@@ -11,11 +11,15 @@ if(!defined('IN_DISCUZ') || !defined('IN_MODCP')) {
 	exit('Access Denied');
 }
 
+/**
+ * 审核注册用户
+ */
 
 $modact = empty($_GET['modact']) || !in_array($_GET['modact'] , array('delete', 'ignore', 'validate')) ? 'ignore' : $_GET['modact'];
 
 if($op == 'members') {
 
+	//note Table validating status: 0=Awaiting for moderation; 1=否决的申请; 2=Validated;
 	$filter = isset($_GET['filter']) ? intval($_GET['filter']) : 0;
 	$filtercheck = array('', '', '');
 	$filtercheck[$filter] = 'selected';
@@ -56,15 +60,18 @@ if($op == 'members') {
 
 				$reason = dhtmlspecialchars(trim($_GET['reason']));
 
+				//note 删除申请注册的用户
 				if($_GET['modact'] == 'delete') {
 					C::t('common_member')->delete_no_validate($uids);
 				}
 
+				//note 审核通过的用户
 				if($_GET['modact'] == 'validate') {
 					C::t('common_member')->update($uids, array('adminid' => '0', 'groupid' => $_G['setting']['newusergroupid']));
 					C::t('common_member_validate')->delete($uids);
 				}
 
+				//note 否决用户申请
 				if($_GET['modact'] == 'ignore') {
 					C::t('common_member_validate')->update($uids, array('moddate' => $_G['timestamp'], 'admin' => $_G['username'], 'status' => '1', 'remark' => $reason));
 				}
@@ -177,11 +184,13 @@ $start_limit = ($page - 1) * $tpp;
 $postlist = array();
 $posttableselect = '';
 
+//note 处理提交的审核通过、删除、忽略的主题或者回复请求，id 存入 $moderation 数组
 $modpost = array('validate' => 0, 'delete' => 0, 'ignore' => 0);
 $moderation = array('validate' => array(), 'delete' => array(), 'ignore' => array());
 
 require_once libfile('function/post');
 
+//note 提交审核(悬浮窗口) 以及 提交后的 id 处理
 if(submitcheck('dosubmit', 1) || submitcheck('modsubmit')) {
 
 	$list = array();
@@ -210,10 +219,14 @@ if(submitcheck('dosubmit', 1) || submitcheck('modsubmit')) {
 	}
 }
 
+/**
+ * 帖子审核处理
+ */
 if($op == 'replies') {
 	$posttableid = intval($_GET['posttableid']);
 	$posttable = getposttable($posttableid);
 
+	//post分表的下拉列表
 	$posttableselect = getposttableselect();
 
 	if(submitcheck('modsubmit')) {
@@ -393,6 +406,7 @@ if($op == 'replies') {
 			}
 		}
 
+		//查询附件分表
 		if(!empty($attachtablearr)) {
 			foreach($attachtablearr as $attachtable => $pids) {
 				foreach(C::t('forum_attachment_n')->fetch_all_by_id($attachtable, 'pid', $pids) as $attach) {
@@ -406,6 +420,11 @@ if($op == 'replies') {
 		}
 	}
 
+/**
+ *
+ * 审核主题处理
+ *
+ */
 
 } else {
 
@@ -437,6 +456,7 @@ if($op == 'replies') {
 				}
 			}
 
+			//note 如果所在版块设置了回收站，则不删除，而是进入回收站
 			if($recyclebintids) {
 				$rows = C::t('forum_thread')->update(explode(',', $recyclebintids), array('displayorder' => -1, 'moderated' => 1));
 				updatemodworks('MOD', $rows);
@@ -450,6 +470,7 @@ if($op == 'replies') {
 			updatemoderate('tid', $moderation['delete'], 2);
 		}
 
+		//note 审核通过处理
 		if($validatetids = dimplode($moderation['validate'])) {
 
 			$tids = $moderatedthread = array();
@@ -531,8 +552,10 @@ if($op == 'replies') {
 			$postlist[$thread['tid']] = $thread;
 		}
 
+		//附件分表数组
 		$attachtablearr = array();
 
+		//查询post分表获得首贴内容并处理相关信息
 		foreach($posttablearr as $posttable => $tids) {
 			foreach(C::t('forum_post')->fetch_all_by_tid($posttable, $tids, true, '', 0, 0, 1) as $post) {
 				$thread = $postlist[$post['tid']] + $post;
@@ -560,6 +583,7 @@ if($op == 'replies') {
 			}
 		}
 
+		//查询附件分表
 		if(!empty($attachtablearr)) {
 			require_once libfile('function/attachment');
 			foreach($attachtablearr as $attachtable => $tids) {

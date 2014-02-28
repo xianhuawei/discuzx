@@ -35,22 +35,25 @@ if($_GET['op'] == 'edit') {
 			showmessage('album_name_errors');
 		}
 
+		//隐私
 		$_POST['friend'] = intval($_POST['friend']);
 		$_POST['target_ids'] = '';
 		if($_POST['friend'] == 2) {
+			//特定好友
 			$uids = array();
 			$names = empty($_POST['target_names'])?array():explode(',', preg_replace("/(\s+)/s", ',', $_POST['target_names']));
 			if($names) {
 				$uids = C::t('common_member')->fetch_all_uid_by_username($names);
 			}
 			if(empty($uids)) {
-				$_POST['friend'] = 3;
+				$_POST['friend'] = 3;//仅自己可见
 			} else {
 				$_POST['target_ids'] = implode(',', $uids);
 			}
 		} elseif($_POST['friend'] == 4) {
+			//加密
 			$_POST['password'] = trim($_POST['password']);
-			if($_POST['password'] == '') $_POST['friend'] = 0;
+			if($_POST['password'] == '') $_POST['friend'] = 0;//公开
 		}
 		if($_POST['friend'] !== 2) {
 			$_POST['target_ids'] = '';
@@ -59,6 +62,7 @@ if($_GET['op'] == 'edit') {
 			$_POST['password'] == '';
 		}
 
+		//系统分类
 		$_POST['catid'] = intval($_POST['catid']);
 		if($_POST['catid'] != $album['catid']) {
 			if($album['catid']) {
@@ -91,10 +95,12 @@ if($_GET['op'] == 'edit') {
 		}
 	}
 
+	//好友组
 	require_once libfile('function/friend');
 	$groups = friend_group_list();
 
 	if($_G['setting']['albumcategorystat']) {
+		//系统分类
 		loadcache('albumcategory');
 		$category = $_G['cache']['albumcategory'];
 
@@ -108,11 +114,11 @@ if($_GET['op'] == 'edit') {
 					if(!$value['children']) {
 						continue;
 					}
-					foreach ($value['children'] as $catid) {
+					foreach ($value['children'] as $catid) {// 子分类
 						$selected = $album['catid'] == $catid?' selected':'';
 						$categoryselect .= "<option value=\"{$category[$catid][catid]}\"{$selected}>-- {$category[$catid][catname]}</option>";
 						if($category[$catid]['children']) {
-							foreach ($category[$catid]['children'] as $catid2) {
+							foreach ($category[$catid]['children'] as $catid2) {// 三级分类
 								$selected = $album['catid'] == $catid2?' selected':'';
 								$categoryselect .= "<option value=\"{$category[$catid2][catid]}\"{$selected}>---- {$category[$catid2][catname]}</option>";
 							}
@@ -142,9 +148,11 @@ if($_GET['op'] == 'edit') {
 	if(submitcheck('deletesubmit')) {
 		$_POST['moveto'] = intval($_POST['moveto']);
 		if($_POST['moveto'] < 0) {
+			//彻底删除
 			require_once libfile('function/delete');
 			deletealbums(array($albumid));
 		} else {
+			//转移
 			if($_POST['moveto'] > 0 && $_POST['moveto'] != $albumid && !empty($albums[$_POST['moveto']])) {
 				C::t('home_pic')->update_for_albumid($albumid, array('albumid'=>$_POST['moveto']));
 				album_update_pic($_POST['moveto']);
@@ -191,6 +199,7 @@ if($_GET['op'] == 'edit') {
 			C::t('home_pic')->update($picid, array('title'=>$title, 'status' => $pic_status));
 		}
 		if($_GET['subop'] == 'delete') {
+			//删除
 			if($_POST['ids']) {
 				require_once libfile('function/delete');
 				deletepics($_POST['ids']);
@@ -199,6 +208,8 @@ if($_GET['op'] == 'edit') {
 			}
 
 		} elseif($_GET['subop'] == 'move') {
+			//开始转移
+			//检查相册ID
 			if($_POST['ids']) {
 				$sqluid = $managealbum ? '' : $_G['uid'];
 				$_POST['newalbumid'] = intval($_POST['newalbumid']);
@@ -215,10 +226,12 @@ if($_GET['op'] == 'edit') {
 				if($updatecount) {
 					if($albumid>0) {
 						C::t('home_album')->update_num_by_albumid($albumid, -$updatecount, 'picnum', $sqluid);
+						//更新封面
 						$return = album_update_pic($albumid);
 					}
 					if($_POST['newalbumid']) {
 						C::t('home_album')->update_num_by_albumid($_POST['newalbumid'], $updatecount, 'picnum', $sqluid);
+						//更新封面
 						$return = album_update_pic($_POST['newalbumid']);
 					}
 				}
@@ -238,6 +251,7 @@ if($_GET['op'] == 'edit') {
 	$page = empty($_GET['page'])?0:intval($_GET['page']);
 	if($page<1) $page = 1;
 	$start = ($page-1)*$perpage;
+	//检查开始数
 	ckstart($start, $perpage);
 
 
@@ -268,10 +282,12 @@ if($_GET['op'] == 'edit') {
 
 	$multi = multi($count, $perpage, $page, "home.php?mod=spacecp&ac=album&op=editpic&albumid=$albumid");
 
+	//相册列表
 	$albumlist = getalbums($album['uid']);
 
 } elseif($_GET['op'] == 'setpic') {
 
+	//更新封面图片
 	album_update_pic($albumid, $picid);
 	showmessage('do_success', dreferer(), array('picid' => $picid), array('showmsg' => true, 'closetime' => true));
 
@@ -284,6 +300,7 @@ if($_GET['op'] == 'edit') {
 	}
 
 } elseif($_GET['op'] == 'edithot') {
+	//权限
 	if(!checkperm('managealbum')) {
 		showmessage('no_privilege_edithot_album');
 	}
@@ -295,6 +312,7 @@ if($_GET['op'] == 'edit') {
 	if(submitcheck('hotsubmit')) {
 		$_POST['hot'] = intval($_POST['hot']);
 		C::t('home_pic')->update($picid, array('hot'=>$_POST['hot']));
+		//动态
 		if($_POST['hot'] > 0) {
 			require_once libfile('function/feed');
 			feed_publish($picid, 'picid');

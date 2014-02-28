@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//获取子分类
 function category_remake($catid) {
 	global $_G;
 
@@ -19,8 +20,9 @@ function category_remake($catid) {
 
 	foreach ($_G['cache']['portalcategory'] as $value) {
 		if($value['catid'] == $cat['upid']) {
-			$cat['ups'][$value['catid']] = $value;
+			$cat['ups'][$value['catid']] = $value;//上级分类
 			$upid = $value['catid'];
+			//循环得到低级
 			while(!empty($upid)) {
 				if(!empty($_G['cache']['portalcategory'][$upid]['upid'])) {
 					$upid = $_G['cache']['portalcategory'][$upid]['upid'];
@@ -30,15 +32,17 @@ function category_remake($catid) {
 				}
 			}
 		} elseif($value['upid'] == $cat['catid']) {
-			$cat['subs'][$value['catid']] = $value;
+			$cat['subs'][$value['catid']] = $value;//下级分类
 		} elseif($value['upid'] == $cat['upid']) {
-			$cat['others'][$value['catid']] = $value;
+			$cat['others'][$value['catid']] = $value;//平级分类
 		}
 	}
+	//调整顺序为从顶级到子级
 	if(!empty($cat['ups'])) $cat['ups'] = array_reverse($cat['ups'], TRUE);
 	return $cat;
 }
 
+//得到频道栏目的链接地址
 function getportalcategoryurl($catid) {
 	if(empty($catid)) return '';
 	loadcache('portalcategory');

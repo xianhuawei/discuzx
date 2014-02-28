@@ -7,6 +7,7 @@
  *      $Id: plugin.php 27335 2012-01-16 10:15:37Z monkey $
  */
 
+//定义应用 ID
 define('APPTYPEID', 127);
 define('CURSCRIPT', 'plugin');
 

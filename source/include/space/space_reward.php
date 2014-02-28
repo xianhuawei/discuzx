@@ -19,6 +19,7 @@ $_GET['flag'] = empty($_GET['flag']) ? 0 : intval($_GET['flag']);
 $_GET['fuid'] = empty($_GET['fuid']) ? 0 : intval($_GET['fuid']);
 $opactives['reward'] = 'class="a"';
 
+//默认显示
 $_GET['view'] = in_array($_GET['view'], array('we', 'me', 'all')) ? $_GET['view'] : 'we';
 
 $_GET['order'] = preg_replace("/[^\[A-Za-z0-9_\]]/", '', $_GET['order']);
@@ -59,6 +60,7 @@ if($_GET['view'] == 'me') {
 	space_merge($space, 'field_home');
 	if($space['feedfriend']) {
 		$fuid_actives = array();
+		//查看指定好友的
 		require_once libfile('function/friend');
 		$fuid = intval($_GET['fuid']);
 		if($fuid && friend_check($fuid, $space['uid'])) {
@@ -84,11 +86,13 @@ if($need_count) {
 	if($_GET['view'] != 'me') {
 		$conditions['sticky'] = 0;
 	}
+	//搜索
 	if($searchkey = stripsearchkey($_GET['searchkey'])) {
 		$conditions['keywords'] = $searchkey;
 		$searchkey = dhtmlspecialchars($searchkey);
 	}
 
+	//过滤状态
 	if($_GET['flag'] < 0) {
 		$wheresql .= " AND t.price < '0'";
 		$conditions['pricesless'] = 0;

@@ -11,25 +11,29 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//判断是否能游客开方
 if(!$_G['uid'] && $_G['setting']['privacy']['view']['home']) {
 	showmessage('home_no_privilege', '', array(), array('login' => true));
 }
 require_once libfile('function/feed');
 
+//默认热点天数
 if(empty($_G['setting']['feedhotday'])) {
 	$_G['setting']['feedhotday'] = 2;
 }
 
+//最少热度
 $minhot = $_G['setting']['feedhotmin']<1?3:$_G['setting']['feedhotmin'];
 
 space_merge($space, 'count');
 
+//网站近况
 if(empty($_GET['view'])) {
 	if($space['self']) {
 		if($_G['setting']['showallfriendnum'] && $space['friends'] < $_G['setting']['showallfriendnum']) {
-			$_GET['view'] = 'all';
+			$_GET['view'] = 'all';//默认显示
 		} else {
-			$_GET['view'] = 'we';
+			$_GET['view'] = 'we';//默认显示
 		}
 	} else {
 		$_GET['view'] = 'all';
@@ -41,6 +45,7 @@ if(empty($_GET['order'])) {
 	$_GET['order'] = 'dateline';
 }
 
+//分页
 $perpage = $_G['setting']['feedmaxnum']<20?20:$_G['setting']['feedmaxnum'];
 $perpage = mob_perpage($perpage);
 
@@ -52,8 +57,10 @@ $page = intval($_GET['page']);
 if($page < 1) $page = 1;
 $start = ($page-1)*$perpage;
 
+//检查开始数
 ckstart($start, $perpage);
 
+//今天时间开始线
 $_G['home_today'] = $_G['timestamp'] - ($_G['timestamp'] + $_G['setting']['timeoffset'] * 3600) % 86400;
 
 $gets = array(
@@ -68,8 +75,10 @@ $gets = array(
 );
 $theurl = 'home.php?'.url_implode($gets);
 $hotlist = array();
+//非搜索引擎的时候显示动态信息
 if(!IS_ROBOT) {
 	$feed_users = $feed_list = $user_list = $filter_list  = $list = $magic = array();
+	//取出热点信息
 	if($_GET['view'] != 'app') {
 		if($space['self'] && empty($start) && $_G['setting']['feedhotnum'] > 0 && ($_GET['view'] == 'we' || $_GET['view'] == 'all')) {
 			$hotlist_all = array();
@@ -168,6 +177,7 @@ if(!IS_ROBOT) {
 			$count++;
 		}
 		$multi = simplepage($count, $perpage, $page, $theurl);
+		//feed合并
 		require_once libfile('function/feed');
 
 		$list = array();
@@ -199,6 +209,7 @@ if(!IS_ROBOT) {
 		}
 	}
 
+	//过滤
 	$appid = empty($_GET['appid'])?0:intval($_GET['appid']);
 	$icon = empty($_GET['icon'])?'':trim($_GET['icon']);
 	$gid = !isset($_GET['gid'])?'-1':intval($_GET['gid']);
@@ -316,6 +327,7 @@ if($space['self'] && empty($start)) {
 		$groups = friend_group_list();
 	}
 
+	//是否新人
 	$isnewer = ($_G['timestamp']-$space['regdate'] > 3600*24*7) ?0:1;
 	if($isnewer && $_G['setting']['homestyle']) {
 
@@ -333,16 +345,19 @@ if($space['self'] && empty($start)) {
 		}
 	}
 
+	//通知
 	if($space['newprompt']) {
 		space_merge($space, 'status');
 	}
 
+	//最近访客列表
 	if($_G['setting']['homestyle']) {
 		foreach(C::t('home_visitor')->fetch_all_by_uid($space['uid'], 12) as $value) {
 			$visitorlist[$value['vuid']] = $value;
 			$oluids[] = $value['vuid'];
 		}
 
+		//访客在线
 		if($oluids) {
 			foreach(C::app()->session->fetch_all_by_uid($oluids) as $value) {
 				if(!$value['invisible']) {
@@ -356,6 +371,7 @@ if($space['self'] && empty($start)) {
 		$oluids = array();
 		$olfcount = 0;
 		if($space['feedfriend']) {
+			//在线好友
 			foreach(C::app()->session->fetch_all_by_uid(explode(',', $space['feedfriend']), 15) as $value) {
 				if($olfcount < 15 && !$value['invisible']) {
 					$olfriendlist[$value['uid']] = $value;
@@ -366,6 +382,7 @@ if($space['self'] && empty($start)) {
 			}
 		}
 		if($olfcount < 15) {
+			//我的好友
 			$query = C::t('home_friend')->fetch_all_by_uid($space['uid'], 0, 32, true);
 			foreach($query as $value) {
 				$value['uid'] = $value['fuid'];
@@ -378,6 +395,7 @@ if($space['self'] && empty($start)) {
 			}
 		}
 
+		//好友生日
 		if($space['feedfriend']) {
 			$birthdaycache = C::t('forum_spacecache')->fetch($_G['uid'], 'birthday');
 			if(empty($birthdaycache) || TIMESTAMP > $birthdaycache['expiration']) {
@@ -402,6 +420,7 @@ if($space['self'] && empty($start)) {
 		}
 		if($_G['setting']['magicstatus']) {
 			loadcache('magics');
+			//获取道具
 			if(!empty($_G['cache']['magics'])) {
 				$magic = $_G['cache']['magics'][array_rand($_G['cache']['magics'])];
 				$magic['description'] = cutstr($magic['description'], 34, '');
@@ -409,20 +428,24 @@ if($space['self'] && empty($start)) {
 			}
 		}
 	}
-} elseif(empty($_G['uid'])) {
+} elseif(empty($_G['uid'])) {//note 游客
+	// 系统推荐好友
 	$defaultusers = C::t('home_specialuser')->fetch_all_by_status(1, 12);
 
+	// 竞价排名
 	$query = C::t('home_show')->fetch_all_by_credit(0, 12); //DB::query("SELECT * FROM ".DB::table('home_show')." ORDER BY credit DESC LIMIT 0,12");
 	foreach($query as $value) {
 		$showusers[] = $value;
 	}
 
+	// 最新加入
 	foreach(C::t('common_member')->range(0, 12,'DESC') as $uid => $value) {
 		$value['regdate'] = dgmdate($value['regdate'], 'u', 9999, 'm-d');
 		$newusers[$uid] = $value;
 	}
 }
 
+//设置查看时间
 dsetcookie('home_readfeed', $_G['timestamp'], 365*24*3600);
 if($_G['uid']) {
 	$defaultstr = getdefaultdoing();
@@ -432,6 +455,7 @@ if($_G['uid']) {
 		$space['profileprogress'] = countprofileprogress();
 	}
 }
+//标签激活
 $actives = array($_GET['view'] => ' class="a"');
 if($_GET['from'] == 'space') {
 	if($_GET['do'] == 'home') {

@@ -13,6 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 $pluginkey = 'spacecp'.($op ? '_'.$op : '');
 $navtitle = $_G['setting']['plugins'][$pluginkey][$_GET['id']]['name'];
+//note 过滤插件ID
 $_GET['id'] = $_GET['id'] ? preg_replace("/[^A-Za-z0-9_:]/", '', $_GET['id']) : '';
 include pluginmodule($_GET['id'], $pluginkey);
 if(!$op || $op == 'credit') {

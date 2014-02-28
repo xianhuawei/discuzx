@@ -3,6 +3,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//±íÌ¬·ÖÀà
 loadcache('click');
 $clicks = empty($_G['cache']['click']['blogid'])?array():$_G['cache']['click']['blogid'];
 

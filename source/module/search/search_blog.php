@@ -24,7 +24,7 @@ if($_G['adminid'] != 1 && !($_G['group']['allowsearch'] & 4)) {
 
 $_G['setting']['search']['blog']['searchctrl'] = intval($_G['setting']['search']['blog']['searchctrl']);
 
-$srchmod = 3;
+$srchmod = 3;//note 搜索模块定义，为了分别控制搜索频度
 
 $cachelife_time = 300;		// Life span for cache of searching in specified range of time
 $cachelife_text = 3600;		// Life span for cache of text searching
@@ -37,15 +37,18 @@ $srchtxt = $_GET['srchtxt'];
 
 $keyword = isset($srchtxt) ? dhtmlspecialchars(trim($srchtxt)) : '';
 
+//note 显示搜索
 if(!submitcheck('searchsubmit', 1)) {
 
 	include template('search/blog');
 
 } else {
 
+	//note 排序规则
 	$orderby = in_array($_GET['orderby'], array('dateline', 'replies', 'views')) ? $_GET['orderby'] : 'lastpost';
 	$ascdesc = isset($_GET['ascdesc']) && $_GET['ascdesc'] == 'asc' ? 'asc' : 'desc';
 
+	//note 如果这个关键字已经被刚刚搜索过
 	if(!empty($searchid)) {
 
 		$page = max(1, intval($_GET['page']));
@@ -60,6 +63,7 @@ if(!submitcheck('searchsubmit', 1)) {
 		$keyword = $keyword != '' ? str_replace('+', ' ', $keyword) : '';
 
 		$index['keywords'] = rawurlencode($index['keywords']);
+		//note 日志列表
 		$bloglist = array();
 		$pricount = 0;
 		$blogidarray = explode(',', $index['ids']);
@@ -111,16 +115,19 @@ if(!submitcheck('searchsubmit', 1)) {
 
 			!($_G['group']['exempt'] & 2) && checklowerlimit('search');
 
+			//note 计算查询条件
 			if(!$srchtxt && !$srchuid && !$srchuname) {
 				dheader('Location: search.php?mod=blog');
 			}
 
+			//note 最大查询条数
 			if($_G['adminid'] != '1' && $_G['setting']['search']['blog']['maxspm']) {
 				if(C::t('common_searchindex')->count_by_dateline($_G['timestamp'], $srchmod) >= $_G['setting']['search']['blog']['maxspm']) {
 					showmessage('search_toomany', 'search.php?mod=blog', array('maxspm' => $_G['setting']['search']['blog']['maxspm']));
 				}
 			}
 
+			//note 执行查询
 			$num = $ids = 0;
 			$_G['setting']['search']['blog']['maxsearchresults'] = $_G['setting']['search']['blog']['maxsearchresults'] ? intval($_G['setting']['search']['blog']['maxsearchresults']) : 500;
 			list($srchtxt, $srchtxtsql) = searchkey($keyword, "subject LIKE '%{text}%'", true);
@@ -149,6 +156,7 @@ if(!submitcheck('searchsubmit', 1)) {
 			!($_G['group']['exempt'] & 2) && updatecreditbyaction('search');
 		}
 
+		//note 显示搜索到的结果
 		dheader("location: search.php?mod=blog&searchid=$searchid&searchsubmit=yes&kw=".urlencode($keyword));
 
 	}

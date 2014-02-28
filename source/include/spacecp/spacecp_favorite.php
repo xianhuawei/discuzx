@@ -63,6 +63,7 @@ if($_GET['op'] == 'delete') {
 } else {
 
 
+	//新用户见习
 	cknewuser();
 
 	$type = empty($_GET['type']) ? '' : $_GET['type'];
@@ -141,6 +142,7 @@ if($_GET['op'] == 'delete') {
 			'dateline' => TIMESTAMP
 		);
 		$favid = C::t('home_favorite')->insert($arr, true);
+		//上报消息中心
 		if($_G['setting']['cloud_status']) {
 			$favoriteService = Cloud::loadClass('Service_Client_Favorite');
 			$favoriteService->add($arr['uid'], $favid, $arr['id'], $arr['idtype'], $arr['title'], $arr['description'], TIMESTAMP);

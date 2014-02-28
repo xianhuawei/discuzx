@@ -11,6 +11,17 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * 获取字符串 $bbcode=2 解析img $html=-1 去掉html
+ * @global type $_G
+ * @param string $string 要处理的字符串
+ * @param int $length 长度限制
+ * @param bool $in_slashes 是否已addslashes,默认0
+ * @param bool $out_slashes 是否需要addslashes,默认0
+ * @param int $bbcode 是否支持bbcode,默认0
+ * @param int $html html处理，小于0为去掉html标签，等于0为进行dhtmlspecialchars,1为支持html,默认0
+ * @return string
+ */
 function getstr($string, $length, $in_slashes=0, $out_slashes=0, $bbcode=0, $html=0) {
 	global $_G;
 
@@ -20,16 +31,20 @@ function getstr($string, $length, $in_slashes=0, $out_slashes=0, $bbcode=0, $htm
 		$string = substr($string, 0, $sppos);
 	}
 	if($in_slashes) {
+		//传入的字符有slashes
 		$string = dstripslashes($string);
 	}
 	$string = preg_replace("/\[hide=?\d*\](.*?)\[\/hide\]/is", '', $string);
 	if($html < 0) {
+		//去掉html标签
 		$string = preg_replace("/(\<[^\<]*\>|\r|\n|\s|\[.+?\])/is", ' ', $string);
 	} elseif ($html == 0) {
+		//转换html标签
 		$string = dhtmlspecialchars($string);
 	}
 
 	if($length) {
+		//截取字符串
 		$string = cutstr($string, $length);
 	}
 
@@ -53,6 +68,7 @@ function obclean() {
 	}
 }
 
+//获取目录
 function dreaddir($dir, $extarr=array()) {
 	$dirs = array();
 	if($dh = opendir($dir)) {
@@ -70,6 +86,7 @@ function dreaddir($dir, $extarr=array()) {
 	return $dirs;
 }
 
+//获得当前链接
 function url_implode($gets) {
 	$arr = array();
 	foreach ($gets as $key => $value) {
@@ -80,6 +97,7 @@ function url_implode($gets) {
 	return implode('&', $arr);
 }
 
+//检查start
 function ckstart($start, $perpage) {
 	global $_G;
 
@@ -91,6 +109,7 @@ function ckstart($start, $perpage) {
 }
 
 
+//获取默认app列表
 function get_my_app() {
 	global $_G;
 
@@ -101,6 +120,7 @@ function get_my_app() {
 	}
 }
 
+//获取用户app列表
 function get_my_userapp() {
 	global $_G;
 
@@ -113,10 +133,16 @@ function get_my_userapp() {
 	}
 }
 
+/**
+ * 获取用户空间信息,此函数产品中已经不在使用，请使用getuserbyuid($uid)代替
+ * @param int $uid
+ * @return array
+ */
 function getspace($uid) {
 	return getuserbyuid($uid);
 }
 
+//检查隐私
 function ckprivacy($key, $privace_type) {
 	global $_G, $space;
 
@@ -124,6 +150,7 @@ function ckprivacy($key, $privace_type) {
 	if(isset($_G[$var])) {
 		return $_G[$var];
 	}
+	//扩展
 	space_merge($space, 'field_home');
 	$result = false;
 	if($_G['adminid'] == 1) {
@@ -134,24 +161,28 @@ function ckprivacy($key, $privace_type) {
 				$result = true;
 			}
 		} elseif($space['self']){
+			//自己
 			$result = true;
 		} else {
 			if(empty($space['privacy'][$privace_type][$key])) {
 				$result = true;
 			} elseif ($space['privacy'][$privace_type][$key] == 1) {
+				//是否好友
 				include_once libfile('function/friend');
 				if(friend_check($space['uid'])) {
 					$result = true;
 				}
 			} elseif ($space['privacy'][$privace_type][$key] == 3) {
+				//是否、禁止发言、禁止访问、禁止 IP、游客禁止访问
 				$result = in_array($_G['groupid'], array(4, 5, 6, 7)) ? false : true;
 			}
 		}
 	}
-	$_G[$var] = $result;
+	$_G[$var] = $result;//当前页面缓存
 	return $result;
 }
 
+//检查APP隐私
 function app_ckprivacy($privacy) {
 	global $_G, $space;
 
@@ -161,25 +192,25 @@ function app_ckprivacy($privacy) {
 	}
 	$result = false;
 	switch ($privacy) {
-		case 0:
+		case 0://note 公开
 			$result = true;
 			break;
-		case 1:
+		case 1://note 好友
 			include_once libfile('function/friend');
 			if(friend_check($space['uid'])) {
 				$result = true;
 			}
 			break;
-		case 2:
+		case 2://note 部分好友
 			break;
-		case 3:
+		case 3://note 自己
 			if($space['self']) {
 				$result = true;
 			}
 			break;
-		case 4:
+		case 4://note 加密
 			break;
-		case 5:
+		case 5://note 没有人
 			break;
 		default:
 			$result = true;
@@ -189,6 +220,7 @@ function app_ckprivacy($privacy) {
 	return $result;
 }
 
+//格式化大小函数
 function formatsize($size) {
 	$prec=3;
 	$size = round(abs($size));
@@ -201,35 +233,36 @@ function formatsize($size) {
 	return $size.$units[$unit];
 }
 
+//检查隐私权限
 function ckfriend($touid, $friend, $target_ids='') {
 	global $_G;
 
-	if(empty($_G['uid'])) return $friend?false:true;
-	if($touid == $_G['uid'] || $_G['adminid'] == 1) return true;
+	if(empty($_G['uid'])) return $friend?false:true;//游客
+	if($touid == $_G['uid'] || $_G['adminid'] == 1) return true;//自己
 
 	$var = 'home_ckfriend_'.md5($touid.'_'.$friend.'_'.$target_ids);
 	if(isset($_G[$var])) return $_G[$var];
 
 	$_G[$var] = false;
 	switch ($friend) {
-		case 0:
+		case 0://note 全站用户可见
 			$_G[$var] = true;
 			break;
-		case 1:
+		case 1://note 全好友可见
 			include_once libfile('function/friend');
 			if(friend_check($touid)) {
 				$_G[$var] = true;
 			}
 			break;
-		case 2:
+		case 2://note 仅指定好友可见
 			if($target_ids) {
 				$target_ids = explode(',', $target_ids);
 				if(in_array($_G['uid'], $target_ids)) $_G[$var] = true;
 			}
 			break;
-		case 3:
+		case 3://note 仅自己可见
 			break;
-		case 4:
+		case 4://note 凭密码查看
 			$_G[$var] = true;
 			break;
 		default:
@@ -237,6 +270,11 @@ function ckfriend($touid, $friend, $target_ids='') {
 	}
 	return $_G[$var];
 }
+/**
+ * 检查我与当前人是否存在关注关系
+ * @param int $followuid:关注者Uid
+ * @return boolean
+ */
 function ckfollow($followuid) {
 	global $_G;
 
@@ -252,7 +290,7 @@ function ckfollow($followuid) {
 	}
 	return $_G[$var];
 }
-
+//截取链接
 function sub_url($url, $length) {
 	if(strlen($url) > $length) {
 		$url = str_replace(array('%3A', '%2F'), array(':', '/'), rawurlencode($url));
@@ -261,6 +299,7 @@ function sub_url($url, $length) {
 	return $url;
 }
 
+//获得用户URL
 function space_domain($space) {
 	global $_G;
 
@@ -278,11 +317,13 @@ function space_domain($space) {
 	return $space['domainurl'];
 }
 
+//获得用户组名
 function g_name($groupid) {
 	global $_G;
 	echo $_G['cache']['usergroups'][$groupid]['grouptitle'];
 }
 
+//获得用户颜色
 function g_color($groupid) {
 	global $_G;
 	if(empty($_G['cache']['usergroups'][$groupid]['color'])) {
@@ -292,6 +333,7 @@ function g_color($groupid) {
 	}
 }
 
+//自定义分页
 function mob_perpage($perpage) {
 	global $_G;
 
@@ -302,6 +344,7 @@ function mob_perpage($perpage) {
 	return $perpage;
 }
 
+//feed筛选
 function ckicon_uid($feed) {
 	global $_G, $space;
 
@@ -313,6 +356,7 @@ function ckicon_uid($feed) {
 	return true;
 }
 
+//取数组中的随机个
 function sarray_rand($arr, $num=1) {
 	$r_values = array();
 	if($arr && count($arr) > $num) {
@@ -331,6 +375,7 @@ function sarray_rand($arr, $num=1) {
 	return $r_values;
 }
 
+//推荐礼物
 function my_showgift() {
 	global $_G, $space;
 	if($_G['setting']['my_showgift'] && $_G['my_userapp'][$_G['home_gift_appid']]) {
@@ -338,11 +383,13 @@ function my_showgift() {
 	}
 }
 
+//获得站点地址
 function getsiteurl() {
 	global $_G;
 	return $_G['siteurl'];
 }
 
+//获得本地上传图片连接
 function pic_get($filepath, $type, $thumb, $remote, $return_thumb=1, $hastype = '') {
 	global $_G;
 
@@ -356,6 +403,7 @@ function pic_get($filepath, $type, $thumb, $remote, $return_thumb=1, $hastype = 
 	return ($remote?$_G['setting']['ftp']['attachurl']:$_G['setting']['attachurl']).$type.$url;
 }
 
+//获得封面图片链接
 function pic_cover_get($pic, $picflag) {
 	global $_G;
 
@@ -364,16 +412,17 @@ function pic_cover_get($pic, $picflag) {
 		$picflag = $picflag - 2;
 		$type = 'forum';
 	}
-	if($picflag == 1) {
+	if($picflag == 1) {//本地
 		$url = $_G['setting']['attachurl'].$type.'/'.$pic;
-	} elseif ($picflag == 2) {
+	} elseif ($picflag == 2) {//远程
 		$url = $_G['setting']['ftp']['attachurl'].$type.'/'.$pic;
-	} else {
+	} else {//网络
 		$url = $pic;
 	}
 	return $url;
 }
 
+//删除上传的文件
 function pic_delete($pic, $type, $thumb, $remote) {
 	global $_G;
 
@@ -383,6 +432,7 @@ function pic_delete($pic, $type, $thumb, $remote) {
 		return true;
 	}
 
+	//远程
 	if($remote) {
 		ftpcmd('delete', $type.'/'.$pic);
 		if($thumb) {
@@ -398,7 +448,9 @@ function pic_delete($pic, $type, $thumb, $remote) {
 	return true;
 }
 
+//图片上传
 function pic_upload($FILES, $type='album', $thumb_width=0, $thumb_height=0, $thumb_type=2) {
+	//上传图片
 	$upload = new discuz_upload();
 
 	$result = array('pic'=>'', 'thumb'=>0, 'remote'=>0);
@@ -408,6 +460,7 @@ function pic_upload($FILES, $type='album', $thumb_width=0, $thumb_height=0, $thu
 		return array();
 	}
 
+	//本地上传
 	$upload->save();
 	if($upload->error()) {
 		return array();
@@ -415,6 +468,7 @@ function pic_upload($FILES, $type='album', $thumb_width=0, $thumb_height=0, $thu
 
 	$result['pic'] = $upload->attach['attachment'];
 
+	//缩略图
 	if($thumb_width && $thumb_height) {
 		require_once libfile('class/image');
 		$image = new image();
@@ -423,6 +477,7 @@ function pic_upload($FILES, $type='album', $thumb_width=0, $thumb_height=0, $thu
 		}
 	}
 
+	//远程上传
 	if(getglobal('setting/ftp/on')) {
 		if(ftpcmd('upload', $type.'/'.$upload->attach['attachment'])) {
 			if($result['thumb']) {
@@ -431,7 +486,7 @@ function pic_upload($FILES, $type='album', $thumb_width=0, $thumb_height=0, $thu
 			ftpcmd('close');
 			$result['remote'] = 1;
 		} else {
-			if(getglobal('setting/ftp/mirror')) {
+			if(getglobal('setting/ftp/mirror')) {//只能上传远程
 				@unlink($upload->attach['target']);
 				@unlink(getimgthumbname($upload->attach['target']));
 				return array();
@@ -442,6 +497,7 @@ function pic_upload($FILES, $type='album', $thumb_width=0, $thumb_height=0, $thu
 	return $result;
 }
 
+//更新用户统计数据
 function member_count_update($uid, $counts) {
 	global $_G;
 
@@ -464,6 +520,11 @@ function member_count_update($uid, $counts) {
 }
 
 
+
+/**
+ *
+ * 获取系统设置的默认记录提示内容
+ */
 function getdefaultdoing() {
 	global $_G;
 
@@ -479,6 +540,7 @@ function getdefaultdoing() {
 	return $_G['setting']['defaultdoing'][$key];
 }
 
+//用户空间的属性数据
 function getuserdiydata($space) {
 	global $_G;
 	if(empty($_G['blockposition'])) {
@@ -501,6 +563,7 @@ function getuserdiydata($space) {
 }
 
 
+//默认自定义数据
 function getuserdefaultdiy() {
 	$defaultdiy = array(
 			'currentlayout' => '1:2:1',
@@ -551,9 +614,11 @@ function getuserdefaultdiy() {
 	return $defaultdiy;
 }
 
+//在线会员列表
 function getonlinemember($uids) {
 	global $_G;
 	if ($uids && is_array($uids) && empty($_G['ols'])) {
+		//在线状态
 		$_G['ols'] = array();
 		foreach(C::app()->session->fetch_all_by_uid($uids) as $value) {
 			if(!$value['invisible']) {
@@ -571,6 +636,7 @@ function getfollowfeed($uid, $viewtype, $archiver = false, $start = 0, $perpage 
 	} else {
 		if($viewtype == 'follow') {
 			$list['user'] = C::t('home_follow')->fetch_all_following_by_uid($uid);
+			//包括自已的内容
 			$list['user'][$uid] = array('uid' => $uid);
 		} elseif($viewtype == 'special') {
 			$list['user'] = C::t('home_follow')->fetch_all_following_by_uid($uid, 1);
@@ -584,6 +650,7 @@ function getfollowfeed($uid, $viewtype, $archiver = false, $start = 0, $perpage 
 		$list['feed'] = C::t('home_follow_feed')->fetch_all_by_uid($uids, $archiver, $start, $perpage);
 		if($list['feed']) {
 			$list['content'] = C::t('forum_threadpreview')->fetch_all(C::t('home_follow_feed')->get_tids());
+			//如果没有权限查看图片则清空图片附件
 			if(!$_G['group']['allowgetattach'] || !$_G['group']['allowgetimage']) {
 				foreach($list['content'] as $key => $feed) {
 					if(!$_G['group']['allowgetimage']) {
@@ -606,6 +673,7 @@ function getthread() {
 		if($idtype == 'thread') {
 			$threads = C::t('forum_thread')->fetch_all_by_tid($ids);
 		}
+		//TODO 新增类型时可以直接写在这下面
 	}
 	return $threads;
 }

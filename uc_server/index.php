@@ -10,6 +10,7 @@
 error_reporting(0);
 set_magic_quotes_runtime(0);
 
+// 开始时间
 $mtime = explode(' ', microtime());
 $starttime = $mtime[1] + $mtime[0];
 
@@ -20,6 +21,7 @@ define('UC_DATADIR', UC_ROOT.'data/');
 define('UC_DATAURL', UC_API.'/data');
 define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
 
+// 清除变量
 unset($GLOBALS, $_ENV, $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS, $HTTP_SERVER_VARS, $HTTP_ENV_VARS);
 
 $_GET		= daddslashes($_GET, 1, TRUE);
@@ -43,6 +45,7 @@ if(empty($m) && empty($a)) {
 
 define('RELEASE_ROOT', '');
 
+// 版本兼容处理
 if(file_exists(UC_ROOT.RELEASE_ROOT.'model/base.php')) {
 	require UC_ROOT.RELEASE_ROOT.'model/base.php';
 } else {
@@ -51,6 +54,7 @@ if(file_exists(UC_ROOT.RELEASE_ROOT.'model/base.php')) {
 
 if(in_array($m, array('app', 'frame', 'user', 'pm', 'pm_client', 'tag', 'feed', 'friend', 'domain', 'credit', 'mail', 'version'))) {
 
+	// 版本兼容处理
 	if(file_exists(UC_ROOT.RELEASE_ROOT."control/$m.php")) {
 		include UC_ROOT.RELEASE_ROOT."control/$m.php";
 	} else {
@@ -59,6 +63,7 @@ if(in_array($m, array('app', 'frame', 'user', 'pm', 'pm_client', 'tag', 'feed', 
 
 	$classname = $m.'control';
 	$control = new $classname();
+	// 不允许访问私有方法
 	$method = 'on'.$a;
 	if(method_exists($control, $method) && $a{0} != '_') {
 		$data = $control->$method();
@@ -78,6 +83,7 @@ if(in_array($m, array('app', 'frame', 'user', 'pm', 'pm_client', 'tag', 'feed', 
 
 }
 
+// 结束时间
 $mtime = explode(' ', microtime());
 $endtime = $mtime[1] + $mtime[0];
 

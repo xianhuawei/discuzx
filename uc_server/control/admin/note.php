@@ -27,6 +27,12 @@ class control extends adminbase {
 		$this->load('note');
 		$this->apps = $this->cache['apps'];
 
+		/** note
+		 * 1. 操作的名称，如：删除用户，测试连通，删除好友，取TAG数据，更新客户端缓存
+		 * 2. 调用的应用的接口参数，拼接规则为 APP_URL/api/uc.php?action=test&ids=1,2,3
+		 * 3. 回调的模块名称
+		 * 4. 回调的模块方法（$appid, $content）
+		 */
 		$this->operations = array(
 			'test'=>array('', 'action=test'),
 			'deleteuser'=>array('', 'action=deleteuser'),
@@ -45,6 +51,7 @@ class control extends adminbase {
 		$this->check_priv();
 	}
 
+	// public 通知列表
 	function onls() {
 		$page = getgpc('page');
 		$delete = getgpc('delete', 'P');

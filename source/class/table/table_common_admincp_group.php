@@ -21,6 +21,11 @@ class table_common_admincp_group extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 根据管理组名称获取数据
+	 * @param string $name 管理组名称
+	 * @return array
+	 */
 	public function fetch_by_cpgroupname($name) {
 		return $name ? DB::fetch_first('SELECT * FROM %t WHERE cpgroupname=%s', array($this->_table, $name)) : null;
 	}

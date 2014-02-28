@@ -46,14 +46,38 @@ class table_common_moderate extends discuz_table
 		return in_array($this->_get_table($idtype), array('portal_comment_moderate', 'home_comment_moderate'));
 	}
 
+	/**
+	 *
+	 * 根据$idtype统计有多少条审核
+	 * @param string $idtype: idtype类型
+	 * @param integer $status: 状态: 0: 审核中;1:已忽略;
+	 * @param integer $dateline: 从某个时间开始统计
+	 * @return 返回相应的审核数
+	 */
 	public function count_by_idtype($idtype, $status = 0, $dateline = 0) {
 		return $this->query_data(1, $idtype, $status, $dateline);
 	}
 
+	/**
+	 *
+	 * 根据$idtype统计有多少条审核
+	 * @param string $idtype: idtype类型
+	 * @param integer $status: 状态: 0: 审核中;1:已忽略;
+	 * @param integer $dateline: 从某个时间开始统计
+	 * @return 返回相应的审核记录
+	 */
 	public function fetch_all_by_idtype($idtype, $status = 0, $dateline = 0) {
 		return $this->query_data(0, $idtype, $status, $dateline);
 	}
 
+	/**
+	 *
+	 * 根据$idtype获取审核数或审核记录数
+	 * @param integer $type: 结果集类型0: 获取审核记录; 1: 获取审核记录数
+	 * @param string $idtype: idtype类型
+	 * @param integer $status: 状态: 0: 审核中;1:已忽略;
+	 * @param integer $dateline: 从某个时间开始统计
+	 */
 	private function query_data($type, $idtype, $status = 0, $dateline = 0) {
 		if(!isset($this->_tables[$idtype])) {
 			return $type ? 0 : array();

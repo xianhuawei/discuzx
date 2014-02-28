@@ -43,8 +43,10 @@ if(!$_G['uid'] && ($_G['setting']['need_avatar'] || $_G['setting']['need_email']
 	showmessage('postperm_login_nopermission', NULL, array(), array('login' => 1));
 }
 
+//note 检查积分
 checklowerlimit('post', 0, 1, $_G['forum']['fid']);
 
+//note 没有提交数据, 显示表单
 if(!submitcheck('topicsubmit', 0, $seccodecheck, $secqaacheck)) {
 
 	$st_t = $_G['uid'].'|'.TIMESTAMP;
@@ -138,6 +140,7 @@ if(!submitcheck('topicsubmit', 0, $seccodecheck, $secqaacheck)) {
 
 	getgpc('infloat') ? include template('forum/post_infloat') : include template('forum/post');
 
+//note 处理发送过来的post数据
 } else {
 	if($_GET['mygroupid']) {
 		$mygroupid = explode('__', $_GET['mygroupid']);

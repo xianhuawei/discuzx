@@ -25,7 +25,7 @@ if($_G['adminid'] != 1 && !($_G['group']['allowsearch'] & 16)) {
 
 $_G['setting']['search']['group']['searchctrl'] = intval($_G['setting']['search']['group']['searchctrl']);
 
-$srchmod = 5;
+$srchmod = 5;//note 搜索模块定义，为了分别控制搜索频度
 
 $cachelife_time = 300;		// Life span for cache of searching in specified range of time
 $cachelife_text = 3600;		// Life span for cache of text searching
@@ -38,15 +38,18 @@ $srchfid = intval($_GET['srchfid']);
 $viewgroup = intval($_GET['viewgroup']);
 $keyword = isset($srchtxt) ? dhtmlspecialchars(trim($srchtxt)) : '';
 
+//note 显示搜索
 if(!submitcheck('searchsubmit', 1)) {
 
 	include template('search/group');
 
 } else {
 
+	//note 排序规则
 	$orderby = in_array($_GET['orderby'], array('dateline', 'replies', 'views')) ? $_GET['orderby'] : 'lastpost';
 	$ascdesc = isset($_GET['ascdesc']) && $_GET['ascdesc'] == 'asc' ? 'asc' : 'desc';
 
+	//note 如果这个关键字已经被刚刚搜索过
 	if(!empty($searchid)) {
 
 		require_once libfile('function/group');
@@ -67,6 +70,7 @@ if(!submitcheck('searchsubmit', 1)) {
 		$searchstring = explode('|', $index['searchstring']);
 		$srchfid = $searchstring[2];
 		$threadlist = $grouplist = $posttables = array();
+		//取帖子
 		if($index['ids']['thread'] && ($searchstring[2] || empty($viewgroup))) {
 			require_once libfile('function/misc');
 			$threads = C::t('forum_thread')->fetch_all_by_tid_fid_displayorder(explode(',', $index['ids']['thread']), null, 0, $orderby, $start_limit, $_G['tpp'], '>=', $ascdesc);
@@ -89,9 +93,10 @@ if(!submitcheck('searchsubmit', 1)) {
 				}
 			}
 		}
+		//取群组
 		$groupnum = !empty($index['ids']['group']) ? count(explode(',', $index['ids']['group'])) - 1 : 0;
 		if($index['ids']['group'] && ($viewgroup || empty($searchstring[2]))) {
-			if(empty($viewgroup)) {
+			if(empty($viewgroup)) {//note 不查看所有群组时只显示8个在帖子上面
 				$index['ids']['group'] = implode(',', array_slice(explode(',', $index['ids']['group']), 0, 9));
 			}
 			if($viewgroup) {
@@ -108,7 +113,7 @@ if(!submitcheck('searchsubmit', 1)) {
 				$grouplist[] = $group;
 			}
 		}
-		if(empty($viewgroup)) {
+		if(empty($viewgroup)) {//note 不查看所有群组时只显示8个在帖子上面
 			$multipage = multi($index['num'], $_G['tpp'], $page, "search.php?mod=group&searchid=$searchid&orderby=$orderby&ascdesc=$ascdesc&searchsubmit=yes".($viewgroup ? '&viewgroup=1' : ''));
 		} else {
 			$multipage = multi($groupnum, $_G['tpp'], $page, "search.php?mod=group&searchid=$searchid&orderby=$orderby&ascdesc=$ascdesc&searchsubmit=yes".($viewgroup ? '&viewgroup=1' : ''));
@@ -142,20 +147,24 @@ if(!submitcheck('searchsubmit', 1)) {
 
 			!($_G['group']['exempt'] & 2) && checklowerlimit('search');
 
+			//note 计算查询条件
 			if(!$srchtxt && !$srchuid && !$srchuname) {
 				dheader('Location: search.php?mod=group');
 			}
 
+			//note 最大查询条数
 			if($_G['adminid'] != '1' && $_G['setting']['search']['group']['maxspm']) {
 				if(C::t('common_searchindex')->count_by_dateline($_G['timestamp'], $srchmod) >= $_G['setting']['search']['group']['maxspm']) {
 					showmessage('search_toomany', 'search.php?mod=group', array('maxspm' => $_G['setting']['search']['group']['maxspm']));
 				}
 			}
 
+			//note 执行查询
 			$num = $ids = $tnum = $tids = 0;
 			$_G['setting']['search']['group']['maxsearchresults'] = $_G['setting']['search']['group']['maxsearchresults'] ? intval($_G['setting']['search']['group']['maxsearchresults']) : 500;
 			list($srchtxt, $srchtxtsql) = searchkey($keyword, "subject LIKE '%{text}%'", true);
 
+			//note 搜索群组内的帖子
 			$threads = C::t('forum_thread')->fetch_all_by_tid_fid(0, $srchfid, 1, '', $keyword, $_G['setting']['search']['group']['maxsearchresults']);
 			foreach($threads as $value) {
 				$fids[$value['fid']] = $value['fid'];
@@ -168,7 +177,7 @@ if(!submitcheck('searchsubmit', 1)) {
 				}
 			}
 
-			if(!$srchfid) {
+			if(!$srchfid) {//note 搜索群组
 				$srchtxtsql = str_replace('subject LIKE', 'name LIKE', $srchtxtsql);
 				$query = C::t('forum_forum')->fetch_all_fid_for_group(0, $_G['setting']['search']['group']['maxsearchresults'], 1, $srchtxtsql);
 				foreach($query as $group) {
@@ -180,6 +189,7 @@ if(!submitcheck('searchsubmit', 1)) {
 			$keywords = str_replace('%', '+', $srchtxt);
 			$expiration = TIMESTAMP + $cachelife_text;
 
+			//note 插入新的搜索缓存
 			$searchid = C::t('common_searchindex')->insert(array(
 				'srchmod' => $srchmod,
 				'keywords' => $keywords,
@@ -195,6 +205,7 @@ if(!submitcheck('searchsubmit', 1)) {
 			!($_G['group']['exempt'] & 2) && updatecreditbyaction('search');
 		}
 
+		//note 显示搜索到的结果
 		dheader("location: search.php?mod=group&searchid=$searchid&searchsubmit=yes&kw=".urlencode($keyword));
 
 	}

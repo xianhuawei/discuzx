@@ -33,6 +33,10 @@ function dunlink($attach) {
 	}
 }
 
+/**
+权限表达式
+* @param $formula - 权限表达式
+*/
 function formulaperm($formula) {
 	global $_G;
 	if($_G['forum']['ismoderator']) {
@@ -170,6 +174,11 @@ function formulaperm($formula) {
 	return TRUE;
 }
 
+/**
+勋章权限表达式
+* @param $formula - 勋章权限表达式
+* @param $type - 1 权限验证 2 勋章字串
+*/
 function medalformulaperm($formula, $type) {
 	global $_G;
 
@@ -271,6 +280,11 @@ function medalformulaperm($formula, $type) {
 	return TRUE;
 }
 
+/**
+* vip用户购买组权限是否到期
+* @param $terms 期限 来源于 memberfields 表的 groupterms 字段
+* @return 返回过期信息
+*/
 function groupexpiry($terms) {
 	$terms = is_array($terms) ? $terms : dunserialize($terms);
 	$groupexpiry = isset($terms['main']['time']) ? intval($terms['main']['time']) : 0;
@@ -284,6 +298,11 @@ function groupexpiry($terms) {
 	return $groupexpiry;
 }
 
+/**
+* 显示主题分类
+* @param $curtypeid - 当前被选择的类型id
+* @return 返回的HTML数据
+*/
 
 function typeselect($curtypeid = 0) {
 	global $_G;
@@ -299,6 +318,11 @@ function typeselect($curtypeid = 0) {
 	}
 }
 
+/**
+* 更新管理者状态
+* @param $modacton - 动作
+* @param $smcols - 执行次数
+*/
 function updatemodworks($modaction, $posts = 1) {
 	global $_G;
 	$today = dgmdate(TIMESTAMP, 'Y-m-d');
@@ -316,6 +340,14 @@ function updatemodworks($modaction, $posts = 1) {
 	}
 }
 
+/**
+ * 格式化一个sql语句，通常用于update操作
+ *
+ * @param string $fieldname 字段名称
+ * @param int $position 位置
+ * @param int $value 数值 0|1
+ * @return string
+ */
 function buildbitsql($fieldname, $position, $value) {
 	$t = " `$fieldname`=`$fieldname`";
 	if($value) {
@@ -397,6 +429,10 @@ function showmessagenoperm($type, $fid, $formula = '') {
 	showmessage($message, NULL, array('fid' => $fid, 'permgroups' => $permgroups, 'grouptitle' => $_G['group']['grouptitle']), array('login' => 1), $custom);
 }
 
+/**
+ * 依据 tid 或者 fid ,自动取得 $_G['forum'] 或 $_G['thread'] 数据
+ * @global <type>
+ */
 function loadforum($fid = null, $tid = null) {
 	global $_G;
 	$tid = intval(isset($tid) ? $tid : getgpc('tid'));
@@ -423,6 +459,7 @@ function loadforum($fid = null, $tid = null) {
 	if(defined('IN_ARCHIVER') && $_G['setting']['archiverredirect'] && !IS_ROBOT) {
 		dheader('location: ../forum.php'.($_G['mod'] ? '?mod='.$_G['mod'].(!empty($_GET['fid']) ? '&fid='.$_GET['fid'] : (!empty($_GET['tid']) ? '&tid='.$_GET['tid'] : '')) : ''));
 	}
+	//note 图片列表模式
 	if($_G['setting']['forumpicstyle']) {
 		$_G['setting']['forumpicstyle'] = dunserialize($_G['setting']['forumpicstyle']);
 		empty($_G['setting']['forumpicstyle']['thumbwidth']) && $_G['setting']['forumpicstyle']['thumbwidth'] = 203;
@@ -442,6 +479,10 @@ function loadforum($fid = null, $tid = null) {
 
 	if(!empty($tid) || !empty($fid)) {
 
+		/**
+		 * 判断当前 tid 是否合法, 并取得 thread 数据, 支持分表
+		 * thread 数据存放于 $_G['thread']
+		 */
 		if(!empty ($tid)) {
 			$archiveid = !empty($_GET['archiveid']) ? intval($_GET['archiveid']) : null;
 			$_G['thread'] = get_thread_by_tid($tid, $archiveid);
@@ -451,6 +492,7 @@ function loadforum($fid = null, $tid = null) {
 				$_G['thread'] = null;
 			}
 
+			//todo 此赋值是为了兼容某些旧程序, 逐渐废除 $_G['forum_thread']
 			$_G['forum_thread'] = & $_G['thread'];
 
 			if(empty($_G['thread'])) {
@@ -485,6 +527,7 @@ function loadforum($fid = null, $tid = null) {
 			$fid = $forum['fid'];
 			$gorup_admingroupids = $_G['setting']['group_admingroupids'] ? dunserialize($_G['setting']['group_admingroupids']) : array('1' => '1');
 
+			//note 如果用户是群主给与管理权限
 			if($forum['status'] == 3) {
 				if(!empty($forum['moderators'])) {
 					$forum['moderators'] = dunserialize($forum['moderators']);
@@ -497,7 +540,7 @@ function loadforum($fid = null, $tid = null) {
 					$_G['adminid'] = 0;
 					if($forum['ismoderator'] || $gorup_admingroupids[$_G['groupid']]) {
 						$_G['adminid'] = $_G['adminid'] ? $_G['adminid'] : 3;
-						if(!empty($gorup_admingroupids[$_G['groupid']])) {
+						if(!empty($gorup_admingroupids[$_G['groupid']])) { //note 群组管理组　可以编辑群主和群组成员的帖子
 							$forum['ismoderator'] = 1;
 							$_G['adminid'] = 2;
 						}
@@ -505,6 +548,7 @@ function loadforum($fid = null, $tid = null) {
 						$group_userperm = dunserialize($_G['setting']['group_userperm']);
 						if(is_array($group_userperm)) {
 							$_G['group'] = array_merge($_G['group'], $group_userperm);
+							//note 群组主题不能移动、复制、编辑分类
 							$_G['group']['allowmovethread'] = $_G['group']['allowcopythread'] = $_G['group']['allowedittypethread']= 0;
 						}
 					}
@@ -537,6 +581,7 @@ function loadforum($fid = null, $tid = null) {
 					}
 				}
 
+				//note 将群组的帖子设置覆盖到forum
 				$group_postpolicy = $grouplevel['postpolicy'];
 				if(is_array($group_postpolicy)) {
 					$forum = array_merge($forum, $group_postpolicy);
@@ -548,6 +593,7 @@ function loadforum($fid = null, $tid = null) {
 					} else {
 						$groupuserinfo = C::t('forum_groupuser')->fetch_userinfo($_G['uid'], $fid);
 						$_G['isgroupuser'] = $groupuserinfo['level'];
+						//note 非本群组成员不允许评分、评价、发布点评
 						if($_G['isgroupuser'] <= 0 && empty($forum['ismoderator'])) {
 							$_G['group']['allowrecommend'] = $_G['cache']['usergroup_'.$_G['groupid']]['allowrecommend'] = 0;
 							$_G['group']['allowcommentpost'] = $_G['cache']['usergroup_'.$_G['groupid']]['allowcommentpost'] = 0;
@@ -578,6 +624,12 @@ function loadforum($fid = null, $tid = null) {
 	}
 }
 
+/**
+ *
+ * @param <type> $tid 主题id
+ * @param <type> $forcetableid 是否强制只从某个分表中取得 thread, 默认 null
+ * @return array 当有合法数值返回的时候, 将自动追加2个key值threadtable, posttable 记录此主题使用的分表名称
+ */
 function get_thread_by_tid($tid, $forcetableid = null) {
 	global $_G;
 
@@ -585,6 +637,7 @@ function get_thread_by_tid($tid, $forcetableid = null) {
 	if(!is_numeric($tid)) {
 		return $ret;
 	}
+	//获得 thread 分表信息
 	loadcache('threadtableids');
 	$threadtableids = array(0);
 	if(!empty($_G['cache']['threadtableids'])) {
@@ -595,9 +648,11 @@ function get_thread_by_tid($tid, $forcetableid = null) {
 		}
 	}
 	$threadtableids = array_unique($threadtableids);
+	//查找主题
 	foreach($threadtableids as $tableid) {
 		$tableid = $tableid > 0 ? $tableid : 0;
 		$ret = C::t('forum_thread')->fetch($tid, $tableid);
+		//找到主题, 追加两个元素到数组中, 分别记录当前主题所在的thread分表名,以及此主题的帖子所在的post分表名
 		if($ret) {
 			$ret['threadtable'] = C::t('forum_thread')->get_table_name($tableid);
 			$ret['threadtableid'] = $tableid;
@@ -606,9 +661,11 @@ function get_thread_by_tid($tid, $forcetableid = null) {
 		}
 	}
 
+	//没有找到主题,则返回空数组
 	if(!is_array($ret)) {
 		$ret = array();
 	} elseif($_G['setting']['optimizeviews']) {
+		//处理未被更新的查看数
 		if(($row = C::t('forum_threadaddviews')->fetch($tid))) {
 			$ret['addviews'] = intval($row['addviews']);
 			$ret['views'] += $ret['addviews'];
@@ -618,6 +675,15 @@ function get_thread_by_tid($tid, $forcetableid = null) {
 	return $ret;
 }
 
+/**
+ * 依据 pid 和 其他条件,从某个post数据表中取回post信息
+ * @global <type> $_G
+ * @param <type> $pid 帖子id
+ * @param <type> $fields 帖子表字段,默认 *
+ * @param <type> $addcondiction 其他条件,默认 空
+ * @param <type> $forcetable 是否强制使用某个分表, 支持: 使用id: 0 1 2 或者 p(主表), a(副表) 或者直接制定表名 forum_post_1
+ * @return array
+ */
 function get_post_by_pid($pid, $fields = '*', $addcondiction = '', $forcetable = null) {
 	global $_G;
 
@@ -628,6 +694,7 @@ function get_post_by_pid($pid, $fields = '*', $addcondiction = '', $forcetable =
 
 	loadcache('posttable_info');
 
+	//确定需要搜索的分表
 	$posttableids = array(0);
 	if($_G['cache']['posttable_info']) {
 		if(isset($forcetable)) {
@@ -641,6 +708,7 @@ function get_post_by_pid($pid, $fields = '*', $addcondiction = '', $forcetable =
 		}
 	}
 
+	//在各个分表中查找记录, 找到后退出循环
 	foreach ($posttableids as $id) {
 		$table = empty($id) ? 'forum_post' : (is_numeric($id) ? 'forum_post_'.$id : $id);
 		$ret = C::t('forum_post')->fetch_by_pid_condition($id, $pid, $addcondiction, $fields);
@@ -650,6 +718,7 @@ function get_post_by_pid($pid, $fields = '*', $addcondiction = '', $forcetable =
 		}
 	}
 
+	//没有找到帖子,则返回空数组
 	if(!is_array($ret)) {
 		$ret = array();
 	}
@@ -682,14 +751,23 @@ function set_rssauth() {
 	$_G['rssauth'] = rawurlencode($auth);
 }
 
+/**
+	是否有查看版块 RSS 的权限
+*/
 function rssforumperm($forum) {
 	$is_allowed = $forum['type'] != 'group' && (!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'], 7)));
 	return $is_allowed;
 }
 
+/**
+ *	upload_icon_banner上传群组/版块图片
+ *	$forum中 fid和status 必须存在，status判断是群组还是版块图片，以存入不同目录
+ *	$file上传时的$_FILES
+ *	$type icon 或 banner
+ */
 function upload_icon_banner(&$data, $file, $type) {
 	global $_G;
-	$data['extid'] = empty($data['extid']) ? $data['fid'] : $data['extid'];
+	$data['extid'] = empty($data['extid']) ? $data['fid'] : $data['extid']; //note 如果不是版块或群组需定义extid，如usergroup8
 	if(empty($data['extid'])) return '';
 
 	if($data['status'] == 3 && $_G['setting']['group_imgsizelimit']) {
@@ -717,6 +795,9 @@ function upload_icon_banner(&$data, $file, $type) {
 	return $upload->attach['attachment'];
 }
 
+/**
+	用于 archiver 环境下的分页
+*/
 function arch_multi($total, $perpage, $page, $link) {
 	$pages = @ceil($total / $perpage) + 1;
 	$pagelink = '';
@@ -731,6 +812,9 @@ function arch_multi($total, $perpage, $page, $link) {
 	return $pagelink;
 }
 
+/**
+	archiver 模板路径
+*/
 function loadarchiver($path) {
 	global $_G;
 	if(!$_G['setting']['archiver']) {
@@ -743,6 +827,9 @@ function loadarchiver($path) {
 	return DISCUZ_ROOT . "./source/archiver/$filename";
 }
 
+/**
+ *	update_threadpartake 按参与人次更新主题热度
+ */
 function update_threadpartake($tid, $getsetarr = false) {
 	global $_G;
 	$setarr = array();
@@ -764,6 +851,12 @@ function update_threadpartake($tid, $getsetarr = false) {
 	}
 }
 
+/**
+ * 获取帖子封面地址
+ *
+ * @param int $tid
+ * @param int $cover 负数时表示是远程，正数为本地 没有值表示只取filename
+ */
 function getthreadcover($tid, $cover = 0, $getfilename = 0) {
 	global $_G;
 	if(empty($tid)) {
@@ -780,6 +873,12 @@ function getthreadcover($tid, $cover = 0, $getfilename = 0) {
 	return $coverpath;
 }
 
+/**
+ * 将未使用的附件转为已使用状态
+ * @param <int> $aid
+ * @param <int> $tid
+ * @param <pid> $pid
+ */
 function convertunusedattach($aid, $tid, $pid) {
 	if(!$aid) {
 		return;
@@ -797,6 +896,12 @@ function convertunusedattach($aid, $tid, $pid) {
 	C::t('forum_attachment_unused')->delete($attach['aid']);
 }
 
+/**
+ * 更新附件的 TID 值
+ * @param <string> $where 条件
+ * @param <int> $oldtid 旧 TID
+ * @param <int> $newtid  新 TID
+ */
 function updateattachtid($idtype, $ids, $oldtid, $newtid) {
 		foreach(C::t('forum_attachment_n')->fetch_all_by_id('tid:'.$oldtid, $idtype, $ids) as $attach) {
 			$attach['tid'] = $newtid;
@@ -806,10 +911,23 @@ function updateattachtid($idtype, $ids, $oldtid, $newtid) {
 	C::t('forum_attachment')->update_by_id($idtype, $ids, $newtid);
 }
 
+/**
+ * 更新帖子,该函数已不使用
+ * @global  $_G
+ * @param array $data 更新的数据
+ * @param string/array $condition 条件
+ * @param bool $unbuffered 是否即时返回
+ * @param int $posttableid post分表ID
+ * @return int 返回的更新的记录数
+ */
 function updatepost($data, $condition, $unbuffered = false, $posttableid = false) {
 	return false;
 }
 
+/**
+ * 新建一个帖子
+ * @param array $data 新建的数据
+*/
 function insertpost($data) {
 	if(isset($data['tid'])) {
 		$thread = C::t('forum_thread')->fetch($data['tid']);
@@ -832,6 +950,7 @@ function insertpost($data) {
 
 function threadmodstatus($string) {
 	global $_G;
+	//note 是否强制当前用户发表的主题进入审核
 	$postmodperiods = periodscheck('postmodperiods', 0);
 	if($postmodperiods) {
 		$modnewthreads = $modnewreplies = 1;
@@ -840,12 +959,14 @@ function threadmodstatus($string) {
 		$modnewthreads = (!$_G['group']['allowdirectpost'] || $_G['group']['allowdirectpost'] == 1) && $_G['forum']['modnewposts'] || $censormod ? 1 : 0;
 		$modnewreplies = (!$_G['group']['allowdirectpost'] || $_G['group']['allowdirectpost'] == 2) && $_G['forum']['modnewposts'] == 2 || $censormod ? 1 : 0;
 
+		//note 群组判断
 		if($_G['forum']['status'] == 3) {
 			$modnewthreads = !$_G['group']['allowgroupdirectpost'] || $_G['group']['allowgroupdirectpost'] == 1 || $censormod ? 1 : 0;
 			$modnewreplies = !$_G['group']['allowgroupdirectpost'] || $_G['group']['allowgroupdirectpost'] == 2 || $censormod ? 1 : 0;
 		}
 	}
 
+	//note 帖子内容是否包含url判断
 	$_G['group']['allowposturl'] = $_G['forum']['status'] != 3 ? $_G['group']['allowposturl'] : $_G['group']['allowgroupposturl'];
 	if($_G['group']['allowposturl'] == 1) {
 		if(!$postmodperiods) {
@@ -918,6 +1039,7 @@ function threadpubsave($tid, $passapproval = false) {
 		C::t('forum_groupuser')->update_counter_for_user($thread['authorid'], $thread['fid'], 1);
 	}
 
+	//更新版块最后发帖
 	$subject = str_replace("\t", ' ', $thread['subject']);
 	$lastpost = $thread['tid']."\t".$subject."\t".$thread['lastpost']."\t".$thread['lastposter'];
 	C::t('forum_forum')->update($_G['fid'], array('lastpost' => $lastpost));
@@ -931,6 +1053,14 @@ function threadpubsave($tid, $passapproval = false) {
 	return $return;
 }
 
+/**
+ * 获取相关淘专辑 ...
+ * @param int $tid 主题id
+ * @param bool $all 是否不限数量全部读出
+ * @param int &$num 相关淘专辑数量
+ * @param int &$more 是否还有更多淘专辑
+ * @return array 淘专辑信息
+ */
 function getrelatecollection($tid, $all = false, &$num, &$more) {
 	global $_G;
 
@@ -982,6 +1112,9 @@ function set_atlist_cookie($uids) {
 	dsetcookie('atlist', implode(',', $uids).($tmp ? ','.implode(',', $tmp) : ''), 86400 * 360);
 }
 
+/**
+ * 云平台mini面板
+ */
 function cloud_referer_related() {
 	global $_G;
 	$my_search_data = $_G['setting']['my_search_data'];

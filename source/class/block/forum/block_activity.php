@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+// 高级自定义
 class block_activity extends discuz_block {
 
 	var $setting = array();
@@ -147,6 +148,7 @@ class block_activity extends discuz_block {
 				);
 	}
 
+	//可转换到的模块类型
 	function fieldsconvert() {
 		return array(
 				'group_activity' => array(
@@ -162,6 +164,8 @@ class block_activity extends discuz_block {
 		global $_G;
 		$settings = $this->setting;
 
+		// 处理特殊字段
+		// fid
 		if($settings['fids']) {
 			loadcache('forums');
 			$settings['fids']['value'][] = array(0, lang('portalcp', 'block_all_forum'));
@@ -183,6 +187,7 @@ class block_activity extends discuz_block {
 
 		$parameter = $this->cookparameter($parameter);
 
+		//参数准备
 		loadcache('forums');
 		$tids		= !empty($parameter['tids']) ? explode(',', $parameter['tids']) : array();
 		$uids		= !empty($parameter['uids']) ? explode(',', $parameter['uids']) : array();
@@ -279,6 +284,7 @@ class block_activity extends discuz_block {
 			$sqlfrom .= " $joinmethod JOIN `".DB::table('forum_forumrecommend')."` fc ON fc.tid=tr.tid";
 		}
 		$sqlfield = $highlight ? ', t.highlight' : '';
+		//数据获取
 		$query = DB::query("SELECT a.*, t.tid, t.subject, t.authorid, t.author$sqlfield
 			FROM ".DB::table('forum_activity')." a $sqlfrom $where
 			ORDER BY $orderby
@@ -292,6 +298,7 @@ class block_activity extends discuz_block {
 			if($data['starttimeto']) {
 				$data['time'] .= ' - '.dgmdate($data['starttimeto']);
 			}
+			//查询获取帖子简介
 			if($style['getsummary']) {
 				$threadtids[$data['posttableid']][] = $data['tid'];
 			}
@@ -306,7 +313,7 @@ class block_activity extends discuz_block {
 				'idtype' => 'tid',
 				'title' => cutstr(str_replace('\\\'', '&#39;', $data['subject']), $titlelength, ''),
 				'url' => 'forum.php?mod=viewthread&tid='.$data['tid'].($viewmod ? '&from=portal' : ''),
-				'pic' => ($data['aid'] ? '' : $_G['style']['imgdir'].'/nophoto.gif'),
+				'pic' => ($data['aid'] ? '' : $_G['style']['imgdir'].'/nophoto.gif'), //后面进行批量赋值
 				'picflag' => '0',
 				'fields' => array(
 					'fulltitle' => str_replace('\\\'', '&#39;', addslashes($data['subject'])),
@@ -322,11 +329,13 @@ class block_activity extends discuz_block {
 					'applynumber' => $data['applynumber'],
 				)
 			);
+			//高亮的处理
 			if($highlight && $data['highlight']) {
 				$list[$data['tid']]['fields']['showstyle'] = $bt->getthreadstyle($data['highlight']);
 			}
 		}
 
+		//统计申请的人数
 		if(!empty($listtids)) {
 			$query = DB::query("SELECT tid,COUNT(*) as sum FROM ".DB::table('forum_activityapply')." WHERE tid IN(".dimplode($listtids).") GROUP BY tid");
 			while($value = DB::fetch($query)) {
@@ -340,6 +349,7 @@ class block_activity extends discuz_block {
 				}
 			}
 
+			//附件分表查询
 			foreach($attachtables as $tableid => $taids) {
 				$query = DB::query('SELECT aid, attachment, remote FROM '.DB::table('forum_attachment_'.$tableid).' WHERE aid IN ('.dimplode($taids).')');
 				while($avalue = DB::fetch($query)) {
@@ -348,6 +358,7 @@ class block_activity extends discuz_block {
 				}
 			}
 
+			//还原$list顺序
 			foreach($listtids as $key => $value) {
 				$datalist[] = $list[$value];
 			}

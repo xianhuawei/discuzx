@@ -470,8 +470,16 @@ function showoption($var, $type) {
 	}
 }
 
+/**
+ * 保护字段判断
+ * @global array $_G
+ * @global array $member_verifys
+ * @param array $protect
+ * @return bool true:被保护，不显示，false:可以显示
+ */
 function protectguard($protect) {
 	global $_G, $member_verifys;
+	//note 获取用户认证信息
 	if(!isset($member_verifys) && $_G['setting']['verify']['enabled']) {
 		$member_verifys = array();
 		getuserprofile('verify1');
@@ -497,6 +505,11 @@ function protectguard($protect) {
 	}
 }
 
+/**
+ *  整理select类型的选项数据
+ *
+ *  @param int $sortid 分类id
+ */
 function sortthreadsortselectoption($sortid) {
 	global $_G;
 
@@ -537,6 +550,10 @@ function sortthreadsortselectoption($sortid) {
 	}
 }
 
+/**
+ *  比较select键值，用来根据键值排序
+ *  @return int
+ */
 function cmpchoicekey($stringa, $stringb) {
 	$arraya = explode('.', $stringa);
 	$arrayb = explode('.', $stringb);
@@ -696,9 +713,14 @@ function threadsort_validator($sortoption, $pid) {
 	return $_G['forum_optiondata'];
 }
 
+/**
+ *  对choice进行排序，并返回optionlist串
+ *  @return string
+ */
 function getsortedoptionlist() {
 	global $_G;
 
+	//note 对choices进行排序
 	$forum_optionlist = $_G['forum_optionlist'];
 	foreach($_G['forum_optionlist'] as $key => $value) {
 		$choicesarr = $value['choices'];
@@ -710,6 +732,12 @@ function getsortedoptionlist() {
 	return $forum_optionlist;
 }
 
+/**
+ *  数组生成xml串
+ *  @param array $input 需转化的数组
+ *  @param string $pre 键值前加前缀，防止数字类型的键值生成后的xml字符串无法生成xmldom
+ *  @return string
+ */
 function optionlistxml($input, $pre = '') {
 	$str = '';
 	foreach($input as $key => $value) {

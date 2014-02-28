@@ -18,13 +18,14 @@ $page = empty($_GET['page'])?0:intval($_GET['page']);
 if($page<1) $page=1;
 $start = ($page-1)*$perpage;
 
+//检查开始数
 ckstart($start, $perpage);
 
 $dolist = array();
 $count = 0;
 
 if(empty($_GET['view'])) {
-	$_GET['view'] = 'we';
+	$_GET['view'] = 'we';//默认显示
 }
 
 $gets = array(
@@ -55,6 +56,7 @@ if($_GET['view'] == 'all') {
 
 } else {
 
+	//自定义识别
 	if($_GET['from'] == 'space') $diymode = 1;
 
 	$uids = $_GET['highlight'] ? array() : array($space['uid']);
@@ -71,6 +73,7 @@ if($doid) {
 	$theurl .= "&doid=$doid";
 }
 
+//搜索
 if($searchkey = stripsearchkey($_GET['searchkey'])) {
 	$searchkey = dhtmlspecialchars($searchkey);
 }
@@ -90,6 +93,7 @@ if($count) {
 	}
 }
 
+//单条处理
 if($doid) {
 	$dovalue = empty($dolist)?array():$dolist[0];
 	if($dovalue) {
@@ -102,6 +106,7 @@ if($doid) {
 }
 
 
+//回复
 if($doids) {
 
 	$tree = new lib_tree();
@@ -142,6 +147,7 @@ foreach ($newdoids as $cdoid) {
 	$showdoinglist[$cdoid] = $show;
 }
 
+//分页
 $multi = multi($count, $perpage, $page, $theurl);
 
 dsetcookie('home_diymode', $diymode);

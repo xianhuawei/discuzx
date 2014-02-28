@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//强制使用字符集
 if(!$_G['setting']['headercharset']) {
 	@header('Content-Type: text/html; charset='.CHARSET);
 }
@@ -32,7 +33,7 @@ if($data) {
 	foreach($values as $valuearray) {
 		if($valuearray['tag'] == 'kw' || $valuearray['tag'] == 'ekw') {
 			if(PHP_VERSION > '5' && CHARSET != 'utf-8') {
-				$kws[] = diconv(trim($valuearray['value']), 'utf-8');
+				$kws[] = diconv(trim($valuearray['value']), 'utf-8');//编码转换
 			} else {
 				$kws[] = trim($valuearray['value']);
 			}

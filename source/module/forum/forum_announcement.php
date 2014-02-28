@@ -13,12 +13,14 @@ if(!defined('IN_DISCUZ')) {
 
 require_once libfile('function/discuzcode');
 
+//debug 详细的公告数据
 $announcedata = C::t('forum_announcement')->fetch_all_by_date($_G['timestamp']);
 
 if(!count($announcedata)) {
 	showmessage('announcement_nonexistence');
 }
 
+//debug 格式化公告
 $announcelist = array();
 foreach ($announcedata as $announce) {
 	$announce['authorenc'] = rawurlencode($announce['author']);

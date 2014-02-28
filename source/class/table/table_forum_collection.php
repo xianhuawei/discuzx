@@ -25,6 +25,11 @@ class table_forum_collection extends discuz_table
 	}
 
 
+	/**
+	 * 统计指定用户的淘帖专辑数量
+	 * @param int $uid 用户ID
+	 * @return int 淘帖专辑数量
+	 */
 	public function count_by_uid($uid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE uid=%d', array($this->_table, $uid), $this->_pk);
 	}
@@ -76,10 +81,25 @@ class table_forum_collection extends discuz_table
 		return DB::result_first('SELECT count(*) FROM %t WHERE %i', array($this->_table, $sql));
 	}
 
+	/**
+	 * 返回指定用户的淘帖专辑数
+	 * @param int $uid 用户ID
+	 * @return int 淘帖专辑数
+	 */
 	public function count_all_by_uid($uid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE uid=%d', array($this->_table, $uid));
 	}
 
+	/**
+	 * 更新指定淘帖数据
+	 * @param int $ctid 淘帖ID
+	 * @param int $incthreadnum 变更主题数
+	 * @param int $incfollownum 变更关注数
+	 * @param int $inccommentnum 变更评论数
+	 * @param int $lastupdate 最后变更时间
+	 * @param int $incratenum 评分变更，需要和 $totalratenum 连用
+	 * @param int $totalratenum 目前评分数
+	 */
 	public function update_by_ctid($ctid, $incthreadnum = 0, $incfollownum = 0, $inccommentnum = 0, $lastupdate = 0, $incratenum = 0, $totalratenum = 0, $lastpost = '') {
 		if(!$ctid) {
 			return false;
@@ -124,6 +144,13 @@ class table_forum_collection extends discuz_table
 		return $result;
 	}
 
+	/**
+	 * 用于后台淘帖管理
+	 * @param string $conditions SQL中的条件语句
+	 * @param int $start 起始行数 -1：表示返回记录总数
+	 * @param int $limit 需要取得的行数
+	 * @return array | int
+	 */
 	public function fetch_all_for_search($name, $ctid, $username, $uid, $start = 0, $limit = 20) {
 
 		$where = '1';

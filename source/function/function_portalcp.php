@@ -87,6 +87,9 @@ function get_upload_content($attachs, $dotype='') {
 	return $html;
 }
 
+/**根据UID得到可管理或发布文章的所有分类
+ * @param <type> $uid
+ */
 function getallowcategory($uid){
 	global $_G;
 	$permission = array();
@@ -102,8 +105,10 @@ function getallowcategory($uid){
 	return $permission;
 }
 
+//得到栏目权限树
 function getpermissioncategory($category, $permission = array()) {
 
+	//整理有权限的树
 	$cats = array();
 	foreach ($permission as $k=>$v) {
 		$cur = $category[$v];
@@ -121,6 +126,9 @@ function getpermissioncategory($category, $permission = array()) {
 	return $cats;
 }
 
+/**根据UID得到可管理或推荐的所有页面
+ * @param <type> $uid
+ */
 function getallowdiytemplate($uid){
 	if (empty($uid)) return false;
 	$permission = array();
@@ -129,6 +137,11 @@ function getallowdiytemplate($uid){
 	return $permission;
 }
 
+/**
+ * 获取原模板文件的目录，主要是分区和版块在指定不同模板的时候不同
+ * @param string $targettplname 生成的模板名称
+ * @return string 原模板文件的目录
+ */
 function getdiytpldir($targettplname) {
 	global $_G;
 	$tpldir = $pre = '';
@@ -146,10 +159,20 @@ function getdiytpldir($targettplname) {
 	return $tpldir ? $tpldir : ($_G['cache']['style_default']['tpldir'] ? $_G['cache']['style_default']['tpldir'] : './template/default');
 }
 
+/**
+ * 保存DIY的数据到模板文件
+ * @param string $tpldirectory 原始模板目录
+ * @param string $primaltplname 原始的模板名称
+ * @param string $targettplname 要生成的模板名称
+ * @param array $data diy的所有数据
+ * @param bool $database 是否保存到数据库
+ * @param string $optype 暂存标识
+ * @return bool
+ */
 function save_diy_data($tpldirectory, $primaltplname, $targettplname, $data, $database = false, $optype = '') {
 	global $_G;
 	if (empty($data) || !is_array($data)) return false;
-	checksecurity($data['spacecss']);
+	checksecurity($data['spacecss']);//检查CSS中是否有特殊字符
 	if(empty($tpldirectory)) {
 		$tpldirectory = getdiytpldir($targettplname);
 	}
@@ -164,12 +187,16 @@ function save_diy_data($tpldirectory, $primaltplname, $targettplname, $data, $da
 		}
 	}
 	if(!file_exists($file)) return false;
+	//得到模板文件的内容并进行数据替换
 	$content = file_get_contents(DISCUZ_ROOT.$file);
 	if($isextphp) {
 		$content = substr($content, strpos($content, "\n"));
 	}
+	//替换模板名称
 	$content = preg_replace("/\<\!\-\-\[name\].+?\[\/name\]\-\-\>\s+/is", '', $content);
+	//替换帮助信息
 	$content = preg_replace("/\<script src\=\"misc\.php\?mod\=diyhelp\&action\=get.+?\>\<\/script\>/", '', $content);
+	//替换布局
 	foreach ($data['layoutdata'] as $key => $value) {
 		$key = trimdxtpllang($key);
 		$html = '';
@@ -178,28 +205,34 @@ function save_diy_data($tpldirectory, $primaltplname, $targettplname, $data, $da
 		$html .= '</div>';
 		$content = preg_replace("/(\<\!\-\-\[diy\=$key\]\-\-\>).+?(\<\!\-\-\[\/diy\]\-\-\>)/is", "\\1".$html."\\2", $content);
 	}
+	//替换样式
 	$data['spacecss'] = str_replace('.content', '.dxb_bc', $data['spacecss']);
 	$data['spacecss'] = trimdxtpllang($data['spacecss']);
 	$content = preg_replace("/(\<style id\=\"diy_style\" type\=\"text\/css\"\>).*?(\<\/style\>)/is", "\\1".$data['spacecss']."\\2", $content);
+	//替换风格
 	if (!empty($data['style'])) {
 		$content = preg_replace("/(\<link id\=\"style_css\" rel\=\"stylesheet\" type\=\"text\/css\" href\=\").+?(\"\>)/is", "\\1".$data['style']."\\2", $content);
 	}
 
+	//暂存标识
 	$flag = $optype == 'savecache' ? true : false;
 	if($flag) {
-		$targettplname = $targettplname.'_diy_preview';
+		$targettplname = $targettplname.'_diy_preview';//暂存时改变模块名
 	} else {
-		@unlink('./data/diy/'.$tpldirectory.'/'.$targettplname.'_diy_preview.htm');
+		@unlink('./data/diy/'.$tpldirectory.'/'.$targettplname.'_diy_preview.htm');//非预览时删除临时文件
 	}
 
+	//保存文件
 	$tplfile =DISCUZ_ROOT.'./data/diy/'.$tpldirectory.'/'.$targettplname.'.htm';
 	$tplpath = dirname($tplfile);
 	if (!is_dir($tplpath)) {
-		dmkdir($tplpath);
+		dmkdir($tplpath); //创建不存在的目录
 	} else {
-		if (file_exists($tplfile) && !$flag) copy($tplfile, $tplfile.'.bak');
+		if (file_exists($tplfile) && !$flag) copy($tplfile, $tplfile.'.bak');//保存备份(预览和暂存时不备份)
 	}
+	//保存DIY的内容到文件中
 	$r = file_put_contents($tplfile, $content);
+	//暂存时不入库
 	if ($r && $database && !$flag) {
 		$diytplname = getdiytplname($targettplname, $tpldirectory);
 		C::t('common_diy_data')->insert(array(
@@ -217,6 +250,11 @@ function save_diy_data($tpldirectory, $primaltplname, $targettplname, $data, $da
 }
 
 
+/**
+ * 查找指定模板的页面名称
+ * @param array $tpls 模板名
+ * @return array 页面名称数组
+ */
 function getdiytplnames($tpls) {
 	$arr = $ret = array();
 	foreach((array)$tpls as $targettplname) {
@@ -260,6 +298,7 @@ function getdiytplnames($tpls) {
 	return $ret;
 }
 
+//得到DIY页面的名称
 function getdiytplname($targettplname, $tpldirectory) {
 	$diydata = C::t('common_diy_data')->fetch($targettplname, $tpldirectory);
 	$diytplname = $diydata ? $diydata['name'] : '';
@@ -268,6 +307,7 @@ function getdiytplname($targettplname, $tpldirectory) {
 	}
 	return $diytplname;
 }
+//得到框架的HTML
 function getframehtml($data = array()) {
 	global $_G;
 	$html = $style = '';
@@ -275,12 +315,14 @@ function getframehtml($data = array()) {
 		$id = trimdxtpllang($id);
 		$flag = $name = '';
 		list($flag, $name) = explode('`', $id);
+		//处理frame
 		if ($flag == 'frame') {
 			$fattr = $content['attr'];
 			$fattr['name'] = trimdxtpllang($fattr['name']);
 			$fattr['className'] = trimdxtpllang($fattr['className']);
 			$moveable = $fattr['moveable'] == 'true' ? ' move-span' : '';
 			$html .= '<div id="'.$fattr['name'].'" class="'.$fattr['className'].'">';
+			//处理标题
 			if (checkhastitle($fattr['titles'])) {
 				$style = gettitlestyle($fattr['titles']);
 				$cn = trimdxtpllang(implode(' ',$fattr['titles']['className']));
@@ -290,6 +332,7 @@ function getframehtml($data = array()) {
 				list($colflag, $colname) = explode('`', $colid);
 				$colname = trimdxtpllang($colname);
 				$cn = trimdxtpllang($coldata['attr']['className']);
+				//单列处理
 				if ($colflag == 'column') {
 					$html .= '<div id="'.$colname.'" class="'.$cn.'">';
 					$html .= '<div id="'.$colname.'_temp" class="move-span temp"></div>';
@@ -298,6 +341,7 @@ function getframehtml($data = array()) {
 				}
 			}
 			$html .= '</div>';
+		//处理Tab
 		} elseif ($flag == 'tab') {
 			$fattr = $content['attr'];
 			$fattr['name'] = trimdxtpllang($fattr['name']);
@@ -309,7 +353,9 @@ function getframehtml($data = array()) {
 				list($colflag, $colname) = explode('`', $colid);
 				$colname = trimdxtpllang($colname);
 				$cn = trimdxtpllang($coldata['attr']['className']);
+				//单列处理
 				if ($colflag == 'column') {
+					//处理标题, tab 的标题为第一列,所以标题文字在第一列里
 					if (checkhastitle($fattr['titles'])) {
 						$style = gettitlestyle($fattr['titles']);
 						$title = gettitlehtml($fattr['titles'], 'tab');
@@ -324,7 +370,9 @@ function getframehtml($data = array()) {
 			$html .= '<div id="'.$fattr['name'].'_content" class="tb-c"></div>';
 			$html .= '<script type="text/javascript">initTab("'.$fattr['name'].'","'.$switchtype.'");</script>';
 			$html .= '</div>';
+		//处理block
 		} elseif ($flag == 'block') {
+			//模块的属性值
 			$battr = $content['attr'];
 			$bid = intval(str_replace('portal_block_', '', $battr['name']));
 			if (!empty($bid)) {
@@ -346,6 +394,7 @@ function gettitlestyle($title) {
 	$style = $style ? ' style=\''.$style.'\'' : '';
 	return $style;
 }
+//检查是否有标题
 function checkhastitle($title) {
 	if (!is_array($title)) return false;
 	foreach ($title as $k => $v) {
@@ -355,6 +404,7 @@ function checkhastitle($title) {
 	return false;
 }
 
+//处理多标题信息,返回标题的html代码
 function gettitlehtml($title, $type) {
 	global $_G;
 	if (!is_array($title)) return '';
@@ -370,6 +420,7 @@ function gettitlehtml($title, $type) {
 		$v['src'] = trimdxtpllang($v['src']);
 		$v['href'] = trimdxtpllang($v['href']);
 		$v['text'] = dhtmlspecialchars(str_replace(array('{', '$'), array('{ ', '$ '), $v['text']));
+		//k == first 的为主标题
 		$one = "<span class=\"{$v['className']}\"";
 		$style = $color = "";
 		$style .= empty($v['font-size']) ? '' : "font-size:{$v['font-size']}px;";
@@ -388,18 +439,24 @@ function gettitlehtml($title, $type) {
 		}
 		$one .= '</span>';
 
+		//去除绝对路径
 		$siteurl = str_replace(array('/','.'),array('\/','\.'),$_G['siteurl']);
 		$one = preg_replace('/\"'.$siteurl.'(.*?)\"/','"$1"',$one);
 
+		//主标题放在第一位
 		$html = $k === 'first' ? $one.$html : $html.$one;
 	}
 	return $html;
 }
 
+//得到皮肤
 function gettheme($type) {
 	$themes = array();
+	//获取本地风格目录
 	$themedirs = dreaddir(DISCUZ_ROOT."/static/$type");
+	//在些做缓存，如果dirs的个数与缓存个数不相等则更新 // 暂无实现
 	foreach ($themedirs as $key => $dirname) {
+		//样式文件和图片需存在
 		$now_dir = DISCUZ_ROOT."/static/$type/$dirname";
 		if(file_exists($now_dir.'/style.css') && file_exists($now_dir.'/preview.jpg')) {
 			$themes[] = array(
@@ -411,6 +468,7 @@ function gettheme($type) {
 	return $themes;
 }
 
+//获取系统风格名
 function getcssname($dirname) {
 	$css = @file_get_contents(DISCUZ_ROOT.'./static/'.$dirname.'/style.css');
 	if($css) {
@@ -424,6 +482,7 @@ function getcssname($dirname) {
 
 function checksecurity($str) {
 
+	//执行一系列的过滤验证是否合法的CSS
 	$filter = array(
 		'/\/\*[\n\r]*(.+?)[\n\r]*\*\//is',
 		'/[^a-z0-9\\\]+/i',
@@ -439,6 +498,10 @@ function checksecurity($str) {
 	return true;
 }
 
+/**
+ * 将 block 属性和样式导出
+ * @param <type> $bids
+ */
 function block_export($bids) {
 	$return = array('block'=>array(), 'style'=>array());
 	if(empty($bids)) {
@@ -446,7 +509,9 @@ function block_export($bids) {
 	}
 	$styleids = array();
 	foreach(C::t('common_block')->fetch_all($bids) as $value) {
+		//反序列化参数数据
 		$value['param'] = dunserialize($value['param']);
+		//反序列化模板数据
 		if(!empty($value['blockstyle'])) $value['blockstyle'] = dunserialize($value['blockstyle']);
 
 		$return['block'][$value['bid']] = $value;
@@ -463,18 +528,23 @@ function block_export($bids) {
 	return $return ;
 }
 
+/**
+ * 将由block_export 导出的数据导入
+ * @param <type> $data
+ */
 function block_import($data) {
 	global $_G;
 	if(!is_array($data['block'])) {
 		return ;
 	}
 	$stylemapping = array();
-	if($data['style']) {
+	if($data['style']) {//导入style并得到对应关系
 		$hashes = $styles = array();
 		foreach($data['style'] as $value) {
 			$hashes[] = $value['hash'];
 			$styles[$value['hash']] = $value['styleid'];
 		}
+		// 查找库中已有的样式，并得到映射关系
 		if(!empty($hashes)) {
 			foreach(C::t('common_block_style')->fetch_all_by_hash($hashes) as $value) {
 				$id = $styles[$value['hash']];
@@ -482,6 +552,7 @@ function block_import($data) {
 				unset($styles[$value['hash']]);
 			}
 		}
+		// 新的样式，添加到库中
 		foreach($styles as $id) {
 			$style = $data['style'][$id];
 			$style['styleid'] = '';
@@ -496,6 +567,7 @@ function block_import($data) {
 		}
 	}
 
+	// 插入block并得到映射关系
 	$blockmapping = array();
 	foreach($data['block'] as $block) {
 		$oid = $block['bid'];
@@ -521,6 +593,7 @@ function block_import($data) {
 	return $blockmapping;
 }
 
+//note 根据名称得到模块或框架
 function getobjbyname($name, $data) {
 	if (!$name || !$data) return false;
 
@@ -536,6 +609,7 @@ function getobjbyname($name, $data) {
 	return false;
 }
 
+//得到所有框架名和模块ID
 function getframeblock($data) {
 	global $_G;
 
@@ -544,15 +618,19 @@ function getframeblock($data) {
 
 	foreach ((array)$data as $id => $content) {
 		list($flag, $name) = explode('`', $id);
+		//处理frame
 		if ($flag == 'frame' || $flag == 'tab') {
 			foreach ((array)$content as $colid => $coldata) {
 				list($colflag, $colname) = explode('`', $colid);
+				//单列处理
 				if ($colflag == 'column') {
 					getframeblock($coldata,$framename);
 				}
 			}
 			$_G['curtplframe'][$name] = array('type'=>$flag,'name'=>$name);
+		//处理Block
 		} elseif ($flag == 'block') {
+			//模块的属性值
 			$battr = $content['attr'];
 			$bid = intval(str_replace('portal_block_', '', $battr['name']));
 			if (!empty($bid)) {
@@ -562,6 +640,7 @@ function getframeblock($data) {
 	}
 }
 
+//解析框架和模块对应的CSS
 function getcssdata($css) {
 	global $_G;
 	if (empty($css)) return '';
@@ -577,6 +656,7 @@ function getcssdata($css) {
 	return implode('', $csslist[0]);
 }
 
+//导入DIY文件
 function import_diy($file) {
 	global $_G;
 
@@ -592,6 +672,7 @@ function import_diy($file) {
 
 	if ($diycontent) {
 
+		//得到原frameID和新frameID
 		foreach ($diycontent['layoutdata'] as $key => $value) {
 			if (!empty($value)) getframeblock($value);
 		}
@@ -600,12 +681,14 @@ function import_diy($file) {
 			$newframe[] = $value['type'].random(6);
 		}
 
+		//导入block数据
 		$mapping = array();
 		if (!empty($diycontent['blockdata'])) {
 			$mapping = block_import($diycontent['blockdata']);
 			unset($diycontent['blockdata']);
 		}
 
+		//得到原blockID和新blockID
 		$oldbids = $newbids = array();
 		if (!empty($mapping)) {
 			foreach($mapping as $obid=>$nbid) {
@@ -618,14 +701,17 @@ function import_diy($file) {
 			}
 		}
 
+		//替换框架名和模块样式名
 		require_once libfile('class/xml');
 		$xml = array2xml($diycontent['layoutdata'],true);
 		$xml = str_replace($oldbids, $newbids, $xml);
 		$xml = str_replace((array)array_keys($_G['curtplframe']), $newframe, $xml);
 		$diycontent['layoutdata'] = xml2array($xml);
 
+		//替换css样式名
 		$css = str_replace($oldbids, $newbids, $diycontent['spacecss']);
 		$css = str_replace((array)array_keys($_G['curtplframe']), $newframe, $css);
+		//生成HTML代码
 		foreach ($diycontent['layoutdata'] as $key => $value) {
 			$html[$key] = getframehtml($value);
 		}
@@ -633,6 +719,7 @@ function import_diy($file) {
 	if (!empty($html)) {
 		$xml = array2xml($html, true);
 		require_once libfile('function/block');
+		//生成block内容
 		block_get_batch(implode(',', $mapping));
 		foreach ($mapping as $bid) {
 			$blocktag[] = '<!--{block/'.$bid.'}-->';
@@ -645,12 +732,18 @@ function import_diy($file) {
 	return $arr;
 }
 
+/**
+ * 检查DIY模板是否有效
+ * @param string $template 带目录的模板名
+ * @return <bool>
+ */
 function checkprimaltpl($template) {
 	global $_G;
 	$tpldirectory = '';
 	if(strpos($template, ':') !== false) {
 		list($tpldirectory, $template) = explode(':', $template);
 	}
+	//过滤文件名
 	if(!$template || preg_match("/(\.)(exe|jsp|asp|aspx|cgi|fcgi|pl)(\.|$)/i", $template)) {
 		return 'diy_template_filename_invalid';
 	}
@@ -661,16 +754,23 @@ function checkprimaltpl($template) {
 	if (!file_exists($primaltplname)) {
 		$primaltplname = DISCUZ_ROOT.'./template/default/'.$template.'.htm';
 	}
+	//只能是.htm
 	$pathinfos = pathinfo($primaltplname);
 	if(strtolower($pathinfos['extension']) != 'htm') {
 		return 'diy_template_extension_invalid';
 	}
+	//模板是否存在
 	if (!is_file($primaltplname)) {
 		return 'diy_template_noexist';
 	}
 	return true;
 }
 
+/**
+ * 获取文章内置8个标签的显示名称
+ * @global <type> $_G
+ * @return <type>
+ */
 function article_tagnames() {
 	global $_G;
 	if(!isset($_G['article_tagnames'])) {
@@ -686,6 +786,11 @@ function article_tagnames() {
 	return $_G['article_tagnames'];
 }
 
+/**
+ * 把 文章 tag 解析为对应的8个标签的值
+ * @param <type> $tag
+ * @return <type>
+ */
 function article_parse_tags($tag) {
 	$tag = intval($tag);
 	$article_tags = array();
@@ -696,6 +801,11 @@ function article_parse_tags($tag) {
 	return $article_tags;
 }
 
+/**
+ * 把标签位拼成 tag 数值
+ * @param <type> $tags
+ * @return <type>
+ */
 function article_make_tag($tags) {
 	$tags = (array)$tags;
 	$tag = 0;
@@ -707,6 +817,13 @@ function article_make_tag($tags) {
 	return $tag;
 }
 
+/**
+ * 显示文章/日志/相册分类下拉选择框
+ * @param <type> $type
+ * @param <type> $name
+ * @param <type> $shownull
+ * @param <type> $current
+ */
 function category_showselect($type, $name='catid', $shownull=true, $current='') {
 	global $_G;
 	if(! in_array($type, array('portal', 'blog', 'album'))) {
@@ -742,6 +859,11 @@ function category_showselect($type, $name='catid', $shownull=true, $current='') 
 	return $select;
 }
 
+/**
+ * 获取文章分类制定分类下的所有子分类 id
+ * @param <type> $catid
+ * @param <type> $depth
+ */
 function category_get_childids($type, $catid, $depth=3) {
 	global $_G;
 	if(! in_array($type, array('portal', 'blog', 'album'))) {
@@ -759,6 +881,11 @@ function category_get_childids($type, $catid, $depth=3) {
 	return $catids;
 }
 
+/**
+ * 获取指定分类的文章数
+ * @param <type> $type
+ * @param <type> $catid
+ */
 function category_get_num($type, $catid) {
 	global $_G;
 	if(! in_array($type, array('portal', 'blog', 'album'))) {
@@ -807,6 +934,7 @@ function updatetopic($topic = ''){
 			return 'topic_name_duplicated';
 		}
 	}
+	//删除该域名记录
 	if($topicid && !empty($topic['domain'])) {
 		require_once libfile('function/delete');
 		deletedomain($topicid, 'topic');
@@ -822,8 +950,8 @@ function updatetopic($topic = ''){
 		'domain' => $_POST['domain'],
 		'summary' => getstr($_POST['summary']),
 		'keyword' => getstr($_POST['keyword']),
-		'useheader' => $_POST['useheader'] ? '1' : '0',
-		'usefooter' => $_POST['usefooter'] ? '1' : '0',
+		'useheader' => $_POST['useheader'] ? '1' : '0',// 使用网站导航
+		'usefooter' => $_POST['usefooter'] ? '1' : '0',// 使用网站尾部信息
 		'allowcomment' => $_POST['allowcomment'] ? 1 : 0,
 		'closed' => $_POST['closed'] ? 0 : 1,
 	);
@@ -832,7 +960,8 @@ function updatetopic($topic = ''){
 		if($topic['picflag'] != '0') pic_delete(str_replace('portal/', '', $topic['cover']), 'portal', 0, $topic['picflag'] == '2' ? '1' : '0');
 		$setarr['cover'] = '';
 	} else {
-		if($_FILES['cover']['tmp_name']) {
+		//封面
+		if($_FILES['cover']['tmp_name']) {// 上传
 			if($topic['cover'] && $topic['picflag'] != '0') pic_delete(str_replace('portal/', '', $topic['cover']), 'portal', 0, $topic['picflag'] == '2' ? '1' : '0');
 			$pic = pic_upload($_FILES['cover'], 'portal');
 			if($pic) {
@@ -849,7 +978,9 @@ function updatetopic($topic = ''){
 	}
 
 
+	//模板
 	$primaltplname = '';
+	//新专题或还没有选择模板文件或重新选择模板文件
 	if(empty($topicid) || empty($topic['primaltplname']) || ($topic['primaltplname'] && $topic['primaltplname'] != $_POST['primaltplname'])) {
 		$primaltplname = $_POST['primaltplname'];
 		if(!isset($_POST['signs'][dsign($primaltplname)])) {
@@ -869,7 +1000,7 @@ function updatetopic($topic = ''){
 		$setarr['uid'] = $_G['uid'];
 		$setarr['username'] = $_G['username'];
 		$setarr['dateline'] = $_G['timestamp'];
-		$setarr['closed'] = '1';
+		$setarr['closed'] = '1'; // 默认关闭状态
 		$topicid = addtopic($setarr);
 		if(!$topicid) {
 			return 'topic_created_failed';
@@ -882,6 +1013,7 @@ function updatetopic($topic = ''){
 	}
 
 	$tpldirectory = '';
+	//重新选择模板文件，生成DIY模板文件
 	if($primaltplname && $topic['primaltplname'] != $primaltplname) {
 		$targettplname = 'portal/portal_topic_content_'.$topicid;
 		if(strpos($primaltplname, ':') !== false) {
@@ -891,6 +1023,7 @@ function updatetopic($topic = ''){
 		updatediytemplate($targettplname);
 	}
 
+	//生成模板文件
 	if($primaltplname && empty($topic['primaltplname'])) {
 		$tpldirectory = ($tpldirectory ? $tpldirectory : $_G['cache']['style_default']['tpldir']);
 		$content = file_get_contents(DISCUZ_ROOT.$tpldirectory.'/'.$primaltplname.'.htm');
@@ -902,18 +1035,21 @@ function updatetopic($topic = ''){
 		file_put_contents($tplfile, $content);
 	}
 
+	// 更新缓存
 	include_once libfile('function/cache');
 	updatecache(array('diytemplatename', 'setting'));
 
 	return $topicid;
 }
 
+//添加新的专题
 function addtopic($topic) {
 	global $_G;
 	$topicid = '';
 	if($topic && is_array($topic)) {
 		$topicid = C::t('portal_topic')->insert($topic, true);
 		if(!empty($topicid)) {
+			//创建DIY数据
 			$diydata = array(
 				'targettplname' => 'portal/portal_topic_content_'.$topicid,
 				'name' => $topic['title'],
@@ -927,33 +1063,47 @@ function addtopic($topic) {
 	return $topicid;
 }
 
+/**
+ * 根据BID得到相关权限
+ * @param <int> $bid 模块ID
+ * @return <array> 权限数组，如果没有权限则返回空数组
+ * @example array('allowmanage'=>'1','allowrecommend'=>'1','needverify'=>'0')
+ */
 function getblockperm($bid) {
 	global $_G;
+	//空权限
 	$perm = array('allowmanage'=>'0','allowrecommend'=>'0','needverify'=>'1');
 	$bid = max(0, intval($bid));
 	if(!$bid) return $perm;
 	$allperm = array('allowmanage'=>'1','allowrecommend'=>'1','needverify'=>'0');
+	//有DIY的权限，直接返回所有权限
 	if(checkperm('allowdiy')) {
 		return $allperm;
+	//同时没有允许管理模块、允许推送数据到模块、管理专题和添加专题的权限，直接返回空权限
 	} elseif (!getstatus($_G['member']['allowadmincp'], 4) && !getstatus($_G['member']['allowadmincp'], 5) && !getstatus($_G['member']['allowadmincp'], 6) && !checkperm('allowmanagetopic') && !checkperm('allowaddtopic')) {
 		return $perm;
 	}
 	require_once libfile('class/blockpermission');
 	$blockpermsission = & block_permission::instance();
+	//模块的权限
 	$perm = $blockpermsission->get_perms_by_bid($bid, $_G['uid']);
 	$perm = $perm ? current($perm) : '';
 	if(empty($perm)) {
+		//查看所属页面的权限
 		if(($block = C::t('common_block')->fetch($bid))) {
 			$block = array_merge($block, C::t('common_template_block')->fetch_by_bid($bid));
 		}
+		//新添加的页面模块（非JS模块）
 		if(empty($block['targettplname']) && empty($block['blocktype'])) {
+			//有管理专题权限或创建专题且是自己模块
 			if(($_G['group']['allowmanagetopic'] || ($_G['group']['allowaddtopic'] && $block['uid'] == $_G['uid']))) {
 				$perm = $allperm;
 			}
-		} elseif(substr($block['targettplname'], 0, 28) == 'portal/portal_topic_content_') {
+		//模块属于专题的
+		} elseif(substr($block['targettplname'], 0, 28) == 'portal/portal_topic_content_') {//note 专题
 			if(!empty($_G['group']['allowmanagetopic'])) {
 				$perm = $allperm;
-			} elseif($_G['group']['allowaddtopic']) {
+			} elseif($_G['group']['allowaddtopic']) {//note 判断专题是不是当前用户所有
 				$id = str_replace('portal/portal_topic_content_', '', $block['targettplname']);
 				$topic = C::t('portal_topic')->fetch(intval($id));
 				if($topic['uid'] == $_G['uid']) {
@@ -965,6 +1115,16 @@ function getblockperm($bid) {
 	return $perm;
 }
 
+/**
+ * 检查频道栏目或文章的权限
+ * @global  $_G
+ * @param <int> $catid 频道栏目ID
+ * @param <int> $aid 文章ID
+ * @param <array> $article 文章的数组
+ * @param <bool> $isverify 是否审核
+ * @param <bool> $return 是否返回信息
+ * @return <boll> 如果成功返回TRUE，否则直接报错误信息
+ */
 function check_articleperm($catid, $aid = 0, $article = array(), $isverify = false, $return = false) {
 	global $_G;
 
@@ -976,6 +1136,7 @@ function check_articleperm($catid, $aid = 0, $article = array(), $isverify = fal
 		}
 	}
 
+	// 全局权限
 	if($_G['group']['allowmanagearticle'] || (empty($aid) && $_G['group']['allowpostarticle']) || $_GET['modarticlekey'] == modauthkey($aid)) {
 		return true;
 	}
@@ -986,6 +1147,7 @@ function check_articleperm($catid, $aid = 0, $article = array(), $isverify = fal
 			return true;
 		}
 	}
+	//审核功能权限的判断不执行下面的判断
 	if(!$isverify && $aid && !empty($article['uid']) && $article['uid'] == $_G['uid'] && ($article['status'] == 1 && $_G['group']['allowpostarticlemod'] || empty($_G['group']['allowpostarticlemod']))) {
 		return true;
 	}
@@ -997,6 +1159,13 @@ function check_articleperm($catid, $aid = 0, $article = array(), $isverify = fal
 	}
 }
 
+/**
+ * 文章评论添加
+ * @param int $id 文章id
+ * @param string $message 评论内容
+ * @$param string $idtype 评论类型 aid, toipcid
+ * @return string
+ */
 function addportalarticlecomment($id, $message, $idtype = 'aid') {
 	global $_G;
 
@@ -1043,20 +1212,33 @@ function addportalarticlecomment($id, $message, $idtype = 'aid') {
 		$notifykey = $idtype == 'aid' ? 'verifyacommont' : 'verifytopiccommont';
 		manage_addnotify($notifykey);
 	}
+	//note 更新统计
 	$tablename = $idtype == 'aid' ? 'portal_article_count' : 'portal_topic';
 	C::t($tablename)->increase($id, array('commentnum' => 1));
 	C::t('common_member_status')->update($_G['uid'], array('lastpost' => $_G['timestamp']), 'UNBUFFERED');
 
+	//note 奖励评论发起者
 	if($data['uid'] != $_G['uid']) {
 		updatecreditbyaction('portalcomment', 0, array(), $idtype.$id);
 	}
 	return 'do_success';
 }
 
+/**
+ * 过滤模板语言
+ * @param <type> $s
+ * @return <type>
+ */
 function trimdxtpllang($s){
 	return str_replace(array('{', '$', '<', '>'), array('{ ', '$ ', '', ''), $s);
 }
 
+/**
+ * 相关文章处理
+ * @param integer $aid 文章id
+ * @param array $raids 相关文章id
+ * @return bool
+ */
 function addrelatedarticle($aid, $raids) {
 	C::t('portal_article_related')->delete_by_aid_raid($aid, $aid);
 	if($raids) {
@@ -1073,6 +1255,7 @@ function addrelatedarticle($aid, $raids) {
 }
 
 
+//获取系统内置模板名
 function getprimaltplname($filename) {
 	global $_G, $lang;
 	$tpldirectory = '';

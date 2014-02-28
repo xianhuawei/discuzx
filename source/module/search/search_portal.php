@@ -25,7 +25,7 @@ if($_G['adminid'] != 1 && !($_G['group']['allowsearch'] & 1)) {
 
 $_G['setting']['search']['portal']['searchctrl'] = intval($_G['setting']['search']['portal']['searchctrl']);
 
-$srchmod = 1;
+$srchmod = 1;//note 搜索模块定义，为了分别控制搜索频度
 
 $cachelife_time = 300;		// Life span for cache of searching in specified range of time
 $cachelife_text = 3600;		// Life span for cache of text searching
@@ -38,15 +38,18 @@ $srchtxt = $_GET['srchtxt'];
 
 $keyword = isset($srchtxt) ? dhtmlspecialchars(trim($srchtxt)) : '';
 
+//note 显示搜索
 if(!submitcheck('searchsubmit', 1)) {
 
 	include template('search/portal');
 
 } else {
 
+	//note 排序规则
 	$orderby = in_array($_GET['orderby'], array('aid')) ? $_GET['orderby'] : 'aid';
 	$ascdesc = isset($_GET['ascdesc']) && $_GET['ascdesc'] == 'asc' ? 'asc' : 'desc';
 
+	//note 如果这个关键字已经被刚刚搜索过
 	if(!empty($searchid)) {
 
 		$page = max(1, intval($_GET['page']));
@@ -99,16 +102,19 @@ if(!submitcheck('searchsubmit', 1)) {
 
 		} else {
 
+			//note 计算查询条件
 			if(!$srchtxt) {
 				dheader('Location: search.php?mod=portal');
 			}
 
+			//note 最大查询条数
 			if($_G['adminid'] != '1' && $_G['setting']['search']['portal']['maxspm']) {
 				if(C::t('common_searchindex')->count_by_dateline($_G['timestamp'], $srchmod) >= $_G['setting']['search']['portal']['maxspm']) {
 					showmessage('search_toomany', 'search.php?mod=portal', array('maxspm' => $_G['setting']['search']['portal']['maxspm']));
 				}
 			}
 
+			//note 执行查询
 			$num = $ids = 0;
 			$_G['setting']['search']['portal']['maxsearchresults'] = $_G['setting']['search']['portal']['maxsearchresults'] ? intval($_G['setting']['search']['portal']['maxsearchresults']) : 500;
 			list($srchtxt, $srchtxtsql) = searchkey($keyword, "title LIKE '%{text}%'", true);
@@ -136,6 +142,7 @@ if(!submitcheck('searchsubmit', 1)) {
 			!($_G['portal']['exempt'] & 2) && updatecreditbyaction('search');
 		}
 
+		//note 显示搜索到的结果
 		dheader("location: search.php?mod=portal&searchid=$searchid&searchsubmit=yes&kw=".urlencode($keyword));
 
 	}

@@ -18,12 +18,14 @@ if(empty($_G['setting']['sendmailday'])) {
 }
 
 if(submitcheck('setsendemailsubmit')) {
+	//邮箱提醒设置
 	$_GET['sendmail'] = serialize($_GET['sendmail']);
 	C::t('common_member_field_home')->update($_G['uid'], array('acceptemail' => $_GET['sendmail']));
 	showmessage('do_success', 'home.php?mod=spacecp&ac=sendmail');
 }
 
 
+//填写邮箱
 if(empty($space['email']) || !isemail($space['email'])) {
 	showmessage('email_input');
 }

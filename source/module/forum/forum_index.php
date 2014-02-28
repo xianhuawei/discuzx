@@ -13,21 +13,26 @@ if(!defined('IN_DISCUZ')) {
 
 require_once libfile('function/forumlist');
 
+// 在线列表命令
 $gid = intval(getgpc('gid'));
 $showoldetails = get_index_online_details();
 
+//X 增加手机版禁用首页缓存(IN_MOBILE)
 if(!$_G['uid'] && !$gid && $_G['setting']['cacheindexlife'] && !defined('IN_ARCHIVER') && !defined('IN_MOBILE')) {
 	get_index_page_guest_cache();
 }
 
+// 新帖时间
 $newthreads = round((TIMESTAMP - $_G['member']['lastvisit'] + 600) / 1000) * 1000;
 
+// 初始化变量
 $catlist = $forumlist = $sublist = $forumname = $collapse = $favforumlist = array();
 $threads = $posts = $todayposts = $announcepm = 0;
 $postdata = $_G['cache']['historyposts'] ? explode("\t", $_G['cache']['historyposts']) : array(0,0);
 $postdata[0] = intval($postdata[0]);
 $postdata[1] = intval($postdata[1]);
 
+// SEO
 list($navtitle, $metadescription, $metakeywords) = get_seosetting('forum');
 if(!$navtitle) {
 	$navtitle = $_G['setting']['navs'][2]['navname'];
@@ -42,6 +47,7 @@ if(!$metakeywords) {
 	$metakeywords = $navtitle;
 }
 
+//有使用，是论坛热点功能，模版中展示
 if($_G['setting']['indexhot']['status'] && $_G['cache']['heats']['expiration'] < TIMESTAMP) {
 	require_once libfile('function/cache');
 	updatecache('heats');
@@ -213,23 +219,29 @@ if($_G['setting']['grid']['showgrid']) {
 }
 
 if(!$gid && (!defined('FORUM_INDEX_PAGE_MEMORY') || !FORUM_INDEX_PAGE_MEMORY)) {
+	// 公告
 	$announcements = get_index_announcements();
 
 
+	//版块数据
 	$forums = C::t('forum_forum')->fetch_all_by_status(1);
+	//所有fid
 	$fids = array();
 	foreach($forums as $forum) {
 		$fids[$forum['fid']] = $forum['fid'];
 	}
 
+	// 访问限制
 	$forum_access = array();
 	if(!empty($_G['member']['accessmasks'])) {
 		$forum_access = C::t('forum_access')->fetch_all_by_fid_uid($fids, $_G['uid']);
 	}
 
+	//扩充数据
 	$forum_fields = C::t('forum_forumfield')->fetch_all($fids);
 
 	foreach($forums as $forum) {
+		//组装数据
 		if($forum_fields[$forum['fid']]['fid']) {
 			$forum = array_merge($forum, $forum_fields[$forum['fid']]);
 		}
@@ -306,10 +318,13 @@ if(!$gid && (!defined('FORUM_INDEX_PAGE_MEMORY') || !FORUM_INDEX_PAGE_MEMORY)) {
 		unset($catlist[0]);
 	}
 
+	// 显示在线列表
 	if(!IS_ROBOT && ($_G['setting']['whosonlinestatus'] == 1 || $_G['setting']['whosonlinestatus'] == 3)) {
 		$_G['setting']['whosonlinestatus'] = 1;
 
+		// 历史在线人数
 		$onlineinfo = explode("\t", $_G['cache']['onlinerecord']);
+ 		// 当前在线总数
 		if(empty($_G['cookie']['onlineusernum'])) {
 			$onlinenum = C::app()->session->count();
 			if($onlinenum > $onlineinfo[0]) {
@@ -322,6 +337,7 @@ if(!$gid && (!defined('FORUM_INDEX_PAGE_MEMORY') || !FORUM_INDEX_PAGE_MEMORY)) {
 		} else {
 			$onlinenum = intval($_G['cookie']['onlineusernum']);
 		}
+		// 格式化最高记录日期
 		$onlineinfo[1] = dgmdate($onlineinfo[1], 'd');
 
 		$detailstatus = $showoldetails == 'yes' || (((!isset($_G['cookie']['onlineindex']) && !$_G['setting']['whosonline_contract']) || $_G['cookie']['onlineindex']) && $onlinenum < 500 && !$showoldetails);
@@ -411,6 +427,7 @@ if(defined('IN_ARCHIVER')) {
 }
 categorycollapse();
 
+// $_G中加入分区板块的信息
 if($gid && !empty($catlist)) {
 	$_G['category'] = $catlist[$gid];
 	$forumseoset = array(
@@ -453,7 +470,9 @@ function get_index_announcements() {
 
 function get_index_page_guest_cache() {
 	global $_G;
+	//debug 检查缓存文件，如果不存在相应目录则创建目录。
 	$indexcache = getcacheinfo(0);
+	//debug 如果过期或者不存在，则定义缓存文件。output将该页缓存。
 	if(TIMESTAMP - $indexcache['filemtime'] > $_G['setting']['cacheindexlife']) {
 		@unlink($indexcache['filename']);
 		define('CACHE_FILE', $indexcache['filename']);

@@ -46,6 +46,7 @@ function getexif($img) {
 		$new_img_info	=	exif_lang('img_info');
 	} else {
 		@$exif = exif_read_data($img, 0, true);
+		//过滤exif信息防止图片中写入JS造成XSS
 		foreach($exif as $type => $typearr) {
 			foreach($typearr as $key => $kval) {
 				if(is_array($kval)) {
@@ -60,11 +61,13 @@ function getexif($img) {
 			}
 		}
 		$new_img_info	=	array (
+		//"文件信息"		=>	'',
 		exif_lang('FileName')			=>	$exif[FILE][FileName],
 		exif_lang('FileType')		=>	$imgtype[$exif[FILE][FileType]],
 		exif_lang('MimeType')		=>	$exif[FILE][MimeType],
 		exif_lang('FileSize')		=>	$exif[FILE][FileSize],
 		exif_lang('FileDateTime')			=>	date("Y-m-d H:i:s",$exif[FILE][FileDateTime]),
+		//"图像信息"		=>	'',
 		exif_lang('ImageDescription')		=>	$exif[IFD0][ImageDescription],
 		exif_lang('Make')			=>	$exif[IFD0][Make],
 		exif_lang('Model')			=>	$exif[IFD0][Model],
@@ -78,6 +81,7 @@ function getexif($img) {
 		exif_lang('Copyright')			=>	$exif[IFD0][Copyright],
 		exif_lang('Photographer')		=>	$exif[COMPUTED][Copyright.Photographer],
 		exif_lang('Editor')		=>	$exif[COMPUTED][Copyright.Editor],
+		//"拍摄信息"		=>	'',
 		exif_lang('ExifVersion')		=>	$exif[EXIF][ExifVersion],
 		exif_lang('FlashPixVersion')	=>	"Ver. ".number_format($exif[EXIF][FlashPixVersion]/100,2),
 		exif_lang('DateTimeOriginal')		=>	$exif[EXIF][DateTimeOriginal],

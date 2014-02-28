@@ -32,6 +32,7 @@ if(!$operation) {
 	}
 
 	$grouplist = C::t('common_admingroup')->fetch_all_merge_usergroup();
+	//note 没有提交动作，显示管理组列表
 	if(!submitcheck('groupsubmit')) {
 
 		shownav('user', 'nav_admingroups');
@@ -77,6 +78,7 @@ if(!$operation) {
 
 	} else {
 
+		//note 更新管理组的信息
 		foreach($grouplist as $gid => $group) {
 			$stars = intval($_GET['group_stars'][$gid]);
 			$color = dhtmlspecialchars($_GET['group_color'][$gid]);
@@ -85,6 +87,7 @@ if(!$operation) {
 			}
 		}
 
+		//note 增加新的管理组
 		$grouptitlenew = dhtmlspecialchars(trim($_GET['grouptitlenew']));
 		$radminidnew = intval($_GET['radminidnew']);
 
@@ -94,6 +97,7 @@ if(!$operation) {
 
 		if($grouptitlenew && in_array($radminidnew, array(1, 2, 3))) {
 
+			//note 取得相关组的基本设置
 			$data = array();
 			$usergroup = C::t('common_usergroup')->fetch($radminidnew);
 			foreach ($usergroup as $key => $val) {
@@ -111,6 +115,7 @@ if(!$operation) {
 				}
 			}
 
+			//note 取得相关组的权限设置
 			$adata = array();
 			$admingroup = C::t('common_admingroup')->fetch($radminidnew);
 			foreach ($admingroup as $key => $val) {
@@ -120,6 +125,7 @@ if(!$operation) {
 				}
 			}
 
+			//note 添加新特殊组
 			$data['radminid'] = $radminidnew;
 			$data['type'] = 'special';
 			$data['grouptitle'] = $grouptitlenew;
@@ -142,6 +148,7 @@ if(!$operation) {
 
 	$submitcheck = submitcheck('groupsubmit');
 
+	//note 多版块设置
 	$multiset = 0;
 	if(empty($_GET['multi'])) {
 		$gids = $_GET['id'];

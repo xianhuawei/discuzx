@@ -25,10 +25,13 @@ if($id) {
 	if($blog['uid'] != $space['uid']) {
 		$blog = null;
 	}
+	//日志不存在
 	if(!(!empty($blog) && ($blog['status'] == 0 || $blog['uid'] == $_G['uid'] || $_G['adminid'] == 1 || $_GET['modblogkey'] == modauthkey($blog['blogid'])))) {
 		showmessage('view_to_info_did_not_exist');
 	}
+	//检查好友权限
 	if(!ckfriend($blog['uid'], $blog['friend'], $blog['target_ids'])) {
+		//没有权限
 		require_once libfile('function/friend');
 		$isfriend = friend_check($blog['uid']);
 		space_merge($space, 'count');
@@ -38,6 +41,7 @@ if($id) {
 		include template('home/space_privacy');
 		exit();
 	} elseif(!$space['self'] && $blog['friend'] == 4 && $_G['adminid'] != 1) {
+		//密码输入问题
 		$cookiename = "view_pwd_blog_$blog[blogid]";
 		$cookievalue = empty($_G['cookie'][$cookiename])?'':$_G['cookie'][$cookiename];
 		if($cookievalue != md5(md5($blog['password']))) {
@@ -58,11 +62,13 @@ if($id) {
 		$blog['catname'] = dhtmlspecialchars($blog['catname']);
 	}
 
+	//处理视频标签
 	require_once libfile('function/blog');
 	$blog['message'] = blog_bbcode($blog['message']);
 
 	$otherlist = $newlist = array();
 
+	//作者的其他最新日志
 	$otherlist = array();
 	$query = C::t('home_blog')->fetch_all_by_uid($space['uid'], 'dateline', 0, 6);
 	foreach($query as $value) {
@@ -71,6 +77,7 @@ if($id) {
 		}
 	}
 
+	//最新的日志
 	$newlist = array();
 	$query = C::t('home_blog')->fetch_all_by_hot($minhot, 'dateline', 0, 6);
 	foreach($query as $value) {
@@ -79,11 +86,13 @@ if($id) {
 		}
 	}
 
+	//评论
 	$perpage = 20;
 	$perpage = mob_perpage($perpage);
 
 	$start = ($page-1)*$perpage;
 
+	//检查开始数
 	ckstart($start, $perpage);
 
 	$count = $blog['replynum'];
@@ -108,19 +117,23 @@ if($id) {
 		}
 	}
 
+	//分页
 	$multi = multi($count, $perpage, $page, "home.php?mod=space&uid=$blog[uid]&do=$do&id=$id#comment");
 
+	//访问统计, 简单的防刷新
 	if(!$_G['setting']['preventrefresh'] || !$space['self'] && $_G['cookie']['viewid'] != 'blog_'.$blog['blogid']) {
 		C::t('home_blog')->increase($blog['blogid'], 0, array('viewnum' => 1));
 		dsetcookie('viewid', 'blog_'.$blog['blogid']);
 	}
 
+	//表态
 	$hash = md5($blog['uid']."\t".$blog['dateline']);
 	$id = $blog['blogid'];
 	$idtype = 'blogid';
 
 	$maxclicknum = 0;
 	loadcache('click');
+	//表态分类
 	$clicks = empty($_G['cache']['click']['blogid'])?array():$_G['cache']['click']['blogid'];
 
 	foreach ($clicks as $key => $value) {
@@ -130,6 +143,7 @@ if($id) {
 		$clicks[$key] = $value;
 	}
 
+	//点评
 	$clickuserlist = array();
 	foreach(C::t('home_clickuser')->fetch_all_by_id_idtype($id, $idtype, 0, 24) as $value) {
 		$value['clickname'] = $clicks[$value['clickid']]['name'];
@@ -139,6 +153,7 @@ if($id) {
 
 	$diymode = intval($_G['cookie']['home_diymode']);
 
+    //标签显示处理
 	$tagarray_all = $array_temp = $blogtag_array = $blogmetatag_array = array();
 	$blogmeta_tag = '';
 	$tagarray_all = explode("\t", $blog['tag']);
@@ -179,16 +194,20 @@ if($id) {
 
 } else {
 
+	//系统分类
 	loadcache('blogcategory');
 	$category = $_G['cache']['blogcategory'];
 
+	//默认显示
 	if(empty($_GET['view'])) $_GET['view'] = 'we';
 
+	//分页
 	$perpage = 10;
 	$perpage = mob_perpage($perpage);
 	$start = ($page-1)*$perpage;
 	ckstart($start, $perpage);
 
+	//摘要截取
 	$summarylen = 300;
 
 	$classarr = array();
@@ -235,6 +254,7 @@ if($id) {
 		$stickblogs = array_filter($stickblogs);
 		$uids[] = $space['uid'];
 
+		//分类
 		$classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 
 		$privacyfriend = empty($_GET['friend'])?0:intval($_GET['friend']);
@@ -243,6 +263,7 @@ if($id) {
 			$classarr[$value['classid']] = $value['classname'];
 		}
 
+		//自定义识别
 		if($_GET['from'] == 'space') $diymode = 1;
 		$status = array(0, 1);
 	} else {
@@ -253,6 +274,7 @@ if($id) {
 
 			$fuid_actives = array();
 
+			//查看指定好友的
 			require_once libfile('function/friend');
 			$fuid = intval($_GET['fuid']);
 			if($fuid && friend_check($fuid, $space['uid'])) {
@@ -277,11 +299,13 @@ if($id) {
 	$actives = array($_GET['view'] =>' class="a"');
 
 	if($need_count) {
+		//搜索
 		if($searchkey = stripsearchkey($_GET['searchkey'])) {
 			$searchsubject = $searchkey;
 			$searchkey = dhtmlspecialchars($searchkey);
 		}
 
+		//系统分类
 		$catid = empty($_GET['catid'])?0:intval($_GET['catid']);
 
 		$count = C::t('home_blog')->count_all_by_search(null, $uids, null, null, $gthot, null, null, null, null, null, $privacyfriend, null, null, null, $classid, $catid, $searchsubject, true, $status);
@@ -310,6 +334,7 @@ if($id) {
 			}
 		}
 
+		//分页
 		$multi = multi($count, $perpage, $page, $theurl);
 		if(!empty($stickblogs)) {
 			$list = array_merge(blog_get_stick($space['uid'], $stickblogs, $summarylen), $list);
@@ -346,6 +371,12 @@ if($id) {
 
 }
 
+/**
+ * 获得指定用户的置顶日志
+ * @param <int> $uid
+ * @param <array> $stickblogs
+ * @return Array
+ */
 function blog_get_stick($uid, $stickblogs, $summarylen) {
 	$list = array_flip($stickblogs);
 	if($stickblogs) {

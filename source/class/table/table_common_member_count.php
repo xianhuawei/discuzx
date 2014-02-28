@@ -18,12 +18,16 @@ class table_common_member_count extends discuz_table_archive
 		$this->_table = 'common_member_count';
 		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'common_member_count_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
-		
+		//$this->_cache_ttl = 0; //在setting/memory中设置
+
 		parent::__construct();
 	}
 
+	/**
+	 * 累加指定会员的某统一数据的值
+	 * @param array $uids 会员ID
+	 * @param array $creditarr 要累加的字段和累加值
+	 */
 	public function increase($uids, $creditarr) {
 		$uids = dintval((array)$uids, true);
 		$sql = array();
@@ -41,6 +45,11 @@ class table_common_member_count extends discuz_table_archive
 		}
 	}
 
+	/**
+	 * 清零指定会员的某一扩展积分值
+	 * @param array $uids 会员ID
+	 * @param array $extcredits 要清零的积分
+	 */
 	public function clear_extcredits($uids, $extcredits) {
 		$uids = dintval((array)$uids, true);
 		$sql = $data = array();
@@ -57,10 +66,23 @@ class table_common_member_count extends discuz_table_archive
 		}
 	}
 
+	/**
+	 * 获取指定帖子数的会员数
+	 * @param int $num 帖子数
+	 * @return int 会员数
+	 */
 	public function count_by_posts($num) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE posts=%d', array($this->_table, $num));
 	}
 
+	/**
+	 * 获取指定范围的数据, 不带参数返回所有数据
+	 * @param int $start 开始
+	 * @param int $limit 条数
+	 * @param string $orderby 排序字段
+	 * @param string $sort 是否排序：ASC|DESC
+	 * @return array
+	 */
 	public function range_by_field($start = 0, $limit = 0, $orderby = '', $sort = '') {
 		$orderby = in_array($orderby, array(
 			'extcredits1', 'extcredits2', 'extcredits3', 'extcredits4', 'extcredits5', 'extcredits6', 'extcredits7', 'extcredits8',
@@ -69,6 +91,9 @@ class table_common_member_count extends discuz_table_archive
 		return DB::fetch_all('SELECT * FROM '.DB::table($this->_table).($orderby ? ' ORDER BY '.DB::order($orderby, $sort) : '').DB::limit($start, $limit), null, $this->_pk);
 	}
 
+	/**
+	 * 清空会员帖子的精华数
+	 */
 	public function clear_digestposts() {
 		$uids = array();
 		if($this->_allowmem) {
@@ -81,6 +106,9 @@ class table_common_member_count extends discuz_table_archive
 		return $data;
 	}
 
+	/**
+	 * 清空会员当日附件相关数据
+	 */
 	public function clear_today_data() {
 		$uids = array();
 		if($this->_allowmem) {
@@ -93,6 +121,12 @@ class table_common_member_count extends discuz_table_archive
 		return $data;
 	}
 
+	/**
+	 * 统计某扩展积分大于某值的用户数量
+	 * @param int $extcredits 扩展积分类型：1-8
+	 * @param int $credits 积分值
+	 * @return int
+	 */
 	public function count_by_extcredits($extcredits, $credits) {
 		$count = 0;
 		if(in_array($extcredits, array(1,2,3,4,5,6,7,8))) {

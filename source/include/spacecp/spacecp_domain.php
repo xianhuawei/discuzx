@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//二级域名
 $domainlength = checkperm('domainlength');
 
 if($_G['setting']['allowspacedomain'] && !empty($_G['setting']['domain']['root']['home']) && $domainlength) {
@@ -22,6 +23,7 @@ if($_G['setting']['allowspacedomain'] && !empty($_G['setting']['domain']['root']
 if(submitcheck('domainsubmit')) {
 
 	$setarr = array();
+	//二级域名
 	$_POST['domain'] = strtolower(trim($_POST['domain']));
 	if($_POST['domain'] != $space['domain']) {
 
@@ -35,8 +37,10 @@ if(submitcheck('domainsubmit')) {
 		}
 	}
 	if($setarr) {
+		//积分
 		updatecreditbyaction('modifydomain');
 		C::t('common_member_field_home')->update($_G['uid'], $setarr);
+		//删除该域名记录
 		require_once libfile('function/delete');
 		deletedomain($_G['uid'], 'home');
 		if(!empty($setarr['domain'])) {

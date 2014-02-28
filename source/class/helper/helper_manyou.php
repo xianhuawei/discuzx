@@ -27,12 +27,19 @@ class helper_manyou {
 		}
 	}
 
+	/**
+	 * 获取我的中心中展示的应用
+	 */
 	public static function getuserapp($panel = 0) {
 		require_once libfile('function/manyou');
 		manyou_getuserapp($panel);
 		return true;
 	}
 
+	/**
+	 * 获取manyou应用本地图标路径
+	 * @param <type> $appid
+	 */
 	public static function getmyappiconpath($appid, $iconstatus=0) {
 		if($iconstatus > 0) {
 			return getglobal('setting/attachurl').'./'.'myapp/icon/'.$appid.'.jpg';
@@ -40,6 +47,7 @@ class helper_manyou {
 		return 'http://appicon.manyou.com/icons/'.$appid;
 	}
 
+	 //输出MYOP升级信息脚本
 	public static function checkupdate() {
 		global $_G;
 		if($_G['setting']['my_app_status'] && empty($_G['setting']['my_closecheckupdate']) && $_G['group']['radminid'] == 1) {

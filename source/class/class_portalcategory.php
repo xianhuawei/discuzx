@@ -23,6 +23,11 @@ class portal_category {
 		return $object;
 	}
 
+	/**
+	 * 手工添加指定频道权限
+	 * @param array $catid 频道ID
+	 * @param array $users 用户权限数组
+	 */
 	function add_users_perm($catid, $users) {
 		$sqlarr = $uids = array();
 		$catid = intval($catid);
@@ -36,6 +41,10 @@ class portal_category {
 		}
 	}
 
+	/**
+	 * 更新用户表中allowadmincp的状态
+	 * @param array $uids 用户IDs
+	 */
 	function _update_member_allowadmincp($uids) {
 		if(!empty($uids)) {
 			$userperms = array();
@@ -48,18 +57,31 @@ class portal_category {
 		}
 	}
 
+	/**
+	 * 删除指定频道手工添加的指定用户的权限
+	 * @param array $catid 频道ID
+	 * @param array $uids 用户IDs
+	 */
 	function delete_users_perm($catid, $uids) {
 
 		$uids = !is_array($uids) ? array($uids) : $uids;
 		$uids = array_map('intval', $uids);
 		$uids = array_filter($uids);
+		//删除本页面手工添加的权限
 		if($uids) {
 			C::t('portal_category_permission')->delete_by_catid_uid_inheritedcatid($catid, $uids, 0);
+			//删除所有子级从该级继承的权限
 			$this->delete_inherited_perm_by_catid($catid, $catid, $uids);
 			$this->_update_member_allowadmincp($uids);
 		}
 	}
 
+	/**
+	 * 删除指定频道继承的权限
+	 * @param int $catid 要删除权限的频道ID
+	 * @param int $upid 继承频道ID
+	 * @param int $uid 指定的用户ID,可以是多个UID数组
+	 */
 	function delete_inherited_perm_by_catid($catid, $upid = 0, $uid = 0) {
 		if(!is_array($catid)) {
 			$catids = $this->get_subcatids_by_catid($catid);
@@ -76,6 +98,10 @@ class portal_category {
 		}
 	}
 
+	/**
+	 * 重新生成指定频道的所有继承权限,同时更新所有子级频道
+	 * @param int $catid 频道ID
+	 */
 	function remake_inherited_perm($catid) {
 		loadcache('portalcategory');
 		$portalcategory = getglobal('cache/portalcategory');
@@ -88,6 +114,12 @@ class portal_category {
 		}
 	}
 
+	/**
+	 * 得到指定频道的权限列表
+	 * @param int $catid 频道ID
+	 * @param int $uid 用户ID
+	 * @return array
+	 */
 	function get_perms_by_catid($catid, $uid = 0) {
 		$perms = array();
 		$catid = intval($catid);
@@ -99,10 +131,21 @@ class portal_category {
 	}
 
 
+	/**
+	 * 批量添加多人和多频道的权限
+	 * @param array $users 用户权限数组，一个用户一条记录
+	 * @param array $catids 频道ID
+	 * @param string $upid 继承上级频道ID，为空时则$catids数组的第一个值为其它值的上级频道ID
+	 */
 	function _add_users_cats($users, $catids, $upid = 0) {
 		C::t('portal_category_permission')->insert_batch($users, $catids, $upid);
 	}
 
+	/**
+	 * 删除继承自指定频道和指定用户的所有频道权限
+	 * @param int $catid 继承自的频道ID
+	 * @param array $uids 指定的用户ID
+	 */
 	function delete_perm_by_inheritedcatid($catid, $uids = array()) {
 		if($uids && !is_array($uids)) $uids = array($uids);
 		if($catid) {
@@ -113,27 +156,37 @@ class portal_category {
 		}
 	}
 
+	/**
+	 * 删除指定频道id的所有权限
+	 * @param int $catid
+	 */
 	function delete_allperm_by_catid($catid) {
 		if($catid) {
 			C::t('portal_category_permission')->delete_by_catid_uid_inheritedcatid($catid);
 			C::t('portal_category_permission')->delete_by_catid_uid_inheritedcatid(false, false, $catid);
 		}
 	}
+	/**
+	 * 得到所有继承指定频道权限的catids,包括自己
+	 * @param array $catid 继承自的频道ID
+	 * @return array 所得到的频道ID
+	 */
 	function get_subcatids_by_catid($catid) {
 		loadcache('portalcategory');
 		$portalcategory = getglobal('cache/portalcategory');
 		$catids = array();
 		$catids[$catid] = $catid;
 		if(isset($portalcategory[$catid]) && !empty($portalcategory[$catid]['children'])) {
-			$children = array();
+			$children = array(); //所有子级
 			foreach($portalcategory[$catid]['children'] as $cid) {
 				if(!$portalcategory[$cid]['notinheritedarticle']) {
-					$catids[$cid] = $cid;
+					$catids[$cid] = $cid; //一级子级
 					if(!empty($portalcategory[$cid]['children'])) {
 						$children = array_merge($children, $portalcategory[$cid]['children']);
 					}
 				}
 			}
+			//二级子级
 			if(!empty($children)) {
 				foreach($children as $cid) {
 					if(!$portalcategory[$cid]['notinheritedarticle']) {

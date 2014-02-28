@@ -21,6 +21,12 @@ class table_common_adminnote extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 根据主键删除后台留言
+	 * @param int|array $id
+	 * @param string $admin adminid=1或者创始人需要此参数
+	 * @return bool 
+	 */
 	public function delete($id, $admin = '') {
 		if(empty($id)) {
 			return false;
@@ -28,6 +34,11 @@ class table_common_adminnote extends discuz_table
 		return DB::query('DELETE FROM %t WHERE '.DB::field('id', $id).' %i', array($this->_table, ($admin ? ' AND '.DB::field('admin', $admin) : '')));
 	}
 
+	/**
+	 * 根据访问权限查找留言信息
+	 * @param int|array $access
+	 * @return array 
+	 */
 	public function fetch_all_by_access($access) {
 		if(!is_numeric($access) && !is_array($access)) {
 			return array();
@@ -35,6 +46,11 @@ class table_common_adminnote extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE '.DB::field('access', $access).' ORDER BY dateline DESC', array($this->_table));
 	}
 
+	/**
+	 * 根据访问权限统计数量
+	 * @param int|array $access
+	 * @return int 
+	 */
 	public function count_by_access($access) {
 		if(!is_numeric($access) && !is_array($access)) {
 			return 0;

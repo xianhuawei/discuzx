@@ -21,6 +21,7 @@ if($_G['setting']['regstatus'] < 2) {
 if($_G['uid']) {
 
 	if($_GET['accept'] == 'yes') {
+		//接受邀请
 		$cookies = empty($_G['cookie']['invite_auth'])?array():explode(',', $_G['cookie']['invite_auth']);
 
 		if(empty($cookies)) {
@@ -37,6 +38,7 @@ if($_G['uid']) {
 		$acceptconfirm = true;
 
 	} elseif($_GET['accept'] == 'no') {
+		//忽略邀请
 		dsetcookie('invite_auth', '');
 		showmessage('invite_accept_no', 'home.php');
 	}
@@ -46,12 +48,15 @@ if($id) {
 
 	$invite = C::t('common_invite')->fetch($id);
 
+	//是否正确
 	if(empty($invite) || $invite['code'] != $_GET['c']) {
 		showmessage('invite_code_error', '', array(), array('return' => true));
 	}
+	//已经使用
 	if($invite['fuid'] && $invite['fuid'] != $_G['uid']) {
 		showmessage('invite_code_fuid', '', array(), array('return' => true));
 	}
+	//是否过期
 	if($invite['endtime'] && $_G['timestamp'] > $invite['endtime']) {
 		C::t('common_invite')->delete($id);
 		showmessage('invite_code_endtime_error', '', array(), array('return' => true));
@@ -60,6 +65,7 @@ if($id) {
 	$appid = $invite['appid'];
 	$uid = $invite['uid'];
 
+	//设置cookie
 	$cookievar = "$id,$invite[code]";
 
 } elseif ($uid) {
@@ -69,23 +75,27 @@ if($id) {
 	if($_GET['c'] != $invite_code) {
 		showmessage('invite_code_error', '', array(), array('return' => true));
 	}
+	//验证这个用户组是否还允许通用邀请
 	$inviteuser = getuserbyuid($uid);
 	loadcache('usergroup_'.$inviteuser['groupid']);
 	if(!empty($_G['cache']['usergroup_'.$inviteuser['groupid']]) && $_G['cache']['usergroup_'.$inviteuser['groupid']]['inviteprice']) {
 		showmessage('invite_code_error', '', array(), array('return' => true));
 	}
 
+	//设置cookie
 	$cookievar = "$uid,$invite_code,$appid";
 
 } else {
 	showmessage('invite_code_error', '', array(), array('return' => true));
 }
 
+//获取应用
 $userapp = array();
 if($appid) {
 	$userapp = C::t('common_myapp')->fetch($appid);
 }
 
+//获得空间信息
 $space = getuserbyuid($uid);
 if(empty($space)) {
 	showmessage('space_does_not_exist', '', array(), array('return' => true));
@@ -95,6 +105,7 @@ if($acceptconfirm) {
 
 	dsetcookie('invite_auth', '');
 
+	//接受邀请
 	if($_G['uid'] == $uid) {
 		showmessage('should_not_invite_your_own', '', array(), array('return' => true));
 	}
@@ -104,12 +115,15 @@ if($acceptconfirm) {
 		showmessage('you_have_friends', $jumpurl);
 	}
 
+	//成为好友
 	friend_make($space['uid'], $space['username']);
 
+	//更新邀请连接
 	if($id) {
 		C::t('common_invite')->update($id, array('fuid'=>$_G['uid'], 'fusername'=>$_G['username'], 'regdateline' => $_G['timestamp'], 'status' => 2));
 		notification_add($uid, 'friend', 'invite_friend', array('actor' => '<a href="home.php?mod=space&uid='.$_G['uid'].'" target="_blank">'.$_G['username'].'</a>'), 1);
 	}
+	//产生feed
 	space_merge($space, 'field_home');
 	if(!empty($space['privacy']['feed']['invite'])) {
 		require_once libfile('function/feed');
@@ -117,15 +131,18 @@ if($acceptconfirm) {
 		feed_add('friend', 'feed_invite', $tite_data, '', array(), '', array(), array(), '', '', '', 0, 0, '', $space['uid'], $space['username']);
 	}
 
+	//奖励被邀请人
 	if($_G['setting']['inviteconfig']['inviteaddcredit']) {
 		updatemembercount($_G['uid'],
 			array($_G['setting']['inviteconfig']['inviterewardcredit'] => $_G['setting']['inviteconfig']['inviteaddcredit']));
 	}
+	//奖励邀请人
 	if($_G['setting']['inviteconfig']['invitedaddcredit']) {
 		updatemembercount($uid,
 			array($_G['setting']['inviteconfig']['inviterewardcredit'] => $_G['setting']['inviteconfig']['invitedaddcredit']));
 	}
 
+	//统计
 	include_once libfile('function/stat');
 	updatestat($appid ? 'appinvite' : 'invite');
 
@@ -138,6 +155,7 @@ if($acceptconfirm) {
 space_merge($space, 'count');
 space_merge($space, 'field_home');
 space_merge($space, 'profile');
+//好友列表
 $flist = array();
 $query = C::t('home_friend')->fetch_all_by_uid($uid, 0, 12, true);
 foreach($query as $value) {

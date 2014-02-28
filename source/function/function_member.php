@@ -11,6 +11,11 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+* 登陆函数
+* @return 登录状态
+* 1 = 成功，0 = 失败，-1 = 需要激活
+*/
 function userlogin($username, $password, $questionid, $answer, $loginfield = 'username', $ip = '') {
 	$return = array();
 
@@ -33,12 +38,13 @@ function userlogin($username, $password, $questionid, $answer, $loginfield = 'us
 		} elseif(isemail($username)) {
 			$return['ucresult'] = uc_user_login($username, $password, 2, 1, $questionid, $answer, $ip);
 		}
-		if($return['ucresult'][0] <= 0 && $return['ucresult'][0] != -3) {
+		if($return['ucresult'][0] <= 0 && $return['ucresult'][0] != -3) {//note 验证失败，尝试使用 username 方式登录
 			$return['ucresult'] = uc_user_login(addslashes($username), $password, 0, 1, $questionid, $answer, $ip);
 		}
 	} else {
 		$return['ucresult'] = uc_user_login(addslashes($username), $password, $isuid, 1, $questionid, $answer, $ip);
 	}
+	//变量初始化
 	$tmp = array();
 	$duplicate = '';
 	list($tmp['uid'], $tmp['username'], $tmp['password'], $tmp['email'], $duplicate) = $return['ucresult'];
@@ -78,11 +84,13 @@ function setloginstatus($member, $cookietime) {
 	C::app()->session->isnew = true;
 	C::app()->session->updatesession();
 
+	//note 存放登录数据
 	dsetcookie('auth', authcode("{$member['password']}\t{$member['uid']}", 'ENCODE'), $cookietime, 1, true);
 	dsetcookie('loginuser');
 	dsetcookie('activationauth');
 	dsetcookie('pmnum');
 
+	//统计
 	include_once libfile('function/stat');
 	updatestat('login', 1);
 	if(defined('IN_MOBILE')) {
@@ -92,6 +100,7 @@ function setloginstatus($member, $cookietime) {
 		updatestat('connectlogin', 1);
 	}
 	$rule = updatecreditbyaction('daylogin', $_G['uid']);
+	//执行积分策略就会更新用户组，如果没有执行该策略再进行用户组校验
 	if(!$rule['updatecredit']) {
 		checkusergroup($_G['uid']);
 	}
@@ -158,6 +167,7 @@ function getinvite() {
 	global $_G;
 
 	if($_G['setting']['regstatus'] == 1) return array();
+	//邀请注册
 	$result = array();
 	$cookies = empty($_G['cookie']['invite_auth']) ? array() : explode(',', $_G['cookie']['invite_auth']);
 	$cookiecount = count($cookies);
@@ -221,6 +231,9 @@ function replacesitevar($string, $replaces = array()) {
 	return str_replace(array_keys($replaces), array_values($replaces), $string);
 }
 
+/**
+* 清理cookie
+*/
 function clearcookies() {
 	global $_G;
 	foreach($_G['cookie'] as $k => $v) {
@@ -256,6 +269,9 @@ function crime($fun) {
 	}
 	return false;
 }
+/**
+ * 检查是否有最新动态
+ */
 function checkfollowfeed() {
 	global $_G;
 
@@ -282,6 +298,10 @@ function checkfollowfeed() {
 	}
 	dsetcookie('checkfollow', 1, 30);
 }
+/**
+ * 通过UCenter检查Email是否合法, 不合法直拉报错
+ * -4 : email 格式有误;-5 : email 不允许注册;-6 : 该 email 已经被注册
+ */
 function checkemail($email) {
 	global $_G;
 

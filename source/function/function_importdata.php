@@ -172,6 +172,13 @@ function import_block($xmlurl, $clientid, $xmlkey = '', $signtype = '', $ignorev
 	}
 }
 
+/**
+ * 生成签名
+ * @param array $para 参数数组
+ * @param string $key 加密密钥
+ * @param string $signtype 加密类型; 目前只支持MD5方式，空为不使用签名，直接使用通信密钥
+ * @return string 带签名的 URL-encode 之后的请求字符串
+ */
 function create_sign_url($para, $key = '', $signtype = ''){
 	ksort($para);
 	$url = http_build_query($para);

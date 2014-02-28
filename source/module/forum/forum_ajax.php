@@ -14,6 +14,11 @@ define('NOROBOT', TRUE);
 
 if($_GET['action'] == 'checkusername') {
 
+/**UC	判断用户名有效性
+	-1 : 用户名不合法
+	-2 : 包含要允许注册的词语
+	-3 : 用户名已经存在
+*/
 
 	$username = trim($_GET['username']);
 	$usernamelen = dstrlen($username);
@@ -110,6 +115,7 @@ if($_GET['action'] == 'checkusername') {
 	if($_GET['aids']) {
 		foreach($_GET['aids'] as $aid) {
 			$attach = C::t('forum_attachment_n')->fetch('aid:'.$aid, $aid);
+			//扣除相应的积分
 			if($attach && ($attach['pid'] && $attach['pid'] == $_GET['pid'] && $_G['uid'] == $attach['uid'])) {
 				updatecreditbyaction('postattach', $attach['uid'], array(), '', -1, 1, $_G['fid']);
 			}
@@ -232,6 +238,7 @@ if($_GET['action'] == 'checkusername') {
 
 } elseif($_GET['action'] == 'updateattachlimit') {
 
+	// 附件相关设置
 	$_G['forum']['allowpostattach'] = isset($_G['forum']['allowpostattach']) ? $_G['forum']['allowpostattach'] : '';
 	$_G['group']['allowpostattach'] = $_G['forum']['allowpostattach'] != -1 && ($_G['forum']['allowpostattach'] == 1 || (!$_G['forum']['postattachperm'] && $_G['group']['allowpostattach']) || ($_G['forum']['postattachperm'] && forumperm($_G['forum']['postattachperm'])));
 	$_G['forum']['allowpostimage'] = isset($_G['forum']['allowpostimage']) ? $_G['forum']['allowpostimage'] : '';
@@ -349,6 +356,7 @@ if($_GET['action'] == 'checkusername') {
 	preg_match_all("/\[img\]\s*([^\[\<\r\n]+?)\s*\[\/img\]|\[img=\d{1,4}[x|\,]\d{1,4}\]\s*([^\[\<\r\n]+?)\s*\[\/img\]/is", $_GET['message'], $image1, PREG_SET_ORDER);
 	preg_match_all("/\<img.+src=('|\"|)?(.*)(\\1)([\s].*)?\>/ismUe", $_GET['message'], $image2, PREG_SET_ORDER);
 	$temp = $aids = $existentimg = array();
+	//整理要处理的图片
 	if(is_array($image1) && !empty($image1)) {
 		foreach($image1 as $value) {
 			$temp[] = array(
@@ -405,6 +413,7 @@ if($_GET['action'] == 'checkusername') {
 						fwrite($fp, $content);
 						fclose($fp);
 					}
+					//验证写入的文件是否是图片，不是删除
 					if(!$upload->get_image_info($attach['target'])) {
 						@unlink($attach['target']);
 						continue;
@@ -454,6 +463,7 @@ if($_GET['action'] == 'checkusername') {
 				}
 			}
 		}
+		//上传远程附件
 		if(!empty($aids)) {
 			require_once libfile('function/post');
 		}
@@ -523,6 +533,7 @@ EOF;
 		$thread = C::t('forum_thread')->fetch($tid);
 		if($thread && !getstatus($thread['status'], 2)) {
 			$list = C::t('forum_post')->fetch_all_by_tid('tid:'.$tid, $tid, true, 'DESC', 0, 10, null, 0);
+			//顺序输出
 			loadcache('smilies');
 			foreach($list as $pid => $post) {
 				if($post['first']) {
@@ -608,6 +619,7 @@ EOF;
 			require_once libfile('function/followcode');
 			$post['message'] = followcode($post['message'], $tid, $pid);
 		} else {
+			//在这里过滤一下含有分类信息的版块
 			if(!isset($_G['cache']['forums'])) {
 				loadcache('forums');
 			}
@@ -640,6 +652,7 @@ EOF;
 				$identifier = array('portal' => 1, 'group' => 3, 'feed' => 4, 'ranklist' => 8, 'follow' => 9, 'guide' => 10, 'collection' => 11, 'blog' => 12, 'album' => 13, 'share' => 14, 'doing' => 15);
 				$navdata = array('available' => -1);
 				$navtype = $do == 'open' ? array() : array(0, 3);
+				//以下几个SNS导航同时激活
 				if(in_array($type, array('blog', 'album', 'share', 'doing', 'follow'))) {
 					$navtype[] = 2;
 				}
@@ -648,17 +661,21 @@ EOF;
 						$navtype[] = 0;
 						$navdata['available'] = 1;
 					}
+					//快捷菜单
 					if($_GET['location']['quick']) {
 						$navtype[] = 3;
 						$navdata['available'] = 1;
 					}
 					$navdata['available'] = $navdata['available'] == 1 ? 1 : 0;
+					//启用导航
 					if(empty($_GET['location']['header']) || empty($_GET['location']['quick'])) {
 						C::t('common_nav')->update_by_navtype_type_identifier(array(0, 2, 3), 0, array("$type", "$identifier[$type]"), array('available' => 0));
 					}
 				}
+				//激活导航
 				if($navtype) {
 					C::t('common_nav')->update_by_navtype_type_identifier($navtype, 0, array("$type", "$identifier[$type]"), $navdata);
+					//激活SNS模式下的入口
 					if(in_array($type, array('blog', 'album', 'share', 'doing', 'follow')) && !$navdata['available']) {
 						C::t('common_nav')->update_by_navtype_type_identifier(array(2), 0, array("$type"), array('available' => 1));
 					}

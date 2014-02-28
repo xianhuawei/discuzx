@@ -64,6 +64,15 @@ class discuz_ftp
 		}
 	}
 
+	/**
+	 * 上传文件到ftp服务器
+	 *
+	 * @param sourcefile $source 原始文件(绝对地址)
+	 * @param targetfile $target 目标文件(相对于ftp根的绝对地址)
+	 * @return boolean
+	 *
+	 * @example 当上传遇到错误, 请使用 $this->error() 查看错误代码
+	 */
 	function upload($source, $target) {
 		if($this->error()) {
 			return 0;
@@ -99,6 +108,11 @@ class discuz_ftp
 		return $res ? 1 : 0;
 	}
 
+	/**
+	 * 根据 $this->config 中的参数连接服务器
+	 *
+	 * @return unknown
+	 */
 	function connect() {
 		if(!$this->enabled || empty($this->config)) {
 			return 0;
@@ -117,6 +131,19 @@ class discuz_ftp
 
 	}
 
+	/**
+	 * 连接服务器
+	 *
+	 * @param 服务器 $ftphost
+	 * @param 用户名 $username
+	 * @param 密码 $password
+	 * @param 根路径 $ftppath
+	 * @param 端口 $ftpport
+	 * @param 超时 $timeout
+	 * @param SSL模式 $ftpssl
+	 * @param PASV模式 $ftppasv
+	 * @return boolean
+	 */
 	function ftp_connect($ftphost, $username, $password, $ftppath, $ftpport = 21, $timeout = 30, $ftpssl = 0, $ftppasv = 0) {
 		$res = 0;
 		$fun = $this->func;
@@ -150,18 +177,35 @@ class discuz_ftp
 
 	}
 
+	/**
+	 * 设定错误代码
+	 * @param unknown_type $code
+	 */
 	function set_error($code = 0) {
 		$this->_error = $code;
 	}
 
+	/**
+	 * 返回错误代码
+	 * @return int
+	 */
 	function error() {
 		return $this->_error;
 	}
 
+	/**
+	 * 清理命令参数
+	 * @param string $str
+	 * @return string
+	 */
 	function clear($str) {
 		return str_replace(array( "\n", "\r", '..'), '', $str);
 	}
 
+	/**
+	 * 以下函数均为对 FTP 函数的封装, 使用参考见PHP文档
+	 *
+	 */
 
 	function set_option($cmd, $value) {
 		if(function_exists('ftp_set_option')) {

@@ -21,6 +21,13 @@ class table_home_userappfield extends discuz_table
 		parent::__construct();
 	}
 
+/**
+	 *
+	 * 根据Uid、appid删除用户应用记录
+	 * @param int|array $uid:用户Uid
+	 * @param int|array $appid:应用ID
+	 * @return 返回受影响的记录数
+	 */
 	public function delete_by_uid_appid($uid = 0, $appid = 0) {
 		$parameter = array($this->_table);
 		$wherearr = array();

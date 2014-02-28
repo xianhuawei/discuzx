@@ -13,8 +13,8 @@ if(!defined('IN_DISCUZ')) {
 
 class discuz_session_close {
 
-	private $onlinehold;
-	private $oltimestamp;
+	private $onlinehold; //在线时长
+	private $oltimestamp; //标识在线的时间戳
 
 	public $sid = null;
 	public $var;
@@ -98,6 +98,11 @@ class discuz_session_close {
 		return true;
 	}
 
+	/**
+	 * 取在线用户数量
+	 *
+	 * @param int $type 0=全部 1=会员 2=游客
+	 */
 	public function count($type = 0) {
 		loadcache('onlinecount');
 		$onlinecount = getglobal('cache/onlinecount');
@@ -111,6 +116,7 @@ class discuz_session_close {
 			return $count;
 		}
 
+		//虚拟游客的倍数
 		if(!($multiple = getglobal('setting/onlineguestsmultiple'))) $multiple = 11;
 		$add = mt_rand(0, $multiple);
 		if($type == 2) {
@@ -120,34 +126,80 @@ class discuz_session_close {
 		}
 	}
 
+	/**
+	 * 在线数据
+	 * @param int $ismember 参数无效，只能是会员
+	 * @param int $invisible 是否过滤隐身 0所有 1仅隐身 2仅非隐身
+	 * @param int $start 开始条数
+	 * @param int $limit 数据条数
+	 * @return array 在线数据
+	 */
 	public function fetch_member($ismember = 0, $invisible = 0, $start = 0, $limit = 0) {
 		return $this->table->fetch_all_by_lastactivity_invisible($this->oltimestamp, $invisible, $start, $limit);
 	}
 
+	/**
+	 * 统计在线可见用户数
+	 * @param int $invisible 是否过滤隐身 0所有 1仅隐身 2仅非隐身
+	 * @return int 统计值
+	 */
 	public function count_invisible($type = 1) {
 		return $this->table->count_by_lastactivity_invisible($this->oltimestamp, $type);
 	}
 
+	/**
+	 * 根据IP地址禁止当前正在访问的用户（失效）
+	 * @param int $ip1 IPv4的第一段
+	 * @param int $ip2 IPv4的第二段
+	 * @param int $ip3 IPv4的第三段
+	 * @param int $ip4 IPv4的第四段
+	 * @return bool
+	 */
 	public function update_by_ipban($ip1, $ip2, $ip3, $ip4) {
 		return false;
 	}
 
+	/**
+	 * 更改表的最大值（失效）
+	 * @param int $max_rows 最大值
+	 * @return bool
+	 */
 	public function update_max_rows($max_rows) {
 		return false;
 	}
 
+	/**
+	 * 清空表数据（失效）
+	 * @return bool
+	 */
 	public function clear() {
 		return false;
 	}
 
+	/**
+	 * 根据fid 统计（失效）
+	 * @param int $fid
+	 * @return int
+	 */
 	public function count_by_fid($fid) {
 		return 0;
 	}
 
+	/**
+	 * 根据fid获取数据（失效）
+	 * @param int $fid
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_fid($fid, $limit) {
 		return array();
 	}
 
+	/**
+	 * 根据会员ID获取session信息
+	 * @param int $uid 会员ID
+	 * @return array
+	 */
 	public function fetch_by_uid($uid) {
 		if(($member = $this->table->fetch($uid)) && $member['lastactivity'] >= $this->oltimestamp) {
 			return $member;
@@ -155,18 +207,43 @@ class discuz_session_close {
 		return array();
 	}
 
+	/**
+	 * 根据批量会员ID获取session信息
+	 * @param array $uids
+	 * @param int $start
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_uid($uids, $start = 0, $limit = 0) {
 		return $this->table->fetch_all_onlines($uids, $this->oltimestamp, $start, $limit);
 	}
 
+	/**
+	 * 根据UID更新session信息
+	 * @param int $uid
+	 * @param array $data
+	 * @return bool
+	 */
 	public function update_by_uid($uid, $data) {
 		return false;
 	}
 
+	/**
+	 * 根据IP统计数据
+	 * @param string $ip
+	 * @return int
+	 */
 	public function count_by_ip($ip) {
 		return 0;
 	}
 
+	/**
+	 * 根据IP获取数据
+	 * @param string $ip
+	 * @param int $start
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_ip($ip, $start = 0, $limit = 0) {
 		return array();
 	}

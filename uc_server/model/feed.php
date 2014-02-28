@@ -25,11 +25,24 @@ class feedmodel {
 		$this->db = $base->db;
 	}
 
+	/**
+	 * 统计通知的总条数
+	 *
+	 * @return int
+	 */
 	function get_total_num() {
 		$data = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."feeds");
 		return $data;
 	}
 
+	/**
+	 * Enter 得到通知列表
+	 *
+	 * @param int $page
+	 * @param int$ppp
+	 * @param int $totalnum
+	 * @return array 结果集
+	 */
 	function get_list($page, $ppp, $totalnum) {		
 		$start = $this->base->page_get_start($page, $ppp, $totalnum);
 		$data = $this->db->fetch_all("SELECT * FROM ".UC_DBTABLEPRE."feeds LIMIT $start, $ppp");

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
@@ -10,6 +10,7 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+// 高级自定义
 class block_groupactivity extends discuz_block {
 	var $setting = array();
 
@@ -153,6 +154,7 @@ class block_groupactivity extends discuz_block {
 			);
 	}
 
+	//可转换到的模块类型
 	function fieldsconvert() {
 		return array(
 				'forum_activity' => array(
@@ -168,18 +170,21 @@ class block_groupactivity extends discuz_block {
 		global $_G;
 		$settings = $this->setting;
 
+		// 处理特殊字段
+		// group type
 		if($settings['gtids']) {
 			loadcache('grouptype');
 			$settings['gtids']['value'][] = array(0, lang('portalcp', 'block_all_type'));
 			foreach($_G['cache']['grouptype']['first'] as $gid=>$group) {
 				$settings['gtids']['value'][] = array($gid, $group['name']);
-				if($group['secondlist']) {
+				if($group['secondlist']) {//子群组
 					foreach($group['secondlist'] as $subgid) {
 						$settings['gtids']['value'][] = array($subgid, '&nbsp;&nbsp;'.$_G['cache']['grouptype']['second'][$subgid]['name']);
 					}
 				}
 			}
 		}
+		// 活动分类
 		$activitytype = explode("\n", $_G['setting']['activitytype']);
 		$settings['class']['value'][] = array('', 'groupactivity_class_all');
 		foreach($activitytype as $item) {
@@ -193,6 +198,7 @@ class block_groupactivity extends discuz_block {
 
 		$parameter = $this->cookparameter($parameter);
 
+		//参数准备
 		loadcache('grouptype');
 		$typeids = array();
 		if(!empty($parameter['gtids'])) {
@@ -221,10 +227,11 @@ class block_groupactivity extends discuz_block {
 
 		$bannedids = !empty($parameter['bannedids']) ? explode(',', $parameter['bannedids']) : array();
 
+		//是否有群组浏览权限
 		$gviewwhere = $gviewperm == -1 ? '' : " AND ff.gviewperm='$gviewperm'";
 
 		$groups = array();
-		if(empty($fids) && $typeids) {
+		if(empty($fids) && $typeids) {// 未指定群组时，查找指定分类下群组
 			$query = DB::query('SELECT f.fid, f.name, ff.description FROM '.DB::table('forum_forum')." f LEFT JOIN ".DB::table('forum_forumfield')." ff ON f.fid = ff.fid WHERE f.fup IN (".dimplode($typeids).") AND threads > 0$gviewwhere");
 			while($value = DB::fetch($query)) {
 				$groups[$value['fid']] = $value;
@@ -247,6 +254,7 @@ class block_groupactivity extends discuz_block {
 			.($stick ? ' AND t.displayorder IN ('.dimplode($stick).')' : '')
 			.$keyword;
 
+		//没有找到指定的群组，则使用下面条件
 		if(empty($fids)) {
 			$sql .= " AND t.isgroup='1'";
 			if($gviewwhere) {
@@ -294,12 +302,14 @@ class block_groupactivity extends discuz_block {
 		}
 
 		$sqlfield = '';
+		//没有找到指定的群组时，需要链表查询出群组的名字，还有可能会用到forum_forumfield的gviewperm群组浏览权限字段
 		if(empty($fids)) {
 			$sqlfield = ', f.name groupname';
 			$sqlfrom .= ' LEFT JOIN '.DB::table('forum_forum').' f ON t.fid=f.fid LEFT JOIN '.DB::table('forum_forumfield').' ff ON f.fid = ff.fid';
 		}
 		$sqlfield = $highlight ? ', t.highlight' : '';
 
+		//数据获取
 		$query = DB::query("SELECT a.*, t.tid, t.subject, t.authorid, t.author$sqlfield
 			FROM ".DB::table('forum_activity')." a $sqlfrom
 			WHERE 1$where
@@ -314,6 +324,7 @@ class block_groupactivity extends discuz_block {
 			if($data['starttimeto']) {
 				$data['time'] .= ' - '.dgmdate($data['starttimeto']);
 			}
+			//查询获取帖子简介
 			if($style['getsummary']) {
 				$threadtids[$data['posttableid']][] = $data['tid'];
 			}
@@ -328,7 +339,7 @@ class block_groupactivity extends discuz_block {
 				'idtype' => 'tid',
 				'title' => cutstr(str_replace('\\\'', '&#39;', addslashes($data['subject'])), $titlelength, ''),
 				'url' => 'forum.php?mod=viewthread&tid='.$data['tid'],
-				'pic' => ($data['aid'] ? '' : $_G['style']['imgdir'].'/nophoto.gif'),
+				'pic' => ($data['aid'] ? '' : $_G['style']['imgdir'].'/nophoto.gif'), //后面进行批量赋值
 				'picflag' => '0',
 				'fields' => array(
 					'fulltitle' => str_replace('\\\'', '&#39;', addslashes($data['subject'])),
@@ -344,11 +355,13 @@ class block_groupactivity extends discuz_block {
 					'applynumber' => $data['applynumber'],
 				)
 			);
+			//高亮的处理
 			if($highlight && $data['highlight']) {
 				$list[$data['tid']]['fields']['showstyle'] = $bt->getthreadstyle($data['highlight']);
 			}
 		}
 
+		//统计申请的人数
 		if(!empty($listtids)) {
 			$query = DB::query("SELECT tid,COUNT(*) as sum FROM ".DB::table('forum_activityapply')." WHERE tid IN(".dimplode($listtids).") GROUP BY tid");
 			while($value = DB::fetch($query)) {
@@ -362,6 +375,7 @@ class block_groupactivity extends discuz_block {
 				}
 			}
 
+			//附件分表查询
 			foreach($attachtables as $tableid => $taids) {
 				$query = DB::query('SELECT aid, attachment, remote FROM '.DB::table('forum_attachment_'.$tableid).' WHERE aid IN ('.dimplode($taids).')');
 				while($avalue = DB::fetch($query)) {
@@ -370,6 +384,7 @@ class block_groupactivity extends discuz_block {
 				}
 			}
 
+			//还原$list顺序
 			foreach($listtids as $key => $value) {
 				$datalist[] = $list[$value];
 			}

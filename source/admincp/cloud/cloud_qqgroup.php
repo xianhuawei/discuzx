@@ -17,6 +17,7 @@ $signUrl = $utilService->generateSiteSignUrl(array('v' => 2));
 
 $_GET['anchor'] = in_array($_GET['anchor'], array('block', 'list', 'info', 'setting')) ? $_GET['anchor'] : 'block';
 
+// 第一次进来到列表页，其他时候到推送页
 if ($_GET['first']) {
 	$_GET['anchor'] = 'list';
 }
@@ -35,12 +36,15 @@ if (!$_G['inajax']) {
 }
 
 if($_GET['anchor'] == 'list') {
+	// 绑定QQ群列表页面
 	$utilService->redirect($cloudDomain.'/qun/list/?' . $signUrl);
 
 } elseif($_GET['anchor'] == 'info') {
+	// 站点信息设置页面
 	$utilService->redirect($cloudDomain.'/qun/siteInfo/?' . $signUrl);
 
 } elseif($_GET['anchor'] == 'setting') {
+	// 推送Feed设置页面
 	if(submitcheck('settingsubmit')) {
 		$usergroups = $_POST['groupid'];
 
@@ -48,6 +52,7 @@ if($_GET['anchor'] == 'list') {
 							'qqgroup_usergroup_feed_list' => serialize($usergroups),
 						);
 
+		// 将数据记入setting表，并更新缓存
 		C::t('common_setting')->update_batch($updateData);
 		updatecache('setting');
 
@@ -55,6 +60,7 @@ if($_GET['anchor'] == 'list') {
 
 	} else {
 
+		// 推送用户组
 		$usergroupsfeedlist = unserialize($_G['setting']['qqgroup_usergroup_feed_list']);
 		$groupselect = array();
 
@@ -91,18 +97,22 @@ if($_GET['anchor'] == 'list') {
 
 	if(submitcheck('setMiniportalThreadsSubmit')) {
 
+		// 推送数据提交处理
+		// 处理头条，序列化之前去除引号转义
 		$topic = $_GET['topic'];
 		$topic = processMiniportalTopicThread($topic);
 		if(!$topic) {
 			cpmsg('qqgroup_msg_deficiency', '', 'error');
 		}
 
+		// 处理普通帖子，序列化之前去除引号转义
 		$normal = $_GET['normal'];
 		$normal = processMiniportalNormalThreads($normal);
 		if(!$normal) {
 			cpmsg('qqgroup_msg_deficiency', '', 'error');
 		}
 
+		// 将帖子发送到QQ群
 		$serverResult = sentMiniportalThreadsRemote($topic, $normal);
 
 		$threads = array('topic' => $topic, 'normal' => $normal);
@@ -115,12 +125,15 @@ if($_GET['anchor'] == 'list') {
 		}
 
 	} elseif($op == 'getTopicThread') {
+		// Ajax 获取头条帖子信息
 		getTopicThread();
 
 	} elseif($op == 'getNormalThread') {
+		// Ajax 获取普通帖子信息
 		getNormalThread();
 
 	} elseif($op == 'uploadImage') {
+		// Ajax 上传图片表单
 		$tid = intval($_GET['tid']);
 		if (submitcheck('uploadImageSubmit')) {
 			ajaxshowheader();
@@ -135,6 +148,7 @@ if($_GET['anchor'] == 'list') {
 		}
 
 	} elseif($op == 'searchForm') {
+		// Ajax 搜索表单
 		showSearchThreads();
 
 	} else {
@@ -142,19 +156,27 @@ if($_GET['anchor'] == 'list') {
 		shownav('navcloud', 'menu_cloud_qqgroup');
 		showsubmenu('menu_cloud_qqgroup', $qqgroupnav);
 
+		// 推送设置页面框架
 		echo '<div id="ajaxwaitid"></div>';
 
+		// 输出页面 CSS
 		showQQGroupCSS();
 
+		// 输出搜索DIV
 		showSearchDiv();
 
+		// miniportal预览区
 		showMiniportalPreview();
 
+		// JS
 		showQQGroupScript();
 
 	}
 }
 
+/**
+ * 显示搜索表单框
+ */
 function showSearchForm() {
 
 	require_once libfile('function/forumlist');
@@ -185,6 +207,9 @@ function showSearchForm() {
 	showformfooter();
 }
 
+/**
+ * 列出搜索的帖子信息
+ */
 function showSearchThreads() {
 	global $_G, $page, $perpage;;
 	$threads = array();
@@ -210,6 +235,9 @@ function showSearchThreads() {
 	return showSearchResultThreads($threads, $mpurl);
 }
 
+/**
+ * Ajax获取推送选择区域的帖子
+ */
 function showSearchResultThreads($threads, $mpurl) {
 	global $_G;
 	$threadsOutput = '';
@@ -237,6 +265,9 @@ function showSearchResultThreads($threads, $mpurl) {
 
 
 
+/**
+ * 分页输出
+ */
 function showSearchResultPageLinks($num = 0, $mpurl) {
 	global $_G, $page, $perpage, $maxPage;
 	$needNext = $page < $maxPage && $num == $perpage ? true : false;
@@ -245,6 +276,9 @@ function showSearchResultPageLinks($num = 0, $mpurl) {
 	}
 }
 
+/**
+ * 获取分页
+ */
 function QQGroupSearchSimplePage($needNext, $curpage, $mpurl) {
 	global $prevPage, $nextPage;
 	$return = '';
@@ -262,6 +296,9 @@ function QQGroupSearchSimplePage($needNext, $curpage, $mpurl) {
 	return $return;
 }
 
+/**
+ * Ajax获取miniportal区域的头条帖子
+ */
 function getTopicThread() {
 	global $_G;
 	$tid = intval($_GET['tid']);
@@ -290,9 +327,12 @@ function getTopicThread() {
 	$subject = strip_tags($_G['thread']['subject']);
 	$post = C::t('forum_post')->fetch_threadpost_by_tid_invisible($tid);
 	$pid = intval($post['pid']);
+	// 过滤html
 	$message = cutstr(strip_tags(discuzcode($post['message'], 1, 0, 1)), 200);
+	// 过滤附件
 	$message = preg_replace('/\[attach\](\d+)\[\/attach\]/is', '', $message);
 
+	// 获取上传的图片
 	$imageDir = 'qqgroup';
 	$imageName = 'miniportal_tid_'.$tid.'.jpg';
 	$thumbTarget = $imageDir.'/'.$imageName;
@@ -312,10 +352,14 @@ function getTopicThread() {
 	ajaxshowfooter();
 }
 
+/**
+ * 头条帖子模版
+ */
 function showTopicTemplate($tid, $subject = '', $message = '', $imagePath = '', $imageUrl = '') {
 
 	$html = '';
 	if ($tid) {
+		// 编辑区域
 		$html .= '
 					<div class="qqqun_editor">
 						<ul>
@@ -347,6 +391,9 @@ function showTopicTemplate($tid, $subject = '', $message = '', $imagePath = '', 
 	return $html;
 }
 
+/**
+ * 获取普通帖子
+ */
 function getNormalThread() {
 	global $_G;
 	$tid = intval($_GET['tid']);
@@ -366,6 +413,9 @@ function getNormalThread() {
 	ajaxshowfooter();
 }
 
+/**
+ * 普通帖子模版
+ */
 function showNormalTemplateLi($tid, $subject = '', $hasImage = false) {
 	if ($tid) {
 		$html = '
@@ -382,6 +432,9 @@ function showNormalTemplateLi($tid, $subject = '', $hasImage = false) {
 	return $html;
 }
 
+/**
+ * 获取已存入miniportal的帖子
+ */
 function getMiniportalThreads() {
 	$threads = array();
 	$threads = C::t('common_setting')->fetch('cloud_qqgroup_miniportal_threads', true);
@@ -398,6 +451,9 @@ function getMiniportalThreads() {
 	return $threads;
 }
 
+/**
+ * 获取页面跳转返回的帖子
+ */
 function getResultThreads() {
 	global $_G;
 	$info = $_GET['info'];
@@ -414,6 +470,7 @@ function getResultThreads() {
 		$errorIds = array();
 	}
 
+	// 从POST来的threads信息不可信，需要处理
 	if($threads['topic']['id'] && in_array($threads['topic']['id'], $errorIds)) {
 		$threads['topic'] = array();
 	}
@@ -436,6 +493,9 @@ function getResultThreads() {
 	return $threads;
 }
 
+/**
+ * 显示搜索DIV
+ */
 function showSearchDiv() {
 
 	echo '<div class="qqqun_bblist">';
@@ -445,6 +505,9 @@ function showSearchDiv() {
 
 }
 
+/**
+ * 显示搜索结果DIV
+ */
 function showSearchResultDiv() {
 	echo '
 	<table class="qqqun_tl">
@@ -457,6 +520,9 @@ function showSearchResultDiv() {
 	echo '</table>';
 }
 
+/**
+ * 显示mini预览
+ */
 function showMiniportalPreview() {
 	global $_G;
 	if($_GET['sentResult'] && $_GET['info']) {
@@ -530,6 +596,9 @@ function showMiniportalPreview() {
 
 }
 
+/**
+ * 处理提交的头条帖子，过滤些内容
+ */
 function processMiniportalTopicThread($topic) {
 	if(empty($topic)) {
 		return false;
@@ -553,6 +622,9 @@ function processMiniportalTopicThread($topic) {
 	return $newTopic;
 }
 
+/**
+ * 处理提交的普通帖子，过滤些内容（多个）
+ */
 function processMiniportalNormalThreads($normal) {
 	$newNormal = array();
 	$i = 0;
@@ -567,6 +639,9 @@ function processMiniportalNormalThreads($normal) {
 	return $newNormal;
 }
 
+/**
+ * 处理提交的普通帖子，过滤些内容（单个）
+ */
 function processlNormalThread($thread) {
 	if(empty($thread)) {
 		return false;
@@ -587,10 +662,16 @@ function processlNormalThread($thread) {
 	return $newThread;
 }
 
+/**
+ * 将已确认的帖子推送数据存储到setting表中
+ */
 function storeMiniportalThreads($threads) {
 	return C::t('common_setting')->update('cloud_qqgroup_miniportal_threads', $threads);
 }
 
+/**
+ * 将筛选的帖子发到QQ群
+ */
 function sentMiniportalThreadsRemote($topic, $normal, $gIds = array()) {
 	global $_G;
 
@@ -604,6 +685,7 @@ function sentMiniportalThreadsRemote($topic, $normal, $gIds = array()) {
 		$res = $groupClient->miniportal($topic, $normal, $gIds);
 	} catch (Cloud_Service_Client_RestfulException $e) {
 		if ($e->getCode() == 1) {
+			// 无法连接上服务器
 			$res = array('status' => false, 'msg' => cplang('qqgroup_msg_unknown_dns'));
 		} else {
 			$res = array('status' => false, 'msg' => cplang('qqgroup_msg_remote_exception', array('errmsg' => $e->getMessage(), 'errno' => $e->getCode())));
@@ -611,6 +693,7 @@ function sentMiniportalThreadsRemote($topic, $normal, $gIds = array()) {
 	}
 
 	if(!is_array($res)) {
+		// 出现错误
 		$res = array('status' => false, 'msg' => cplang('qqgroup_msg_remote_error'));
 	}
 
@@ -618,6 +701,9 @@ function sentMiniportalThreadsRemote($topic, $normal, $gIds = array()) {
 
 }
 
+/**
+ * 显示图片上传表单
+ */
 function showUploadImageForm($tid) {
 	ajaxshowheader();
 	echo '
@@ -655,6 +741,9 @@ function showUploadImageForm($tid) {
 	ajaxshowfooter();
 }
 
+/**
+ * 图片上传
+ */
 function QQGroupUpload($tid) {
 	global $_G;
 	$imageDir = 'qqgroup';
@@ -688,6 +777,7 @@ function QQGroupUpload($tid) {
 	$thumbTarget = $imageDir.'/'.$imageName;
 	@unlink($_G['setting']['attachdir'].'./'.$thumbTarget);
 
+	// 本地压缩一次再传
 	$thumb = $image->Thumb($attach['target'], $thumbTarget, 75, 75) ? 1 : 0;
 
 	if(!$thumb && !@copy($attach['target'], $_G['setting']['attachdir'].'./'.$thumbTarget)) {
@@ -695,7 +785,7 @@ function QQGroupUpload($tid) {
 		return false;
 	}
 
-	@unlink($attach['target']);
+	@unlink($attach['target']); // 处理后删除原图
 
 	$res = $attach;
 	$res['thumbTarget'] = $thumbTarget;
@@ -704,6 +794,9 @@ function QQGroupUpload($tid) {
 
 }
 
+/**
+ * 输出JS
+ */
 function showQQGroupScript() {
 	global $adminscript;
 	echo
@@ -716,6 +809,9 @@ function showQQGroupScript() {
 EOF;
 }
 
+/**
+ * 输出CSS
+ */
 function showQQGroupCSS() {
 	echo
 <<<EOF

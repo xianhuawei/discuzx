@@ -14,9 +14,6 @@ class table_forum_threadaddviews extends discuz_table {
 	public function __construct() {
 		$this->_table = 'forum_threadaddviews';
 		$this->_pk    = 'tid';
-		$this->_pre_cache_key = 'forum_threadaddviews_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
 		parent::__construct();
 	}
 

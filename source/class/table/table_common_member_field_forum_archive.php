@@ -20,10 +20,20 @@ class table_common_member_field_forum_archive extends table_common_member_field_
 		$this->_pk    = 'uid';
 	}
 
+	/**
+	 * 依据主键值， 取得一条记录
+	 * @param int $id 键值
+	 * @return array
+	 */
 	public function fetch($id){
 		return ($id = dintval($id)) ? DB::fetch_first('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $id)) : array();
 	}
 
+	/**
+	 * 依据多个主键值， 返回一组数据
+	 * @param array $ids 主键值的数组
+	 * @return array
+	 */
 	public function fetch_all($ids) {
 		$data = array();
 		if(($ids = dintval($ids, true))) {
@@ -35,6 +45,11 @@ class table_common_member_field_forum_archive extends table_common_member_field_
 		return $data;
 	}
 
+	/**
+	 * 依据主键删除某条记录
+	 * @param string|int $val 主键值
+	 * @return boolean
+	 */
 	public function delete($val, $unbuffered = false) {
 		return ($val = dintval($val, true)) && DB::delete($this->_table, DB::field($this->_pk, $val), null, $unbuffered);
 	}

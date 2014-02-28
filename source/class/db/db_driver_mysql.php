@@ -75,10 +75,58 @@ class db_driver_mysql
 			);
 		$this->curlink = $this->link[$serverid];
 
+		// mysql 负载控制，不放入标准版
+		/*
+		$slowfile = DISCUZ_ROOT.'./data/slowquery.txt';
+		if(time() - filemtime($slowfile) > 0) {
+			touch($slowfile);
+			$query = $this->query("SHOW FULL PROCESSLIST");
+			$num = $this->num_rows($query);
+			if($num > 20) {
+				$i = $slow = $killid = 0;
+				$log = "\n".date('Y-m-d H:i:s', time() + 3600 * 8).": $num\n";
+				$log = $time = "\n".date('Y-m-d H:i:s', time() + 3600 * 8).": $num\n";
+				while ($process = $this->fetch_array($query)) {
+					if($process['Info'] != '') {
+						$i++;
+						$line = '';
+						foreach ($process as $key => $value) {
+							$value = str_replace(array("\r", "\n", "\t"), '', $value);
+							$line .= "$key=$value\t";
+						}
+						$log .= "$line\n";
+						if(!$killid && $process['Time'] > 5 && substr($process['Info'], 0, 6) == 'SELECT') {
+							if(!strexists($process['Info'], 'common_member') && !strexists($process['Info'], 'common_session')) {
+								$killid = $process[Id];
+								$this->query("KILL $killid", 'UNBUFFERED');
+								error_log("$time$line\n", 3, DISCUZ_ROOT.'./data/killed.txt');
+							}
+						}
+					}
+				}
+				error_log($log, 3, $slowfile);
+			}
+			$this->free_result($query);
+		}
+		*/
 	}
 
+	/**
+	 * mysql 连接
+	 * @param string $dbhost 服务器
+	 * @param string $dbuser 用户
+	 * @param string $dbpw 密码
+	 * @param string $dbcharset 连接字符集
+	 * @param string $dbname 数据表名字
+	 * @param integer $pconnect 是否使用永久连接（注：此设置仅针对apache php mod 有做用，fcgi 工作模式下无效）
+	 * @param boolean $halt 连接失败是否中断程序
+	 * @return resouce | false
+	 */
 	function _dbconnect($dbhost, $dbuser, $dbpw, $dbcharset, $dbname, $pconnect, $halt = true) {
 
+		// 从 php4.3开始 ，mysql 支持压缩协议参数，可以有效降低局内网数据流量
+		// 经过官方服务器测试，流量降低显着
+		// 本参数从X2.5 开始进入标准版
 		if($pconnect) {
 			$link = @mysql_pconnect($dbhost, $dbuser, $dbpw, MYSQL_CLIENT_COMPRESS);
 		} else {

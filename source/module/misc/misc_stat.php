@@ -76,6 +76,7 @@ function getstatvars($type) {
 	global $_G;
 	$statvars = & $_G['cache']['statvars'][$type];
 
+	//note 如果缓存有效
 	if(!empty($statvars['lastupdated']) && TIMESTAMP - $statvars['lastupdated'] < CACHE_TIME) {
 		return $statvars;
 	}
@@ -100,6 +101,7 @@ function getstatvars_basic() {
 	$statvars = array();
 	$statvars['members'] = C::t('common_member')->count();
 	$members_runtime = C::t('common_member')->fetch_runtime();
+	//note 平均每日注册会员数
 	@$statvars['membersaddavg'] = round($statvars['members'] / $members_runtime);
 	$statvars['memnonpost'] = C::t('common_member_count')->count_by_posts(0);
 	$statvars['mempost'] = $statvars['members'] - $statvars['memnonpost'];
@@ -113,29 +115,40 @@ function getstatvars_basic() {
 	$statvars['bestmem'] = $bestmember['author'];
 	$statvars['bestmemposts'] = $bestmember['posts'];
 	$postsinfo = C::t('forum_post')->fetch_posts(0);
+	//note 帖子数
 	$statvars['posts'] = $postsinfo['posts'];
 	$runtime= $postsinfo['runtime'];
 
+	//note 平均每日新增帖子数
 	@$statvars['postsaddavg'] = round($statvars['posts'] / $runtime);
 
+	//note 平均每人发帖数
 	@$statvars['mempostavg'] = sprintf ("%01.2f", $statvars['posts'] / $statvars['members']);
 
+	//note 版块数
 	$statvars['forums'] = C::t('forum_forum')->fetch_all_fids(0, 'forum', 0, 0, 0, 1);
 
+	//note 最热门版块
 	$hotforum = C::t('forum_forum')->fetch_all_for_ranklist(1, '', 'posts', 0, 1);
 	$statvars['hotforum'] = array('posts' => $hotforum[0]['posts'], 'threads' => $hotforum[0]['threads'], 'fid' => $hotforum[0]['fid'], 'name' => $hotforum[0]['name']);
 
+	//note 主题数
 	$statvars['threads'] = C::t('forum_thread')->count_all_thread();
 
+	//note 最近24小时新增帖子数
 	$statvars['postsaddtoday'] = C::t('forum_post')->count_by_dateline(0, TIMESTAMP - 86400);
 
+	//note 平均每个主题被回复次数
 	@$statvars['threadreplyavg'] = sprintf ("%01.2f", ($statvars['posts'] - $statvars['threads']) / $statvars['threads']);
 
+	//note 最近24小时新增会员数
 	$statvars['membersaddtoday'] = $statvars['lastmember'];
+	//note 论坛活跃指数
 	@$statvars['activeindex'] = round(($statvars['membersaddavg'] / $statvars['members'] + $statvars['postsaddavg'] / $statvars['posts']) * 1500 + $statvars['threadreplyavg'] * 10 + $statvars['mempostavg'] * 1 + $statvars['mempostpercent'] / 10);
 
 	$statvars['lastupdate'] = dgmdate(TIMESTAMP);
 	$statvars['nextupdate'] = dgmdate(TIMESTAMP + CACHE_TIME);
+	//note 写入缓存
 	$statvars['lastupdated'] = TIMESTAMP;
 	$_G['cache']['statvars']['basic'] = $statvars;
 	savecache('statvars', $_G['cache']['statvars']);

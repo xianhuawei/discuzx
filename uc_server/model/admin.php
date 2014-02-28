@@ -30,6 +30,10 @@ class adminbase extends base {
 		}
 	}
 
+	/**
+	 * 检查权限
+	 *
+	 */
 	function check_priv() {
 		$username = $this->sid_decode($this->view->sid);
 		if(empty($username)) {
@@ -38,6 +42,7 @@ class adminbase extends base {
 		} else {
 			$this->user['isfounder'] = $username == 'UCenterAdministrator' ? 1 : 0;
 			if(!$this->user['isfounder']) {
+				// 数据库校验
 				$admin = $this->db->fetch_first("SELECT a.*, m.* FROM ".UC_DBTABLEPRE."admins a LEFT JOIN ".UC_DBTABLEPRE."members m USING(uid) WHERE a.username='$username'");
 				if(empty($admin)) {
 					header('Location: '.UC_API.'/admin.php?m=user&a=login&iframe='.getgpc('iframe', 'G').($this->cookie_status ? '' : '&sid='.$this->view->sid));
@@ -46,12 +51,14 @@ class adminbase extends base {
 					$this->user = $admin;
 					$this->user['username'] = $username;
 					$this->user['admin'] = 1;
+					// 修改 sid 的有效期
 					$this->view->sid = $this->sid_encode($username);
 					$this->setcookie('sid', $this->view->sid, 86400);
 				}
 			} else {
 				$this->user['username'] = 'UCenterAdministrator';
 				$this->user['admin'] = 1;
+				// 修改 sid 的有效期
 				$this->view->sid = $this->sid_encode($this->user['username']);
 				$this->setcookie('sid', $this->view->sid, 86400);
 			}
@@ -59,10 +66,22 @@ class adminbase extends base {
 		}
 	}
 
+	/**
+	 * 检查是否为 创始人
+	 *
+	 * @param int $uid
+	 * @return bool
+	 */
 	function is_founder($username) {
 		return $this->user['isfounder'];
 	}
 
+	/**
+	 * 生成后台管理日志
+	 *
+	 * @param string $action 管理操作
+	 * @param string $extra  附加信息
+	 */
 	function writelog($action, $extra = '') {
 		$log = htmlspecialchars($this->user['username']."\t".$this->onlineip."\t".$this->time."\t$action\t$extra");
 		$logfile = UC_ROOT.'./data/logs/'.gmdate('Ym', $this->time).'.php';
@@ -94,6 +113,7 @@ class adminbase extends base {
 	}
 
 	function _call($a, $arg) {
+		// 转发
 		if(method_exists($this, $a) && $a{0} != '_') {
 			$this->$a();
 		} else {

@@ -12,6 +12,15 @@ if(!defined('IN_DISCUZ')) {
 }
 class tag
 {
+	/**
+	 *添加标签
+	 *
+	 * @param string $tags
+	 * @param int $itemid
+	 * @param string $idtype
+	 * @param bool $returnarray
+	 * @return array OR string $return
+	 */
 	public function add_tag($tags, $itemid, $idtype = 'tid', $returnarray = 0) {
 		if($tags == '' || !in_array($idtype, array('', 'tid', 'blogid', 'uid'))) {
 			return;
@@ -59,6 +68,15 @@ class tag
 		return $return;
 	}
 
+	/**
+	 *修改标签记录字段（主题、日志）
+	 *
+	 * @param string $tags
+	 * @param int $itemid
+	 * @param string $idtype
+	 * @param array $typeinfo
+	 * @return string
+	 */
 	public function update_field($tags, $itemid, $idtype = 'tid', $typeinfo = array()) {
 
 		if($idtype == 'tid') {
@@ -98,7 +116,14 @@ class tag
 		}
 		return $tagstr;
 	}
-
+	
+	/**
+	 * 复制标签
+	 *
+	 * @param int $oldid 原id
+	 * @param int $newid 新id
+	 * @param string $idtype
+	 */
 	public function copy_tag($oldid, $newid, $idtype = 'tid') {
 		$results = C::t('common_tagitem')->select(0, $oldid, $idtype);
 		foreach($results as $result) {
@@ -110,6 +135,14 @@ class tag
 		}
 	}
 
+	/**
+	 * 合并标签
+	 *
+	 * @param array $tagidarray
+	 * @param string $newtag
+	 * @param string $idtype 只有为uid时需要
+	 * @return string (tag_empty, tag_length, succeed)
+	 */
 	public function merge_tag($tagidarray, $newtag, $idtype = '') {
 		$newtag = str_replace(',', '', $newtag);
 		$newtag = trim($newtag);
@@ -145,6 +178,7 @@ class tag
 					}
 				}
 			}
+			//note 先把合并后有可能重复的记录删除到剩1条
 			$checkunique = array();
 			$checktagids = $tagidarray;
 			$checktagids[] = $newid;
@@ -159,9 +193,11 @@ class tag
 					$checkunique[$row['itemid'].'_'.$row['idtype']] = 'deleted';
 				}
 			}
+			//note 合并tagid
 			C::t('common_tagitem')->merge_by_tagids($newid, $tagidarray);
 			C::t('common_tag')->delete_byids($tagidarray);
 
+			//note 更新帖子和日志表的tag信息
 			if($tidarray) {
 				foreach($tidarray as $key => $var) {
 					C::t('forum_post')->update_by_tid('tid:'.$key, $key, array('tags' => $var), false, false, 1);
@@ -179,6 +215,13 @@ class tag
 		return 'succeed';
 	}
 
+	/**
+	 * 删除标签
+	 *
+	 * @param array $tagidarray
+	 * @param string $idtype 只有为uid时需要
+	 * @return bool
+	 */
 	public function delete_tag($tagidarray, $idtype = '') {
 		$tidarray = $blogidarray = array();
 		if(!is_array($tagidarray)) {

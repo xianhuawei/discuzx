@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 $pmid = empty($_GET['pmid'])?0:floatval($_GET['pmid']);
 $uid = empty($_GET['uid'])?0:intval($_GET['uid']);
-$plid = empty($_GET['plid'])?0:intval($_GET['plid']);
+$plid = empty($_GET['plid'])?0:intval($_GET['plid']);//群聊会话标识
 $opactives['pm'] = 'class="a"';
 
 if($uid) {
@@ -27,8 +27,10 @@ loaducenter();
 
 if($_GET['op'] == 'checknewpm') {
 
+	//设置返回文档类型
 	header('Content-Type: text/javascript');
 
+	//检查当前用户
 	if($_G['uid'] && !getstatus($_G['member']['newpm'], 1)) {
 		$ucnewpm = intval(uc_pm_checknew($_G['uid']));
 		$newpm = setstatus(1, $ucnewpm ? 1 : 0, $_G['member']['newpm']);
@@ -113,8 +115,8 @@ if($_GET['op'] == 'checknewpm') {
 	$gpmid = is_array($_GET['deletepm_gpmid']) ? $_GET['deletepm_gpmid'] : 0;
 	$deluid = is_array($_GET['deletepm_deluid']) ? $_GET['deletepm_deluid'] : 0;
 	$delpmid = is_array($_GET['deletepm_pmid']) ? $_GET['deletepm_pmid'] : 0;
-	$delplid = is_array($_GET['deletepm_delplid']) ? $_GET['deletepm_delplid'] : 0;
-	$quitplid = is_array($_GET['deletepm_quitplid']) ? $_GET['deletepm_quitplid'] : 0;
+	$delplid = is_array($_GET['deletepm_delplid']) ? $_GET['deletepm_delplid'] : 0;//发起者删除群聊
+	$quitplid = is_array($_GET['deletepm_quitplid']) ? $_GET['deletepm_quitplid'] : 0;//成员退出群聊
 
 	if(empty($gpmid) && empty($deluid) && empty($delpmid) && empty($delplid) && empty($quitplid)) {
 		showmessage('delete_pm_error_option');
@@ -123,6 +125,7 @@ if($_GET['op'] == 'checknewpm') {
 	if(submitcheck('deletesubmit', 1)) {
 		$flag = true;
 
+		//note 群消息处理
 		if(!empty($gpmid)) {
 			$return = C::t('common_member_grouppm')->update($_G['uid'], $gpmid, array('status' => -1));
 			$returnurl = 'home.php?mod=space&do=pm&filter=announcepm';
@@ -130,6 +133,7 @@ if($_GET['op'] == 'checknewpm') {
 				$flag = false;
 			}
 		}
+		//note 删除与某个用户的所有短消息处理
 		if(!empty($deluid)) {
 			$return = uc_pm_deleteuser($_G['uid'], $deluid);
 			$returnurl = 'home.php?mod=space&do=pm&filter=privatepm';
@@ -138,6 +142,7 @@ if($_GET['op'] == 'checknewpm') {
 			}
 		}
 
+		//note 删除单条短消息
 		if(!empty($delpmid)) {
 			$return = uc_pm_delete($_G['uid'], 'inbox', $delpmid[0]);
 			$returnurl = 'home.php?mod=space&do=pm&subop=view&touid='.$touid;
@@ -146,6 +151,7 @@ if($_GET['op'] == 'checknewpm') {
 			}
 		}
 
+		//note 删除群聊消息
 		if(!empty($delplid)) {
 			$return = uc_pm_deletechat($_G['uid'], $delplid, 1);
 			$returnurl = 'home.php?mod=space&do=pm&filter=privatepm';
@@ -154,6 +160,7 @@ if($_GET['op'] == 'checknewpm') {
 			}
 		}
 
+		//note 退出群聊短消息
 		if(!empty($quitplid)) {
 			$return = uc_pm_deletechat($_G['uid'], $quitplid);
 			$returnurl = 'home.php?mod=space&do=pm&filter=privatepm';
@@ -171,17 +178,20 @@ if($_GET['op'] == 'checknewpm') {
 
 } elseif($_GET['op'] == 'send') {
 
+	//判断是否发布太快
 	$waittime = interval_check('post');
 	if($waittime > 0) {
 		showmessage('message_can_not_send_2', '', array(), array('return' => true));
 	}
 
+	//新用户见习
 	cknewuser();
 
 	if(!checkperm('allowsendpm')) {
 		showmessage('no_privilege_sendpm', '', array(), array('return' => true));
 	}
 
+	//黑名单
 	if($touid) {
 		if(isblacklist($touid)) {
 			showmessage('is_blacklist', '', array(), array('return' => true));
@@ -189,12 +199,14 @@ if($_GET['op'] == 'checknewpm') {
 	}
 
 	if(submitcheck('pmsubmit')) {
+		//发送消息
 		if(!empty($_POST['username'])) {
 			$_POST['users'][] = $_POST['username'];
 		}
 		$users = empty($_POST['users']) ? array() : $_POST['users'];
 		$type = intval($_POST['type']);
 		$coef = 1;
+		//给多用户发消息
 		if(!empty($users)) {
 			$coef = count($users);
 		}
@@ -250,10 +262,11 @@ if($_GET['op'] == 'checknewpm') {
 				showmessage('message_can_not_send_to_self', '', array(), array('return' => true));
 			}
 
-			friend_check($uidsarr);
+			friend_check($uidsarr);//note 判断是否为好友
 
 			foreach($membersarr as $key => $value) {
 
+				//note 判断是否有权限发短消息给对方
 				$value['onlyacceptfriendpm'] = $value['onlyacceptfriendpm'] ? $value['onlyacceptfriendpm'] : ($_G['setting']['onlyacceptfriendpm'] ? 1 : 2);
 				if($_G['group']['allowsendallpm'] || $value['onlyacceptfriendpm'] == 2 || ($value['onlyacceptfriendpm'] == 1 && $_G['home_friend_'.$value['uid'].'_'.$_G['uid']])) {
 					$newusers[$value['uid']] = $value['username'];
@@ -265,6 +278,7 @@ if($_GET['op'] == 'checknewpm') {
 				showmessage('message_can_not_send_onlyfriend', '', array(), array('return' => true));
 			}
 
+			//黑名单检查
 			foreach($newusers as $key=>$value) {
 				if(isblacklist($key)) {
 					showmessage('is_blacklist', '', array(), array('return' => true));
@@ -277,13 +291,14 @@ if($_GET['op'] == 'checknewpm') {
 		}
 
 		if($return > 0) {
+			//统计
 			include_once libfile('function/stat');
 			updatestat('sendpm', 0, $coef);
 
 			C::t('common_member_status')->update($_G['uid'], array('lastpost' => TIMESTAMP));
 			!($_G['group']['exempt'] & 1) && updatecreditbyaction('sendpm', 0, array(), '', $coef);
 			if(!empty($newusers)) {
-				if($type == 1) {
+				if($type == 1) {//note 如果发起是群聊
 					$returnurl = 'home.php?mod=space&do=pm&filter=privatepm';
 				} else {
 					$returnurl = 'home.php?mod=space&do=pm';
@@ -326,9 +341,11 @@ if($_GET['op'] == 'checknewpm') {
 			showmessage('pm_onlyacceptfriend_error', 'home.php?mod=space&do=pm&subop=setting');
 		}
 
+		//note 处理忽略列表
 		uc_pm_blackls_set($_G['uid'], $_POST['ignorelist']);
 		$setarr['onlyacceptfriendpm'] = $_GET['onlyacceptfriendpm'];
 
+		//note 处理是否接收好友短消息
 		C::t('common_member')->update($_G['uid'], $setarr);
 
 		showmessage('do_success_pm', 'home.php?mod=space&do=pm&subop=setting');
@@ -336,11 +353,13 @@ if($_GET['op'] == 'checknewpm') {
 
 } elseif($_GET['op'] == 'pm_report') {
 
+	//note 判断是否发布太快
 	$waittime = interval_check('post');
 	if($waittime > 0) {
 		showmessage('operating_too_fast', '', array('waittime' => $waittime), array('return' => true));
 	}
 
+	//note 只有普通短消息可进行举报，公告消息和群发短消息都不可
 	if(!$pmid) {
 		showmessage('pm_report_error_nopm');
 	}
@@ -353,6 +372,7 @@ if($_GET['op'] == 'checknewpm') {
 		if($pm['authorid'] == $_G['uid'] || !$pm['authorid']) {
 			showmessage('pm_report_error_nome');
 		}
+		//note 后台设定短消息举报的通知人员名单
 		$pmreportuser = explode(',', $_G['setting']['pmreportuser']);
 		if(empty($pmreportuser)) {
 			showmessage('pm_report_error_nopmreportuser');
@@ -366,6 +386,7 @@ if($_GET['op'] == 'checknewpm') {
 	}
 
 } elseif($_GET['op'] == 'pm_ignore') {
+	//note 判断是否发布太快
 	$waittime = interval_check('post');
 	if($waittime > 0) {
 		showmessage('operating_too_fast', '', array('waittime' => $waittime), array('return' => true));
@@ -402,6 +423,7 @@ if($_GET['op'] == 'checknewpm') {
 		showmessage('pm_appendkmember_error_nopm');
 	}
 	if(submitcheck('pmappendmembersubmit')) {
+		//note 判断权限
 		include_once libfile('function/friend');
 		$returns = array();
 		foreach($members as $member) {
@@ -511,11 +533,13 @@ if($_GET['op'] == 'checknewpm') {
 
 } else {
 
+	//新用户见习
 	cknewuser();
 
 	if(!checkperm('allowsendpm')) {
 		showmessage('no_privilege_sendpm');
 	}
+	//发送
 	$friends = array();
 	if($space['friendnum']) {
 		$query = C::t('home_friend')->fetch_all_by_uid($_G['uid'], 0, 100, true);

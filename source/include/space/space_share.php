@@ -26,9 +26,11 @@ if($id) {
 		require_once libfile('function/share');
 		$share = mkshare($share);
 
+		//评论
 		$perpage = 50;
 		$start = ($page-1)*$perpage;
 
+		//检查开始数
 		ckstart($start, $perpage);
 
 		$list = array();
@@ -42,6 +44,7 @@ if($id) {
 			foreach($query as $value) {
 				$list[] = $value;
 			}
+			//分页
 			$multi = multi($count, $perpage, $page, "home.php?mod=space&uid=$share[uid]&do=share&id=$id", '', 'comment_ul');
 		}
 		$diymode = intval($_G['cookie']['home_diymode']);
@@ -52,6 +55,7 @@ if($id) {
 
 	$perpage = 20;
 
+	//检查开始数
 	$start = ($page-1)*$perpage;
 	ckstart($start, $perpage);
 
@@ -64,7 +68,9 @@ if($id) {
 	);
 	$navtheurl = $theurl = 'home.php?'.url_implode($gets);
 	$theurl .= '&type='.$_GET['type'];
+	//该功能不对搜索引擎开放
 	if(!IS_ROBOT) {
+		//处理查询
 		$f_index = '';
 		$need_count = true;
 
@@ -72,6 +78,7 @@ if($id) {
 		$uids = 0;
 		$type = '';
 		if($_GET['view'] == 'all') {
+			//大家的
 			$wheresql = "1";
 
 		} elseif($_GET['view'] == 'we') {
@@ -87,6 +94,7 @@ if($id) {
 
 		} else {
 
+			//自定义识别
 			if($_GET['from'] == 'space') $diymode = 1;
 
 			$uids = $space['uid'];
@@ -94,6 +102,7 @@ if($id) {
 		}
 		$actives = array($_GET['view'] => ' class="a"');
 
+		//类型
 		if($_GET['type'] && $_GET['type'] != 'all') {
 			$sub_actives = array('type_'.$_GET['type'] => ' class="a"');
 			$type = $_GET['type'];
@@ -118,6 +127,7 @@ if($id) {
 						$pricount ++;
 					}
 				}
+				//分页
 				$multi = multi($count, $perpage, $page, $theurl);
 			}
 		}

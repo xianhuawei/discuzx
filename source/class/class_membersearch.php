@@ -15,7 +15,14 @@ class membersearch {
 
 	function membersearch(){}
 
+	/**
+	 * 返回搜索的字段对应的数据表
+	 *
+	 * @param unknown_type $fieldid
+	 * @return unknown
+	 */
 	function getfield($fieldid='') {
+		// 用于搜索的字段
 		static $fields = array(
 			'uid'=>'member', 'username'=>'member', 'groupid'=>'member', 'medalid'=>'medal','tagid'=>'tag','idtype'=>'tag',
 			'email'=>'member', 'credits'=>'member', 'regdate'=>'member',
@@ -43,6 +50,12 @@ class membersearch {
 		return $fieldid ? $fields[$fieldid] : $fields;
 	}
 
+	/**
+	 * 返回字段的类型
+	 *
+	 * @param unknown_type $fieldid
+	 * @return unknown
+	 */
 	function gettype($fieldid) {
 		static $types = array(
 			'uid'=>'int', 'groupid'=>'int', 'medalid'=>'int', 'tagid'=>'int', 'credits'=>'int',
@@ -55,6 +68,12 @@ class membersearch {
 		return $types[$fieldid] ? $types[$fieldid] : 'string';
 	}
 
+	/**
+	 * 搜索用户 返回匹配的用户id列表
+	 *
+	 * @param array $condition 查询条件，
+	 * @param int $maxsearch 最多查找数
+	 */
 	function search($condition, $maxsearch=100, $start=0){
 		$list = array();
 		$sql = membersearch::makesql($condition);
@@ -77,6 +96,11 @@ class membersearch {
 		return $list;
 	}
 
+	/**
+	 * 获取匹配搜索条件的用户数
+	 *
+	 * @param unknown_type $condition
+	 */
 	function getcount($condition) {
 		$count = 0;
 		if(isset($condition['token_noempty'])) {
@@ -89,6 +113,11 @@ class membersearch {
 		return intval($count);
 	}
 
+	/**
+	 * 过滤搜索条件
+	 * @param array $condition
+	 * @return array
+	 */
 	function filtercondition($condition) {
 		$tablename = isset($condition['tablename']) ? $condition['tablename'] : '';
 		unset($condition['tablename']);
@@ -103,10 +132,16 @@ class membersearch {
 		return $condition;
 	}
 
+	/**
+	 * 通过查询条件拼 sql
+	 *
+	 * @param unknown_type $condition
+	 */
 	function makesql($condition, $onlyCount=false) {
 
 		$tables = $wheres = array();
 		$isarchive = $condition['tablename'] === 'archive' ? true : false;
+		//note 特殊搜索条件处理
 		if($condition['verify']) {
 			foreach($condition['verify'] as $key => $value) {
 				$condition[$value] = 1;
@@ -120,6 +155,7 @@ class membersearch {
 			$condition['idtype'] = 'uid';
 		}
 
+		// 处理个字段
 		$fields = membersearch::getfield();
 		foreach ($fields as $key=>$value) {
 			$return = array();
@@ -170,15 +206,24 @@ class membersearch {
 		}
 	}
 
+	/**
+	 * 处理搜索一系列值的搜索条件
+	 *
+	 * @param unknown_type $field
+	 * @param unknown_type $condition
+	 * @return unknown
+	 */
 	function makeset($field, $condition, $type='string') {
 		$return = $values = array();
 
+		// 表别名
 		$return['table'] = membersearch::getfield($field);
 		if(! $return['table']){
 			return array();
 		}
 		$field = $return['table'].'.'.$field;
 
+		// 处理项
 		$islikesearch = $noempty = false;
 		if(!is_array($condition)) {
 			$condition = explode(',', $condition);
@@ -202,6 +247,7 @@ class membersearch {
 			return array();
 		}
 
+		//拼 sql
 		if($islikesearch) {
 			$likes = array();
 			foreach ($values as $value) {
@@ -223,9 +269,18 @@ class membersearch {
 		return $return;
 	}
 
+	/**
+	 * 处理搜索区间的搜索条件
+	 *
+	 * @param unknown_type $field
+	 * @param unknown_type $range1
+	 * @param unknown_type $range2
+	 * @return unknown
+	 */
 	function makerange($field, $range_low=null, $range_high=null, $type='string') {
 		$return = array();
 
+		// 表别名
 		$return['table'] = membersearch::getfield($field);
 		if(!$return['table']){
 			return array();
@@ -256,6 +311,12 @@ class membersearch {
 	}
 
 
+	/**
+	 * 数据表别名获取数据表名
+	 *
+	 * @param unknown_type $field
+	 * @return unknown
+	 */
 	function gettable($alias, $isarchive = false) {
 		static $mapping = array('member'=>'common_member', 'status'=>'common_member_status', 'profile'=>'common_member_profile', 'count'=>'common_member_count', 'session'=>'common_session', 'groupuser' => 'forum_groupuser', 'verify' => 'common_member_verify', 'black'=>'common_uin_black', 'medal'=>'common_member_medal', 'tag'=>'common_tagitem', 'token' => 'common_devicetoken');
 		return DB::table($isarchive && in_array($alias, array('member', 'status', 'profile', 'count')) ? $mapping[$alias].'_archive' : $mapping[$alias]);

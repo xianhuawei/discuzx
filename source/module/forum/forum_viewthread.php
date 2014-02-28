@@ -15,9 +15,11 @@ require_once libfile('function/forumlist');
 require_once libfile('function/discuzcode');
 require_once libfile('function/post');
 
+//变量映射
 $thread = & $_G['forum_thread'];
 $forum = & $_G['forum'];
 
+//主题或者板块错误则退出
 if(!$_G['forum_thread'] || !$_G['forum']) {
 	showmessage('thread_nonexistence');
 }
@@ -25,14 +27,17 @@ if(!$_G['forum_thread'] || !$_G['forum']) {
 $page = max(1, $_G['page']);
 $_GET['stand'] = isset($_GET['stand']) && in_array($_GET['stand'], array('0', '1', '2')) ? $_GET['stand'] : null;
 
+//防采集
 if($page === 1 && !empty($_G['setting']['antitheft']['allow']) && empty($_G['setting']['antitheft']['disable']['thread']) && empty($_G['forum']['noantitheft'])) {
 	helper_antitheft::check($_G['forum_thread']['tid'], 'tid');
 }
 
+//获取当前主题缓存
 if($_G['setting']['cachethreadlife'] && $_G['forum']['threadcaches'] && !$_G['uid'] && $page == 1 && !$_G['forum']['special'] && empty($_GET['do']) && !defined('IN_ARCHIVER') && !defined('IN_MOBILE')) {
 	viewthread_loadcache();
 }
 
+//分表信息
 $threadtableids = !empty($_G['cache']['threadtableids']) ? $_G['cache']['threadtableids'] : array();
 $threadtable_info = !empty($_G['cache']['threadtable_info']) ? $_G['cache']['threadtable_info'] : array();
 
@@ -44,6 +49,9 @@ $threadtable = $thread['threadtable'];
 $posttableid = $thread['posttableid'];
 $posttable = $thread['posttable'];
 
+// =====================================================
+// gpc 变量处理
+// =====================================================
 
 $_G['action']['fid'] = $_G['fid'];
 $_G['action']['tid'] = $_G['tid'];
@@ -62,7 +70,9 @@ if($_G['setting']['close_leftinfo_userctrl']) {
 		$close_leftinfo = 0;
 	}
 }
+//是否只看某作者
 $_GET['authorid'] = !empty($_GET['authorid']) ? intval($_GET['authorid']) : 0;
+//倒序看帖?
 $_GET['ordertype'] = !empty($_GET['ordertype']) ? intval($_GET['ordertype']) : 0;
 $_GET['from'] = in_array($_GET['from'], array('preview', 'portal', 'album')) ? $_GET['from'] : '';
 if($_GET['from'] == 'portal' && !$_G['setting']['portalstatus']) {
@@ -77,6 +87,7 @@ $fromuid = $_G['setting']['creditspolicy']['promotion_visit'] && $_G['uid'] ? '&
 $feeduid = $_G['forum_thread']['authorid'] ? $_G['forum_thread']['authorid'] : 0;
 $feedpostnum = $_G['forum_thread']['replies'] > $_G['ppp'] ? $_G['ppp'] : ($_G['forum_thread']['replies'] ? $_G['forum_thread']['replies'] : 1);
 
+//extra
 if(!empty($_GET['extra'])) {
 	parse_str($_GET['extra'], $extra);
 	$_GET['extra'] = array();
@@ -95,14 +106,19 @@ if(!empty($_GET['extra'])) {
 $_G['forum_threadindex'] = '';
 $skipaids = $aimgs = $_G['forum_posthtml'] = array();
 
+// 部分状态处理
 $thread['subjectenc'] = rawurlencode($_G['forum_thread']['subject']);
 $thread['short_subject'] = cutstr($_G['forum_thread']['subject'], 52);
 
+// ==========================================
+// note 标题以及导航处理
+// ==========================================
 $navigation = '';
 if($_GET['from'] == 'portal') {
 	if($_G['forum']['status'] == 3) {
 		_checkviewgroup();
 	}
+	// 门户浏览模式
 	$_G['setting']['ratelogon'] = 1;
 	$navigation = ' <em>&rsaquo;</em> <a href="portal.php">'.lang('core', 'portal').'</a>';
 	$navsubject = $_G['forum_thread']['subject'];
@@ -120,24 +136,29 @@ if($_GET['from'] == 'portal') {
 	$_G['grouptypeid'] = $_G['forum']['fup'];
 
 } else {
+	//正常的板块
 	$navigation = '';
 	$upnavlink = 'forum.php?mod=forumdisplay&amp;fid='.$_G['fid'].($_GET['extra'] && !IS_ROBOT ? '&amp;'.$_GET['extra'] : '');
 
+	//追加子版块所在分区链接
 	if($_G['forum']['type'] == 'sub') {
 		$fup = $_G['cache']['forums'][$_G['forum']['fup']]['fup'];
 		$t_link = $_G['cache']['forums'][$fup]['type'] == 'group' ? 'forum.php?gid='.$fup : 'forum.php?mod=forumdisplay&fid='.$fup;
 		$navigation .= ' <em>&rsaquo;</em> <a href="'.$t_link.'">'.($_G['cache']['forums'][$fup]['name']).'</a>';
 	}
 
+	//追加上级板块链接
 	if($_G['forum']['fup']) {
 		$fup = $_G['forum']['fup'];
 		$t_link = $_G['cache']['forums'][$fup]['type'] == 'group' ? 'forum.php?gid='.$fup : 'forum.php?mod=forumdisplay&fid='.$fup;
 		$navigation .= ' <em>&rsaquo;</em> <a href="'.$t_link.'">'.($_G['cache']['forums'][$fup]['name']).'</a>';
 	}
 
+	//追加当前板块链接
 	$t_link = 'forum.php?mod=forumdisplay&amp;fid='.$_G['fid'].($_GET['extra'] && !IS_ROBOT ? '&amp;'.$_GET['extra'] : '');
 	$navigation .= ' <em>&rsaquo;</em> <a href="'.$t_link.'">'.($_G['forum']['name']).'</a>';
 
+	//追加分表存档连接
 	if($archiveid) {
 		if($threadtable_info[$archiveid]['displayname']) {
 			$t_name = dhtmlspecialchars($threadtable_info[$archiveid]['displayname']);
@@ -147,10 +168,15 @@ if($_GET['from'] == 'portal') {
 		$navigation .= ' <em>&rsaquo;</em> <a href="forum.php?mod=forumdisplay&fid='.$_G['fid'].'&archiveid='.$archiveid.'">'.$t_name.'</a>';
 	}
 
+	//变量释放
 	unset($t_link, $t_name);
 }
 
+// ==========================================
+// seo 处理
+// ==========================================
 
+//此处对 extra 变量再次重新封装
 $_GET['extra'] = $_GET['extra'] ? rawurlencode($_GET['extra']) : '';
 
 if(@in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
@@ -162,12 +188,16 @@ $_G['setting']['seohead'] .= '<link href="'.$_G['siteurl'].$canonical.'" rel="ca
 
 $_G['forum_tagscript'] = '';
 
+// ==========================================
+// 分类信息 处理
+// ==========================================
 $threadsort = $thread['sortid'] && isset($_G['forum']['threadsorts']['types'][$thread['sortid']]) ? 1 : 0;
 if($threadsort) {
 	require_once libfile('function/threadsort');
 	$threadsortshow = threadsortshow($thread['sortid'], $_G['tid']);
 }
 
+//debug 查看主题的权限判断
 if(empty($_G['forum']['allowview'])) {
 
 	if(!$_G['forum']['viewperm'] && !$_G['group']['readaccess']) {
@@ -184,6 +214,7 @@ if($_G['forum']['formulaperm']) {
 	formulaperm($_G['forum']['formulaperm']);
 }
 
+//debug 隐秘论坛
 if($_G['forum']['password'] && $_G['forum']['password'] != $_G['cookie']['fidpw'.$_G['fid']]) {
 	dheader("Location: $_G[siteurl]forum.php?mod=forumdisplay&fid=$_G[fid]");
 }
@@ -202,18 +233,25 @@ if($_G['forum_thread']['readperm'] && $_G['forum_thread']['readperm'] > $_G['gro
 
 $usemagic = array('user' => array(), 'thread' => array());
 
+// 是否是接收回复通知
 $replynotice = getstatus($_G['forum_thread']['status'], 6);
 
+// 是否是隐藏回复的帖子
 $hiddenreplies = getstatus($_G['forum_thread']['status'], 2);
 
+// 是否是抢楼贴
 $rushreply = getstatus($_G['forum_thread']['status'], 3);
 
+// 是否单独保存帖子位置信息
 $savepostposition = getstatus($_G['forum_thread']['status'], 1);
 
+// 是否被收入淘专辑
 $incollection = getstatus($_G['forum_thread']['status'], 9);
 
+//debug 出售帖
 $_G['forum_threadpay'] = FALSE;
 if($_G['forum_thread']['price'] > 0 && $_G['forum_thread']['special'] == 0) {
+	//debug 出售贴的时间限制 按照小时计算 过期价格清零
 	if($_G['setting']['maxchargespan'] && TIMESTAMP - $_G['forum_thread']['dateline'] >= $_G['setting']['maxchargespan'] * 3600) {
 		C::t('forum_thread')->update($_G['tid'], array('price' => 0), false, false, $archiveid);
 		$_G['forum_thread']['price'] = 0;
@@ -228,6 +266,7 @@ if($_G['forum_thread']['price'] > 0 && $_G['forum_thread']['special'] == 0) {
 	}
 }
 
+//抢楼帖处理
 if($rushreply) {
 	$rewardfloor = '';
 	$rushresult = $rewardfloorarr = $rewardfloorarray = array();
@@ -254,6 +293,7 @@ if($rushreply) {
 	$rushresult['creditlimit_title'] = $_G['setting']['creditstransextra'][11] ? $_G['setting']['extcredits'][$_G['setting']['creditstransextra'][11]]['title'] : lang('forum/misc', 'credit_total');
 }
 
+//X 回帖奖励积分
 if($_G['forum_thread']['replycredit'] > 0) {
 	$_G['forum_thread']['replycredit_rule'] = C::t('forum_replycredit')->fetch($thread['tid']);
 	$_G['forum_thread']['replycredit_rule']['remaining'] = $_G['forum_thread']['replycredit'] / $_G['forum_thread']['replycredit_rule']['extcredits'];
@@ -261,6 +301,7 @@ if($_G['forum_thread']['replycredit'] > 0) {
 }
 $_G['group']['raterange'] = $_G['setting']['modratelimit'] && $adminid == 3 && !$_G['forum']['ismoderator'] ? array() : $_G['group']['raterange'];
 
+//debug 论坛本身或者用户有可以下载附件的权限
 $_G['group']['allowgetattach'] = !empty($_G['forum']['allowgetattach']) || ($_G['group']['allowgetattach'] && !$_G['forum']['getattachperm']) || forumperm($_G['forum']['getattachperm']);
 $_G['group']['allowgetimage'] = !empty($_G['forum']['allowgetimage']) || ($_G['group']['allowgetimage'] && !$_G['forum']['getattachperm']) || forumperm($_G['forum']['getattachperm']);
 $_G['getattachcredits'] = '';
@@ -321,6 +362,7 @@ $_G['group']['allowpost'] = $_G['forum']['allowpost'] != -1 && ((!$_G['forum']['
 $_G['forum']['allowpostattach'] = isset($_G['forum']['allowpostattach']) ? $_G['forum']['allowpostattach'] : '';
 $allowpostattach = $allowpostreply && ($_G['forum']['allowpostattach'] != -1 && ($_G['forum']['allowpostattach'] == 1 || (!$_G['forum']['postattachperm'] && $_G['group']['allowpostattach']) || ($_G['forum']['postattachperm'] && forumperm($_G['forum']['postattachperm']))));
 
+// 特殊类型主题发布按钮
 if($_G['group']['allowpost']) {
 	$_G['group']['allowpostpoll'] = $_G['group']['allowpostpoll'] && ($_G['forum']['allowpostspecial'] & 1);
 	$_G['group']['allowposttrade'] = $_G['group']['allowposttrade'] && ($_G['forum']['allowpostspecial'] & 2);
@@ -336,6 +378,7 @@ $_G['forum']['threadplugin'] = $_G['group']['allowpost'] && $_G['setting']['thre
 $_G['setting']['visitedforums'] = $_G['setting']['visitedforums'] && $_G['forum']['status'] != 3 ? visitedforums() : '';
 
 
+//debug 相关主题功能
 
 $relatedthreadlist = array();
 $relatedthreadupdate = $tagupdate = FALSE;
@@ -350,6 +393,7 @@ if(!isset($_G['cookie']['collapse']) || strpos($_G['cookie']['collapse'], 'modar
 }
 
 $threadtag = array();
+//处理未被更新的查看
 viewthread_updateviews($archiveid);
 
 $_G['setting']['infosidestatus']['posts'] = $_G['setting']['infosidestatus'][1] && isset($_G['setting']['infosidestatus']['f'.$_G['fid']]['posts']) ? $_G['setting']['infosidestatus']['f'.$_G['fid']]['posts'] : $_G['setting']['infosidestatus']['posts'];
@@ -357,6 +401,7 @@ $_G['setting']['infosidestatus']['posts'] = $_G['setting']['infosidestatus'][1] 
 
 $postfieldsadd = $specialadd1 = $specialadd2 = $specialextra = '';
 $tpids = array();
+// 商品贴处理
 if($_G['forum_thread']['special'] == 2) {
 	if(!empty($_GET['do']) && $_GET['do'] == 'tradeinfo') {
 		require_once libfile('thread/trade', 'include');
@@ -367,6 +412,7 @@ if($_G['forum_thread']['special'] == 2) {
 	}
 	$specialadd2 = 1;
 
+// 辩论贴处理
 } elseif($_G['forum_thread']['special'] == 5) {
 	if(isset($_GET['stand'])) {
 		$specialadd2 = 1;
@@ -378,7 +424,8 @@ $onlyauthoradd = $threadplughtml = '';
 
 $maxposition = 0;
 if(empty($_GET['viewpid'])) {
-	$disablepos = !$rushreply && C::t('forum_threaddisablepos')->fetch($_G['tid']) ? 1 : 0;
+	//是否按position字段浏览 悬赏 商品 辩论 除外
+	$disablepos = !$rushreply && C::t('forum_threaddisablepos')->fetch($_G['tid']) ? 1 : 0; // 有记录且不是抢楼时，也不用position方式
 	if(!$disablepos && !in_array($_G['forum_thread']['special'], array(2,3,5))) {
 		if($_G['forum_thread']['maxposition']) {
 			$maxposition = $_G['forum_thread']['maxposition'];
@@ -391,6 +438,7 @@ if(empty($_GET['viewpid'])) {
 	if($_GET['from'] == 'album') {
 		$ordertype = 1;
 	}
+	//回帖置顶
 	$sticklist = array();
 	if($_G['page'] === 1 && $_G['forum_thread']['stickreply'] && empty($_GET['authorid'])) {
 		$poststick = C::t('forum_poststick')->fetch_all_by_tid($_G['tid']);
@@ -402,6 +450,7 @@ if(empty($_GET['viewpid'])) {
 		}
 		$stickcount = count($sticklist);
 	}
+	//抢楼帖获奖楼层列表处理
 	if($rushreply) {
 		$rushids = $rushpids = $rushpositionlist = $preg = $arr = array();
 		$str = ',,';
@@ -460,9 +509,11 @@ if(empty($_GET['viewpid'])) {
 	if($maxposition) {
 		$_G['forum_thread']['replies'] = $maxposition - 1;
 	}
+	//debug Module:HTML_CACHE 只缓存第一页。页面大小为系统默认。
 	$_G['ppp'] = $_G['forum']['threadcaches'] && !$_G['uid'] ? $_G['setting']['postperpage'] : $_G['ppp'];
 	$totalpage = ceil(($_G['forum_thread']['replies'] + 1) / $_G['ppp']);
 	$page > $totalpage && $page = $totalpage;
+	//debug 二分分页
 	$_G['forum_pagebydesc'] = !$maxposition && $page > 2 && $page > ($totalpage / 2) ? TRUE : FALSE;
 
 	if($_G['forum_pagebydesc']) {
@@ -504,6 +555,7 @@ if(empty($_GET['viewpid'])) {
 	$pageadd = "AND p.pid='$_GET[viewpid]'";
 }
 
+//debug 主题内容及回复
 $_G['forum_newpostanchor'] = $_G['forum_postcount'] = 0;
 
 $_G['forum_onlineauthors'] = $_G['forum_cachepid'] = $_G['blockedpids'] = array();
@@ -548,6 +600,7 @@ if($maxposition) {
 	$pagebydesc = false;
 }
 
+//抢楼贴中奖帖子ID
 if($_GET['checkrush'] && $rushreply) {
 	$_G['forum_thread']['replies'] = $temp_reply;
 }
@@ -594,6 +647,7 @@ if(!$maxposition && empty($postarr)) {
 if(!empty($isdel_post)) {
 	$updatedisablepos = false;
 	foreach($isdel_post as $id => $post) {
+		// -3 是针对草稿帖做特殊处理
 		if(isset($postarr[$id]['invisible']) && ($postarr[$id]['invisible'] == 0 || $postarr[$id]['invisible'] == -3 || $visibleallflag)) {
 			continue;
 		}
@@ -658,6 +712,7 @@ foreach($postarr as $post) {
 			}
 			$_G['forum_firstpid'] = $post['pid'];
 			if(IS_ROBOT || $_G['adminid'] == 1) $summary = str_replace(array("\r", "\n"), '', messagecutstr(strip_tags($post['message']), 160));
+			//处理标签
 			$tagarray_all = $posttag_array = array();
 			$tagarray_all = explode("\t", $post['tags']);
 			if($tagarray_all) {
@@ -673,7 +728,7 @@ foreach($postarr as $post) {
 			if($post['tags']) {
 				$post['relateitem'] = getrelateitem($post['tags'], $post['tid'], $_G['setting']['relatenum'], $_G['setting']['relatetime']);
 			}
-			if(!$_G['forum']['disablecollect']) {
+			if(!$_G['forum']['disablecollect']) { // 判断是否禁止淘帖
 				if($incollection) {
 					$post['relatecollection'] = getrelatecollection($post['tid'], false, $post['releatcollectionnum'], $post['releatcollectionmore']);
 					if($_G['group']['allowcommentcollection'] && $_GET['ctid']) {
@@ -689,6 +744,7 @@ foreach($postarr as $post) {
 	}
 }
 unset($hotpostarr);
+// SEO设置
 $seodata = array('forum' => $_G['forum']['name'], 'fup' => $_G['cache']['forums'][$fup]['name'], 'subject' => $_G['forum_thread']['subject'], 'summary' => $summary, 'tags' => @implode(',', $tagnames), 'page' => intval($_GET['page']));
 if($_G['forum']['status'] != 3) {
 	$seotype = 'viewthread';
@@ -828,6 +884,7 @@ if($_G['forum_thread']['special'] > 0 && (empty($_GET['viewpid']) || $_GET['view
 			break;
 	}
 }
+// 自动修复主题回复数, 当主题表记录的回复数和实际回复数不符，则自动修复
 if(empty($_GET['authorid']) && empty($postlist)) {
 	if($rushreply) {
 		dheader("Location: forum.php?mod=redirect&tid=$_G[tid]&goto=lastpost");
@@ -845,6 +902,7 @@ if($_G['forum_pagebydesc'] && (!$savepostposition || $_GET['ordertype'] == 1)) {
 	$postlist = array_reverse($postlist, TRUE);
 }
 
+//关闭session时强制使用快速显示（使用lastactiviry的值判断）
 if(!empty($_G['setting']['sessionclose'])) {
 	$_G['setting']['vtonlinestatus'] = 1;
 }
@@ -966,6 +1024,7 @@ $swfconfig = getuploadconfig($_G['uid'], $_G['fid']);
 $_G['forum_thread']['relay'] = 0;
 
 if(getstatus($_G['forum_thread']['status'], 10)) {
+	//取被转播的次数
 	$preview = C::t('forum_threadpreview')->fetch($_G['tid']);
 	$_G['forum_thread']['relay'] = $preview['relay'];
 }
@@ -1019,9 +1078,13 @@ if(empty($_GET['viewpid'])) {
 
 
 
+/**
+ * 更新查看次数，一处用在主题缓存readfile()后，另一处用在forum.php?mod=viewthread。
+ */
 function viewthread_updateviews($tableid) {
 	global $_G;
 
+	//存档帖子直接更新
 	if(!$_G['setting']['preventrefresh'] || $_G['cookie']['viewid'] != 'tid_'.$_G['tid']) {
 		if(!$tableid && $_G['setting']['optimizeviews']) {
 			if($_G['forum_thread']['addviews']) {
@@ -1042,9 +1105,16 @@ function viewthread_updateviews($tableid) {
 			C::t('forum_thread')->increase($_G['tid'], array('views' => 1), true, $tableid);
 		}
 	}
+	//简单的防刷新
 	dsetcookie('viewid', 'tid_'.$_G['tid']);
 }
 
+/**
+ * 帖子处理
+ *
+ * @param aray $post 帖子信息
+ * @return array
+ */
 function viewthread_procpost($post, $lastvisit, $ordertype, $maxposition = 0) {
 	global $_G, $rushreply;
 
@@ -1142,6 +1212,7 @@ function viewthread_procpost($post, $lastvisit, $ordertype, $maxposition = 0) {
 				if(isset($_G['cache']['medals'][$medalid]) && (!$medalexpiration || $medalexpiration > TIMESTAMP)) {
 					$post['medals'][$key] = $_G['cache']['medals'][$medalid];
 					$post['medals'][$key]['medalid'] = $medalid;
+					// 勋章showmenu时用的
 					$_G['medal_list'][$medalid] = $_G['cache']['medals'][$medalid];
 				} else {
 					unset($post['medals'][$key]);
@@ -1159,6 +1230,7 @@ function viewthread_procpost($post, $lastvisit, $ordertype, $maxposition = 0) {
 			$post['useip'] = substr($post['useip'], 0, strrpos($post['useip'], '.')).'.x';
 		}
 	}
+	//debug 帖子里面的附件
 	$post['attachments'] = array();
 	$post['imagelist'] = $post['attachlist'] = '';
 
@@ -1262,22 +1334,27 @@ function viewthread_loadcache() {
 	global $_G;
 	$_G['forum']['livedays'] = ceil((TIMESTAMP - $_G['forum']['dateline']) / 86400);
 	$_G['forum']['lastpostdays'] = ceil((TIMESTAMP - $_G['forum']['lastthreadpost']) / 86400);
+	//debug 置顶:0-45,  精华:0-30  查看数&帖子存在时间:0-50 回复数&最后回复天数:15天以内的回复
 	$threadcachemark = 100 - (
 	$_G['forum']['displayorder'] * 15 +
 	$_G['thread']['digest'] * 10 +
 	min($_G['thread']['views'] / max($_G['forum']['livedays'], 10) * 2, 50) +
 	max(-10, (15 - $_G['forum']['lastpostdays'])) +
 	min($_G['thread']['replies'] / $_G['setting']['postperpage'] * 1.5, 15));
+	//debug 如果满足缓存系数
 	if($threadcachemark < $_G['forum']['threadcaches']) {
 
+		//debug 检查缓存文件，如果不存在相应目录则创建目录。
 		$threadcache = getcacheinfo($_G['tid']);
 
+		//debug 如果过期或者不存在，则定义缓存文件。output() 将其缓存到 CACHE_FILE 。
 		if(TIMESTAMP - $threadcache['filemtime'] > $_G['setting']['cachethreadlife']) {
 			@unlink($threadcache['filename']);
 			define('CACHE_FILE', $threadcache['filename']);
 		} else {
 			readfile($threadcache['filename']);
 
+			//debug 更新点击数
 			viewthread_updateviews($_G['forum_thread']['threadtableid']);
 			$_G['setting']['debug'] && debuginfo();
 			$_G['setting']['debug'] ? die('<script type="text/javascript">document.getElementById("debuginfo").innerHTML = " '.($_G['setting']['debug'] ? 'Updated at '.gmdate("H:i:s", $threadcache['filemtime'] + 3600 * 8).', Processed in '.$debuginfo['time'].' second(s), '.$debuginfo['queries'].' Queries'.($_G['gzipcompress'] ? ', Gzip enabled' : '') : '').'";</script>') : die();
@@ -1285,6 +1362,12 @@ function viewthread_loadcache() {
 	}
 }
 
+/**
+ * 获取主题的被管理信息或被使用道具信息
+ * @global <array> $_G
+ * @param array $thread 主题数据
+ * @return array
+ */
 function viewthread_lastmod(&$thread) {
 	global $_G;
 	if(!$thread['moderated']) {
@@ -1539,6 +1622,9 @@ function getrelateitem($tagarray, $tid, $relatenum, $relatetime, $relatecache = 
 	return $relateitem;
 }
 
+/*
+ * 抢楼规则正则制作
+ */
 function rushreply_rule () {
 	global $rushresult;
 	if(!empty($rushresult['rewardfloor'])) {

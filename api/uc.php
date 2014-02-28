@@ -9,24 +9,24 @@
 
 error_reporting(0);
 
-define('UC_CLIENT_VERSION', '1.6.0');
+define('UC_CLIENT_VERSION', '1.6.0');	// UCenter 版本标识
 define('UC_CLIENT_RELEASE', '20110501');
 
-define('API_DELETEUSER', 1);
-define('API_RENAMEUSER', 1);
-define('API_GETTAG', 1);
-define('API_SYNLOGIN', 1);
-define('API_SYNLOGOUT', 1);
-define('API_UPDATEPW', 1);
-define('API_UPDATEBADWORDS', 1);
-define('API_UPDATEHOSTS', 1);
-define('API_UPDATEAPPS', 1);
-define('API_UPDATECLIENT', 1);
-define('API_UPDATECREDIT', 1);
-define('API_GETCREDIT', 1);
-define('API_GETCREDITSETTINGS', 1);
-define('API_UPDATECREDITSETTINGS', 1);
-define('API_ADDFEED', 1);
+define('API_DELETEUSER', 1);		//用户删除 API 接口开关
+define('API_RENAMEUSER', 1);		//用户名修改 API 接口开关
+define('API_GETTAG', 1);		//获取标签 API 接口开关
+define('API_SYNLOGIN', 1);		//同步登录 API 接口开关
+define('API_SYNLOGOUT', 1);		//同步登出 API 接口开关
+define('API_UPDATEPW', 1);		//更改用户密码 开关
+define('API_UPDATEBADWORDS', 1);	//更新关键字列表 开关
+define('API_UPDATEHOSTS', 1);		//更新HOST文件 开关
+define('API_UPDATEAPPS', 1);		//更新应用列表 开关
+define('API_UPDATECLIENT', 1);		//更新客户端缓存 开关
+define('API_UPDATECREDIT', 1);		//更新用户积分 开关
+define('API_GETCREDIT', 1);	//向 UC 提供积分 开关
+define('API_GETCREDITSETTINGS', 1);	//向 UC 提供积分设置 开关
+define('API_UPDATECREDITSETTINGS', 1);	//更新应用积分设置 开关
+define('API_ADDFEED', 1);	//向 UCHome 添加feed 开关
 define('API_RETURN_SUCCEED', '1');
 define('API_RETURN_FAILED', '-1');
 define('API_RETURN_FORBIDDEN', '1');
@@ -184,6 +184,7 @@ class uc_note {
 			return API_RETURN_FORBIDDEN;
 		}
 
+		// 同步登录 API 接口
 		header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
 
 		$cookietime = 31536000;
@@ -200,6 +201,7 @@ class uc_note {
 			return API_RETURN_FORBIDDEN;
 		}
 
+		// 同步登出 API 接口
 		header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
 
 		dsetcookie('auth', '', -31536000);
@@ -288,6 +290,7 @@ class uc_note {
 		fwrite($fp, $s);
 		fclose($fp);
 
+		//配置文件
 		if($UC_API && is_writeable(DISCUZ_ROOT.'./config/config_ucenter.php')) {
 			if(preg_match('/^https?:\/\//is', $UC_API)) {
 				$configfile = trim(file_get_contents(DISCUZ_ROOT.'./config/config_ucenter.php'));

@@ -35,7 +35,7 @@ if(!empty($_G['cache']['posttable_info']) && is_array($_G['cache']['posttable_in
 	$posttableselect .= '</select>';
 }
 
-$srchmod = 2;
+$srchmod = 2;//note 搜索模块定义，为了分别控制搜索频度
 
 $cachelife_time = 300;		// Life span for cache of searching in specified range of time
 $cachelife_text = 3600;		// Life span for cache of text searching
@@ -58,11 +58,13 @@ $srhfid = intval($_GET['srhfid']);
 
 $keyword = isset($srchtxt) ? dhtmlspecialchars(trim($srchtxt)) : '';
 
+//note 取出栏目列表
 $forumselect = forumselect();
 if(!empty($srchfid) && !is_numeric($srchfid)) {
 	$forumselect = str_replace('<option value="'.$srchfid.'">', '<option value="'.$srchfid.'" selected="selected">', $forumselect);
 }
 
+//note 此处代码之后会移到搜索插件中
 $mySearchData = $_G['setting']['my_search_data'];
 if($mySearchData['status'] && !$srchfrom && !$searchid) {
 	if (!$_G['setting']['my_siteid']) {
@@ -70,6 +72,7 @@ if($mySearchData['status'] && !$srchfrom && !$searchid) {
 	}
 	$appService = Cloud::loadClass('Service_App');
 	if($appService->getCloudAppStatus('search') && $searchparams) {
+		//添加搜索来源
 		$source = 'discuz';
 		$cloudSource = array('collectionsearch', 'hotsearch');
 		if(!empty($_GET['srhlocality'])) {
@@ -128,9 +131,11 @@ if(!submitcheck('searchsubmit', 1)) {
 	}
 
 } else {
+	//note 排序规则
 	$orderby = in_array($_GET['orderby'], array('dateline', 'replies', 'views')) ? $_GET['orderby'] : 'lastpost';
 	$ascdesc = isset($_GET['ascdesc']) && $_GET['ascdesc'] == 'asc' ? 'asc' : 'desc';
 
+	//note 如果这个关键字已经被刚刚搜索过
 	if(!empty($searchid)) {
 
 		require_once libfile('function/misc');
@@ -151,12 +156,15 @@ if(!submitcheck('searchsubmit', 1)) {
 		$index['searchtype'] = $searchstring[0];//preg_replace("/^([a-z]+)\|.*/", "\\1", $index['searchstring']);
 		$searchstring[2] = base64_decode($searchstring[2]);
 		$srchuname = $searchstring[3];
+		//note 是不是在搜索结果页给出板块管理面板的链接
 		$modfid = 0;
 		if($keyword) {
+			//note 关键词带过去是有缺陷的，当多关键词时，与管理面板搜索机制不同，带过去后全按or处理了
 			$modkeyword = str_replace(' ', ',', $keyword);
 			$fids = explode(',', str_replace('\'', '', $searchstring[5]));
 			if(count($fids) == 1 && in_array($_G['adminid'], array(1,2,3))) {
 				$modfid = $fids[0];
+				//note 版主的话要判断是不是本版块版主
 				if($_G['adminid'] == 3 && !C::t('forum_moderator')->fetch_uid_by_fid_uid($modfid, $_G['uid'])) {
 					$modfid = 0;
 				}
@@ -187,6 +195,7 @@ if(!submitcheck('searchsubmit', 1)) {
 
 	} else {
 
+		//note 设置具体参数
 
 		if($_G['group']['allowsearch'] & 32 && $srchtype == 'fulltext') {
 			periodscheck('searchbanperiods');
@@ -243,6 +252,7 @@ if(!submitcheck('searchsubmit', 1)) {
 
 			!($_G['group']['exempt'] & 2) && checklowerlimit('search');
 
+			//note 计算查询条件
 			if(!$srchtxt && !$srchuid && !$srchuname && !$srchfrom && !in_array($srchfilter, array('digest', 'top')) && !is_array($special)) {
 				dheader('Location: search.php?mod=forum');
 			} elseif(isset($srchfid) && !empty($srchfid) && $srchfid != 'all' && !(is_array($srchfid) && in_array('all', $srchfid)) && empty($forumsarray)) {
@@ -251,6 +261,7 @@ if(!submitcheck('searchsubmit', 1)) {
 				showmessage('group_nopermission', NULL, array('grouptitle' => $_G['group']['grouptitle']), array('login' => 1));
 			}
 
+			//note 最大查询条数
 			if($_G['adminid'] != '1' && $_G['setting']['search']['forum']['maxspm']) {
 				if(C::t('common_searchindex')->count_by_dateline($_G['timestamp'], $srchmod) >= $_G['setting']['search']['forum']['maxspm']) {
 					showmessage('search_toomany', 'search.php?mod=forum', array('maxspm' => $_G['setting']['search']['forum']['maxspm']));
@@ -260,13 +271,19 @@ if(!submitcheck('searchsubmit', 1)) {
 			if($srchtype == 'fulltext' && $_G['setting']['sphinxon']) {
 				require_once libfile('class/sphinx');
 
+				//实例化Sphinx搜索客户端
 				$s = new SphinxClient();
+				//设置sphinx服务器地址及端口
 				$s->setServer($_G['setting']['sphinxhost'], intval($_G['setting']['sphinxport']));
+				//设置最大查询时间
 				$s->setMaxQueryTime(intval($_G['setting']['sphinxmaxquerytime']));
 				$s->SetRankingMode($_G['setting']['sphinxrank']);
+				//设置最大返回结果集项数目
 				$s->setLimits(0, intval($_G['setting']['sphinxlimit']), intval($_G['setting']['sphinxlimit']));
+				//设置分组查询
 				$s->setGroupBy('tid', SPH_GROUPBY_ATTR);
 
+				//过滤 主题范围
 				if($srchfilter == 'digest') {
 					$s->setFilterRange('digest', 1, 3, false);
 				}
@@ -296,11 +313,13 @@ if(!submitcheck('searchsubmit', 1)) {
 					} elseif($srchuid) {
 						$uids = array($srchuid);
 					}
+					//过滤作者搜索范围
 					if(is_array($uids) && count($uids) > 0) {
 						$s->setFilter('authorid', $uids, false);
 					}
 
 					if($srchtxt) {
+						//设置搜索模式
 						if(preg_match("/\".*\"/", $srchtxt)) {
 							$spx_matchmode = "PHRASE";
 							$s->setMatchMode(SPH_MATCH_PHRASE);
@@ -332,8 +351,10 @@ if(!submitcheck('searchsubmit', 1)) {
 							$spx_timemix = TIMESTAMP - $srchfrom;
 							$spx_timemax = TIMESTAMP;
 						}
+						//设置搜索时间范围
 						$s->setFilterRange('lastpost', $spx_timemix, $spx_timemax, false);
 					}
+					//设置搜索特殊主题
 					if(!empty($specials)) {
 						$s->setFilter('special', explode(",", $special), false);
 					}
@@ -368,6 +389,7 @@ if(!submitcheck('searchsubmit', 1)) {
 				$digestltd = $srchfilter == 'digest' ? "t.digest>'0' AND" : '';
 				$topltd = $srchfilter == 'top' ? "AND t.displayorder>'0'" : "AND t.displayorder>='0'";
 
+				//note 设置搜索条件
 				if(!empty($srchfrom) && empty($srchtxt) && empty($srchuid) && empty($srchuname)) {
 
 					$searchfrom = $before ? '<=' : '>=';
@@ -413,6 +435,7 @@ if(!submitcheck('searchsubmit', 1)) {
 
 				}
 
+				//note 执行查询
 				$num = $ids = 0;
 				$_G['setting']['search']['forum']['maxsearchresults'] = $_G['setting']['search']['forum']['maxsearchresults'] ? intval($_G['setting']['search']['forum']['maxsearchresults']) : 500;
 				$query = DB::query("SELECT ".($srchtype == 'fulltext' ? 'DISTINCT' : '')." t.tid, t.closed, t.author, t.authorid $sqlsrch ORDER BY tid DESC LIMIT ".$_G['setting']['search']['forum']['maxsearchresults']);
@@ -438,6 +461,7 @@ if(!submitcheck('searchsubmit', 1)) {
 			!($_G['group']['exempt'] & 2) && updatecreditbyaction('search');
 		}
 
+		//note 显示搜索到的结果
 		dheader("location: search.php?mod=forum&searchid=$searchid&orderby=$orderby&ascdesc=$ascdesc&searchsubmit=yes&kw=".urlencode($keyword));
 
 	}

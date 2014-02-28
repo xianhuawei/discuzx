@@ -10,6 +10,7 @@
 error_reporting(0);
 set_magic_quotes_runtime(0);
 
+// 开始时间
 $mtime = explode(' ', microtime());
 $starttime = $mtime[1] + $mtime[0];
 
@@ -20,6 +21,7 @@ define('UC_DATADIR', UC_ROOT.'data/');
 define('UC_DATAURL', UC_API.'/data');
 define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
 
+// 清除变量
 unset($GLOBALS, $_ENV, $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS, $HTTP_SERVER_VARS, $HTTP_ENV_VARS);
 
 $_GET		= daddslashes($_GET, 1, TRUE);
@@ -44,6 +46,7 @@ define('RELEASE_ROOT', '');
 if(in_array($m, array('admin', 'app', 'badword', 'cache', 'db', 'domain', 'frame', 'log', 'note', 'feed', 'mail', 'setting', 'user', 'credit', 'seccode', 'tool', 'plugin', 'pm'))) {
 	include UC_ROOT."control/admin/$m.php";
 	$control = new control();
+	// 不允许访问私有方法
 	$method = 'on'.$a;
 	if(method_exists($control, $method) && $a{0} != '_') {
 		$control->$method();
@@ -56,6 +59,7 @@ if(in_array($m, array('admin', 'app', 'badword', 'cache', 'db', 'domain', 'frame
 	exit('Module not found!');
 }
 
+// 结束时间
 $mtime = explode(' ', microtime());
 $endtime = $mtime[1] + $mtime[0];
 //echo '<script>document.getElementById(\'debug_time\').innerHTML = \''.number_format($endtime - $starttime, 5).'\'</script>'."\n";

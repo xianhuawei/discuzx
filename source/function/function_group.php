@@ -15,6 +15,14 @@ function delgroupcache($fid, $cachearray) {
 	C::t('forum_groupfield')->delete_by_type($cachearray, $fid);
 }
 
+//note 判断用户在群组的权限
+/*
+	return case: -1 该版块不是群组类型
+	1 该群组已经关闭
+	2 您没有权限访问该群组
+	3 请等待群主审核
+	4 您还不是本群组成员，不能发帖．
+*/
 function groupperm(&$forum, $uid, $action = '', $isgroupuser = '') {
 	if($forum['status'] != 3 || $forum['type'] != 'sub') {
 		return -1;
@@ -23,6 +31,7 @@ function groupperm(&$forum, $uid, $action = '', $isgroupuser = '') {
 		return 'isgroupuser';
 	}
 	$isgroupuser = empty($isgroupuser) && $isgroupuser !== false ? C::t('forum_groupuser')->fetch_userinfo($uid, $forum['fid']) : $isgroupuser;
+	//note 群组管理组且不是群主,直接返回真
 	if($forum['ismoderator'] && !$isgroupuser) {
 		return '';
 	}
@@ -88,6 +97,7 @@ function mygrouplist($uid, $orderby = '', $fieldarray = array(), $num = 0, $star
 	return $mygrouplist;
 }
 
+//note 取群组图片完整路径
 function get_groupimg($imgname, $imgtype = '') {
 	global $_G;
 	$imgpath = $_G['setting']['attachurl'].'group/'.$imgname;
@@ -102,6 +112,7 @@ function get_groupimg($imgname, $imgtype = '') {
 	}
 }
 
+//note 获取分类下拉框选项，适应多选
 function get_groupselect($fup = 0, $groupid = 0, $ajax = 1) {
 	global $_G;
 	loadcache('grouptype');
@@ -177,6 +188,7 @@ function get_viewedgroup() {
 			$list[$row['fid']] = array('fid' => $row['fid'], 'name' => $row['name'], 'icon' => $icon, 'membernum' => $row['membernum']);
 		}
 	}
+	//note 保持cookie中的顺序
 	foreach($groupviewed as $fid) {
 		$groupviewed_list[$fid] = $list[$fid];
 	}

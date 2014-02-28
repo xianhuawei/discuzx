@@ -16,6 +16,7 @@ $operation = in_array($_GET['op'], array('base', 'feed', 'filter', 'getgroup')) 
 
 if(submitcheck('privacysubmit')) {
 
+	//隐私
 	if($operation == 'base') {
 		$space['privacy']['view'] = array();
 		$viewtype = array('index', 'friend', 'wall', 'doing', 'blog', 'album', 'share', 'home', 'videoviewphoto');
@@ -26,6 +27,7 @@ if(submitcheck('privacysubmit')) {
 		}
 	}
 
+	//发送动态
 	if($operation == 'feed') {
 		$space['privacy']['feed'] = array();
 		if(isset($_POST['privacy']['feed'])) {
@@ -36,23 +38,27 @@ if(submitcheck('privacysubmit')) {
 	}
 	privacy_update();
 
+	//变更记录
 	manyoulog('user', $_G['uid'], 'update');
 	showmessage('do_success', 'home.php?mod=spacecp&ac=privacy&op='.$operation);
 
 } elseif(submitcheck('privacy2submit')) {
 
+	//类型筛选
 	$space['privacy']['filter_icon'] = array();
 	if(isset($_POST['privacy']['filter_icon'])) {
 		foreach($_POST['privacy']['filter_icon'] as $key => $value) {
 			$space['privacy']['filter_icon'][$key] = 1;
 		}
 	}
+	//用户组设置
 	$space['privacy']['filter_gid'] = array();
 	if(isset($_POST['privacy']['filter_gid'])) {
 		foreach ($_POST['privacy']['filter_gid'] as $key => $value) {
 			$space['privacy']['filter_gid'][$key] = intval($value);
 		}
 	}
+	//通知筛选
 	$space['privacy']['filter_note'] = array();
 	if(isset($_POST['privacy']['filter_note'])) {
 		foreach ($_POST['privacy']['filter_note'] as $key => $value) {
@@ -61,6 +67,7 @@ if(submitcheck('privacysubmit')) {
 	}
 	privacy_update();
 
+	//更新好友缓存
 	require_once libfile('function/friend');
 	friend_cache($_G['uid']);
 
@@ -68,9 +75,11 @@ if(submitcheck('privacysubmit')) {
 }
 
 if($operation == 'filter') {
+	//好友组
 	require_once libfile('function/friend');
 	$groups = friend_group_list();
 
+	//屏蔽
 	$filter_icons = empty($space['privacy']['filter_icon'])?array():$space['privacy']['filter_icon'];
 	$filter_note = empty($space['privacy']['filter_note'])?array():$space['privacy']['filter_note'];
 	$iconnames = $appids = $icons = $uids = $users = array();
@@ -82,6 +91,7 @@ if($operation == 'filter') {
 			$appids[$key] = $icon;
 		}
 	}
+	//通知整理
 	foreach ($filter_note as $key => $value) {
 		list($type, $uid) = explode('|', $key);
 		$types[$key] = $type;
@@ -95,6 +105,7 @@ if($operation == 'filter') {
 			$users[$uid] = $value['username'];
 		}
 	}
+	//获取应用名称
 	if($appids) {
 		foreach(C::t('common_myapp')->fetch_all($appids) as $value) {
 			$iconnames[$value['appid']] = $value['appname'];
@@ -110,10 +121,11 @@ if($operation == 'filter') {
 		$users[] = $value['fusername'];
 	}
 	$ustr = empty($users)?'': dhtmlspecialchars(implode(' ', $users));
-	showmessage($ustr, '', array(), array('msgtype' => 3, 'handle'=>false));
+	showmessage($ustr, '', array(), array('msgtype' => 3, 'handle'=>false));//返回
 
 } else {
 
+	//默认隐私
 	$sels = array();
 	if($space['privacy']['view']) {
 		foreach ($space['privacy']['view'] as $key => $value) {

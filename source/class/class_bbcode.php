@@ -33,6 +33,7 @@ class bbcode {
 	function bbcode() {
 	}
 
+	//处理模块
 	function bbcode2html($message, $parseurl=0) {
 		if(empty($this->search_exp)) {
 			$this->search_exp = array(
@@ -50,7 +51,7 @@ class bbcode {
 			$this->replace_str = array('<b>', '</b>', '<i>','</i>', '<u>', '</u>');
 		}
 
-		if($parseurl==2) {
+		if($parseurl==2) {//深度解析
 			$this->search_exp[] = "/\[img\]\s*([^\[\<\r\n]+?)\s*\[\/img\]/ies";
 			$this->replace_exp[] = '$this->bb_img(\'\\1\')';
 			$message = bbcode::parseurl($message);
@@ -60,10 +61,12 @@ class bbcode {
 		return nl2br(str_replace(array("\t", '   ', '  '), array('&nbsp; &nbsp; &nbsp; &nbsp; ', '&nbsp; &nbsp;', '&nbsp;&nbsp;'), $message));
 	}
 
+	//自动解析url
 	function parseurl($message) {
 		return preg_replace("/(?<=[^\]a-z0-9-=\"'\\/])((https?|ftp|gopher|news|telnet|mms|rtsp):\/\/)([a-z0-9\/\-_+=.~!%@?#%&;:$\\()|]+)/i", "[url]\\1\\3[/url]", ' '.$message);
 	}
 
+	//html转化为bbcode
 	function html2bbcode($message) {
 
 		if(empty($this->html_s_exp)) {

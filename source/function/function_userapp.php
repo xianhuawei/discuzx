@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//获取当前环境信息
 function _my_env_get($var) {
 	global $_G, $space;
 
@@ -28,6 +29,7 @@ function _my_env_get($var) {
 	}
 }
 
+//获取指定用户的好友的uid列表
 function _my_get_friends($uid) {
 	global $_G;
 
@@ -42,15 +44,18 @@ function _my_get_friends($uid) {
 	return $_G[$var];
 }
 
+//获取指定用户显示的名字
 function _my_get_name($uid) {
 	$member = getuserbyuid($uid);
 	return $member ? $member['username'] : '';
 }
 
+//获取指定用户头像的url
 function _my_get_profilepic($uid, $size='small') {
 	return UC_API.'/avatar.php?uid='.$uid.'&size='.$size;
 }
 
+//判断uid1和uid2是否为好友
 function _my_are_friends($uid1, $uid2) {
 	global $_G;
 
@@ -65,6 +70,7 @@ function _my_are_friends($uid1, $uid2) {
 	return $_G[$var];
 }
 
+//指定用户是否安装了应用
 function _my_user_is_added_app($uid, $appid) {
 	global $_G;
 
@@ -78,6 +84,7 @@ function _my_user_is_added_app($uid, $appid) {
 	return $_G[$var];
 }
 
+//获取应用在uchome上的访问地址
 function _my_get_app_url($appid, $suffix) {
 	global $_G;
 
@@ -87,6 +94,7 @@ function _my_get_app_url($appid, $suffix) {
 	return $_G['prefix_url']."userapp.php?mod=app&id=$appid";
 }
 
+//获取应用显示位置
 function _my_get_app_position($appid) {
 	global $_G;
 

@@ -9,7 +9,7 @@
 
 !defined('IN_UC') && exit('Access Denied');
 
-define('UC_MAIL_REPEAT', 5);
+define('UC_MAIL_REPEAT', 5);	// 邮件发送失败重复次数
 
 class mailmodel {
 
@@ -27,11 +27,23 @@ class mailmodel {
 		$this->apps = &$this->base->cache['apps'];
 	}
 
+	/**
+	 * 统计通知的总条数
+	 *
+	 */
 	function get_total_num() {
 		$data = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."mailqueue");
 		return $data;
 	}
 
+	/**
+	 * Enter 得到邮件列表
+	 *
+	 * @param int	$page
+	 * @param int	$ppp
+	 * @param int	$totalnum
+	 * @return array 结果集
+	 */
 	function get_list($page, $ppp, $totalnum) {
 		$start = $this->base->page_get_start($page, $ppp, $totalnum);
 		$data = $this->db->fetch_all("SELECT m.*, u.username, u.email FROM ".UC_DBTABLEPRE."mailqueue m LEFT JOIN ".UC_DBTABLEPRE."members u ON m.touid=u.uid ORDER BY dateline DESC LIMIT $start, $ppp");
@@ -44,13 +56,30 @@ class mailmodel {
 		return $data;
 	}
 
+	/**
+	 * 删除邮件通过ids
+	 *
+	 * @param string/array $ids
+	 * @return 受影响的行数
+	 */
 	function delete_mail($ids) {
 		$ids = $this->base->implode($ids);
 		$this->db->query("DELETE FROM ".UC_DBTABLEPRE."mailqueue WHERE mailid IN ($ids)");
 		return $this->db->affected_rows();
 	}
 
+	/**
+	 * 添加邮件列表
+	 *
+	 * @param string 操作
+	 * @param string getdata
+	 * @param string postdata
+	 * @param array appids 指定通知的 APPID
+	 * @param int pri 优先级，值越大表示越高
+	 * @return int 插入的ID
+	 */
 	function add($mail) {
+		// 先入库
 		if($mail['level']) {
 			$sql = "INSERT INTO ".UC_DBTABLEPRE."mailqueue (touid, tomail, subject, message, frommail, charset, htmlon, level, dateline, failures, appid) VALUES ";
 			$values_arr = array();
@@ -67,7 +96,7 @@ class mailmodel {
 			$insert_id = $this->db->insert_id();
 			$insert_id && $this->db->query("REPLACE INTO ".UC_DBTABLEPRE."vars SET name='mailexists', value='1'");
 			return $insert_id;
-		} else {
+		} else {// 直接发送
 			$mail['email_to'] = array();
 			$uids = 0;
 			foreach($mail['uids'] as $uid) {
@@ -94,8 +123,10 @@ class mailmodel {
 
 	function _send() {
 
+		// 查看是否有邮件
 		$mail = $this->_get_mail();
 		if(empty($mail)) {
+			// 标示为不需要发送邮件
 			$this->db->query("REPLACE INTO ".UC_DBTABLEPRE."vars SET name='mailexists', value='0'");
 			return NULL;
 		} else {

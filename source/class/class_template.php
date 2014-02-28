@@ -40,6 +40,7 @@ class template {
 		$var_regexp = "((\\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\-\>)?[a-zA-Z0-9_\x7f-\xff]*)(\[[a-zA-Z0-9_\-\.\"\'\[\]\$\x7f-\xff]+\])*)";
 		$const_regexp = "([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)";
 
+		//note 解析支持子模板，代码循环执行，为的是可以解析子模板当中的子模板，默认 3 层嵌套
 		$headerexists = preg_match("/{(sub)?template\s+[\w\/]+?header\}/", $template);
 		$this->subtemplates = array();
 		for($i = 1; $i <= 3; $i++) {
@@ -131,6 +132,7 @@ class template {
 			$this->language['inner'] = lang('template');
 			if(!$isplugin) {
 
+				//noteX 去掉手机语言包路径(IN_MOBILE)
 				if(defined('IN_MOBILE')) {
 					$mobiletpl = getglobal('mobiletpl');
 					list($path) = explode('/', str_replace($mobiletpl[IN_MOBILE].'/', '', $this->file));
@@ -142,6 +144,7 @@ class template {
 					$this->language['inner'][$k] = $v;
 				}
 
+				//noteX 合并手机版精简语言包(IN_MOBILE)
 				if(defined('IN_MOBILE')) {
 					foreach(lang('mobile/template') as $k => $v) {
 						$this->language['inner'][$k] = $v;

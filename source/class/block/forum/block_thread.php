@@ -10,6 +10,7 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+// 高级自定义
 class block_thread extends discuz_block {
 	var $setting = array();
 
@@ -198,6 +199,7 @@ class block_thread extends discuz_block {
 				);
 	}
 
+	//可转换到的模块类型
 	function fieldsconvert() {
 		return array(
 				'portal_article' => array(
@@ -225,6 +227,8 @@ class block_thread extends discuz_block {
 		global $_G;
 		$settings = $this->setting;
 
+		// 处理特殊字段
+		// fid
 		if($settings['fids']) {
 			loadcache('forums');
 			$settings['fids']['value'][] = array(0, lang('portalcp', 'block_all_forum'));
@@ -232,6 +236,7 @@ class block_thread extends discuz_block {
 				$settings['fids']['value'][] = array($fid, ($forum['type'] == 'forum' ? str_repeat('&nbsp;', 4) : ($forum['type'] == 'sub' ? str_repeat('&nbsp;', 8) : '')).$forum['name']);
 			}
 		}
+		// 分类信息
 		if($settings['sortids']) {
 			$settings['sortids']['value'][] = array(0, 'threadlist_sortids_all');
 			$query = DB::query("SELECT typeid, name, special FROM ".DB::table('forum_threadtype')." WHERE special>'0' ORDER BY typeid DESC");
@@ -248,6 +253,7 @@ class block_thread extends discuz_block {
 		$returndata = array('html' => '', 'data' => '');
 		$parameter = $this->cookparameter($parameter);
 
+		//参数准备
 		loadcache('forums', 'stamps');
 		$tids		= !empty($parameter['tids']) ? explode(',', $parameter['tids']) : array();
 		$uids		= !empty($parameter['uids']) ? explode(',', $parameter['uids']) : array();
@@ -293,10 +299,12 @@ class block_thread extends discuz_block {
 		}
 
 		$threadsorts = $threadtypes = array();
+		// 分类信息初始化
 		$querytmp = DB::query("SELECT typeid, name, special FROM ".DB::table('forum_threadtype')." WHERE special>'0'");
 		while($value = DB::fetch($querytmp)) {
 			$threadsorts[$value['typeid']] = $value;
 		}
+		// 主题分类初始化
 		$querytmp = DB::query("SELECT * FROM ".DB::table('forum_threadclass'));
 		foreach(C::t('forum_threadclass')->range() as $value) {
 			$threadtypes[$value['typeid']] = $value;
@@ -328,8 +336,10 @@ class block_thread extends discuz_block {
 		}
 		$sqlfrom = $sqlfield = $joinmethodpic = '';
 
+		//必须包括图片时使用inner join
 		if($picrequired) {
 			$joinmethodpic = 'INNER';
+		//模板中使用图片时使用left join
 		} else if($style['getpic']) {
 			$joinmethodpic = 'LEFT';
 		}
@@ -352,6 +362,7 @@ class block_thread extends discuz_block {
 			$maxwhere = ($maxid = $this->getmaxid() - $_G['setting']['blockmaxaggregationitem']) > 0 ? 't.tid > '.$maxid.' AND ' : '';
 		}
 
+		//数据获取
 		$query = DB::query("SELECT DISTINCT t.*$sqlfield
 			FROM `".DB::table('forum_thread')."` t
 			$sqlfrom WHERE {$maxwhere}t.readperm='0'
@@ -361,7 +372,9 @@ class block_thread extends discuz_block {
 			LIMIT $startrow,$items;"
 			);
 		while($data = DB::fetch($query)) {
+			//放入缓存，以便获取图片和summary时少一个查询
 			$_G['block_thread'][$data['tid']] = $data;
+			//查询获取帖子简介
 			if($style['getsummary']) {
 				$threadtids[$data['posttableid']][] = $data['tid'];
 			}
@@ -402,11 +415,13 @@ class block_thread extends discuz_block {
 					'monthviews' => $data['views']
 				)
 			);
+			//高亮的处理
 			if($highlight && $data['highlight']) {
 				$list[$data['tid']]['fields']['showstyle'] = $this->getthreadstyle($data['highlight']);
 			}
 		}
 
+		//还原$list顺序
 		if($listtids) {
 			$threads = $this->getthread($threadtids, $summarylength);
 			if($threads) {
@@ -459,7 +474,7 @@ class block_thread extends discuz_block {
 		if($messagearr) {
 			foreach($messagearr as $tid => $var) {
 				$thread = $_G['block_thread'][$tid];
-				if($nospecial) {
+				if($nospecial) {// 特殊主题也当作普通主题处理
 					$thread['special'] = 0;
 				}
 				if($thread['special'] == 1) {
@@ -528,6 +543,11 @@ class block_thread extends discuz_block {
 		return $data;
 	}
 
+	/**
+	 * 帖子高亮的处理
+	 * @param int $highlight 高亮的十进值
+	 * @return array itemdata使用的showstyle的数组格式
+	 */
 	function getthreadstyle($highlight) {
 		$rt = array();
 		if($highlight) {

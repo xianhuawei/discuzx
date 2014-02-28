@@ -33,9 +33,11 @@ $cols['space'] = array('wall', 'poke', 'click', 'sendpm', 'addfriend', 'friend')
 
 $type = !empty($_GET['types']) ? array() : (empty($_GET['type'])?'all':$_GET['type']);
 
+//设定日期范围
 $primarybegin = !empty($_GET['primarybegin']) ? $_GET['primarybegin'] : dgmdate($_G['timestamp']-2592000, 'Y-m-d');
 $primaryend = !empty($_GET['primaryend']) ? $_GET['primaryend'] : dgmdate($_G['timestamp'], 'Y-m-d');
 
+//验证选择的日期是否正确
 $beginunixstr = strtotime($primarybegin);
 $endunixstr = strtotime($primaryend);
 if($beginunixstr > $endunixstr) {

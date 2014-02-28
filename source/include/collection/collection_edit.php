@@ -24,7 +24,7 @@ if(empty($_G['uid'])) {
 	showmessage('login_before_enter_home', null, array(), array('showmsg' => true, 'login' => 1));
 }
 
-if(empty($op) || $op == 'add') {
+if(empty($op) || $op == 'add') { //note 新建专辑
 	if(!helper_access::check_module('collection')) {
 		showmessage('quickclear_noperm');
 	}
@@ -34,7 +34,7 @@ if(empty($op) || $op == 'add') {
 
 	$createdcollectionnum = C::t('forum_collection')->count_by_uid($_G['uid']);
 	$reamincreatenum = $_G['group']['allowcreatecollection']-$createdcollectionnum;
-	if(!$_G['group']['allowcreatecollection'] || $reamincreatenum <= 0) {
+	if(!$_G['group']['allowcreatecollection'] || $reamincreatenum <= 0) { //note 检查创建专辑数量
 		showmessage('collection_create_exceed_limit');
 	}
 	if(!$_GET['submitcollection']) {
@@ -70,7 +70,7 @@ if(empty($op) || $op == 'add') {
 		}
 	}
 
-} elseif($op == 'edit') {
+} elseif($op == 'edit') { //note 编辑专辑
 	$navtitle = lang('core', 'title_collection_edit');
 
 	if(!$ctid) {
@@ -110,7 +110,7 @@ if(empty($op) || $op == 'add') {
 
 		showmessage('collection_edit_succ', 'forum.php?mod=collection&action=view&ctid='.$ctid);
 	}
-} elseif($op == 'remove') {
+} elseif($op == 'remove') { //note 删除专辑
 	if($_GET['formhash'] != FORMHASH) {
 		showmessage('undefined_action', NULL);
 	}
@@ -124,7 +124,7 @@ if(empty($op) || $op == 'add') {
 		showmessage('collection_permission_deny');
 	}
 
-} elseif($op == 'addthread') {
+} elseif($op == 'addthread') { //note 向专辑添加主题
 	if((!$_G['forum_thread'] || !$_G['forum']) && !is_array($_GET['tids'])) {
 		showmessage('thread_nonexistence');
 	}
@@ -133,7 +133,7 @@ if(empty($op) || $op == 'add') {
 		showmessage('collection_forum_deny', '', array(), array('showdialog' => 1));
 	}
 
-	if(!submitcheck('addthread')) {
+	if(!submitcheck('addthread')) { //note 选择专辑
 		$createdcollectionnum = C::t('forum_collection')->count_by_uid($_G['uid']);
 		$reamincreatenum = $_G['group']['allowcreatecollection']-$createdcollectionnum;
 
@@ -171,6 +171,7 @@ if(empty($op) || $op == 'add') {
 					showmessage('collection_non_creator', '', array(), array('showdialog' => 1));
 				}
 
+				//note 分别处理一次加入一个主题和多主题
 				if(!is_array($_GET['tids'])) {
 					$checkexistctid[$tid] = C::t('forum_collectionthread')->fetch_by_ctid_tid($curcollectiondata['ctid'], $thread[$tid]['tid']);
 					if($checkexistctid[$tid]['ctid']) {
@@ -202,9 +203,9 @@ if(empty($op) || $op == 'add') {
 							'reason' => cutstr(censor(dhtmlspecialchars($_GET['reason'])), $reasonlimit, '')
 						);
 
-						C::t('forum_collectionthread')->insert($newthread);
+						C::t('forum_collectionthread')->insert($newthread); //note 新淘帖
 					} else {
-						continue;
+						continue; //note 淘帖已存在，或该版禁止淘帖，跳过
 					}
 
 					if(!$checkexist[$curtid]) {
@@ -214,11 +215,12 @@ if(empty($op) || $op == 'add') {
 						C::t('forum_collectionrelated')->update_collection_by_ctid_tid($curcollectiondata['ctid'], $curtid);
 					}
 					if(!getstatus($thread[$curtid]['status'], 9)) {
-						C::t('forum_thread')->update_status_by_tid($curtid, '256');
+						C::t('forum_thread')->update_status_by_tid($curtid, '256'); //note 标记forum_thread
 					}
-
+					
+					//通知作者
 					if($_G['uid'] != $thread[$curtid]['authorid']) {
-						notification_add($thread[$curtid]['authorid'], "system", 'collection_becollected', array('from_id'=>$_G['collection']['ctid'], 'from_idtype'=>'collectionthread', 'ctid'=>$_G['collection']['ctid'], 'collectionname'=>$_G['collection']['name'], 'tid'=>$curtid, 'threadname'=>$thread[$curtid]['subject']), 1);
+						notification_add($thread[$curtid]['authorid'], "system", 'collection_becollected', array('from_id'=>$_G['collection']['ctid'], 'from_idtype'=>'collectionthread', 'ctid'=>$_G['collection']['ctid'], 'collectionname'=>$_G['collection']['name'], 'tid'=>$curtid, 'threadname'=>$thread[$curtid]['subject']), 1); //发送通知
 					}
 
 					$addsum++;
@@ -239,7 +241,7 @@ if(empty($op) || $op == 'add') {
 		showmessage('collection_collect_succ', dreferer(), array(), array('alert'=> 'right', 'closetime' => true, 'locationtime' => true, 'showdialog' => 1));
 	}
 
-} elseif($op == 'delthread') {
+} elseif($op == 'delthread') { //note 从专辑删除主题
 	if($_GET['formhash'] != FORMHASH) {
 		showmessage('undefined_action', NULL);
 	}
@@ -271,7 +273,7 @@ if(empty($op) || $op == 'add') {
 	C::t('forum_collection')->update_by_ctid($ctid, -$decthread, 0, 0, 0, 0, 0, $lastpost);
 
 	showmessage('collection_remove_thread', 'forum.php?mod=collection&action=view&ctid='.$ctid);
-} elseif($op == 'invite') {
+} elseif($op == 'invite') { //note 邀请加入共同管理
 	if(!$ctid) {
 		showmessage('undefined_action', NULL);
 	}
@@ -342,7 +344,7 @@ if(empty($op) || $op == 'add') {
 
 		showmessage('collection_invite_succ', 'forum.php?mod=collection&action=view&ctid='.$ctid, array(), array('alert'=> 'right', 'closetime' => true, 'showdialog' => 1));
 	}
-} elseif($op == 'acceptinvite') {
+} elseif($op == 'acceptinvite') { //note 接受邀请
 	if(!submitcheck('ctid', 1)) {
 		showmessage('undefined_action', NULL);
 	} else {
@@ -370,7 +372,7 @@ if(empty($op) || $op == 'add') {
 
 		showmessage('collection_invite_accept', 'forum.php?mod=collection&action=view&ctid='.$ctid);
 	}
-} elseif($op == 'removeworker') {
+} elseif($op == 'removeworker') { //note 退出维护
 	if(!submitcheck('ctid', 1)) {
 		showmessage('undefined_action', NULL);
 	} else {
@@ -381,12 +383,12 @@ if(empty($op) || $op == 'add') {
 		if(!$_G['collection']['ctid']) {
 			showmessage('collection_permission_deny');
 		}
-		if($_GET['uid'] != $_G['uid']) {
+		if($_GET['uid'] != $_G['uid']) { //note 删除他人
 			if($_G['collection']['uid'] != $_G['uid']) {
 				showmessage('collection_remove_deny');
 			}
 			$removeuid = $_GET['uid'];
-		} else {
+		} else { //note 自杀
 			$removeuid = $_G['uid'];
 		}
 

@@ -21,6 +21,11 @@ class table_common_admingroup extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 获取common_admingroup和common_usergroup合并的数据
+	 * @param array $gids 组ID
+	 * @return array
+	 */
 	public function fetch_all_merge_usergroup($gids = array()) {
 		$admingroups = empty($gids) ? $this->range() : $this->fetch_all($gids);
 		$data = array();

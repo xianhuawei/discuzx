@@ -10,6 +10,7 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+// 高级自定义
 class block_trade extends discuz_block {
 	var $setting = array();
 
@@ -116,6 +117,7 @@ class block_trade extends discuz_block {
 				);
 	}
 
+	//可转换到的模块类型
 	function fieldsconvert() {
 		return array(
 				'group_trade' => array(
@@ -131,6 +133,8 @@ class block_trade extends discuz_block {
 		global $_G;
 		$settings = $this->setting;
 
+		// 处理特殊字段
+		// fid
 		if($settings['fids']) {
 			loadcache('forums');
 			$settings['fids']['value'][] = array(0, lang('portalcp', 'block_all_forum'));
@@ -146,6 +150,7 @@ class block_trade extends discuz_block {
 
 		$parameter = $this->cookparameter($parameter);
 
+		//参数准备
 		loadcache('forums');
 		$tids		= !empty($parameter['tids']) ? explode(',', $parameter['tids']) : array();
 		$uids		= !empty($parameter['uids']) ? explode(',', $parameter['uids']) : array();
@@ -208,6 +213,7 @@ class block_trade extends discuz_block {
 			$sqlfrom .= " $joinmethod JOIN `".DB::table('forum_forumrecommend')."` fc ON fc.tid=tr.tid";
 		}
 		$sqlfield = $highlight ? ', t.highlight' : '';
+		//数据获取
 		$query = DB::query("SELECT tr.pid, tr.tid, tr.aid, tr.price, tr.credit, tr.subject, tr.totalitems, tr.seller, tr.sellerid$sqlfield
 			FROM ".DB::table('forum_trade')." tr $sqlfrom $where
 			ORDER BY tr.$orderby DESC
@@ -216,6 +222,7 @@ class block_trade extends discuz_block {
 		require_once libfile('block_thread', 'class/block/forum');
 		$bt = new block_thread();
 		while($data = DB::fetch($query)) {
+			//查询获取帖子简介
 			if($style['getsummary']) {
 				$threadpids[$data['posttableid']][] = $data['pid'];
 			}
@@ -240,6 +247,7 @@ class block_trade extends discuz_block {
 					'price' => ($data['price'] > 0 ? '&yen; '.$data['price'] : '').($data['credit'] > 0 ? ($data['price'] > 0 ? lang('block/tradelist', 'tradelist_price_add') : '').$data['credit'].' '.$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['unit'].$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['title'] : ''),
 				)
 			);
+			//高亮的处理
 			if($highlight && $data['highlight']) {
 				$list[$data['tid']]['fields']['showstyle'] = $bt->getthreadstyle($data['highlight']);
 			}
@@ -253,6 +261,7 @@ class block_trade extends discuz_block {
 				}
 			}
 
+			//附件分表查询
 			foreach($attachtables as $tableid => $taids) {
 				$query = DB::query('SELECT aid, attachment, remote FROM '.DB::table('forum_attachment_'.$tableid).' WHERE aid IN ('.dimplode($taids).')');
 				while($avalue = DB::fetch($query)) {
@@ -261,6 +270,7 @@ class block_trade extends discuz_block {
 				}
 			}
 
+			//还原$list顺序
 			foreach($listpids as $key => $value) {
 				$datalist[] = $list[$value];
 			}

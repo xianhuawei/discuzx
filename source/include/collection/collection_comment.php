@@ -68,10 +68,10 @@ if(empty($op) || $op == 'add') {
 		$_GET['ratescore'] = 0;
 	}
 
-	C::t('forum_collectioncomment')->insert($newcomment);
+	C::t('forum_collectioncomment')->insert($newcomment); //note 新评论
 	C::t('forum_collection')->update_by_ctid($_G['collection']['ctid'], 0, 0, 1, 0, $_GET['ratescore'], $_G['collection']['ratenum']);
 
-	if($_G['collection']['uid'] != $_G['uid']) {
+	if($_G['collection']['uid'] != $_G['uid']) {  //note 他人评论时推送通知
 		notification_add($_G['collection']['uid'], "system", 'collection_becommented', array('from_id'=>$_G['collection']['ctid'], 'from_idtype'=>'collectioncomment', 'ctid'=>$_G['collection']['ctid'], 'collectionname'=>$_G['collection']['name']), 1);
 	}
 
@@ -132,6 +132,7 @@ if(empty($op) || $op == 'add') {
 			include_once libfile('function/stat');
 			updatestat('sendpm', 0, $coef);
 
+			//note 更新最后发布时间
 			C::t('common_member_status')->update($_G['uid'], array('lastpost' => TIMESTAMP), 'UNBUFFERED');
 			!($_G['group']['exempt'] & 1) && updatecreditbyaction('sendpm', 0, array(), '', $coef);
 			showmessage('collection_recommend_succ', '', array(), array('alert'=> 'right', 'closetime' => true, 'showdialog' => 1));

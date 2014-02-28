@@ -27,13 +27,14 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 	include_once libfile('function/post');
 	$message = strip_tags($message);
 	$message = messagesafeclear($message);
-
+	//note 先将 [code][/code] 清空内容
 	if((strpos($message, '[/code]') || strpos($message, '[/CODE]')) !== FALSE) {
 		$message = preg_replace("/\s?\[code\](.+?)\[\/code\]\s?/ies", "", $message);
 	}
 
 	$msglower = strtolower($message);
 
+	//禁用HTML
 	$htmlon = 0;
 
 	$message = dhtmlspecialchars($message);
@@ -44,6 +45,7 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 		hookscript('discuzcode', 'global', 'funcs', array('param' => $param, 'caller' => 'discuzcode'), 'discuzcode');
 	}
 	$_G['delattach'] = array();
+	//note 表情解析
 	$message = fparsesmiles($message);
 
 	if(strpos($msglower, 'attach://') !== FALSE) {
@@ -53,10 +55,12 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 	if(strpos($msglower, 'ed2k://') !== FALSE) {
 		$message = preg_replace("/ed2k:\/\/(.+?)\//e", '', $message);
 	}
+	//清除系统附件的一些内容
 	if(strpos($msglower, '[/i]') !== FALSE) {
 		$message = preg_replace("/\s*\[i=s\][\n\r]*(.+?)[\n\r]*\[\/i\]\s*/is", '', $message);
 	}
 
+	//note CSS 相关代码解析
 	$message = str_replace('[/p]', "\n", $message);
 	$message = str_replace(array(
 		'[/color]', '[/backcolor]', '[/size]', '[/font]', '[/align]', '[b]', '[/b]', '[s]', '[/s]', '[hr]',
@@ -87,9 +91,11 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 		$message = preg_replace("/\s*\[free\][\n\r]*(.+?)[\n\r]*\[\/free\]\s*/is", '', $message);
 	}
 
+	//note 自定义 Discuz! 代码解析
 	if(isset($_G['cache']['bbcodes'][-$allowbbcode])) {
 		$message = preg_replace($_G['cache']['bbcodes'][-$allowbbcode]['searcharray'], '', $message);
 	}
+	//note hide 代码解析
 	if(strpos($msglower, '[/hide]') !== FALSE) {
 		preg_replace("/\[hide.*?\]\s*(.*?)\s*\[\/hide\]/ies", "hideattach('\\1')", $message);
 		if(strpos($msglower, '[hide]') !== FALSE) {
@@ -100,19 +106,23 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 		}
 	}
 
+	//note URL 解析
 	if(strpos($msglower, '[/url]') !== FALSE) {
 		$message = preg_replace("/\[url(=((https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|thunder|qqdl|synacast){1}:\/\/|www\.|mailto:)?([^\r\n\[\"']+?))?\](.+?)\[\/url\]/ies", "fparseurl('\\1', '\\5', '\\2')", $message);
 	}
+	//note E-mail 解析
 	if(strpos($msglower, '[/email]') !== FALSE) {
 		$message = preg_replace("/\[email(=([a-z0-9\-_.+]+)@([a-z0-9\-_]+[.][a-z0-9\-_.]+))?\](.+?)\[\/email\]/ies", "fparseemail('\\1', '\\4')", $message);
 	}
 
+	//note 表格解析 允许嵌套 4 层
 	$nest = 0;
 	while(strpos($msglower, '[table') !== FALSE && strpos($msglower, '[/table]') !== FALSE){
 		$message = preg_replace("/\[table(?:=(\d{1,4}%?)(?:,([\(\)%,#\w ]+))?)?\]\s*(.+?)\s*\[\/table\]/ies", "fparsetable('\\1', '\\2', '\\3')", $message);
 		if(++$nest > 4) break;
 	}
 
+	//note 多媒体代码解析
 	if(strpos($msglower, '[/media]') !== FALSE) {
 		$message = preg_replace("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/ies", "fparsemedia('\\1', '\\2')", $message);
 	}
@@ -123,6 +133,7 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 		$message = preg_replace("/\[flash(=(\d+),(\d+))?\]\s*([^\[\<\r\n]+?)\s*\[\/flash\]/ies", "fparseflash('\\4');", $message);
 	}
 
+	//note img 代码解析
 	if($parsetype != 1 && strpos($msglower, '[swf]') !== FALSE) {
 		$message = preg_replace("/\[swf\]\s*([^\[\<\r\n]+?)\s*\[\/swf\]/ies", "bbcodeurl('\\1', ' <img src=\"'.STATICURL.'image/filetype/flash.gif\" align=\"absmiddle\" alt=\"\" /> <a href=\"{url}\" target=\"_blank\">Flash: {url}</a> ')", $message);
 	}
@@ -141,6 +152,7 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 		) : '', $message);
 	}
 
+	//获取附件
 	if($tid && $pid) {
 		$_G['post_attach'] = C::t('forum_attachment_n')->fetch_all_by_id(getattachtableid($tid), 'pid', $pid);
 		foreach($_G['post_attach'] as $aid => $attach) {
@@ -155,14 +167,17 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 	if(strpos($msglower, '[/attach]') !== FALSE) {
 		$message = preg_replace("/\[attach\]\s*([^\[\<\r\n]+?)\s*\[\/attach\]/ies", '', $message);
 	}
+	//整理换行，增加换行造成截取长度的限制
 	$message = clearnl($message);
 
 	if($length) {
+		//截取特殊帖子中的一些不显示的内容
 		$sppos = strpos($message, chr(0).chr(0).chr(0));
 		if($sppos !== false) {
 			$message = substr($message, 0, $sppos);
 		}
 		$checkstr = cutstr($message, $length, '');
+		//判断截取的内容是否把占位符给截一半，如果是，补全
 		if(strpos($checkstr, '[') && strpos(strrchr($checkstr, "["), ']') === FALSE) {
 			$length = strpos($message, ']', strrpos($checkstr, strrchr($checkstr, "[")));
 		}
@@ -171,6 +186,7 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 		$message .= '<div class="ptm cl"><a href="javascript:;" class="flw_readfull y xi2 xs1"'.$extra.'>'.lang('space', 'follow_retract').'</a></div>';
 	}
 
+	//note 还原 [code][/code] 标签中的代码
 	for($i = 0; $i <= $_G['forum_discuzcode']['pcodecount']; $i++) {
 		$code = '';
 		if(isset($_G['forum_discuzcode']['codehtml'][$i]) && !empty($_G['forum_discuzcode']['codehtml'][$i])) {
@@ -190,7 +206,9 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 		}
 		$message = str_replace("[\tD_$i\t]", $code, $message);
 	}
+	//处理整理后造成的换行
 	$message = clearnl($message);
+	//note 高亮处理
 	if(!empty($_GET['highlight'])) {
 		$highlightarray = explode('+', $_GET['highlight']);
 		$sppos = strrpos($message, chr(0).chr(0).chr(0));
@@ -206,6 +224,7 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 
 	unset($msglower);
 
+	//截取的内容处理
 	if($length) {
 		$count = 0;
 		$imagecode = $mediacode = $videocode = $audiocode = $mediahtml = '';
@@ -244,7 +263,9 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 function clearnl($message) {
 
 	$message = preg_replace("/[\r\n|\n|\r]\s*[\r\n|\n|\r]/i", "\n", $message);
+	//替换开头的换行
 	$message = preg_replace("/^[\r\n|\n|\r]{1,}/i", "", $message);
+	//替换多个连续换行为单个换行
 	$message = preg_replace("/[\r\n|\n|\r]{2,}/i", "\n", $message);
 
 	return $message;

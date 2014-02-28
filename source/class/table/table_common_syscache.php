@@ -27,10 +27,20 @@ class table_common_syscache extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 获取一个系统缓存值
+	 * @param string $cachename 系统缓存变量名
+	 * @return mixed 系统缓存数据
+	 */
 	public function fetch($cachename) {
 		$data = $this->fetch_all(array($cachename));
 		return isset($data[$cachename]) ? $data[$cachename] : false;
 	}
+	/**
+	 * 通过memcache\mysql\file等几种方式读缓存
+	 * @param string|array $cachenames 缓存名的数组或字串
+	 * @return array 系统缓存数据
+	 */
 	public function fetch_all($cachenames) {
 
 		$data = array();
@@ -84,6 +94,11 @@ class table_common_syscache extends discuz_table
 		return $data;
 	}
 
+	/**
+	 * 添加或更新一个系统缓存数据
+	 * @param string $cachename 系统缓存名
+	 * @param mixed $data 系统缓存数据
+	 */
 	public function insert($cachename, $data) {
 
 		parent::insert(array(
@@ -99,10 +114,19 @@ class table_common_syscache extends discuz_table
 		$this->_isfilecache && @unlink(DISCUZ_ROOT.'./data/cache/cache_'.$cachename.'.php');
 	}
 
+	/**
+	 * insert的别名，添加或更新一个系统缓存数据
+	 * @param string $cachename 系统缓存名
+	 * @param mixed $data 系统缓存数据
+	 */
 	public function update($cachename, $data) {
 		$this->insert($cachename, $data);
 	}
 
+	/**
+	 * 删除一个或多个系统缓存
+	 * @param string|array $cachenames 一个或多个系统缓存名
+	 */
 	public function delete($cachenames) {
 		parent::delete($cachenames);
 		if($this->_allowmem || $this->_isfilecache) {

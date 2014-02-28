@@ -127,34 +127,78 @@ class discuz_session {
 		}
 	}
 
+	/**
+	 * 取在线用户数量
+	 *
+	 * @param int $type 0=全部 1=会员 2=游客
+	 */
 	public function count($type = 0) {
 		return $this->table->count($type);
 	}
 
+	/**
+	 * 在线数据
+	 * @param int $ismember 是否为会员 0所有 1仅会员 2仅游客
+	 * @param int $invisible 是否过滤隐身 0所有 1仅隐身 2仅非隐身
+	 * @param int $start 开始条数
+	 * @param int $limit 数据条数
+	 * @return array 在线数据
+	 */
 	public function fetch_member($ismember = 0, $invisible = 0, $start = 0, $limit = 0) {
 		return $this->table->fetch_member($ismember, $invisible, $start, $limit);
 	}
 
+	/**
+	 * 统计在线可见用户数
+	 */
 	public function count_invisible($type = 1) {
 		return $this->table->count_invisible($type);
 	}
 
+	/**
+	 * 根据IP地址禁止当前正在访问的用户
+	 * @param int $ip1 IPv4的第一段
+	 * @param int $ip2 IPv4的第二段
+	 * @param int $ip3 IPv4的第三段
+	 * @param int $ip4 IPv4的第四段
+	 * @return bool
+	 */
 	public function update_by_ipban($ip1, $ip2, $ip3, $ip4) {
 		return $this->table->update_by_ipban($ip1, $ip2, $ip3, $ip4);
 	}
 
+	/**
+	 * 更改表的最大值
+	 * @param int $max_rows 最大值
+	 * @return bool
+	 */
 	public function update_max_rows($max_rows) {
 		return $this->table->update_max_rows($max_rows);
 	}
 
+	/**
+	 * 清空表数据
+	 * @return bool
+	 */
 	public function clear() {
 		return $this->table->clear();
 	}
 
+	/**
+	 * 根据fid 统计
+	 * @param int $fid
+	 * @return int
+	 */
 	public function count_by_fid($fid) {
 		return $this->table->count_by_fid($fid);
 	}
 
+	/**
+	 * 根据fid获取数据
+	 * @param int $fid
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_fid($fid, $limit) {
 		$data = array();
 		if(!($fid = dintval($fid))) {
@@ -174,22 +218,52 @@ class discuz_session {
 		return $data;
 	}
 
+	/**
+	 * 根据会员ID获取session信息
+	 * @param int $uid 会员ID
+	 * @return mixed
+	 */
 	public function fetch_by_uid($uid) {
 		return $this->table->fetch_by_uid($uid);
 	}
 
+	/**
+	 * 根据批量会员ID获取session信息
+	 * @param array $uids
+	 * @param int $start
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_uid($uids, $start = 0, $limit = 0) {
 		return $this->table->fetch_all_by_uid($uids, $start, $limit);
 	}
 
+	/**
+	 * 根据UID更新session信息
+	 * @param int $uid
+	 * @param array $data
+	 * @return bool
+	 */
 	public function update_by_uid($uid, $data) {
 		return $this->table->update_by_uid($uid, $data);
 	}
 
+	/**
+	 * 根据IP统计数据
+	 * @param string $ip
+	 * @return int
+	 */
 	public function count_by_ip($ip) {
 		return $this->table->count_by_ip($ip);
 	}
 
+	/**
+	 * 根据IP获取数据
+	 * @param string $ip
+	 * @param int $start
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_ip($ip, $start = 0, $limit = 0) {
 		return $this->table->fetch_all_by_ip($ip, $start, $limit);
 	}
@@ -206,20 +280,22 @@ class discuz_session {
 					dsetcookie('ulastactivity', authcode($ulastactivity, 'ENCODE'), 31536000);
 				}
 			}
+			//note 更新在线时间
 			$oltimespan = $_G['setting']['oltimespan'];
 			$lastolupdate = C::app()->session->var['lastolupdate'];
 			if($_G['uid'] && $oltimespan && TIMESTAMP - ($lastolupdate ? $lastolupdate : $ulastactivity) > $oltimespan * 60) {
-				$isinsert = false;
-				if(C::app()->session->isnew) {
-					$oldata = C::t('common_onlinetime')->fetch($_G['uid']);
+				$isinsert = false; //是否进行数据库insert操作
+				if(C::app()->session->isnew) { //当是新session时，使用数据库中的值进行逻辑比较,因为使用cookie的ulastactivity值判断会产生漏洞
+					$oldata = C::t('common_onlinetime')->fetch($_G['uid']); //从数据库中取值，仅在新session时进行此查询
 					if(empty($oldata)) {
-						$isinsert = true;
-					} else if(TIMESTAMP - $oldata['lastupdate'] > $oltimespan * 60) {
-						C::t('common_onlinetime')->update_onlinetime($_G['uid'], $oltimespan, $oltimespan, TIMESTAMP);
+						$isinsert = true; //需要进行数据库插入操作
+					} else if(TIMESTAMP - $oldata['lastupdate'] > $oltimespan * 60) { //使用数据库中的值进行逻辑比较
+						C::t('common_onlinetime')->update_onlinetime($_G['uid'], $oltimespan, $oltimespan, TIMESTAMP); //更新在线时间
 					}
-				} else {
-					$isinsert = !C::t('common_onlinetime')->update_onlinetime($_G['uid'], $oltimespan, $oltimespan, TIMESTAMP);
+				} else { //非新session时，不进行上面的查询操作，减少一个查询
+					$isinsert = !C::t('common_onlinetime')->update_onlinetime($_G['uid'], $oltimespan, $oltimespan, TIMESTAMP); //更新在线时间
 				}
+				//进行数据库insert操作
 				if($isinsert) {
 					C::t('common_onlinetime')->insert(array(
 						'uid' => $_G['uid'],

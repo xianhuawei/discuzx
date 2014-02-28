@@ -38,6 +38,7 @@ if($op == 'comment') {
 		$value = $query[0];
 	}
 
+	//获取用户
 	require_once libfile('function/friend');
 	$groups = friend_group_list();
 
@@ -46,6 +47,7 @@ if($op == 'comment') {
 
 } elseif($op == 'getfriendname') {
 
+	//获取用户的好友分组名
 	$groupname = '';
 	$group = intval($_GET['group']);
 
@@ -57,6 +59,7 @@ if($op == 'comment') {
 
 } elseif($op == 'share') {
 
+	//评论
 	require_once libfile('function/share');
 
 	$list = array();
@@ -100,6 +103,7 @@ if($op == 'comment') {
 	if($doid) {
 		if($value = C::t('home_doing')->fetch($doid)) {
 			$value['icon'] = 'plus';
+			//自动展开最多20个评论
 			if($value['replynum'] > 0 && ($value['replynum'] < 20 || $doid == $value['doid'])) {
 				$doids[] = $value['doid'];
 				$value['icon'] = 'minus';

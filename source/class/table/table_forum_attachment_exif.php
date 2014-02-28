@@ -21,6 +21,11 @@ class table_forum_attachment_exif extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 为指定附件创建新的 exif 信息
+	 * @param int $aid 附件 id
+	 * @param string $exif exif 信息
+	 */
 	public function insert($aid, $exif) {
 		DB::insert($this->_table, array('aid' => $aid, 'exif' => $exif), false, true, true);
 	}

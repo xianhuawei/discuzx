@@ -11,8 +11,16 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * Description of helper_log
+ *
+ * @author zhangguosheng
+ */
 class helper_log {
 
+	/*
+	 * 运行log记录
+	 */
 	public static function runlog($file, $message, $halt=0) {
 		global $_G;
 
@@ -25,6 +33,9 @@ class helper_log {
 	}
 
 
+	/**
+	 * 写入运行日志
+	 */
 	public static function writelog($file, $log) {
 		global $_G;
 		$yearmonth = dgmdate(TIMESTAMP, 'Ym', $_G['setting']['timeoffset']);
@@ -58,6 +69,12 @@ class helper_log {
 	}
 
 
+	/**
+	 * 用户操作日志
+	 * @param int $uid 用户ID
+	 * @param string $action 操作类型 tid=thread pid=post blogid=blog picid=picture doid=doing sid=share aid=article uid_cid/blogid_cid/sid_cid/picid_cid/aid_cid/topicid_cid=comment
+	 * @return bool
+	 */
 	public static function useractionlog($uid, $action) {
 		$uid = intval($uid);
 		if(empty($uid) || empty($action)) {
@@ -68,8 +85,14 @@ class helper_log {
 		return true;
 	}
 
+	/**
+	 * 得到用户操作的代码或代表字符，参数为数字返回字符串，参数为字符串返回数字
+	 * @param string/int $var
+	 * @return int/string 注意：如果失败返回false，请使用===判断，因为代码0代表tid
+	 */
 	public static function getuseraction($var) {
 		$value = false;
+		//操作代码
 		$ops = array('tid', 'pid', 'blogid', 'picid', 'doid', 'sid', 'aid', 'uid_cid', 'blogid_cid', 'sid_cid', 'picid_cid', 'aid_cid', 'topicid_cid', 'pmid');
 		if(is_numeric($var)) {
 			$value = isset($ops[$var]) ? $ops[$var] : false;

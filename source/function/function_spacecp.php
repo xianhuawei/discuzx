@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//创建相册
 function album_creat_by_id($albumid, $catid = 0) {
 	global $_G, $space;
 
@@ -46,6 +47,7 @@ function album_creat_by_id($albumid, $catid = 0) {
 	return $albumid;
 }
 
+//更新相册封面图片
 function album_update_pic($albumid, $picid=0) {
 	global $_G;
 
@@ -63,8 +65,10 @@ function album_update_pic($albumid, $picid=0) {
 	if(!$pic = $query[0]) {
 		return false;
 	}
+	//处理论坛传过来的状态位
 	$from = $pic['remote'];
 	$pic['remote'] = $pic['remote'] > 1 ? $pic['remote'] - 2 : $pic['remote'];
+	//生成缩略图
 	$basedir = !getglobal('setting/attachdir') ? (DISCUZ_ROOT.'./data/attachment/') : getglobal('setting/attachdir');
 	$picdir = 'cover/'.substr(md5($albumid), 0, 2).'/';
 	dmkdir($basedir.'./album/'.$picdir);
@@ -78,6 +82,7 @@ function album_update_pic($albumid, $picid=0) {
 	if($image->Thumb($picsource, 'album/'.$picdir.$albumid.'.jpg', 120, 120, 2)) {
 		$setarr['pic'] = $picdir.$albumid.'.jpg';
 		$setarr['picflag'] = 1;
+		//远程上传
 		if(getglobal('setting/ftp/on')) {
 			if(ftpcmd('upload', 'album/'.$picdir.$albumid.'.jpg')) {
 				$setarr['picflag'] = 2;
@@ -99,11 +104,13 @@ function album_update_pic($albumid, $picid=0) {
 	return true;
 }
 
+//保存图片
 function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 	global $_G, $space;
 
 	if($albumid<0) $albumid = 0;
 
+	//允许上传类型
 	$allowpictype = array('jpg','jpeg','gif','png');
 
 	$upload = new discuz_upload();
@@ -113,10 +120,13 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 		return lang('spacecp', 'lack_of_access_to_upload_file_size');
 	}
 
+	//检查
 	if(!$upload->attach['isimage']) {
 		return lang('spacecp', 'only_allows_upload_file_types');
 	}
+	//判断是否强制重载用户组
 	$oldgid = $_G['groupid'];
+	//检查空间大小
 	if(empty($space)) {
 		$_G['member'] = $space = getuserbyuid($_G['uid']);
 		$_G['username'] = $space['username'];
@@ -127,10 +137,12 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 	loadcache('usergroup_'.$space['groupid'], $oldgid != $_G['groupid'] ? true : false);
 	$_G['group'] = $_G['cache']['usergroup_'.$space['groupid']];
 
+	//用户组
 	if(!checkperm('allowupload')) {
 		return lang('spacecp', 'not_allow_upload');
 	}
 
+	//新用户见习
 	if(!cknewuser(1)) {
 		if($_G['setting']['newbiespan'] && $_G['timestamp'] - $_G['member']['regdate'] < $_G['setting']['newbiespan'] * 60) {
 			return lang('message', 'no_privilege_newbiespan', array('newbiespan' => $_G['setting']['newbiespan']));
@@ -151,12 +163,13 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 			}
 		}
 	}
+	//验证是否允许上传的图片类型
 	if($_G['group']['maximagesize'] && $upload->attach['size'] > $_G['group']['maximagesize']) {
 		return lang('spacecp', 'files_can_not_exceed_size', array('extend' => $upload->attach['ext'], 'size' => sizecount($_G['group']['maximagesize'])));
 	}
 
-	$maxspacesize = checkperm('maxspacesize');
-	if($maxspacesize) {
+	$maxspacesize = checkperm('maxspacesize');//单位MB
+	if($maxspacesize) {//0为不限制
 		space_merge($space, 'count');
 		space_merge($space, 'field_home');
 		if($space['attachsize'] + $upload->attach['size'] > $maxspacesize + $space['addsize'] * 1024 * 1024) {
@@ -164,6 +177,7 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 		}
 	}
 
+	//相册选择
 	$showtip = true;
 	$albumfriend = 0;
 	if($albumid) {
@@ -174,10 +188,12 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 		$showtip = false;
 	}
 
+	//上传
 	$upload->save();
 	if($upload->error()) {
 		return lang('spacecp', 'mobile_picture_temporary_failure');
 	}
+	//检查是否图片
 	if(!$upload->attach['imageinfo'] || !in_array($upload->attach['imageinfo']['2'], array(1,2,3,6))) {
 		@unlink($upload->attach['target']);
 		return lang('spacecp', 'only_allows_upload_file_types');
@@ -185,22 +201,26 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 
 	$new_name = $upload->attach['target'];
 
+	//缩略图
 	require_once libfile('class/image');
 	$image = new image();
 	$result = $image->Thumb($new_name, '', 140, 140, 1);
 	$thumb = empty($result)?0:1;
 
+	//最大图片
 	if($_G['setting']['maxthumbwidth'] && $_G['setting']['maxthumbheight']) {
 		if($_G['setting']['maxthumbwidth'] < 300) $_G['setting']['maxthumbwidth'] = 300;
 		if($_G['setting']['maxthumbheight'] < 300) $_G['setting']['maxthumbheight'] = 300;
 		$image->Thumb($new_name, '', $_G['setting']['maxthumbwidth'], $_G['setting']['maxthumbheight'], 1, 1);
 	}
 
+	//水印
 	if ($iswatermark) {
 		$image->Watermark($new_name, '', 'album');
 	}
+	//进行ftp上传
 	$pic_remote = 0;
-	$album_picflag = 1;
+	$album_picflag = 1;//1本地 2远程  0网络
 
 	if(getglobal('setting/ftp/on')) {
 		$ftpresult_thumb = 0;
@@ -215,7 +235,7 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 			$pic_remote = 1;
 			$album_picflag = 2;
 		} else {
-			if(getglobal('setting/ftp/mirror')) {
+			if(getglobal('setting/ftp/mirror')) {//只能上传远程
 				@unlink($upload->attach['target']);
 				@unlink(getimgthumbname($upload->attach['target']));
 				return lang('spacecp', 'ftp_upload_file_size');
@@ -251,6 +271,7 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 
 	C::t('common_member_count')->increase($_G['uid'], array('attachsize' => $upload->attach['size']));
 
+	//统计
 	include_once libfile('function/stat');
 	if($pic_status) {
 		updatemoderate('picid', $setarr['picid']);
@@ -260,6 +281,7 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 	return $setarr;
 }
 
+//数据流保存，所有数据均为存放相册的所以写入的数据一定只能是图片
 function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title='', $delsize=0, $from = false) {
 	global $_G, $space;
 
@@ -280,6 +302,7 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 			fclose($handle);
 
 			$size = filesize($newfilename);
+			//检查空间大小
 
 			if(empty($space)) {
 				$_G['member'] = $space = getuserbyuid($_G['uid']);
@@ -289,8 +312,8 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 			loadcache('usergroup_'.$space['groupid']);
 			$_G['group'] = $_G['cache']['usergroup_'.$space['groupid']];
 
-			$maxspacesize = checkperm('maxspacesize');
-			if($maxspacesize) {
+			$maxspacesize = checkperm('maxspacesize');//单位MB
+			if($maxspacesize) {//0为不限制
 
 				space_merge($space, 'count');
 				space_merge($space, 'field_home');
@@ -301,20 +324,24 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 				}
 			}
 
+			//检查是否图片
 			if(!$upload->get_image_info($newfilename)) {
 				@unlink($newfilename);
 				return -2;
 			}
 
+			//缩略图
 			require_once libfile('class/image');
 			$image = new image();
 			$result = $image->Thumb($newfilename, NULL, 140, 140, 1);
 			$thumb = empty($result)?0:1;
 
+			//水印
 			$image->Watermark($newfilename);
 
+			//ftp 上传
 			$pic_remote = 0;
-			$album_picflag = 1;
+			$album_picflag = 1;//1本地 2远程  0网络
 
 			if(getglobal('setting/ftp/on')) {
 				$ftpresult_thumb = 0;
@@ -329,7 +356,7 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 					$pic_remote = 1;
 					$album_picflag = 2;
 				} else {
-					if(getglobal('setting/ftp/mirror')) {
+					if(getglobal('setting/ftp/mirror')) {//只能上传远程
 						@unlink($newfilename);
 						@unlink(getimgthumbname($newfilename));
 						return -3;
@@ -372,6 +399,7 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 
 			C::t('common_member_count')->increase($_G['uid'], array('attachsize' => $size));
 
+			//统计
 			include_once libfile('function/stat');
 			updatestat('pic');
 
@@ -383,6 +411,7 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 	return -3;
 }
 
+//创建相册
 function album_creat($arr) {
 	global $_G;
 
@@ -404,6 +433,7 @@ function album_creat($arr) {
 	}
 }
 
+//获取上传路径
 function getfilepath($fileext, $mkdir=false) {
 	global $_G;
 
@@ -430,6 +460,7 @@ function getfilepath($fileext, $mkdir=false) {
 	return $name1.'/'.$name2.'/'.$filepath;
 }
 
+//获取相册封面图片
 function getalbumpic($uid, $id) {
 	global $_G;
 
@@ -441,6 +472,7 @@ function getalbumpic($uid, $id) {
 	}
 }
 
+//获取个人分类
 function getclassarr($uid) {
 	global $_G;
 
@@ -452,6 +484,7 @@ function getclassarr($uid) {
 	return $classarr;
 }
 
+//获取相册
 function getalbums($uid) {
 	global $_G;
 
@@ -463,12 +496,13 @@ function getalbums($uid) {
 	return $albums;
 }
 
+//热点
 function hot_update($idtype, $id, $hotuser) {
 	global $_G;
 
 	$hotusers = empty($hotuser)?array():explode(',', $hotuser);
 	if($hotusers && in_array($_G['uid'], $hotusers)) {
-		return false;
+		return false;//已经参与
 	} else {
 		$hotusers[] = $_G['uid'];
 		$hotuser = implode(',', $hotusers);
@@ -476,6 +510,7 @@ function hot_update($idtype, $id, $hotuser) {
 	$hotuser = daddslashes($hotuser);
 	$newhot = count($hotusers)+1;
 	if($newhot == $_G['setting']['feedhotmin']) {
+		//奖励
 		$tablename = gettablebyidtype($idtype);
 		if($tablename) {
 			$item = C::t($tablename)->fetch_by_id_idtype($id);
@@ -497,13 +532,15 @@ function hot_update($idtype, $id, $hotuser) {
 			C::t('home_share')->update_hot_by_sid($id, $hotuser);
 			break;
 		default:
-			return false;
+			return false;//其他类型不支持
 	}
+	//feed热度
 	if($feed = C::t('home_feed')->fetch($id, $idtype)) {
-		if(empty($feed['friend'])) {
+		if(empty($feed['friend'])) {//隐私
 			C::t('home_feed')->update_hot_by_feedid($feed['feedid'], 1);
 		}
 	} elseif($idtype == 'picid') {
+		//图片
 		require_once libfile('function/feed');
 		feed_publish($id, $idtype);
 	}
@@ -511,6 +548,7 @@ function hot_update($idtype, $id, $hotuser) {
 	return true;
 }
 
+//根据idtype获得表
 function gettablebyidtype($idtype) {
 	$tablename = '';
 	if($idtype == 'blogid') {
@@ -523,12 +561,14 @@ function gettablebyidtype($idtype) {
 	return $tablename;
 }
 
+//更新隐私设置
 function privacy_update() {
 	global $_G, $space;
 
 	C::t('common_member_field_home')->update($_G['uid'], array('privacy'=>serialize($space['privacy'])));
 }
 
+//实名认证
 function ckrealname($return=0) {
 	global $_G;
 
@@ -544,6 +584,7 @@ function ckrealname($return=0) {
 	return $result;
 }
 
+//视频认证
 function ckvideophoto($tospace=array(), $return=0) {
 	global $_G;
 
@@ -554,11 +595,11 @@ function ckvideophoto($tospace=array(), $return=0) {
 	space_merge($tospace, 'field_home');
 
 	$result = true;
-	if(empty($tospace) || empty($tospace['privacy']['view']['videoviewphoto'])) {
+	if(empty($tospace) || empty($tospace['privacy']['view']['videoviewphoto'])) {//站点默认
 		if(!checkperm('videophotoignore') && empty($_G['setting']['verify'][7]['viewvideophoto']) && !checkperm('allowviewvideophoto')) {
 			$result = false;
 		}
-	} elseif ($tospace['privacy']['view']['videoviewphoto'] == 2) {
+	} elseif ($tospace['privacy']['view']['videoviewphoto'] == 2) {//用户禁止
 		$result = false;
 	}
 	if($return) {
@@ -568,15 +609,19 @@ function ckvideophoto($tospace=array(), $return=0) {
 	}
 }
 
+//生成视频认证地址
 function getvideophoto($filename) {
 	$dir1 = substr($filename, 0, 1);
 	$dir2 = substr($filename, 1, 1);
 	return 'data/avatar/'.$dir1.'/'.$dir2.'/'.$filename.".jpg";
 }
 
+//更新视频认证照片
 function videophoto_upload($FILE, $uid) {
 	if($FILE['size']) {
+		//本地上传
 		$newfilename = md5(substr($_G['timestamp'], 0, 7).$uid);
+		//创建目录
 		$dir1 = substr($newfilename, 0, 1);
 		$dir2 = substr($newfilename, 1, 1);
 		if(!is_dir(DISCUZ_ROOT.'./data/avatar/'.$dir1)) {
@@ -600,12 +645,14 @@ function videophoto_upload($FILE, $uid) {
 	}
 }
 
+//检查我是不是在指定用户的黑名单中
 function isblacklist($touid) {
 	global $_G;
 
 	return C::t('home_blacklist')->count_by_uid_buid($touid, $_G['uid']);
 }
 
+//发送验证邮箱
 function emailcheck_send($uid, $email) {
 	global $_G;
 
@@ -627,6 +674,7 @@ function emailcheck_send($uid, $email) {
 	}
 }
 
+//处理网络图片链接
 function picurl_get($picurl, $maxlenth='200') {
 	$picurl = dhtmlspecialchars(trim($picurl));
 	if($picurl) {
@@ -635,6 +683,7 @@ function picurl_get($picurl, $maxlenth='200') {
 	return '';
 }
 
+//得到头像
 function avatar_file($uid, $size) {
 	global $_G;
 
@@ -650,6 +699,7 @@ function avatar_file($uid, $size) {
 	return $_G[$var];
 }
 
+//获取动用名字符串
 function makepokeaction($iconid) {
 	global $_G;
 	$icons = array(
@@ -675,6 +725,7 @@ function interval_check($type) {
 	global $_G;
 
 	$waittime = 0;
+	//不受防灌水限制
 	if(checkperm('disablepostctrl')) {
 		return $waittime;
 	}
@@ -686,6 +737,12 @@ function interval_check($type) {
 	return $waittime;
 }
 
+/**
+ * 获取页面标题
+ * @param <type> $link 页面地址
+ * @param <type> $charset 页面字符集
+ * @return string 如果没有指定页面编码且未发现页面编码返回空
+ */
 function geturltitle($link, $charset = '') {
 	$title = $linkcharset = '';
 	$linkstr = gzfile($link);
@@ -710,6 +767,9 @@ function geturltitle($link, $charset = '') {
 	return $title;
 }
 
+/**
+ * 检查是否允许认证
+ */
 function allowverify($vid) {
 	global $_G;
 

@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+// 高级自定义
 class block_announcement extends discuz_block {
 
 	var $setting = array();
@@ -73,6 +74,7 @@ class block_announcement extends discuz_block {
 		global $_G;
 
 
+		//参数准备
 		$type           = !empty($parameter['type']) && is_array($parameter['type']) ? array_map('intval', $parameter['type']) : array('0');
 		$titlelength	= !empty($parameter['titlelength']) ? intval($parameter['titlelength']) : 40;
 		$summarylength	= !empty($parameter['summarylength']) ? intval($parameter['summarylength']) : 80;
@@ -83,6 +85,7 @@ class block_announcement extends discuz_block {
 
 		$time = TIMESTAMP;
 
+		//数据获取
 		$list = array();
 		foreach(C::t('forum_announcement')->fetch_all_by_time($time, $type, $bannedids, $startrow, $items) as $data) {
 			$list[] = array(

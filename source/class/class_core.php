@@ -38,10 +38,19 @@ class core
 	private static $_app;
 	private static $_memory;
 
+	/**
+	 * 当前 application object
+	 * @return discuz_application
+	 */
 	public static function app() {
 		return self::$_app;
 	}
 
+	/**
+	 * 创建 application
+	 *
+	 * @return discuz_application
+	 */
 	public static function creatapp() {
 		if(!is_object(self::$_app)) {
 			self::$_app = discuz_application::instance();
@@ -49,6 +58,10 @@ class core
 		return self::$_app;
 	}
 
+	/**
+	 * 引入 table 对象
+	 * @param string $name table名称
+	 */
 	public static function t($name) {
 		return self::_make_obj($name, 'table', DISCUZ_TABLE_EXTENDABLE);
 	}
@@ -89,7 +102,10 @@ class core
 		}
 		return self::$_tables[$cname];
 	}
-
+	/**
+	 * 内存读写 object
+	 * @return discuz_memory
+	 */
 	public static function memory() {
 		if(!self::$_memory) {
 			self::$_memory = new discuz_memory();
@@ -98,6 +114,21 @@ class core
 		return self::$_memory;
 	}
 
+	/**
+	 * 引入系统文件
+	 * <code>
+	 * <?php
+	 * D::import('class/task/avatar');
+	 * ?>
+	 * </code>
+	 * 相当于引入代码
+	 * <code>
+	 * include './source/class/task/task_avatar.php';
+	 * </code>
+	 * @param type $name 名称
+	 * @param type $folder  特定目录
+	 * @param bool $force 是否强制加载, 当强制加载的时候, 如果文件不存在则程序终止运行
+	 */
 	public static function import($name, $folder = '', $force = true) {
 		$key = $folder.$name;
 		if(!isset(self::$_imports[$key])) {
@@ -123,23 +154,47 @@ class core
 		return true;
 	}
 
+	/**
+	 * Exception 消息截获
+	 * @param Exception $exception
+	 */
 	public static function handleException($exception) {
 		discuz_error::exception_error($exception);
 	}
 
 
+	/**
+	 * 记录脚本执行时的错误信息
+	 * @param int $errno
+	 * @param string $errstr
+	 * @param string $errfile
+	 * @param int $errline
+	 */
 	public static function handleError($errno, $errstr, $errfile, $errline) {
 		if($errno & DISCUZ_CORE_DEBUG) {
 			discuz_error::system_error($errstr, false, true, false);
 		}
 	}
 
+	/**
+	 * 记录脚本执行结束时的错误信息
+	 */
 	public static function handleShutdown() {
 		if(($error = error_get_last()) && $error['type'] & DISCUZ_CORE_DEBUG) {
 			discuz_error::system_error($error['message'], false, true, false);
 		}
 	}
 
+	/**
+	 * PHP5 autoload class 支持
+	 *
+	 * 请注意class目录中文件以及类名的规则
+	 * 当使用 class_exists() 检测的时候可以返回 true 或者 false
+	 *
+	 * @param string $class 类名称
+	 * @return boolean
+	 *
+	 */
 	public static function autoload($class) {
 		$class = strtolower($class);
 		if(strpos($class, '_') !== false) {
@@ -156,6 +211,7 @@ class core
 
 		} catch (Exception $exc) {
 
+			//note 以下代码主要是为了保持系统函数 class_exists 正常运行，免得中断执行
 			$trace = $exc->getTrace();
 			foreach ($trace as $log) {
 				if(empty($log['class']) && $log['function'] == 'class_exists') {

@@ -15,9 +15,9 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-define('DISCUZ_PARTNER', $_G['setting']['ec_tenpay_bargainor']);
-define('DISCUZ_SECURITYCODE', $_G['setting']['ec_tenpay_key']);
-define('DISCUZ_AGENTID', '1204737401');
+define('DISCUZ_PARTNER', $_G['setting']['ec_tenpay_bargainor']);// 商户号
+define('DISCUZ_SECURITYCODE', $_G['setting']['ec_tenpay_key']);// 密钥
+define('DISCUZ_AGENTID', '1204737401'); // 平台商账号
 
 define('DISCUZ_TENPAY_OPENTRANS_CHNID', $_G['setting']['ec_tenpay_opentrans_chnid']);
 define('DISCUZ_TENPAY_OPENTRANS_KEY', $_G['setting']['ec_tenpay_opentrans_key']);
@@ -27,14 +27,21 @@ define('STATUS_WAIT_BUYER', 4);
 define('STATUS_TRADE_SUCCESS', 5);
 define('STATUS_REFUND_CLOSE', 9);
 
+/**
+*请求处理类
+*/
 class RequestHandler {
 
+	/** 网关url地址 */
 	var $gateUrl;
 
+	/** 密钥 */
 	var $key;
 
+	/** 请求的参数 */
 	var $parameters;
 
+	/** debug信息 */
 	var $debugInfo;
 
 	function __construct() {
@@ -48,39 +55,68 @@ class RequestHandler {
 		$this->debugInfo = "";
 	}
 
+	/**
+	*初始化函数。
+	*/
 	function init() {
+		//nothing to do
 	}
 
+	/**
+	*获取入口地址,不包含参数值
+	*/
 	function getGateURL() {
 		return $this->gateUrl;
 	}
 
+	/**
+	*设置入口地址,不包含参数值
+	*/
 	function setGateURL($gateUrl) {
 		$this->gateUrl = $gateUrl;
 	}
 
+	/**
+	*获取密钥
+	*/
 	function getKey() {
 		return $this->key;
 	}
 
+	/**
+	*设置密钥
+	*/
 	function setKey($key) {
 		$this->key = $key;
 	}
 
+	/**
+	*获取参数值
+	*/
 	function getParameter($parameter) {
 		return $this->parameters[$parameter];
 	}
 
+	/**
+	*设置参数值
+	*/
 	function setParameter($parameter, $parameterValue) {
 		$this->parameters[$parameter] = $parameterValue;
 	}
 
+	/**
+	*获取所有请求的参数
+	*@return array
+	*/
 	function getAllParameters() {
 		$this->createSign();
 
 		return $this->parameters;
 	}
 
+	/**
+	*获取带参数的请求URL
+	*/
 	function getRequestURL() {
 		$this->createSign();
 		$reqPar = "";
@@ -89,21 +125,31 @@ class RequestHandler {
 			$reqPar .= $k . "=" . urlencode($v) . "&";
 		}
 
+		// 去掉最后一个&
 		$reqPar = substr($reqPar, 0, strlen($reqPar)-1);
 		$requestURL = $this->getGateURL() . "?" . $reqPar;
 		return $requestURL;
 
 	}
 
+	/**
+	*获取debug信息
+	*/
 	function getDebugInfo() {
 		return $this->debugInfo;
 	}
 
+	/**
+	*重定向到财付通支付
+	*/
 	function doSend() {
 		header("Location:" . $this->getRequestURL());
 		exit;
 	}
 
+	/**
+	*创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。
+	*/
 	function createSign() {
 		$signPars = "";
 		ksort($this->parameters);
@@ -115,10 +161,14 @@ class RequestHandler {
 		$signPars .= "key=" . $this->getKey();
 		$sign = strtolower(md5($signPars));
 		$this->setParameter("sign", $sign);
+		//debug信息
 		$this->_setDebugInfo($signPars . " => sign:" . $sign);
 
 	}
 
+	/**
+	*设置debug信息
+	*/
 	function _setDebugInfo($debugInfo) {
 		$this->debugInfo = $debugInfo;
 	}
@@ -127,10 +177,13 @@ class RequestHandler {
 
 class ResponseHandler  {
 
+	/** 密钥 */
 	var $key;
 
+	/** 应答的参数 */
 	var $parameters;
 
+	/** debug信息 */
 	var $debugInfo;
 
 	function __construct() {
@@ -142,34 +195,57 @@ class ResponseHandler  {
 		$this->parameters = array();
 		$this->debugInfo = "";
 
+		/* GET */
 		foreach($_GET as $k => $v) {
 			$this->setParameter($k, $v);
 		}
+		/* POST */
 		foreach($_POST as $k => $v) {
 			$this->setParameter($k, $v);
 		}
 	}
 
+	/**
+	*获取密钥
+	*/
 	function getKey() {
 		return $this->key;
 	}
 
+	/**
+	*设置密钥
+	*/
 	function setKey($key) {
 		$this->key = $key;
 	}
 
+	/**
+	*获取参数值
+	*/
 	function getParameter($parameter) {
 		return $this->parameters[$parameter];
 	}
 
+	/**
+	*设置参数值
+	*/
 	function setParameter($parameter, $parameterValue) {
 		$this->parameters[$parameter] = $parameterValue;
 	}
 
+	/**
+	*获取所有请求的参数
+	*@return array
+	*/
 	function getAllParameters() {
 		return $this->parameters;
 	}
 
+	/**
+	*是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。
+	*true:是
+	*false:否
+	*/
 	function isTenpaySign() {
 		$signPars = "";
 
@@ -182,6 +258,7 @@ class ResponseHandler  {
 		$signPars .= "key=" . $this->getKey();
 		$sign = strtolower(md5($signPars));
 		$tenpaySign = strtolower($this->getParameter("sign"));
+		//debug信息
 		$this->_setDebugInfo($signPars . " => sign:" . $sign .
 				" tenpaySign:" . $this->getParameter("sign"));
 
@@ -189,15 +266,37 @@ class ResponseHandler  {
 
 	}
 
+	/**
+	*获取debug信息
+	*/
 	function getDebugInfo() {
 		return $this->debugInfo;
 	}
 
+	/**
+	*设置debug信息
+	*/
 	function _setDebugInfo($debugInfo) {
 		$this->debugInfo = $debugInfo;
 	}
 }
 
+/**
+ * 中介担保请求类
+ * ============================================================================
+ * api说明：
+ * init(),初始化函数，默认给一些参数赋值，如cmdno,date等。
+ * getGateURL()/setGateURL(),获取/设置入口地址,不包含参数值
+ * getKey()/setKey(),获取/设置密钥
+ * getParameter()/setParameter(),获取/设置参数值
+ * getAllParameters(),获取所有参数
+ * getRequestURL(),获取带参数的请求URL
+ * doSend(),重定向到财付通支付
+ * getDebugInfo(),获取debug信息
+ *
+ * ============================================================================
+ *
+ */
 
 class MediPayRequestHandler extends RequestHandler {
 
@@ -206,47 +305,83 @@ class MediPayRequestHandler extends RequestHandler {
 	}
 
 	function MediPayRequestHandler() {
+		//默认支付网关地址
 		$this->setGateURL("https://www.tenpay.com/cgi-bin/med/show_opentrans.cgi");
 	}
 
+	/**
+	*@Override
+	*初始化函数，默认给一些参数赋值。
+	*/
 	function init() {
+		//自定参数，原样返回
 		$this->setParameter("attach", "1");
 
+		//平台商帐号
 		$this->setParameter("chnid",  "");
 
+		//任务代码
 		$this->setParameter("cmdno", "12");
 
+		//编码类型 1:gbk 2:utf-8
 		$this->setParameter("encode_type", "1");
 
+		//交易说明，不能包含<>’”%特殊字符
 		$this->setParameter("mch_desc", "");
 
+		//商品名称，不能包含<>’”%特殊字符
 		$this->setParameter("mch_name", "");
 
+		//商品总价，单位为分。
 		$this->setParameter("mch_price",  "");
 
+		//回调通知URL
 		$this->setParameter("mch_returl",  "");
 
+		//交易类型：1、实物交易，2、虚拟交易
 		$this->setParameter("mch_type",  "");
 
+		//商家的定单号
 		$this->setParameter("mch_vno",  "");
 
+		//是否需要在财付通填定物流信息，1：需要，2：不需要。
 		$this->setParameter("need_buyerinfo",  "");
 
+		//卖家财付通帐号
 		$this->setParameter("seller",  "");
 
+		//支付后的商户支付结果展示页面
 		$this->setParameter("show_url",  "");
 
+		//物流公司或物流方式说明
 		$this->setParameter("transport_desc",  "");
 
+		//需买方另支付的物流费用
 		$this->setParameter("transport_fee",  "");
 
+		//版本号
 		$this->setParameter("version",  "2");
 
+		//摘要
 		$this->setParameter("sign",  "");
 
 	}
 
 }
+/**
+ * 中介担保应答类
+ * ============================================================================
+ * api说明：
+ * getKey()/setKey(),获取/设置密钥
+ * getParameter()/setParameter(),获取/设置参数值
+ * getAllParameters(),获取所有参数
+ * isTenpaySign(),是否财付通签名,true:是 false:否
+ * doShow(),显示处理结果
+ * getDebugInfo(),获取debug信息
+ *
+ * ============================================================================
+ *
+ */
 
 class MediPayResponseHandler extends ResponseHandler {
 
@@ -259,6 +394,11 @@ class MediPayResponseHandler extends ResponseHandler {
 
 		exit;
 	}
+	/**
+	 * @Override
+	 * 签名规则,按字母a-z排序,遇到空值不参加签名
+	 * @return bool
+	 */
 	function isTenpaySign() {
 
 		$signParameterArray = array(
@@ -277,6 +417,7 @@ class MediPayResponseHandler extends ResponseHandler {
 			'version'
 		);
 
+		//按字母a-z排序
 		ksort($signParameterArray);
 
 		foreach($signParameterArray as $k ) {
@@ -292,6 +433,7 @@ class MediPayResponseHandler extends ResponseHandler {
 
 		$tenpaySign = strtolower($this->getParameter("sign"));
 
+		//debug信息
 		$this->_setDebugInfo($signPars . " => sign:" . $sign .
 				" tenpaySign:" . $this->getParameter("sign"));
 
@@ -301,6 +443,9 @@ class MediPayResponseHandler extends ResponseHandler {
 
 }
 
+/**
+生成支付URL
+*/
 function credit_payurl($price, &$orderid, $bank = 'DEFAULT') {
 	include_once DISCUZ_ROOT . './source/class/class_chinese.php';
 	global $_G;
@@ -325,12 +470,12 @@ function credit_payurl($price, &$orderid, $bank = 'DEFAULT') {
 	$reqHandler->setParameter("total_fee", $price * 100);
 	$reqHandler->setParameter("return_url", $_G['siteurl'].'api/trade/notify_credit.php');
 	$reqHandler->setParameter("notify_url", $_G['siteurl'].'api/trade/notify_credit.php');
-	$reqHandler->setParameter("body", $subject);
+	$reqHandler->setParameter("body", $subject);	// 商品名称
 	$reqHandler->setParameter("bank_type", $bank);
 
 	$reqHandler->setParameter("spbill_create_ip", $_G['clientip']);
 	$reqHandler->setParameter("fee_type", "1");
-	$reqHandler->setParameter("subject", $subject);
+	$reqHandler->setParameter("subject", $subject);	// 商品名称
 
 	$reqHandler->setParameter("sign_type", "MD5");
 	$reqHandler->setParameter("service_version", "1.0");
@@ -348,31 +493,47 @@ function credit_payurl($price, &$orderid, $bank = 'DEFAULT') {
 	return $reqUrl;
 }
 
+/*
+	商品交易url
+*/
 function trade_payurl($pay, $trade, $tradelog) {
 	global $_G;
 
+	/* 平台商密钥 */
 	$key = DISCUZ_TENPAY_OPENTRANS_KEY;
 
+	/* 平台商帐号 */
 	$chnid = DISCUZ_TENPAY_OPENTRANS_CHNID;
 
+	/* 卖家 */
+	//$seller = DISCUZ_TENPAY_OPENTRANS_CHNID;
 	$seller = $trade['tenpayaccount'];
 
+	/* 交易说明 */
 	$mch_desc = $trade['subject'];
 
+	/* 商品名称 */
 	$mch_name = $trade['subject'];
 
+	/* 商品总价，单位为分 */
 	$mch_price = $tradelog['baseprice'] * $tradelog['number'] * 100;
 
+	/* 回调通知URL */
 	$mch_returl = $_G['siteurl'].'api/trade/notify_trade.php';
 
+	/* 商家的定单号 */
 	$mch_vno = $tradelog['orderid'];
 
+	/* 支付后的商户支付结果展示页面 */
 	$show_url = $_G['siteurl'].'api/trade/notify_trade.php';
 
+	/* 物流公司或物流方式说明 */
 	$transport_desc = $pay['logistics_type'];
 
+	/* 需买方另支付的物流费用,以分为单位 */
 	$transport_fee = $tradelog['transportfee'] * 100;
 
+	// 编码类型
 	if(strtolower(CHARSET) == 'gbk') {
 		$encode_type = '1';
 	} else {
@@ -386,30 +547,38 @@ function trade_payurl($pay, $trade, $tradelog) {
 		$need_buyerinfo = '2';
 	}
 
+	/* 创建支付请求对象 */
 	$reqHandler = new MediPayRequestHandler();
 	$reqHandler->init();
 	$reqHandler->setKey($key);
 
-	$reqHandler->setParameter("chnid", $chnid);
-	$reqHandler->setParameter("encode_type", $encode_type);
-	$reqHandler->setParameter("mch_desc", $mch_desc);
-	$reqHandler->setParameter("mch_name", $mch_name);
-	$reqHandler->setParameter("mch_price", $mch_price);
-	$reqHandler->setParameter("mch_returl", $mch_returl);
-	$reqHandler->setParameter("mch_type", $mch_type);
-	$reqHandler->setParameter("mch_vno", $mch_vno);
-	$reqHandler->setParameter("need_buyerinfo", $need_buyerinfo);
-	$reqHandler->setParameter("seller", $seller);
-	$reqHandler->setParameter("show_url",	$show_url);
-	$reqHandler->setParameter("transport_desc", $transport_desc);
-	$reqHandler->setParameter("transport_fee", $transport_fee);
+	//----------------------------------------
+	//设置支付参数
+	//----------------------------------------
+	$reqHandler->setParameter("chnid", $chnid);						//平台商帐号
+	$reqHandler->setParameter("encode_type", $encode_type);			//编码类型 1:gbk 2:utf-8
+	$reqHandler->setParameter("mch_desc", $mch_desc);				//交易说明
+	$reqHandler->setParameter("mch_name", $mch_name);				//商品名称
+	$reqHandler->setParameter("mch_price", $mch_price);				//商品总价，单位为分
+	$reqHandler->setParameter("mch_returl", $mch_returl);			//回调通知URL
+	$reqHandler->setParameter("mch_type", $mch_type);				//交易类型：1、实物交易，2、虚拟交易
+	$reqHandler->setParameter("mch_vno", $mch_vno);					//商家的定单号
+	$reqHandler->setParameter("need_buyerinfo", $need_buyerinfo);				//是否需要在财付通填定物流信息，1：需要，2：不需要。
+	$reqHandler->setParameter("seller", $seller);					//卖家财付通帐号
+	$reqHandler->setParameter("show_url",	$show_url);				//支付后的商户支付结果展示页面
+	$reqHandler->setParameter("transport_desc", $transport_desc);	//物流公司或物流方式说明
+	$reqHandler->setParameter("transport_fee", $transport_fee);		//需买方另支付的物流费用
 	$reqHandler->setParameter('attach', 'tenpay');
 
+	//请求的URL
 	$reqUrl = $reqHandler->getRequestURL();
 	return $reqUrl;
 }
 
 
+/**
+生成购买邀请码url
+*/
 function invite_payurl($amount, $price, &$orderid, $bank = 'DEFAULT') {
 	include_once DISCUZ_ROOT . './source/class/class_chinese.php';
 	global $_G;
@@ -434,12 +603,12 @@ function invite_payurl($amount, $price, &$orderid, $bank = 'DEFAULT') {
 	$reqHandler->setParameter("total_fee", $price * 100);
 	$reqHandler->setParameter("return_url", $_G['siteurl'].'api/trade/notify_invite.php');
 	$reqHandler->setParameter("notify_url", $_G['siteurl'].'api/trade/notify_invite.php');
-	$reqHandler->setParameter("body", $subject);
+	$reqHandler->setParameter("body", $subject);	// 商品名称
 	$reqHandler->setParameter("bank_type", $bank);
 
 	$reqHandler->setParameter("spbill_create_ip", $_G['clientip']);
 	$reqHandler->setParameter("fee_type", "1");
-	$reqHandler->setParameter("subject", $subject);
+	$reqHandler->setParameter("subject", $subject);	// 商品名称
 
 	$reqHandler->setParameter("sign_type", "MD5");
 	$reqHandler->setParameter("service_version", "1.0");
@@ -456,6 +625,11 @@ function invite_payurl($amount, $price, &$orderid, $bank = 'DEFAULT') {
 	$reqUrl = $reqHandler->getRequestURL();
 	return $reqUrl;
 }
+/*debug
+* 接口返回值校验
+* @param $type 返回类型	credit积分 trade商品
+* @return 值
+*/
 function trade_notifycheck($type) {
 	global $_G;
 
@@ -463,9 +637,11 @@ function trade_notifycheck($type) {
 		if(!DISCUZ_SECURITYCODE) {
 			exit('Access Denied');
 		}
+		// 创建支付应答对象
 		$resHandler = new ResponseHandler();
 		$resHandler->setKey(DISCUZ_SECURITYCODE);
 
+		// 不参加签名
 		$resHandler->setParameter("bankname", "");
 	} else {
 		if(!DISCUZ_TENPAY_OPENTRANS_KEY) {

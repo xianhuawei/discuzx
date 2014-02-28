@@ -14,6 +14,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 @set_time_limit(600);
 cpheader();
 
+// 去掉云平台标签中判断创始人的地方
 if(empty($admincp) || !is_object($admincp)) {
 	exit('Access Denied');
 }
@@ -30,6 +31,7 @@ try {
 	$cloudstatus = $appService->checkCloudStatus();
 } catch (Cloud_Service_AppException $e) {
 	if($operation == 'doctor' || $operation == 'siteinfo') {
+		// 诊断工具和站点信息检查状态，忽略异常
 	} else {
 		cpmsg_error('cloud_status_error');
 	}
@@ -40,8 +42,10 @@ $forceOpen = !empty($_GET['force_open']) ? true : false;
 if(!$operation || $operation == 'open') {
 
 	if($cloudstatus == 'cloud' && !$forceOpen) {
+		//已开通云
 		cpmsg('cloud_turnto_applist', '', 'succeed', array(), '<p class="marginbot"><a href="###" onclick="top.location = \''.ADMINSCRIPT.'?frames=yes&action=cloud&operation=applist\'" class="lightlink">'.cplang('message_redirect').'</a></p><script type="text/JavaScript">setTimeout("top.location = \''.ADMINSCRIPT.'?frames=yes&action=cloud&operation=applist\'", 3000);</script>');
 	} else {
+		//未开通云服务
 		if ($_GET['getConfirmInfo']) {
 			ajaxshowheader();
 			ajaxshowfooter();
@@ -52,6 +56,7 @@ if(!$operation || $operation == 'open') {
 
 		if($step == 1) {
 
+			// 第一步检查uniqueid
 			$utilService->generateUniqueId();
 
 			if($cloudstatus == 'upgrade' || ($cloudstatus == 'cloud' &&  $forceOpen)) {
@@ -135,10 +140,12 @@ EOT;
 			if($cloudstatus == 'upgrade') {
 				$params = array('type' => 'upgrade');
 
+				// 开启漫游，apps传入漫游信息
 				if ($_G['setting']['my_app_status']) {
 					$params['apps']['manyou'] = array('status' => true);
 				}
 
+				// 开启过搜索
 				if (isset($_G['setting']['my_search_status'])) {
 
 					$params['apps']['search'] = array('status' => !empty($_G['setting']['my_search_status']) ? true : false);
@@ -146,6 +153,7 @@ EOT;
 					$oldSiteId = empty($_G['setting']['my_siteid_old'])?'':$_G['setting']['my_siteid_old'];
 					$oldSitekeySign = empty($_G['setting']['my_sitekey_sign_old'])?'':$_G['setting']['my_sitekey_sign_old'];
 
+					// 同时开漫游和搜索，且搜索sId不同的情况
 					if($oldSiteId && $oldSiteId != $_G['setting']['my_siteid'] && $oldSitekeySign) {
 						$params['apps']['search']['oldSiteId'] = $oldSiteId;
 						$params['apps']['search']['searchSig'] = $oldSitekeySign;
@@ -153,20 +161,25 @@ EOT;
 
 				}
 
+				// 开启过Connect
 				if (isset($_G['setting']['connect'])) {
 					$params['apps']['connect'] = array('status' => !empty($_G['setting']['connect']['allow']) ? true : false);
 
 					$oldSiteId = empty($_G['setting']['connectsiteid'])?'':$_G['setting']['connectsiteid'];
 					$oldSitekey = empty($_G['setting']['connectsitekey'])?'':$_G['setting']['connectsitekey'];
 
+					// 同时开漫游和Connect，且Connect sId不同的情况
 					if($oldSiteId && $oldSiteId != $_G['setting']['my_siteid'] && $oldSitekey) {
 						$params['apps']['connect']['oldSiteId'] = $oldSiteId;
+						// 不直接传siteKey，通过sig获取校验信息，与7.2 - X1.5转换程序中的处理一致
 						$params['apps']['connect']['connectSig'] = substr(md5(substr(md5($oldSiteId.'|'.$oldSitekey), 0, 16)), 16, 16);
 					}
 				}
 
+				// ADTAG
 				$params['ADTAG'] = 'CP.DISCUZ.INTRODUCTION';
 
+				// 生成Sig
 				$signUrl = $utilService->generateSiteSignUrl($params);
 				$introUrl .= '?'.$signUrl;
 			}
@@ -184,13 +197,16 @@ EOT;
 				if($_G['setting']['my_siteid'] && $_G['setting']['my_sitekey']) {
 
 					if($_G['setting']['my_app_status']) {
+						// 开启漫游，调用调漫游的同步接口
 						$manyouClient = Cloud::loadClass('Service_Client_Manyou');
 						$manyouClient->sync();
 					}
 
+					// 同步云平台信息，升级流程
 					$cloudClient->upgradeManyou(trim($_GET['cloud_api_ip']));
 
 				} else {
+					// 注册接口
 					$cloudClient->registerCloud(trim($_GET['cloud_api_ip']));
 				}
 			} catch (Cloud_Service_Client_RestfulException $exception) {
@@ -223,6 +239,7 @@ EOT;
 		}
 	}
 
+//应用中心列表
 } elseif($operation == 'applist') {
 
 	if($cloudstatus != 'cloud') {
@@ -233,15 +250,17 @@ EOT;
 	$signUrl = $utilService->generateSiteSignUrl($signParams);
 	$utilService->redirect($cloudDomain . '/cloud/appList/?' . $signUrl);
 
+//站点信息 和 诊断工具
 } elseif(in_array($operation, array('siteinfo', 'doctor'))) {
 
 	require libfile("cloud/$operation", 'admincp');
 
+//各个应用设置文件
 } elseif(in_array($operation, array('manyou', 'connect', 'security', 'stats', 'search', 'smilies', 'qqgroup', 'union', 'storage'))) {
 	if($cloudstatus != 'cloud') {
 		cpmsg('cloud_open_first', '', 'succeed', array(), '<p class="marginbot"><a href="###" onclick="top.location = \''.ADMINSCRIPT.'?frames=yes&action=plugins\'" class="lightlink">'.cplang('message_redirect').'</a></p><script type="text/JavaScript">setTimeout("top.location = \''.ADMINSCRIPT.'?frames=yes&action=plugins\'", 3000);</script>');
 	}
-
+	// 服务客户端状态检查
 	if($operation != 'security') {
 		$apps = $appService->getCloudApps();
 		if(empty($apps) || empty($apps[$operation]) || $apps[$operation]['status'] == 'close') {

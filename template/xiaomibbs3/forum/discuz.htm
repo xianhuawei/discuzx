@@ -92,63 +92,6 @@
     <!--[diy=diy_chart]--><div id="diy_chart" class="area"></div><!--[/diy]-->
 
     <div class="mn xm_mn">
-		<!--{if $_G['uid']}-->
-        <!--TODO:热门话题 静态模板-->
-        <div class="fl bm xm_bm">
-            <div class="bm bmw hottopic cl">
-                <div class="bm_h cl">
-                    <span class="y"></span>
-                    <h2>热门话题</h2>
-                </div>
-                <style>
-                    .filter { color: #999; }
-                    .filter ul {padding: 10px;}
-                    .filter li { float: left; margin-right: 16px; height: 26px; line-height: 26px; white-space:nowrap; width:17.5%; }
-                    .filter li a { margin-right: 2px; text-decoration: none; color: #333; }
-                    .filter li.clewcolor a { background:url(source/plugin/cloudsearch/template/keyword_hot.gif) no-repeat 100% 2px; margin-right: 2px; text-decoration: none; color: #F60; padding-right:18px; }
-                    .filter li a:hover { text-decoration: underline; }
-                    .filter li a:visited { text-decoration: none; color: #333; }
-                    .filter li.clewcolor a:visited { text-decoration: none; color: #F60; }
-                    .filter .number { color: #333; }
-                    .filter li.clewcolor .number { color:#F60; }
-                </style>
-                <div class="bm_c cl filter">
-                    <ul class="cl">
-                        <li class="clewcolor"><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E5%B0%8F%E7%B1%B3%E7%9B%92%E5%AD%90&amp;source=word.hotopicf.1&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=9374">小米盒子<span class="number">(9374)</span></a></li>
-
-                        <li class="clewcolor"><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E8%87%AA%E7%94%B1%E6%A1%8C%E9%9D%A2&amp;source=word.hotopicf.2&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=2416">自由桌面<span class="number">(2416)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=wifi&amp;source=word.hotopicf.3&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=7792">wifi<span class="number">(7792)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E9%9D%92%E6%98%A5%E7%89%88&amp;source=word.hotopicf.4&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=9555">青春版<span class="number">(9555)</span></a></li>
-
-                        <li class="clewcolor"><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E7%94%B5%E4%BF%A1&amp;source=word.hotopicf.5&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=9376">电信<span class="number">(9376)</span></a></li>
-
-                        <li class="clewcolor"><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E5%B0%8F%E7%B1%B3%E9%A9%B1%E5%8A%A8&amp;source=word.hotopicf.6&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=952">小米驱动<span class="number">(952)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=1s%E9%9D%92%E6%98%A5&amp;source=word.hotopicf.7&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=9770">1s青春<span class="number">(9770)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E5%8E%9F%E7%94%9F&amp;source=word.hotopicf.8&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=3430">原生<span class="number">(3430)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E5%85%AB%E9%97%A8%E7%A5%9E%E5%99%A8&amp;source=word.hotopicf.9&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=409">八门神器<span class="number">(409)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E9%80%8F%E6%98%8E%E4%B8%BB%E9%A2%98&amp;source=word.hotopicf.10&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=337">透明主题<span class="number">(337)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E7%8B%82%E9%87%8E%E4%B9%8B%E8%A1%80&amp;source=word.hotopicf.11&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=210">狂野之血<span class="number">(210)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E5%87%AF%E7%AB%8B%E5%BE%B7%E5%AF%BC%E8%88%AA&amp;source=word.hotopicf.12&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=555">凯立德导航<span class="number">(555)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E8%BF%85%E9%9B%B7&amp;source=word.hotopicf.13&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=1101">迅雷<span class="number">(1101)</span></a></li>
-
-                        <li><a target="_blank" sc="1" href="http://so.bbs.xiaomi.cn/f/discuz?q=%E5%B0%8F%E9%92%A2%E7%82%AE&amp;source=word.hotopicf.14&amp;sId=8733048&amp;ts=1372922688&amp;cuId=0&amp;cuName=&amp;gId=7&amp;agId=0&amp;egIds=&amp;fmSign=&amp;ugSign7=&amp;ext_vgIds=0&amp;sign=34d278c845f8c0d747519e1e53722bd8&amp;charset=utf-8&amp;num=1270">小钢炮<span class="number">(1270)</span></a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--TODO:热门话题 静态模板 end-->
-		<!--{/if}-->
-
         <!--{if !empty($_G['setting']['grid']['showgrid'])}-->
         <!-- index four grid -->
         <div class="fl bm xm_bm">

@@ -14,6 +14,7 @@ if(!defined('IN_DISCUZ')) {
 $multi = $gettype = '';
 $list = array();
 $cachetip = TRUE;
+//分页
 $perpage = 20;
 $page = empty($_GET['page']) ? 1 : intval($_GET['page']);
 if($page < 1) {
@@ -22,8 +23,10 @@ if($page < 1) {
 $start = ($page - 1) * $perpage;
 
 require_once libfile('function/home');
+//检查开始数
 ckstart($start, $perpage);
 
+//普通浏览模式
 $creditkey = $cache_name = '';
 $fuids = array();
 $count = 0;
@@ -41,6 +44,7 @@ if ($_GET['view'] == 'credit') {
 	}
 	if($_G['uid']) {
 		$mycredits = $now_choose == 'all' ? $_G['member']['credits'] : getuserprofile('extcredits'.$now_choose);
+		//我的位置
 		$cookie_name = 'space_top_credit_'.$_G['uid'].'_'.$now_choose;
 		if($_G['cookie'][$cookie_name]) {
 			$now_pos = $_G['cookie'][$cookie_name];
@@ -66,6 +70,7 @@ if ($_GET['view'] == 'credit') {
 	if($_G['uid']) {
 		$space = $_G['member'];
 		space_merge($space, 'count');
+		//我的位置
 		$cookie_name = 'space_top_'.$_GET['view'].'_'.$_G['uid'];
 		if($_G['cookie'][$cookie_name]) {
 			$now_pos = $_G['cookie'][$cookie_name];
@@ -107,32 +112,32 @@ if ($_GET['view'] == 'credit') {
 } elseif($_GET['view'] == 'blog') {
 
 	$gettype = 'blog';
-	$now_pos = -1;
+	$now_pos = -1; //前台不显示排行公告
 	$view = $_GET['view'];
 	$orderby = $_GET['orderby'];
 	$list = getranklistdata($type, $view, $orderby);
 
-} elseif($_GET['view'] == 'beauty') {
+} elseif($_GET['view'] == 'beauty') { //美女排行
 
 	$gettype = 'girl';
-	$now_pos = -1;
+	$now_pos = -1; //前台不显示排行公告
 	$view = $_GET['view'];
 	$orderby = $_GET['orderby'];
 	$list = getranklistdata($type, $view, $orderby);
 
-} elseif($_GET['view'] == 'handsome') {
+} elseif($_GET['view'] == 'handsome') { //帅哥排行
 
 	$gettype = 'boy';
-	$now_pos = -1;
+	$now_pos = -1; //前台不显示排行公告
 	$view = $_GET['view'];
 	$orderby = $_GET['orderby'];
 	$list = getranklistdata($type, $view, $orderby);
 
-} elseif($_GET['view'] == 'post') {
+} elseif($_GET['view'] == 'post') { //发帖排行
 
 	$gettype = 'post';
-	$postsrank_change = 1;
-	$now_pos = -1;
+	$postsrank_change = 1; //控制前台显示选择链接
+	$now_pos = -1; //前台不显示排行公告
 	$now_choose = 'posts';
 	switch($_GET['orderby']) {
 		case 'digestposts':
@@ -149,11 +154,11 @@ if ($_GET['view'] == 'credit') {
 	$orderby = $_GET['orderby'];
 	$list = getranklistdata($type, $view, $orderby);
 
-} elseif($_GET['view'] == 'onlinetime') {
+} elseif($_GET['view'] == 'onlinetime') { //在线时间排行
 
 	$gettype = 'onlinetime';
-	$onlinetimerank_change = 1;
-	$now_pos = -1;
+	$onlinetimerank_change = 1; //控制前台显示选择链接
+	$now_pos = -1; //前台不显示排行公告
 	$now_choose = 'thismonth';
 	switch($_GET['orderby']) {
 		case 'thismonth':
@@ -190,6 +195,7 @@ if ($_GET['view'] == 'credit') {
 		space_merge($space, 'count');
 		$space['credit'] = empty($creditkey) ? 0 : $space[$creditkey];
 
+		//我的竞价积分
 		$myshowinfo = C::t('home_show')->fetch_by_uid_credit($space['uid']); //DB::fetch_first("SELECT unitprice, credit FROM ".DB::table('home_show')." WHERE uid='$space[uid]' AND credit>0");
 		$myallcredit = intval($myshowinfo['credit']);
 		$space['unitprice'] = intval($myshowinfo['unitprice']);
@@ -216,6 +222,7 @@ if($cachetip) {
 	$nextupdate = $_G['nextupdate'];
 }
 
+//重新组建
 $myfuids =array();
 $query = C::t('home_friend')->fetch_all($_G['uid']);
 foreach($query as $value) {
@@ -233,6 +240,7 @@ foreach($list as $key => $value) {
 	$i++;
 }
 
+//在线状态
 $ols = array();
 if($fuids) {
 	foreach(C::app()->session->fetch_all_by_uid($fuids) as $value) {

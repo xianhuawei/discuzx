@@ -9,6 +9,12 @@ $Id: base.php 1059 2011-03-01 07:25:09Z monkey $
 
 !defined('IN_UC') && exit('Access Denied');
 
+/**
+ * 该基类有三个用途:
+ * 	1. 纯接口(任何人, 此时需要检查 $input 的值)
+ *	2. 带交互界面的(限会员, 检查 $input 中 uid)
+ * 	3. 管理(限管理员, 检查 $_COOKIE['uc_auth'] 是否为founder)
+ */
 class base {
 
 	var $time;
@@ -20,12 +26,16 @@ class base {
 	var $cache = array();
 	var $app = array();
 	var $lang = array();
-	var $input = array();
+	var $input = array();// 如果为空，并且存在appid，则从外部传递参数非法。
 
 	function __construct() {
 		$this->base();
 	}
 
+	/**
+	 * 初始化基类
+	 *
+	 */
 	function base() {
 		$this->init_var();
 		$this->init_db();
@@ -38,6 +48,10 @@ class base {
 		//		$this->cron();
 	}
 
+	/**
+	 * 初始化常用变量,如果有 code 则解开后,放入 $_GET 超级全局变量
+	 *
+	 */
 	function init_var() {
 		$this->time = time();
 		$cip = getenv('HTTP_CLIENT_IP');
@@ -64,6 +78,7 @@ class base {
 	}
 
 	function init_cache() {
+		// 全局设置
 		$this->settings = $this->cache('settings');
 		$this->cache['apps'] = $this->cache('apps');
 		if(PHP_VERSION > '5.1') {
@@ -72,7 +87,9 @@ class base {
 		}
 	}
 
+	// 此参数仅为FLASH，或者第三方应用请求用户中心时使用。
 	function init_input($getagent = '') {
+		// 解密应用提交的数据
 		$input = getgpc('input', 'R');
 		if($input) {
 			$input = $this->authcode($input, 'DECODE', $this->app['authkey']);
@@ -91,6 +108,10 @@ class base {
 		}
 	}
 
+	/**
+	 * 实例化数据库类
+	 *
+	 */
 	function init_db() {
 		require_once UC_ROOT.'lib/db.class.php';
 		$this->db = new ucserver_db();
@@ -102,7 +123,12 @@ class base {
 		$appid && $this->app = $this->cache['apps'][$appid];
 	}
 
+	/**
+	 * 初始化用户数据
+	 *
+	 */
 	function init_user() {
+		// 解密 cookie
 		if(isset($_COOKIE['uc_auth'])) {
 			@list($uid, $username, $agent) = explode('|', $this->authcode($_COOKIE['uc_auth'], 'DECODE', ($this->input ? $this->app['appauthkey'] : UC_KEY)));
 			if($agent != md5($_SERVER['HTTP_USER_AGENT'])) {
@@ -114,6 +140,10 @@ class base {
 		}
 	}
 
+	/**
+	 * 实例化模板类
+	 *
+	 */
 	function init_template() {
 		$charset = UC_CHARSET;
 		require_once UC_ROOT.'lib/template.class.php';
@@ -138,6 +168,23 @@ class base {
 		}
 	}
 
+	/**
+	 * 字符串加密以及解密函数
+	 *
+	 * @param string $string 原文或者密文
+	 * @param string $operation 操作(ENCODE | DECODE), 默认为 DECODE
+	 * @param string $key 密钥
+	 * @param int $expiry 密文有效期, 加密时候有效， 单位 秒，0 为永久有效
+	 * @return string 处理后的 原文或者 经过 base64_encode 处理后的密文
+	 *
+	 * @example
+	 *
+	 * 	$a = authcode('abc', 'ENCODE', 'key');
+	 * 	$b = authcode($a, 'DECODE', 'key');  // $b(abc)
+	 *
+	 * 	$a = authcode('abc', 'ENCODE', 'key', 3600);
+	 * 	$b = authcode('abc', 'DECODE', 'key'); // 在一个小时内，$b(abc)，否则 $b 为空
+	 */
 	function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 
 		$ckey_length = 4;	// 随机密钥长度 取值 0-32;
@@ -192,6 +239,15 @@ class base {
 
 	}
 
+	/**
+	 * 翻页函数
+	 *
+	 * @param int $num 总纪录数
+	 * @param int $perpage 每页大小
+	 * @param int $curpage 当前页面
+	 * @param string $mpurl url
+	 * @return string 类似于: <div class="page">***</div>
+	 */
 	function page($num, $perpage, $curpage, $mpurl) {
 		$multipage = '';
 		$mpurl .= strpos($mpurl, '?') ? '&' : '?';
@@ -235,15 +291,31 @@ class base {
 		return $multipage;
 	}
 
+	/**
+	 * 对翻页的起始位置进行判断和调整
+	 *
+	 * @param int $page 页码
+	 * @param int $ppp 每页大小
+	 * @param int $totalnum 总纪录数
+	 * @return unknown
+	 */
 	function page_get_start($page, $ppp, $totalnum) {
 		$totalpage = ceil($totalnum / $ppp);
 		$page =  max(1, min($totalpage, intval($page)));
 		return ($page - 1) * $ppp;
 	}
 
+	/**
+	 * 加载相应的 Model, 存入 $_ENV 超级全局变量
+	 *
+	 * @param string $model 模块名称
+	 * @param 该模块相对的基类 $base 默认为该基类
+	 * @return 此处不需要返回
+	 */
 	function load($model, $base = NULL, $release = '') {
 		$base = $base ? $base : $this;
 		if(empty($_ENV[$model])) {
+			// 版本兼容处理
 			$release = !$release ? RELEASE_ROOT : $release;
 			if(file_exists(UC_ROOT.$release."model/$model.php")) {
 				require_once UC_ROOT.$release."model/$model.php";
@@ -255,6 +327,13 @@ class base {
 		return $_ENV[$model];
 	}
 
+	/**
+	 * 得到设置的值
+	 *
+	 * @param string $k 设置的项
+	 * @param string $decode 是否进行反序列化，一般为数组时，需要指定为TRUE
+	 * @return string/array 设置的值
+	 */
 	function get_setting($k = array(), $decode = FALSE) {
 		$return = array();
 		$sqladd = $k ? "WHERE k IN (".$this->implode($k).")" : '';
@@ -267,11 +346,26 @@ class base {
 		return $return;
 	}
 
+	/**
+	 * 将设置保存
+	 *
+	 * @param string $k 设置的项
+	 * @param string/array $v  设置的值
+	 * @param string $encode 是否序列化， $v 为数组时需要指定为 TRUE
+	 */
 	function set_setting($k, $v, $encode = FALSE) {
 		$v = is_array($v) || $encode ? addslashes(serialize($v)) : $v;
 		$this->db->query("REPLACE INTO ".UC_DBTABLEPRE."settings SET k='$k', v='$v'");
 	}
 
+	/**
+	 * 类似于 Discuz! showmessage() 函数
+	 *
+	 * @param string $message 消息
+	 * @param string $redirect 下一页URL, 'BACK' 表示返回
+	 * @param int $type 0 表示用户中心的提示 1 表示针对客户端的提示.主要给短消息使用
+	 * @param array 消息中的变量
+	 */
 	function message($message, $redirect = '', $type = 0, $vars = array()) {
 		include_once UC_ROOT.'view/default/messages.lang.php';
 		if(isset($lang[$message])) {
@@ -287,24 +381,54 @@ class base {
 		exit;
 	}
 
+	/**
+	 * Formhash 用来生成表单校验码,防止外部提交
+	 *
+	 * @return 16位的字串, 取时间的前面6位, 有效期为 9999 秒
+	 */
 	function formhash() {
 		return substr(md5(substr($this->time, 0, -4).UC_KEY), 16);
 	}
 
+	/**
+	 * Formhash 校验
+	 *
+	 * @return unknown
+	 */
 	function submitcheck() {
 		return @getgpc('formhash', 'P') == FORMHASH ? true : false;
 	}
 
+	/**
+	 * 日期格式化 默认为格式化到分钟
+	 *
+	 * @param int $time
+	 * @param int $type 	1：只显示时间 2：只显示日期 3：日期时间均显示
+	 * @return string
+	 */
 	function date($time, $type = 3) {
 		$format[] = $type & 2 ? (!empty($this->settings['dateformat']) ? $this->settings['dateformat'] : 'Y-n-j') : '';
 		$format[] = $type & 1 ? (!empty($this->settings['timeformat']) ? $this->settings['timeformat'] : 'H:i') : '';
 		return gmdate(implode(' ', $format), $time + $this->settings['timeoffset']);
 	}
 
+	/**
+	 * 对字符或者数组加逗号连接, 用来
+	 *
+	 * @param string/array $arr 可以传入数字或者字串
+	 * @return string 这样的格式: '1','2','3'
+	 */
 	function implode($arr) {
 		return "'".implode("','", (array)$arr)."'";
 	}
 
+	/**
+	 * 创建用户的 home 目录
+	 *
+	 * @param int $uid
+	 * @param string $dir
+	 * @return string
+	 */
 	function set_home($uid, $dir = '.') {
 		$uid = sprintf("%09d", $uid);
 		$dir1 = substr($uid, 0, 3);
@@ -315,6 +439,12 @@ class base {
 		!is_dir($dir.'/'.$dir1.'/'.$dir2.'/'.$dir3) && mkdir($dir.'/'.$dir1.'/'.$dir2.'/'.$dir3, 0777);
 	}
 
+	/**
+	 * 根据用户的 uid 得到用户的 home 目录
+	 *
+	 * @param int $uid
+	 * @return string
+	 */
 	function get_home($uid) {
 		$uid = sprintf("%09d", $uid);
 		$dir1 = substr($uid, 0, 3);
@@ -323,6 +453,14 @@ class base {
 		return $dir1.'/'.$dir2.'/'.$dir3;
 	}
 
+	/**
+	 * 根据用户的 uid 得到用户的头像
+	 *
+	 * @param	int		$uid
+	 * @param	string	$size 	big OR middle OR small 默认为 big
+	 * @param	string	$type	头像类型，默认为空，表示虚拟
+	 * @return	string
+	 */
 	function get_avatar($uid, $size = 'big', $type = '') {
 		$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'big';
 		$uid = abs(intval($uid));
@@ -334,6 +472,11 @@ class base {
 		return  $dir1.'/'.$dir2.'/'.$dir3.'/'.substr($uid, -2).$typeadd."_avatar_$size.jpg";
 	}
 
+	/**
+	 * 加载缓存文件, 如果不存在,则重新生成
+	 *
+	 * @param string $cachefile
+	 */
 	function &cache($cachefile) {
 		static $_CACHE = array();
 		if(!isset($_CACHE[$cachefile])) {
@@ -353,6 +496,7 @@ class base {
 	}
 
 	function serialize($s, $htmlon = 0) {
+		// 版本兼容处理
 		if(file_exists(UC_ROOT.RELEASE_ROOT.'./lib/xml.class.php')) {
 			include_once UC_ROOT.RELEASE_ROOT.'./lib/xml.class.php';
 		} else {
@@ -363,6 +507,7 @@ class base {
 	}
 
 	function unserialize($s) {
+		// 版本兼容处理
 		if(file_exists(UC_ROOT.RELEASE_ROOT.'./lib/xml.class.php')) {
 			include_once UC_ROOT.RELEASE_ROOT.'./lib/xml.class.php';
 		} else {

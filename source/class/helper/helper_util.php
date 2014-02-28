@@ -13,6 +13,13 @@ if(!defined('IN_DISCUZ')) {
 
 class helper_util {
 
+	/**
+	 * 运算
+	 * @param mixed $v1 value1
+	 * @param mixed $v2 value2
+	 * @param string $glue 操作符
+	 * @return mixed 结果值
+	 */
 	public static function compute($v1, $v2, $glue = '+') {
 		switch ($glue) {
 			case '+':
@@ -99,6 +106,12 @@ class helper_util {
 		}
 	}
 
+	/**
+	 * 单操作符运算
+	 * @param mixed $v1 value
+	 * @param string $glue 操作符
+	 * @return mixed 结果
+	 */
 	public static function single_compute($v, $glue = '+') {
 		switch ($glue) {
 			case '!':

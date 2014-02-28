@@ -11,6 +11,11 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+* 更新缓存
+* @param $cachename - 缓存文件名称
+* @return 返回缓存$_G数组
+*/
 function updatecache($cachename = '') {
 
 	$updatelist = empty($cachename) ? array() : (is_array($cachename) ? $cachename : array($cachename));
@@ -51,9 +56,13 @@ function updatecache($cachename = '') {
 			}
 		}
 	}
-
 }
-
+/**
+* 书写缓存
+* @param $script - 脚本名称
+* @param $cachedata - 缓存数据，如果存在缓存数据则不需要chachenames
+* @param $prefix - 缓存前缀
+*/
 function writetocache($script, $cachedata, $prefix = 'cache_') {
 	global $_G;
 
@@ -70,6 +79,12 @@ function writetocache($script, $cachedata, $prefix = 'cache_') {
 }
 
 
+/**
+* 获取缓存中的变量
+* @param $data - 原始数据
+* @param $type - 类型 VAR 表示变量 否则是常量
+* @return 返回变量序列
+*/
 function getcachevars($data, $type = 'VAR') {
 	$evaluate = '';
 	foreach($data as $key => $val) {
@@ -86,6 +101,12 @@ function getcachevars($data, $type = 'VAR') {
 	return $evaluate;
 }
 
+/*debug
+* Smilies 缩略图
+* @param $size - 图片原始尺寸
+* @param $smthumb - 缩略图尺寸
+* @return 返回缩略后的图片宽高
+*/
 function smthumb($size, $smthumb = 50) {
 	if($size[0] <= $smthumb && $size[1] <= $smthumb) {
 		return array('w' => $size[0], 'h' => $size[1]);
@@ -103,6 +124,12 @@ function smthumb($size, $smthumb = 50) {
 	return $sm;
 }
 
+/**
+* PHP数组转换成代码
+* @param $array	- 数组
+* @param $level	- 缩进用几个制表符
+* @return 返回数组的文本字符串
+*/
 function arrayeval($array, $level = 0) {
 	if(!is_array($array)) {
 		return "'".$array."'";

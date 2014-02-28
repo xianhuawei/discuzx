@@ -11,6 +11,16 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * 获取设置资料项的html代码
+ * 注意：对birthcity和residecity，需要在外层 td 指定id为 td_birthcity td_residecity
+ * 如果返回为空，表示该项目不是合法资料项
+ * @param unknown_type $fieldid
+ * @param $space  用户资料，主要设置默认值
+ * @param $showstatus  是否显示附加信息：审核状态；不可修改提示等
+ * $ignoreunchangable 是否忽略不可修改设置，即返回可输入的input
+ * $ignoreshowerror 是否忽略 showerror 区域
+ */
 function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunchangable = false, $ignoreshowerror = false) {
 	global $_G;
 
@@ -22,9 +32,9 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 		return '';
 	}
 
-	if($showstatus) {
+	if($showstatus) {//附加信息需检查用户提交的审核资料
 		$uid = intval($space['uid']);
-		if($uid && !isset($_G['profile_verifys'][$uid])) {
+		if($uid && !isset($_G['profile_verifys'][$uid])) {//正在审核项
 			$_G['profile_verifys'][$uid] = array();
 			if($value = C::t('common_member_verify_info')->fetch_by_uid_verifytype($uid, 0)) {
 				$fields = dunserialize($value['field']);
@@ -50,9 +60,10 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 	$html = '';
 	$field['unchangeable'] = !$ignoreunchangable && $field['unchangeable'] ? 1 : 0;
 	if($fieldid == 'birthday') {
-		if($field['unchangeable'] && !empty($space[$fieldid])) {
+		if($field['unchangeable'] && !empty($space[$fieldid])) {//不可修改
 			return '<span>'.$space['birthyear'].'-'.$space['birthmonth'].'-'.$space['birthday'].'</span>';
 		}
+		//生日:年
 		$birthyeayhtml = '';
 		$nowy = dgmdate($_G['timestamp'], 'Y');
 		for ($i=0; $i<100; $i++) {
@@ -60,11 +71,13 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 			$selectstr = $they == $space['birthyear']?' selected':'';
 			$birthyeayhtml .= "<option value=\"$they\"$selectstr>$they</option>";
 		}
+		//生日:月
 		$birthmonthhtml = '';
 		for ($i=1; $i<13; $i++) {
 			$selectstr = $i == $space['birthmonth']?' selected':'';
 			$birthmonthhtml .= "<option value=\"$i\"$selectstr>$i</option>";
 		}
+		//生日:日
 		$birthdayhtml = '';
 		if(empty($space['birthmonth']) || in_array($space['birthmonth'], array(1, 3, 5, 7, 8, 10, 12))) {
 			$days = 31;
@@ -95,7 +108,7 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 				.'</select>';
 
 	} elseif($fieldid=='gender') {
-		if($field['unchangeable'] && $space[$fieldid] > 0) {
+		if($field['unchangeable'] && $space[$fieldid] > 0) {//不可修改
 			return '<span>'.lang('space', 'gender_'.intval($space[$fieldid])).'</span>';
 		}
 		$selected = array($space[$fieldid]=>' selected="selected"');
@@ -110,36 +123,36 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 			.'</select>';
 
 	} elseif($fieldid=='birthcity') {
-		if($field['unchangeable'] && !empty($space[$fieldid])) {
+		if($field['unchangeable'] && !empty($space[$fieldid])) {//不可修改
 			return '<span>'.$space['birthprovince'].'-'.$space['birthcity'].'</span>';
 		}
 		$values = array(0,0,0,0);
 		$elems = array('birthprovince', 'birthcity', 'birthdist', 'birthcommunity');
-		if(!empty($space['birthprovince'])) {
+		if(!empty($space['birthprovince'])) { //已经填写过
 			$html = profile_show('birthcity', $space);
 			$html .= '&nbsp;(<a href="javascript:;" onclick="showdistrict(\'birthdistrictbox\', [\'birthprovince\', \'birthcity\', \'birthdist\', \'birthcommunity\'], 4, \'\', \'birth\'); return false;">'.lang('spacecp', 'profile_edit').'</a>)';
 			$html .= '<p id="birthdistrictbox"></p>';
-		} else {
+		} else {// 未填写
 			$html = '<p id="birthdistrictbox">'.showdistrict($values, $elems, 'birthdistrictbox', 1, 'birth').'</p>';
 		}
 
 	} elseif($fieldid=='residecity') {
-		if($field['unchangeable'] && !empty($space[$fieldid])) {
+		if($field['unchangeable'] && !empty($space[$fieldid])) {//不可修改
 			return '<span>'.$space['resideprovince'].'-'.$space['residecity'].'</span>';
 		}
 		$values = array(0,0,0,0);
 		$elems = array('resideprovince', 'residecity', 'residedist', 'residecommunity');
-		if(!empty($space['resideprovince'])) {
+		if(!empty($space['resideprovince'])) { //已经填写过
 			$html = profile_show('residecity', $space);
 			$html .= '&nbsp;(<a href="javascript:;" onclick="showdistrict(\'residedistrictbox\', [\'resideprovince\', \'residecity\', \'residedist\', \'residecommunity\'], 4, \'\', \'reside\'); return false;">'.lang('spacecp', 'profile_edit').'</a>)';
 			$html .= '<p id="residedistrictbox"></p>';
-		} else {
+		} else {// 未填写
 			$html = '<p id="residedistrictbox">'.showdistrict($values, $elems, 'residedistrictbox', 1, 'reside').'</p>';
 		}
 	} elseif($fieldid=='qq') {
 		$html = "<input type=\"text\" name=\"$fieldid\" id=\"$fieldid\" class=\"px\" value=\"$space[$fieldid]\" tabindex=\"1\" /><p><a href=\"\" class=\"xi2\" onclick=\"this.href='http://wp.qq.com/set.html?from=discuz&uin='+$('$fieldid').value\" target=\"_blank\">".lang('spacecp', 'qq_set_status')."</a></p>";
 	} else {
-		if($field['unchangeable'] && $space[$fieldid]!='') {
+		if($field['unchangeable'] && $space[$fieldid]!='') {//不可修改
 			if($field['formtype']=='file') {
 				$imgurl = getglobal('setting/attachurl').'./profile/'.$space[$fieldid];
 				return '<span><a href="'.$imgurl.'" target="_blank"><img src="'.$imgurl.'"  style="max-width: 500px;" /></a></span>';
@@ -189,8 +202,9 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 			$html = "<input type=\"text\" name=\"$fieldid\" id=\"$fieldid\" class=\"px\" value=\"$space[$fieldid]\" tabindex=\"1\" />";
 		}
 	}
+	//提示信息
 	$html .= !$ignoreshowerror ? "<div class=\"rq mtn\" id=\"showerror_$fieldid\"></div>" : '';
-	if($showstatus) {
+	if($showstatus) {//状态提示信息
 		$html .= "<p class=\"d\">$value[description]";
 		if($space[$fieldid]=='' && $value['unchangeable']) {
 			$html .= lang('spacecp', 'profile_unchangeable');
@@ -211,23 +225,32 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 	return $html;
 }
 
+/**
+ * 检查提交的资料项是否合法
+ * 需要注意的是：提交的资料项可能包含 birthyrea，resideprovince等，
+ * 这些项虽然不在 $_G[cache][profilesetting] 中，但也是合法的
+ * @param $field  资料项
+ * @param $value  提交值
+ * @param $space  用户资料，主要用来检查不可修改项；为空则不检查
+ */
 function profile_check($fieldid, &$value, $space=array()) {
 	global $_G;
 
 	if(empty($_G['cache']['profilesetting'])) {
 		loadcache('profilesetting');
 	}
-	if(empty($_G['profilevalidate'])) {
+	if(empty($_G['profilevalidate'])) {// 资料默认的正则校验
 		include libfile('spacecp/profilevalidate', 'include');
 		$_G['profilevalidate'] = $profilevalidate;
 	}
 
 	$field = $_G['cache']['profilesetting'][$fieldid];
-	if(empty($field) || !$field['available']) {
+	if(empty($field) || !$field['available']) {// 不存在或者未启用的资料项
 		return false;
 	}
 
-	if($value=='') {
+	// 检查必填
+	if($value=='') {// 避免选项中含 '0' 的误判
 		if($field['required']) {
 			if(in_array($fieldid, array('birthprovince', 'birthcity', 'birthdist', 'birthcommunity', 'resideprovince', 'residecity', 'residedist', 'residecommunity'))) {
 				if(substr($fieldid, 0, 5) == 'birth') {
@@ -239,15 +262,17 @@ function profile_check($fieldid, &$value, $space=array()) {
 				}
 			}
 			return false;
-		} else {
+		} else {//非必填情况为空直接返回 true
 			return true;
 		}
 	}
+	//检查不可修改
 	if($field['unchangeable'] && !empty($space[$fieldid])) {
 		return false;
 	}
 
 	include_once libfile('function/home');
+	// 特殊
 	if(in_array($fieldid, array('birthday', 'birthmonth', 'birthyear', 'gender'))) {
 		$value = intval($value);
 		return true;
@@ -256,16 +281,17 @@ function profile_check($fieldid, &$value, $space=array()) {
 		return true;
 	}
 
-	if($field['choices']) {
+	if($field['choices']) {//选项
 		$field['choices'] = explode("\n", $field['choices']);
 	}
+	// 其他
 	if($field['formtype'] == 'text' || $field['formtype'] == 'textarea') {
 		$value = getstr($value);
-		if($field['size'] && strlen($value) > $field['size']) {
+		if($field['size'] && strlen($value) > $field['size']) {// 超出指定长度
 			return false;
-		} else {
+		} else {//验证输入
 			$field['validate'] = !empty($field['validate']) ? $field['validate'] : ($_G['profilevalidate'][$fieldid] ? $_G['profilevalidate'][$fieldid] : '');
-			if($field['validate'] && !preg_match($field['validate'], $value)) {
+			if($field['validate'] && !preg_match($field['validate'], $value)) {//设置了正则验证
 				return false;
 			}
 		}
@@ -277,17 +303,22 @@ function profile_check($fieldid, &$value, $space=array()) {
 			}
 		}
 		$value = implode("\n", $arr);
-		if($field['size'] && count($arr) > $field['size']) {
+		if($field['size'] && count($arr) > $field['size']) {// 超出指定长度
 			return false;
 		}
 	} elseif($field['formtype'] == 'radio' || $field['formtype'] == 'select') {
-		if(!in_array($value, $field['choices'])){
+		if(!in_array($value, $field['choices'])){ // 非法内容
 			return false;
 		}
 	}
 	return true;
 }
 
+/**
+ * 返回资料项的显示内容
+ * @param unknown_type $fieldid
+ * @param unknown_type $space
+ */
 function profile_show($fieldid, $space=array(), $getalone = false) {
 	global $_G;
 
@@ -298,7 +329,7 @@ function profile_show($fieldid, $space=array(), $getalone = false) {
 		$_G['cache']['profilesetting'][$fieldid] = $_G['cache']['profilesetting']['qq'];
 	}
 	$field = $_G['cache']['profilesetting'][$fieldid];
-	if(empty($field) || !$field['available'] || (!$getalone && in_array($fieldid, array('uid', 'birthmonth', 'birthyear', 'birthprovince', 'resideprovince')))) {
+	if(empty($field) || !$field['available'] || (!$getalone && in_array($fieldid, array('uid', 'birthmonth', 'birthyear', 'birthprovince', 'resideprovince')))) {//非法的资料项
 		return false;
 	}
 
@@ -335,12 +366,20 @@ function profile_show($fieldid, $space=array(), $getalone = false) {
 }
 
 
+/**
+ * 显示地区下拉菜单
+ * @param <array> $values array(1=>省份id, 2=>城市id, 3=>县城id, 4=>乡镇id)
+ * @param <array> $elems array(1=>省份元素name, 2=>城市元素name, 3=>县城元素name, 4=>乡镇元素name)
+ * @param <string> $onchange onchange 时触发的函数
+ * @param <int> $showlevel 指定显示的层级数；如果不指定则等于values数目
+ * @param <string> $container 容器id
+ */
 function showdistrict($values, $elems=array(), $container='districtbox', $showlevel=null, $containertype = 'birth') {
 	$html = '';
 	if(!preg_match("/^[A-Za-z0-9_]+$/", $container)) {
 		return $html;
 	}
-	$showlevel = !empty($showlevel) ? intval($showlevel) : count($values);
+	$showlevel = !empty($showlevel) ? intval($showlevel) : count($values);// 显示层级数
 	$showlevel = $showlevel <= 4 ? $showlevel : 4;
 	$upids = array(0);
 	for($i=0;$i<$showlevel;$i++) {
@@ -388,6 +427,10 @@ function showdistrict($values, $elems=array(), $container='districtbox', $showle
 	return $html;
 }
 
+/**
+ * 计算启用的个人资料项完成进度
+ * 该统计按用户栏目中的启用项做统计的
+ */
 function countprofileprogress($uid = 0) {
 	global $_G;
 
@@ -399,9 +442,11 @@ function countprofileprogress($uid = 0) {
 				$fields[$key] = $field;
 			}
 		}
+		//用户组不允许使用签名时去掉此项
 		if(isset($fields['sightml']) && empty($_G['group']['maxsigsize'])) {
 			unset($fields['sightml']);
 		}
+		//用户组不允许使用自定义头衔时去掉此项
 		if(isset($fields['customstatus']) && empty($_G['group']['allowcstatus'])) {
 			unset($fields['customstatus']);
 		}
@@ -435,7 +480,7 @@ function countprofileprogress($uid = 0) {
 					unset($fields['residedist']);
 					unset($fields['residecommunity']);
 				}
-			} else if($profile[$key] != '') {
+			} else if($profile[$key] != '') { //避免选项中含 '0' 的误判
 				$complete++;
 			}
 		}
@@ -445,6 +490,7 @@ function countprofileprogress($uid = 0) {
 	}
 }
 
+// 获取星座
 function get_constellation($birthmonth,$birthday) {
 	$birthmonth = intval($birthmonth);
 	$birthday = intval($birthday);
@@ -459,6 +505,7 @@ function get_constellation($birthmonth,$birthday) {
 	return $idx > 0 && $idx <= 12 ? lang('space', 'constellation_'.$idx) : '';
 }
 
+// 获取生肖
 function get_zodiac($birthyear) {
 	$birthyear = intval($birthyear);
 	$idx = (($birthyear - 1900) % 12) + 1;

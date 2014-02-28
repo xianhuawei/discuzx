@@ -11,6 +11,12 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+* 获取附件类型
+* @param $type - 类型
+* @param $returnval - html 返回图像代码,否则返回类型id
+* @return 返回数据
+*/
 function attachtype($type, $returnval = 'html') {
 
 	static $attachicons = array(
@@ -29,6 +35,7 @@ function attachtype($type, $returnval = 'html') {
 			13 => 'torrent.gif'
 		);
 
+	//note 如果是数字类型的就返回数字,否则匹配出类型
 	if(is_numeric($type)) {
 		$typeid = $type;
 	} else {
@@ -62,6 +69,7 @@ function attachtype($type, $returnval = 'html') {
 			$typeid = 0;
 		}
 	}
+	//note 返回代码或者ID
 	if($returnval == 'html') {
 		return '<img src="'.STATICURL.'image/filetype/'.$attachicons[$typeid].'" border="0" class="vm" alt="" />';
 	} elseif($returnval == 'id') {
@@ -69,6 +77,7 @@ function attachtype($type, $returnval = 'html') {
 	}
 }
 
+//debug 处理附件
 function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) {
 	global $_G;
 	if(!$attachpids) {

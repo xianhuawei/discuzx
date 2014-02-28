@@ -20,7 +20,14 @@ class table_forum_memberrecommend extends discuz_table
 
 		parent::__construct();
 	}
-
+	
+	/**
+	 * 
+	 * 根据推荐者Uid、Tid获取单条记录
+	 * @param int $uid:用户UID
+	 * @param int $tid:主题ID
+	 * @return 返回一条推荐记录
+	 */
 	public function fetch_by_recommenduid_tid($uid, $tid) {
 		return DB::fetch_first('SELECT * FROM %t WHERE recommenduid=%d AND tid=%d', array($this->_table, $uid, $tid));
 	}

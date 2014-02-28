@@ -21,6 +21,11 @@ class table_forum_moderator extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 获取指定版块的所有版主数据
+	 * @param int $fid 版块ID
+	 * @return array
+	 */
 	public function fetch_all_by_fid($fid, $order = true) {
 		return DB::fetch_all('SELECT * FROM %t WHERE fid=%d'.($order ? ' ORDER BY inherited, displayorder' : ''), array($this->_table, $fid), 'uid');
 	}
@@ -58,7 +63,12 @@ class table_forum_moderator extends discuz_table
 		}
 		return DB::result_first('SELECT count(*) FROM %t WHERE %i', array($this->_table, DB::field('uid', $uid)));
 	}
-
+	
+	/**
+	 * 获取指定版块的非继承版主数据
+	 * @param int $fid 版块ID
+	 * @return array
+	 */
 	public function fetch_all_no_inherited_by_fid($fid) {
 		return DB::fetch_all('SELECT * FROM %t WHERE fid=%d AND inherited=0 ORDER BY displayorder', array($this->_table, $fid), 'uid');
 	}
@@ -73,6 +83,11 @@ class table_forum_moderator extends discuz_table
 		}
 		return DB::update($this->_table, $data, array('fid' => $fid, 'uid' => $uid));
 	}
+	/**
+	 * 删除指定会员ID的所有数据
+	 * @param int|array $uid 会员ID
+	 * @return bool
+	 */
 	public function delete_by_uid($uid) {
 		return $uid ? DB::delete($this->_table, DB::field('uid', $uid)) : false;
 	}

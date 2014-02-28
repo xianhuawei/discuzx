@@ -53,6 +53,7 @@ if(!empty($orderid)) {
 	$currentcredit = $_G['setting']['creditstrans'] ? getuserprofile('extcredits'.$_G['setting']['creditstrans']) : 0;
 	$discountprice = $tradelog['baseprice'] * $tradelog['number'];
 
+	// 在线支付
 	if(!empty($_GET['pay']) && !$tradelog['offline'] && $tradelog['status'] == 0 && $tradelog['buyerid'] == $_G['uid']) {
 		if($_G['setting']['creditstransextra'][5] != -1 && $tradelog['credit']) {
 			if($tradelog['credit'] > getuserprofile('extcredits'.$_G['setting']['creditstransextra'][5])) {
@@ -81,6 +82,7 @@ if(!empty($orderid)) {
 		showmessage('trade_directtopay', $payurl);
 	}
 
+	// 离线切换状态
 	if(submitcheck('offlinesubmit') && in_array($_GET['offlinestatus'], trade_offline($tradelog, 0))) {
 
 		loaducenter();
@@ -159,6 +161,7 @@ if(!empty($orderid)) {
 		showmessage('trade_orderstatus_updated', 'forum.php?mod=trade&orderid='.$orderid);
 	}
 
+	// 提交修改的订单内容
 	if(submitcheck('tradesubmit')) {
 
 		if($tradelog['status'] == 0) {
@@ -317,7 +320,7 @@ if(!empty($orderid)) {
 
 		$price = $pay['price'] * $pay['number'];
 		$buyercredits = 0;
-		$pay['commision'] = 0;
+		$pay['commision'] = 0;// 每笔交易收取的佣金，待定
 
 		$orderid = $pay['orderid'] = dgmdate(TIMESTAMP, 'YmdHis').random(18);
 		$transportfee = 0;

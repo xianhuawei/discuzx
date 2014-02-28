@@ -55,6 +55,18 @@ class table_forum_forum extends discuz_table
 		return  parent::fetch_all($fids);
 		//return DB::fetch_all('SELECT fid, name FROM '.DB::table($this->_table)." WHERE ".DB::field('fid', $fids), array(), 'fid');
 	}
+	/**
+	 * 获取版块全部信息
+	 * @param int/array $fids
+	 * @param int/string $status 版块状态 （ =available : 状态大于0）
+	 * @param int $limit
+	 * @param int/array $fup 取子版块
+	 * @param int $displayorder 排序 0：否 1：是
+	 * @param int $onlyforum 1：不包括分区
+	 * @param int $noredirect 1：过滤掉外链版块
+	 * @param string $type 指定类型：group, forum, sub
+	 * @return array
+	 */
 	public function fetch_all_info_by_fids($fids, $status = 0, $limit = 0, $fup = 0, $displayorder = 0, $onlyforum = 0, $noredirect = 0, $type = '', $start = 0) {
 		$sql = $fids ? "f.".DB::field('fid', $fids) : '';
 		$sql .= empty($fup) ? '' : ($sql ? ' AND ' : '').'f.'.DB::field('fup', $fup);
@@ -89,6 +101,11 @@ class table_forum_forum extends discuz_table
 		}
 		return DB::fetch_all("SELECT fid, type, name, fup FROM ".DB::table($this->_table)." WHERE ".DB::field('fid', $fid, '<>')." AND type<>'sub' AND status<>'3' ORDER BY displayorder");
 	}
+	/**
+	 * 获取全部版块信息
+	 * @param int $status 0:除群组外所有版块
+	 * @return array
+	 */
 	public function fetch_all_forum($status = 0) {
 		$statusql = intval($status) ? 'f.'.DB::field('status', $status) : 'f.status<>\'3\'';
 		return DB::fetch_all("SELECT ff.*, f.*, a.uid FROM ".DB::table($this->_table)." f LEFT JOIN ".DB::table('forum_forumfield')." ff ON ff.fid=f.fid LEFT JOIN ".DB::table('forum_access')." a ON a.fid=f.fid AND a.allowview>'0' WHERE $statusql ORDER BY f.type, f.displayorder");
@@ -154,6 +171,13 @@ class table_forum_forum extends discuz_table
 		return DB::fetch_all("SELECT f.fid, f.name, ff.threadsorts FROM ".DB::table($this->_table)." f , ".DB::table('forum_forumfield')." ff WHERE ff.threadsorts<>'' AND f.fid=ff.fid");
 	}
 
+	/**
+	 * 用于后台群组管理
+	 * @param string $conditions SQL中的条件语句
+	 * @param int $start 起始行数 -1：表示返回记录总数
+	 * @param int $limit 需要取得的行数
+	 * @return array | int
+	 */
 	public function fetch_all_for_search($conditions, $start = 0, $limit = 20) {
 		if(empty($conditions)) {
 			return array();
@@ -229,6 +253,7 @@ class table_forum_forum extends discuz_table
 		
 		DB::query("UPDATE ".DB::table($this->_table)." SET level=%d WHERE fid=%d", array($levelid, $fid));
 	}
+	//群组分类
 	public function fetch_all_fid_for_group($start, $limit, $issub = 0, $conditions = '') {
 		if(!empty($conditions) && !is_string($conditions)) {
 			return array();

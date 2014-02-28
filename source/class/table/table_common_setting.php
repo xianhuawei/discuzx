@@ -17,17 +17,28 @@ class table_common_setting extends discuz_table
 
 		$this->_table = 'common_setting';
 		$this->_pk    = 'skey';
-        $this->_pre_cache_key = 'common_setting_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
+		//注意：此表不能在此处进行数据缓存，否则会造成循环调用
+
 		parent::__construct();
 	}
 
+	/**
+	 * 获取setting值
+	 * @param string $skey setting KEY
+	 * @param bool $auto_unserialize 是否需要反序列化
+	 * @return mixed 数据值
+	 */
 	public function fetch($skey, $auto_unserialize = false) {
 		$data = DB::result_first('SELECT svalue FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $skey));
 		return $auto_unserialize ? (array)unserialize($data) : $data;
 	}
 
+	/**
+	 * 批量获取setting值
+	 * @param array $skeys 为空时取所有内容
+	 * @param bool $auto_unserialize 是否需要反序列化
+	 * @return array
+	 */
 	public function fetch_all($skeys = array(), $auto_unserialize = false){
 		$data = array();
 		$where = !empty($skeys) ? ' WHERE '.DB::field($this->_pk, $skeys) : '';
@@ -38,10 +49,21 @@ class table_common_setting extends discuz_table
 		return $data;
 	}
 
+	/**
+	 * 添加或更新
+	 * @param string $skey setting KEY
+	 * @param mixed $svalue 数据，数据是数组时会自动序列化
+	 * @return bool 是否成功
+	 */
 	public function update($skey, $svalue){
 		return DB::insert($this->_table, array($this->_pk => $skey, 'svalue' => is_array($svalue) ? serialize($svalue) : $svalue), false, true);
 	}
 
+	/**
+	 * 指更新和添加
+	 * @param array $array 数组的key为skey值，value值为svalue值
+	 * @return bool
+	 */
 	public function update_batch($array) {
 		$settings = array();
 		foreach($array as $key => $value) {
@@ -55,10 +77,20 @@ class table_common_setting extends discuz_table
 		return false;
 	}
 
+	/**
+	 * 检查指定skey是否存在
+	 * @param string $skey
+	 * @return bool
+	 */
 	public function skey_exists($skey) {
 		return DB::result_first('SELECT skey FROM %t WHERE skey=%s LIMIT 1', array($this->_table, $skey)) ? true : false;
 	}
 
+	/**
+	 * 获取不在指定skey范围内的所有数据
+	 * @param string|array $skey 设置key
+	 * @return array
+	 */
 	public function fetch_all_not_key($skey) {
 		return DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' WHERE skey NOT IN('.dimplode($skey).')');
 	}
@@ -71,6 +103,12 @@ class table_common_setting extends discuz_table
 		return DB::object()->tablepre;
 	}
 
+	/*
+	 * 使用 setting 表做计数的时候自+
+	 * @param $skey 设置key
+	 * @param $data 内容
+	 * @returns
+	 */
 	public function update_count($skey, $num) {
 		return DB::query("UPDATE %t SET svalue = svalue + %d WHERE skey = %s", array($this->_table, $num, $skey), false, true);
 	}

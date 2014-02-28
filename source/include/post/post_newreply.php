@@ -23,6 +23,7 @@ if($special == 5) {
 	$firststand = C::t('forum_debatepost')->get_firststand($_G['tid'], $_G['uid']);
 	$stand = $firststand ? $firststand : intval($_GET['stand']);
 
+	//note 判断投票是否已经结束
 	if($debate['endtime'] && $debate['endtime'] < TIMESTAMP) {
 		showmessage('debate_end');
 	}
@@ -181,6 +182,7 @@ if(!submitcheck('replysubmit', 0, $seccodecheck, $secqaacheck)) {
 			showmessage('reply_quotepost_error', NULL);
 		}
 
+		//note 恢复隐藏帖子禁止引用自己和主题帖之外的帖子
 		if(getstatus($thread['status'], 2) && $thaquote['authorid'] != $_G['uid'] && $_G['uid'] != $thread['authorid'] && $thaquote['first'] != 1 && !$_G['forum']['ismoderator']) {
 			showmessage('reply_quotepost_error', NULL);
 		}

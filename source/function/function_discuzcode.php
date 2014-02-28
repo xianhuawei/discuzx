@@ -71,6 +71,24 @@ function karmaimg($rate, $ratetimes) {
 	return $karmaimg;
 }
 
+/**
+* Discuz! 代码解析
+* @param $message - 需要解析的帖子内容
+* @param $smileyoff - 是否禁用表情
+* @param $bbcodeoff - 是否禁用 bbcode
+* @param $htmlon - 是否启用 html
+* @param $allowsmilies - 是否允许表情
+* @param $allowbbcode - 是否允许 bbcode：0 不允许 1 允许 -groupid用于判断自定义bbcode
+* @param $allowimgcode - 是否允许 img 代码
+* @param $allowhtml - 是否允许 html
+* @param $jammer - 是否启用干扰码
+* @param $parsetype - 解析模式：0 默认 1 编辑器切换时使用 2 论坛主题缓存模式解析
+* @param $authorid - 暂时未知
+* @param $allowmediacode - 是否允许多媒体代码
+* @param $pid - 帖子 pid ， hide 代码解析时使用
+* @param $pdateline - 帖子 dateline ， hide 代码解析时使用
+* @return 返回字符串
+*/
 function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies = 1, $allowbbcode = 1, $allowimgcode = 1, $allowhtml = 0, $jammer = 0, $parsetype = '0', $authorid = '0', $allowmediacode = '0', $pid = 0, $lazyload = 0, $pdateline = 0, $first = 0) {
 	global $_G;
 
@@ -87,7 +105,7 @@ function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies
 			$_G['forum_discuzcode']['passwordauthor'][$pid] = 1;
 		}
 	}
-
+	//note 先将 [code][/code] 标签中的代码保护起来
 	if($parsetype != 1 && !$bbcodeoff && $allowbbcode && (strpos($message, '[/code]') || strpos($message, '[/CODE]')) !== FALSE) {
 		$message = preg_replace("/\s?\[code\](.+?)\[\/code\]\s?/ies", "codedisp('\\1')", $message);
 	}
@@ -108,6 +126,7 @@ function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies
 		hookscript('discuzcode', 'global', 'funcs', array('param' => $param, 'caller' => 'discuzcode'), 'discuzcode');
 	}
 
+	//note 表情解析
 	if(!$smileyoff && $allowsmilies) {
 		$message = parsesmiles($message);
 	}
@@ -123,19 +142,23 @@ function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies
 	}
 
 	if(!$bbcodeoff && $allowbbcode) {
+		//note URL 解析
 		if(strpos($msglower, '[/url]') !== FALSE) {
 			$message = preg_replace("/\[url(=((https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|thunder|qqdl|synacast){1}:\/\/|www\.|mailto:)?([^\r\n\[\"']+?))?\](.+?)\[\/url\]/ies", "parseurl('\\1', '\\5', '\\2')", $message);
 		}
+		//note E-mail 解析
 		if(strpos($msglower, '[/email]') !== FALSE) {
 			$message = preg_replace("/\[email(=([a-z0-9\-_.+]+)@([a-z0-9\-_]+[.][a-z0-9\-_.]+))?\](.+?)\[\/email\]/ies", "parseemail('\\1', '\\4')", $message);
 		}
 
+		//note 表格解析 允许嵌套 4 层
 		$nest = 0;
 		while(strpos($msglower, '[table') !== FALSE && strpos($msglower, '[/table]') !== FALSE){
 			$message = preg_replace("/\[table(?:=(\d{1,4}%?)(?:,([\(\)%,#\w ]+))?)?\]\s*(.+?)\s*\[\/table\]/ies", "parsetable('\\1', '\\2', '\\3')", $message);
 			if(++$nest > 4) break;
 		}
 
+		//note CSS 相关代码解析
 		$message = str_replace(array(
 			'[/color]', '[/backcolor]', '[/size]', '[/font]', '[/align]', '[b]', '[/b]', '[s]', '[/s]', '[hr]', '[/p]',
 			'[i=s]', '[i]', '[/i]', '[u]', '[/u]', '[list]', '[list=1]', '[list=a]',
@@ -186,6 +209,7 @@ function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies
 			}
 		}
 		if(!defined('IN_MOBILE')) {
+			//note 多媒体代码解析
 			if(strpos($msglower, '[/media]') !== FALSE) {
 				$message = preg_replace("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/ies", $allowmediacode ? "parsemedia('\\1', '\\2')" : "bbcodeurl('\\2', '<a href=\"{url}\" target=\"_blank\">{url}</a>')", $message);
 			}
@@ -210,6 +234,7 @@ function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies
 		if($parsetype != 1 && $allowbbcode < 0 && isset($_G['cache']['bbcodes'][-$allowbbcode])) {
 			$message = preg_replace($_G['cache']['bbcodes'][-$allowbbcode]['searcharray'], $_G['cache']['bbcodes'][-$allowbbcode]['replacearray'], $message);
 		}
+		//note hide 代码解析
 		if($parsetype != 1 && strpos($msglower, '[/hide]') !== FALSE && $pid) {
 			if($_G['setting']['hideexpiration'] && $pdateline && (TIMESTAMP - $pdateline) / 86400 > $_G['setting']['hideexpiration']) {
 				$message = preg_replace("/\[hide[=]?(d\d+)?[,]?(\d+)?\]\s*(.*?)\s*\[\/hide\]/is", "\\3", $message);
@@ -242,11 +267,13 @@ function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies
 		}
 	}
 
+	//note img 代码解析
 	if(!$bbcodeoff) {
 		if($parsetype != 1 && strpos($msglower, '[swf]') !== FALSE) {
 			$message = preg_replace("/\[swf\]\s*([^\[\<\r\n]+?)\s*\[\/swf\]/ies", "bbcodeurl('\\1', ' <img src=\"'.STATICURL.'image/filetype/flash.gif\" align=\"absmiddle\" alt=\"\" /> <a href=\"{url}\" target=\"_blank\">Flash: {url}</a> ')", $message);
 		}
 
+		//noteX 手机主题的bbcode解析模式
 		if(defined('IN_MOBILE') && !defined('TPL_DEFAULT') && !defined('IN_MOBILE_API')) {
 			$allowimgcode = false;
 		}
@@ -265,6 +292,7 @@ function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies
 		}
 	}
 
+	//note 还原 [code][/code] 标签中的代码
 	for($i = 0; $i <= $_G['forum_discuzcode']['pcodecount']; $i++) {
 		$message = str_replace("[\tDISCUZ_CODE_$i\t]", $_G['forum_discuzcode']['codehtml'][$i], $message);
 	}
@@ -496,7 +524,7 @@ function parseflv($url, $width = 0, $height = 0) {
 	if($lowerurl != str_replace(array('player.youku.com/player.php/sid/','tudou.com/v/','player.ku6.com/refer/'), '', $lowerurl)) {
 		$flv = $url;
 	} elseif(strpos($lowerurl, 'v.youku.com/v_show/') !== FALSE) {
-		$ctx = stream_context_create(array('http' => array('timeout' => 10)));
+		$ctx = stream_context_create(array('http' => array('timeout' => 10)));//设置10秒的超时时间
 		if(preg_match("/http:\/\/v.youku.com\/v_show\/id_([^\/]+)(.html|)/i", $url, $matches)) {
 			$flv = 'http://player.youku.com/player.php/sid/'.$matches[1].'/v.swf';
 			$iframe = 'http://player.youku.com/embed/'.$matches[1];
@@ -504,6 +532,7 @@ function parseflv($url, $width = 0, $height = 0) {
 				$api = 'http://v.youku.com/player/getPlayList/VideoIDS/'.$matches[1];
 				$str = stripslashes(file_get_contents($api, false, $ctx));
 				if(!empty($str) && preg_match("/\"logo\":\"(.+?)\"/i", $str, $image)) {
+					//获取小图片
 					$url = substr($image[1], 0, strrpos($image[1], '/')+1);
 					$filename = substr($image[1], strrpos($image[1], '/')+2);
 					$imgurl = $url.'0'.$filename;

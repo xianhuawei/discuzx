@@ -38,6 +38,11 @@ class table_forum_access extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE '.$sql, array($this->_table));
 	}
 
+	/**
+	 * 获取指定会员ID的数据
+	 * @param int $uid 会员ID
+	 * @return array
+	 */
 	public function fetch_all_by_uid($uid) {
 		$data = array();
 		if($uid) {
@@ -46,6 +51,11 @@ class table_forum_access extends discuz_table
 		return $data;
 	}
 
+	/**
+	 * 获取指定会员ID的统计数据
+	 * @param int $uid
+	 * @return int
+	 */
 	public function count_by_uid($uid) {
 		return $uid ? DB::result_first('SELECT count(*) FROM %t WHERE uid=%d', array($this->_table, $uid)) : 0;
 	}
@@ -63,6 +73,11 @@ class table_forum_access extends discuz_table
 		DB::update($this->_table, $data, DB::field('uid', $uid).' AND '.DB::field('fid', $fid));
 	}
 
+	/**
+	 * 删除指定会员ID的所有数据
+	 * @param int|array $uid 会员ID
+	 * @return bool
+	 */
 	public function delete_by_uid($uid) {
 		return $uid ? DB::delete($this->_table, DB::field('uid', $uid)) : false;
 	}

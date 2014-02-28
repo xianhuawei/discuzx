@@ -63,6 +63,7 @@ if(($_G['group']['reasonpm'] == 2 || $_G['group']['reasonpm'] == 3) || !empty($_
 
 $_GET['handlekey'] = 'mods';
 
+// 对特殊主题的过滤
 
 if(preg_match('/^\w+$/', $_GET['action']) && file_exists($topicadminfile = libfile('topicadmin/'.$_GET['action'], 'include'))) {
 	require_once $topicadminfile;

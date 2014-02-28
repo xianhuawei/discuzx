@@ -21,14 +21,29 @@ class table_portal_attachment extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 获取指定文章ID的数据
+	 * @param int $aid 文章ID
+	 * @return array
+	 */
 	public function fetch_all_by_aid($aid) {
 		return ($aid = dintval($aid, true)) ? DB::fetch_all('SELECT * FROM %t WHERE '.DB::field('aid', $aid).' ORDER BY attachid DESC', array($this->_table), $this->_pk) : array();
 	}
 
+	/**
+	 * 获取指定文章ID的第一张图片
+	 * @param int $aid 文章ID
+	 * @return array
+	 */
 	public function fetch_by_aid_image($aid) {
 		return $aid ? DB::fetch_first('SELECT * FROM %t WHERE aid=%d AND isimage=1', array($this->_table, $aid)) : array();
 	}
 
+	/**
+	 * 将未使用的图片转换为指定aid图片
+	 * @param array $newaids 未使用的图片ID
+	 * @param int $aid 文章ID
+	 */
 	public function update_to_used($newaids, $aid) {
 		$aid = dintval($aid);
 		return ($newaids = dintval($newaids, true)) ? DB::update($this->_table, array('aid'=>$aid), DB::field('attachid', $newaids).' AND aid=0') : false;

@@ -21,6 +21,10 @@ class table_common_block_item extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 删除指定模块的所有数据
+	 * @param int|array $bid 模块ID
+	 */
 	public function delete_by_bid($bid) {
 		if(($bid = dintval($bid, true))) {
 			return DB::delete($this->_table, DB::field('bid', $bid));
@@ -28,18 +32,41 @@ class table_common_block_item extends discuz_table
 		return false;
 	}
 
+	/**
+	 * 删除指定模块指定位置的数据
+	 * @param int $bid 模块ID
+	 * @param int $displayorder 位置
+	 * @return bool
+	 */
 	public function delete_by_bid_displayorder($bid, $displayorder) {
 		return ($bid = dintval($bid)) ? DB::delete($this->_table, DB::field('bid', $bid).' AND '.DB::field('displayorder', dintval($displayorder))) : false;
 	}
 
+	/**
+	 * 获取指定模块的所有数据
+	 * @param int|array $bids 模块ID
+	 * @param bool $sort 是否排序
+	 * @return array
+	 */
 	public function fetch_all_by_bid($bids, $sort = false) {
 		return ($bids = dintval($bids, true)) ? DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field('bid', $bids).($sort ? ' ORDER BY displayorder, itemtype DESC' : ''), null, $this->_pk) : array();
 	}
 
+	/**
+	 * 删除指定模块指定记录ID的数据
+	 * @param int|array $itemid 记录ID
+	 * @param int $bid 模块ID
+	 * @return bool
+	 */
 	public function delete_by_itemid_bid($itemid, $bid) {
 		return ($itemid = dintval($itemid, true)) && ($bid = dintval($bid)) ? DB::delete($this->_table, DB::field('itemid', $itemid).' AND '.DB::field('bid', $bid)) : false;
 	}
 
+	/**
+	 * 根据模块ID批量插入数据
+	 * @param int $bid 模块ID
+	 * @param array $itemlist 数据列表
+	 */
 	public function insert_batch($bid, $itemlist) {
 		$inserts = array();
 		if(($bid = dintval($bid))) {

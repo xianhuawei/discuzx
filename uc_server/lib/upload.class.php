@@ -12,15 +12,15 @@ Class upload{
 	var $dir;
 	var $thumb_width;
 	var $thumb_height;
-	var $thumb_ext;
+	var $thumb_ext;	// 缩略图的类型 gif jpg
 	var $watermark_file;
 	var $watermark_pos;
 	var $watermark_alpha;
 	var $time;
 
-	var $filetypedata = array();
-	var $filetypeids = array();
-	var $filetypes = array();
+	var $filetypedata = array(); // 允许的文件类型
+	var $filetypeids = array(); // 允许的文件类型
+	var $filetypes = array(); // 允许的文件类型
 
 	function upload($time = 0) {
 		$this->time = $time ? $time : time();
@@ -62,6 +62,7 @@ Class upload{
 
 	function execute() {
 		$arr = array();
+		// 附件数量
 		$keys = array_keys($_FILES['attach']['name']);
 		foreach($keys as $key) {
 			if(!$_FILES['attach']['name'][$key]) {
@@ -208,7 +209,7 @@ Class upload{
 				}
 
 				imageAlphaBlending($watermark_logo, FALSE);
-				imagesavealpha($watermark_logo,TRUE);
+				imagesavealpha($watermark_logo,TRUE);// 设定保存完整的 alpha 通道信息
 				imageCopyMerge($dst_photo, $watermark_logo, $x,	$y, 0, 0, $logo_w, $logo_h, $watermarktrans);
 
 				switch($attachinfo['mime']) {
@@ -235,6 +236,7 @@ Class upload{
 		$ext = strtolower(substr(strrchr($sourcefile, '.'), 1, 10));
 		if(file_exists($g_srcfile)) {
 			$g_is = getimagesize($g_srcfile);
+			// 如果传入的图片过小，则直接拷贝。并且返回。
 			if($g_is[0] < $forcedwidth && $g_is[1] < $forcedheight) {
 				copy($sourcefile, $destfile);
 				return filesize($destfile);;

@@ -11,6 +11,28 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * 本地上传类
+ *
+ * @example
+ *
+ * $upload = new discuz_upload();
+ * $upload->init($attach, 'forum');
+ * if($upload->error()) {
+ * 	showmessage('upload error');
+ * }
+ * ... 权限判断等等
+ * ...
+ * $upload->save();
+ * if($upload->error()) {
+ * 	if(!defined('IN_ADMINCP')) {
+ *		showmessage($upload->errormessage());
+ *	} else {
+ *		cpmsg($upload->errormessage(), '', 'error');
+ *	}
+ * }
+ *
+ */
 
 Class discuz_upload{
 
@@ -24,6 +46,14 @@ Class discuz_upload{
 
 	}
 
+	/**
+	 * Enter description here...
+	 *
+	 * @param 上传的 $attach
+	 * @param 'forum', 'group', 'album', 'portal', 'common', 'temp', 'category' $type
+	 * @param 扩展id, 目前仅应用于group类型 $extid
+	 * @return boolean
+	 */
 	function init($attach, $type = 'temp', $extid = 0, $forcename = '') {
 
 		if(!is_array($attach) || empty($attach) || !$this->is_upload_file($attach['tmp_name']) || trim($attach['name']) == '' || $attach['size'] == 0) {
@@ -57,6 +87,19 @@ Class discuz_upload{
 
 	}
 
+	/**
+	 * 保存上传文件至本地
+	 * @return boolean
+	 *
+	 *
+	 * @errorcode:  $this->error()
+	 * 0    = 上传成功
+	 * -101 = 上传文件不存在或不合法
+	 * -102 = 非图片类型文件
+	 * -103 = 无法写入文件或写入失败
+	 * -104 = 无法识别的图像文件格式
+	 *
+	 */
 	function save($ignore = 0) {
 		if($ignore) {
 			if(!$this->save_to_local($this->attach['tmp_name'], $this->attach['target'])) {
@@ -87,6 +130,11 @@ Class discuz_upload{
 		return false;
 	}
 
+	/**
+	 * 查看前一操作是否有错误
+	 *
+	 * @return unknown
+	 */
 	function error() {
 		return $this->errorcode;
 	}
@@ -95,10 +143,22 @@ Class discuz_upload{
 		return lang('error', 'file_upload_error_'.$this->errorcode);
 	}
 
+	/**
+	 * 返回文件名中的后缀
+	 * @static
+	 * @param unknown_type $filename
+	 * @return unknown
+	 */
 	function fileext($filename) {
 		return addslashes(strtolower(substr(strrchr($filename, '.'), 1, 10)));
 	}
 
+	/**
+	 * 判断文件是否是图片后缀
+	 *
+	 * @param 后缀 $ext
+	 * @return unknown
+	 */
 	function is_image_ext($ext) {
 		static $imgext  = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
 		return in_array($ext, $imgext) ? 1 : 0;
@@ -114,6 +174,7 @@ Class discuz_upload{
 		} elseif($imageinfo = @getimagesize($target)) {
 			list($width, $height, $type) = !empty($imageinfo) ? $imageinfo : array('', '', '');
 			$size = $width * $height;
+			//16777216该行不是实际图片大小，主要是由于GD生成缩略时用的不是实际文件大小申请内存造成暂不做修改
 			if($size > 16777216 || $size < 16 ) {
 				return false;
 			} elseif($ext == 'swf' && $type != 4 && $type != 13) {
@@ -127,10 +188,24 @@ Class discuz_upload{
 		}
 	}
 
+	/**
+	 * 判断是否是上传文件
+	 * @static
+	 *
+	 * @param unknown_type $source
+	 * @return unknown
+	 */
 	function is_upload_file($source) {
 		return $source && ($source != 'none') && (is_uploaded_file($source) || is_uploaded_file(str_replace('\\\\', '\\', $source)));
 	}
 
+	/**
+	 * 依据类型,返回相应的文件名
+	 *
+	 * @param 上传类型 $type
+	 * @param 扩展id $extid
+	 * @return unknown
+	 */
 	function get_target_filename($type, $extid = 0, $forcename = '') {
 		if($type == 'group' || ($type == 'common' && $forcename != '')) {
 			$filename = $type.'_'.intval($extid).($forcename != '' ? "_$forcename" : '');
@@ -140,11 +215,25 @@ Class discuz_upload{
 		return $filename;
 	}
 
+	/**
+	 * 返回存储文件的安全后缀
+	 *
+	 * @param 后缀 string $ext
+	 * @return unknown
+	 */
 	function get_target_extension($ext) {
 		static $safeext  = array('attach', 'jpg', 'jpeg', 'gif', 'png', 'swf', 'bmp', 'txt', 'zip', 'rar', 'mp3');
 		return strtolower(!in_array(strtolower($ext), $safeext) ? 'attach' : $ext);
 	}
 
+	/**
+	 * 获取文件最终存储路径
+	 *
+	 * @param string $type
+	 * @param int $extid
+	 * @param boolean $check_exists
+	 * @return string
+	 */
 	function get_target_dir($type, $extid = '', $check_exists = true) {
 
 		$subdir = $subdir1 = $subdir2 = '';
@@ -161,10 +250,24 @@ Class discuz_upload{
 		return $subdir;
 	}
 
+	/**
+	 * 检查合法性 type
+	 * @static
+	 * @param string $type
+	 * @return string
+	 */
 	function check_dir_type($type) {
 		return !in_array($type, array('forum', 'group', 'album', 'portal', 'common', 'temp', 'category', 'profile')) ? 'temp' : $type;
 	}
 
+	/**
+	 * 检查目标路径是否存在
+	 * @static
+	 * @param 类型 $type
+	 * @param 子目录1 $sub1
+	 * @param 子目录2 $sub2
+	 * @return 检查结构
+	 */
 	function check_dir_exists($type = '', $sub1 = '', $sub2 = '') {
 
 		$type = discuz_upload::check_dir_type($type);
@@ -185,6 +288,15 @@ Class discuz_upload{
 		return $res;
 	}
 
+	/**
+	 * 存储文件到本地
+	 *
+	 * @static
+	 *
+	 * @param unknown_type $source
+	 * @param unknown_type $target
+	 * @return unknown
+	 */
 	function save_to_local($source, $target) {
 		if(!discuz_upload::is_upload_file($source)) {
 			$succeed = false;
@@ -210,6 +322,13 @@ Class discuz_upload{
 		return $succeed;
 	}
 
+	/**
+	 * 检查文件是否存在, 否则就建立
+	 *
+	 * @param string $dir
+	 * @param boolean是否创建index文件 $index
+	 * @return 创建结果
+	 */
 	function make_dir($dir, $index = true) {
 		$res = true;
 		if(!is_dir($dir)) {

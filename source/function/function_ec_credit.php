@@ -11,11 +11,22 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/*debug
+* 更新用户信用评价缓存
+* @param $uid - 用户 uid
+* @param $type - 信用评价类型 buyercredit 买家信用 sellercredit 卖家信用
+* @信用评价统计数据数组 序列化结果 写入 spacecaches 表
+*/
 function updatecreditcache($uid, $type, $return = 0) {
+	//debug 所有评价
 	$all = countcredit($uid, $type);
+	//debug 近6个月评价
 	$halfyear = countcredit($uid, $type, 180);
+	//debug 近1个月评价
 	$thismonth = countcredit($uid, $type, 30);
+	//debug 近1周评价
 	$thisweek = countcredit($uid, $type, 7);
+	//debug 6个月以前的评价
 	$before = array(
 		'good' => $all['good'] - $halfyear['good'],
 		'soso' => $all['soso'] - $halfyear['soso'],
@@ -36,6 +47,13 @@ function updatecreditcache($uid, $type, $return = 0) {
 	}
 }
 
+/*debug
+* 统计用户信用评价
+* @param $uid - 用户 uid
+* @param $type - 信用评价类型 buyercredit 买家信用 sellercredit 卖家信用
+* @param $days - 统计多少天以来的数据 0 表示所有
+* @return 返回数组 信用评价统计数据
+*/
 function countcredit($uid, $type, $days = 0) {
 	$type = $type == 'buyercredit' ? 1 : 0;
 	$good = $soso = $bad = 0;
@@ -51,6 +69,12 @@ function countcredit($uid, $type, $days = 0) {
 	return array('good' => $good, 'soso' => $soso, 'bad' => $bad, 'total' => $good + $soso + $bad);
 }
 
+/*debug
+* 更新用户信用评价
+* @param $uid - 用户 uid
+* @param $type - 信用评价类型 buyercredit 买家信用 sellercredit 卖家信用
+* @param $level - 信用评价级别 good 好评  soso 中评 bad 差评
+*/
 function updateusercredit($uid, $type, $level) {
 	$uid = intval($uid);
 	if(!$uid || !in_array($type, array('buyercredit', 'sellercredit')) || !in_array($level, array('good', 'soso', 'bad'))) {

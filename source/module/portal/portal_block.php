@@ -27,6 +27,7 @@ if(!in_array($blocktype, array('forum_thread', 'portal_article', 'group_thread')
 	showmessage('block_nomore', dreferer());
 }
 
+//分页
 $perpage = max(1, intval($blockmoreurl['perpage']));
 $curpage = max(1, intval($_GET['page']));
 $start = ($curpage-1) * $perpage;
@@ -38,6 +39,7 @@ $navtitle = $blockmoreurl['seotitle'];
 $metakeywords = $blockmoreurl['seokeywords'];
 $metadescription = $blockmoreurl['seodescription'];
 
+//模板
 $file = 'portal/block_more_'.$blocktype;
 include template('diy:'.$file);
 

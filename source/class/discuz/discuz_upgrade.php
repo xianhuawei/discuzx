@@ -11,12 +11,20 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ *  版本升级类
+ */
 class discuz_upgrade {
 
 	var $upgradeurl = 'http://upgrade.discuz.com/DiscuzX/';
 	var $locale = 'SC';
 	var $charset = 'GBK';
 
+	/**
+	 * 获取更新文件列表
+	 * @param array $upgradeinfo 升级信息
+	 * @return array
+	 */
 	public function fetch_updatefile_list($upgradeinfo) {
 
 		$file = DISCUZ_ROOT.'./data/update/Discuz! X'.$upgradeinfo['latestversion'].' Release['.$upgradeinfo['latestrelease'].']/updatelist.tmp';
@@ -53,6 +61,12 @@ class discuz_upgrade {
 		return $return;
 	}
 
+	/**
+	 * 本地文件比较，返回文件是否修改过的状态
+	 * @param array $upgradeinfo 升级信息
+	 * @param array $upgradefilelist 升级需要修改的文件列表
+	 * @return array
+	 */
 	public function compare_basefile($upgradeinfo, $upgradefilelist) {
 		if(!$discuzfiles = @file('./source/admincp/discuzfiles.md5')) {
 			return array();
@@ -93,12 +107,18 @@ class discuz_upgrade {
 		return array($modifylist, $showlist, $ignorelist);
 	}
 
+	/**
+	 * 去掉空白符之后，比较两个文件的内容是否一致
+	 * @param string $file 本地文件
+	 * @param string $remotefile 线上的原始文件
+	 * @return bool
+	 */
 	public function compare_file_content($file, $remotefile) {
 		if(!preg_match('/\.php$|\.htm$/i', $file)) {
 			return false;
 		}
 		$content = preg_replace('/\s/', '', file_get_contents($file));
-		$ctx = stream_context_create(array('http' => array('timeout' => 60)));
+		$ctx = stream_context_create(array('http' => array('timeout' => 60)));//设置60秒的超时时间
 		$remotecontent = preg_replace('/\s/', '', file_get_contents($remotefile, false, $ctx));
 		if(strcmp($content, $remotecontent)) {
 			return false;
@@ -126,6 +146,11 @@ class discuz_upgrade {
 		return $return;
 	}
 
+	/**
+	 * 检查文件权限
+	 * @param array $updatefilelist 更新文件列表
+	 * @return bool
+	 */
 	public function check_folder_perm($updatefilelist) {
 		foreach($updatefilelist as $file) {
 			if(!file_exists(DISCUZ_ROOT.$file)) {
@@ -141,6 +166,11 @@ class discuz_upgrade {
 		return true;
 	}
 
+	/**
+	 * 检测目录是否可写
+	 * @param string $dir 目录
+	 * @return int
+	 */
 	public function test_writable($dir) {
 		$writeable = 0;
 		$this->mkdirs($dir);
@@ -156,6 +186,13 @@ class discuz_upgrade {
 		return $writeable;
 	}
 
+	/**
+	 * 下载更新文件
+	 * @param array $upgradeinfo 升级信息
+	 * @param string $file 文件名
+	 * @param string $folder 所在目录 upload or utility
+	 * @return int
+	 */
 	public function download_file($upgradeinfo, $file, $folder = 'upload', $md5 = '', $position = 0, $offset = 0) {
 		$dir = DISCUZ_ROOT.'./data/update/Discuz! X'.$upgradeinfo['latestversion'].' Release['.$upgradeinfo['latestrelease'].']/';
 		$this->mkdirs(dirname($dir.$file));
@@ -190,6 +227,11 @@ class discuz_upgrade {
 		}
 	}
 
+	/**
+	 * 创建目录及子目录
+	 * @param string $dir
+	 * @return bool
+	 */
 	public function mkdirs($dir) {
 		if(!is_dir($dir)) {
 			if(!self::mkdirs(dirname($dir))) {
@@ -203,11 +245,19 @@ class discuz_upgrade {
 		return true;
 	}
 
+	/**
+	 * 复制一个文件
+	 * @global array $_G
+	 * @param string $srcfile 源文件
+	 * @param string $desfile 目标文件
+	 * @param string $type file or ftp
+	 * @return bool
+	 */
 	public function copy_file($srcfile, $desfile, $type) {
 		global $_G;
 
 		if(!is_file($srcfile)) {
-			return false;
+			return false;//note 升级文件丢失
 		}
 		if($type == 'file') {
 			$this->mkdirs(dirname($desfile));
@@ -235,6 +285,11 @@ class discuz_upgrade {
 		return $versionpath;
 	}
 
+	/**
+	 * 复制目录
+	 * @param string $srcdir 源目录
+	 * @param string $destdir 目标目录
+	 */
 	function copy_dir($srcdir, $destdir) {
 		$dir = @opendir($srcdir);
 		while($entry = @readdir($dir)) {
@@ -250,7 +305,11 @@ class discuz_upgrade {
 		}
 		closedir($dir);
 	}
-
+	
+	/**
+	 * 删除目录
+	 * @param string $srcdir 目录
+	 */
 	function rmdirs($srcdir) {
 		$dir = @opendir($srcdir);
 		while($entry = @readdir($dir)) {

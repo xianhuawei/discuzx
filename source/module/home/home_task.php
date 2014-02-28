@@ -13,6 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 $_G['disabledwidthauto'] = 0;
 
+//通用文件
 require_once libfile('function/spacecp');
 
 if(!$_G['setting']['taskon'] && $_G['adminid']  != 1) {
@@ -26,6 +27,7 @@ $_G['mnid'] = 'mn_common';
 $id = intval($_GET['id']);
 $do = empty($_GET['do']) ? '' : $_GET['do'];
 
+//权限判断
 if(empty($_G['uid'])) {
 	showmessage('to_login', null, array(), array('showmsg' => true, 'login' => 1));
 }
@@ -66,6 +68,7 @@ if(empty($do)) {
 	} elseif($result === -4) {
 		showmessage('task_nextperiod', 'home.php?mod=task&item=new');
 	} else {
+		//note 审请成功，记录cookie 90天
 		dsetcookie('taskdoing_'.$_G['uid'], 1, 7776000);
 		showmessage('task_applied', 'home.php?mod=task&do=view&id='.$id);
 	}

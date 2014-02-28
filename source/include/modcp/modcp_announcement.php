@@ -20,6 +20,7 @@ $announce['checked'] = array('selected="selected"', '');
 
 switch($op) {
 
+	//note 添加公告
 	case 'add':
 
 		$announce['starttime'] = dgmdate(TIMESTAMP, 'd');
@@ -31,6 +32,7 @@ switch($op) {
 		}
 		break;
 
+	//note 删除或者更改公告显示顺序
 	case 'manage':
 
 		$annlist = get_annlist();
@@ -69,6 +71,7 @@ switch($op) {
 
 		break;
 
+	//note 编辑公告
 	case 'edit':
 		$id = intval($_GET['id']);
 		$announce = C::t('forum_announcement')->fetch_by_id_username($id, $_G['username']);
@@ -113,6 +116,13 @@ function update_announcecache() {
 	updatecache(array('announcements', 'announcements_forum'));
 }
 
+/**
+ * 新增或者编辑某条公告
+ *
+ * @param string $id 新增一条公告的时候传递 0，否则传递那条公告的id
+ * @return true: 成功，否则会给出提示中断程序，如果共用的话，建议将提示改为返回 0，-1，-2
+ *
+ */
 function save_announce($id = 0, $starttime, $endtime, $subject, $type, $message, $displayorder = 0) {
 	global $_G;
 

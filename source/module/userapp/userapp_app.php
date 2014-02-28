@@ -12,7 +12,9 @@ if(!defined('IN_DISCUZ')) {
 }
 
 if($appid == '1036584') {
+	//视频认证
 } else {
+	//验证是否有权限玩应用
 	if(!checkperm('allowmyop')) {
 		showmessage('no_privilege_myop', '', array(), array('return' => true));
 	}
@@ -25,6 +27,7 @@ if($app = C::t('common_myapp')->fetch($appid)) {
 	}
 }
 
+// 全屏应用设置
 $canvasTitle = '';
 $isFullscreen = 0;
 $displayUserPanel = 0;
@@ -38,11 +41,13 @@ if($app['displayuserpanel']) {
 	$displayUserPanel = $app['displayuserpanel'];
 }
 
+//漫游
 $my_appId = $appid;
 $my_suffix = htmlspecialchars(base64_decode($_GET['my_suffix']));
 
 $my_prefix = getsiteurl();
 
+//奖励积分
 updatecreditbyaction('useapp', 0, array(), $appid);
 
 if (!$my_suffix) {
@@ -82,6 +87,7 @@ $my_sign = md5($_G['setting']['my_siteid'].'|'.$_G['uid'].'|'.$_G['setting']['my
 $url .= '&timestamp='. $_G['timestamp'] .'&my_sign='.$my_sign;
 $my_suffix = urlencode($my_suffix);
 
+// 全屏应用设置
 $canvasTitle = '';
 $isFullscreen = 0;
 $displayUserPanel = 0;

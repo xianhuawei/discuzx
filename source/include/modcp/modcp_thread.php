@@ -20,6 +20,9 @@ $modtpl = 'forum/'.$modtpl;
 $threadoptionselect = array('','','','','','', '', '', '', '', 999=>'', 888=>'');
 $threadoptionselect[getgpc('threadoption')] = 'selected';
 
+//note ================================================================
+//note 批量主题管理
+//note ================================================================
 
 if($op == 'thread') {
 
@@ -36,6 +39,7 @@ if($op == 'thread') {
 
 	if($_G['fid'] && $_G['forum']['ismoderator']) {
 
+		//note 根据条件搜索主题
 		if($do == 'search' &&  submitcheck('submit', 1)) {
 
 			$conditions = array();
@@ -139,6 +143,9 @@ if($op == 'thread') {
 	return;
 }
 
+//note ================================================================
+//note 批量删帖
+//note ================================================================
 
 if($op == 'post') {
 
@@ -156,10 +163,13 @@ if($op == 'post') {
 
 	$threadoptionselect = range(1, 3);
 
+	//帖子分表ID
 	$posttableid = intval($_GET['posttableid']);
+	//帖子分表下拉列表
 	$posttableselect = getposttableselect();
 
 	$cachekey = 'srchresult_p_'.$posttableid.'_'.$_G['fid'];
+	//note 判断所管理的版块
 	$fidadd = '';
 	$fidaddarr = array();
 	if($_G['fid'] && $modforums['list'][$_G['fid']]) {
@@ -177,6 +187,7 @@ if($op == 'post') {
 		}
 	}
 
+	//note 批量删除帖子
 	if($do == 'delete' && submitcheck('deletesubmit')) {
 
 		if(!$_G['group']['allowmassprune']) {
@@ -252,6 +263,7 @@ if($op == 'post') {
 		showmessage('modcp_thread_delete_succeed', '', array(), array('break' => 1));
 	}
 
+	//note 根据条件帖子
 	if($do == 'search' && submitcheck('searchsubmit', 1)) {
 
 		if(($starttime == '0' && $endtime == '0') || ($keywords == '' && $useip == '' && $users == '')) {

@@ -15,10 +15,12 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 $op = trim($_GET['op']);
 
 if(submitcheck('setidkeysubmit')) {
+	// 非创始人无法修改站点id和key
 	if (!isfounder()) {
 		cpmsg('action_noaccess', '', 'error');
 	}
 
+	// 提交新的站点ID和KEY
 	$siteId = intval(trim($_GET['my_siteid']));
 	if($siteId && strcmp($_GET['my_siteid'], $siteId) !== 0) {
 		cpmsg('cloud_idkeysetting_siteid_failure', '', 'error');
@@ -26,8 +28,10 @@ if(submitcheck('setidkeysubmit')) {
 
 	$_GET['my_sitekey'] = trim($_GET['my_sitekey']);
 	if(empty($_GET['my_sitekey'])) {
+		// 将sKey更新为空
 		$siteKey = '';
 	} elseif(strpos($_GET['my_sitekey'], '***')) {
+		// 含有***不更新sKey
 		$siteKey = false;
 	} elseif(preg_match('/^[0-9a-f]{32}$/', $_GET['my_sitekey'])) {
 		$siteKey = $_GET['my_sitekey'];
@@ -57,6 +61,7 @@ if(submitcheck('setidkeysubmit')) {
 } elseif($op == 'apitest') {
 
 	$doctorService =Cloud::loadClass('Service_Doctor');
+	// 接口IP测试
 	$APIType = intval($_GET['api_type']);
 	$APIIP = trim($_GET['api_ip']);
 
@@ -67,9 +72,11 @@ if(submitcheck('setidkeysubmit')) {
 	$otherTips = '';
 	if($APIIP) {
 		if ($_GET['api_description']) {
+			// API接口位置信息
 			$otherTips = diconv(trim($_GET['api_description']), 'UTF-8');
 		}
 	} else {
+		// 没有 APIIP 为使用DNS解析或者setting表的IP
 		if($APIType == 1) {
 			$otherTips = '<a href="javascript:;" onClick="display(\'cloud_tbody_api_test\')">'.$lang['cloud_doctor_api_test_other'].'</a>';
 		} elseif($APIType == 2) {
@@ -89,6 +96,7 @@ if(submitcheck('setidkeysubmit')) {
 
 } elseif($op == 'setidkey') {
 
+	// 设置ID和KEY的ajax页面
 	ajaxshowheader();
 	echo '
 		<h3 class="flb" id="fctrl_showblock" style="cursor: move;">
@@ -142,6 +150,7 @@ if(submitcheck('setidkeysubmit')) {
 		'<strong>'.cplang('cloud_site_key').'</strong>',
 		preg_replace('/(\w{2})\w*(\w{2})/', '\\1****\\2', $_G['setting']['my_sitekey']).' '.$lang['cloud_site_key_safetips']
 	));
+	// 非创始人无法看到手动修改站点id和key的
 
 	showtablerow('', array('class="td24"'), array(
 		'<strong>'.cplang('cloud_site_status').'</strong>',
@@ -167,15 +176,18 @@ if(submitcheck('setidkeysubmit')) {
 
 	showtagheader('tbody', '', true);
 	showtitle('cloud_doctor_title_result');
+	// 服务器时间检测
 	showtablerow('', array('class="td24"'), array(
 		'<strong>'.cplang('cloud_timecheck').'</strong>',
 		'<span id="cloud_time_check">' . cplang('cloud_doctor_time_check', array('imgdir' => $_G['style']['imgdir'])) .'</span>',
 	));
+	// DNS 函数检测
 	showtablerow('', array('class="td24"'), array(
 		'<strong>'.cplang('cloud_doctor_gethostbyname_function').'</strong>',
 		function_exists('gethostbyname') ? $lang['cloud_doctor_result_success'].' '.$lang['available'] : $lang['cloud_doctor_result_failure'].$lang['cloud_doctor_function_disable']
 	));
 
+	// 云平台接口IP
 	showtablerow('', array('class="td24"'), array(
 		'<strong>'.cplang('cloud_doctor_dns_api').'</strong>',
 		$doctorService->checkDNSResult(1, $_G['setting'])
@@ -186,9 +198,11 @@ if(submitcheck('setidkeysubmit')) {
 	));
 	showtagfooter('tbody');
 
+	// 云平台其他接口IP
 	showtagheader('tbody', 'cloud_tbody_api_test', false);
 	showtagfooter('tbody');
 
+	// 漫游接口IP
 	showtagheader('tbody', '', true);
 	showtablerow('', array('class="td24"'), array(
 		'<strong>'.cplang('cloud_doctor_dns_manyou').'</strong>',
@@ -200,9 +214,11 @@ if(submitcheck('setidkeysubmit')) {
 	));
 	showtagfooter('tbody');
 
+	// 漫游其他接口IP
 	showtagheader('tbody', 'cloud_tbody_manyou_test', false);
 	showtagfooter('tbody');
 
+	// Qzone接口IP
 	showtagheader('tbody', '', true);
 	showtablerow('', array('class="td24"'), array(
 		'<strong>'.cplang('cloud_doctor_dns_qzone').'</strong>',
@@ -214,9 +230,11 @@ if(submitcheck('setidkeysubmit')) {
 	));
 	showtagfooter('tbody');
 
+	// Qzone其他接口IP
 	showtagheader('tbody', 'cloud_tbody_qzone_test', false);
 	showtagfooter('tbody');
 
+	// 云平台到站点接口检测
 	showtagheader('tbody', 'cloud_tbody_site_test', true);
 	showtablerow('', array('class="td24"'), array(
 		'<strong>'.cplang('cloud_doctor_site_test').'</strong>',
@@ -224,12 +242,14 @@ if(submitcheck('setidkeysubmit')) {
 	));
 	showtagfooter('tbody');
 
+	// 插件状态检查
 	showtagheader('tbody', '', true);
 	showtitle('cloud_doctor_title_plugin');
 	$doctorService->showPlugins();
 	showtagfooter('tbody');
 
 	if($appService->getCloudAppStatus('connect')) {
+		// 修复QQ互联登陆用户组
 		if ($op == 'fixGuest') {
 			$doctorService->fixGuestGroup(cplang('connect_guest_group_name'));
 		}
@@ -245,6 +265,7 @@ if(submitcheck('setidkeysubmit')) {
 			!empty($_G['setting']['connectappkey']) ? preg_replace('/(\w{2})\w*(\w{2})/', '\\1****\\2', $_G['setting']['connectappkey']).' '.$lang['cloud_site_key_safetips'] : $lang['cloud_doctor_connect_reopen']
 		));
 
+		// QQ 互联游客用户组检测
 		$guestGroupStr = cplang('cloud_doctor_result_success') .' '. cplang('cloud_doctor_normal');
 		if (!$doctorService->checkGuestGroup()) {
 			$guestGroupStr = cplang('cloud_doctor_result_failure') . ' ' . cplang('cloud_doctor_connect_fix');

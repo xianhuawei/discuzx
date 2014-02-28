@@ -16,7 +16,7 @@ class template {
 	var $objfile;
 	var $langfile;
 
-	var $vars;
+	var $vars;// 变量表
 	var $force = 0;
 
 	var $var_regexp = "\@?\\\$[a-zA-Z_]\w*(?:\[[\w\.\"\'\[\]\$]+\])*";
@@ -56,9 +56,11 @@ class template {
 		$this->tplfile = $this->tpldir.'/'.$file.'.htm';
 		$this->objfile = $this->objdir.'/'.$file.'.php';
 		$tplfilemtime = @filemtime($this->tplfile);
+		// 默认目录
 		if($tplfilemtime === FALSE) {
 			$this->tplfile = $this->defaulttpldir.'/'.$file.'.htm';
 		}
+		// 判断是否比较过期
 		if($this->force || !file_exists($this->objfile) || @filemtime($this->objfile) < filemtime($this->tplfile)) {
 			if(empty($this->language)) {
 				@include $this->langfile;

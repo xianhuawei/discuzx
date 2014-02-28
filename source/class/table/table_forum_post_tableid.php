@@ -29,6 +29,10 @@ class table_forum_post_tableid extends discuz_table
 		return DB::query("DELETE FROM %t WHERE pid<%d", array($this->_table, $pid));
 	}
 
+	/**
+	 * 获取最大PID
+	 * @return int
+	 */
 	public function fetch_max_id() {
 		return DB::result_first('SELECT MAX(pid) FROM '.DB::table($this->_table));
 	}

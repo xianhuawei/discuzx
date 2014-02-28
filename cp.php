@@ -6,6 +6,7 @@
  *      $Id: cp.php 9379 2010-04-28 07:30:09Z zhengqingpeng $
  */
 
+//重新导向Manyou
 $_GET['mod'] = 'manage';
 require_once 'userapp.php';
 ?>

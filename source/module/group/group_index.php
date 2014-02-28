@@ -55,6 +55,7 @@ if($gid) {
 }
 
 if(empty($curtype)) {
+	//note 如果已有群组直接跳转到我的群组
 	if($_G['uid'] && empty($_G['mod'])) {
 		$usergroups = getuserprofile('groups');
 		if(!empty($usergroups)) {
@@ -67,10 +68,13 @@ if(empty($curtype)) {
 } else {
 	$nav = get_groupnav($curtype);
 	$groupnav = $nav['nav'];
+	//note 广告系统使用
 	$_G['grouptypeid'] = $curtype['fid'];
+	//note 群组分类页面列表方式
 	$perpage = 10;
 	if($curtype['forumcolumns'] > 1) {
 		$curtype['forumcolwidth'] = (floor(100 / $curtype['forumcolumns']) - 0.1).'%';
+		//note 如果指定了列数 每页显示N行
 		$perpage = $curtype['forumcolumns'] * 10;
 	}
 }
@@ -131,6 +135,7 @@ if(!$navtitle || !empty($sgid) || !empty($gid)) {
 	if(!$navtitle) {
 		$navtitle = !empty($gid) ? $nav['first']['name'] : (!empty($sgid) ? $nav['second']['name'] : '');
 	}
+	//note 没有自定义SEO时，在分类页面需要取当前页码
 	$navtitle = (!empty($sgid) || !empty($gid) ? helper_seo::get_title_page($navtitle, $_G['page']).' - ' : '').$_G['setting']['navs'][3]['navname'];
 	$nobbname = false;
 } else {

@@ -12,6 +12,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_MODCP')) {
 }
 
 
+//note 添加管理留言
 if($op == 'addnote' && submitcheck('submit')) {
 	$newaccess = 4 + ($_GET['newaccess'][2] << 1) + $_GET['newaccess'][3];
 	$newexpiration = TIMESTAMP + (intval($_GET['newexpiration']) > 0 ? intval($_GET['newexpiration']) : 30) * 86400;
@@ -28,12 +29,14 @@ if($op == 'addnote' && submitcheck('submit')) {
 	}
 }
 
+//note 删除管理留言
 if($op == 'delete' && submitcheck('notlistsubmit')) {
 	if(is_array($_GET['delete']) && $deleteids = dimplode($_GET['delete'])) {
 		C::t('common_adminnote')->delete($_GET['delete'], ($_G['adminid'] == 1 ? '' : $_G['username']));
 	}
 }
 
+//note 锟斤拷锟斤拷锟斤拷锟斤拷锟叫憋拷
 switch($_G['adminid']) {
 	case 1: $access = '1,2,3,4,5,6,7'; break;
 	case 2: $access = '2,3,6,7'; break;

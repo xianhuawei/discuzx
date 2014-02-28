@@ -14,16 +14,28 @@ if(!defined('IN_DISCUZ')) {
 class discuz_application extends discuz_base{
 
 
+	/**
+	 * 内存缓冲object
+	 * @var discuz_memory
+	 */
 	var $mem = null;
 
+	/**
+	 * 会话 object
+	 * @var discuz_session|discuz_session_close
+	 */
 	var $session = null;
 
+	// 程序配置
 	var $config = array();
 
+	// $_G 数组的映射
 	var $var = array();
 
+	// 加载缓存的数组
 	var $cachelist = array();
 
+	// 是否初始化
 	var $init_db = true;
 	var $init_setting = true;
 	var $init_user = true;
@@ -32,8 +44,10 @@ class discuz_application extends discuz_base{
 	var $init_misc = true;
 	var $init_mobile = true;
 
+	// 是否已经初始化
 	var $initated = false;
 
+	// 列举全局变量，为清理做准备
 	var $superglobal = array(
 		'GLOBALS' => 1,
 		'_GET' => 1,
@@ -45,6 +59,11 @@ class discuz_application extends discuz_base{
 		'_FILES' => 1,
 	);
 
+	/**
+	 * 建立唯一进程 此方法不建议使用，后续版本将删除
+	 * @staticvar discuz_core $object
+	 * @return discuz_core
+	 */
 	static function &instance() {
 		static $object;
 		if(empty($object)) {
@@ -53,6 +72,9 @@ class discuz_application extends discuz_base{
 		return $object;
 	}
 
+	/**
+	 * 预处理的调用
+	 */
 	public function __construct() {
 		$this->_init_env();
 		$this->_init_config();
@@ -60,6 +82,9 @@ class discuz_application extends discuz_base{
 		$this->_init_output();
 	}
 
+	/**
+	 * 核心初始化
+	 */
 	public function init() {
 		if(!$this->initated) {
 			$this->_init_db();
@@ -73,6 +98,10 @@ class discuz_application extends discuz_base{
 		$this->initated = true;
 	}
 
+	/**
+	 * 定义PHP环境信息常量和全局变量 $_G
+	 *
+	*/
 	private function _init_env() {
 
 		error_reporting(E_ERROR);
@@ -92,6 +121,10 @@ class discuz_application extends discuz_base{
 			exit('function_core.php is missing');
 		}
 
+		/**
+		 * 部分php环境内存设置过低，导致程序无法正常工作，此处判断当内存分配小于32M时，将内存加大至 128M
+		 * 经测试，X系统如果php限制内存小于8M时程序将会运行异常
+		 */
 		if(function_exists('ini_get')) {
 			$memorylimit = @ini_get('memory_limit');
 			if($memorylimit && return_bytes($memorylimit) < 33554432 && function_exists('ini_set')) {
@@ -99,16 +132,20 @@ class discuz_application extends discuz_base{
 			}
 		}
 
+		//是否搜索引擎访问
 		define('IS_ROBOT', checkrobot());
 
+		//清理全局变量
 		foreach ($GLOBALS as $key => $value) {
 			if (!isset($this->superglobal[$key])) {
 				$GLOBALS[$key] = null; unset($GLOBALS[$key]);
 			}
 		}
 
+		// 配置全局变量
 		global $_G;
 		$_G = array(
+			//公用全局定义
 			'uid' => 0,
 			'username' => '',
 			'adminid' => 0,
@@ -134,7 +171,7 @@ class discuz_application extends discuz_base{
 			'siteport' => '',
 
 			'pluginrunlist' => !defined('PLUGINRUNLIST') ? array() : explode(',', PLUGINRUNLIST),
-
+			//公用全局数组定义
 			'config' => array(),
 			'setting' => array(),
 			'member' => array(),
@@ -144,27 +181,32 @@ class discuz_application extends discuz_base{
 			'cache' => array(),
 			'session' => array(),
 			'lang' => array(),
-			'my_app' => array(),
-			'my_userapp' => array(),
+			'my_app' => array(),//默认应用
+			'my_userapp' => array(),//用户自添加应用
 
+			//论坛全局定义
 			'fid' => 0,
 			'tid' => 0,
 			'forum' => array(),
 			'thread' => array(),
 			'rssauth' => '',
 
+			//uch 全局定义
 			'home' => array(),
 			'space' => array(),
 
+			//portal 全局定义
 			'block' => array(),
 			'article' => array(),
 
+			//Action
 			'action' => array(
 				'action' => APPTYPEID,
 				'fid' => 0,
 				'tid' => 0,
 			),
 
+			//用户使用的手机浏览器
 			'mobile' => '',
 			'notice_structure' => array(
 				'mypost' => array('post','pcomment','activity','reward','goods','at'),
@@ -191,6 +233,7 @@ class discuz_application extends discuz_base{
 		$_G['siteroot'] = isset($url['path']) ? $url['path'] : '';
 		$_G['siteport'] = empty($_SERVER['SERVER_PORT']) || $_SERVER['SERVER_PORT'] == '80' || $_SERVER['SERVER_PORT'] == '443' ? '' : ':'.$_SERVER['SERVER_PORT'];
 
+		//note 门户中频道使用
 		if(defined('SUB_DIR')) {
 			$_G['siteurl'] = str_replace(SUB_DIR, '/', $_G['siteurl']);
 			$_G['siteroot'] = str_replace(SUB_DIR, '/', $_G['siteroot']);
@@ -222,16 +265,19 @@ class discuz_application extends discuz_base{
 	}
 
 	private function _init_input() {
+		//note 禁止对全局变量注入
 		if (isset($_GET['GLOBALS']) ||isset($_POST['GLOBALS']) ||  isset($_COOKIE['GLOBALS']) || isset($_FILES['GLOBALS'])) {
 			system_error('request_tainting');
 		}
 
+		// slashes 处理
 		if(MAGIC_QUOTES_GPC) {
 			$_GET = dstripslashes($_GET);
 			$_POST = dstripslashes($_POST);
 			$_COOKIE = dstripslashes($_COOKIE);
 		}
 
+		//cookie 处理
 		$prelength = strlen($this->config['cookie']['cookiepre']);
 		foreach($_COOKIE as $key => $val) {
 			if(substr($key, 0, $prelength) == $this->config['cookie']['cookiepre']) {
@@ -240,6 +286,9 @@ class discuz_application extends discuz_base{
 		}
 
 
+		/**
+		 * 将 $_GET 与 $_POST 合并处理
+		 */
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
 			$_GET = array_merge($_GET, $_POST);
 		}
@@ -248,10 +297,15 @@ class discuz_application extends discuz_base{
 			$_GET['page'] = rawurlencode($_GET['page']);
 		}
 
+		//$_GET['handlekey']= !empty($_GET['handlekey']) && preg_match('/^\w+$/', $_GET['handlekey']) ? $_GET['handlekey'] : '';
+		//禁止在底层额外增加变量，防止类似于支付宝之类需要通过URL参数计算校验码时就会出错
 		if(!(!empty($_GET['handlekey']) && preg_match('/^\w+$/', $_GET['handlekey']))) {
 			unset($_GET['handlekey']);
 		}
 
+		/**
+		 * 兼容模式旧模式, 逐渐抛弃
+		 */
 		if(!empty($this->var['config']['input']['compatible'])) {
 			foreach($_GET as $k => $v) {
 				$this->var['gp_'.$k] = daddslashes($v);
@@ -263,6 +317,7 @@ class discuz_application extends discuz_base{
 		$this->var['page'] = empty($_GET['page']) ? 1 : max(1, intval($_GET['page']));
 		$this->var['sid'] = $this->var['cookie']['sid'] = isset($this->var['cookie']['sid']) ? dhtmlspecialchars($this->var['cookie']['sid']) : '';
 
+		//新的加密机制，与浏览器的类型无关
 		if(empty($this->var['cookie']['saltkey'])) {
 			$this->var['cookie']['saltkey'] = random(8);
 			dsetcookie('saltkey', $this->var['cookie']['saltkey'], 86400 * 30, 1, 1);
@@ -318,21 +373,26 @@ class discuz_application extends discuz_base{
 	private function _init_output() {
 
 
+		//防页面刷新
 		if($this->config['security']['attackevasive'] && (!defined('CURSCRIPT') || !in_array($this->var['mod'], array('seccode', 'secqaa', 'swfupload')) && !defined('DISABLEDEFENSE'))) {
 			require_once libfile('misc/security', 'include');
 		}
 
+		//客户端不支持 gzip
 		if(!empty($_SERVER['HTTP_ACCEPT_ENCODING']) && strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') === false) {
 			$this->config['output']['gzip'] = false;
 		}
 
+		// 开启gzip判断
 		$allowgzip = $this->config['output']['gzip'] && empty($this->var['inajax']) && $this->var['mod'] != 'attachment' && EXT_OBGZIP;
 		setglobal('gzipcompress', $allowgzip);
 
+		// bug兼容 php 5.4.0 - 5.4.4
 		if(!ob_start($allowgzip ? 'ob_gzhandler' : null)) {
 			ob_start();
 		}
 
+		//note charset and header
 		setglobal('charset', $this->config['output']['charset']);
 		define('CHARSET', $this->config['output']['charset']);
 		if($this->config['output']['forceheader']) {
@@ -347,6 +407,12 @@ class discuz_application extends discuz_base{
 		}
 	}
 
+	/**
+	 * GET 参数跨站检测
+	 *
+	 * 2011-3-8 增加对 CONTENT-TRANSFER-ENCODING 代码的检测 (IE MHTML 漏洞)
+	 * http://www.80vul.com/webzine_0x05/0x05%20IE%E4%B8%8BMHTML%E5%8D%8F%E8%AE%AE%E5%B8%A6%E6%9D%A5%E7%9A%84%E8%B7%A8%E5%9F%9F%E5%8D%B1%E5%AE%B3.html
+	 */
 	private function _xss_check() {
 
 		static $check = array('"', '>', '<', '\'', '(', ')', 'CONTENT-TRANSFER-ENCODING');
@@ -430,6 +496,7 @@ class discuz_application extends discuz_base{
 				}
 			}
 
+			// 首次登陆更新最后访问时间，每隔 10 分钟更新用户最后动作时间
 			if($this->var['uid'] && !$sessionclose && ($this->session->isnew || ($this->session->get('lastactivity') + 600) < TIMESTAMP)) {
 				$this->session->set('lastactivity', TIMESTAMP);
 				if($this->session->isnew) {
@@ -539,6 +606,7 @@ class discuz_application extends discuz_base{
 	}
 
 	private function _init_cron() {
+		// 启用外部控制服务来判断计划任务执行
 		$ext = empty($this->config['remote']['on']) || empty($this->config['remote']['cron']) || APPTYPEID == 200;
 		if($this->init_cron && $this->init_setting && $ext) {
 			if($this->var['cache']['cronnextrun'] <= TIMESTAMP) {
@@ -556,8 +624,10 @@ class discuz_application extends discuz_base{
 		if(!$this->init_misc) {
 			return false;
 		}
+		// 调入核心语言包
 		lang('core');
 
+		//处理全局时区设置
 		if($this->init_setting && $this->init_user) {
 			if(!isset($this->var['member']['timeoffset']) || $this->var['member']['timeoffset'] == 9999 || $this->var['member']['timeoffset'] === '') {
 				$this->var['member']['timeoffset'] = $this->var['setting']['timeoffset'];
@@ -574,6 +644,7 @@ class discuz_application extends discuz_base{
 		$this->var['formhash'] = formhash();
 		define('FORMHASH', $this->var['formhash']);
 
+		//封禁用户
 		if($this->init_user) {
 			$allowvisitflag = in_array(CURSCRIPT, array('member')) || defined('ALLOWGUEST') && ALLOWGUEST;
 			if($this->var['group'] && isset($this->var['group']['allowvisit']) && !$this->var['group']['allowvisit']) {
@@ -591,6 +662,7 @@ class discuz_application extends discuz_base{
 					}
 				}
 			}
+			//用户锁定
 			if(isset($this->var['member']['status']) && $this->var['member']['status'] == -1 && !$allowvisitflag) {
 				if(!defined('IN_MOBILE_API')) {
 					showmessage('user_banned');
@@ -608,6 +680,7 @@ class discuz_application extends discuz_base{
 			}
 		}
 
+		//站点开关检查
 		if($this->var['setting']['bbclosed']) {
 			if($this->var['uid'] && ($this->var['group']['allowvisit'] == 2 || $this->var['groupid'] == 1)) {
 			} elseif(in_array(CURSCRIPT, array('admin', 'member', 'api')) || defined('ALLOWGUEST') && ALLOWGUEST) {
@@ -622,10 +695,12 @@ class discuz_application extends discuz_base{
 			}
 		}
 
+		//禁止访问时间段检查
 		if(CURSCRIPT != 'admin' && !(in_array($this->var['mod'], array('logging', 'seccode')))) {
 			periodscheck('visitbanperiods');
 		}
 
+		//noteX 手机端控制每页显示主题数和回帖数
 		if(defined('IN_MOBILE')) {
 			$this->var['tpp'] = $this->var['setting']['mobile']['mobiletopicperpage'] ? intval($this->var['setting']['mobile']['mobiletopicperpage']) : 20;
 			$this->var['ppp'] = $this->var['setting']['mobile']['mobilepostperpage'] ? intval($this->var['setting']['mobile']['mobilepostperpage']) : 5;
@@ -640,9 +715,11 @@ class discuz_application extends discuz_base{
 			@header("Pragma: no-cache");
 		}
 
+		//note 判断并执行每日登录奖励积分
 		if($this->session->isnew && $this->var['uid']) {
 			updatecreditbyaction('daylogin', $this->var['uid']);
 
+			//统计更新
 			include_once libfile('function/stat');
 			updatestat('login', 1);
 			if(defined('IN_MOBILE')) {
@@ -723,11 +800,15 @@ class discuz_application extends discuz_base{
 		define('TEMPLATEID', $this->var['style']['templateid']);
 	}
 
+	/**
+	* 手机处理的方法
+	*/
 	private function _init_mobile() {
 		if(!$this->init_mobile) {
 			return false;
 		}
 
+		//noteX 强制退出mobile
 		if(!$this->var['setting'] || !$this->var['setting']['mobile']['allowmobile'] || !is_array($this->var['setting']['mobile']) || IS_ROBOT) {
 			$nomobile = true;
 			$unallowmobile = true;
@@ -742,6 +823,7 @@ class discuz_application extends discuz_base{
 		} elseif($this->var['cookie']['mobile'] == 'no' && $mobileflag) {
 			checkmobile();
 			dsetcookie('mobile', '');
+		//当存在cookie，但上面条件均不成立时
 		} elseif($this->var['cookie']['mobile'] == 'no') {
 			$nomobile = true;
 		} elseif(!($mobile_ = checkmobile())) {
@@ -750,12 +832,14 @@ class discuz_application extends discuz_base{
 			$mobile = isset($mobile_) ? $mobile_ : 1;
 		}
 
+		//noteX 电脑访问手机专题页面
 		if(!$this->var['mobile'] && !$unallowmobile) {
 			if($mobileflag) {
 				dheader("Location:misc.php?mod=mobile");
 			}
 		}
 
+		//判断是否设置了手机浏览器跳转
 		if($nomobile || (!$this->var['setting']['mobile']['mobileforward'] && !$mobileflag)) {
 			if($_SERVER['HTTP_HOST'] == $this->var['setting']['domain']['app']['mobile'] && $this->var['setting']['domain']['app']['default']) {
 				dheader("Location:http://".$this->var['setting']['domain']['app']['default'].$_SERVER['REQUEST_URI']);
@@ -765,6 +849,7 @@ class discuz_application extends discuz_base{
 			}
 		}
 
+		//允许进入手机版时发现不是手机版的应用频道，并没有强制mod参数时，多出现于index.php
 		if(strpos($this->var['setting']['domain']['defaultindex'], CURSCRIPT) !== false && CURSCRIPT != 'forum' && !$_GET['mod']) {
 			if($this->var['setting']['domain']['app']['mobile']) {
 				$mobileurl = 'http://'.$this->var['setting']['domain']['app']['mobile'];
@@ -792,6 +877,7 @@ class discuz_application extends discuz_base{
 		$query_sting_tmp = str_replace($arr, '', $_SERVER['QUERY_STRING']);
 		$this->var['setting']['mobile']['nomobileurl'] = ($this->var['setting']['domain']['app']['forum'] ? 'http://'.$this->var['setting']['domain']['app']['forum'].'/' : $this->var['siteurl']).$this->var['basefilename'].($query_sting_tmp ? '?'.$query_sting_tmp.'&' : '?').'mobile=no';
 
+		//手机版禁用lazyload
 		$this->var['setting']['lazyload'] = 0;
 
 		if('utf-8' != CHARSET) {
@@ -809,14 +895,17 @@ class discuz_application extends discuz_base{
 
 
 		if(!$this->var['setting']['mobile']['mobilesimpletype']) {
+			//noteX 强制站内图片显示宽度
 			$this->var['setting']['imagemaxwidth'] = 224;
 		}
 
+		//noteX 强制手机端是否允许注册
 		$this->var['setting']['regstatus'] = $this->var['setting']['mobile']['mobileregister'] ? $this->var['setting']['regstatus'] : 0 ;
 
 		$this->var['setting']['thumbquality'] = 50;
 		$this->var['setting']['avatarmethod'] = 0;
 
+		//noteX 标准版(本页)链接、极速版(本页)链接、电脑版(本页)链接
 		$this->var['setting']['mobile']['simpletypeurl'] = array();
 		$this->var['setting']['mobile']['simpletypeurl'][0] = $this->var['siteurl'].$this->var['basefilename'].($query_sting_tmp ? '?'.$query_sting_tmp.'&' : '?').'mobile=1&simpletype=no';
 		$this->var['setting']['mobile']['simpletypeurl'][1] =  $this->var['siteurl'].$this->var['basefilename'].($query_sting_tmp ? '?'.$query_sting_tmp.'&' : '?').'mobile=1&simpletype=yes';
@@ -831,6 +920,11 @@ class discuz_application extends discuz_base{
 		}
 	}
 
+	/**
+	* 手机转码的$_POST多层数组递归转码
+	* @param $value - 字符串
+	* @return 返回转义好的字符串
+	*/
        public function mobile_iconv_recurrence($value) {
 		if(is_array($value)) {
 			foreach($value AS $key => $val) {

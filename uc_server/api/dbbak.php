@@ -11,21 +11,22 @@ error_reporting(0);
 
 define('IN_COMSENZ', TRUE);
 define('ROOT_PATH', dirname(__FILE__).'/../');
-define('EXPLOR_SUCCESS', 0);
-define('IMPORT_SUCCESS', 0);
-define('DELETE_SQLPATH_SUCCESS', 4);
-define('MKDIR_ERROR', 1);
-define('DATABASE_EXPORT_FILE_INVALID', 2);
-define('RUN_SQL_ERROR', 3);
-define('SQLPATH_NULL_NOEXISTS', 4);
-define('SQLPATH_NOMATCH_BAKFILE', 5);
-define('BAK_FILE_LOSE', 6);
-define('DIR_NO_EXISTS', 7);
-define('DELETE_DUMPFILE_ERROR', 8);
-define('DB_API_NO_MATCH', 9);
+// 错误代码定义
+define('EXPLOR_SUCCESS', 0);// 导出成功
+define('IMPORT_SUCCESS', 0);// 导入成功
+define('DELETE_SQLPATH_SUCCESS', 4);// 删除备份文件成功
+define('MKDIR_ERROR', 1);// 创建目录失败
+define('DATABASE_EXPORT_FILE_INVALID', 2);// 备份文件写入失败
+define('RUN_SQL_ERROR', 3);// sql执行错误
+define('SQLPATH_NULL_NOEXISTS', 4);// sqlpath为空或者目录不存在
+define('SQLPATH_NOMATCH_BAKFILE', 5);// 指定sqlpaht没有找到合法的备份文件
+define('BAK_FILE_LOSE', 6);// 备份文件缺失
+define('DIR_NO_EXISTS', 7);// 指定备份目录不存在
+define('DELETE_DUMPFILE_ERROR', 8);// 删除指定的数据库备份文件错误
+define('DB_API_NO_MATCH', 9);// 备份接口程序暂不支持此种应用的备份
 
-$sizelimit = 2000;
-$usehex = true;
+$sizelimit = 2000;// 分卷的大小，单位K，默认为2000K，请不要设置的太大，一面超出php可操作的内存
+$usehex = true;// 使用十六进制，可以最大程度避免字符集问题。
 
 $code = @$_GET['code'];
 $apptype = @$_GET['apptype'];
@@ -33,14 +34,14 @@ $apptype = @$_GET['apptype'];
 $apptype = strtolower($apptype);
 
 if($apptype == 'discuz') {
-	require ROOT_PATH.'./config.inc.php';
-} elseif($apptype == 'uchome' || $apptype == 'supesite' || $apptype == 'supev') {
-	require ROOT_PATH.'./config.php';
-} elseif($apptype == 'ucenter') {
+	require ROOT_PATH.'./config.inc.php';// 加载配置文件
+} elseif($apptype == 'uchome' || $apptype == 'supesite' || $apptype == 'supev') {// uchome or supsite or supev
+	require ROOT_PATH.'./config.php';// 加载配置文件
+} elseif($apptype == 'ucenter') {// ucenter
 	require ROOT_PATH.'./data/config.inc.php';
-} elseif($apptype == 'ecmall') {
+} elseif($apptype == 'ecmall') {// ecmall
 	require ROOT_PATH.'./data/inc.config.php';
-} elseif($apptype == 'ecshop') {
+} elseif($apptype == 'ecshop') {// ecshop
 	require ROOT_PATH.'./data/config.php';
 } else {
 	api_msg('db_api_no_match', $apptype);
@@ -192,10 +193,10 @@ class dbstuff {
 
 $db = new dbstuff();
 $version = '';
-if($apptype == 'discuz') {
+if($apptype == 'discuz') {// discuz
 
-	define('BACKUP_DIR', ROOT_PATH.'forumdata/');
-	$tablepre = $tablepre;
+	define('BACKUP_DIR', ROOT_PATH.'forumdata/');// 数据库备份文件放置路径
+	$tablepre = $tablepre;// 表前缀赋值，不同的产品请修改此表达式
 	if(empty($dbcharset)) {
 		$dbcharset = in_array(strtolower($charset), array('gbk', 'big5', 'utf-8')) ? str_replace('-', '', $charset) : '';
 	}
@@ -204,24 +205,24 @@ if($apptype == 'discuz') {
 	include ROOT_PATH.'discuz_version.php';
 	$version = DISCUZ_VERSION;
 
-} elseif($apptype == 'uchome' || $apptype == 'supesite') {
+} elseif($apptype == 'uchome' || $apptype == 'supesite') {// uchome
 
-	define('BACKUP_DIR', ROOT_PATH.'./data/');
-	$tablepre = $_SC['tablepre'];
+	define('BACKUP_DIR', ROOT_PATH.'./data/');// 数据库备份文件放置路径
+	$tablepre = $_SC['tablepre'];// 表前缀赋值，不同的产品请修改此表达式
 	$dbcharset = $_SC['dbcharset'];
 	$db->connect($_SC['dbhost'], $_SC['dbuser'], $_SC['dbpw'], $_SC['dbname'], $dbcharset, $_SC['pconnect'], $tablepre);
 
-} elseif($apptype == 'ucenter') {
+} elseif($apptype == 'ucenter') {// ucenter
 
-	define('BACKUP_DIR', ROOT_PATH.'./data/backup/');
-	$tablepre = UC_DBTABLEPRE;
+	define('BACKUP_DIR', ROOT_PATH.'./data/backup/');// 数据库备份文件放置路径
+	$tablepre = UC_DBTABLEPRE;// 表前缀赋值，不同的产品请修改此表达式
 	$dbcharset = UC_DBCHARSET;
 	$db->connect(UC_DBHOST, UC_DBUSER, UC_DBPW, UC_DBNAME, $dbcharset, UC_DBCONNECT, $tablepre);
 
-} elseif($apptype == 'ecmall') {
+} elseif($apptype == 'ecmall') {// ecmall
 
-	define('BACKUP_DIR', ROOT_PATH.'./data/backup/');
-	$tablepre = DB_PREFIX;
+	define('BACKUP_DIR', ROOT_PATH.'./data/backup/');// 数据库备份文件放置路径
+	$tablepre = DB_PREFIX;// 表前缀赋值，不同的产品请修改此表达式
 	$dbcharset = strtolower(str_replace('-', '', strstr(LANG, '-')));
 	$cfg = parse_url(DB_CONFIG);
 	if(empty($cfg['pass'])) {
@@ -234,25 +235,25 @@ if($apptype == 'discuz') {
 
 	$db->connect($cfg['host'].':'.$cfg['port'], $cfg['user'], $cfg['pass'], $cfg['path'], $dbcharset, 0, $tablepre);
 
-} elseif($apptype == 'supev') {
+} elseif($apptype == 'supev') {// supev
 
-	define('BACKUP_DIR', ROOT_PATH.'data/backup/');
-	$tablepre = $tablepre;
+	define('BACKUP_DIR', ROOT_PATH.'data/backup/');// 数据库备份文件放置路径
+	$tablepre = $tablepre;// 表前缀赋值，不同的产品请修改此表达式
 	if(empty($dbcharset)) {
 		$dbcharset = in_array(strtolower($charset), array('gbk', 'big5', 'utf-8')) ? str_replace('-', '', $charset) : '';
 	}
 	$db->connect($dbhost, $dbuser, $dbpw, $dbname, $dbcharset, $pconnect, $tablepre);
 
-} elseif($apptype == 'ecshop') {
+} elseif($apptype == 'ecshop') {// ecshop
 
-	define('BACKUP_DIR', ROOT_PATH.'data/backup/');
-	$tablepre = $prefix;
+	define('BACKUP_DIR', ROOT_PATH.'data/backup/');// 数据库备份文件放置路径
+	$tablepre = $prefix;// 表前缀赋值，不同的产品请修改此表达式
 	$dbcharset = 'utf8';
 	$db->connect($db_host, $db_user, $db_pass, $db_name, $dbcharset, 0, $tablepre);
 
 }
 
-if($get['method'] == 'export') {
+if($get['method'] == 'export') {// 导出备份
 
 	$db->query('SET SQL_QUOTE_SHOW_CREATE=0', 'SILENT');
 
@@ -261,7 +262,7 @@ if($get['method'] == 'export') {
 	$tables = array();
 	$tables = arraykeys2(fetchtablelist($tablepre), 'Name');
 
-	if($apptype == 'discuz') {
+	if($apptype == 'discuz') {// discuz的备份需要备份插件表关联的数据
 		$query = $db->query("SELECT datatables FROM {$tablepre}plugins WHERE datatables<>''");
 		while($plugin = $db->fetch_array($query)) {
 			foreach(explode(',', $plugin['datatables']) as $table) {
@@ -277,7 +278,7 @@ if($get['method'] == 'export') {
 	$version = $version ? $version : $apptype;
 	$idstring = '# Identify: '.base64_encode("$timestamp,$version,$apptype,multivol,$get[volume]")."\n";
 
-	if(!isset($get['sqlpath']) || empty($get['sqlpath'])) {
+	if(!isset($get['sqlpath']) || empty($get['sqlpath'])) {// 若没有指定存放目录，则设定存放备份数据的目录
 		$get['sqlpath'] = 'backup_'.date('ymd', $timestamp).'_'.random(6);
 		if(!mkdir(BACKUP_DIR.'./'.$get['sqlpath'], 0777)) {
 			api_msg('mkdir_error', 'make dir error:'.BACKUP_DIR.'./'.$get['sqlpath']);
@@ -288,7 +289,7 @@ if($get['method'] == 'export') {
 		}		
 	}
 
-	if(!isset($get['backupfilename']) || empty($get['backupfilename'])) {
+	if(!isset($get['backupfilename']) || empty($get['backupfilename'])) {// 若没有指定备份文件名，则设定保存数据的文件名
 		$get['backupfilename'] = date('ymd', $timestamp).'_'.random(6);
 	}
 
@@ -332,7 +333,7 @@ if($get['method'] == 'export') {
 		api_msg('explor_success', 'explor_success');
 	}
 
-} elseif($get['method'] == 'import') {
+} elseif($get['method'] == 'import') {// 导入备份，即恢复数据
 
 	if(!isset($get['dumpfile']) || empty($get['dumpfile'])) {
 		$get['dumpfile'] = get_dumpfile_by_path($get['sqlpath']);
@@ -354,6 +355,7 @@ if($get['method'] == 'export') {
 	unset($sqldump);
 
 	foreach($sqlquery as $sql) {
+		// 兼容SQL建表格式，调整为当前版本和字符集合适的建表语句
 		$sql = syntablestruct(trim($sql), $db->version() > '4.1', $dbcharset);
 
 		if($sql != '') {
@@ -368,7 +370,7 @@ if($get['method'] == 'export') {
 	$get['dumpfile'] = $next_dumpfile;
 	auto_next($get, BACKUP_DIR.$get['sqlpath'].'/'.$cur_file);
 
-} elseif($get['method'] == 'ping') {
+} elseif($get['method'] == 'ping') {// 探测某个指定目录下是否有备份数据
 
 	if($get['dir'] && is_dir(BACKUP_DIR.$get['dir'])) {
 		echo "1";exit;
@@ -376,7 +378,7 @@ if($get['method'] == 'export') {
 		echo "-1";exit;
 	}
 
-} elseif($get['method'] == 'list') {
+} elseif($get['method'] == 'list') {// 列出可用的备份目录，以xml格式返回
 
 	$str = "<root>\n";
 	$directory = dir(BACKUP_DIR);
@@ -394,7 +396,7 @@ if($get['method'] == 'export') {
 	echo $str;
 	exit;
 
-} elseif($get['method'] == 'view') {
+} elseif($get['method'] == 'view') {// 显示具体的某一个备份目录下的详情
 
 	$sqlpath = trim($get['sqlpath']);
 	if(empty($sqlpath) || !is_dir(BACKUP_DIR.$sqlpath)) {
@@ -420,7 +422,7 @@ if($get['method'] == 'export') {
 	echo $str;
 	exit;
 	
-} elseif($get['method'] == 'delete') {
+} elseif($get['method'] == 'delete') {// 删除具体的某一个备份目录下的备份文件，目录同时也删除
 
 	$sqlpath = trim($get['sqlpath']);
 	if(empty($sqlpath) || !is_dir(BACKUP_DIR.$sqlpath)) {
@@ -441,20 +443,26 @@ if($get['method'] == 'export') {
 
 function syntablestruct($sql, $version, $dbcharset) {
 
+	// 是否为建表语句
 	if(strpos(trim(substr($sql, 0, 18)), 'CREATE TABLE') === FALSE) {
 		return $sql;
 	}
 
+	// 自动判断当前建表语句的版本
 	$sqlversion = strpos($sql, 'ENGINE=') === FALSE ? FALSE : TRUE;
 
+	// 如果都为同一版本，则不做处理
 	if($sqlversion === $version) {
 
+		// 如果为高版本，并且设置了转换的字符集，则进行替换。
 		return $sqlversion && $dbcharset ? preg_replace(array('/ character set \w+/i', '/ collate \w+/i', "/DEFAULT CHARSET=\w+/is"), array('', '', "DEFAULT CHARSET=$dbcharset"), $sql) : $sql;
 	}
 
+	// 如果低转高
 	if($version) {
 		return preg_replace(array('/TYPE=HEAP/i', '/TYPE=(\w+)/is'), array("ENGINE=MEMORY DEFAULT CHARSET=$dbcharset", "ENGINE=\\1 DEFAULT CHARSET=$dbcharset"), $sql);
 
+	// 如果高转低
 	} else {
 		return preg_replace(array('/character set \w+/i', '/collate \w+/i', '/ENGINE=MEMORY/i', '/\s*DEFAULT CHARSET=\w+/is', '/\s*COLLATE=\w+/is', '/ENGINE=(\w+)(.*)/is'), array('', '', 'ENGINE=HEAP', '', '', 'TYPE=\\1\\2'), $sql);
 	}
@@ -581,6 +589,7 @@ function sqldumptable($table, $currsize = 0) {
 
 		$create = $db->fetch_row($createtable);
 
+		//debug 判断是否在不同数据库
 		if(strpos($table, '.') !== FALSE) {
 			$tablename = substr($table, strpos($table, '.') + 1);
 			$create[1] = str_replace("CREATE TABLE $tablename", 'CREATE TABLE '.$table, $create[1]);

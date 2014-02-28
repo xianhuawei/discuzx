@@ -25,6 +25,12 @@ class helper_dbtool {
 		return $dbsize;
 	}
 
+	/**
+	 * 获取表状态
+	 * @param String $tablename: 获取指定表的表状态
+	 * @param boolean $formatsize: 是否对Data_length/Index_length在值进行格式化操作
+	 * @return 返回表状态的数组
+	 */
 	public static function gettablestatus($tablename, $formatsize = true) {
 		$status = DB::fetch_first("SHOW TABLE STATUS LIKE '".str_replace('_', '\_', $tablename)."'");
 

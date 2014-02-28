@@ -82,6 +82,7 @@ if($operation=='perm') {
 			cpmsg('block_not_exists');
 		}
 
+		//更新用户
 		$users = array();
 		if(is_array($_GET['perm'])) {
 			foreach($_GET['perm'] as $uid => $value) {
@@ -91,6 +92,7 @@ if($operation=='perm') {
 					$user['allowmanage'] = $_GET['allowmanage'][$uid] ? 1 : 0;
 					$user['allowrecommend'] = $_GET['allowrecommend'][$uid] ? 1 : 0;
 					$user['needverify'] = $_GET['needverify'][$uid] ? 1 : 0;
+					//过滤修改
 					if($value['allowmanage'] != $user['allowmanage'] || $value['allowrecommend'] != $user['allowrecommend']	|| $value['needverify'] != $user['needverify'] ) {
 						$user['uid'] = intval($uid);
 						$users[] = $user;
@@ -98,6 +100,7 @@ if($operation=='perm') {
 				}
 			}
 		}
+		//添加新用户
 		if(!empty($_GET['newuser'])) {
 			$uid = C::t('common_member')->fetch_uid_by_username($_GET['newuser']);
 			if($uid) {
@@ -117,10 +120,12 @@ if($operation=='perm') {
 			$blockpermsission->add_users_perm($bid, $users);
 		}
 
+		//删除用户
 		if(!empty($_GET['delete'])) {
 			$blockpermsission->delete_users_perm($bid, $_GET['delete']);
 		}
 
+		//更新模块的继承权限
 		$notinherited = !$_POST['inheritance'] ? '1' : '0';
 		if($notinherited != $block['notinherited']) {
 			if($notinherited) {
@@ -136,7 +141,7 @@ if($operation=='perm') {
 
 } else {
 
-	if(submitcheck('deletesubmit')) {
+	if(submitcheck('deletesubmit')) {// 删除指定
 
 		if($_POST['ids']) {
 			C::t('common_block_item')->delete_by_bid($_POST['ids']);
@@ -147,13 +152,13 @@ if($operation=='perm') {
 			cpmsg('block_choose_at_least_one_block', 'action=block&operation=jscall', 'error');
 		}
 
-	} elseif(submitcheck('clearsubmit')) {
+	} elseif(submitcheck('clearsubmit')) {// 清理未使用模块
 
 		include_once libfile('function/block');
 		block_clear();
 		cpmsg('block_clear_unused_succeed', 'action=block', 'succeed');
 
-	} else {
+	} else {// 列表
 
 		loadcache(array('diytemplatename'));
 		$searchctrl = '<span style="float: right; padding-right: 40px;">'
@@ -167,6 +172,7 @@ if($operation=='perm') {
 
 		$mpurl = ADMINSCRIPT.'?action=block&operation='.$operation;
 
+		//处理搜索
 		$intkeys = array('bid');
 		$strkeys = array('blockclass');
 		$strkeys[] = 'targettplname';
@@ -179,7 +185,7 @@ if($operation=='perm') {
 		$wherearr = $results['wherearr'];
 		$mpurl .= '&'.implode('&', $results['urls']);
 
-		$wherearr[] = $operation=='jscall' ? "blocktype='1'" : "blocktype='0'";
+		$wherearr[] = $operation=='jscall' ? "blocktype='1'" : "blocktype='0'";//是否js调用
 		if($_GET['permname']) {
 			$bids = '';
 			$uid = ($uid = C::t('common_member')->fetch_uid_by_username($_GET['permname'])) ? $uid : C::t('common_member_archive')->fetch_uid_by_username($_GET['permname']);
@@ -197,6 +203,7 @@ if($operation=='perm') {
 		$wheresql = empty($wherearr)?'1':implode(' AND ', $wherearr);
 		$wheresql = str_replace(array('bid', 'blockclass', ' name', 'blocktype', 'targettplname'), array('b.bid', 'b.blockclass', ' b.name', 'b.blocktype', 'tb.targettplname'), $wheresql);
 
+		//排序
 		$orders = getorders(array('bid', 'dateline'), 'bid');
 		$ordersql = $orders['sql'];
 		if($orders['urls']) $mpurl .= '&'.implode('&', $orders['urls']);
@@ -208,6 +215,7 @@ if($operation=='perm') {
 		$perpages = array($perpage=>' selected');
 		$mpurl .= '&perpage='.$perpage;
 
+		// search 表单 语言
 		$searchlang = array();
 		$keys = array('search', 'likesupport', 'lengthabove1', 'resultsort', 'defaultsort', 'orderdesc', 'orderasc', 'perpage_10', 'perpage_20', 'perpage_50', 'perpage_100',
 		'block_dateline', 'block_id', 'block_name', 'block_blockclass', 'block_add_jscall', 'block_choose_blockclass_to_add_jscall', 'block_diytemplate', 'block_permname', 'block_permname_tips');
@@ -221,6 +229,7 @@ if($operation=='perm') {
 			$diytemplatename_sel .= "<option value=\"$key\"$selected>$value</option>";
 		}
 		$diytemplatename_sel .= '</select>';
+		// 样式下拉框
 		$blockclass_sel = '<select name="blockclass" id="blockclass">';
 		$blockclass_sel .= '<option value="">'.cplang('blockstyle_blockclass_sel').'</option>';
 		foreach($_G['cache']['blockclass'] as $key=>$value) {
@@ -292,11 +301,12 @@ SEARCH;
 
 		$list = $diypage = array();
 		include_once libfile('function/block');
-		if($operation=='jscall') {
+		if($operation=='jscall') {//note js调用
 			showsubtitle(array('', 'block_name', 'block_script', 'block_style', 'block_dateline', 'block_page', 'operation'));
 			$multipage = '';
 			if(($count = C::t('common_block')->count_by_admincpwhere($wheresql))) {
 				foreach(C::t('common_block')->fetch_all_by_admincpwhere($wheresql, $ordersql, $start, $perpage) as $value) {
+					//所在页面的处理
 					if($value['targettplname']) {
 						$diyurl = block_getdiyurl($value['targettplname']);
 						$diyurl = $diyurl['url'];
@@ -331,12 +341,13 @@ SEARCH;
 			showtablefooter();
 			showformfooter();
 
-		} else {
+		} else {//模块显示
 
 			showsubtitle(array('block_name', 'block_script', 'block_style', 'block_dateline', 'block_page', 'operation'));
 			$multipage = '';
 			if(($count = C::t('common_block')->count_by_admincpwhere($wheresql))) {
 				foreach(C::t('common_block')->fetch_all_by_admincpwhere($wheresql, $ordersql, $start, $perpage) as $value) {
+					//所在页面的处理
 					if($value['targettplname']) {
 						$diyurl = block_getdiyurl($value['targettplname']);
 						$diyurl = $diyurl['url'];

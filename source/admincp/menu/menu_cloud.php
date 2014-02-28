@@ -18,7 +18,9 @@ $topmenu['cloud'] = '';
 try {
 	$cloudStatus = $appService->checkCloudStatus();
 } catch (Cloud_Service_AppException $e) {
+	// 状态异常不抛
 }
+// 取消了菜单处判断是否为创始人的判断
 if ($cloudStatus == 'cloud') {
 	$menu['cloud'] = array(
 		array('menu_cloud_applist', 'cloud_applist'),

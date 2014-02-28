@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//校验用户身份
 $_G['uid'] = intval($_POST['uid']);
 
 if((empty($_G['uid']) && $_GET['operation'] != 'upload') || $_POST['hash'] != md5(substr(md5($_G['config']['security']['authkey']), 8).$_G['uid'])) {
@@ -30,6 +31,7 @@ if($_GET['operation'] == 'upload') {
 		$_FILES['Filedata']['name'] = diconv(urldecode($_FILES['Filedata']['name']), 'UTF-8');
 		$_FILES['Filedata']['type'] = $_GET['filetype'];
 	}
+	//判断版块是否有自定义类型
 	$forumattachextensions = '';
 	$fid = intval($_GET['fid']);
 	if($fid) {
@@ -168,6 +170,7 @@ if($_GET['operation'] == 'upload') {
 		}
 
 	} else {
+		//检查权限
 		if(check_articleperm($catid, $aid, null, false, true) !== true) {
 			$errorcode = 3;
 		}
@@ -182,10 +185,13 @@ if($_GET['operation'] == 'upload') {
 		$upload->save();
 	}
 	if($upload->error()) {
+		//上传失败
 		$errorcode = 4;
 	}
 	if(!$errorcode) {
+		//上传成功
 		if($attach['isimage'] && empty($_G['setting']['portalarticleimgthumbclosed'])) {
+			//缩略图
 			require_once libfile('class/image');
 			$image = new image();
 			$thumbimgwidth = $_G['setting']['portalarticleimgthumbwidth'] ? $_G['setting']['portalarticleimgthumbwidth'] : 300;
@@ -194,13 +200,14 @@ if($_GET['operation'] == 'upload') {
 			$image->Watermark($attach['target'], '', 'portal');
 		}
 
+		//远程上传
 		if(getglobal('setting/ftp/on') && ((!$_G['setting']['ftp']['allowedexts'] && !$_G['setting']['ftp']['disallowedexts']) || ($_G['setting']['ftp']['allowedexts'] && in_array($attach['ext'], $_G['setting']['ftp']['allowedexts'])) || ($_G['setting']['ftp']['disallowedexts'] && !in_array($attach['ext'], $_G['setting']['ftp']['disallowedexts']))) && (!$_G['setting']['ftp']['minsize'] || $attach['size'] >= $_G['setting']['ftp']['minsize'] * 1024)) {
 			if(ftpcmd('upload', 'portal/'.$attach['attachment']) && (!$attach['thumb'] || ftpcmd('upload', 'portal/'.getimgthumbname($attach['attachment'])))) {
 				@unlink($_G['setting']['attachdir'].'/portal/'.$attach['attachment']);
 				@unlink($_G['setting']['attachdir'].'/portal/'.getimgthumbname($attach['attachment']));
 				$attach['remote'] = 1;
 			} else {
-				if(getglobal('setting/ftp/mirror')) {
+				if(getglobal('setting/ftp/mirror')) {//只能上传远程
 					@unlink($attach['target']);
 					@unlink(getimgthumbname($attach['target']));
 					$errorcode = 5;
@@ -208,6 +215,7 @@ if($_GET['operation'] == 'upload') {
 			}
 		}
 
+		//入库
 		$setarr = array(
 			'uid' => $_G['uid'],
 			'filename' => $attach['name'],

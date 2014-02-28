@@ -11,6 +11,9 @@ if(!defined('IN_DISCUZ') || !defined('IN_MODCP')) {
 	exit('Access Denied');
 }
 
+/**
+ * 版主前台编辑会员资料，仅限于 来自，签名，自我介绍，店铺介绍
+ */
 if($op == 'edit') {
 
 	$_GET['uid'] = isset($_GET['uid']) ? intval($_GET['uid']) : '';
@@ -61,6 +64,9 @@ if($op == 'edit') {
 
 	}
 
+/**
+ * 版主禁止会员管理
+ */
 } elseif($op == 'ban' && ($_G['group']['allowbanuser'] || $_G['group']['allowbanvisituser'])) {
 
 	$_GET['uid'] = isset($_GET['uid']) ? intval($_GET['uid']) : '';
@@ -68,6 +74,7 @@ if($op == 'edit') {
 	$member = loadmember($_GET['uid'], $_GET['username'], $error);
 	$usernameenc = $member ? rawurlencode($member['username']) : '';
 
+	//note 违规记录
 	include_once libfile('function/member');
 	$clist = crime('getactionlist', $member['uid']);
 
@@ -131,6 +138,7 @@ if($op == 'edit') {
 		}
 
 		C::t('common_member_field_forum')->update($member['uid'], array('groupterms' => serialize($member['groupterms'])));
+		//note 发送通知
 		if($_GET['bannew'] == 4) {
 			$notearr = array(
 				'user' => "<a href=\"home.php?mod=space&uid=$_G[uid]\">$_G[username]</a>",
@@ -152,6 +160,7 @@ if($op == 'edit') {
 			notification_add($member['uid'], 'system', 'member_ban_visit', $notearr, 1);
 		}
 
+		//note 违规记录
 		if($_GET['bannew'] == 4 || $_GET['bannew'] == 5) {
 			crime('recordaction', $member['uid'], ($_GET['bannew'] == 4 ? 'crime_banspeak' : 'crime_banvisit'), $reason);
 		}

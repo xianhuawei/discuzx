@@ -11,6 +11,29 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ * 图片处理类
+ *
+ * @example
+ *
+ * require_once libfile('class/image');
+ * $img = new image;
+ * $r = $img->Thumb($attachfile, '', $w, $h, 'fixwr');			//生成 $attachfile.'thumb.jpg' 为文件名的缩略图
+ * $r = $img->Thumb($attachfile, 'temp/test.jpg', $w, $h, 'fixwr');	//生成 /data/attachment/test/test.jpg' 为文件名的缩略图
+ * if($r) {
+ *	$isthumb = $r;
+ * } else {
+ *	$error = $img->error();
+ *	showmessage('Thumb Error');
+ * }
+ *
+ * $r = $img->Watermark($attachfile);					//为 $attachfile 加水印
+ * if(!$r) {
+ *	$error = $img->error();
+ *	showmessage('Watermark Error');
+ * }
+ *
+ */
 
 class image {
 
@@ -40,7 +63,28 @@ class image {
 		);
 	}
 
+	/*
+	 * $this->error() 返回值（用于处理失败时）
+	 *	 0: 图片不符合处理条件，无需处理正常退出
+	 *	-1: $source 为无效的图片文件
+	 *	-2: 文件权限不足无法处理图片($source 图片无法读取、$target 路径不可写)
+	 *	-3: 系统设置错误无法处理图片
+	 *	-4: 服务器缺少处理图片所需的功能
+	 */
 
+	/**
+	 * 生成图片的缩略图
+	 * @param $source 图片源路径
+	 * @param $target 生成的缩略图路径，路径为相对 data/attachment/ 的文件名
+	 *	本地图片省略时自动加后缀 .thumb.jpg，远程图片无法省略
+	 * @param $thumbwidth 缩略宽度
+	 * @param $thumbheight 缩略高度
+	 * @param $thumbtype 缩略方法
+	 *	fixnone / 1 : 小于指定大小、保持比率（默认）
+	 *	  fixwr / 2 : 与指定大小相同、保持比率，超出部分剪切
+	 * @param $nosuffix 缩略图路径不加 .thumb.jpg 后缀
+	 * @return 是否处理完毕
+	 */
 	function Thumb($source, $target, $thumbwidth, $thumbheight, $thumbtype = 1, $nosuffix = 0) {
 		$return = $this->init('thumb', $source, $target, $nosuffix);
 		if($return <= 0) {
@@ -48,10 +92,10 @@ class image {
 		}
 
 		if($this->imginfo['animated']) {
-			return $this->returncode(0);
+			return $this->returncode(0);//note 不处理缩略图正常退出
 		}
 		$this->param['thumbwidth'] = intval($thumbwidth);
-		if(!$thumbheight || $thumbheight > $this->imginfo['height']) {
+		if(!$thumbheight || $thumbheight > $this->imginfo['height']) {//note 瀑布流模式时不需要限制高度
 			$thumbheight = $thumbwidth > $this->imginfo['width'] ? $this->imginfo['height'] : $this->imginfo['height']*($thumbwidth/$this->imginfo['width']);
 		}
 		$this->param['thumbheight'] = intval($thumbheight);
@@ -73,7 +117,7 @@ class image {
 			return $this->returncode($return);
 		}
 		if($dstwidth < 0 || $dstheight < 0) {
-			return $this->returncode(false);
+			return $this->returncode(false); //通过returncode删除不再使用的临时图片
 		}
 		$this->param['dstwidth'] = $dstwidth;
 		$this->param['dstheight'] = $dstheight;
@@ -85,6 +129,13 @@ class image {
 		$return = !$this->libmethod ? $this->Cropper_GD() : $this->Cropper_IM();
 	}
 
+	/**
+	 * 生成图片的水印
+	 * @param $source 图片源路径
+	 * @param $target 生成的图片路径，省略表示同 $source
+	 * @param $type forum - 论坛; portal - 门户; album - 空间相册
+	 * @return 是否处理完毕
+	 */
 	function Watermark($source, $target = '', $type = 'forum') {
 		$return = $this->init('watermask', $source, $target);
 		if($return <= 0) {
@@ -92,11 +143,11 @@ class image {
 		}
 
 		if(!$this->param['watermarkstatus'][$type] || ($this->param['watermarkminwidth'][$type] && $this->imginfo['width'] <= $this->param['watermarkminwidth'][$type] && $this->param['watermarkminheight'][$type] && $this->imginfo['height'] <= $this->param['watermarkminheight'][$type])) {
-			return $this->returncode(0);
+			return $this->returncode(0);//note 不处理水印正常退出
 		}
 		$this->param['watermarkfile'][$type] = './static/image/common/'.($this->param['watermarktype'][$type] == 'png' ? 'watermark.png' : 'watermark.gif');
 		if(!is_readable($this->param['watermarkfile'][$type]) || ($this->param['watermarktype'][$type] == 'text' && (!file_exists($this->param['watermarktext']['fontpath'][$type]) || !is_file($this->param['watermarktext']['fontpath'][$type])))) {
-			return $this->returncode(-3);
+			return $this->returncode(-3);//note 系统设置错误
 		}
 
 		$return = !$this->libmethod ? $this->Watermark_GD($type) : $this->Watermark_IM($type);
@@ -113,17 +164,17 @@ class image {
 
 		$this->errorcode = 0;
 		if(empty($source)) {
-			return -2;
+			return -2;//note 无法读取、保存图片
 		}
 		$parse = parse_url($source);
 		if(isset($parse['host'])) {
 			if(empty($target)) {
-				return -2;
+				return -2;//note 无法读取、保存图片
 			}
 			$data = dfsockopen($source);
 			$this->tmpfile = $source = tempnam($_G['setting']['attachdir'].'./temp/', 'tmpimg_');
 			if(!$data || $source === FALSE) {
-				return -2;
+				return -2;//note 无法读取、保存图片
 			}
 			file_put_contents($source, $data);
 		}
@@ -137,12 +188,12 @@ class image {
 
 		clearstatcache();
 		if(!is_readable($source) || !is_writable($targetpath)) {
-			return -2;
+			return -2;//note 无法读取、保存图片
 		}
 
 		$imginfo = @getimagesize($source);
 		if($imginfo === FALSE) {
-			return -1;
+			return -1;//note 无效的图片文件
 		}
 
 		$this->source = $source;
@@ -174,17 +225,17 @@ class image {
 
 		if(!$this->libmethod && $this->imginfo['mime'] == 'image/gif') {
 			if(!$this->imagecreatefromfunc) {
-				return -4;
+				return -4;//note 服务器缺少处理图片的功能
 			}
 			if(!($fp = @fopen($source, 'rb'))) {
-				return -2;
+				return -2;//note 无法读取、保存图片
 			}
 			$content = fread($fp, $this->imginfo['size']);
 			fclose($fp);
 			$this->imginfo['animated'] = strpos($content, 'NETSCAPE2.0') === FALSE ? 0 : 1;
 		}
 
-		return $this->imagecreatefromfunc ? 1 : -4;
+		return $this->imagecreatefromfunc ? 1 : -4;//note 服务器缺少处理图片的功能
 	}
 
 	function sleep($return) {
@@ -239,14 +290,14 @@ class image {
 		$im = @$imagecreatefromfunc($this->source);
 		if(!$im) {
 			if(!function_exists('imagecreatefromstring')) {
-				return -4;
+				return -4;//note 服务器缺少处理图片的功能
 			}
 			$fp = @fopen($this->source, 'rb');
 			$contents = @fread($fp, filesize($this->source));
 			fclose($fp);
 			$im = @imagecreatefromstring($contents);
 			if($im == FALSE) {
-				return -1;
+				return -1;//note 无效的图片文件
 			}
 		}
 		return $im;
@@ -254,7 +305,7 @@ class image {
 
 	function Thumb_GD() {
 		if(!function_exists('imagecreatetruecolor') || !function_exists('imagecopyresampled') || !function_exists('imagejpeg') || !function_exists('imagecopymerge')) {
-			return -4;
+			return -4;//note 服务器缺少处理图片的功能
 		}
 
 		$imagefunc = &$this->imagefunc;
@@ -361,12 +412,17 @@ class image {
 			return $image;
 		}
 		$newimage = imagecreatetruecolor($this->param['dstwidth'], $this->param['dstheight']);
+		//生成新的裁切图
 		imagecopyresampled($newimage, $image, 0, 0, $this->param['srcx'], $this->param['srcy'], $this->param['dstwidth'], $this->param['dstheight'], $this->param['srcwidth'], $this->param['srcheight']);
 		ImageJpeg($newimage, $this->target, 100);
 		imagedestroy($newimage);
 		imagedestroy($image);
 		return true;
 	}
+	/**
+	 *
+	 * @todo 补充IM
+	 */
 	function Cropper_IM() {
 		$exec_str = $this->param['imageimpath'].'/convert -quality 100 '.
 			'-crop '.$this->param['srcwidth'].'x'.$this->param['srcheight'].'+'.$this->param['srcx'].'+'.$this->param['srcy'].' '.
@@ -379,27 +435,27 @@ class image {
 
 	function Watermark_GD($type = 'forum') {
 		if(!function_exists('imagecreatetruecolor')) {
-			return -4;
+			return -4;//note 服务器缺少处理图片的功能
 		}
 
 		$imagefunc = &$this->imagefunc;
 
 		if($this->param['watermarktype'][$type] != 'text') {
 			if(!function_exists('imagecopy') || !function_exists('imagecreatefrompng') || !function_exists('imagecreatefromgif') || !function_exists('imagealphablending') || !function_exists('imagecopymerge')) {
-				return -4;
+				return -4;//note 服务器缺少处理图片的功能
 			}
 			$watermarkinfo = @getimagesize($this->param['watermarkfile'][$type]);
 			if($watermarkinfo === FALSE) {
-				return -3;
+				return -3;//note 系统设置错误
 			}
 			$watermark_logo	= $this->param['watermarktype'][$type] == 'png' ? @imageCreateFromPNG($this->param['watermarkfile'][$type]) : @imageCreateFromGIF($this->param['watermarkfile'][$type]);
 			if(!$watermark_logo) {
-				return 0;
+				return 0;//note 不处理水印正常退出
 			}
 			list($logo_w, $logo_h) = $watermarkinfo;
 		} else {
 			if(!function_exists('imagettfbbox') || !function_exists('imagettftext') || !function_exists('imagecolorallocate')) {
-				return -4;
+				return -4;//note 服务器缺少处理图片的功能
 			}
 			if(!class_exists('Chinese')) {
 				include libfile('class/chinese');

@@ -11,8 +11,16 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+/**
+ *  安全漏洞补丁类
+ */
 class discuz_patch {
 
+	/**
+	 * 保存更新补丁设置
+	 * @param array $settingnew 设置信息
+	 * @return bool
+	 */
 	public function save_patch_setting($settingnew) {
 		if($settingnew['patch']['autoopened'] && !$this->test_writable(DISCUZ_ROOT)) {
 			return false;
@@ -23,6 +31,11 @@ class discuz_patch {
 		return true;
 	}
 
+	/**
+	 * 获取漏洞提示信息
+	 * @global array $_G
+	 * @return array
+	 */
 	public function fetch_patch_notice() {
 		global $_G;
 
@@ -50,6 +63,10 @@ class discuz_patch {
 		return array('fixed' => (!empty($serials) && $showpatchnotice == 1) ? 1 : 0, 'data' => $serials);
 	}
 
+	/**
+	 * 查找是否有新漏洞补丁发布
+	 * @return bool
+	 */
 	public function check_patch($ignore = 0) {
 		global $_G;
 
@@ -75,7 +92,7 @@ class discuz_patch {
 
 		if($patchlist) {
 			$serial_md5s = explode("\r\n", $patchlist);
-			$bound = intval(substr($serial_md5s[count($serial_md5s)-2], 0, 8));
+			$bound = intval(substr($serial_md5s[count($serial_md5s)-2], 0, 8));//note 获取最大值
 			$maxpatch = intval(C::t('common_patch')->fetch_max_serial());
 			if(defined('DISCUZ_FIXBUG')) {
 				$maxpatch = $maxpatch < DISCUZ_FIXBUG ? DISCUZ_FIXBUG : $maxpatch;
@@ -98,7 +115,7 @@ class discuz_patch {
 								'rule' => serialize($patch['rule']),
 								'note' => $patch['note'],
 								'status' => 0,
-								'dateline' => $patch['dateline'],
+								'dateline' => $patch['dateline'],//note 发布时间
 							);
 							C::t('common_patch')->insert($insertarr);
 
@@ -122,16 +139,23 @@ class discuz_patch {
 		return true;
 	}
 
+	/**
+	 * 单个漏洞修复处理
+	 * @global array $_G
+	 * @param array $patch 漏洞补丁信息
+	 * @param string $type file or ftp
+	 * @return int
+	 */
 	public function fix_patch($patch, $type = 'file') {
 
 		global $_G;
 		$serial = $patch['serial'];
 		if(!$serial) {
-			return -1;
+			return -1;//note 没有编号信息
 		}
 
 		$returnflag = 1;
-		$trymax = 1000;
+		$trymax = 1000;//note 替换文件尝试次数
 		$rules = dunserialize($patch['rule']);
 		$tmpfiles = $bakfiles = array();
 
@@ -147,14 +171,14 @@ class discuz_patch {
 			$nums = $rule['nums'];
 
 			if(!$siteftp && !is_writable($filename)) {
-				$returnflag = -2;
+				$returnflag = -2;//note 文件不可写或不存在
 				break;
 			}
 
 			$str = file_get_contents($filename);
 			$findcount = substr_count($str, $search);
 			if($findcount != $count) {
-				$returnflag = 2;
+				$returnflag = 2;//note 匹配数量不相符 认为已经修改过漏洞相关地方，提示用户未发现漏洞
 				break;
 			}
 
@@ -163,13 +187,14 @@ class discuz_patch {
 			$bakfile = $siteftp ? dirname($rule['filename']).'/'.$bakfile : dirname($filename).'/'.$bakfile;
 			$tmpfile = tempnam(DISCUZ_ROOT.'./data', 'patch');
 
+			//note 生成临时的文件，再临时文件上替换
 			$strarr = explode($search, $str);
 			$replacestr = '';
 			foreach($strarr as $key => $value) {
 				if($key == $findcount) {
 					$replacestr .= $value;
 				} else {
-					if(in_array(($key + 1), $nums)) {
+					if(in_array(($key + 1), $nums)) {//note 判断是否为需要替换位置
 						$replacestr .= $value.$replace;
 					} else {
 						$replacestr .= $value.$search;
@@ -178,32 +203,33 @@ class discuz_patch {
 			}
 
 			if(!file_put_contents($tmpfile, $replacestr)) {
-				$returnflag = -3;
+				$returnflag = -3;//note 写入临时文件错误
 				break;
 			}
 
+			//note 替换文件
 			if($siteftp) {
-				if(!file_exists(DISCUZ_ROOT.$bakfile) && !$this->copy_file($filename, $bakfile, 'ftp')) {
-					$returnflag = -4;
+				if(!file_exists(DISCUZ_ROOT.$bakfile) && !$this->copy_file($filename, $bakfile, 'ftp')) {//note 如果已经存在备份文件，则跳过，可能多个替换规则同为一个文件
+					$returnflag = -4;//note ftp无法使用
 					break;
 				}
 				$i = 0;
 				while(!$this->copy_file($tmpfile, $rule['filename'], 'ftp')) {
 					if($i >= $trymax) {
-						$returnflag = -4;
+						$returnflag = -4;//note ftp无法使用
 						break;
 					}
 					$i++;
 				}
 			} else {
-				if(!file_exists($bakfile) && !$this->copy_file($filename, $bakfile, 'file')) {
-					$returnflag = -5;
+				if(!file_exists($bakfile) && !$this->copy_file($filename, $bakfile, 'file')) {//note 如果已经存在备份文件，则跳过，可能多个替换规则同为一个文件
+					$returnflag = -5;//note 文件拷贝出错
 					break;
 				}
 				$i = 0;
 				while(!$this->copy_file($tmpfile, $filename, 'file')) {
 					if($i >= $trymax) {
-						$returnflag = -5;
+						$returnflag = -5;//note 文件拷贝出错
 						break;
 					}
 					$i++;
@@ -214,14 +240,14 @@ class discuz_patch {
 			$bakfiles[] = $bakfile;
 		}
 
-		if($returnflag < 0) {
+		if($returnflag < 0) {//note 如果有替换失败，全部回退
 			if(!empty($bakfiles)) {
 				foreach($bakfiles as $backfile) {
 					if($siteftp) {
 						$i = 0;
 						while(!$this->copy_file($backfile, substr($backfile, -12), 'ftp')) {
 							if($i >= $trymax) {
-								$returnflag = -6;
+								$returnflag = -6;//note ftp无法使用 回退中出现问题
 								break;
 							}
 							$i++;
@@ -230,7 +256,7 @@ class discuz_patch {
 						$i = 0;
 						while(!$this->copy_file($backfile, substr($backfile, -12), 'file')) {
 							if($i >= $trymax) {
-								$returnflag = -6;
+								$returnflag = -6;//note 文件拷贝出错 回退中出现问题
 								break;
 							}
 							$i++;
@@ -240,6 +266,7 @@ class discuz_patch {
 			}
 		}
 
+		//note 删除临时文件
 		if(!empty($tmpfiles)) {
 			foreach($tmpfiles as $tmpfile) {
 				@unlink($tmpfile);
@@ -251,6 +278,11 @@ class discuz_patch {
 	}
 
 
+	/**
+	 * 测试目录及子目录是否可写
+	 * @param string $sdir
+	 * @return boolean
+	 */
 	public function test_writable($sdir) {
 
 		$dir = opendir($sdir);
@@ -268,13 +300,18 @@ class discuz_patch {
 		if($fp = @fopen("$sdir/test.txt", 'w')) {
 			@fclose($fp);
 			@unlink("$sdir/test.txt");
-			$writeable = true;
+			$writeable = true;//note 可写
 		} else {
-			$writeable = false;
+			$writeable = false;//note 不可写
 		}
 		return $writeable;
 	}
 
+	/**
+	 * 检测补丁修改文件是否可写
+	 * @param array $patch 补丁
+	 * @return bool
+	 */
 	public function test_patch_writable($patch) {
 		$rules = dunserialize($patch['rule']);
 		if($rules) {
@@ -288,11 +325,19 @@ class discuz_patch {
 		return false;
 	}
 
+	/**
+	 * 拷贝一个文件 直接拷贝或通过ftp
+	 * @global  $_G
+	 * @param string $srcfile 源文件
+	 * @param string $desfile 目标文件
+	 * @param string $type file or ftp
+	 * @return bool
+	 */
 	public function copy_file($srcfile, $desfile, $type) {
 		global $_G;
 
 		if(!is_file($srcfile)) {
-			return false;
+			return false;//note 文件丢失
 		}
 		if($type == 'file') {
 			$this->mkdirs(dirname($desfile));
@@ -311,6 +356,11 @@ class discuz_patch {
 		return true;
 	}
 
+	/**
+	 * 创建一个目录及子目录
+	 * @param string $dir
+	 * @return bool
+	 */
 	public function mkdirs($dir) {
 		if(!is_dir($dir)) {
 			if(!self::mkdirs(dirname($dir))) {
@@ -323,6 +373,11 @@ class discuz_patch {
 		return true;
 	}
 
+	/**
+	 * 测试漏洞是否还存在
+	 * @param array $patch 一个漏洞补丁信息
+	 * @return bool
+	 */
 	public function test_patch($patch) {
 		$serial = $patch['serial'];
 		$rules = dunserialize($patch['rule']);
@@ -336,16 +391,21 @@ class discuz_patch {
 			$str = file_get_contents($filename);
 			$findcount = substr_count($str, $search);
 			if($findcount != $count) {
-				return true;
+				return true;//note 已修正
 			}
+			//note 增加代码的情况导致查找代码仍存在，则判断替换代码是否存在
 			$replacefindcount = substr_count($str, $replace);
 			if($replacefindcount == $count) {
 				return true;
 			}
 		}
-		return false;
+		return false;//还未修正
 	}
 
+	/**
+	 * 重新扫描漏洞
+	 * @return bool
+	 */
 	public function recheck_patch() {
 
 		$updatestatus = array();

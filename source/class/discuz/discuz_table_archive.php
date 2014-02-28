@@ -21,8 +21,13 @@ class discuz_table_archive extends discuz_table
 		parent::__construct($para);
 	}
 
-	public $tablestatus = array();
-
+	/**
+	 * 依据主键值， 取得一条记录
+	 * @param int $id 键值
+	 * @param bool $force_from_db 强制使用数据库
+	 * @param int $fetch_archive 0：只查询主表，1：查询主表和存档表
+	 * @return array
+	 */
 	public function fetch($id, $force_from_db = false, $fetch_archive = 0){
 		$data = array();
 		if(!empty($id)) {
@@ -35,6 +40,13 @@ class discuz_table_archive extends discuz_table
 	}
 
 
+	/**
+	 * 依据多个主键值， 返回一组数据
+	 * @param array $ids 主键值的数组
+	 * @param bool $force_from_db 强制使用数据库
+	 * @param int $fetch_archive 0：只查询主表，1：查询主表和存档表
+	 * @return array
+	 */
 	public function fetch_all($ids, $force_from_db = false, $fetch_archive = 1) {
 		$data = array();
 		if(!empty($ids)) {
@@ -47,6 +59,12 @@ class discuz_table_archive extends discuz_table
 	}
 
 
+	/**
+	 * 依据主键删除某条记录
+	 * @param string|int $val 主键值
+	 * @param int $fetch_archive 0：只查询主表，1：查询主表和存档表
+	 * @return boolean
+	 */
 	public function delete($val, $unbuffered = false, $fetch_archive = 0) {
 		$ret = false;
 		if($val) {

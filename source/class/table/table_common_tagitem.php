@@ -17,15 +17,18 @@ class table_common_tagitem extends discuz_table
 
 		$this->_table = 'common_tagitem';
 		$this->_pk    = 'id';
-        $this->_pre_cache_key = 'common_tagitem_';
-		$this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
 		
 		parent::__construct();
 	}
 
 	public function replace($tagid, $itemid, $idtype) {
-		return DB::query('REPLACE INTO %t (tagid, itemid, idtype) VALUES (%d, %d, %s)', array($this->_table, $tagid, $itemid, $idtype));
+		$data = array(
+			'tagid'=>intval($tagid),
+			'itemid'=>$itemid,
+			'idtype'=>$idtype
+		);
+		return parent::insert($data,true,true);
+		//return DB::query('REPLACE INTO %t (tagid, itemid, idtype) VALUES (%d, %d, %s)', array($this->_table, $tagid, $itemid, $idtype));
 	}
 
 	public function select($tagid = 0, $itemid = 0, $idtype = '', $orderfield = '', $ordertype = 'DESC', $limit = 0, $count = 0, $itemidglue = '=', $returnnum = 0) {

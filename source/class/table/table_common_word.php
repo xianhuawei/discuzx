@@ -48,6 +48,12 @@ class table_common_word extends discuz_table
 	}
 
 
+	/**
+	 *
+	 * 根据type更新记录
+	 * @param array $types: 关键词分类数组
+	 * @param array $data:更新的内容
+	 */
 	public function update_by_type($types, $data) {
 		if(!empty($types) && !empty($data) && is_array($data)) {
 			$types = array_map('intval', (array)$types);
@@ -62,6 +68,13 @@ class table_common_word extends discuz_table
 		return 0;
 	}
 
+	/**
+	 *
+	 * 根据type/find统计
+	 * @param int $type: 关键词分类
+	 * @param string $find: 不良词语，支持模糊查找
+	 * @return 返回统计结果，如果条件为空则返回所有记录数
+	 */
 	public function count_by_type_find($type = null, $find = null) {
 		$parameter = array($this->_table);
 		$wherearr = array();

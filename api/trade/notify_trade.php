@@ -41,7 +41,7 @@ if($notifydata['validator']) {
 			));
 			if($status != $tradelog['status']) {
 
-				if($status == STATUS_SELLER_SEND) {
+				if($status == STATUS_SELLER_SEND) {// 买家已付款，等待卖家发货
 
 					notification_add($tradelog['sellerid'], 'goods', 'trade_seller_send', array(
 						'buyerid' => $tradelog['buyerid'],
@@ -50,7 +50,7 @@ if($notifydata['validator']) {
 						'subject' => $tradelog['subject']
 					));
 
-				} elseif($status == STATUS_WAIT_BUYER) {
+				} elseif($status == STATUS_WAIT_BUYER) {// 卖家已发货，等待买家确认
 
 					notification_add($tradelog['buyerid'], 'goods', 'trade_buyer_confirm', array(
 						'sellerid' => $tradelog['sellerid'],
@@ -59,7 +59,7 @@ if($notifydata['validator']) {
 						'subject' => $tradelog['subject']
 					));
 
-				} elseif($status == STATUS_TRADE_SUCCESS) {
+				} elseif($status == STATUS_TRADE_SUCCESS) {// 交易成功
 
 					if($_G['setting']['creditstransextra'][5] != -1 && $tradelog['basecredit']) {
 						$netcredit = round($tradelog['number'] * $tradelog['basecredit'] * (1 - $_G['setting']['creditstax']));
@@ -82,7 +82,7 @@ if($notifydata['validator']) {
 						'subject' => $tradelog['subject']
 					));
 
-				} elseif($status == STATUS_REFUND_CLOSE) {
+				} elseif($status == STATUS_REFUND_CLOSE) {// 退款成功
 
 					C::t('forum_trade')->update_counter($tradelog['tid'], $tradelog['pid'], 0, 0, 0, $tradelog['number']);
 					notification_add($tradelog['sellerid'], 'goods', 'trade_fefund_success', array(

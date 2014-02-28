@@ -11,6 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//note 更新群组积分日志
 function updategroupcreditlog($fid, $uid) {
 	global $_G;
 	if(empty($fid) || empty($uid)) {

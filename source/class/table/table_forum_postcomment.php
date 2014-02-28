@@ -17,17 +17,26 @@ class table_forum_postcomment extends discuz_table
 
 		$this->_table = 'forum_postcomment';
 		$this->_pk    = 'id';
-        $this->_pre_cache_key = 'forum_postcomment_';
-        $this->_allowmem = memory('check');
-		$this->_cache_ttl = 86400;
-		
+
 		parent::__construct();
 	}
 
+	/**
+	 * 获取用户的点评数量
+	 * @param int $authorid
+	 * @return int
+	 */
 	public function count_by_authorid($authorid) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE authorid=%d', array($this->_table, $authorid));
 	}
 
+	/**
+	 * 获取一个帖子的点评数量
+	 * @param int $pid
+	 * @param int $authorid
+	 * @param int $score
+	 * @return int
+	 */
 	public function count_by_pid($pid, $authorid = null, $score = null) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE pid=%d '.($authorid ? ' AND '.DB::field('authorid', $authorid) : null).($score ? ' AND '.DB::field('score', $score) : null), array($this->_table, $pid, $authorid, $score));
 	}
@@ -35,6 +44,17 @@ class table_forum_postcomment extends discuz_table
 	public function count_by_tid($tid, $authorid = null, $score = null) {
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE tid=%d '.($authorid ? ' AND '.DB::field('authorid', $authorid) : null).($score ? ' AND '.DB::field('score', $score) : null), array($this->_table, $tid, $authorid, $score));
 	}
+	/**
+	 * 根据条件搜索点评数
+	 * @param int|array $tid
+	 * @param int|array $pid
+	 * @param int|array $authorid
+	 * @param int $starttime
+	 * @param int $endtime
+	 * @param string $ip
+	 * @param string $message
+	 * @return int
+	 */
 
 	public function count_by_search($tid = null, $pid = null, $authorid = null, $starttime = null, $endtime = null, $ip = null, $message = null) {
 		$sql = '';
@@ -63,6 +83,19 @@ class table_forum_postcomment extends discuz_table
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE authorid>-1 %i', array($this->_table, $sql));
 	}
 
+	/**
+	 * 根据条件搜索点评内容
+	 * @param int|array $tid
+	 * @param int|array $pid
+	 * @param int|array $authorid
+	 * @param int $starttime
+	 * @param int $endtime
+	 * @param string $ip
+	 * @param string $message
+	 * @param int $start
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_search($tid = null, $pid = null, $authorid = null, $starttime = null, $endtime = null, $ip = null, $message = null, $start = null, $limit = null) {
 		$sql = '';
 		$tid && $sql .= ' AND '.DB::field('tid', $tid);
@@ -90,10 +123,22 @@ class table_forum_postcomment extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE authorid>-1 %i ORDER BY dateline DESC '.DB::limit($start, $limit), array($this->_table, $sql));
 	}
 
+	/**
+	 * 根据用户id获取点评信息
+	 * @param int $authorid
+	 * @param int $start
+	 * @param int $limit
+	 * @return array
+	 */
 	public function fetch_all_by_authorid($authorid, $start, $limit) {
 		return DB::fetch_all('SELECT * FROM %t WHERE authorid=%d ORDER BY dateline DESC '.DB::limit($start, $limit), array($this->_table, $authorid));
 	}
 
+	/**
+	 * 根据pid获取点评信息 ，是否能做缓存？
+	 * @param int|array $pids
+	 * @return array
+	 */
 	public function fetch_all_by_pid($pids) {
 		if(empty($pids)) {
 			return array();
@@ -101,14 +146,34 @@ class table_forum_postcomment extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE '.DB::field('pid', $pids).' ORDER BY dateline DESC', array($this->_table));
 	}
 
+	/**
+	 * 根据pid,score获取点评信息，可获取包含点评观点的信息
+	 * @param int $pid
+	 * @param int $score
+	 * @return array
+	 */
 	public function fetch_all_by_pid_score($pid, $score) {
 		return DB::fetch_all('SELECT * FROM %t WHERE pid=%d AND score=%d', array($this->_table, $pid, $score));
 	}
 
+	/**
+	 * 获取帖子的点评观点
+	 * @param int $pid
+	 * @return array
+	 */
 	public function fetch_standpoint_by_pid($pid) {
 		return DB::fetch_first('SELECT * FROM %t WHERE pid=%d AND authorid=-1', array($this->_table, $pid));
 	}
 
+	/**
+	 * 更新帖子的点评信息
+	 * @param int|array $pids
+	 * @param array $data
+	 * @param bool $unbuffered
+	 * @param bool $low_priority
+	 * @param int|array $authorid
+	 * @return bool
+	 */
 	public function update_by_pid($pids, $data, $unbuffered = false, $low_priority = false, $authorid = null) {
 		if(empty($data)) {
 			return false;
@@ -119,6 +184,13 @@ class table_forum_postcomment extends discuz_table
 		return DB::update($this->_table, $data, implode(' AND ', $where), $unbuffered, $low_priority);
 	}
 
+	/**
+	 * 删除用户发表的点评信息
+	 * @param int|array $authorids
+	 * @param bool $unbuffered
+	 * @param bool $rpid 是否删除楼层回复产生的点评信息
+	 * @return bool
+	 */
 	public function delete_by_authorid($authorids, $unbuffered = false, $rpid = false) {
 		if(empty($authorids)) {
 			return false;
@@ -129,6 +201,13 @@ class table_forum_postcomment extends discuz_table
 		return DB::delete($this->_table, implode(' AND ', $where), null, $unbuffered);
 	}
 
+	/**
+	 * 删除主题的点评信息
+	 * @param int|array $tids
+	 * @param bool $unbuffered
+	 * @param int|array $authorids
+	 * @return bool
+	 */
 	public function delete_by_tid($tids, $unbuffered = false, $authorids = null) {
 		$where = array();
 		$where[] = DB::field('tid', $tids);
@@ -136,6 +215,13 @@ class table_forum_postcomment extends discuz_table
 		return DB::delete($this->_table, implode(' AND ', $where), null, $unbuffered);
 	}
 
+	/**
+	 * 删除帖子的点评信息
+	 * @param int|array $pids
+	 * @param bool $unbuffered
+	 * @param int|array $authorid
+	 * @return bool
+	 */
 	public function delete_by_pid($pids, $unbuffered = false, $authorid = null) {
 		$where = array();
 		$where[] = DB::field('pid', $pids);
@@ -143,13 +229,20 @@ class table_forum_postcomment extends discuz_table
 		return DB::delete($this->_table, implode(' AND ', $where), null, $unbuffered);
 	}
 
+	/**
+	 * 删除楼层回复产生的点评信息
+	 * @param int|array $rpids 回复的帖子id
+	 * @param bool $unbuffered
+	 * @return bool
+	 */
 	public function delete_by_rpid($rpids, $unbuffered = false) {
 		if(empty($rpids)) {
 			return false;
 		}
 		return DB::delete($this->_table, DB::field('rpid', $rpids), null, $unbuffered);
 	}
-	public function fetch_postcomment_by_pid($pids, $postcache, $commentcount, $totalcomment, $commentnumber) {
+
+	public function fetch_postcomment_by_pid($pids, &$postcache, &$commentcount, &$totalcomment, $commentnumber) {
 		$query = DB::query("SELECT * FROM ".DB::table('forum_postcomment')." WHERE pid IN (".dimplode($pids).') ORDER BY dateline DESC');
 		$commentcount = $comments = array();
 		while($comment = DB::fetch($query)) {

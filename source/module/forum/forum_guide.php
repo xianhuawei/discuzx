@@ -186,6 +186,7 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 		if(empty($tids) && ($thread['isgroup'] || !in_array($thread['fid'], $fids))) {
 			continue;
 		}
+		//note 防止删帖后缓存没有到期
 		if($thread['displayorder'] < 0) {
 			continue;
 		}
@@ -198,6 +199,7 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 		$n ++;
 	}
 	if($limittid > $maxnum && !$again && count($list) < 50) {
+		//note 当每一批少于一定的数量时，再取一次
 		return get_guide_list($view, $start, $num, 1);
 	}
 	$forumnames = array();
@@ -230,6 +232,7 @@ function get_my_threads($viewtype, $fid = 0, $filter = '', $searchkey = '', $sta
 	global $_G;
 	$fid = $fid ? intval($fid) : null;
 	loadcache('forums');
+	//查看个人的
 	$dglue = '=';
 	if($viewtype == 'thread') {
 		$authorid = $_G['uid'];
@@ -307,7 +310,7 @@ function get_my_threads($viewtype, $fid = 0, $filter = '', $searchkey = '', $sta
 			$forumnames = C::t('forum_forum')->fetch_all_name_by_fid($gids);
 		}
 		$listcount = count($list);
-	} else {
+	} else { //我的回复
 		$invisible = null;
 
 		if($filter == 'recyclebin') {
@@ -333,6 +336,7 @@ function get_my_threads($viewtype, $fid = 0, $filter = '', $searchkey = '', $sta
 			$post['message'] = !getstatus($post['status'], 2) || $post['authorid'] == $_G['uid'] ? messagecutstr($post['message'], 100) : '';
 			$posts[$pid] = $post;
 		}
+		//取出相应的主题
 		if(!empty($tids)) {
 			$threads = C::t('forum_thread')->fetch_all_by_tid_displayorder(array_keys($tids), $displayorder, $dglue, array(), $closed);
 			foreach($threads as $tid => $thread) {
@@ -343,6 +347,7 @@ function get_my_threads($viewtype, $fid = 0, $filter = '', $searchkey = '', $sta
 				}
 				$threads[$tid] = guide_procthread($thread);
 			}
+			//重新获取群组的名称
 			if(!empty($gids)) {
 				$groupforums = C::t('forum_forum')->fetch_all_name_by_fid($gids);
 				foreach($groupforums as $fid => $val) {
@@ -428,6 +433,7 @@ function guide_procthread($thread) {
 	} else {
 		$thread['id'] = 'normalthread_'.$thread['tid'];
 	}
+	//note 是否是抢楼贴
 	$thread['rushreply'] = getstatus($thread['status'], 3);
 	return $thread;
 }

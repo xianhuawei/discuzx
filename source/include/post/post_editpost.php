@@ -42,8 +42,10 @@ $thread['pricedisplay'] = $thread['price'] == -1 ? 0 : $thread['price'];
 
 if($special == 5) {
 	$debate = array_merge($thread, daddslashes(C::t('forum_debate')->fetch($_G['tid'])));
+	//debug 判断上次的立场
 	$firststand = C::t('forum_debatepost')->get_firststand($_G['tid'], $_G['uid']);
 
+	//note 判断投票是否已经结束
 	if(!$isfirstpost && $debate['endtime'] && $debate['endtime'] < TIMESTAMP && !$_G['forum']['ismoderator']) {
 		showmessage('debate_end');
 	}
@@ -52,9 +54,11 @@ if($special == 5) {
 	}
 }
 
+//note 变量初始化，是否是抢楼贴
 $rushreply = getstatus($thread['status'], 3);
 
 
+//noteX 读取回帖奖励积分规则
 if($isfirstpost && $isorigauthor && $_G['group']['allowreplycredit']) {
 	if($replycredit_rule = C::t('forum_replycredit')->fetch($_G['tid'])) {
 		if($thread['replycredit']) {
@@ -66,6 +70,7 @@ if($isfirstpost && $isorigauthor && $_G['group']['allowreplycredit']) {
 
 if(!submitcheck('editsubmit')) {
 
+	//note 变量初始化，是否隐藏回复
 	$thread['hiddenreplies'] = getstatus($thread['status'], 2);
 
 
@@ -110,6 +115,7 @@ if(!submitcheck('editsubmit')) {
 		}
 		$allownoticeauthor = getstatus($thread['status'], 6);
 
+		//显示抢楼帖设置
 		if($rushreply) {
 			$postinfo['rush'] = C::t('forum_threadrush')->fetch($_G['tid']);
 			if($postinfo['rush']['creditlimit'] == -996) {
@@ -131,6 +137,7 @@ if(!submitcheck('editsubmit')) {
 				$specialextra = '';
 			}
 		}
+		//debug 以下变量，如果在模板中判断的条件不一致，则很容易造成跨站
 		$thread['freecharge'] = $_G['setting']['maxchargespan'] && TIMESTAMP - $thread['dateline'] >= $_G['setting']['maxchargespan'] * 3600 ? 1 : 0;
 		$freechargehours = !$thread['freecharge'] ? $_G['setting']['maxchargespan'] - intval((TIMESTAMP - $thread['dateline']) / 3600) : 0;
 		if($thread['special'] == 1 && ($_G['group']['alloweditpoll'] || $thread['authorid'] == $_G['uid'])) {
@@ -290,6 +297,7 @@ if(!submitcheck('editsubmit')) {
 
 	$imgattachs['unused'] = !$sortid ? $imgattachs['unused'] : '';
 
+	//debug MODULE: DEBATE 如果为辩论帖子，初始化立场
 	include template('forum/post');
 
 } else {
@@ -451,9 +459,11 @@ if(!submitcheck('editsubmit')) {
 		if($thread['special'] == 3) {
 			$modpost->attach_before_method('deletepost', array('class' => 'extend_thread_reward', 'method' => 'before_deletepost'));
 		}
+		//note 抢楼贴不能删除已发表的回复
 		if($rushreply) {
 			$modpost->attach_before_method('deletepost', array('class' => 'extend_thread_rushreply', 'method' => 'before_deletepost'));
 		}
+		//note 回帖奖励将剩余积分退还
 		if($thread['replycredit'] && $isfirstpost) {
 			$modpost->attach_before_method('deletepost', array('class' => 'extend_thread_replycredit', 'method' => 'before_deletepost'));
 		}
@@ -495,6 +505,7 @@ if(!submitcheck('editsubmit')) {
 
 	dsetcookie('clearUserdata', 'forum');
 
+	//note: 审核帖子
 	if($_G['forum_auditstatuson']) {
 		if($audit == 1) {
 			updatemoderate($isfirstpost ? 'tid' : 'pid', $isfirstpost ? $_G['tid'] : $pid, '2');

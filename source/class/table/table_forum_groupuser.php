@@ -43,6 +43,9 @@ class table_forum_groupuser extends discuz_table
 		}
 		return DB::fetch_all("SELECT * FROM %t WHERE fid=%d AND ".DB::field('uid', $uids), array($this->_table, $fid));
 	}
+	/*
+	 * $level 0:正常用户， 1：待审核用户， -1：全部用户
+	 */
 	public function fetch_all_by_fid($fid, $level = 0) {
 		if(empty($fid)) {
 			return array();

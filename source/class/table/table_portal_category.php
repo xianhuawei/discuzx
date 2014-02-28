@@ -29,6 +29,11 @@ class table_portal_category extends discuz_table
 		return DB::fetch_all("SELECT catid, $numkey FROM %t", array($this->_table), $this->_pk);
 	}
 
+	/**
+	 * 累加数据的值
+	 * @param array $uids 会员ID
+	 * @param array $data 要累加的字段和累加值
+	 */
 	public function increase($catids, $data) {
 		$catids = array_map('intval', (array)$catids);
 		$sql = array();
@@ -43,6 +48,13 @@ class table_portal_category extends discuz_table
 		}
 	}
 
+	/**
+	 * 获取指定范围的数据, 不带参数返回所有数据
+	 * @param int $start 开始
+	 * @param int $limit 条数
+	 * @param string $sort 是否根据主键排序：ASC|DESC
+	 * @return array
+	 */
 	public function range($start = 0, $limit = 0) {
 		$data = array();
 		$query = DB::query('SELECT * FROM '.DB::table($this->_table).' ORDER BY displayorder,catid'.DB::limit($start, $limit));

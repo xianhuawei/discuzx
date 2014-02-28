@@ -24,7 +24,7 @@ if($_G['adminid'] != 1 && !($_G['group']['allowsearch'] & 8)) {
 
 $_G['setting']['search']['album']['searchctrl'] = intval($_G['setting']['search']['album']['searchctrl']);
 
-$srchmod = 4;
+$srchmod = 4;//note 搜索模块定义，为了分别控制搜索频度
 
 $cachelife_time = 300;		// Life span for cache of searching in specified range of time
 $cachelife_text = 3600;		// Life span for cache of text searching
@@ -35,15 +35,18 @@ $searchid = isset($_GET['searchid']) ? intval($_GET['searchid']) : 0;
 $srchtxt = $_GET['srchtxt'];
 $keyword = isset($srchtxt) ? dhtmlspecialchars(trim($srchtxt)) : '';
 
+//note 显示搜索
 if(!submitcheck('searchsubmit', 1)) {
 
 	include template('search/album');
 
 } else {
 
+	//note 排序规则
 	$orderby = in_array($_GET['orderby'], array('dateline', 'replies', 'views')) ? $_GET['orderby'] : 'lastpost';
 	$ascdesc = isset($_GET['ascdesc']) && $_GET['ascdesc'] == 'asc' ? 'asc' : 'desc';
 
+	//note 如果这个关键字已经被刚刚搜索过
 	if(!empty($searchid)) {
 
 		$page = max(1, intval($_GET['page']));
@@ -59,6 +62,7 @@ if(!submitcheck('searchsubmit', 1)) {
 
 		$index['keywords'] = rawurlencode($index['keywords']);
 
+		//相册列表
 		$albumlist = array();
 		$maxalbum = $nowalbum = 0;
 		$query = C::t('home_album')->fetch_all(explode(',', $index['ids']), 'updatetime', $start_limit, $_G['tpp']);
@@ -102,16 +106,19 @@ if(!submitcheck('searchsubmit', 1)) {
 
 			!($_G['group']['exempt'] & 2) && checklowerlimit('search');
 
+			//note 计算查询条件
 			if(!$srchtxt && !$srchuid && !$srchuname) {
 				dheader('Location: search.php?mod=album');
 			}
 
+			//note 最大查询条数
 			if($_G['adminid'] != '1' && $_G['setting']['search']['album']['maxspm']) {
 				if(C::t('common_searchindex')->count_by_dateline($_G['timestamp'], $srchmod) >= $_G['setting']['search']['album']['maxspm']) {
 					showmessage('search_toomany', 'search.php?mod=album', array('maxspm' => $_G['setting']['search']['album']['maxspm']));
 				}
 			}
 
+			//note 执行查询
 			$num = $ids = 0;
 			$_G['setting']['search']['album']['maxsearchresults'] = $_G['setting']['search']['album']['maxsearchresults'] ? intval($_G['setting']['search']['album']['maxsearchresults']) : 500;
 			list($srchtxt, $srchtxtsql) = searchkey($keyword, "albumname LIKE '%{text}%'", true);
@@ -140,6 +147,7 @@ if(!submitcheck('searchsubmit', 1)) {
 			!($_G['group']['exempt'] & 2) && updatecreditbyaction('search');
 		}
 
+		//note 显示搜索到的结果
 		dheader("location: search.php?mod=album&searchid=$searchid&searchsubmit=yes&kw=".urlencode($keyword));
 
 	}

@@ -21,6 +21,10 @@ class table_forum_promotion extends discuz_table
 		parent::__construct();
 	}
 
+	/**
+	 * 统计记录数
+	 * @param mix $uid: 单个或多个uid
+	 */
 	public function count_by_uid($uid) {
 		$uid = dintval($uid, is_array($uid) ? true : false);
 		if(!empty($uid)) {
@@ -30,6 +34,9 @@ class table_forum_promotion extends discuz_table
 		}
 		return 0;
 	}
+	/**
+	 * 删除所有的数据
+	 */
 	public function delete_all() {
 		return DB::query("DELETE FROM %t", array($this->_table));
 	}

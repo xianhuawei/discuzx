@@ -171,10 +171,12 @@ if($_GET['subop'] == 'view') {
 	}
 	$newpmcount = $newpm + $announcepm;
 	if($_G['member']['newpm']) {
+		//上报消息中心
 		if($newpm && $_G['setting']['cloud_status']) {
 			$msgService = Cloud::loadClass('Cloud_Service_Client_Message');
 			$msgService->setMsgFlag($_G['uid'], $_G['timestamp']);
 		}
+		//取消新短消息提示
 		C::t('common_member')->update($_G['uid'], array('newpm' => 0));
 		uc_pm_ignore($_G['uid']);
 	}
@@ -182,6 +184,7 @@ if($_GET['subop'] == 'view') {
 	$actives = array($filter=>' class="a"');
 }
 
+//实名
 if(!empty($list)) {
 	$today = $_G['timestamp'] - ($_G['timestamp'] + $_G['setting']['timeoffset'] * 3600) % 86400;
 	foreach ($list as $key => $value) {

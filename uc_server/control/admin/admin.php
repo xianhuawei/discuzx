@@ -24,18 +24,29 @@ class control extends adminbase {
 		}
 	}
 
+	// public 内部接口
 	function onls() {
 
 		//include_once UC_ROOT.'view/default/admin.lang.php';
+		/**
+		 * note 状态:
+		 * 	0:	未知状态
+		 * 	1:	添加成功
+		 * 	-1:	已经为管理员
+		 * 	-2:	插入失败
+		 * 	-3:	无此用户
+		 * 	-4:	修改Founder账号时，输入的原密码有误
+		 */
 		$status = 0;
 		if(!empty($_POST['addname']) && $this->submitcheck()) {
 			$addname = getgpc('addname', 'P');
 			$this->view->assign('addname', $addname);
 			$uid = $this->db->result_first("SELECT uid FROM ".UC_DBTABLEPRE."members WHERE username='$addname'");
 			if($uid) {
+				// 判断是否已经为管理员了
 				$adminuid = $this->db->result_first("SELECT uid FROM ".UC_DBTABLEPRE."admins WHERE username='$addname'");
 				if($adminuid) {
-					$status = -1;
+					$status = -1;// 已经为管理员
 				} else {
 					$allowadminsetting = getgpc('allowadminsetting', 'P');
 					$allowadminapp = getgpc('allowadminapp', 'P');
@@ -69,11 +80,11 @@ class control extends adminbase {
 						$this->writelog('admin_add', 'username='.htmlspecialchars($addname));
 						$status = 1;
 					} else {
-						$status = -2;
+						$status = -2;// 插入失败
 					}
 				}
 			} else {
-				$status = -3;
+				$status = -3;// 无此用户
 			}
 		}
 
@@ -82,12 +93,13 @@ class control extends adminbase {
 			$newpw = getgpc('newpw', 'P');
 			$newpw2 = getgpc('newpw2', 'P');
 			if(UC_FOUNDERPW == md5(md5($oldpw).UC_FOUNDERSALT)) {
+				// 修改 config.inc.php
 				$configfile = UC_ROOT.'./data/config.inc.php';
 				if(!is_writable($configfile)) {
-					$status = -4;
+					$status = -4;// 配置文件不可写
 				} else {
 					if($newpw != $newpw2) {
-						$status = -6;
+						$status = -6;// 两次输入的密码不一致
 					} else {
 						$config = file_get_contents($configfile);
 						$salt = substr(uniqid(rand()), 0, 6);
@@ -102,7 +114,7 @@ class control extends adminbase {
 					}
 				}
 			} else {
-				$status = -5;
+				$status = -5;// 创始人密码错误
 			}
 		}
 

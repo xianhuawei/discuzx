@@ -328,6 +328,9 @@ function sendreasonpm($var, $item, $notevar, $notictype = '') {
 	}
 }
 
+/**
+* 管理操作及评分理由选项
+*/
 function modreasonselect($isadmincp = 0, $reasionkey = 'modreasons') {
 	global $_G;
 	if(!isset($_G['cache'][$reasionkey]) || !is_array($_G['cache'][$reasionkey])) {
@@ -348,6 +351,7 @@ function modreasonselect($isadmincp = 0, $reasionkey = 'modreasons') {
 }
 
 
+//notex 一下函数来源于 admincp_cpanlel.php
 
 function acpmsg($message, $url = '', $type = '', $extra = '') {
 	if(defined('IN_ADMINCP')) {
@@ -399,6 +403,7 @@ function implodearray($array, $skip = array()) {
 	return $return;
 }
 
+//note 从回收站中恢复主题
 function undeletethreads($tids) {
 	global $_G;
 	if($_G['setting']['plugins']['func'][HOOKTYPE]['undeletethreads']) {
@@ -450,6 +455,12 @@ function undeletethreads($tids) {
 	return $threadsundel;
 }
 
+/**
+ * 回帖回收站删除回帖
+ * @param array $deletepids 删除的回帖pid数组
+ * @param int $posttableid 帖子分表ID
+ * @return int  删除的数量
+ */
 function recyclebinpostdelete($deletepids, $posttableid = false) {
 	if(empty($deletepids)) {
 		return 0;
@@ -459,6 +470,12 @@ function recyclebinpostdelete($deletepids, $posttableid = false) {
 	return deletepost($deletepids, 'pid', true, $posttableid);
 }
 
+/**
+ * 回帖回收站恢复回帖
+ * @param array $undeletepids 恢复的回帖pid数组
+ * @param int $posttableid 帖子分表ID
+ * @return int  恢复的数量
+ */
 function recyclebinpostundelete($undeletepids, $posttableid = false) {
 	global $_G;
 	if($_G['setting']['plugins']['func'][HOOKTYPE]['recyclebinpostundelete']) {
@@ -471,10 +488,12 @@ function recyclebinpostundelete($undeletepids, $posttableid = false) {
 	}
 
 
+	//note post分表缓存
 	loadcache('posttableids');
 	$posttableids = !empty($_G['cache']['posttableids']) ? ($posttableid !== false && in_array($posttableid, $_G['cache']['posttableids']) ? array($posttableid) : $_G['cache']['posttableids']): array('0');
 
 	$postarray = $ruidarray = $fidarray = $tidarray = array();
+	//note 回帖回收站中不包含first=1的帖子
 	foreach($posttableids as $ptid) {
 		foreach(C::t('forum_post')->fetch_all($ptid, $undeletepids, false) as $post) {
 			if(!$post['first']) {
@@ -491,6 +510,7 @@ function recyclebinpostundelete($undeletepids, $posttableid = false) {
 
 	C::t('forum_post')->update($posttableid, $undeletepids, array('invisible' => '0'), true);
 
+	//note 更新数据
 	include_once libfile('function/post');
 	if($ruidarray) {
 		foreach($ruidarray as $fid => $ruids) {

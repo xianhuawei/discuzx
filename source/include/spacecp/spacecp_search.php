@@ -13,6 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 $myfields = array('uid','gender','birthyear','birthmonth','birthday','birthprovince','birthcity','resideprovince','residecity', 'residedist', 'residecommunity');
 
+//个人资料
 loadcache('profilesetting');
 $fields = array();
 foreach ($_G['cache']['profilesetting'] as $key => $value) {
@@ -25,6 +26,7 @@ $nowy = dgmdate($_G['timestamp'], 'Y');
 $_GET = daddslashes($_GET);
 if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 	$_GET['searchsubmit'] = $_GET['searchmode'] = 1;
+	//找人
 	$wherearr = $fromarr = $uidjoin = array();
 	$fsql = '';
 
@@ -46,6 +48,7 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 		}
 	}
 
+	//转换成实际的年份
 	$startage = $endage = 0;
 	if($_GET['endage']) {
 		$startage = $nowy - intval($_GET['endage']);
@@ -62,6 +65,7 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 		$wherearr[] = 'sf.'.DB::field('birthyear', $endage, '<=');
 	}
 
+	//生日、居住地
 	$havefield = 0;
 	foreach ($myfields as $fkey) {
 		$_GET[$fkey] = trim($_GET[$fkey]);
@@ -71,6 +75,7 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 		}
 	}
 
+	//自定义
 	foreach ($fields as $fkey => $fvalue) {
 		$_GET['field_'.$fkey] = empty($_GET['field_'.$fkey])?'':stripsearchkey($_GET['field_'.$fkey]);
 		if($_GET['field_'.$fkey]) {
@@ -97,6 +102,7 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 			$value['isfriend'] = ($value['uid']==$space['uid'] || $space['friends'][$value['uid']])?1:0;
 			$list[$value['uid']] = $value;
 		}
+		//验证这些人是否与我是关注状态
 		$follows = C::t('home_follow')->fetch_all_by_uid_followuid($_G['uid'], array_keys($list));
 		foreach($list as $uid => $value) {
 			$list[$uid]['follow'] = isset($follows[$uid]) ? 1 : 0;
@@ -113,35 +119,43 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 		$yearhtml .= "<option value=\"$they\">$they</option>";
 	}
 
+	//性别
 	$sexarr = array($space['sex']=>' checked=\"checked\"');
 
+	//生日:年
 	$birthyeayhtml = '';
 	for ($i=0; $i<100; $i++) {
 		$they = $nowy - $i;
 		if(empty($_GET['all'])) $selectstr = $they == $space['birthyear']?' selected=\"selected\"':'';
 		$birthyeayhtml .= "<option value=\"$they\"$selectstr>$they</option>";
 	}
+	//生日:月
 	$birthmonthhtml = '';
 	for ($i=1; $i<13; $i++) {
 		if(empty($_GET['all'])) $selectstr = $i == $space['birthmonth']?' selected=\"selected\"':'';
 		$birthmonthhtml .= "<option value=\"$i\"$selectstr>$i</option>";
 	}
+	//生日:日
 	$birthdayhtml = '';
 	for ($i=1; $i<29; $i++) {
 		if(empty($_GET['all'])) $selectstr = $i == $space['birthday']?' selected=\"selected\"':'';
 		$birthdayhtml .= "<option value=\"$i\"$selectstr>$i</option>";
 	}
+	//血型
 	$bloodhtml = '';
 	foreach (array('A','B','O','AB') as $value) {
 		if(empty($_GET['all'])) $selectstr = $value == $space['blood']?' selected=\"selected\"':'';
 		$bloodhtml .= "<option value=\"$value\"$selectstr>$value</option>";
 	}
+	//婚姻
 	$marryarr = array($space['marry'] => ' selected');
 
+	// 出生城市； 居住城市
 	include_once libfile('function/profile');
 	$birthcityhtml = showdistrict(array(0,0), array('birthprovince', 'birthcity'), 'birthcitybox', null, 'birth');
 	$residecityhtml = showdistrict(array(0,0, 0, 0), array('resideprovince', 'residecity', 'residedist', 'residecommunity'), 'residecitybox', null, 'reside');
 
+	//自定义
 	foreach ($fields as $fkey => $fvalue) {
 		if(empty($fvalue['choices'])) {
 			$fvalue['html'] = '<input type="text" name="field_'.$fkey.'" class="px" value="" />';

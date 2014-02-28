@@ -9,12 +9,12 @@
 
 !defined('IN_UC') && exit('Access Denied');
 
-define('PRIVATEPMTHREADLIMIT_ERROR', -1);
-define('PMFLOODCTRL_ERROR', -2);
+define('PRIVATEPMTHREADLIMIT_ERROR', -1);// 超过两人会话的最大上限
+define('PMFLOODCTRL_ERROR', -2);// 超过两次发送短消息时间间隔
 define('PMMSGTONOTFRIEND', -3);
-define('PMSENDREGDAYS', -4);
-define('CHATPMTHREADLIMIT_ERROR', -5);
-define('CHATPMMEMBERLIMIT_ERROR', -7);
+define('PMSENDREGDAYS', -4);// 注册时间限制
+define('CHATPMTHREADLIMIT_ERROR', -5);// 超过群聊会话的最大上限
+define('CHATPMMEMBERLIMIT_ERROR', -7);// 超过群聊人数上限
 
 class pmcontrol extends base {
 
@@ -67,12 +67,13 @@ class pmcontrol extends base {
 		$message = $this->input('message');
 		$replypmid = $this->input('replypmid');
 		$isusername = $this->input('isusername');
-		$type = $this->input('type');
+		$type = $this->input('type');// 消息类型 为0两人会话，为1群聊
 
 		if(!$fromuid) {
-			return 0;
+			return 0;// 发起人不能为空
 		}
 
+		// 处理fromuid
 		$user = $_ENV['user']->get_user_by_uid($fromuid);
 		$user = daddslashes($user, 1);
 		if(!$user) {
@@ -81,6 +82,7 @@ class pmcontrol extends base {
 		$this->user['uid'] = $user['uid'];
 		$this->user['username'] = $user['username'];
 
+		// 回复变量处理
 		if($replypmid) {
 			$isusername = 0;
 			$plid = $_ENV['pm']->getplidbypmid($replypmid);
@@ -92,11 +94,13 @@ class pmcontrol extends base {
 			}
 		}
 
+		// 处理变量
 		if($isusername) {
 			$msgto = $_ENV['user']->name2id($msgto);
 		}
 		$countmsgto = count($msgto);
 
+		// 处理设置的权限
 		if($this->settings['pmsendregdays']) {
 			if($user['regdate'] > $this->time - $this->settings['pmsendregdays'] * 86400) {
 				return PMSENDREGDAYS;
@@ -132,6 +136,9 @@ class pmcontrol extends base {
 		return $lastpmid;
 	}
 
+	/**
+		根据pmid来删除短消息
+	 */
 	function ondelete() {
 		$this->init_input();
 		$this->user['uid'] = intval($this->input('uid'));
@@ -142,6 +149,7 @@ class pmcontrol extends base {
 		if(is_array($pmids)) {
 			$this->apps = $this->cache('apps');
 			if($this->apps[$this->app['appid']]['type'] == 'UCHOME') {
+				// 兼容uchome特殊处理
 				$id = $_ENV['pm']->deletepmbyplids($this->user['uid'], $this->input('pmids'));
 			} else {
 				$id = $_ENV['pm']->deletepmbypmids($this->user['uid'], $this->input('pmids'));
@@ -152,6 +160,9 @@ class pmcontrol extends base {
 		return $id;
 	}
 
+	/**
+		群聊退出或删除  发起人退出为删除 其它人为退出
+	 */
 	function ondeletechat() {
 		$this->init_input();
 		$this->user['uid'] = intval($this->input('uid'));
@@ -164,6 +175,9 @@ class pmcontrol extends base {
 		}
 	}
 
+	/**
+		根据用户来删除短消息
+	*/
 	function ondeleteuser() {
 		$this->init_input();
 		$this->user['uid'] = intval($this->input('uid'));
@@ -237,8 +251,8 @@ class pmcontrol extends base {
 		$daterange = $this->input('daterange');
 		$page = $this->input('page');
 		$pagesize = $this->input('pagesize');
-		$isplid = $this->input('isplid');
-		$type = $this->input('type');
+		$isplid = $this->input('isplid');// 是否为会话id
+		$type = $this->input('type');// 是否为群聊消息
 
 		$daterange = empty($daterange) ? 1 : $daterange;
 		$today = $this->time - ($this->time + $this->settings['timeoffset']) % 86400;

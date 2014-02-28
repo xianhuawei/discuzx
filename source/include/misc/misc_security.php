@@ -70,6 +70,14 @@ if($attackevasive & 8) {
 
 }
 
+/**
+ * 提示信息
+ *
+ * @param string $subject 主题
+ * @param string $message 内容
+ * @param bool $reload 是否重载页面
+ * @param bool $form 是否为表单
+ */
 function securitymessage($subject, $message, $reload = TRUE, $form = FALSE) {
 	global $_G;
 	$scuritylang = array(
@@ -129,6 +137,10 @@ function securitymessage($subject, $message, $reload = TRUE, $form = FALSE) {
 }
 
 
+/**
+ * 输出ajax XML请求需要返回的头部数据，如果为搜索引擎或者直接点开，则显示普通页面头尾。
+ *
+ */
 function security_ajaxshowheader() {
 	$charset = getglobal('config/output/charset');
 	ob_end_clean();
@@ -139,6 +151,10 @@ function security_ajaxshowheader() {
 	echo "<?xml version=\"1.0\" encoding=\"".$charset."\"?>\n<root><![CDATA[";
 }
 
+/**
+ * 输出ajax XML请求需要返回的尾部数据
+ *
+ */
 function security_ajaxshowfooter() {
 	echo ']]></root>';
 	exit();

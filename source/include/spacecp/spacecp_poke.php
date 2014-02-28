@@ -23,26 +23,31 @@ if($op == 'send' || $op == 'reply') {
 		showmessage('no_privilege_poke');
 	}
 
+	//新用户见习
 	cknewuser();
 
 	$tospace = array();
 
+	//获取对象
 	if($uid) {
 		$tospace = getuserbyuid($uid);
 	} elseif ($_POST['username']) {
 		$tospace = C::t('common_member')->fetch_uid_by_username($_POST['username']);
 	}
 
+	//黑名单
 	if($tospace && isblacklist($tospace['uid'])) {
 		showmessage('is_blacklist');
 	}
 
+	//打招呼
 	if(submitcheck('pokesubmit')) {
 		if(empty($tospace)) {
 			showmessage('space_does_not_exist');
 		}
 
 		$notetext = censor(htmlspecialchars(cutstr($_POST['note'], strtolower(CHARSET) == 'utf-8' ? 30 : 20, '')));
+		//存档
 		$setarr = array(
 			'pokeuid' => $uid+$_G['uid'],
 			'uid' => $uid,
@@ -53,6 +58,7 @@ if($op == 'send' || $op == 'reply') {
 		);
 		C::t('home_pokearchive')->insert($setarr);
 
+		//主表
 		$setarr = array(
 			'uid' => $uid,
 			'fromuid' => $_G['uid'],
@@ -64,13 +70,16 @@ if($op == 'send' || $op == 'reply') {
 
 		C::t('home_poke')->insert($setarr, false, true);
 
+		//更新我的好友关系热度
 		require_once libfile('function/friend');
 		friend_addnum($tospace['uid']);
 
 		if($op == 'reply') {
+			//删除招呼
 			C::t('home_poke')->delete_by_uid_fromuid($_G['uid'], $uid);
 			C::t('common_member')->increase($_G['uid'], array('newprompt' => -1));
 		}
+		//奖励
 		updatecreditbyaction('poke', 0, array(), $uid);
 
 		if($setarr['iconid']) {
@@ -83,6 +92,7 @@ if($op == 'send' || $op == 'reply') {
 			$pokemsg .= ', '.lang('home/template', 'say').':'.$setarr['note'];
 		}
 
+		//发送提醒
 		$note = array(
 				'fromurl' => 'home.php?mod=space&uid='.$_G['uid'],
 				'fromusername' => $_G['username'],
@@ -93,6 +103,7 @@ if($op == 'send' || $op == 'reply') {
 			);
 		notification_add($uid, 'poke', 'poke_request', $note);
 
+		//统计
 		include_once libfile('function/stat');
 		updatestat('poke');
 
@@ -136,8 +147,10 @@ if($op == 'send' || $op == 'reply') {
 	$page = empty($_GET['page'])?0:intval($_GET['page']);
 	if($page<1) $page = 1;
 	$start = ($page-1)*$perpage;
+	//检查开始数
 	ckstart($start, $perpage);
 
+	//打招呼
 	$fuids = $list = array();
 	$count = C::t('home_poke')->count_by_uid($space['uid']);
 	if($count) {

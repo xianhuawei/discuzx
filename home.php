@@ -7,6 +7,7 @@
  *      $Id: home.php 32932 2013-03-25 06:53:01Z zhangguosheng $
  */
 
+// 定义应用 ID
 define('APPTYPEID', 1);
 define('CURSCRIPT', 'home');
 
@@ -19,12 +20,15 @@ require_once './source/function/function_home.php';
 
 $discuz = C::app();
 
+//核心类
 $cachelist = array('magic','userapp','usergroups', 'diytemplatenamehome');
 $discuz->cachelist = $cachelist;
 $discuz->init();
 
+//初始化
 $space = array();
 
+//脚本引导
 $mod = getgpc('mod');
 if(!in_array($mod, array('space', 'spacecp', 'misc', 'magic', 'editor', 'invite', 'task', 'medal', 'rss', 'follow'))) {
 	$mod = 'space';

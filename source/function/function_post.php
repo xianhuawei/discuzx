@@ -327,9 +327,14 @@ function updateattach($modnewthreads, $tid, $pid, $attachnew, $attachupdate = ar
 	$_G['forum_attachexist'] = $attachment;
 }
 
+/*debug
+* 检查灌水
+* @return 是否灌水
+*/
 function checkflood() {
 	global $_G;
 	if(!$_G['group']['disablepostctrl'] && $_G['uid']) {
+		//新的灌水防御机制，采用进程锁
 		if($_G['setting']['floodctrl'] && discuz_process::islocked("post_lock_".$_G['uid'], $_G['setting']['floodctrl'])) {
 			return true;
 		}
@@ -356,6 +361,10 @@ function checkmaxperhour($type) {
 	return $morenumperhour;
 }
 
+/*debug
+* 检查post内容
+* @return 返回内容限制消息
+*/
 function checkpost($subject, $message, $special = 0) {
 	global $_G;
 	if(dstrlen($subject) > 80) {
@@ -374,10 +383,22 @@ function checkpost($subject, $message, $special = 0) {
 	return FALSE;
 }
 
+/*debug
+* 检查bbcode
+* @param $message 消息
+* @param bbcodeoff 是否关闭
+* @return 返回bbcode状态
+*/
 function checkbbcodes($message, $bbcodeoff) {
 	return !$bbcodeoff && (!strpos($message, '[/') && !strpos($message, '[hr]')) ? -1 : $bbcodeoff;
 }
 
+/*debug
+* 检查smilies
+* @param $message 消息
+* @param $smileyoff 是否关闭
+* @return 返回smileyoff状态
+*/
 function checksmilies($message, $smileyoff) {
 	global $_G;
 
@@ -395,6 +416,12 @@ function checksmilies($message, $smileyoff) {
 	}
 }
 
+/*debug
+* 更新发帖积分
+* @param $operator 操作
+* @param $uidarry 影响到的用户列表
+* @param $creditsarray 积分列表
+*/
 function updatepostcredits($operator, $uidarray, $action, $fid = 0) {
 	global $_G;
 	$val = $operator == '+' ? 1 : -1;
@@ -403,6 +430,7 @@ function updatepostcredits($operator, $uidarray, $action, $fid = 0) {
 		return false;
 	}
 	$uidarray = (array)$uidarray;
+	//整理倍率
 	$uidarr = array();
 	foreach($uidarray as $uid) {
 		$uidarr[$uid] = !isset($uidarr[$uid]) ? 1 : $uidarr[$uid]+1;
@@ -427,6 +455,12 @@ function updatepostcredits($operator, $uidarray, $action, $fid = 0) {
 	}
 }
 
+/*debug
+* 更新附件积分
+* @param $operator 操作
+* @param $uidarry 影响到的用户列表 array(uid => 附件数)
+* @param $creditsarray 积分列表
+*/
 function updateattachcredits($operator, $uidarray) {
 	global $_G;
 	foreach($uidarray as $uid => $attachs) {
@@ -434,6 +468,10 @@ function updateattachcredits($operator, $uidarray) {
 	}
 }
 
+/*debug
+* 更新论坛统计数字
+* @param $fid
+*/
 function updateforumcount($fid) {
 
 	extract(C::t('forum_thread')->count_posts_by_fid($fid));
@@ -447,6 +485,11 @@ function updateforumcount($fid) {
 	C::t('forum_forum')->update($fid, $setarr);
 }
 
+/*debug
+* 更新主题统计数字
+* @param $tid 操作者
+* @param $updateattach 是否更新附件
+*/
 function updatethreadcount($tid, $updateattach = 0) {
 	$replycount = C::t('forum_post')->count_visiblepost_by_tid($tid) - 1;
 	$lastpost = C::t('forum_post')->fetch_visiblepost_by_tid('tid:'.$tid, $tid, 0, 1);
@@ -462,6 +505,14 @@ function updatethreadcount($tid, $updateattach = 0) {
 	C::t('forum_thread')->update($tid, $data);
 }
 
+/*debug
+* 更新管理日志
+* @param $tids 主题数组
+* @param $action 动作
+* @param $expiration 限制
+* @param $iscron 是否计划任务
+* @param $reason 操作理由
+*/
 function updatemodlog($tids, $action, $expiration = 0, $iscron = 0, $reason = '', $stamp = 0) {
 	global $_G;
 
@@ -501,6 +552,10 @@ function updatemodlog($tids, $action, $expiration = 0, $iscron = 0, $reason = ''
 
 }
 
+/*debug
+* 判断用户是否使用了opera浏览器
+* @return 使用了opera返回信息,否则返回假
+*/
 function isopera() {
 	$useragent = strtolower($_SERVER['HTTP_USER_AGENT']);
 	if(strpos($useragent, 'opera') !== false) {
@@ -510,6 +565,13 @@ function isopera() {
 	return FALSE;
 }
 
+/**
+ * Module: HTML_CACHE
+ * 清除主题缓存，使之重新生成
+ *
+ * @param int $tids 可以为多个，用,为开。
+ * @return TRUE/FALSE
+ */
 function deletethreadcaches($tids) {
 	global $_G;
 	if(!$_G['setting']['cachethreadon']) {
@@ -526,6 +588,11 @@ function deletethreadcaches($tids) {
 }
 
 
+/**
+* 上传文件的函数
+* @param $file - 要上传的文件
+* @return 文件是否为上传的文件。
+*/
 function disuploadedfile($file) {
 	return function_exists('is_uploaded_file') && (is_uploaded_file($file) || is_uploaded_file(str_replace('\\\\', '\\', $file)));
 }
@@ -606,6 +673,15 @@ function messagecutstr($str, $length = 0, $dot = ' ...') {
 }
 
 
+/**
+ * 设置帖子封面
+ *
+ * @param int $pid
+ * @param int $tid
+ * @param int $aid 用指定图片附件设置封面
+ * @param int $countimg 代表只更新图片数量不更新封面
+ * @param int $imgurl 指定网络图片的地址，$aid优先
+ */
 function setthreadcover($pid, $tid = 0, $aid = 0, $countimg = 0, $imgurl = '') {
 	global $_G;
 	$cover = 0;
@@ -636,6 +712,7 @@ function setthreadcover($pid, $tid = 0, $aid = 0, $countimg = 0, $imgurl = '') {
 			$picsource = $imgurl;
 		}
 
+		//生成缩略图
 		$basedir = !$_G['setting']['attachdir'] ? (DISCUZ_ROOT.'./data/attachment/') : $_G['setting']['attachdir'];
 		$coverdir = 'threadcover/'.substr(md5($tid), 0, 2).'/'.substr(md5($tid), 2, 2).'/';
 		dmkdir($basedir.'./forum/'.$coverdir);
@@ -644,6 +721,7 @@ function setthreadcover($pid, $tid = 0, $aid = 0, $countimg = 0, $imgurl = '') {
 		$image = new image();
 		if($image->Thumb($picsource, 'forum/'.$coverdir.$tid.'.jpg', $_G['setting']['forumpicstyle']['thumbwidth'], $_G['setting']['forumpicstyle']['thumbheight'], 2)) {
 			$remote = '';
+			//远程上传
 			if(getglobal('setting/ftp/on')) {
 				if(ftpcmd('upload', 'forum/'.$coverdir.$tid.'.jpg')) {
 					$remote = '-';

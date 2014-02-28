@@ -11,9 +11,11 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+//通用文件
 require_once libfile('function/spacecp');
 require_once libfile('function/magic');
 
+//允许的方法
 $acs = array('space', 'doing', 'upload', 'comment', 'blog', 'album', 'relatekw', 'common', 'class',
 	'swfupload', 'poke', 'friend', 'eccredit', 'favorite', 'follow',
 	'avatar', 'profile', 'theme', 'feed', 'privacy', 'pm', 'share', 'invite','sendmail',
@@ -27,6 +29,7 @@ if(!in_array($ac, array('doing', 'upload', 'blog', 'album'))) {
 
 
 if($ac != 'comment' || !$_G['group']['allowcomment']) {
+	//权限判断
 	if(empty($_G['uid'])) {
 		if($_SERVER['REQUEST_METHOD'] == 'GET') {
 			dsetcookie('_refer', rawurlencode($_SERVER['REQUEST_URI']));
@@ -36,18 +39,21 @@ if($ac != 'comment' || !$_G['group']['allowcomment']) {
 		showmessage('to_login', '', array(), array('showmsg' => true, 'login' => 1));
 	}
 
+	//获取空间信息
 	$space = getuserbyuid($_G['uid']);
 	if(empty($space)) {
 		showmessage('space_does_not_exist');
 	}
 	space_merge($space, 'field_home');
 
+	//空间被锁定或被禁言
 	if(($space['status'] == -1 || in_array($space['groupid'], array(4, 5, 6))) && $ac != 'usergroup') {
 		showmessage('space_has_been_locked');
 	}
 }
+//菜单
 $actives = array($ac => ' class="a"');
-
+//验证码开关
 list($seccodecheck, $secqaacheck) = seccheck('publish');
 
 $navtitle = lang('core', 'title_setup');

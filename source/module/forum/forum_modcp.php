@@ -82,6 +82,15 @@ if($_G['fid'] && $_G['forum']['ismoderator']) {
 	$forcefid = '';
 }
 
+/**
+ * 处理管理请求
+ *
+ * $_GET['action'] : 管理请求，通过gp传递进来
+ * $op  : 管理子请求，通过gp传递进来
+ *
+ * $script : 用于处理请求的程序
+ * $modtpl : 用于处理此请求的时候的模板文件，默认为 modcp_$script ，也可以在程序里面指定
+ */
 $script = $modtpl = '';
 switch ($_GET['action']) {
 
@@ -180,6 +189,11 @@ $notenum = C::t('common_adminnote')->count_by_access(explode(',', $access));
 
 include template('forum/modcp');
 
+/**
+ * post分表select列表,注意：此函数和function_admincp.php中有同名函数
+ * @global <type> $_G
+ * @return string
+ */
 function getposttableselect() {
 	global $_G;
 

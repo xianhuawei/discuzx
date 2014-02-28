@@ -31,6 +31,7 @@ class appcontrol extends base {
 		return $applist2;
 	}
 
+	// public 提供给安装程序的接口，需要校验 Founder 帐号密码
 	function onadd() {
 		$ucfounderpw = getgpc('ucfounderpw', 'P');
 		$apptype = getgpc('apptype', 'P');
@@ -44,6 +45,7 @@ class appcontrol extends base {
 		$appallowips = getgpc('allowips', 'P');
 
 		if(md5(md5($ucfounderpw).UC_FOUNDERSALT) == UC_FOUNDERPW || (strlen($ucfounderpw) == 32 && $ucfounderpw == md5(UC_FOUNDERPW))) {
+			// 判断是否存在
 			@ob_start();
 			$return  = '';
 

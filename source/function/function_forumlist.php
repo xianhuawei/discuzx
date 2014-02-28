@@ -162,6 +162,13 @@ function moddisplay($moderators, $type, $inherit = 0) {
 	return $modlist;
 }
 
+/**
+ * Module: HTML_CACHE
+ * 得到缓存文件的信息: 文件名，最后更新时间。
+ *
+ * @param int $tid
+ * @return array('filemtime' => 0, 'filename' => ''
+ */
 function getcacheinfo($tid) {
 	global $_G;
 	$tid = intval($tid);
@@ -332,6 +339,10 @@ function recommendupdate($fid, &$modrecommend, $force = '', $position = 0) {
 	return $recommendlists;
 }
 
+/**
+* 显示等级
+* @param $num - 等级
+*/
 function showstars($num) {
 	global $_G;
 	$return = '';

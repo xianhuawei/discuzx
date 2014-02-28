@@ -36,7 +36,7 @@ if($_GET['action'] == 'group') {
 	$groupname = $foruminfo['name'];
 	$invitename = lang('group/misc', 'group_join', array('groupname' => $groupname));
 	if(!submitcheck('invitesubmit')) {
-		$friends = friend_list($_G['uid'], 100);
+		$friends = friend_list($_G['uid'], 100);//note 取100个好友，筛选已经邀请或已经是群组成员的好友。
 		if(!empty($friends)) {
 			$frienduids = array_keys($friends);
 			$inviteduids = array();

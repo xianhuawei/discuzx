@@ -84,14 +84,17 @@ class discuz_error
 	public static function db_error($message, $sql) {
 		global $_G;
 
+		//收集php运行信息
 		list($showtrace, $logtrace) = discuz_error::debug_backtrace();
 
+		//处理语言包
 		$title = lang('error', 'db_'.$message);
 		$title_msg = lang('error', 'db_error_message');
 		$title_sql = lang('error', 'db_query_sql');
 		$title_backtrace = lang('error', 'backtrace');
 		$title_help = lang('error', 'db_help_link');
 
+		//处理sql错误
 		$db = &DB::object();
 		$dberrno = $db->errno();
 		$dberror = str_replace($db->tablepre,  '', $db->error());
@@ -117,6 +120,10 @@ class discuz_error
 
 	}
 
+	/**
+	 * 处理 throw new cexeception 错误信息
+	 * @param CException|DbException $exception
+	 */
 	public static function exception_error($exception) {
 
 		if($exception instanceof DbException) {
@@ -368,6 +375,11 @@ EOT;
 		return str_replace(array("\t", "\r", "\n"), " ", $message);
 	}
 
+	/**
+	 * 清理sql文中的换行等特殊符号 以及 tablepre；
+	 * @param type $message
+	 * @return type
+	 */
 	public static function sql_clear($message) {
 		$message = self::clear($message);
 		$message = str_replace(DB::object()->tablepre, '', $message);
@@ -389,8 +401,8 @@ EOT;
 		$uri = 'Request: '.dhtmlspecialchars(discuz_error::clear($_SERVER['REQUEST_URI']));
 		$message = "<?PHP exit;?>\t{$time}\t$message\t$hash\t$user $uri\n";
 		if($fp = @fopen($file, 'rb')) {
-			$lastlen = 50000;
-			$maxtime = 60 * 10;
+			$lastlen = 50000; //note 取末尾多长的字符串
+			$maxtime = 60 * 10; //note 最大多少秒之内的重复错误不记录
 			$offset = filesize($file) - $lastlen;
 			if($offset > 0) {
 				fseek($fp, $offset);
