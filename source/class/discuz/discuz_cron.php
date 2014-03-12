@@ -22,19 +22,19 @@ class discuz_cron
 	 */
 	public static function run($cronid = 0) {
 		global $_G;
-		$cron = $cronid ? C::t('common_cron')->fetch($cronid) : C::t('common_cron')->fetch_nextrun(TIMESTAMP);
+		$cron = $cronid ? C::t('common_cron')->fetch($cronid) : C::t('common_cron')->fetch_nextrun(TIMESTAMP);//取出一条符合执行条件的计划任务
 
 		$processname ='DZ_CRON_'.(empty($cron) ? 'CHECKER' : $cron['cronid']);
 
 		if($cronid && !empty($cron)) {
-			discuz_process::unlock($processname);
+			discuz_process::unlock($processname);//为手动执行计划任务解锁
 		}
 
-		if(discuz_process::islocked($processname, 600)) {
+		if(discuz_process::islocked($processname, 600)) {//检查计划任务进程是否上锁
 			return false;
 		}
 
-		if($cron) {
+		if($cron) {//计划任务执行
 
 			$cron['filename'] = str_replace(array('..', '/', '\\'), '', $cron['filename']);
 			$efile = explode(':', $cron['filename']);
@@ -46,20 +46,20 @@ class discuz_cron
 
 			if($cronfile) {
 				$cron['minute'] = explode("\t", $cron['minute']);
-				self::setnextime($cron);
+				self::setnextime($cron);//根据后台设置，更新该计划任务执行的时间
 
 				@set_time_limit(1000);
-				@ignore_user_abort(TRUE);
+				@ignore_user_abort(TRUE);//设置与客户机断开不会终止脚本的执行
 
-				if(!@include $cronfile) {
+				if(!@include $cronfile) {//执行具体计划任务程序
 					return false;
 				}
 			}
 
 		}
 
-		self::nextcron();
-		discuz_process::unlock($processname);
+		self::nextcron();//设置最近一次计划任务执行的时间
+		discuz_process::unlock($processname);//解锁
 		return true;
 	}
 

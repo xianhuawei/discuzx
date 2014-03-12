@@ -184,6 +184,9 @@ $_config['remote']['cron'] = 0;
 // $_GET|$_POST的兼容处理，0为关闭，1为开启；开启后即可使用$_G['gp_xx'](xx为变量名，$_GET和$_POST集合的所有变量名)，值为已经addslashes()处理过
 $_config['input']['compatible'] = 1;
 
+//开启后台插件开发模块 用来开发插件
+$_config['plugindeveloper'] = 1;
+
 //discuz-redis 扩展 轻松快速分页 避免分页瓶颈
 $_config['extend']['discuz_redis']['on'] = 0;//1为启动，0为停止
 $_config['discuz_redis']['server'] = '127.0.0.1';
