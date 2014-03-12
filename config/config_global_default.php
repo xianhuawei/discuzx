@@ -184,6 +184,35 @@ $_config['remote']['cron'] = 0;
 // $_GET|$_POST的兼容处理，0为关闭，1为开启；开启后即可使用$_G['gp_xx'](xx为变量名，$_GET和$_POST集合的所有变量名)，值为已经addslashes()处理过
 $_config['input']['compatible'] = 1;
 
-//开启后台插件开发模块 用来开发插件
-$_config['plugindeveloper'] = 1;
+//discuz-redis 扩展 轻松快速分页 避免分页瓶颈
+$_config['extend']['discuz_redis']['on'] = 0;//1为启动，0为停止
+$_config['discuz_redis']['server'] = '127.0.0.1';
+$_config['discuz_redis']['port'] = 6379;
+$_config['discuz_redis']['pconnect'] = 1;
+$_config['discuz_redis']['auth'] = '';
+$_config['discuz_redis']['db'] = '0';
+
+//云存储通用接口
+$_config['extend']['storage']['curstorage'] = '';//为空则不启用 支持upyun,aliyun,qiniu 三种云存储
+$_config['extend']['storage']['upyun']['bucket'] = 'dztest';
+$_config['extend']['storage']['upyun']['username'] = 'dzuser';
+$_config['extend']['storage']['upyun']['password'] = 'discuz';
+$_config['extend']['storage']['upyun']['attachurl'] = 'http://dztest.b0.upaiyun.com';
+
+$_config['extend']['storage']['aliyun']['access_id'] = '';
+$_config['extend']['storage']['aliyun']['access_key'] = '';
+$_config['extend']['storage']['aliyun']['access_host'] = NULL;
+$_config['extend']['storage']['aliyun']['bucket'] = 'discuzbucket';
+$_config['extend']['storage']['aliyun']['attachurl'] = 'http://discuzbucket.oss.aliyuncs.com';
+
+$_config['extend']['storage']['qiniu']['accesskey'] = '';
+$_config['extend']['storage']['qiniu']['secretkey'] = '';
+$_config['extend']['storage']['qiniu']['attachurl'] = 'http://discuztest.qiniudn.com';
+$_config['extend']['storage']['qiniu']['bucket'] = 'discuztest';
+//end
+
+//云上报/计划任务异步机制方案
+$_config['extend']['asynctask']['on'] = 0;
+$_config['remote']['on'] = '1';
+$_config['remote']['cron'] = '1';
 ?>
