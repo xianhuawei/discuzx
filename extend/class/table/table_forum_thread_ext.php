@@ -176,9 +176,6 @@ class table_forum_thread_ext extends table_forum_thread
 	
 	//hack redis 8
 	private function fetch_tids_redis($conditions, $order, $start, $limit) {
-		if(getglobal('config/extend/discuz_redis/on') == 0){
-			return parent::fetch_tids_redis($conditions, $order, $start, $limit);
-		}
 		if(!DISCUZ_REDIS) {
 			return false;
 		}
