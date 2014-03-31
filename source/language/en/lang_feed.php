@@ -7,15 +7,11 @@
  *      $Id: lang_feed.php by Valery Votintsev at sources.ru
  */
 
-if(!defined('IN_DISCUZ')) {
-	exit('Access Denied');
-}
-
 $lang = array
 (
 
-	'feed_blog_password'	=> '{actor} published a new password protected blog {subject}',//'{actor} 发表了新加密日志 {subject}',
-	'feed_blog_title'	=> '{actor} published a new blog',//'{actor} 发表了新日志',
+	'feed_blog_password'	=> '{actor} published new password protected blog {subject}',//'{actor} 发表了新加密日志 {subject}',
+	'feed_blog_title'	=> '{actor} published new blog',//'{actor} 发表了新日志',
 	'feed_blog_body'	=> '<b>{subject}</b><br />{summary}',//'<b>{subject}</b><br />{summary}',
 	'feed_album_title'	=> '{actor} updated album',//'{actor} 更新了相册',
 	'feed_album_body'	=> '<b>{album}</b><br />Total images: {picnum}',//'<b>{album}</b><br />共 {picnum} 张图片',
@@ -33,8 +29,8 @@ $lang = array
 	'feed_comment_event'	=> '{actor} commented the event {event} started by {touser}',//'{actor} 在 {touser} 组织的活动 {event} 中留言了',
 	'feed_comment_share'	=> '{actor} commented the share {share} of {touser}',//'{actor} 对 {touser} 分享的 {share} 发表了评论',
 
-	'feed_showcredit'	=> '{actor} presented {credit} points to {fusername} for raise in <a href="misc.php?mod=ranklist&type=member">Top List</a>',//'{actor} 赠送给 {fusername} 竞价积分 {credit} 个，帮助好友提升在<a href="misc.php?mod=ranklist&type=member" target="_blank">竞价排行榜</a>中的名次',
-	'feed_showcredit_self'	=> '{actor} spent {credit} points to raise himself in <a href="misc.php?mod=ranklist&type=member">Top List</a>',//'{actor} 增加竞价积分 {credit} 个，提升自己在<a href="home.php?mod=space&do=top" target="_blank">竞价排行榜</a>中的名次',
+	'feed_showcredit'	=> '{actor} presented {credit} points to {fusername} for raise in <a href="home.php?mod=space&do=top">Top list</a>',//'{actor} 赠送给 {fusername} 竞价积分 {credit} 个，帮助好友提升在<a href="home.php?mod=space&do=top" target="_blank">竞价排行榜</a>中的名次',
+	'feed_showcredit_self'	=> '{actor} spent {credit} points to raise himself in <a href="home.php?mod=space&do=top">Top list</a>',//'{actor} 增加竞价积分 {credit} 个，提升自己在<a href="home.php?mod=space&do=top" target="_blank">竞价排行榜</a>中的名次',
 	'feed_doing_title'	=> '{actor} wrote doing: {message}',//'{actor}：{message}',
 	'feed_friend_title'	=> '{actor} and {touser} become friends',//'{actor} 和 {touser} 成为了好友',
 

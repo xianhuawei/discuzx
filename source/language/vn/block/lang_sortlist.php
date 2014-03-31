@@ -1,0 +1,78 @@
+<?php
+
+/**
+ *      [Discuz!] (C)2001-2099 Comsenz Inc.
+ *      This is NOT a freeware, use is subject to license terms
+ *		Translate by DCV team - http://www.discuz.vn
+ *      $Id: lang_sortlist.php 14454 2010-08-12 01:47:36Z xupeng $
+ */
+
+$lang = array
+(
+	'sortlist_fids' => 'Hợp diễn đàn',
+	'sortlist_fids_comment' => 'Thiết lập được tham gia diễn đàn này được gọi là bài mới, bạn có thể giữ phím CTRL nhiều sự lựa chọn, chọn tất cả hoặc không có cuộc bầu cử không giới hạn',
+	'sortlist_startrow' => 'Số hàng ban đầu',
+	'sortlist_startrow_comment' => 'Để thiết lập số ban đầu của các hàng, nhập các giá trị cụ thể, 0 để bắt đầu từ những dòng đầu tiên, và như vậy',
+	'sortlist_showitems' => 'Điều số hiển thị dữ liệu',
+	'sortlist_showitems_comment' => 'Thiết lập các chủ đề của một số các mục hiển thị, thiết lập một số nguyên lớn hơn 0',
+	'sortlist_titlelength' => 'Số lượng tối đa là byte',
+	'sortlist_titlelength_comment' => 'Cài đặt khi tiêu đề dài hơn thiết lập, cho dù tiêu đề tự động giảm số lượng byte trong thiết lập này, 0 để không tự động giảm',
+	'sortlist_fnamelength' => 'Diễn đàn có tên số lượng tối đa là byte',
+	'sortlist_fnamelength_comment' => 'Đặt độ dài tiêu đề  cho dù chiều dài của nơi tên diễn đàn của tài khoản có',
+	'sortlist_summarylength' => 'Số lượng các nội dung văn bản ngắn của chủ đề',
+	'sortlist_summarylength_comment' => 'Thiết lập các nội dung văn bản của số chủ đề ngắn, sử dụng giá trị mặc định 0 255',
+	'sortlist_tids' => 'Xác định chủ đề',
+	'sortlist_tids_comment' => 'Để xác định chủ đề hiển thị thiết lập TID, nhiều TID xin vui lòng thêm dấu phẩy  "," tách biệt. Lưu ý: Để trống không có lọc',
+	'sortlist_keyword' => 'Từ khóa đề mục',
+	'sortlist_keyword_comment' => 'Đặt tiêu đề chứa các từ khoá. Lưu ý: Để trống cho không lọc, từ khóa có thể sử dụng ký tự đại diện *; phù hợp với nhiều từ khoá, có thể được không gian và kết nối. Nếu win32 và Unix; phù hợp với một hoặc nhiều từ khóa có thể được sử dụng | hoặc hoặc kết nối. Nếu win32 OR unix',
+	'sortlist_typeids' => 'Phân loại Chủ đề',
+	'sortlist_typeids_comment' => 'Thiết lập một chủ đề thể loại cụ thể. Lưu ý: Chọn Tất cả hoặc Xóa tất cả đều không có bất kỳ lọc',
+	'sortlist_typeids_all' => 'Tất cảPhân loại Chủ đề',
+	'sortlist_sortids' => 'Rao vặt',
+	'sortlist_sortids_comment' => 'Thiết lập cụ thể rao vặt  chủ đề. Lưu ý: Chọn Tất cả hoặc Xóa tất cả đều không có bất kỳ lọc',
+	'sortlist_sortids_all' => 'Tất cảRao vặt',
+	'sortlist_digest' => 'Bản chất của chủ đề Filter',
+	'sortlist_digest_comment' => 'Thiết lập một khu vực cụ thể. Lưu ý: Chọn Tất cả hoặc Xóa tất cả đều không có bất kỳ lọc',
+	'sortlist_digest_0' => 'Tổng chủ đề',
+	'sortlist_digest_1' => 'Tinh hoa I',
+	'sortlist_digest_2' => 'Tinh hoa II',
+	'sortlist_digest_3' => 'Tinh hoa III',
+	'sortlist_stick' => 'Chủ đề Bộ lọc',
+	'sortlist_stick_comment' => 'Thiết lập một khu vực cụ thể. Lưu ý: Chọn Tất cả hoặc Xóa tất cả đều không có bất kỳ lọc',
+	'sortlist_stick_0' => 'Tổng chủ đề',
+	'sortlist_stick_1' => 'Đính cấp I',
+	'sortlist_stick_2' => 'Đính cấp II',
+	'sortlist_stick_3' => 'Đính cấp III',
+	'sortlist_special' => 'Bộ lọc chủ đề đặc biệt',
+	'sortlist_special_comment' => 'Thiết lập một khu vực cụ thể. Lưu ý: Chọn Tất cả hoặc Xóa tất cả đều không có bất kỳ lọc',
+	'sortlist_special_1' => 'Thăm dò ý kiến',
+	'sortlist_special_2' => 'Chủ đề hàng hóa',
+	'sortlist_special_3' => 'Theme thưởng',
+	'sortlist_special_4' => 'Chủ đề',
+	'sortlist_special_5' => 'Chủ đề của cuộc tranh luận',
+	'sortlist_special_0' => 'Tổng chủ đề',
+	'sortlist_special_reward' => 'Lọc Theme thưởng',
+	'sortlist_special_reward_comment' => 'Thiết lập một loại hình cụ thể của Theme thưởng',
+	'sortlist_special_reward_0' => 'Tất cả',
+	'sortlist_special_reward_1' => 'Giải quyết',
+	'sortlist_special_reward_2' => 'Chưa được giải quyết',
+	'sortlist_recommend' => 'Được giới thiệu bộ lọc chủ đề',
+	'sortlist_recommend_comment' => 'Chỉ nên thiết lập được các chủ đề của',
+	'sortlist_orderby' => 'Phân loại theo chủ đề',
+	'sortlist_orderby_comment' => 'Cài đặt để trong đó lĩnh vực chủ đề hoặc cách sắp xếp',
+	'sortlist_orderby_lastpost' => 'Sắp xếp ngược lại theo thời gian bài mới nhất',
+	'sortlist_orderby_dateline' => 'Sắp xếp ngược lại theo đăng',
+	'sortlist_orderby_replies' => 'Sắp xếp ngược lại theo số bài trả lời',
+	'sortlist_orderby_views' => 'Lượt xem  sắp xếp ngược',
+	'sortlist_orderby_heats' => 'Sắp xếp ngược lại theo độ nóng',
+	'sortlist_orderby_recommends' => 'Sắp xếp ngược lại theo đánh giá chủ đề',
+	'sortlist_lastpost' => 'Bài viết mới',
+	'sortlist_lastpost_nolimit' => 'Không giới hạn',
+	'sortlist_lastpost_hour' => 'Trong vòng một giờ',
+	'sortlist_lastpost_day' => 'Ngày',
+	'sortlist_lastpost_week' => 'Tuần',
+	'sortlist_lastpost_month' => 'Trong thời hạn một tháng',
+	'sortlist_orderby_hours_comment' => 'Lượt xem quy định khoảng thời gian giá trị của loại đảo ngược',
+);
+
+?>

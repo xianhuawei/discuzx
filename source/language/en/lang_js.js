@@ -4,7 +4,7 @@
 
 	Javascript Language variables
 
-	$Id: lang_js.js by Valery Votintsev, codersclub.org
+	$Id: static/js/lang_js.js by Valery Votintsev, vot at sources.ru
 
 */
 
@@ -17,7 +17,6 @@ var emaildomains = [
 		'gmail.com',
 		'hotmail.com',
 		'msn.com',
-		'qq.com',
 		'yahoo.com'
 		];
 
@@ -96,6 +95,7 @@ var lng = {
 	'plain_text_warn'	: 'Converting to the plain text will lose some formatting!\nAre you sure you want to continue?',//'转换为纯文本时将会遗失某些格式。\n您确定要继续吗？',
 	'browser_update'	: 'Your browser does not support this feature, please upgrade your browser version',//'你的浏览器不支持此功能，请升级浏览器版本',
 	'tips'			: 'Tips',//'小提示',
+//	'show_tips'		: 'Show Tips',//'友情提示',
 
 //---------------------------
 //static/image/editor/editor_function.js
@@ -111,9 +111,6 @@ var lng = {
 	'int_cloud_test'	: 'Testing other cloud platform interface',//'云平台其他接口测试',
 	'int_roaming_test'	: 'Testing other Roaming interface',//'漫游其他接口测试',
 	'int_qq_test'		: 'Testing QQ Internet interface',//'QQ互联接口测试',
-	'server_busy'		: 'The server is busy, please try again later',//'服务器繁忙，请稍后再试',
-	'tested_ok'		: 'The test is successful, time used: ',//'测试成功，耗时 ',
-	'seconds'		: ' sec.',//' 秒',
 
 //---------------------------
 //static/image/admincp/cloud/qqgroup.js
@@ -129,13 +126,6 @@ var lng = {
 
 
 
-//---------------------------
-//upload/static/js/autoloadpage.js
-	'loading_content_wait'	: 'Loading content, wait please...',//'正在加载, 请稍后...',
-
-//---------------------------
-//upload/static/js/at.js
-//	'enter_username'	: 'Please enter the user name',//'请输用户名',
 
 //---------------------------
 //upload/static/js/common_extra.js
@@ -161,7 +151,6 @@ var lng = {
 	'today'		: 'Today',//'今天',
 	'hours'		: 'Hours',//'点',
 	'minutes'	: 'Minutes',//'分',
-	'halfhour'	: 'Half hour',//'半小时',
 	'ok'		: 'Ok',//'OK',
 
 //--------------------------------
@@ -173,7 +162,9 @@ var lng = {
 	'wheel_zoom'		: 'Use mouse wheel to zoom in/out the image',//'鼠标滚轮缩放图片',
 	'reminder'		: 'Reminder',//'提示信息',
 	'submit'		: 'Submit',//'确定',
+//	'submit'		: 'Submit',//'提交',
 	'cancel'		: 'Cancel',//'取消',
+//	'cancel'		: 'Cancel',//'取消',
 	'wait_please'		: 'Loading ...',//'请稍候...',
 	'int_error'		: 'Internal Error, can not display this content',//'内部错误，无法显示此内容',
 	'flash_required'	: 'This content requires Adobe Flash Player 9.0.124 or later',//'此内容需要 Adobe Flash Player 9.0.124 或更高版本',
@@ -216,9 +207,6 @@ var lng = {
 	'error_message'		: 'Error Message',//'错误信息',
 	'ctrl_d_favorites'	: 'Press Ctrl + D keys for add to Favorites',//'请按 Ctrl+D 键添加到收藏夹',
 	'non_ie_manually'	: 'For non-IE browser please set Homepage manually',//'非 IE 浏览器请手动将本站设为首页',
-	'blind_enable'		: 'Enable blind experience',//'开启盲人体验',//tc:'開啟盲人體驗',
-	'blind_disable'		: 'Disable blind experience',//'关闭盲人体验',//tc:'關閉盲人體驗',
-
 //--------------------------------
 //static/js/common_diy.js
 
@@ -231,11 +219,18 @@ var lng = {
 //static/js/common_extra.js
 
 	'copy_failed'		: 'Copy failed, please select "Allow access"',//'复制失败，请选择“允许访问”',
+//	'permanent'		: 'Permanent',//'永久',
+//	'open_new_win'		: 'Open in new window',//'在新窗口打开',
+//	'actual_size'		: 'Actual Size',//'实际大小',
+//	'close'			: 'Close',//'关闭',
+//	'wheel_zoom'		: 'Use mouse wheel to zoom in/out the image',//'鼠标滚轮缩放图片',
+//	'reminder'		: 'Reminder',//'提示信息',
 	'prev'			: 'Prev.',//'上一张',
 	'next'			: 'Next',//'下一张',
 
 //--------------------------------
 //static/js/editor.js
+//static/js/seditor.js
 
 	'restore_size_edit'	: 'Resume editor size',//'恢复编辑器大小',
 	'full_screen_edit'	: 'Full Screen Editor',//'全屏方式编辑',
@@ -282,7 +277,13 @@ var lng = {
 	'sec_before_saving'	: 's before autosave',//'秒后保存',
 	'insert_quote'		: 'Insert the Quote',//'请输入要插入的引用',
 	'insert_code'		: 'Insert the Code',//'请输入要插入的代码',
+//	'enter_image_url'	: 'Enter the image URL',//'请输入图片地址',
+//	'width_optional'	: 'Width (optional)',//'宽(可选)',
+//	'height_optional'	: 'Height (optional)',//'高(可选)',
 	'enter_item_list'	: 'Enter the item list.\r\nLeave blank, or click Cancel.',//'输入一个列表项目.\r\n留空或者点击取消完成此列表.',
+//	'enter_link_url'	: 'Enter the link URL',//'请输入链接地址',
+//	'enter_link_text'	: 'Enter the link text',//'请输入链接文字',
+//	'insert_quote'		: 'Insert the Quote',//'请输入要插入的引用',
 	'width'			: 'Width',//'宽',
 	'height'		: 'Height',//'高',
 	'audio_support'		: 'Supported wma, mp3, ra, rm, and other music formats<br />Example: http://server/audio.wma',//'支持 wma mp3 ra rm 等音乐格式<br />示例: http://server/audio.wma',
@@ -290,33 +291,13 @@ var lng = {
 	'flash_support'		: 'Supported Flash formats: swf flv <br /> Example: http://server/flash.swf',//'支持 swf flv 等 Flash 网址<br />示例: http://server/flash.swf',
 	'paste_from_word'	: 'Paste a content from Word',//'从 Word 粘贴内容',
 	'paste_word_tip'	: 'Please use shortcut (Ctrl + V) to paste the content from Word document',//'请通过快捷键(Ctrl+V)把 Word 文件中的内容粘贴到上',
-	'show_tips'		: 'Show Tips',//'友情提示',
-	'expire_days'		: 'Valid for (days)',//'有效天数',
-	'expire_days_invalid'	: 'Distance from the posting date is greater than the number of days when the label automatically expire',//'距离发帖日期大于这个天数时标签自动失效',
-	'download_remote'	: 'Downloading remote attachment, please wait ...',//'正在下载远程附件，请稍等……',
-	'create_post_directory'	: 'Create post directory',//'创建帖子目录',
-	'page_number'		: 'Page number',//'页码',
-	'jump_to_page'		: 'Jump to specified page',//'跳转到指定的页',
-	'jump_to_page_comment'	: 'Use [page] tag for add a page break',//'用 [page] 对当前帖子分页后的页码',
-	'jump_to_post'		: 'Jump to specified post',//'跳转到指定的帖子',
-	'jump_tip_pid'		: 'Post TID and PID',//'帖子的 TID 和 PID',
-	'add_indent'		: 'Add the first line indent',//'添加行首缩进',
-	'enter_post_password'	: 'Please enter the post password',//'请输入帖子密码',
-	'begin_flash_img'	: 'Enter the beginning Flash or image animation URL',//'请输入开头动画 Flash 或 图片 地址',
-	'begin_click_url'	: 'Click on the link URL',//'点击链接地址',
-	'begin_stay_seconds'	: 'Display seconds',//'停留秒数',
-	'begin_disappearance'	: 'Disappear effect after loading',//'载入、消失的效果',
-	'none'			: 'None',//'无',
-	'begin_fade'		: 'Fade',//'淡入淡出',
-	'begin_explosive'	: 'Explode',//'展开闭合',
-	'begin_info'		: 'Supported formats: swf flv jpg gif png<br/>Width range: 400~1024, Height range: 300~640<br/>Example: http://server/flash.swf',//'支持 swf flv jpg gif png 网址<br />宽高范围: 宽400~1024 高300~640<br />示例: http://server/flash.swf',
-
 //--------------------------------
 //static/js/forum.js
 
 	'del_thread_sure'	: 'Are you sure you want to remove this thread from hot threads?',//'您确认要把此主题从热点主题中移除么？',
 	'there_are'		: 'There are ',//'有',
-	'new_reply_exists'	: 'There are new thread replies, click for View',//'有新回复的主题，点击查看',
+//	'new_reply_exists'	: ' new replies in the thread, click to view',//'条存在新回复的主题，点击查看',
+	'new_reply_exists'	: 'The thread has new replies, click on View',//'有新回复的主题，点击查看',
 //--------------------------------
 //static/js/forum_google.js
 
@@ -340,28 +321,40 @@ var lng = {
 	'can_not_save_attach'	: 'Can not save Attachment file',//'附件文件无法保存',
 	'invalid_file'		: 'No legitimate file was uploaded',//'没有合法的文件被上传',
 	'illegal_operation'	: 'Illegal Operation',//'非法操作',
+//	'current_length'	: 'Current Length',//'当前长度',
+//	'bytes'			: 'bytes',//'字节',
+//	'system_limit'		: 'System limit',//'系统限制',
+//	'up_to'			: 'to',//'到',
+//	'bytes'			: 'bytes',//'字节',
+//	'check_length'		: 'Word Count',//'字数检查',
 	'enter_content'		: 'Enter the title or content',//'请完成标题或内容栏',
 	'select_category'	: 'Select a corresponding category for the thread',//'请选择主题对应的分类',
 	'select_category_info'	: 'Select a corresponding category for the thread information',//'请选择主题对应的分类信息',
 	'title_long'		: 'Title length exceeds the limit of 255 characters',//'您的标题超过 80 个字符的限制',
 	'content_long'		: 'The content length does not meet the requirements.\n\n',//'您的帖子长度不符合要求。\n\n',
+//	'bytes'			: 'bytes',//'字节',
+//	'system_limit'		: 'System limit',//'系统限制',
+//	'up_to'			: 'to',//'到',
 	'ignore_pending_attach'	: 'There are pending attachments, are you sure to ignore it?',//'您有等待上传的附件，确认不上传这些附件吗？',
 	'still_uploading'	: 'Some attachments are still uploading, please wait. The thread will be published automaticly after the files was uploaded...',//'您有正在上传的附件，请稍候，上传完成后帖子将会自动发表...',
+//	'q&a_invalid'			: 'Wrong answer, please try again',//'验证问答错误，请重新填写',
+//	'code_invalid'			: 'Wrong security code, please try again',//'验证码错误，请重新填写',
 	'no_data_recover'	: 'No data can be recoverd!',//'没有可以恢复的数据！',
 	'content_overwrite'	: 'Warning:\nCurrent content will be overwritten with the saved data!\nAre you sure to restore the data?',//'此操作将覆盖当前帖子内容，确定要恢复数据吗？',
 	'upload_finished'	: 'Uploading is finished!',//'附件上传完成！',
 	'successfull'		: 'Successfull:',//'成功',
 	'failed'		: 'Failed:',//'失败',
-	'ones'			: ' items',//'个',
+	'ones'			: 'ones',//'个',
 	'uploading'		: 'Uploading...',//'上传中...',
 	'select_image_files'	: 'Select image files',//'请选择图片文件',
 	'delete'		: 'Delete',//'删除',
+//	'cancel'		: 'Cancel',//'取消',
 	'contains'		: 'Contains ',//'包含',
 	'img_attached_num'	: 'images attached',//'个图片附件',
 	'files attached_num'	: 'files attached',//'个附件',
 	'images'		: 'Images',//'图片',
 	'attachments'		: 'attachments',//'附件',
-//	'upload_failed'		: 'Upload Failed',//'上传失败',
+	'upload_failed'		: 'Upload Failed',//'上传失败',
 
 	'attach_big'		: 'Attachment size exceeds the allowed limit',//'服务器限制无法上传那么大的附件',
 	'attach_group_big'	: 'You user group total attachment size exceeds allowed limit',//'用户组限制无法上传那么大的附件',
@@ -374,12 +367,17 @@ var lng = {
 	'vote_max_reached'	: 'Reached the maximum number of votes: ',//'已达到最大投票数',
 	'no_remote_attach'	: 'Sorry, no remote attachment',//'抱歉，暂无远程附件',
 	'delete_post_sure'	: 'Sure you want to delete this post?',//'确定要删除该帖子吗？',
-	'feed_add_confirm'	: 'Because of you have set read permission or sell the post, do you confirm also the broadcast to your listeners to see?',//'由于您设置了阅读权限或出售帖，您确认还转播给您的听众看吗？',
 //--------------------------------
 //static/js/forum_viewthread.js
 
 	'best_answer_sure'	: 'Are you sure you want to define this post as the "Best Answer"?',//'您确认要把该回复选为“最佳答案”吗？',
+//	'title_long'		: 'Title length exceeds the limit of 255 characters',//'您的标题超过 255 个字符的限制',
+//	'content_long'		: 'The content length does not meet the requirements.\n\nCurrent Length '//'您的帖子长度不符合要求。\n\n当前长度',
+//	'bytes'			: 'bytes',//'字节',
+//	'system_limit'		: 'System limit',//'系统限制',
+//	'up_to'			: 'to',//'到',
 	'premoderated'		: 'Replies to this category must be audited. Your post wll be displayed after the verification',//'本版回帖需要审核，您的帖子将在通过审核后显示',
+//	'credit_confirm1'	: 'This costs ',//'下载积分将',
 	'credit_confirm1'	: 'Download costs ',//'下载需要消耗',
 	'credit_confirm2'	: ' points, are you sure to download?',//'，您是否要下载？',
 	'thread_to_clipboard'	: 'Thread address was copied to the clipboard',//'帖子地址已经复制到剪贴板',
@@ -388,38 +386,8 @@ var lng = {
 	'notify_on_reply_cancel'	: 'Cancel reply notification',//'取消回复通知',
 	'share_connection_failed'	: 'Connection to share failed, please try again later',//'分享服务连接失败，请稍后再试',
 	'qq_bind'		: 'Please bind your QQ account',//'请先绑定QQ账号',
-	'quote_by'		: 'Quote by .*? in .*? code',//'本帖最后由 .*? 于 .*? 编辑',
-	'copy_code'		: 'Copy code',//'复制代码',
-	'download_pocket_forum'	: 'Download Pocket Forum',//'下载掌上论坛',
-	'pocket_forum_android'	: 'If Andriod version, Scan thw QR-code can be downloaded directly to the phone',//'Andriod版本，扫描二维码可以直接下载到手机',
-	'pocket_forum_android_alt'	: 'Suitable for Android-based smartphones like Samsung/HTC/etc',//'适用于装有安卓系统的三星/HTC/小米等手机',
-	'pocket_forum_ios'	: 'If iPhone used, Scan thw QR-code can be downloaded directly to the phone',//'iPhone版本，扫描二维码可以直接下载到手机',
-	'pocket_forum_ios_alt'	: 'Suitable for Apple mobile phone',//'适用于苹果手机',
-
-//--------------------------------
-//static/js/handlers.js
-	'file_selected_exceed'	: 'You have selected too many files.',//'您选择的文件个数超过限制。',
-	'upload_number_exceed'	: 'You cannot add any more files.',//'您已达到上传文件的上限了。',
-	'can_choose_more'	: 'You yet can choose ',//'您还可以选择 ',
-	'files'			: ' files',//' 个文件',
-	'file_is_large'		: 'File is too large.',//'文件太大.',
-	'file_is_empty'		: 'You can not upload a zero byte file.',//'不能上传零字节文件.',
-	'file_type_disabled'	: 'Upload of such type files is disabled.',//'禁止上传该类型的文件.',
-	'unhandled_error'	: 'Unhandled Error',//'',
-	'upload_progress'	: 'Uploaded ',//'正在上传',
-	'upload_cancelled'	: 'Cancelled',//'取消上传',
-	'file_description'	: 'File Description',//'图片描述',
-	'image_upload_failed'	: 'Image upload failed',//'图片上传失败',
-	'upload_failed'		: 'Upload failed',//'上传失败',
-	'upload_completed'	: 'Upload completed.',//'上传完成.',
-	'upload_error'		: 'Upload Error: ',//'',
-	'config_error'		: 'Configuration Error',//'',
-	'server_error'		: 'Server (IO) Error',//'',
-	'security_error'	: 'Security Error',//'',
-	'upload_limit_exceed'	: 'Upload limit exceeded.',//'',
-	'file_not_found'	: 'File not found.',//'',
-	'validation_failed'	: 'Failed Validation.  Upload skipped.',//'',
-	'upload_stopped'	: 'Stopped',//'',
+	'quote_by'	: 'Quote by .*? in .*? code',//'本帖最后由 .*? 于 .*? 编辑',
+	'copy_code'	: 'Copy code',//'复制代码',
 
 //--------------------------------
 //static/js/home.js
@@ -464,10 +432,12 @@ var lng = {
 	'leave_message'		: 'Leave a message',//'给TA留言',
 	'or'			: 'or',//'或者',
 	'send_greeting'		: 'send greeting',//'打个招呼',
+//	'collapse'			: 'Collapse',//'收起',
 	'reply'			: 'Reply',//'回复',
 	'comment'		: 'Comment',//'评论',
 	'close_list'		: 'Close the List',//'收起列表',
 	'more_feeds'		: 'More Feeds',//'更多动态',
+//	'day'			: 'Day',//'日',
 
 //--------------------------------
 //static/js/home_uploadpic.js
@@ -475,40 +445,12 @@ var lng = {
 	'image_type_invalid'	: 'Sorry, image with such extension does not supported',//'对不起，不支持上传此类扩展名的图片',
 	'insert_to_content'	: 'Click here to insert into the content at current cursor position',//'点击这里插入内容中当前光标的位置',
 	'insert'		: 'Insert',//'插入',
+//	'delete'		: 'Delete',//'删除',
 	'image_description'	: 'Image Description',//'图片描述',
+//	'upload_ok'		: 'Uploaded Successfully',//'上传成功',
+//	'upload_failed'		: 'Upload Failed',//'上传失败',
 	'uploading_wait'	: 'Uploading, Please wait',//'上传中，请等待',
 	'retry'			: 'Retry',//'重试',
-
-//---------------------------
-//static/js/makehtml.js
-	'generate'		: 'Generate ',//'生成',
-	'generate_ok'		: ' generated successfully',//'生成成功',
-	'generate_error'	: ' generation failed',//'生成失败',
-	'generate_start'	: 'Start generating of ',//'开始生成 ',
-	'generate_click_continue'	: 'If your browser does not respond, Click to continue...',//'如果您的浏览器没有反应，请点击继续...',
-	'generate_completed'	: ' generation is completed',//' 生成完成',
-	'generate_total'	: 'Total need to generate ',//'本次共需要生成 ',
-	'generate_files'	: ' files, Successfully generated ',//' 文件，成功生成 ',
-	'generate_first'	: 'generated first ',//'正在生成第 ',
-	'generate_percent'	: 'has been completed ',//'已经完成 ',
-
-//---------------------------
-//static/js/mobile/common.js
-	'first'		: 'First ',//'第 ',
-	'page'		: 'Page',//'页',
-	'pages'		: ' pages',//'页',
-	'prev_page'	: 'Prev',//'上一页',
-	'next_page'	: 'Next',//'下一页',
-	
-	'click_to_reload'	: 'Click to reload',//'点击重新加载',
-	'loading_now'		: 'Loading...',//'正在加载...',
-
-	'geo_timeout'		: 'Get location timeout, please try again',//'获取位置超时，请重试',
-	'geo_error'		: 'Unable to detect your current location',//'无法检测到您的当前位置',
-	'geo_permission'	: 'Please allow normal access to your current location',//'请允许能够正常访问您的当前位置',
-	'unknown_error'		: 'Unknown error occurred',//'发生未知错误',
-	'touch_down_refresh'	: 'Touch down to refresh',//'下拉可以刷新',
-	'touch_up_refresh'	: 'Touch UP to refresh',//'松开可以刷新',
 
 //--------------------------------
 //static/js/portal.js
@@ -530,12 +472,8 @@ var lng = {
 	'settings_expand'	: 'Expand setting',//'展开设置项',
 	'settings_hide'		: 'Hide setting',//'收起设置项',
 	'custom_content_error'	: 'Custom content error! HTML code: ',//'自定义内容错误，',
-	'html_error'		: 'HTML Code: ',//'HTML代码：',
+	'html_error'		: 'HTML code: ',//'HTML代码：',
 	'tags_not_match'	: ' - Tags does not match',//' 标签不匹配',
-	'entered'		: 'Have entered ',//'已输入 ',
-	'exceed'		: 'Exceed ',//'超出 ',
-	'title_length_bad'	: 'The title is incorrect',//'标题长度不正确',
-	'summary_length_bad'	: 'Summary length is incorrect',//'简介长度不正确',
 
 //--------------------------------
 //static/js/portal_diy.js
@@ -552,7 +490,9 @@ var lng = {
 	'no_border'		: 'No border frame',//'无边框框架',
 	'no_border_no_margin'	: 'No border, no margin',//'无边框且无边距',
 
+//	'choose_style'		: 'Choose a Style',//'选择样式',
 	'title'			: 'Title',//'标题',
+//	'delete'		: 'Delete',//'删除',
 	'attribute'		: 'Attribute',//'属性',
 	'data'			: 'Data',//'数据',
 	'update'		: 'Update',//'更新',
@@ -564,7 +504,8 @@ var lng = {
 	'no_style'		: 'No style',//'无样式',
 	'solid_line'		: 'Solid Line',//'实线',
 	'dotted_line'		: 'Dotted Line',//'点线',
-	'dashed_line'		: 'Dased Line',//'虚线',
+	'dashed_line'		: 'Dashed Line',//'虚线',
+//	'font'			: 'Font',//'字体',
 	'link'			: 'Link',//'链接',
 	'border'		: 'Border',//'边框',
 	'size'			: 'Size',//'大小',
@@ -576,48 +517,65 @@ var lng = {
 	'left'			: 'Left',//'左',
 	'margin'		: 'Margin',//'外边距',
 	'padding'		: 'Padding',//'内边距',
+//	'background_color'	: 'Background Color',//'背景颜色',
 	'bg_image'		: 'Background Image',//'背景图片',
 	'class'			: 'Designated Class',//'指定class',
 	'block'			: 'Block',//'模块',
 	'frame'			: 'Frame',//'框架',
+//	'edit'			: 'Edit',//'编辑',
+//	'style'			: 'Style',//'样式',
+//	'close'			: 'Close',//'关闭',
+//	'submit'		: 'Submit',//'确定',
+//	'cancel'		: 'Cancel',//'取消',
+//	'tile'			: 'Tile',//'平铺',
+//	'no_tile'		: 'No tile',//'不平铺',
+//	'tile_hor'		: 'Horizontal Tile',//'横向平铺',
+//	'tile_ver'		; 'Vertical Tile',//'纵向平铺',
 	'onclick'		: 'onClick',//'点击',
 	'onmouseover'		: 'onMouseover',//'滑过',
 	'switch_type'		: 'Switch Type',//'切换类型',
+//	'title'			: 'Title',//'标题',
+//	'link'			: 'Link',//'链接',
 	'image'			: 'Image',//'图片',
 	'position'		: 'Position',//'位置',
 	'align_left'		: 'Left Align',//'居左',
 	'align_right'		: 'Right Align',//'居右',
 	'offset'		: 'Offset',//'偏移量',
+//	'font'			: 'Font',//'字体',
+//	'size'			: 'Size',//'大小',
 //!!! mainly the same as 'color' !!!!!!
 //	'colour'		: 'Colour',//'色',
 	'add_new_title'		: 'Add New Title',//'添加新标题',
+//	'edit'			: 'Edit',//'编辑',
+//	'title'			: 'Title',//'标题',
+//	'close'			: 'Close',//'关闭',
+//	'submit'		: 'Submit',//'确定',
+//	'cancel'		: 'Cancel',//'取消',
 	'delete_this_sure'	: 'Are you sure to delete it? It can not be restored if you delete it.',//'您确实要删除吗,删除以后将不可恢复',
 	'loading_content'	: 'Loading content...',//'正在加载内容...',
 	'modified_import'	: 'You have made some modifications, please import it after you save it, otherwise the imported data won\'t include modification of this time.',//'您已经做过修改，请保存后再做导出，否则导出的数据将不包括您这次所做的修改。',
 	'total'			: 'Total ',//'共',
 	'blocks'		: 'blocks',//'个模块',
 	'updating_the'		: 'updating #',//'正在更新第',
+//	'ones'			: 'ones',//'个',
 	'done'			: 'done',//'已完成',
 	'start_updating'	: 'Start Updating...',//'开始更新...',
 	'update_block_data'	: 'Updating block data',//'更新模块数据',
 	'clear_diy_sure'	: 'Are you sure to clear the current page DIY data? It can not be restored if you clear it.',//'您确实要清空页面上所在DIY数据吗,清空以后将不可恢复',
 	'frame_not_found'	: 'Warning: Frame not found, please add frame.',//'提示：未找到框架，请先添加框架。',
+//	'warn_not_saved'	: 'You have modified the data. If you exit, all the changes will be lost.',//'您的数据已经修改,退出将无法保存您的修改。',
 	'apply_all_pages'	: 'Apply to all this type pages',//'应用于此类全部页面',
 	'apply_current_page'	: 'Apply to current page',//'只应用于本页面',
 	'save_temp_sure'	: 'Save temporary data?<br />Click submit to save the temporary data, click cancel to delete the temporary data.',//'是否保留暂存数据？<br />按确定按钮将保留暂存数据，按取消按钮将删除暂存数据。',
 	'save_temp'		: 'Save the temporary data',//'保留暂存数据',
 	'revert_last_saved'	: 'Are you sure you want to revert to previous version of saved results?',//'您确定要恢复到上一版本保存的结果吗？',
 	'continue_temp_sure'	: 'Continue to DIY with temporary data?',//'是否继续暂存数据的DIY？',
+//	'warn_not_saved'	: 'You have modified the data. If you exit, all the changes will be lost.',//'您的数据已经修改,退出将无法保存您的修改。',
 	'update_completed'	: 'Updating is completed.',//'已更新完成。',
 	'tab_label'		: 'Tab Label',//'tab标签',
 	'temp_action'		: 'Click the "Continue" button to load the temporary data into current style,<br />Click the "Delete" button for delete temporary data.',//'按继续按钮将打开暂存数据并DIY，<br />按删除按钮将删除暂存数据。',
 	'continue'		: 'Continue',//'继续',
-	'block_no_rights'	: 'Sorry, you have no permission to add or edit block',//'抱歉，您没有权限添加或编辑模块',
 
-//--------------------------------
-//static/js/portal_diy_data.js
-	'data_manage'		: 'Direct management of the block data',//'可直接管理模块数据',
-	'quit'			: 'Quit',//'退出',
 //--------------------------------
 //static/js/qshare.js
 	'from_tencent'		: 'I come from Tencent microblogging an open platform',//"\u6211\u6765\u81EA\u4E8E\u817E\u8BAF\u5FAE\u535A\u5F00\u653E\u5E73\u53F0",
@@ -634,38 +592,9 @@ var lng = {
 	'password_fill'		: 'Please fill the password',//'请填写密码',
 	'password_again'	: 'Please enter the password again',//'请再次输入密码',
 	'email_fill'		: 'Please enter email address',//'请输入邮箱地址',
-	'length_min'		: ', Minimum length',//', 最小长度为 '
-	'chars'			: ' characters',//' 个字符',
-	'password_strength'	: 'Password strength: ',//'密码强度:',
-	'pw_weak'		: 'Weak',//'弱',
-	'pw_middle'		: 'Middle',//'中',
-	'pw_strong'		: 'Strong',//'强',
-	'pass_short'		: 'Password is too short, must be not less than ',//'密码太短，不得少于 ',
-	'digital'		: 'Digital',//'数字',
-	'lowercase'		: 'Lowercase letters',//'小写字母',
-	'capitals'		: 'Capital letters',//'大写字母',
-	'specials'		: 'Special symbols',//'特殊符号',
-	'pw_weak_info'		: 'Weak password, the password must contain ',//'密码太弱，密码中必须包含 ',
-	'leave_blank_old_pass'	: 'Leave blank if you do not need to change the password',//'如不需要更改密码，此处请留空',
-
-//--------------------------------
-//static/js/seditor.js
-	'enter_username'	: 'Please enter the user name',//'请输用户名',
-	'at_friend'		: '@user, you can remind him to view the post',//'@朋友账号，就能提醒他来看帖子',
 
 //--------------------------------
 //static/js/smilies.js
-
-//--------------------------------
-//static/js/space_diy.js
-
-	'save_js'		: 'javascript saved',//'javascript脚本保存后显示',
-	'settings'		: 'Settings',//'设置',
-
-//---------------------------
-//static/js/swfupload.js
-
-	'attach_file'		: 'Attachment',
 
 //---------------------------
 //static/js/threadsort.js
@@ -678,13 +607,19 @@ var lng = {
 	'text_too_long'		: 'Field value is too long',//'填写项目长度过长',
 	'value_is_greater'	: 'Value is greater than the maximum',//'大于设置最大值',
 	'value_is_less'		: 'Value is less than minimum',//'小于设置最小值',
-	'enter_valid_url'	: 'Please enter correct URL address beginning with http://',//'请正确填写以http://开头的URL地址',
+//--------------------------------
+//static/js/space_diy.js
+
+//	'delete'		: 'Delete',//'删除',
+//	'attribute'		: 'Attribute',//'属性',
+	'save_js'		: 'Save the javascript after the show',//'javascript脚本保存后显示',
+	'settings'		: 'Settings',//'设置',
 
 //--------------------------------
 //static/js/upload.js
 
 	'file_not_supported'	: 'Sorry, this file type is unsupported',//'对不起，不支持上传此类文件',
-	'wait_upload'		: 'Wait for upload...',//'等待上传...',
+//	'uploading'		: 'Uploading...',//'上传中...',
 
 //-------------------------------------
 //source/function/function_admincp.php
@@ -706,6 +641,6 @@ var lng = {
 //-------------------------------------
 //	''	: '',//'',
 
-'fiction'	: '' // This key MUST BE THE LAST row!
+'fiction'	: ''
 
 };

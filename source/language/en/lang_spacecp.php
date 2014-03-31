@@ -7,10 +7,6 @@
  *      $Id: lang_spacecp.php by Valery Votintsev at sources.ru
  */
 
-if(!defined('IN_DISCUZ')) {
-	exit('Access Denied');
-}
-
 $lang = array(
 
 	'by'			=> 'Accept by',//'通过',
@@ -44,7 +40,6 @@ $lang = array(
 	'message_can_not_send_13'	=> 'This is not a group chat message',//'这不是群聊消息',
 	'message_can_not_send_14'	=> 'This is not private message',//'这不是私人消息',
 	'message_can_not_send_15'	=> 'Wrong data',//'数据有误',
-	'message_can_not_send_16'	=> 'You have exceeded the maximum number of PM within 24 hours',//'您超出了24小时内发短消息数量的上限',
 	'message_can_not_send_onlyfriend'	=> 'The user can receive short message only from friends',//'该用户只接收好友发送的短消息',
 
 
@@ -189,10 +184,10 @@ $lang = array(
 	'do_stat_reward'	=> 'Rewards',//'悬赏',
 	'do_stat_debate'	=> 'Debates',//'辩论',
 	'do_stat_trade'		=> 'Sales',//'商品',
-	'do_stat_group'		=> 'Groups',//"创建{$_G[setting][navs][3][navname]}",
-	'do_stat_tgroup'	=> 'Groups',//"{$_G[setting][navs][3][navname]}",
-	'do_stat_home'		=> 'Space',//"{$_G[setting][navs][4][navname]}",
-	'do_stat_forum'		=> 'Forum',//"{$_G[setting][navs][2][navname]}",
+	'do_stat_group'		=> 'Groups',//'群组',
+	'do_stat_tgroup'	=> 'Groups',
+	'do_stat_home'		=> 'Space',
+	'do_stat_forum'		=> 'Forum',
 	'do_stat_groupthread'	=> 'Group threads',//'群组主题',
 	'do_stat_post'		=> 'Replies',//'主题回复',
 	'do_stat_grouppost'	=> 'Group replies',//'群组回复',
@@ -201,7 +196,7 @@ $lang = array(
 	'do_stat_event'		=> 'Events',//'活动',
 	'do_stat_share'		=> 'Shares',//'分享',
 	'do_stat_thread'	=> 'Threads',//'主题',
-	'do_stat_docomment'	=> 'Mood comments',//'记录回复',
+	'do_stat_docomment'	=> 'Twit comments',//'记录回复',
 	'do_stat_blogcomment'	=> 'Blog comments',//'日志评论',
 	'do_stat_piccomment'	=> 'Image comments',//'图片评论',
 	'do_stat_pollcomment'	=> 'Poll comments',//'投票评论',
@@ -209,7 +204,7 @@ $lang = array(
 	'do_stat_eventcomment'	=> 'Event comments',//'活动评论',
 	'do_stat_eventjoin'	=> 'Event joins',//'参加活动',
 	'do_stat_sharecomment'	=> 'Share comments',//'分享评论',
-//vot	'do_stat_post'		=> 'Replies',//'主题回帖',
+//	'do_stat_post'		=> 'Replies',//'主题回帖',
 	'do_stat_click'		=> 'Sticks',//'表态',
 	'do_stat_wall'		=> 'Wall',//'留言',
 	'do_stat_poke'		=> 'Greetings',//'打招呼',
@@ -218,7 +213,6 @@ $lang = array(
 	'do_stat_friend'	=> 'Become friends',//'成为好友',
 	'do_stat_post_number'	=> 'Post count',//'发帖量',
 	'do_stat_statistic'	=> 'Merged Statistics',//'合并统计',
-/*!*/	'logs_credit_update_INDEX'	=> array('TRC','RTC','RAC','MRC','BMC','TFR','RCV','CEC','ECU','SAC','BAC','PRC','RSC','STC','BTC','AFD','UGP','RPC','ACC','RCT','RCA','RCB','CDC','RGC','BGC','AGC','RKC','BME','RPR','RPZ','FCP','BGC'),
 	'logs_credit_update_TRC'	=> 'Task reward',//'任务奖励',
 	'logs_credit_update_RTC'	=> 'Reward Topic',//'悬赏主题',
 	'logs_credit_update_RAC'	=> 'Best Reply Award',//'最佳答案',
@@ -242,24 +236,18 @@ $lang = array(
 	'logs_credit_update_RCA'	=> 'Replies winning',//'回帖中奖',
 	'logs_credit_update_RCB'	=> 'Return Replies award',//'返还回帖奖励积分',
 	'logs_credit_update_CDC'	=> 'Recharge card secret',//'卡密充值',
+
 	'logs_credit_update_RGC'	=> 'Remove Gift',//'回收红包',
 	'logs_credit_update_BGC'	=> 'Return Gift',//'埋下红包',
 	'logs_credit_update_AGC'	=> 'Receive Gift',//'获得红包',
 	'logs_credit_update_RKC'	=> 'Bid rank',//'竞价排名',
-	'logs_credit_update_BME'	=> 'Buy Medal',//'购买勋章',
-	'logs_credit_update_RPR'	=> 'Background points rewards and punishments',//'后台积分奖惩',
-	'logs_credit_update_RPZ'	=> 'Background points rewards and punishments clean',//'后台积分奖惩清零',
-/*!*/	'logs_credit_update_FCP'	=> 'Pay the forum',//'付费版块',
-/*!*/	'logs_credit_update_BGR'	=> 'Build Group',//'创建群组',
-/*!*/	'buildgroup'			=> 'View already built groups',//'查看已创建的群组',
-	'logs_credit_update_reward_clean'	=> 'Clean',//'清零',
 	'logs_select_operation'		=> 'Please select the operation type',//'请选择操作类型',
 	'task_credit'			=> 'Task reward points',//'任务奖励积分',
 	'special_3_credit'		=> 'Reward Topic points deduction',//'悬赏主题扣除积分',
 	'special_3_best_answer'		=> 'Reward points get best answer',//'最佳答案获取悬赏积分',
 	'magic_credit'			=> 'Magic random get points',//'道具随机获取积分',
-	'magic_space_gift'		=> 'Own Space red envelopes',//'在自已空间首页埋下红包',
-	'magic_space_re_gift'		=> 'Gift recycling can not run for the red envelope',//'回收还没有用完的红包',
+	'magic_space_gift'		=> 'Own Space Home lay gift',//'在自已空间首页埋下红包',
+	'magic_space_re_gift'		=> 'Return not run out gift',//'回收还没有用完的红包',
 	'magic_space_get_gift'		=> 'Access to space to receive gift',//'访问空间领取的红包',
 	'credit_transfer'		=> 'Transfer points',//'进行积分转帐',
 	'credit_transfer_tips'		=> 'Income transfers',//'的转账收入',
@@ -276,9 +264,7 @@ $lang = array(
 	'thread_credit2'		=> 'Spent points for Topic access',//'主题支出积分',
 	'buy_credit'			=> 'Recharge points',//'对积分充值',
 	'buy_usergroup'			=> 'Spend points to buy Group access',//'购买扩展用户组支出积分',
-	'buy_medal'			=> 'Buy Medal',//'购买勋章',
-/*!*/	'buy_forum'			=> 'Buy a paid forum access permissions',//'购买付费版块的访问权限',
-	'report_credit'			=> 'Rewards and punishments report',//'举报功能中的奖惩',
+	'report_credit'			=> 'Report function of rewards and punishments',//'举报功能中的奖惩',
 	'join'				=> 'Join',//'参与',
 	'activity_credit'		=> 'Activity points deducted',//'活动扣除积分',
 	'thread_send'			=> 'Post thread deduct points',//'扣除发表',
@@ -289,8 +275,6 @@ $lang = array(
 	'replycredit_thread'		=> 'Create thread points',//'散发的帖子',
 	'card_credit'			=> 'Points obtained by recharge card',//'卡密充值获得的积分',
 	'ranklist_top'			=> 'Spend points to participate in bid ranking',//'参加竞价排名消费积分',
-	'admincp_op_credit'		=> 'Credit rewards and punishments operations',//'后台积分奖惩操作',
-	'credit_update_reward_clean'	=> 'Clean',//'清零',
 
 	'profile_unchangeable'		=> 'This information could not be edited after sumbit',//'此项资料提交后不可修改',
 	'profile_is_verifying'		=> 'This information is verifying',//'此项资料正在审核中',
@@ -301,41 +285,19 @@ $lang = array(
 	'profile_verify_modify_error'	=> 'The {verify} was certified. Modification is disabled.',//'{verify}已经认证通过不允许修改',
 	'profile_verify_verifying'	=> 'Your {verify} information has been submitted, please wait for verification.',//'您的{verify}信息已提交，请耐心等待核查。',
 
+//'district_level_0'		=> '- Country -',//'-国家-',
 	'district_level_1'		=> '- Country -',//'-国家-',
 	'district_level_2'		=> '- Region -',//'-省份-',
 	'district_level_3'		=> '- City -',//'-城市-',
 	'district_level_4'		=> '- County/Village -',//'-州县/乡镇-',
 	'invite_you_to_visit'		=> '{user} invite you to {bbname}',//'{user}邀请您访问{bbname}',
-//vot	'district_level_0'		=> '- Country -',//'-国家-',
-	'portal'		=> 'Portal',//'门户',
-	'group'			=> 'Groups',//'群组',
-	'follow'		=> 'Follow',//'广播',
-	'collection'		=> 'Collection',//'淘帖',
-	'guide'			=> 'Guide',//'导读',
-	'feed'			=> 'Feeds',//'动态',
-	'blog'			=> 'Blogs',//'日志',
-	'doing'			=> 'Doings',//'记录',
-	'wall'			=> 'Wall',//'留言板',
-	'homepage'		=> 'Personal Space',//'个人主页',
-	'ranklist'		=> 'RankList',//'排行榜',
-	'select_the_navigation_position'	=> 'Select {type} navigation position',//'选择{type}导航位置',
-	'close_module'		=> 'Close the {type} module',//'关闭{type}功能',
-
-	'follow_add_remark'		=> 'Add remark',//'添加备注',
-	'follow_modify_remark'		=> 'Edit remark',//'修改备注',
-	'follow_specified_group'	=> 'Follow specified group',//'广播专区',
-	'follow_specified_forum'	=> 'Follow specified forum',//'广播专版',
-
-	'filesize_lessthan'		=> 'File size should be less than ',//'文件大小应该小于',
 
 	'spacecp_message_prompt'	=> '(supported {msg} code, maximum 1000 characters)',//'(支持 {msg} 代码,最大 1000 字)',
 	'card_update_doing'		=> ' <a class="xi2" href="###">[update doings]</a>',//' <a class="xi2" href="###">[更新记录]</a>',
 	'email_acitve_message'		=> '<img src="{imgdir}/mail_inactive.png" alt="Unverified" class="vm" />
 						<span class="xi1">New E-mail ({newemail}) wait for validation ...</span><br />
-						The system has sent a verification email to you, please check your mailbox for activate this e-mail.<br>
+						The system has sent a verification email to you, please check your mailbox for activate this e-maill.<br>
 						If you did not receive the verification message, you can replace a mailbox, or <a href="home.php?mod=spacecp&ac=profile&op=password&resend=1" class="xi2">Re-send the verification message</a>',
-	'qq_set_status'		=> 'I set my QQ online status',//'设置我的QQ在线状态',
-	'qq_dialog'		=> 'Start QQ chat',//'发起QQ聊天',
 
 );
 

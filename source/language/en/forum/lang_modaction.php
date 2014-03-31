@@ -7,10 +7,6 @@
  *      $Id: lang_modaction.php by Valery Votintsev at sources.ru
  */
 
-if(!defined('IN_DISCUZ')) {
-	exit('Access Denied');
-}
-
 $lang = array
 (
 
@@ -73,22 +69,19 @@ $lang = array
 	'WRN'	=> 'Warn',//'警告',
 	'UWN'	=> 'Unwarn',//'解除警告',
 
-	'SPA'	=> 'Add stamp',//'添加图章',
-	'SPD'	=> 'Remove stamp',//'撤销图章',
+	'SPA'	=> 'Pin post',//'鉴定为',
+	'SPD'	=> 'Unpin post',//'撤销鉴定',
 
 	'SLA'	=> 'Add Icon',//'添加图标',
 	'SLD'	=> 'Remove Icon',//'撤销图标',
 
-	'REG'	=> 'Recommend Group',//'群组推荐',
+	'REG'	=> 'Group recommend',//'群组推荐',
 
-	'PTA'	=> 'Push to Articles',//'生成文章',
+	'PTA'	=> 'Generate Article',//'生成文章',
 
 	'MAG'	=> 'Magic',//'道具',
 
 	'REB'	=> 'Get promotion',//'推送',
-
-/*!*/	'LIV'	=> 'Live',//'直播',
-/*!*/	'LIC'	=> 'Cancel Live',//'取消直播',
 
 );
 

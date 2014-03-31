@@ -7,15 +7,11 @@
  *      $Id: lang_friend.php by Valery Votintsev at sources.ru
  */
 
-if(!defined('IN_DISCUZ')) {
-	exit('Access Denied');
-}
-
 $lang = array(
 	'friend_group_default'	=> 'Others',//'其他',
 	'friend_group_1'	=> 'From the site',//'通过本站认识',
 	'friend_group_2'	=> 'Known by Common activity',//'通过活动认识',
-	'friend_group_3'	=> 'Known through a friend',//'通过朋友认识',
+	'friend_group_3'	=> 'Know through a friend',//'通过朋友认识',
 	'friend_group_4'	=> 'Family',//'亲人',
 	'friend_group_5'	=> 'Colleagues',//'同事',
 	'friend_group_6'	=> 'Classmates',//'同学',

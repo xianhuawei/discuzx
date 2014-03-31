@@ -7,28 +7,20 @@
  *      $Id: lang_core.php by Valery Votintsev at sources.ru
  */
 
-if(!defined('IN_DISCUZ')) {
-	exit('Access Denied');
-}
-
 $lang = array
 (
 	'nextpage'		=> 'Next',//'下一页',
 	'prevpage'		=> 'Prev',//'上一页',
-	'pageunit'		=> 'Pages',//'页',
-	'total'			=> 'Total',//'共',
-	'10k'			=> '10K',//'万',
-	'pagejumptip'		=> 'Enter the page number and press Enter for quick jump',//'输入页码，按回车快速跳转',
 	'date'	=> array(
 		'before'	=> ' ago',//'前',
-		'day'		=> 'day(s)',//'天',
+		'day'		=> ' days',//'天',
 		'yday'		=> 'Yesterday',//'昨天',
 		'byday'		=> 'The day before yesterday',//'前天',
-		'hour'		=> 'hour(s)',//'小时',
-		'half'		=> 'Half ',//'半',
+		'hour'		=> 'Hour',//'小时',
+		'half'		=> 'Half',//'半',
 		'min'		=> 'min.',//'分钟',
 		'sec'		=> 's.',//'秒',
-		'now'		=> 'Just now',//'刚刚',
+		'now'		=> 'Now',//'刚刚',
 	),
 	'yes'			=> 'Yes',//'是',
 	'no'			=> 'No',//'否',
@@ -41,13 +33,13 @@ $lang = array
 		6 => 'Saturday',//'周六',
 		7 => 'Sunday',//'周日',
 	),
-	'dot'		=> '. ',//'、',
+	'dot'	 	=> '. ',//'、',//!!!!!!!!!! Have to add spaces ?????????
 	'archive'	=> 'Archive',//'存档',
-	'portal'	=> 'Portal',//'门户',
-	'end'		=> 'End',//'末尾',
+	'portal' 	=> 'Portal',//'文章',
+	'end'	 	=> 'End',//'末尾',
 
 	'seccode_image_tips'		=> 'Enter the characters from the picture below<br />',//'输入下图中的字符<br />',
-	'seccode_image_ani_tips'	=> 'Enter the following characters from the animated picture in the largest<br />',//'请输入下面动画图片中的字符<br />',
+	'seccode_image_ani_tips'	=> 'Enter the following characters from the animated picture in the largest<br />',//'输入下面动画图片中最大的字符<br />',
 	'seccode_sound_tips'		=> 'Enter the characters that you hear<br />',//'输入你听到的字符<br />',
 	'secqaa_tips'			=> 'Enter the answer to the following question<br />',//'输入下面问题的答案<br />',
 
@@ -87,7 +79,7 @@ $lang = array
 	'title_doing_view_me'		=> 'My Doings',//'我的记录',
 	'title_thread_favorite'		=> 'Favorite Threads',//'帖子收藏',
 	'title_forum_favorite'		=> 'Favorite Forums',//'帖子收藏',
-	'title_group_favorite'		=> 'Favorite Groups &quot;{gorup}&quot;',//'{gorup}收藏',
+	'title_group_favorite'		=> 'Favorite Groups &quot;{gorup}&quot;',//'{gorup} 收藏',
 	'title_blog_favorite'		=> 'Favorite Blogs',//'日志收藏',
 	'title_album_favorite'		=> 'Favorite Albums',//'相册收藏',
 	'title_article_favorite'	=> 'Favorite Articles',//'文章收藏',
@@ -181,7 +173,7 @@ $lang = array
 	'title_ranklist_group'		=> 'Group Ranks',//'群组排行',
 	'title_ranklist_app'		=> 'Application Ranking',//'应用排行',
 	'title_ranklist_index'		=> 'All Ranks',//'全部排行',
-	'title_ranklist_rankname'	=> 'Rank',//'排行榜',
+//vot	'title_ranklist_index'		=> 'Rank',//'排行榜',
 	'title_search'			=> 'Search',//'搜索',
 	'title_topic_management'	=> 'Topic Management',//'创建专题',
 	'title_portal_management'	=> 'Portal Management',//'门户管理',
@@ -207,32 +199,22 @@ $lang = array
 	'title_userapp_index_we'	=> 'Friend Applications',//'好友在玩什么',
 	'title_userapp_index_me'	=> 'My Applications',//'我在玩的',
 	'title_userapp_manage'		=> 'Manage Application &quot;{userapp}&quot;',//'{userapp}管理',
-
-	'title_collection'		=> 'Collection',//'淘帖',
-	'title_collection_create'	=> 'Create collection',//'创建淘专辑',
-	'title_collection_edit'		=> 'Edit collection',//'编辑淘专辑',
-	'title_collection_comment_list'	=> 'Comment list',//'评论列表',
-	'title_collection_followers_list'	=> 'Followers',//'订阅用户列表',
-
 	'faq'				=> 'FAQ',//'帮助',
 	'search'			=> 'Search',//'搜索',
-	'page'				=> 'page {page}',//'第{page}页',
+	'page'				=> 'page {page}',
 
-	'close'				=> 'Close',//'关闭',
-
-//--------------------------------------------------------------------------
+//---------------------------------------------
 // Added by Valery Votintsev
-
 //source/include/misc/misc_security.php
-	'attackevasive_1_subject'	=> 'Refresh frequency limit',//'刷新频率限制',
-	'attackevasive_1_message'	=> 'You visit the site too fast, less than two seconds! Please wait a little...',//'您访问网站的速度太快，不到两秒钟！请等一下...',
-	'attackevasive_2_subject'	=> 'Access throug proxy servers is restricted',//'通过代理服务器的访问是受到限制',
-	'attackevasive_2_message'	=> 'Access to the site through a proxy servers is restricted for mow. Please remove your proxy setting configuration, and access to the site directly.',//'通过代理服务器访问网站限制亩。请删除您的代理设置配置，并直接访问该网站。',
-	'attackevasive_4_subject'	=> 'Open the page reload',//'打开页面重载',
-	'attackevasive_4_message'	=> 'Welcome to the site!<br/>Re-loading the page, please wait...',//'欢迎的网站，页面重新载入，请稍候...',
+	'attackevasive_1_subject'	=> 'Refresh frequency limit',
+	'attackevasive_1_message'	=> 'You visit the site too fast, less than two seconds! Please wait a little...',
+	'attackevasive_2_subject'	=> 'Access through proxy servers is restricted',
+	'attackevasive_2_message'	=> 'Access to the site through a proxy servers is restricted for mow. Please remove your proxy setting configuration, and access to the site directly.',
+	'attackevasive_4_subject'	=> 'Open the page reload',
+	'attackevasive_4_message'	=> 'Welcome to the site, the page is re-loading, please wait ...',
 
 // Months Names
-	'month_name'	=> array('Month','January','February','March','April','May','June','July','August','September','October','November','December'),//array('月','一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'),
+	'month_name'	=> array('Month','January','February','March','April','May','June','July','August','September','October','November','December'),
 
 );
 

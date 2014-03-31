@@ -7,10 +7,6 @@
  *      $Id: lang_portalcp.php by Valery Votintsev at sources.ru
  */
 
-if(!defined('IN_DISCUZ')) {
-	exit('Access Denied');
-}
-
 $lang = array(
 	'block_diy_nopreview'		=> '<p>This block contain js, you cannot preview it, please save to view.</p>',//'<p>此模块内容包含js代码，不能立即预览，请点击保存后查看</p>',
 	'block_diy_summary_html_tag'	=> 'Custom content errors, HTML tags:',//'自定义内容错误，HTML标签：',
@@ -22,7 +18,6 @@ $lang = array(
 	'block_all_type'		=> 'All types',//'全部分类',
 	'file_size_limit'		=> 'File exceed the limit {size} kb, please return.',//'文件不能大于 {size} kb，请返回．',
 	'set_to_conver'			=> 'Set as the cover',//'设为封面',
-	'small_image'			=> 'Small image',//'小图',
 	'insert_small_image'		=> 'Insert small image',//'插入小图',
 	'insert_large_image'		=> 'Insert large image',//'插入大图',
 	'insert_file'			=> 'Insert file',//'插入文件',
@@ -32,8 +27,6 @@ $lang = array(
 	'article_noexist'		=> 'Specified arcticle does not exists',//'指定的文章不存在，请检查',
 	'article_noallowed'		=> 'You have no permissions to operate this article',//'你没有权限对指定的文章进行操作',
 	'article_publish_noallowed'	=> 'You have no permissions to publish article',//'你没有权限进行文章发布操作',
-	'article_category_empty'	=> 'Sorry, the category can not be empty',//'抱歉，栏目不能为空',
-	'article_edit_nopermission'	=> 'Sorry, you do not have permission to edit current article',//'抱歉，您没有权限进行当前文章操作',
 	'article_publish'		=> 'Publish article',//'发布文章',
 	'article_manage'		=> 'Manage article',//'管理文章',
 	'article_tag'			=> 'Tags',//'标签',
@@ -43,18 +36,16 @@ $lang = array(
 	'article_pushplus_info'		=> '<p><center><i><a href="{url}" class="xg1 xs1">This article provided by the {author}</a></i><center></p>',
 
 	'diytemplate_name_null'		=> '[not completed]',//'[未填写]',
-	'portal_view_name'		=> ' Article view page',//' 文章查看页',
-	'forum_viewthread_name'		=> ' Posts View Page',//' 帖子查看页',
 	'portal/index'			=> 'Articles Home',//'文章首页',
 	'portal/list'			=> 'Articles List Page (public)',//'文章列表页(公共)',
 	'portal/view'			=> 'Article, see Page (public)',//'文章查看页(公共)',
 	'portal/comment'		=> 'Article comment page',//'文章评论页',
 	'forum/discuz'			=> 'Forum Home',//'论坛首页',
-	'forum/viewthread'		=> 'Thread View page (public)',//'帖子查看页(公共)',
+	'forum/viewthread'		=> 'Thread View Home (public)',//'帖子查看首页(公共)',
 	'forum/forumdisplay'		=> 'Forum list of pages (public)',//'版块列表页(公共)',
-	'group/index'			=> 'Group Home',//$_G['setting']['navs'][3]['navname'].'首页',
-	'group/group_my'		=> 'My Group Home',//'我的'.$_G['setting']['navs'][3]['navname'].'首页',
-	'group/group'			=> 'Groups Home',//$_G['setting']['navs'][3]['navname'].'内容页',
+	'group/index'			=> 'Group Home',//'群组首页',
+	'group/group_my'		=> 'My Group Home',//'我的群组首页',
+	'group/group'			=> 'Groups Home',//'群组内容页',
 	'home/space_home'		=> 'Space home',//'空间首页',
 	'home/space_trade'		=> 'Space products page',//'空间商品页',
 	'home/space_top'		=> 'Top space list',//'空间排行榜',
@@ -66,7 +57,7 @@ $lang = array(
 	'home/space_poll'		=> 'Space polls page',//'空间投票页',
 	'home/space_pm'			=> 'Space short messages page',//'空间短消息页',
 	'home/space_notice'		=> 'Space reminder Page',//'空间提醒页',
-	'home/space_group'		=> 'Space groups page',//'空间'.$_G['setting']['navs'][3]['navname'].'页',
+	'home/space_group'		=> 'Space group page',//'空间群组页',
 	'home/space_friend'		=> 'Space friends page',//'空间好友页',
 	'home/space_favorite'		=> 'Space favorites page',//'空间收藏页',
 	'home/space_doing'		=> 'Space Twits page',//'空间记录页',
@@ -94,10 +85,5 @@ $lang = array(
 	'portal_topic_green'		=> 'Green theme',//'绿色调专题',
 	'portal_topic_grey'		=> 'Grey theme',//'灰色调专题',
 	'portal_topic_red'		=> 'Red theme',//'红色调专题',
-
-	'itemtypename0'			=> 'Auto',//'自动',
-	'itemtypename1'			=> '<span style="color: #FF0000">Fixed</span>',//'<span style="color: #FF0000">固定</span>',
-	'itemtypename2'			=> '<span style="color: #00BFFF">Edit</span>',//'<span style="color: #00BFFF">编辑</span>',
-	'itemtypename3'			=> '<span style="color: #0000FF">Push</span>',//'<span style="color: #0000FF">推送</span>',
 
 );

@@ -7,10 +7,6 @@
  *      $Id: lang_action.php by Valery Votintsev at sources.ru
  */
 
-if(!defined('IN_DISCUZ')) {
-	exit('Access Denied');
-}
-
 $lang = array
 (
 	0	=> 'Register/Login',// '注册/登录',
@@ -24,3 +20,4 @@ $lang = array
 
 );
 
+?>

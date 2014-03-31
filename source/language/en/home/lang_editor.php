@@ -7,10 +7,6 @@
  *      $Id: lang_editor.php by Valery Votintsev at sources.ru
  */
 
-if(!defined('IN_DISCUZ')) {
-	exit('Access Denied');
-}
-
 $lang = array(
 	'editor_switch_media'		=> 'WYSIWYG',//'切换到多媒体',
 	'editor_cut'			=> 'Cut',//'剪切',
@@ -27,9 +23,8 @@ $lang = array(
 	'editor_indent'			=> 'Indent',//'缩进',
 	'editor_hyperlink'		=> 'Link',//'超链接',
 	'editor_remove_link'		=> 'Remove link',//'移除链接',
-	'editor_link_image'		=> 'Image',//'添加图片',
-	'editor_link_attach'		=> 'Add attachment',//'添加附件',
-	'editor_link_flash'		=> 'Add FLASH-video or MP3-music',//'添加视频FLASH或MP3音乐',
+	'editor_link_image'		=> 'Image',//'引用图片',
+	'editor_link_flash'		=> 'Flash',//'引用视频FLASH',
 	'editor_insert_smiley'		=> 'Insert Smile',//'插入表情',
 	'editor_doodle'			=> 'Graffity',//'涂鸦',
 	'editor_pagebreak'		=> 'Page Break',//'插入分页标志',
@@ -38,7 +33,7 @@ $lang = array(
 	'editor_switch_text'		=> 'Switch to plain text',//'切换到纯文本',
 	'editor_font_song'		=> 'Arial',//'宋体',
 	'editor_font_hei'		=> 'Bold',//'黑体',
-	'editor_font_kai'		=> 'Times New Roman',//'楷体',
+	'editor_font_kai'		=> 'Times New Roman',//'楷体_GB2312',
 	'editor_font_li'		=> 'Clerical',//'隶书',
 	'editor_font_you'		=> 'Baby round',//'幼圆',
 	'editor_fontsize_xxsmall'	=> 'xx-Small',//'极小',
@@ -72,13 +67,12 @@ $lang = array(
 	'editor_ok'			=> 'OK',//'确定',
 	'editor_cancel'			=> 'Cancel',//'取消',
 	'editor_prompt_textlink'	=> 'Please enter the link address for selected text',//'请输入选定文字链接地址',
-	'editor_prompt_imagelink'	=> 'Please enter the image URL address',//'请输入图片 URL 地址',
+	'editor_prompt_imagelink'	=> 'Please enter the image URL address',//'请输入图片URL地址',
 	'editor_prompt_pagetitle'	=> 'Please enter the page title',//'请输入分页标题',
-	'editor_prompt_videolink'	=> 'Please enter the video URL address',//'请输入视频 URL 地址',
+	'editor_prompt_videolink'	=> 'Please enter the video URL address',//'请输入视频URL地址',
 	'editor_prompt_video_flash'	=> 'Flash Animation',//'Flash动画',
 	'editor_prompt_video_media'	=> 'Media Video',//'Media视频',
 	'editor_prompt_video_real'	=> 'Real Video',//'Real视频',
-	'editor_prompt_mp3'		=> 'MP3 audio',//'mp3 音乐',
-	'editor_full_screen'		=> 'Full Screen',
+	'editor_prompt_mp3'		=> 'Mp3 audio',//'mp3 audio',
 );
 

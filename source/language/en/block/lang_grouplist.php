@@ -7,10 +7,6 @@
  *      $Id: lang_grouplist.php by Valery Votintsev at sources.ru
  */
 
-if(!defined('IN_DISCUZ')) {
-	exit('Access Denied');
-}
-
 $lang = array
 (
 	'grouplist_gtids'			=> 'Group Categories',//'群组类别',
@@ -26,8 +22,8 @@ $lang = array
 	'grouplist_orderby'			=> 'Order by',//'群组排序方式',
 	'grouplist_orderby_comment'		=> 'Set the order of groups',//'设置以哪一字段或方式对群组进行排序',
 	'grouplist_orderby_dateline'		=> 'Create time',//'按创建时间倒序',
-	'grouplist_orderby_posts'		=> 'Posts',//'按总发帖数倒序',
-	'grouplist_orderby_todayposts'		=> 'Posts today',//'按今日发帖数倒序',
+	'grouplist_orderby_posts'		=> 'Posts',//'按总发贴数倒序',
+	'grouplist_orderby_todayposts'		=> 'Posts today',//'按今日发贴数倒序',
 	'grouplist_orderby_threads'		=> 'Threads',//'按话题数倒序',
 	'grouplist_orderby_level'		=> 'Level',//'按等级倒序',
 	'grouplist_orderby_membernum'		=> 'Members',//'按成员数倒序',
