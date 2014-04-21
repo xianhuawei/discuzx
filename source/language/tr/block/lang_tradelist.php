@@ -7,6 +7,10 @@
  *      $Id: lang_tradelist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'tradelist_fids'		=> 'Forums',//'所在版块',
@@ -26,7 +30,7 @@ $lang = array
 	'tradelist_tids'		=> 'Specified threads',//'指定主题',
 	'tradelist_tids_comment'	=> 'Set the specified threads tid you want to display, use "," to seperate tids',//'设置要指定显示的主题 tid ，多个 tid 请用半角逗号“,”隔开。注意: 留空为不进行任何过滤',
 	'tradelist_keyword'		=> 'Keywords',//'标题关键字',
-	'tradelist_keyword_comment'	=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤<br />关键字中可使用通配符 "*"<br />匹配多个关键字全部，可用空格或 "AND" 连接。如 win32 AND unix<br />匹配多个关键字其中部分，可用 "|" 或 "OR" 连接。如 win32 OR unix',
+	'tradelist_keyword_comment'	=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤； 关键字中可使用通配符 *； 匹配多个关键字全部，可用空格或 AND 连接。如 win32 AND unix； 匹配多个关键字其中部分，可用 | 或 OR 连接。如 win32 OR unix',
 	'tradelist_typeids'		=> 'Thread types',//'主题分类',
 	'tradelist_typeids_comment'	=> 'Select specific thread type. Note: Select All or Clear All for disable any filtering.',//'设置特定分类的主题。注意: 全选或全不选均为不进行任何过滤',
 	'tradelist_typeids_all'		=> 'All thread types',//'全部的主题分类',
@@ -72,7 +76,7 @@ $lang = array
 	'tradelist_orderby_todayviews'	=> 'Views today',//'按当天浏览次数倒序排序',
 	'tradelist_orderby_weekviews'	=> 'Views last week',//'按本周浏览次数倒序排序',
 	'tradelist_orderby_monthviews'	=> 'Views last month',//'按当月浏览次数倒序排序',
-	'tradelist_orderby_hours'		=> 'Select time (hours)',//'指定时间(小时)',
+	'tradelist_orderby_hours'	=> 'Select time (hours)',//'指定时间(小时)',
 	'tradelist_orderby_hours_comment'	=> 'Set the specific time of views in',//'指定时间内浏览次数倒序排序的时间值',
 	'tradelist_orderby_todayhots'	=> 'Hots today',//'按当天累计售出数倒序排序',
 	'tradelist_orderby_weekhots'	=> 'Hots last week',//'按本周累计售出数倒序排序',
@@ -88,6 +92,6 @@ $lang = array
 	'tradelist_orderby_monthstart'	=> 'Started last month',//'按一月内活动开始时间排序',
 	'tradelist_orderby_weekexp'	=> 'Expired last week',//'按一周内报名截止时间排序',
 	'tradelist_orderby_monthexp'	=> 'Expired last month',//'按一月内报名截止时间排序',
-	'tradelist_highlight'		=> 'Highlight found words',
+	'tradelist_highlight'		=> 'Highlight found words',//'获得高亮值',
 );
 

@@ -7,30 +7,34 @@
  *      $Id: lang_polllist.php 11146 2010-05-25 02:52:53Z xupeng $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
-	'polllist_name' => 'Bình chọn',
-	'polllist_desc' => 'Danh sách cuộc bỏ phiếu',
-	'polllist_uids' => 'Số UID',
-	'polllist_uids_comment' => 'Điền vào các ID người dùng quy định (uid), nhiều người dùng dấu phẩy (,) để phân cách',
-	'polllist_startrow' => 'Số hàng đầu',
-	'polllist_startrow_comment' => 'Để thiết lập số ban đầu của các hàng, nhập các giá trị cụ thể, 0 để bắt đầu từ những dòng đầu tiên, và như vậy',
-	'polllist_titlelength' => 'Chiều dài tiêu đề',
-	'polllist_summarylength' => 'Chiều dài thông tin',
-	'polllist_orderby' => 'Sắp xếp theo bình chọn',
-	'polllist_orderby_comment' => 'Cài đặt để mà trên thực địa hoặc cách nào để loại bỏ phiếu',
-	'polllist_orderby_dateline' => 'Ngược lại theo lần đăng',
-	'polllist_orderby_hot' => 'Ngược lại theo độ hot',
-	'polllist_orderby_lastvote' => 'Ngược lại theo lần bổ phiếu cuối',
-	'polllist_orderby_viewnum' => 'Ngược lại theo thứ tự số',
-	'polllist_orderby_replynum' => 'Ngược lại số lần nhận xét',
-	'polllist_orderby_votenum' => 'Ngược lại theo số phiếu bầu',
-	'polllist_credit' => 'Phần thưởng có quyền biểu quyết',
-	'polllist_credit_nolimit' => 'Chưa rõ',
-	'polllist_credit_yes' => 'Phần thưởng khi bỏ phiếu',
-	'polllist_expirefilter' => 'Hạn bỏ phiếu',
-	'polllist_expirefilter_off' => 'Không ẩn',
-	'polllist_expirefilter_on' => 'Ẩn',
+	'polllist_name' => 'Danh sách thăm dò',
+	'polllist_desc' => 'Gọi cho danh sách thăm dò',
+	'polllist_uids' => 'IDs thành viên',
+	'polllist_uids_comment' => 'Xin vui lòng điền vào ID người dùng cụ thể (uid), sử dụng dấu phẩy (,) để ngăn cách nhiều thành viên.',
+	'polllist_startrow' => 'Hàng đầu tiên',
+	'polllist_startrow_comment' => 'Điền số 0 nếu muốn là hàng đầu tiên.',//'如需设定起始的数据行数，请输入具体数值，0 为从第一行开始，以此类推',
+	'polllist_titlelength' => 'Tiêu đề',
+	'polllist_summarylength' => 'Mô tả',//'简介长度',
+	'polllist_orderby' => 'Sắp xếp',
+	'polllist_orderby_comment' => 'Thiết lập thứ tự của các cuộc thăm dò ý kiến',//'设置以哪一字段或方式对投票进行排序',
+	'polllist_orderby_dateline' => 'Thời gian đăng',//'按发布时间倒序',
+	'polllist_orderby_hot' => 'Hot',
+	'polllist_orderby_lastvote' => 'Lần bỏ phiếu',//'按最后投票时间倒序',
+	'polllist_orderby_viewnum' => 'Lượt xem',//'按查看数倒序',
+	'polllist_orderby_replynum' => 'Trả lời',//'按回复数倒序',
+	'polllist_orderby_votenum' => 'Bỏ phiếu',//'按投票数倒序',
+	'polllist_credit' => 'Phần thưởng thăm dò ý kiến',
+	'polllist_credit_nolimit' => 'Không giới hạn',//'不限定',
+	'polllist_credit_yes' => 'Chỉ thưởng ai tham gia',
+	'polllist_expirefilter' => 'Hạn chế tham gia',
+	'polllist_expirefilter_off' => 'Hiện',//'不屏蔽',
+	'polllist_expirefilter_on' => 'Ẩn',//'屏蔽',
 
 );
 

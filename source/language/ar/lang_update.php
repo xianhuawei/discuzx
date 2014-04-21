@@ -1,12 +1,12 @@
 <?php
 
-/**+++
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_update.php by Valery Votintsev at sources.ru
  *
- *	Arabic Language Pack by Khalid Nahhal, http://www.ar-discuz.com
+ *	Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
 
 $lang = array(
@@ -21,7 +21,7 @@ $lang = array(
 	'does_not_exist'		=> '  غير موجود ',//' 不存在',
 	'table_delete_completed'	=> 'حذف الجداول والحقول تم بنجاح ',//'删除表和字段操作完成了',
 	'close_before_update'		=> ' الرجاء اغلق الدخول للمنتدى قبل عملية الترقية . ',//'请先关闭站点再执行此升级操作',
-	'ucenter160update'		=> 'الرجاء ترقية  UCenter الخاص بك إلى الإصدار  1.6.0 أو احدث.<br>اذا كنت تستعمل Discuz!X مع UCenter, الرجاء ترقية  UCenter باستخدام uc_server/upgrade/upgrade3.php',//'请先升级UCenter到1.6.0以上版本。<br>如果使用为Discuz! X自带UCenter，请先运行uc_server/upgrade/upgrade3.php进行升级',
+	'ucenter160update'		=> 'الرجاء ترقية  UCenter الخاص بك إلى الإصدار  1.6.0 أو احدث.<br>إذا كنت تستعمل Discuz!X مع UCenter, الرجاء ترقية  UCenter باستخدام uc_server/upgrade/upgrade3.php',//'请先升级UCenter到1.6.0以上版本。<br>如果使用为Discuz! X自带UCenter，请先运行uc_server/upgrade/upgrade3.php进行升级',
 	'db_will_upgrade'		=> '<b>ملاحظة:</b><br>&nbsp;&nbsp;&nbsp;البرنامج سوف يدخل على احدث قاعدة بيانات موجودة لإعادة التوافق ما بين ديسكاز و Ucenter .<br>',//'说明：<br>本升级程序会参照最新的SQL文件,对数据库进行同步升级.',
 	'check_latest_version'		=> 'تأكد من ملف ./data/install.sql بأنه في أحدث إصدار!',//'请确保当前目录下 ./data/install.sql 文件为最新版本.',
 	'check_plugins'			=> 'بعد الترقية بنجاح, اغلق كل الهاكات ليعمل ديسكاز بالشكل الصحيح. بعد ذلك قم بفتح هاك تلو الآخر لمعرفة أن كان هناك خطأ في احداها بأن تقوم بترقيته لتوافق مع إصدار ديسكاز الحالي .',//'升级完成后会关闭所有插件以确保正常运行，请站长逐个开启每一个插件检测是否兼容新版本。',
@@ -41,7 +41,7 @@ $lang = array(
 	'skip_table'			=> ' تم بنجاح, بدون ترقية, تجاوز',//' 完成,不需升级,跳过',
 	'real_names_updated'		=> 'تم ترقية الإسم',//'实名功能升级完毕',
 	'real_name'			=> 'الإسم الحقيقي',//'真实姓名',
-	'real_name_progress'		=> 'عملية ترقية الإسماء الحقيقية:',//'实名功能升级中',
+	'real_name_progress'		=> 'عملية ترقية الأسماء الحقيقية:',//'实名功能升级中',
 	'users_updated'			=> 'عملية ترقية إسماء الأعضاء تمت بنجاح',//'用户栏目升级完毕',
 	'recommended_webmaster'		=> 'مستحسن من قبل الإدارة',//'站长推荐',
 	'article_tags'			=>  array (
@@ -136,4 +136,25 @@ $lang = array(
 	'reports_completed'		=> 'ترقية التقارير تم بنجاح',//'举报升级完成',
 	'magics_updated'		=> 'ترقية الدعائم تم بنجاح',//'道具升级完成',
 	'birthday'			=> 'تاريخ الميلاد',//'出生日期',
+//-----------------------------------------------------------------------------
+// Added in X2.5:
+	'table_optimize'	=> 'تحسين جدول',//'优化数据表',
+	'close_wait'		=> 'موقعك ليس مغلقاً, جاري الإغلاق تلقائياً, إنتظر قليلاً...',//'您的站点未关闭，正在关闭，请稍后...',
+	'length'		=> '[الطول]',//'[时长]',
+	'status'		=> '[الحالة]',//'[状态]',
+	'info'			=> '[معلومات]',//'[信息]',
+	'next_step_wait'	=> 'جاهز للإنتقال للخطوة التالية, إنتظر قليلاً...',//'准备进入下一步操作，请稍后...',
+	'upgrade_wait'		=> 'جاري عملية الترقية, الرجاء الإنتظار...',//'正在升级数据，请稍后...',
+//	'ready_to_db_upgrade'	=> 'Ready to enter the next step: upgrade the database structure',//'准备完毕，进入下一步数据库结构升级',
+	'patches_dayly'		=> 'الوصول اليومي للإصلاحات الأمنية',//'每日获取安全补丁',
+	'regular_publish'	=> 'Regular published topics',//'定时发布主题',
+	'archive_weekly'	=> 'التحديث الاسبوعي للبث',//'每周广播归档',
+	'updates_daily'		=> 'عدد فحوصات التحديث اليومي',//'更新每日查看数',
+	'users_daily'		=> 'التحديث اليومي لجداول الأعضاء',//'每日用户表优化',
+	'collection_follow'	=> 'Collection followed rule (Taobao album subscription)',//'淘专辑被订阅',
+	'new_post'		=> 'المشاركات الجديدة',//'新人帖',
+	'moderated_completed'	=> 'تم ترقية بيانات المشرفين بنجاح',//'审核数据转换完毕',
+	'medal_completed'	=> 'تم ترقية بيانات الأوسمة بنجاح',//'用户勋章数据升级完毕',
+	'data_update_completed'	=> 'تم ترقية البيانات بنجاح',//'数据升级结束',
+	'group_stat_completed'	=> 'ترقية بيانات المجموعات تمت بنجاح',//'论坛版块统计数据升级完毕',
 );

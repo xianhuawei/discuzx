@@ -7,6 +7,10 @@
  *      $Id: lang_groupactivity.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'groupactivity_fids'		=> 'Le D&#233;veloppement du Groupe',  //  '制定群组'
@@ -98,4 +102,3 @@ $lang = array
 	'groupactivity_highlight'		=> 'Mettre en &#233;vidence la valeur obtenue',  //  '获得高亮值'
 );
 
-?>

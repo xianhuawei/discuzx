@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -17,7 +17,7 @@ $lang = array (
 	'empty_tags'		=> 'Тег не найден. Вы можете продолжить поиск или <a href="misc.php?mod=tag" title="Вернуться на страницу тегов">вернуться на страницу тегов</a>',
 	'forum'			=> 'Форум',
 	'hot'			=> 'Популярность',
-	'lastpost'		=> 'Последний пост',
+	'lastpost'		=> 'Последнее сообщение',
 	'no_content'		=> 'Нет соответствующих записей',
 	'personal_category'	=> 'Персональная категория',
 	'related_blog'		=> 'Релевантные блоги',
@@ -25,4 +25,3 @@ $lang = array (
 	'replies'		=> 'Ответы/Просмотры',
 );
 
-?>

@@ -7,6 +7,10 @@
  *      $Id: lang_bloglist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'bloglist_blogids'		=> 'Specified blogs',//'指定日志',

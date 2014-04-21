@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -76,7 +76,7 @@ $lang = array
 	'groupthread_recommend_comment'		=> 'Показывать только рекомендованные темы.',
 	'groupthread_orderby'			=> 'Сортировка',
 	'groupthread_orderby_comment'		=> 'Выберите порядок сортировки результатов.',
-	'groupthread_orderby_lastpost'		=> 'По дате последнего поста',
+	'groupthread_orderby_lastpost'		=> 'По дате последнего сообщения',
 	'groupthread_orderby_dateline'		=> 'По дате создания',
 	'groupthread_orderby_replies'		=> 'По кол-ву ответов',
 	'groupthread_orderby_views'		=> 'По кол-ву просмотров',
@@ -92,7 +92,7 @@ $lang = array
 	'groupthread_postdateline_day'		=> 'За сутки',
 	'groupthread_postdateline_week'		=> 'За неделю', 
 	'groupthread_postdateline_month'	=> 'За месяц',
-	'groupthread_lastpost'			=> 'По дате последнего поста',
+	'groupthread_lastpost'			=> 'По дате последнего сообщения',
 	'groupthread_lastpost_nolimit'		=> 'Без ограничений',
 	'groupthread_lastpost_hour'		=> 'За последний час',
 	'groupthread_lastpost_day'		=> 'За сутки',

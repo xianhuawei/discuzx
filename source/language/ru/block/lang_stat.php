@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -10,12 +10,12 @@
 $lang = array
 (
 	'stat_option'			=> 'Параметры статистики',
-	'stat_option_posts'		=> 'Всего постов',
+	'stat_option_posts'		=> 'Всего сообщений',
 	'stat_option_groups'		=> 'Всего Групп',
 	'stat_option_members'		=> 'Всего Пользователей',
-	'stat_option_groupnewposts'	=> 'Групповых постов сегодня',
-	'stat_option_bbsnewposts'	=> 'Постов на форуме сегодня',
-	'stat_option_bbslastposts'	=> 'Постов на форуме вчера',
+	'stat_option_groupnewposts'	=> 'Групповых сообщений сегодня',
+	'stat_option_bbsnewposts'	=> 'Сообщений на форуме сегодня',
+	'stat_option_bbslastposts'	=> 'Сообщений на форуме вчера',
 	'stat_option_onlinemembers'	=> 'Сейча онлайн',
 	'stat_option_maxmembers'	=> 'Рекорд онлайн',
 	'stat_option_doings'		=> 'Всего настроений',
@@ -27,12 +27,12 @@ $lang = array
 	'stat_edit_showtitle'		=> 'Заголовок блока',
 	'stat_edit_showtitle_detail'	=> 'Введите заголовок для блока статистики',
 
-	'stat_posts'			=> 'Постов',
+	'stat_posts'			=> 'Сообщений',
 	'stat_groups'			=> 'Групп',
 	'stat_members'			=> 'Пользователей',
-	'stat_groupnewposts'		=> 'Груп. постов сегодня',
-	'stat_bbsnewposts'		=> 'Постов сегодня',
-	'stat_bbslastposts'		=> 'Постов вчера',
+	'stat_groupnewposts'		=> 'Груп. сообщений сегодня',
+	'stat_bbsnewposts'		=> 'Сообщений сегодня',
+	'stat_bbslastposts'		=> 'Сообщений вчера',
 	'stat_onlinemembers'		=> 'Онлайн',
 	'stat_maxmembers'		=> 'Рекорд онлайн',
 	'stat_doings'			=> 'Настроений',

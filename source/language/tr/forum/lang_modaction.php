@@ -20,23 +20,23 @@ $lang = array
 
 	'DIG' => 'Derleme ekle',
 	'UDG' => 'Derleme kaldir',
-	'EDI' => 'Sreli derleme',
-	'UED' => 'Derleme sre sil',
+	'EDI' => 'Süreli derleme',
+	'UED' => 'Derleme süre sil',
 
 	'CLS' => 'Kapat',
-	'OPN' => 'A',
-	'ECL' => 'Sreli kapat',
-	'UEC' => 'Kapama sresi sil',
-	'EOP' => 'Sreli a',
-	'UEO' => 'Ama sresi sil',
+	'OPN' => 'Aç',
+	'ECL' => 'Süreli kapat',
+	'UEC' => 'Kapama süresi sil',
+	'EOP' => 'Süreli aç',
+	'UEO' => 'Açma süresi sil',
 
 	'STK' => 'Sabit',
 	'UST' => 'Sabitlik sil',
-	'EST' => 'Sreli sabit',
-	'UES' => 'Sabitlik sresi sil',
+	'EST' => 'Süreli sabit',
+	'UES' => 'Sabitlik süresi sil',
 
-	'SPL' => 'Spilt',
-	'MRG' => 'Bl',
+	'SPL' => 'Split',
+	'MRG' => 'Böl',
 
 	'HLT' => 'Highlight',
 	'UHL' => 'Unhighlight',
@@ -66,7 +66,7 @@ $lang = array
 	'REC' => 'Recommend',
 	'URE' => 'Remove rec',
 
-	'WRN' => 'Warning',
+	'WRN' => 'Uyar',
 	'UWN' => 'Remove warn',
 
 	'SPA' => 'Evaluate as',

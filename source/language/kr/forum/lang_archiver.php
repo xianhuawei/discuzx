@@ -12,7 +12,7 @@ $lang = array
 (
 
 	'page'			=> '페이지',
-	'replies'		=> '답글',
+	'replies'		=> '리필',
 	'anonymous'		=> '익명',
 	'full_version'		=> '정식 버전',
 	'forum_nonexistence'	=> '게시판 접속 권한이 없습니다. 로그인 및 가입후 사용 가능합니다 ',

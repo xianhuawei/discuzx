@@ -7,6 +7,10 @@
  *      $Id: lang_portalcp.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array(
 	'block_diy_nopreview'		=> '<p>Ce module contient js, vous ne pouvez pas pr&#233;visualiser, Svp. enregistrer et afficher</p>',  //  '<p>This module contain js, you cannot preview, please save and view</p>'  
 	'block_diy_summary_html_tag'	=> 'Erreurs de contenu personnalis&#233;, les balises HTML:',  //  'Custom content errors, HTML tags:'  
@@ -18,6 +22,7 @@ $lang = array(
 	'block_all_type'		=> 'Toutes cat&#233;gories',  // All categories   
 	'file_size_limit'		=> 'Le Fichier est plus grand que {size} kio, Svp. retour.',  //  File is larger than {size} kb, please return.  
 	'set_to_conver'			=> 'D&#233;finir comme cover',  //  Set as cover  
+	'small_image'			=> 'Small image',//'小图',
 	'insert_small_image'		=> 'Ins&#233;rez la petite image',  //  Insert small image  
 	'insert_large_image'		=> 'Ins&#233;rer image de grande taille',  //   Insert large image 
 	'insert_file'			=> 'Ins&#233;rer Fichier',  // Insert file   
@@ -27,6 +32,8 @@ $lang = array(
 	'article_noexist'		=> 'Arcticle particulier inexistant',  // Specific arcticle does not exists   
 	'article_noallowed'		=> 'Vous n\'&#234;tes pas autoris&#233; &#224; op&#233;rer cet article',  //  You are not allowed to operate this article  
 	'article_publish_noallowed'	=> 'Vous n\'&#234;tes pas autoris&#233; &#224; publier cet article',  //  You are not allowed to publish article  
+	'article_category_empty'	=> 'Sorry, the category can not be empty',//'抱歉，栏目不能为空',
+	'article_edit_nopermission'	=> 'Sorry, you do not have permission to edit current article',//'抱歉，您没有权限进行当前文章操作',
 	'article_publish'		=> 'Publiez',  //   Publish 
 	'article_manage'		=> 'G&#233;rer',  //   Manage 
 	'article_tag'			=> 'Tag',  //  Tag  
@@ -36,6 +43,8 @@ $lang = array(
 	'article_pushplus_info'	=> '<p><center><i><a href="{url}" class="xg1 xs1">Le contenu est fourni par {author}</a></i><center></p>',  //  '<p><center><i><a href="{url}" class="xg1 xs1">The content is provided by {author}</a></i><center></p>'  
 
 	'diytemplate_name_null'	=> '[Null]',  //  '[Null]'  
+	'portal_view_name'		=> ' Article view page',//' 文章查看页',
+	'forum_viewthread_name'		=> ' Posts View Page',//' 帖子查看页',
 	'portal/index'		=> 'Portail Index',  // Portal Index   
 	'portal/list'		=> 'Article liste page(public)',  //   Article list page(public) 
 	'portal/view'		=> 'Article contenu page(public)',  // Article content page(public)   
@@ -85,5 +94,10 @@ $lang = array(
 	'portal_topic_green'	=> 'Th&#232;me Vert',  // Green theme   
 	'portal_topic_grey'	=> 'Th&#232;me Gris',  //  Grey theme  
 	'portal_topic_red'	=> 'Th&#232;me Rouge',  //  Red theme  
+
+	'itemtypename0'			=> 'Auto',//'自动',
+	'itemtypename1'			=> '<span style="color: #FF0000">Fixed</span>',//'<span style="color: #FF0000">固定</span>',
+	'itemtypename2'			=> '<span style="color: #00BFFF">Edit</span>',//'<span style="color: #00BFFF">编辑</span>',
+	'itemtypename3'			=> '<span style="color: #0000FF">Push</span>',//'<span style="color: #0000FF">推送</span>',
 
 );

@@ -1,11 +1,16 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_member.php by Khalid Nahhal, http://www.ar-discuz.com
+ *      $Id: lang_member.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -14,6 +19,7 @@ $lang = array
 	'member_complete_var_act'		=> 'الإجراء',//'动作',
 	'member_complete_var_act_favorite'	=> 'إضافة مواضيع إلى المفضلة',//'收藏主题',
 	'member_complete_var_act_magic'		=> 'إستخدام الدعائم',//'使用道具',
+	'member_complete_var_act_userapp'	=> 'Add application',//'添加漫游应用',
 	'member_complete_var_num'		=> 'الحد الأدنى من عدد مرات تنفيذ الإجراء',//'执行动作次数下限',
 	'member_complete_var_num_comment'	=> 'مرة واحدة كحد ادنى',//'会员需要执行相应动作的最少次数',
 	'member_complete_var_time'		=> 'المهلة الزمنية (ساعة)',//'时间限制(小时)',
@@ -23,6 +29,6 @@ $lang = array
 	'task_complete_time_limit'		=> '{value} ساعة',//'{value} 小时内，',
 	'task_complete_act_favorite'		=> 'تم إضافة  {value} مواضيع للمفضلة.',//'收藏 {value} 个主题。',
 	'task_complete_act_magic'		=> 'تم إستخدام دعائم  {value} مرة.',//'使用 {value} 次道具。',
+	'task_complete_act_userapp'		=> 'Add the {value} application',//'添加 {value} 个漫游应用',
 );
 
-?>

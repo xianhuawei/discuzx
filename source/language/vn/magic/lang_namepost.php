@@ -7,6 +7,10 @@
  *      $Id: lang_namepost.php 18832 2010-12-07 04:01:53Z liulanbo $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'namepost_name' => 'Thẻ Kính lúp',

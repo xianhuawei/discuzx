@@ -7,6 +7,10 @@
  *      $Id: lang_text.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'text_name'		=> 'Portail/Forum/Groupe/R&#233;seau espaces publicitaires',

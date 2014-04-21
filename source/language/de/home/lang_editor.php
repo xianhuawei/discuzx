@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -25,6 +25,7 @@ $lang = array(
 	'editor_hyperlink'		=> 'Link',//'超链接',
 	'editor_remove_link'		=> 'Link entfernen',//'移除链接',
 	'editor_link_image'		=> 'Fotolink',//'引用图片',
+	'editor_link_attach'		=> 'Add attachment',//'添加附件',
 	'editor_link_flash'		=> 'Flash',//'引用视频FLASH',
 	'editor_insert_smiley'		=> 'Smilies',//'插入表情',
 	'editor_doodle'			=> 'Graffiti',//'涂鸦',
@@ -75,5 +76,6 @@ $lang = array(
 	'editor_prompt_video_media'	=> 'Media Video',//'Media视频',
 	'editor_prompt_video_real'	=> 'Real Video',//'Real视频',
 	'editor_prompt_mp3'		=> 'Mp3 Musik',//'mp3 audio',
+	'editor_full_screen'		=> 'Full Screen',
 );
 

@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -22,8 +22,8 @@ $lang = array
 	'grouplist_orderby'			=> 'Сортировка',
 	'grouplist_orderby_comment'		=> 'Выберите порядок сортировки результатов',
 	'grouplist_orderby_dateline'		=> 'По дате создания',
-	'grouplist_orderby_posts'		=> 'По кол-ву постов',
-	'grouplist_orderby_todayposts'		=> 'По кол-ву постов сегодня',
+	'grouplist_orderby_posts'		=> 'По кол-ву сообщений',
+	'grouplist_orderby_todayposts'		=> 'По кол-ву сообщений сегодня',
 	'grouplist_orderby_threads'		=> 'По кол-ву тем',
 	'grouplist_orderby_level'		=> 'По рейтингу',
 	'grouplist_orderby_membernum'		=> 'По кол-ву членов',

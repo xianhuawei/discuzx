@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -15,6 +15,7 @@ $lang = array
 	'member_complete_var_act'	=> 'Aktion',
 	'member_complete_var_act_favorite'	=> 'Lieblings-Theme',
 	'member_complete_var_act_magic'		=> 'Requisiten',
+	'member_complete_var_act_userapp'	=> 'Add application',//'添加漫游应用',
 	'member_complete_var_num'		=> 'Die Umsetzung der Mindestvorschriften',
 	'member_complete_var_num_comment'	=> 'Mitglieder m&uuml;ssen die minimale Anzahl der Besuche Umsetzung der entsprechenden Maßnahmen',
 	'member_complete_var_time'		=> 'Frist (in Stunden)',
@@ -24,6 +25,6 @@ $lang = array
 	'task_complete_time_limit'	=> '{value} Stunden',
 	'task_complete_act_favorite'	=> '{value} Themen Sammlungen',
 	'task_complete_act_magic'	=> '{value} Zeiten mit Requisiten.',
+	'task_complete_act_userapp'		=> 'Added {value} applications',//'添加 {value} 个漫游应用',
 );
 
-?>

@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -20,9 +20,9 @@ $lang = array
 	'attachmentlist_items'			=> 'Количество файлов',
 	'attachmentlist_items_comment'		=> 'Укажите количество показываемых прикреплённых файлов (целое число больше нуля).',
 	'attachmentlist_titlelength'		=> 'Длина заголовка',
-	'attachmentlist_titlelength_comment'	=> 'Укажите максимальную длину для имени файла и заголовка поста.',
+	'attachmentlist_titlelength_comment'	=> 'Укажите максимальную длину для имени файла и заголовка сообщения.',
 	'attachmentlist_summarylength'		=> 'Длина контента',
-	'attachmentlist_summarylength_comment'	=> 'Укажите максимальную длину описания файла или контента поста. По умолчанию - 255 символов.',
+	'attachmentlist_summarylength_comment'	=> 'Укажите максимальную длину описания файла или контента сообщения. По умолчанию - 255 символов.',
 	'attachmentlist_maxwidth'		=> 'Макс. ширина изображений (пикс)',
 	'attachmentlist_maxwidth_comment'	=> 'Если ширина изображения больше указанной, то оно будет автоматически уменьшено до указанной ширины. 0 - запрет уменьшения.',
 	'attachmentlist_maxheight'		=> 'Макс. высота изображений (пикс)',

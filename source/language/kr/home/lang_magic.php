@@ -14,7 +14,7 @@ $lang = array
 	'target_pid'	=> '목표 PID',
 	'target_username'	=> '대상 회원',
 	'magics_type_1'	=> '카테고리',
-	'magics_type_2'	=> '회원 등급',
+	'magics_type_2'	=> '회원 사용그룹',
 	'magics_type_3'	=> '기타',
 
 	'CCK_color'	=> '색상',

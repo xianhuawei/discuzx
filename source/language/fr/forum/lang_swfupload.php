@@ -7,6 +7,10 @@
  *      $Id: lang_swfupload.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = "
 <okbtn>Envoyer</okbtn>
 <ctnbtn>Continuer</ctnbtn>

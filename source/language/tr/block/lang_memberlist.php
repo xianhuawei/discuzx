@@ -7,6 +7,10 @@
  *      $Id: lang_memberlist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'memberlist_uids'		=> 'User ID',//'用户UID',
@@ -21,9 +25,9 @@ $lang = array
 	'memberlist_residecity'		=> 'Reside place',//'居住城市',
 	'memberlist_birthcity'		=> 'Birth place',//'出生城市',
 	'memberlist_avatarstatus'	=> 'Filter No Avatar',//'过滤无头像用户',
-	'memberlist_emailstatus'	=> 'Email verification',
-	'memberlist_verifystatus'	=> 'Verified',
-	'memberlist_special_default'	=> 'Default Friends',//'默认好友',
+	'memberlist_emailstatus'	=> 'Email verification',//'通过邮件认证',
+	'memberlist_verifystatus'	=> 'Verified',//'已通过的认证',
+	'memberlist_special_default'	=> 'Default Friends',//'推荐好友',
 	'memberlist_startrow'		=> 'Start Row',//'起始数据行数',
 	'memberlist_startrow_comment'	=> 'If you need to set start row, please enter a number, 0 is the first row',//'如需设定起始的数据行数，请输入具体数值，0 为从第一行开始，以此类推',
 	'memberlist_groupid'		=> 'User Group id',//'用户组',
@@ -40,21 +44,21 @@ $lang = array
 	'memberlist_orderby_doings'	=> 'By number of doings, reverse',//'按记录数倒序',
 	'memberlist_orderby_sharings'	=> 'By number of shares, reverse',//'按分享数倒序',
 	'memberlist_orderby_show'	=> 'Top',//'按竞价排行排序',
-	'memberlist_orderby_special'	=> 'By recommends',
+	'memberlist_orderby_special'	=> 'By recommends',//'按推荐优先级排序',
 	'memberlist_orderby_threads'	=> 'Threads',//'按主题数倒序',
 	'memberlist_orderby_digestposts'	=> 'Digests',//'按精华帖数倒序',
-	'memberlist_orderby_regdate'	=> 'Reg date',//'按注册日期倒序',
-	'memberlist_orderby_todayposts'	=> 'By numer of today posts, desc',
-	'memberlist_lastpost'		=> 'Last post',//'最后发帖时间',
-	'memberlist_lastpost_nolimit'	=> 'No limit',//'不限制',
-	'memberlist_lastpost_hour'	=> 'Last hour',//'最近1小时',
-	'memberlist_lastpost_day'	=> 'Last day',//'最近1天',
-	'memberlist_lastpost_week'	=> 'Last week',//'最近一周',
-	'memberlist_lastpost_month'	=> 'Last month',//'最近一月',
-	'memberlist_orderby_extcreditselect'	=> 'Select Specific points',//'指定积分',
+	'memberlist_orderby_regdate'		=> 'Reg date',//'按注册日期倒序',
+	'memberlist_orderby_todayposts'		=> 'By numer of today posts, desc',//'按今日发帖数倒序',
+	'memberlist_lastpost'			=> 'Last post',//'最后发帖时间',
+	'memberlist_lastpost_nolimit'		=> 'No limit',//'不限制',
+	'memberlist_lastpost_hour'		=> 'Last hour',//'最近1小时',
+	'memberlist_lastpost_day'		=> 'Last day',//'最近1天',
+	'memberlist_lastpost_week'		=> 'Last week',//'最近一周',
+	'memberlist_lastpost_month'		=> 'Last month',//'最近一月',
+	'memberlist_orderby_extcreditselect'	=> 'Select Specific points',//'扩展积分',
 	'memberlist_orderby_extcreditselect_comment'	=> 'Set the specific points for order',//'按指定扩展积分倒序排序的积分值',
-	'memberlist_orderby_hours'			=> 'Posts in hours',//'按小时内发贴数倒序',
+	'memberlist_orderby_hours'		=> 'Posts in hours',//'按小时内发帖数倒序',
 	'memberlist_orderby_hours_comment'	=> 'Specific time of posts',//'指定时间内发帖数倒序排序的时间值',
-	'memberlist_yes'			=> 'Yes',
+	'memberlist_yes'			=> 'Yes',//'是',
 );
 

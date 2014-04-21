@@ -7,6 +7,10 @@
  *      $Id: lang_admincp.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 
 $lang = array
 (
@@ -221,6 +225,7 @@ $lang = array
 	'more_than'	=> 'Sup&#233;rieur', // 大于
 	'lower_than'	=> 'Inf&#233;rieur', // 小于
 	'likesupport'	=> 'A exprim&#233; son soutien pour la requ&#234;te', // 表示支持模糊查询
+	'lengthabove1'		=> 'The query string length must be greater than 1',//'查询字串长度需大于1',
 	'resultsort'	=> 'R&#233;sultats de Tri', // 结果排序
 	'defaultsort'	=> 'Ordre par d&#233;faut', // 默认排序
 	'defaultpoke'	=> 'Annonce Standard', // 默认打招呼
@@ -235,6 +240,7 @@ $lang = array
 	'show_search'	=> 'Champ de Rech.', // '显示搜索框'
 	'hide_search'	=> 'Cacher Zone de Rech.', // '隐藏搜索框'
 	'keywords'	=> 'Mot-cl&#233;s', // '关键词'
+	'startendtime'		=> 'Start & End time',//'起止时间',
 
 	'import_type'		=> 'Svp. Choisir le mode d\'importation', // '请选择导入方式'
 	'import_type_file'	=> 'Transf&#233;rer des Fichiers', // '上传文件'
@@ -281,6 +287,7 @@ $lang = array
 	'nav_group_manage'	=> 'Groupe de Gestion', // 群组管理
 	'nav_group_userperm'	=> 'Permissions du Groupe Principal', // 群主权限
 	'nav_group_level'	=> 'Niveau du Groupe', // 群组等级
+	'nav_group_mod'			=> 'Group moderation',//'审核群组',
 	'nav_group_level_editor'	=> 'Niveau du Groupe - Modifier', // '群组等级 -- 编辑'
 	'nav_home'		=> 'Accueil', // 家园
 
@@ -396,7 +403,6 @@ $lang = array
 	'nav_postcomment'	=> 'Posts R&#233;ponses de la direction', // '帖子点评管理'
 
 	'nav_plugins'		=> 'Plug-in', // 'Plugin'
-	'nav_addons'		=> 'Extensions', // '扩展中心'
 	'nav_announce'		=> 'Avis du site', // '站点公告'
 	'nav_javascript'	=> 'Appel de Donn&#233;es', // '数据调用'
 	'nav_infoside'		=> 'Barre Lat&#233;rale', // '边栏'
@@ -424,12 +430,14 @@ $lang = array
 	'nav_members_confermedal'	=> 'Prix M&#233;daille', // 颁发勋章
 	'nav_members_confermagic'	=> 'Donner Accessoires', // 道具赠送
 	'nav_members_newsletter'	=> 'Pr&#233;avis du Site', // 站点通知
+	'nav_members_newsletter_mobile'	=> 'Phone notification',//'手机通知',
 	'nav_members_ipban'	=> 'IP interdites', // '禁止 IP'
 	'nav_members_select'	=> 'Choisissez cet Utilisateur Cible', // '选取目标用户'
 	'nav_members_notify'	=> 'Contenu Complet de la Notification', // '填写通知内容'
 	'nav_defaultuser'	=> 'Recommander &#224; un Ami', // '推荐好友'
-	'nav_hotuser'		=> 'Pleins feux sur Membres', // '明星会员'
+	'nav_follow'			=> 'Follows',//'推荐关注',
 	'nav_add_hotuser'	=> 'Ajout.le Recommand&#233;s', // '添加推荐'
+	'nav_add_follow'		=> 'Add follow',//'添加推荐',
 	'nav_add_defaultuser'	=> 'Ajout.un Ami', // '添加好友'
 
 	'nav_repeat'		=> 'gilet', // '马甲'
@@ -457,10 +465,21 @@ $lang = array
 	'nav_logs_magic'	=> 'Op&#233;ration Accessoires', // '道具操作'
 	'nav_logs_invite'	=> 'Invit&#233;s &#224; s\'inscrire', // '邀请注册'
 	'nav_logs_error'	=> 'Erreur Syst&#232;me', // '系统错误'
+	'nav_logs_sendmail'		=> 'Mail send failed',//'邮件发送失败',
 	'nav_logs_member'	=> 'Enreg. Utilisateur', // '用户记录'
 	'nav_logs_system'	=> 'Enreg. du Syst&#232;me', // '系统记录'
 	'nav_logs_extended'	=> 'Extensions Dossiers', // '扩展记录'
 	'nav_logs_payment'	=> 'Th&#232;me Commercial', // '买卖主题'
+	'nav_logs_crime'		=> 'Violation log',//'违规记录',
+	'nav_logs_crime_delpost'	=> 'Delete post',//'删除帖子',
+	'nav_logs_crime_warnpost'	=> 'Warn post',//'警告帖子',
+	'nav_logs_crime_banpost'	=> 'Ban post',//'屏蔽帖子',
+	'nav_logs_crime_banspeak'	=> 'R/O',//'禁止发言',
+	'nav_logs_crime_banvisit'	=> 'Disable access',//'禁止访问',
+	'nav_logs_crime_banstatus'	=> 'User ban',//'锁定用户',
+	'nav_logs_crime_avatar'		=> 'Remove avatar',//'清除头像',
+	'nav_logs_crime_sightml'	=> 'Remove signature',//'清除签名',
+	'nav_logs_crime_customstatus'	=> 'Remove custom status',//'清除自定义头衔',
 
 	'nav_fileperms'		=> 'V&#233;rif. Autorisations Fichier', // '文件权限检查'
 	'nav_fileperms_confirm'	=> 'OK pour Lancer', // '确认开始'
@@ -471,6 +490,11 @@ $lang = array
 	'nav_filecheck_confirm'	=> 'OK pour Lancer', // '确认开始'
 	'nav_filecheck_verify'	=> 'V&#233;rif. Somme de Contr&#244;le', // '开始校验'
 	'nav_filecheck_completed'	=> 'R&#233;sultats du Calibrage', // '校验结果'
+
+	'nav_hookcheck'			=> 'Check hooks',//'嵌入点校验',
+	'nav_hookcheck_confirm'		=> 'Confirm start',//'确认开始',
+	'nav_hookcheck_verify'		=> 'Start check',//'开始校验',
+	'nav_hookcheck_completed'	=> 'Hook checking completed',//'校验结果',
 
 	'nav_updatecache'		=> 'Maj.du Cache', // '更新缓存'
 	'nav_updatecache_confirm'	=> 'OK pour Lancer', // '确认开始'
@@ -493,7 +517,66 @@ $lang = array
 	'nav_threadsplit_manage'	=> 'Gestion Sous-table', // '分表管理'
 	'nav_threadsplit_move'		=> 'Th&#232;me Mobiles', // '主题移动'
 
+	'nav_membersplit'		=> 'User sub-table',//'用户分表',
+	'nav_mmebersplit_manage'	=> 'Sub-table management',//'分表管理',
+
 	'nav_custommenu'	=> 'Op&#233;rations de Montage Commun', // '编辑常用操作'
+
+	'nav_founder_patch'		=> 'Security Center',//'安全中心',
+	'founder_patch_list'		=> 'Security patch list',//'安全补丁列表',
+	'founder_patch_updatesetting'	=> 'Auto Update',//'更新设置',
+	'founder_patch_autoupdate'	=> 'Whether to enable Automatic Updates',//'是否开启自动更新',
+	'founder_patch_autoupdate_mobile'		=> 'Notify about security patches via SMS',//'有安全补丁时通过手机短信及时通知',
+	'founder_patch_autoupdate_mobile_comment'	=> 'Please fill in the phone number to receive notification of security patches',//'请您填写接收安全补丁通知的手机号码',
+	'founder_patch_autoupdate_qq'			=> 'Notify about security patches via QQ',//'有安全补丁时通过QQ及时通知',
+	'founder_patch_autoupdate_qq_comment'		=> 'Please fill in the QQ number to receive security patches notice',//'请您填写接收安全补丁通知的QQ号码',
+	'founder_patch_autoupdate_email'		=> 'Notify about security patches via E-Mail',//'有安全补丁时通过电子邮件及时通知',
+	'founder_patch_autoupdate_email_comment'	=> 'Please fill in the e-mail notification to receive security patches',//'请您填写接收安全补丁通知的电子邮箱',
+	'founder_patch_serial'		=> 'Security Patch ID',//'安全补丁编号',
+	'founder_patch_note'		=> 'Name of the security patch',//'安全补丁名称',
+	'founder_patch_dateline'	=> 'Publish time',//'发布时间',
+	'founder_patch_status'		=> 'Status',//'状态',
+	'founder_patch_fix'		=> 'Fix',//'修复',
+	'founder_patch_rescan'		=> 'Re-scan',//'重新扫描',
+	'founder_patch_set_ftpinfo'	=> 'Set the ftp account',//'设置ftp账号',
+	'founder_patch_reset'		=> 'Retry',//'重试',
+	'patch_fix_complete'		=> 'Discuz! Critical security update: You have to fix all the serious security vulnerabilities <span>Click to view</span>',//'Discuz! 重要安全更新: 您已修复了全部严重安全漏洞<span>点击查看</span>',
+	'patch_fix_rigth_now'		=> 'Discuz! Critical security update: Your current version has serious security vulnerability, as soon as possible repair <span>Repair right now</span>',//'Discuz! Critical security update: 您目前的版本存在严重安全漏洞，请尽快修复<span>立即修复</span>',
+	'founder_patch_fixpatch'	=> 'Security patch',//'安全补丁',
+	'founder_patch_failedreason'	=> 'Failure reason',//'失败原因',
+
+	'nav_founder_upgrade'		=> 'Online Upgrade',//'在线升级',
+	'founder_upgrade_updatelist'	=> 'Get list of files to be updated',//'获取待更新文件列表',
+	'founder_upgrade_download'	=> 'Download updates',//'下载更新',
+	'founder_upgrade_compare'	=> 'Compare with local files',//'本地文件比对',
+	'founder_upgrade_upgrading'	=> 'Upgrading',//'正在升级',
+	'founder_upgrade_complete'	=> 'Update Completed',//'升级完成',
+	'founder_upgrade_preupdatelist'	=> 'List of files to be updated',//'待更新文件列表',
+	'founder_upgrade_store_directory'	=> '<b>File storage directory:</b> ',//'<b>文件存放目录:</b> ',
+	'founder_upgrade_diff_show'	=> 'Local files diff results, status',//'与本地文件的比对结果，状态 <span style="color:red;">差异</span> 表示该本地文件被修改过',//'与本地文件的比对结果，状态 <span style="color:red;">差异</span> 表示该本地文件被修改过',
+	'founder_upgrade_diff'		=> 'Difference',//'差异',
+	'founder_upgrade_normal'	=> 'Normal',//'正常',
+	'founder_upgrade_new'		=> 'New',//'新增',
+	'founder_upgrade_download_file' => '<b>Upgrade files have been downloaded, and stored in the server directory: </b>',//'<b>升级文件已经全部下载完毕，并存储到服务器目录: </b>',
+	'founder_upgrade_backup_file'	=> '<b>When proceed the upgrade, all the old existing files would be backuped to the directory: </b>',//'<b>继续升级，将会把现有的旧文件备份到目录: </b>',
+	'founder_upgrade_backup_file2'	=> '<b>, and usee new files will be overridden</b>',//'<b>，并用新的文件进行覆盖</b>',
+	'founder_upgrade_force'		=> 'Forced upgrade',//'强制升级',
+	'founder_upgrade_regular'	=> 'Normal upgrade',//'正常升级',
+	'founder_upgrade_set_ftp'	=> 'Set the ftp account',//'设置 ftp 账号',
+	'founder_upgrade_reset'		=> 'Retry',//'重试',
+	'founder_upgrade_reupload'	=> 'Re-upload',//'重新上传',
+	'founder_upgrade_reset_ftp'	=> 'Re-set the ftp account',//'重新设置 ftp 账号',
+	'founder_upgrade_recopy'	=> 'Re-copy',//'重新复制',
+	'founder_upgrade_newword'	=> 'New',//'新',
+	'founder_upgrade_require_config'	=> 'Required configuration to achieve',//'要求配置达到',
+	'founder_upgrade_backup_remind'		=> 'Before automatic upgrade your first have to backup program files and database, OK to start the upgrade?',//'自动升级前请您先备份程序及数据库，确定开始升级吗？',
+	'founder_upgrade_automatically'		=> 'Automatic upgrade',//'自动升级',
+	'founder_upgrade_manually'		=> 'Manual download',//'手动下载',
+	'founder_upgrade_select_version'	=> 'Detected a new version for upgrade, you can choose to automatically upgrade or download and install the upgrade package manually.',//'检测到有新的版本可供升级，您可以选择自动升级或者下载安装包手动升级。',
+	'founder_upgrade_continue'	=> 'Continue Upgrade',//'继续升级',
+	'founder_upgrade_recheck'	=> 'Recheck',//'重新检测',
+	'founder_upgrade_dbupdate'	=> 'Upgrade the database',//'升级数据库',
+	'upgrade_right_now'		=> 'There is a new Discuz! version released, Please <span>Online Upgrade</span>',//'您目前使用的 Discuz! 程序有新版本发布，请及时升级<span>在线升级</span>',
 
 	'nav_report'		=> 'Utilisateur Signaler', // '用户举报'
 	'report_user'		=> 'Les Informateurs', // '举报人'
@@ -517,8 +600,11 @@ $lang = array
 	'home_security_checkip'		=> '<li>Vous fermez un <u>V&#233;rif. Manager IP</u>.Recommande que seul l\'Administrateur peut pas connecter &#224; New quand il est &#233;teint le ch&#232;que. Modifier config/config_global.php L\'ensemble correspondant d\'entre eux peuvent activer cette fonction', // '<li>你关闭了 <u>管理员IP验证</u>.建议只有在管理员无法登录后台的时候才关闭此项检查.修改 config/config_global.php 当中的相应设置可以开启此功能'
 	'home_security_tpledit'		=> '<li>Que vous ouvrez le <u>Editeur de mod&#232;les en ligne</u> Fonction Il est recommand&#233; que vous seulement quand il est n&#233;cessaire de l\'ouvrir, Svp. changer config/config_global.php D&#233;sactiver cette fonction', // '<li>你开启了 <u>在线编辑模板</u> 功能.建议你只有在十分必要的时候才开启它.请修改 config/config_global.php 关闭此功能'
 	'home_security_runquery'	=> '<li>Que vous ouvrez le <u>Ex&#233;cuter des instructions SQL</u> Fonction Il est recommand&#233; que vous seulement quand il est n&#233;cessaire d\'ouvrir ce, Svp. changer config/config_global.php D&#233;sactiver cette fonction', // '<li>你开启了 <u>运行 SQL 语句</u> 功能.建议你只有在十分必要的时候才开启此它.请修改 config/config_global.php 关闭此功能'
-	'home_security_service_info'	=> 'Lorsque le programme du site conna&#238;t un trou de s&#233;curit&#233; s&#233;rieux dans le besoin des temps de r&#233;paration imm&#233;diate, Discuz! Avisera par SMS pour vous. Ce service est enti&#232;rement gratuit, et seulement pour China Mobile et China Unicom Utilisateurs de t&#233;l&#233;phone mobile.<span class="spectitle">Protection Confidentialit&#233;: Discuz! Engagement Solennel, N\'utilisera pas vos informations de t&#233;l&#233;phone portable &#224; disposition de tiers de quelque mani&#232;re.</span>', // '当站点程序出现严重安全漏洞需要立即进行修补的时候, Discuz! 会通过手机短信及时通知给你.此服务完全免费, 且仅面向中国移动和中国联通手机用户.<span class="spectitle">隐私保护: Discuz! 郑重承诺, 不会将你的手机信息以任何方式提供给第三方.</span>'
+	'home_security_service_close_info'	=> '<li>It is recommended to enable the cloud platform. After opening, when the site have a serious security vulnerabilities and require an immediate repair, you will be notified by QQ message<br/>Click <a href="?action=cloud&operation=open"><strong>"Cloud platform -&gt; Enable Discuz! Cloud platform"</strong></a> for enable this function</li>',//'<li>推荐您开通云平台, 开通后，当站点程序出现严重安全漏洞需要立即进行修补的时候，我们会通过QQ及时通知给您<br/><a href="?action=cloud&operation=open">点击<strong>"云平台->开通Discuz!云平台"</strong>开通此功能</a></li>',
+	'home_security_service_open_info'	=> '<li>If you have enabled the cloud platform, when the site have a serious security vulnerabilities and require an immediate repair, you will be notified by QQ message.<br/>Platform management entrance: <a href="?action=cloud&operation=applist"><strong>"Cloud platform -&gt; Manage Discuz! Cloud platform"</strong></a></li>',//'<li>您已开通云平台，当站点程序出现严重安全漏洞需要立即进行修补的时候，我们会通过QQ及时通知给您。<br/>平台管理入口：<a href="?action=cloud&operation=applist"><strong>"云平台->管理Discuz!云平台"</strong></a></li>',
 	'home_security_service_mobile'	=> 'Votre Num&#233;ro de T&#233;l&#233;phone', // '你的手机号码'
+	'home_security_service_qq'		=> 'Your QQ number',//'您的QQ号码',
+	'home_security_service_email'		=> 'Your e-mail',//'您的电子邮箱',
 	'home_security_service_mobile_save'	=> 'Nombre de liaison est r&#233;ussie, l\'utilisation de la confiance manifest&#233;e ici', // '号码绑定成功, 此处采用保密方式显示'
 	'home_security_service_mobile_none'	=> 'Svp.Remplir votre num&#233;ro de t&#233;l&#233;phone pr&#233;f&#233;r&#233;, l\'ouverture des services de s&#233;curit&#233;', // '请填写你常用的手机号码, 开通安全服务'
 	'home_security_service_open'	=> 'Ouverture des Services de S&#233;curit&#233;', // '开通安全服务'
@@ -577,6 +663,8 @@ $lang = array
 	'setting_basic_adminemail_comment'	=> 'Mail de l\'Administrateur, comme le syst&#232;me enverra adresse e-mail de l\'exp&#233;diteur lorsque le ', // '管理员 E-mail, 将作为系统发邮件的时候的发件人地址'
 	'setting_basic_index_name'		=> 'Nom du fichier page Accueil', // '首页文件名'
 	'setting_basic_index_name_comment'	=> 'R&#233;glez l\'accueil du site le nom du fichier d\'&#233;change, la valeur par d&#233;faut est“forum.php?mod=index”, Si vous modifiez ce param&#232;tre, alors vous avez besoin pour utiliser "l\'outil FTP" &#224; renommer manuellement le nom du fichier', // '设置站点首页的文件名, 默认为“forum.php?mod=index”, 如果你更改了此设置, 那么你需要使用“FTP工具”手动重命名文件名称'
+/*!*/	'setting_basic_site_qq'			=> 'QQ online customer service number',//'QQ在线客服号码',
+/*!*/	'setting_basic_site_qq_comment'		=> '<a href="" onclick="this.href=\'http://wp.qq.com/set.html?from=discuz&uin=\'+$(\'settingnew[site_qq]\').value" target="_blank">I set my QQ online status</a>',//'<a href="" onclick="this.href=\'http://wp.qq.com/set.html?from=discuz&uin=\'+$(\'settingnew[site_qq]\').value" target="_blank">设置我的QQ在线状态</a>',
 	'setting_basic_icp'			=> 'Enregistrer des informations du site de code', // '网站备案信息代码'
 	'setting_basic_icp_comment'		=> 'bas de page pour afficher les informations d\'enregistrement ICP, si le site a &#233;t&#233; d&#233;pos&#233;, entrez votre code d\'autorisation, qui appara&#238;tra au bas de page, laissez en blanc si aucune', // '页面底部可以显示 ICP 备案信息, 如果网站已备案, 在此输入你的授权码, 它将显示在页面底部, 如果没有请留空'
 	'setting_basic_stat'			=> 'Tierces site Web de Statistique de code', // '网站第三方统计代码'
@@ -632,6 +720,9 @@ $lang = array
 	'setting_access_register_open'			=> 'Inscriptions Ouvertes Normalement', // '开放普通注册'
 	'setting_access_register_invite'		=> 'Invitation ouverte pour enregistrement', // '开放邀请注册'
 	'setting_access_register_connect'		=> 'Inscriptions ouvertes QQ', // '开放QQ注册'
+	'setting_access_register_send_register_url'		=> 'Send Registration link via e-mail',//'通过邮件发送注册链接',
+	'setting_access_register_send_register_url_comment'	=> 'If turned on, the system will send a registration address to the user mailbox. When a user come to this address, the registration is confirmed. It is also recommended to enable registration in UCenter only by a mailbox.<br/>注意：只有在<a href="?action=setting&operation=mail">站长 - 邮件设置</a>中完成邮件设置，确保邮件能发送成功下可以开启该功能 ',//'开启后系统会发一条注册的地址到用户的邮箱，从该地址链接过来的允许注册，同时建议UCenter中开启一个邮箱只允许注册一个帐户<br/>注意：只有在<a href="?action=setting&operation=mail">站长 - 邮件设置</a>中完成邮件设置，确保邮件能发送成功下可以开启该功能 ',
+
 	'setting_access_register_invite_buy'		=> 'Code Invitation pour permettre la recharge pour acheter', // '允许充值购买邀请码'
 	'setting_access_register_invite_buy_comment'	=> 'Permet aux visiteurs d\'acheter en ligne code pr&#233;pay&#233; invitation d\'inscription. Est-ce limit&#233; &#224; fermer l\'inscription r&#233;guli&#232;re est valide. Assurez-vous que vous ouvrez l\'avant<a href="'.ADMINSCRIPT.'?frames=yes&action=setting&operation=ec" target="_blank"><strong>E-commerce</strong></a>Et<a href="'.ADMINSCRIPT.'?frames=yes&action=setting&operation=mail" target="_blank"><strong>Envoyer un e-mail</strong></a>Fonction peut &#234;tre utilis&#233;e normalement', // '允许游客通过在线充值购买注册邀请码.仅限于关闭普通注册时有效.开启前请确认您的<a href="'.ADMINSCRIPT.'?frames=yes&action=setting&operation=ec" target="_blank"><strong>电子商务</strong></a>及<a href="'.ADMINSCRIPT.'?frames=yes&action=setting&operation=mail" target="_blank"><strong>发送邮件</strong></a>功能可正常使用'
 	'setting_access_register_invite_buyprice'	=> 'Prix unitaire code d\'invitation (yuan)', // '邀请码单价(元)'
@@ -672,6 +763,16 @@ $lang = array
 	'setting_access_register_name_comment'		=> 'Adresse Officielle du site mis en mod , Par d&#233;faut est“register”, Changer le nom et emp&#234;cher les logiciels d\'irrigation, contrairement aux versions X Discuz! Avant de modifier ce param&#232;tre, ne modifiez pas le nom du fichier, vous ne pouvez changer dans celui-ci', // '设置站点注册地址 mod 值, 默认为“register”, 修改名称有利于防止灌水软件, 有别于 Discuz! X 之前的版本更改了此设置, 不需要修改任何文件名称, 只在此修改即可'
 	'setting_access_register_link_name'		=> 'Texte du lien enregistr&#233;', // '注册链接文字'
 	'setting_access_register_link_name_comment'	=> 'R&#233;gler enregistr&#233; du site lien vers la page du texte, le d&#233;faut est "S\'enregistrer Maintenant"', // '设置站点注册页的链接文字, 默认为“立即注册”'
+	'setting_access_register_strongpw'		=> 'Force to check the password complexity',//'强制密码复杂度',
+	'setting_access_register_strongpw_comment'	=> 'For exclude the password hacking, a new registered user password must contain different type characters, and not contain any easy typed character sequences',//'新用户注册时密码中必须存在所选字符类型，不选则为无限制',
+	'setting_access_register_strongpw_1'		=> 'Digits',//'数字',
+	'setting_access_register_strongpw_2'		=> 'Lowercase letters',//'小写字母',
+	'setting_access_register_strongpw_3'		=> 'Capital letters',//'大写字母',
+	'setting_access_register_strongpw_4'		=> 'Special symbols',//'符号',
+	'setting_access_register_pwlength'		=> 'Minimum password length',//'密码最小长度',
+	'setting_access_register_pwlength_comment'	=> 'Minimum password length of the new user registration, set to 0 for no restrictions',//'新用户注册时密码最小长度，0或不填为不限制',
+	'setting_access_guest_connect_group'		=> 'User group for logged by QQ visitors',//'QQ登录用户游客用户组',
+	'setting_access_guest_connect_group_comment'	=> 'Set an initial user group for QQ-logged users',//'通过QQ登录后，尚未完善资料用户的初始用户组',
 
 	'setting_access_access'				=> 'Contr&#244;le Acc&#232;s', // '访问控制'
 	'setting_access_access_newbiespan'		=> 'Novice p&#233;riode de stage (en minutes)', // '新手见习期限(分钟)'
@@ -697,6 +798,8 @@ $lang = array
 	'setting_styles_global_topnavtype_1'		=> 'A droite', // 右侧
 	'setting_styles_global_stylejump'		=> 'Affichage style de bouton &#224; bascule', // '显示风格切换按钮'
 	'setting_styles_global_stylejump_comment'	=> 'D&#233;finissez s\'il faut afficher le bouton de site disponible type &#224; bascule sur ce bouton, cet Utilisateur peut basculer entre les diff&#233;rents styles de sites', // '设置是否显示可用的站点风格切换按钮, 用户可以此按钮切换不同的站点风格'
+	'setting_styles_global_jsmenu'			=> '<span class="spectitle">Forum Jump menu</span>',//'<span class="spectitle">论坛显示版块跳转菜单</span>',
+	'setting_styles_global_jsmenu_comment'		=> 'Warning: If your Forum have a lot sub-forums, this function will seriously increase the server loading',//'注意: 当论坛分版块很多时，本功能会严重加重服务器负担',
 	'setting_styles_global_allowfloatwin'		=> 'Activer la fen&#234;tre flottante', // '启用浮动窗口'
 	'setting_styles_global_allowfloatwin_comment'	=> 'Param&#232;tres pour afficher une fen&#234;tre flottante', // '设置以浮动方式显示的窗口'
 	'setting_styles_global_allowfloatwin_login'	=> 'Connexion', //  '登录'
@@ -722,6 +825,14 @@ $lang = array
 	'setting_styles_global_showusercard_comment'	=> 'D&#233;finissez le nom de cet Utilisateur lorsque la position de la souris est affich&#233; sur sa carte de visite Heure', // '设置当鼠标移动到用户名位置上时是否显示他的名片'
 	'setting_styles_global_anonymoustext'		=> 'Utilisateur Anonyme Pseudo', //  '匿名用户的昵称'
 	'setting_styles_global_anonymoustext_comment'	=> 'Situ&#233; dans le post ou des commentaires sur le texte du message utilisateur anonyme, tels que: les utilisateurs du site', //  '设置帖子或评论留言中的匿名用户显示的文字.如:本站网友'
+	'setting_styles_global_home_style'		=> 'Space style',//'家园展示风格',
+	'setting_styles_global_home_style_comment'	=> 'Select the show style for you blog, photo albums, shares, moods, radio',//'选择日志、相册、分享、记录、广播展示风格',
+	'setting_styles_global_home_style_1'		=> 'SNS module style',//'以SNS模块风格展示',
+	'setting_styles_global_home_style_0'		=> 'Forum module style',//'以论坛模块风格展示',
+	'setting_styles_global_homepage_style'		=> 'Personal home page default skin',//'个人主页默认皮肤',
+	'setting_styles_global_homepage_style_comment'	=> 'Select the default display style for personal home page',//'选择个人主页默认展示风格',
+	'setting_styles_global_homepage_style_1'	=> 'Personalized DIY style',//'个性化DIY风格',
+	'setting_styles_global_homepage_style_0'	=> 'Forum Style',//'论坛样式',
 
 	'setting_styles_customnav'		=> 'Param&#232;tres de Navigation', // '导航设置'
 
@@ -790,8 +901,12 @@ $lang = array
 	'setting_styles_forumdisplay_threadmaxpages_comment'	=> 'Liste des sujets que cet Utilisateur peut faire d&#233;filer le nombre maximum de pages, Valeur par d&#233;faut recommand&#233;e est fix&#233;e &#224; 1000, ou dans un d&#233;lai de plus de 2500 valeurs, 0 pour aucune limite', // '主题列表中用户可以翻阅到的最大页数, 建议设置为默认值 1000, 或在不超过 2500 范围内取值, 0 为不限制'
 	'setting_styles_forumdisplay_leftsidewidth'		=> 'La largeur de la partie gauche de la barre de navigation du forum', // '左侧版块导航宽度'
 	'setting_styles_forumdisplay_leftsidewidth_comment'	=> 'D&#233;finir la largeur de la partie gauche de la barre de navigation du forum, d&#233;finie sur 0 ou un forum sur la barre lat&#233;rale n\'affiche pas ce type de navigation', // '设置左侧版块导航的宽度, 设置为 0 或者版块开启了边栏时不显示此导航'
+	'setting_styles_forumdisplay_leftsideopen'		=> 'Enable the forum left sidebar by default',//'左侧版块默认展开',
+	'setting_styles_forumdisplay_leftsideopen_comment'	=> 'Set the left side of the forum navigation expanded by default',//'设置左侧版块导航是否默认全部展开',
 	'setting_styles_forumdisplay_globalstick'		=> '<span class="spectitle">Activer Top Global</span>', // '<span class="spectitle">启用全局置顶</span>'
 	'setting_styles_forumdisplay_globalstick_comment'	=> 'Choisissez "Oui, le th&#232;me de Top III sera affich&#233; dans tous les du forum, Top Th&#232;me II sera affich&#233; dans la partition actuelle Remarque:. Cette fonction va augmenter la charge sur le serveur', // '选择“是”, 置顶 III 的主题将在全部论坛显示, 置顶 II 的主题将在当前分区中显示.注意: 本功能会加重服务器负担'
+	'setting_styles_forumdisplay_targetblank'		=> 'Whether "New window" is checked by default',//'“新窗”是否默认勾选',
+	'setting_styles_forumdisplay_targetblank_comment'	=> 'If selected "Yes", the topic list page will open in a new window. The default is "No"',//'选择“是”则默认情况下主题列表页主题链接在新窗口打开，默认为“否”',
 	'setting_styles_forumdisplay_part'			=> '<span class="spectitle">Affichage liste Affichage coupure ou couper</span>', // '<span class="spectitle">显示主题列表分割带</span>'
 	'setting_styles_forumdisplay_part_comment'		=> 'Choisissez "Non", Page Liste de th&#232;mes ne seront pas dans le sujet Affichage Affichage et le th&#232;me g&#233;n&#233;ral de la division entre le Groupe(Discussion du forum de cette ligne vide)', // '选择“否”, 在主题列表页将不显示置顶主题与普通主题之间的分割带(版块主题那一空行)'
 	'setting_styles_forumdisplay_stick'			=> 'Les Post-it identifi&#233;s', // '置顶主题的标识'
@@ -806,7 +921,11 @@ $lang = array
 	'setting_styles_forumdisplay_forumpicstyle_thumbwidth_comment'	=> 'Lorsque le forum a ouvert en mode liste d\'image efficace,0 ou non remplis va utiliser la valeur par d&#233;faut (214). Modifier la largeur et la Hauteur des sujets propos&#233;s couvrent la reconstruction, <a href="'.ADMINSCRIPT.'?action=counter" target="_blank">Cliquez ici pour reconstruire</a>', // '当版块开启图片列表模式时有效, 0或不填 将使用默认值(214).变更宽高建议重建主题封面, <a href="'.ADMINSCRIPT.'?action=counter" target="_blank">点此重建</a>'
 	'setting_styles_forumdisplay_forumpicstyle_thumbheight'	=> 'Couvrent des sujets un degr&#233; &#233;lev&#233;', // '主题封面高度'
 	'setting_styles_forumdisplay_forumpicstyle_thumbheight_comment'	=> 'Lorsque le forum a ouvert en mode liste d\'image efficace, 0 ou non remplis va utiliser la valeur par d&#233;faut (160)', // '当版块开启图片列表模式时有效, 0或不填 将使用默认值(160)'
+	'setting_styles_forumdisplay_forumpicstyle_thumbnum'		=> 'Number of thumbnails to show',//'封面图显示数量',
+	'setting_styles_forumdisplay_forumpicstyle_thumbnum_comment'	=> 'How many images per page to show when a Forum is set to image list mode. Set to 0 or do not fill for use the regular list mode',//'当版块开启图片列表模式时有效，0或不填 将和普通列表模式每页显示主题数一致',
 	'setting_styles_forumdisplay_defstyle_comment'		=> 'Choisissez "Oui", le d&#233;faut n\'est pas Voir une liste d\'images, les utilisateurs peuvent choisir', // '选择“是”时, 默认不以图片列表形式显示, 用户也可以自己选择'
+	'setting_styles_forumdisplay_newbie'			=> 'Newbie post icon',//'新人帖图标',
+	'setting_styles_forumdisplay_newbie_comment'		=> 'This icon is displayed when the user issued the first thread, leave empty for not show the icon',//'用户发第一篇主题时显示的图标，为空则不打图标',
 
 	'setting_styles_viewthread'			=> 'Posts Page R&#233;sum&#233;', // '帖子内容页'
 	'setting_styles_viewthread_ppp'			=> 'Page Messages Voir', // '每页显示帖数'
@@ -837,7 +956,10 @@ $lang = array
 	'setting_styles_viewthread_userinfo_regtime'	=> 'Date Enreg.', // '注册时间'
 	'setting_styles_viewthread_userinfo_lastdate'	=> 'Derni&#232;re connexion', // '最后登录'
 	'setting_styles_viewthread_userinfo_oltime'	=> 'Tps. en Ligne', // '在线时间'
-	'setting_styles_viewthread_userinfo_friends'	=> 'Amis', // '好友'
+	'setting_styles_viewthread_userinfo_creditinfo'		=> 'Credit rating',//'信用度',
+	'setting_styles_viewthread_userinfo_follower'		=> 'Number of followers',//'听众数',
+	'setting_styles_viewthread_userinfo_following'		=> 'Number of listenings',//'收听数',
+//vot	'setting_styles_viewthread_userinfo_friends'	=> 'Amis', // '好友'
 	'setting_styles_viewthread_userinfo_readperm'	=> 'Cr&#233;dits', // '阅读权限'
 	'setting_styles_viewthread_userinfo_gender'	=> 'Genre', // 'Gender'
 	'setting_styles_viewthread_userinfo_location'	=> 'Lieu', // '来自'
@@ -847,14 +969,21 @@ $lang = array
 	'setting_styles_viewthread_rate_on'		=> 'Le score est affich&#233; sur la page des motifs', // '是否在页面上显示评分理由'
 	'setting_styles_viewthread_rate_number'		=> 'Score Nbres.de Participations', // '评分条目数'
 	'setting_styles_viewthread_rate_number_comment'	=> 'Score du Post pr&#233;sente Des r&#233;sultats des entr&#233;es r&#233;centes, 0 pour non-pr&#233;sentation', // '在帖子中显示最近评分结果的条目数, 0 为不显示'
+	'setting_styles_viewthread_collection_number'		=> 'Number of related collections',//'相关淘专辑条目数',
+	'setting_styles_viewthread_collection_number_comment'	=> 'Display the collection number of entries in the thread post, 0 for not show',//'在主题帖中显示相关淘专辑的条目数，0 为不显示',
 	'setting_styles_viewthread_relate_number'	=> 'Posts li&#233;s aux Entr&#233;es', // '相关帖子条目数'
 	'setting_styles_viewthread_relate_number_comment'	=> 'Afficher les Posts connexes dans les entr&#233;es Posts Rubriques, 0 pour non-pr&#233;sentation', // '在主题帖中显示相关帖子的条目数, 0 为不显示'
+	'setting_styles_viewthread_relate_time'			=> 'Related posts cache time',//'相关帖子缓存时间',
+	'setting_styles_viewthread_relate_time_comment'		=> 'Unit: minutes, Cache time to display related posts in the topic post (0 for no cache, not recommended!)',//'单位：分钟，在主题帖中显示相关帖子的缓存时间（0 为不缓存，不推荐）',
 	'setting_styles_viewthread_show_signature'		=> 'Que ce soit pour afficher de l\'Auteur de la signature', // '是否显示作者签名'
 	'setting_styles_viewthread_show_signature_comment'	=> '', // ''
 	'setting_styles_viewthread_show_face'			=> 'Que ce soit pour afficher Auteur de cette Image', // '是否显示作者头像'
 	'setting_styles_viewthread_show_face_comment'		=> '', // '' 
 	'setting_styles_viewthread_show_images'			=> 'Que ce soit pour afficher des images dans les messages', // '是否显示帖内图片'
 	'setting_styles_viewthread_show_images_comment'		=> '', // ''
+	'setting_styles_viewthread_showexif'			=> 'Display EXIF information for attached images',//'图片附件显示 EXIF 信息',
+	'setting_styles_viewthread_showexif_comment'		=> 'Set whether to display the EXIF information for attached images in the dynamic zoom effect',//'设置图片附件在动态放大效果中是否显示 EXIF 信息',
+	'setting_styles_viewthread_showexif_disabled'		=> 'Your host does not support EXIF library, can not turn this feature on',//'您的主机不支持 EXIF 库，无法开启此功能',
 	'setting_styles_viewthread_imagemaxwidth'		=> 'Messages dans la largeur maximale de l\'image', // '帖内图片最大宽度'
 	'setting_styles_viewthread_imagemaxwidth_comment'	=> 'Lorsque le poste au sein de la largeur d\'image est sup&#233;rieure &#224; la largeur de d&#233;finir la valeur de l\'image est ajust&#233;e automatiquement, Svp. remplissez la valeur enti&#232;re, valeur en pourcentage n\'est pas support&#233;', // 当帖内图片宽度大于设置的值时图片宽度会被自动调节.请填写整数值, 不支持百分比数值
 	'setting_styles_viewthread_imagelistthumb'		=> 'Publier des photos dans la liste d\'image, l\'&#233;tat de l\'affichage horizontal', // '帖内图片列表中图片横排显示条件'
@@ -869,8 +998,6 @@ $lang = array
 	'setting_styles_viewthread_postnocustom_comment'	=> 'R&#233;gler tous les messages dans l\'ordre le nom de chaque objet, de remplir un nom par ligne, la premi&#232;re ligne repr&#233;sente le th&#232;me de logiciels, et la deuxi&#232;me rang&#233;e repr&#233;sente le th&#232;me de la premi&#232;re r&#233;ponseet ainsi de suite', // '设置每篇主题所有帖子的顺序名称, 每行填写一个名称, 第一行代表主题帖, 第二行代表主题的第一个回复, 以此类推'
 	'setting_styles_viewthread_maxsmilies'			=> 'Nombre Max. d\'expression Analytique simple', // '最大单一表情解析次数'
 	'setting_styles_viewthread_maxsmilies_comment'		=> 'R&#233;solu dans un seul poste le nombre maximum d\'&#233;motic&#244;nes, plus que le nombre d\'expression restreinte de ce ne sera pas r&#233;solu, mais laiss&#233; intact pour emp&#234;cher un utilisateur malveillant dans un post publi&#233; un grand nombre d\'expressions de lecture normale, 0 pour aucune limite', // '在一篇帖子中解析的单一表情符号的最大次数, 超过此次数限制的表情将不被解析而保留原样, 以避免用户在一篇帖子中恶意发表大量表情影响正常阅读, 0 为不限制'
-	'setting_styles_viewthread_visitedthreads'		=> 'Affiche Nbres. de Posts r&#233;cemment visit&#233;', // '显示最近访问帖子数量'
-	'setting_styles_viewthread_visitedthreads_comment'	=> 'Situ&#233; dans le post view, affich&#233; le nombre de postes a r&#233;cemment visit&#233; l\'ensemble propos&#233; de 10 ou moins, 0 pour d&#233;sactiver cette fonction', // '设置在帖子浏览中显示的最近访问过的帖子数量, 建议设置为 10 以内, 0 为关闭此功能'
 	'setting_styles_viewthread_usernamepos'			=> 'Position Afficher Nom Auteur', // '作者用户名显示位置'
 
 	'setting_styles_viewthread_vtonlinestatus'		=> 'Voir En-Ligne Auteur', // '显示作者在线状态'
@@ -889,6 +1016,14 @@ $lang = array
 	'setting_styles_refresh_messages'	=> 'Saut direct/rapide des informations', // '直接/快速跳转的信息'
 	'setting_styles_refresh_messages_comment'	=> 'Lorsque vous ouvrez un saut direct/rapide apr&#232;s passer directement &#224; l\'information suivante sera remplir chacun un mot-cl&#233; ligne d\'information', // '当开启直接/快速跳转以后, 以下信息将会直接跳转.每行填写一个信息的关键字'
 
+	'setting_follow'				=> 'Follow settings',//'广播设置',
+	'setting_follow_base'				=> 'Basic settings',//'基本设置',
+	'setting_follow_base_default_referer'		=> 'View broadcast page by default',//'默认查看广播页面',
+	'setting_follow_base_default_referer_comment'	=> 'Select "Yes" for view the broadcast page by default; If "No" selected then view the space page',//'选择“是”则默认查看广播页面；选择“否”则查看个空间页面',
+	'setting_follow_base_default_follow_retain_day'		=> 'Broadcast archive time',//'广播存档时间',
+	'setting_follow_base_default_follow_retain_day_comment'	=> 'Broadcastings older than this number of days will be moved to the archive table (unit: days)',//'广播超过多少天移入存档表(单位：天)',
+	'setting_follow_base_default_view_profile'		=> 'Default Profile View',//'默认查看个人资料',
+	'setting_follow_base_default_view_profile_comment'	=> 'This setting is usefull for administrator, when open a member page the personal data will be shown',//'该设置对管理员有效，开启后默认管理员查看将直接查看个人资料页面',
 	'setting_home'				=> 'Mis en Place Espace', // '空间设置'
 	'setting_home_base'			=> 'R&#233;glages de base', // '基本设置'
 	'setting_home_base_feedday'		=> 'Dynamique nombre de jours de conservation', // '动态保留天数'
@@ -939,6 +1074,8 @@ $lang = array
 	'setting_home_base_starlevelnum_comment'	=> '(5 par d&#233;faut) le nombre d\'&#233;toiles ou Stars ce seuil est atteint, il mettra &#224; jour au minimum l\'ic&#244;ne de haut niveau de 2, sinon cette fonction n\'est pas toujours dans les &#233;toiles ou Stars qui s\'affiche', // '(默认为 5)星星数在达到此阀值时, 会升级为高级别的图标.最小为2, 否则此项功能无效, 始终以星星显示'
 	'setting_home_base_groupnum'			=> 'Le nombre de Groupes d\'Amis', //  '好友用户组个数'
 	'setting_home_base_groupnum_comment'		=> '(Valeur par d&#233;faut est 8) pour configurer chaque Utilisateur dispose d\'un certain nombre de Groupes d\'Amis', // '(默认为 8)设置每个用户最多拥有的好友用户组个数'
+	'setting_home_base_default_follow_forum'		=> 'Default forum for broadcast posts',//'广播帖默认版块',
+	'setting_home_base_default_follow_forum_comment'	=> 'Select the default forum for broadcast issued posts',//'选择一个广播帖默认发表版块',
 	'setting_home_base_default_poll_forum'		=> 'Espace par d&#233;faut apr&#232;s vote du Forum', // '空间投票帖默认版块'
 	'setting_home_base_default_poll_forum_comment'	=> 'Choisissez un espace forum de d&#233;faut de vote apr&#232;s les messages', // '选择一个空间投票帖默认发表版块'
 	'setting_home_base_default_trade_forum'		=> 'Espace des marchandises Messages du forum par d&#233;faut', // '空间商品帖默认版块'
@@ -949,10 +1086,9 @@ $lang = array
 	'setting_home_base_default_activity_forum_comment'	=> 'Choisissez une des activit&#233;s spatiales par d&#233;faut &#233;mis Messages du forum', // '选择一个空间活动帖默认发表版块'
 	'setting_home_base_default_debate_forum'		=> 'Forum par d&#233;faut espace des messages d&#233;bat', //  '空间辩论帖默认版块'
 	'setting_home_base_default_debate_forum_comment'	=> 'Choisissez un espace forum pour le d&#233;bat, par d&#233;faut postales &#233;mises', // '选择一个空间辩论帖默认发表版块'
-	'setting_home_base_default_view_profile'		=> 'Voir le profil par d&#233;faut', // '默认查看个人资料'
-	'setting_home_base_default_view_profile_comment'	=> 'Le r&#233;glage est un Administrateur efficace, se retourna pour regarder directement &#224; l\'Administrateur par d&#233;faut visualiser la page de profil', // '该设置对管理员有效, 开启后默认管理员查看将直接查看个人资料页面'
 	'setting_home_base_default_doing'		=> 'Versez le contenu du dossier par d&#233;faut', // '默认记录提示内容'
 	'setting_home_base_default_doing_comment'	=> 'Un acte un contenu invite qui sera publi&#233; dans la bo&#238;te affiche enregistrement, choisis au hasard dans la ligne que le contenu par d&#233;faut invite rapide', // '一行为一个提示内容, 这些内容将在记录发表框中显示, 随机从这些默认提示中选取一行做为提示内容'
+
 
 	'setting_home_base_allowdomain'		=> 'Sur deux Domaines', // '开启二级域名'
 	'setting_home_base_allowdomain_comment'	=> 'Secondaires configuration du serveur nom de domaine requis pour soutenir les fonctions ', // '二级域名功能需要服务器配置支持 '
@@ -1211,6 +1347,7 @@ $lang = array
 	'setting_seo_rewritestatus_portal_topic'	=> 'Sujets page Portail', // '门户专题页'
 	'setting_seo_rewritestatus_portal_article'	=> 'Portail Article de la Page', // '门户文章页'
 	'setting_seo_rewritestatus_forum_archiver'	=> 'Page Archiveur du Forum', // '论坛 Archiver 页'
+	'setting_seo_rewritestatus_plugin'		=> 'Plugins',//'插件',
 	'setting_seo_rewritestatus_comment'	=> 'URL statiques peuvent am&#233;liorer les moteurs de recherche &#224; explorer, d&#233;sactivez cette fonctionnalit&#233; n&#233;cessite une augmentation correspondante de la r&#233;&#233;criture du support du serveur Web, et va l&#233;g&#232;rement augmenter la charge sur le serveur alors que vous pouvez &#233;galement r&#233;gler le format statique de chaque page, mais pas supprimer la balise, re-d&#233;finir un format statique, Svp. laissez le champ vide. Notez que vous devez modifier les r&#232;gles de r&#233;&#233;criture statique de format pour modifier les param&#232;tres du serveur', // 'URL 静态化可以提高搜索引擎抓取, 开启本功能需要对 Web 服务器增加相应的 Rewrite 支持, 且会轻微增加服务器负担.同时你还可以调整每个页面的静态格式, 但不得删除其中的标记, 重置静态格式请留空.注意, 修改静态格式后你需要修改服务器的 Rewrite 规则设置'
 	'setting_seo_rewritestatus_viewrule'	=> '<a href="'.ADMINSCRIPT.'?action=checktools&operation=rewrite&frame=no" target="_blank">Voir les r&#232;gles de r&#233;&#233;criture en cours</a>', //  '<a href="'.ADMINSCRIPT.'?action=checktools&operation=rewrite&frame=no" target="_blank">查看当前的 Rewrite 规则</a>'
 	'setting_seo_rewritecompatible'		=> 'r&#233;&#233;crire de compatibilit&#233;', // 'Rewrite 兼容性'
@@ -1245,16 +1382,45 @@ $lang = array
 	'setting_memory_func_enable'		=> 'activ&#233;', // '是否优化'
 	'setting_memory_func_ttl'		=> 'Automatique.Temps Actualiser (en secondes)', // '自动更新时间(秒)'
 	'setting_memory_func_forumindex'	=> 'Forums Accueil', // '论坛首页'
+	'setting_memory_func_forumindex_comment'	=> '<span class="vtop tips2">Recommended to enable, The time is set to 30 seconds, User group ID or \'for_robot\' as a unit, Data is not updated within the cache time</span>',//'<span class="vtop tips2">推荐开启，时间设置为30秒，用户组ID或\'for_robot\'为单位，缓存时间内数据不更新</span>',
 	'setting_memory_func_diyblock'		=> 'DIY Caract&#233;ristiques des modules', // 'DIY 模块数据'
+	'setting_memory_func_diyblock_comment'		=> '<span class="vtop tips2">Recommended to enable, The time is set to 300 seconds (5 minutes), The module ID for the unit, Data is not updated within the cache time</span>',//'<span class="vtop tips2">推荐开启，时间设置为300秒，5分钟，模块ID为单位，缓存时间内数据不更新</span>',
 	'setting_memory_func_diyblockoutput'	=> 'DIY Sortie Module', // 'DIY 模块输出'
+	'setting_memory_func_diyblockoutput_comment'	=> '<span class="vtop tips2">Recommended to enable, The time is set to 30 seconds, The module ID for the unit, Data is not updated within the cache time</span>',//'<span class="vtop tips2">推荐开启，时间设置为30秒，模块ID为单位，缓存时间内数据不更新</span>',
+	'setting_memory_func_common_member'		=> 'User data',//'用户数据',
+	'setting_memory_func_common_member_comment'	=> '<span class="vtop tips2">Recommended to enable, Set to 0 for never expired. UID as a unit, If the data Table is updated then the cached data will be updated synchronously</span>',//'<span class="vtop tips2">推荐开启，时间设置为0，永不过期，UID为单位，表数据更新时缓存数据会同步更新</span>',
+	'setting_memory_func_forum_thread'		=> 'Threads',//'主题数据',
+	'setting_memory_func_forum_thread_comment'	=> '<span class="vtop tips2">Recommended to enable, The time is set to 172800 seconds (2 days). TID as a unit, If the data Table is updated then the cached data will be updated synchronously</span>',//'<span class="vtop tips2">推荐开启，时间设置为172800秒，两天，TID为单位，表数据更新时缓存数据会同步更新</span>',
+	'setting_memory_func_forum_thread_forumdisplay'	=> 'Forum list',//'版块列表数据',
+	'setting_memory_func_forum_thread_forumdisplay_comment'	=> '<span class="vtop tips2">Recommended to enable, The time is set to 300 seconds (5 minutes), FID for the unit, Data is not updated within the cache time</span>',//'<span class="vtop tips2">推荐开启，时间设置为300秒，5分钟，FID为单位，第一页数据缓存，缓存时间内数据不更新</span>',
+	'setting_memory_func_forum_postcache'			=> 'Replies and ratings',//'回帖点评和评分数据',
+	'setting_memory_func_forum_postcache_comment'		=> '<span class="vtop tips2">Recommended to enable, The time is set to 300 seconds (5 minutes), PID for the unit, Data is not updated within the cache time</span>',//'<span class="vtop tips2">推荐开启，时间设置为300秒，5分钟，PID为单位，缓存时间内数据不更新</span>',
+	'setting_memory_func_forum_collection'			=> 'Collection threads',//'主题专辑数据',
+	'setting_memory_func_forum_collection_comment'		=> '<span class="vtop tips2">Recommended to enable, The time is set to 300 seconds (5 minutes), TID for the unit, The TID of a collection ID, Data is not updated within the cache time</span>',//'<span class="vtop tips2">推荐开启，时间设置为300秒，5分钟，TID为单位，此TID的专辑集合，缓存时间内数据不更新</span>',
+	'setting_memory_func_forum_collectionrelated'		=> 'Related collections',//'主题和专辑关系',
+	'setting_memory_func_forum_collectionrelated_comment'	=> '<span class="vtop tips2">Recommended to enable, Set to 0 for never expired. TID as a unit, This TID of collection ID, If the data Table is updated then the cached data will be updated synchronously</span>',//'<span class="vtop tips2">推荐开启，时间设置为0，永不过期，TID为单位，此TID的专辑ID集合，表数据更新时缓存数据会同步更新</span>',
+	'setting_memory_func_home_follow'			=> 'Focus User on the related data',//'用户关注关系数据',
+	'setting_memory_func_home_follow_comment'		=> '<span class="vtop tips2">Recommended to enable, The time is set to 86400 seconds (1 day), UID for the unit, Data is not updated within the cache time</span>',//'<span class="vtop tips2">推荐开启，时间设置为86400秒，一天，UID为单位，此UID关注用户的关系数据，缓存时间内数据不更新</span>',
+
+	'setting_memorydata'				=> 'Memory cache management',//'内存缓存管理',
+	'setting_memorydata_rm_cache_key'		=> 'Delete Cache KEY',//'删除缓存KEY',
+	'setting_memory_data_forumindex_comment'	=> '<span class="vtop tips2">User group ID, or \'for_robot\'</span>',//'<span class="vtop tips2">用户组ID或\'for_robot\'</span>',
+	'setting_memory_data_diyblock_comment'		=> '<span class="vtop tips2">Block BID</span>',//'<span class="vtop tips2">模块BID</span>',
+	'setting_memory_data_diyblockoutput_comment'	=> '<span class="vtop tips2">Block BID</span>',//'<span class="vtop tips2">模块BID</span>',
+	'setting_memory_data_common_member_comment'	=> '<span class="vtop tips2">User UID</span>',//'<span class="vtop tips2">用户UID</span>',
+	'setting_memory_data_forum_post_comment'	=> '<span class="vtop tips2">Thread TID</span>',//'<span class="vtop tips2">主题TID</span>',
+	'setting_memory_data_forum_thread_comment'	=> '<span class="vtop tips2">Thread TID</span>',//'<span class="vtop tips2">主题TID</span>',
+	'setting_memory_data_forum_thread_forumdisplay_comment'	=> '<span class="vtop tips2">Forum FID</span>',//'<span class="vtop tips2">版块FID</span>',
+	'setting_memory_data_forum_postcache_comment'		=> '<span class="vtop tips2">Post PID</span>',//'<span class="vtop tips2">帖子PID</span>',
+	'setting_memory_data_forum_collection_comment'		=> '<span class="vtop tips2">Thread TID</span>',//'<span class="vtop tips2">主题TID</span>',
+	'setting_memory_data_forum_collectionrelated_comment'	=> '<span class="vtop tips2">Thread TID</span>',//'<span class="vtop tips2">主题TID</span>',
+	'setting_memory_data_home_follow_comment'		=> '<span class="vtop tips2">User UID</span>',//'<span class="vtop tips2">用户UID</span>',
 
 	'setting_serveropti'			=> 'Optimisation Serveur', // '服务器优化'
 	'setting_serveropti_maxonlines'		=> 'Nombre Max.de ligne', // '最大在线人数'
 	'setting_serveropti_maxonlines_comment'	=> 'Svp. d&#233;finir une valeur raisonnable, entre 10 et 65535, la moyenne s&#233;rie propos&#233;e &#224; environ 10 fois le nombre de ligne', // '请设置合理的数值, 范围 10～65535, 建议设置为平均在线人数的 10 倍左右'
 	'setting_serveropti_onlinehold'		=> 'Temps de maintien en ligne (en minutes)', // '在线保持时间(分钟)'
 	'setting_serveropti_onlinehold_comment'	=> 'Svp. visitez la situation pour d&#233;finir une valeur raisonnable, Acc&#232;s aux grands sites devrait &#234;tre petit ajustement &#224; la valeur, r&#233;glez la plage de 5 - 60, est trop grand ou trop petit param&#232;tres sont susceptibles d\'augmenter le co&#251;t des ressources du serveur', // '请根据访问情况设置合理的数值, 访问量大的站点应当调小该数值, 设置范围 5 - 60, 过大或者过小的设置都有可能会增大服务器资源开销'
-	'setting_serveropti_loadctrl'		=> '<span class="spectitle">Syst&#232;me de contr&#244;le de charge</span>', // '<span class="spectitle">系统负载控制</span>'
-	'setting_serveropti_loadctrl_comment'	=> 'Cette option est utilis&#233;e dans certains h&#244;tes Unix / Linux, le syst&#232;me est sup&#233;rieure &#224; cette valeur sera d\'interdire les Newx utilisateurs jusqu\'&#224; ce que la charge diminue, habituellement de 5 &#224; 10 peut &#234;tre fix&#233; &#224; 0 pour ne pas limiter cette fonctionnalit&#233; sera l&#233;g&#232;rement plus lourd fardeau sur le serveur', // '本选项用于部分 Unix/Linux 主机下, 系统高于此值时会禁止新用户访问直至负载下降, 通常情况可设置为 5～10, 0 为不限制.本功能会轻微加重服务器负担'
 	'setting_serveropti_jspath'		=> 'R&#233;pertoire des fichiers JS', // 'JS 文件目录'
 	'setting_serveropti_jspath_comment'	=> 'R&#233;gler les fichiers JS site lorsque le r&#233;pertoire de cache script d\'annuaire, le syst&#232;me sera par d&#233;faut le r&#233;pertoire est compress&#233; *. js enregistr&#233; dans le r&#233;pertoire cache et ensuite pour am&#233;liorer la vitesse de lecture', //  '设置站点 JS 文件的目录.当脚本目录为缓存目录时, 系统会将默认目录中的 *.js 文件进行压缩然后保存到缓存目录以提高读取速度'
 	'setting_serveropti_jspath_default'	=> 'Le r&#233;pertoire par d&#233;faut static/js/', //  '默认目录 static/js/'
@@ -1269,8 +1435,10 @@ $lang = array
 	'setting_serveropti_gzipcompress'		=> 'Page compression Gzip', // '页面 Gzip 压缩'
 	'setting_serveropti_gzipcompress_comment'	=> 'Compress&#233;e gzip contenu &#224; la page apr&#232;s la transmission, peut acc&#233;l&#233;rer la vitesse de transmission, besoin de PHP 4.0.4 ou sup&#233;rieur et supporte le module peut &#234;tre utilis&#233; Zlib', // '将页面内容以 gzip 压缩后传输, 可以加快传输速度, 需 PHP 4.0.4 以上且支持 Zlib 模块才能使用'
 	'setting_serveropti_gzipcompress_disabled'	=> 'Votre espace ne supporte pas le module Zlib, ne peut pas activer cette fonction', // '你的空间不支持 Zlib 模块, 不能开启此功能'
+	'setting_serveropti_optimize_thread_view'	=> 'Whether to optimize the thread Views update',//'是否优化更新主题浏览量',
+	'setting_serveropti_preventrefresh'		=> '<span class="spectitle">Prevent anti-refresh for views number</span>',//'<span class="spectitle">查看数开启防刷新</span>',
+	'setting_serveropti_preventrefresh_comment'	=> 'If select "No", every thread, space or blog visit will increase the number of views counter, and this will increase the server loading. It is recommended to select "yes"',//'选择“否”，主题、空间、日志每访问一次，浏览量增1，会增大服务器压力，建议选择“是”',
 	'setting_serveropti_delayviewcount'		=> '<span class="spectitle">Clics Maj. diff&#233;r&#233;e</span>', // '<span class="spectitle">点击数延迟更新</span>'
-	'setting_serveropti_delayviewcount_thread'	=> 'Sujet vues', // '主题浏览量'
 	'setting_serveropti_delayviewcount_attach'	=> 'Accessoires t&#233;l&#233;chargements', // '附件下载量'
 	'setting_serveropti_delayviewcount_thread_attach'	=> 'Sujet de pages vues et de t&#233;l&#233;chargements des pi&#232;ces jointes', // '主题浏览量和附件下载量'
 	'setting_serveropti_delayviewcount_comment'	=> 'Maj. diff&#233;r&#233;e vues sujet ou l\'attachement, peut r&#233;duire consid&#233;rablement la charge du trafic sur le serveur d\'un site tr&#232;s recommand&#233; que vous activez cette fonction', // '延迟更新主题或者附件的浏览量, 可明显降低访问量很大的站点的服务器负担, 建议开启本功能'
@@ -1278,6 +1446,15 @@ $lang = array
 	'setting_serveropti_nocacheheaders_comment'	=> 'Interdire le cache du navigateur de la page du site peut &#234;tre utilis&#233; pour r&#233;soudre un navigateur rafra&#238;chit tr&#232;s peu le contenu du probl&#232;me n\'est pas normal. Remarque: Cette fonction va augmenter la charge sur le serveur', // '禁止浏览器对站点页面进行缓冲, 可用于解决极个别浏览器内容刷新不正常的问题.注意: 本功能会加重服务器负担'
 	'setting_serveropti_lazyload'			=> 'Ouvrez le d&#233;lai de chargement d\'image', // '开启图片延时加载'
 	'setting_serveropti_lazyload_comment'		=> 'Lorsqu\'elle est activ&#233;e, la page d\'image dans la fen&#234;tre du navigateur &#224; New lorsque le courant de charge, peut r&#233;duire consid&#233;rablement la charge du trafic sur le serveur d\'un site tr&#232;s recommand&#233; que vous activez cette fonction', // '当开启后, 页面中的图片在浏览器的当前窗口时再加载, 可明显降低访问量很大的站点的服务器负担, 建议开启本功能'
+	'setting_serveropti_blockmaxaggregationitem'		=> '<span class="spectitle">Maximum aggregated data items</span>',//'<span class="spectitle">参与模块聚合数据条数</span>',
+	'setting_serveropti_blockmaxaggregationitem_comment'	=> 'This value affects the block aggregation when MYSQL retrieve the number of data items. Too large value will seriously decrease the MYSQL performance. Too small value will affect the desired level of resulting block aggregation data. Set to 0 for disable this function.',//'此值影响模块聚合时MYSQL检索数据的条数，设置太大将严重影响MYSQL的性能，设置太小将会影响模块聚合结果数据的理想程度。0为关闭些功能',
+	'setting_serveropti_blockcachetimerange'		=> 'Block update time interval',//'模块更新时间区间',
+	'setting_serveropti_blockcachetimerange_comment'	=> 'Set the specified time interval for all blockd update. It is recommended to choose the period of minimal site visits, i.e. at 3:00-7:00 o\'clock.',//'设置全部模块在指定的时间区间内更新。可以根据网站的访问情况，避开访问高峰时间段。如：3点-7点',
+	'setting_serveropti_blockcachetimerangepoint'		=> 'Point',//'点',//???????????????
+	'setting_serveropti_sessionclose'			=> 'Whether to close the session mechanism',//'是否关闭session机制',
+	'setting_serveropti_sessionclose_comment'		=> 'Disabling the session mechanism can significantly reduce the the server loading. Proposed to turn on if the number of online users is more than 20000 (Note: Online duration and the number of visitors and users will no longer be statistical, The forum Home and Forum List pages online user list function will be unavailable)',//'关闭session机制以后，可明显降低站点的服务器负担，建议在线用户数超过2万时开启本功能（注意：游客数和用户的在线时长将不再进行统计，论坛首页和版块列表页面的在线用户列表功能将不可用）',//'关闭session机制以后，可明显降低站点的服务器负担，建议在线用户数超过2万时开启本功能（注意：游客数和用户的在线时长将不再进行统计，论坛首页和版块列表页面的在线用户列表功能将不可用）',
+	'setting_serveropti_onlineguestsmultiple'		=> 'Count Online visitors',//'在线人数测算比例',
+	'setting_serveropti_onlineguestsmultiple_comment'	=> 'After closing the session mechanism, The total online visitors (Including guests and users) ≈ The actual number of online users * Estimated Online ratio. The recommended value is about 10, for floating-point (Note: the actual number of online users cache cycle is 600 seconds)',//'关闭session机制以后，总在线人(包括游客和用户) ≈ 实际在线用户数 * 在线人数测算比例，建议值为10左右,可为浮点数（注意：实际在线用户数缓存周期为600秒）',
 
 	'setting_functions'		=> 'Caract&#233;ristiques du Site', //  '站点功能'
 
@@ -1288,6 +1465,33 @@ $lang = array
 	'setting_functions_curscript_scriptclosed_group_comment'	=> 'Ferm&#233; le groupe, le groupe de toutes les fonctions li&#233;es ne seront pas utilis&#233;s', // '关闭群组后, 群组相关的所有功能将不能使用'
 	'setting_functions_curscript_scriptclosed_home'		=> 'Accueil fonction est activ&#233;e', // '是否开启家园功能'
 	'setting_functions_curscript_scriptclosed_home_comment'	=> 'Proximit&#233; de leur domicile, le site ne sera plus &#224; cet Utilisateur de mani&#232;re dynamique, cet Utilisateur ne sera pas en mesure pour utiliser les enregistrements, journaux, albums photo et des fonctionnalit&#233;s de partage, et les donn&#233;es personnelles ne supporte pas de page personnalis&#233;', // '关闭家园后, 站点将不再产生用户动态, 用户将不能够使用记录, 日志, 相册和分享功能, 同时个人资料页面不支持自定义'
+	'setting_functions_curscript_list'		=> 'Module List',//'功能列表',
+	'setting_functions_curscript_open'		=> 'Open',//'开启',
+	'setting_functions_curscript_close'		=> 'Close',//'关闭',
+	'setting_functions_curscript_portal'		=> 'Portal',//'门户',
+	'setting_functions_curscript_group'		=> 'Groups',//'群组',
+	'setting_functions_curscript_follow'		=> 'Follow',//'广播',
+	'setting_functions_curscript_collection'	=> 'Collection',//'淘帖',
+	'setting_functions_curscript_guide'		=> 'Guide',//'导读',
+	'setting_functions_curscript_feed'		=> 'Feeds',//'动态',
+	'setting_functions_curscript_blog'		=> 'Blogs',//'日志',
+	'setting_functions_curscript_album'		=> 'Albums',//'相册',
+	'setting_functions_curscript_share'		=> 'Shares',//'分享',
+	'setting_functions_curscript_doing'		=> 'Doings',//'记录',
+	'setting_functions_curscript_message'		=> 'Wall',//'留言板',
+	'setting_functions_curscript_ranklist'		=> 'RankList',//'排行榜',
+	'setting_functions_curscript_portal_intro'	=> 'Through the portal, the site can inform users about the most popular posts, articles, events and other important information',//'通过门户，网站可以将最热门的帖子、文章、活动等信息展现给用户',
+	'setting_functions_curscript_group_intro'	=> 'Group is a gathering place for like-minded persons, More professional and more intimate exchange of Paradise',//'志同道合者的聚集地，更加专业更加隐秘的交流乐园',
+	'setting_functions_curscript_follow_intro'	=> 'Listen to people who are interested to share the interesting thing, rapid information dissemination tool',//'收听感兴趣的人，分享有趣的事儿，信息快速传播的利器',
+	'setting_functions_curscript_collection_intro'	=> 'Collections can greatly help users to find high-quality website content',//'网站优质内容的收集与分类，网站内容运营必不可少的好帮手',
+	'setting_functions_curscript_guide_intro'	=> 'Automatic aggregation of the most contentious, most popular, best latest rereplies, best threads',//'自动聚合网站最具争议、最热门、最精华、最新发布等“最”主题',
+	'setting_functions_curscript_feed_intro'	=> 'For the site concerned about the trends in the direct channel of the Friends website, so that users no longer feel alone',//'了解网站关注好友网站动向的直接渠道，让用户不再感觉孤独',
+	'setting_functions_curscript_blog_intro'	=> 'Exposure daily records and share insights on life, the home of user Feeling',//'记录每日见闻，分享人生感悟，用户感情宣泄的家园',
+	'setting_functions_curscript_album_intro'	=> 'Beautiful faces, landscapes. rivers, mountains and other beautiful places, all kinds of image files',//'自己的美丽容颜，祖国的大好河山，各种美图的影像档案',
+	'setting_functions_curscript_share_intro'	=> 'Recommend sites and content digest to other users to create a shared atmosphere',//'将网站精华内容推荐给其他网友，形成良好的共享氛围',
+	'setting_functions_curscript_doing_intro'	=> 'Sharing of inspiration, express feelings, recording of keep in mind things',//'分享灵感，表达心情，记录随时想到的人和事儿',
+	'setting_functions_curscript_message_intro'	=> 'Via messages cou can let other users will not miss interaction with you',//'通过留言，可以让其他用户不会错过你的互动',
+	'setting_functions_curscript_ranklist_intro'	=> 'Through the RankList you can view the site rated content',//'通过排行榜，可以查看本站的相关排行内容',
 
 	'setting_functions_mod'			=> 'li&#233;es &#224; la gestion', // '管理相关'
 	'setting_functions_mod_updatestat'	=> '<span class="spectitle">Tendances et statistiques sur le site</span>', //  '<span class="spectitle">开启站点趋势统计</span>'
@@ -1309,6 +1513,7 @@ $lang = array
 	'setting_functions_mod_reasons'			=> 'Gestion Options ', // '管理操作选项'
 	'setting_functions_user_reasons'		=> 'Les options utilisateur Note raison', //  '用户评分理由选项'
 	'setting_functions_mod_reasons_comment'		=> 'Ce param&#232;tre sera cet Utilisateur effectue une op&#233;ration ou un score de Gestion est affich&#233;, chaque ligne de terre, si la ligne blanche est affich&#233;e, cet Utilisateur peut Choisir un s&#233;parateur de ligne "--------", raison de cette pr&#233;-configur&#233;es dans options ou entrez vos propres', // '本设定将在用户执行部分管理操作或评分时显示, 每个理由一行, 如果空行则显示一行分隔符“--------”, 用户可选择本设定中预置的理由选项或自行输入'
+	'setting_functions_user_reasons_comment'		=> 'This settings will be displayed when the user performs a rating. One reason per line, the blank line will show a separator "--------", Users can select one of preset reasons or enter their own',//'本设定将在用户执行评分时显示，每个理由一行，如果空行则显示一行分隔符“--------”，用户可选择本设定中预置的理由选项或自行输入',
 	'setting_functions_mod_bannedmessages'		=> 'Masquer Contenu des Posts Sensibles', // '隐藏敏感帖子内容'
 	'setting_functions_mod_bannedmessages_comment'	=> 'Choisissez El&#233;ment Appropri&#233; sera supprim&#233; ou d&#233;sactiv&#233; &#224; cacher les informations de cet Utilisateur, l\'information pertinente est affich&#233;e au mot masqu&#233;', // '选择相应项目将隐藏被删除或被禁止的用户的相关资料, 在相关资料处显示被屏蔽的字样'
 	'setting_functions_mod_bannedmessages_thread'	=> 'Message Contenu', // '帖子内容'
@@ -1316,7 +1521,9 @@ $lang = array
 	'setting_functions_mod_bannedmessages_signature'	=> 'Signature de cet Utilisateur', // '用户签名'
 	'setting_functions_mod_rewardexpiration'		=> 'R&#233;compense th&#232;me est valide', // '悬赏主题有效期'
 	'setting_functions_mod_rewardexpiration_comment'	=> 'D&#233;finissez le th&#232;me de jours de r&#233;compense efficaces, quand la r&#233;compense sera toujours valable pour ne pas r&#233;compenser les plus th&#233;matique, Mod&#233;rateur ou un Administrateur a publi&#233; le droit d\'accorder, au nom de la r&#233;compense l\'Auteur 0.0 th&#232;me ou laisser en blanc si elle n\'est pas autoris&#233; &#224; faire cela Mod&#233;rateur ou un Administrateur', // '设置悬赏主题的有效天数, 当悬赏主题超过有效期后依然未发放悬赏, 版主或管理员有权代为主题作者发放悬赏.0 或留空表示不允许版主或管理员进行此操作'
-
+	'setting_functions_mod_moddetail'			=> '<span class="spectitle">Moderator panel displays the number of items to audit</span>',//'<span class="spectitle">版主面板显示审核数目</span>',
+	'setting_functions_mod_moddetail_comment'		=> 'Set the moderator panel detailed display pending the specific number of threads, posts and users',//'设置版主面板是否详细显示待审核主题、帖子及用户的具体数目',
+	'setting_functions_heatthread_tips'			=> 'The threat heat will be involved in the attendance basis including replies, review, collection, sharing, rating, it is recommended',//'主题热度将按参与人次计算，包括回帖，点评，收藏，分享，评分，推荐',
 	'setting_functions_heatthread'			=> 'Sujet Redu', // '主题热度'
 	'setting_functions_heatthread_type'		=> 'Redu calcul&#233;', // '热度计算方式'
 	'setting_functions_heatthread_type_comment'	=> 'Apr&#232;s le passage du calcul Redu, le Hot sujet a fait l\'objet avant que la valeur ne sera pas recalcul&#233;e apr&#232;s la valeur du sujet hot augment&#233; sous une nouvelle m&#233;thode de calcul', // 切换热度计算方式后, 主题之前已获得的热度值不会被重新计算, 之后的热度值按照新的计算方式增加
@@ -1325,6 +1532,8 @@ $lang = array
 	'setting_functions_heatthread_type_2_comment'	=> 'Nombre de participants', // '按参与人次'
 	'setting_functions_heatthread_period'		=> 'Cycle de cet Utilisateur la valeur du Redu (jours)', // '用户热度值周期(天)'
 	'setting_functions_heatthread_period_comment'	=> 'Dans les jours, une p&#233;riode que cet Utilisateur a particip&#233; &#224; un th&#232;me, il suffit d\'ajouter une 0.0 Redu repr&#233;sentants ne fixent pas de cycle, impliqu&#233; dans un long, la chaleur, plus 1 sur l\'ordre pour &#233;viter la chaleur utilisateur pinceaux, fix&#233; &#224; 0 n\'est pas recommand&#233;e. (R&#233;pondre, ) les commentaires, les commentaires, la collecte, le partage et donc compt&#233; comme la participation au th&#232;me de l\'action', // '以天为单位, 一个周期内某用户多次参与主题, 只加一次热度.0代表不设置周期, 只要参与一次, 热度就加1.为避免用户刷热度, 建议不要设置为0.(回复、点评、评论、收藏、分享等都算作参与主题的动作)'
+	'setting_functions_heatthread_guidelimit'		=> 'Heat lower limit for aggregate',//'热度值聚合下限',
+	'setting_functions_heatthread_guidelimit_comment'	=> 'Guidance Function Collected Hot Threads when the heat value ig greater than this lower limit. Default value is "3"',//'导读功能中收集热门主题时的热度值下限,默认值“3”',
 	'setting_functions_heatthread_reply'		=> 'La valeur d\'une r&#233;ponse unique du Redu', // '单次回复热度值'
 	'setting_functions_heatthread_reply_comment'	=> 'Le temps de r&#233;ponse pour chaque sujet est le th&#232;me du Redu incr&#233;mental, la valeur par d&#233;faut“5”', // '主题每次被回复时主题热度增量, 默认值“5”'
 	'setting_functions_heatthread_recommend'	=> 'La valeur d\'une seule &#233;valuation du Redu', // '单次评价热度值'
@@ -1378,6 +1587,8 @@ $lang = array
 	'setting_functions_other'			=> 'Autres', //  '其他'
 	'setting_functions_other_pwdsafety'		=> 'Activez le cryptage mot de passe', // '启用登录密码加密'
 	'setting_functions_other_pwdsafety_comment'	=> 'Choisissez“Oui”, Identifiant Mot de passe du site sont crypt&#233;es avant la transmission', // '选择“是”, 站点登录时的密码将进行加密后再传输'
+	'setting_functions_other_uidlogin'			=> 'Enable UID Login',//'启用UID登录',
+	'setting_functions_other_uidlogin_comment'		=> 'Select "Yes" for allow login by the UID',//'选择“是”，站点登录时允许通过 UID的方式登录验证',
 	'setting_functions_other_autoidselect'		=> 'Identifiant Mot de passe du site sont crypt&#233;es avant la transmission', //  '启用登录自动选择帐号'
 	'setting_functions_other_autoidselect_comment'	=> 'Choisissez“Oui”, Le site sera automatiquement connecter l\'UID, E-mail les noms d\'utilisateur, un par un afin de faire correspondre', // '选择“是”, 站点登录时的将自动按 UID、E-mail、用户名的顺序逐一去匹配'
 	'setting_functions_other_rssstatus'		=> '<span class="spectitle">Activer RSS</span>', // '<span class="spectitle">启用 RSS</span>'
@@ -1392,10 +1603,14 @@ $lang = array
 	'setting_functions_other_onlyacceptfriendpm_comment'	=> 'Choisissez "Oui"Court message dans les param&#232;tres personnels, le d&#233;faut de recevoir le seul Ami un bref message', //  '选择“是”将在个人短消息设置中, 默认只接收好友的短消息'
 	'setting_functions_other_pmreportuser'			=> 'Recevoir des messages textes informateurs (UID, les gens utilisent l\'anglais s&#233;par&#233;s par des virgules)', // '接收短消息举报人(UID, 多人使用英文逗号分隔)'
 	'setting_functions_other_pmreportuser_comment'		=> 'Selon les rapports re&#184;us court message pour rappeler &#224; cet Utilisateur, dans le temps d\'envoyer des messages de spam pour Utilisateurs, le rapport vide qui ne permet pas la fonction de message court', // '根据接收的短消息举报提醒用户, 可及时处理发送垃圾短信的用户, 留空表示不启用短消息举报功能'
+	'setting_functions_other_at_anyone'			=> 'Can use @name for post to anybody',//'发帖时可@任何人',
+	'setting_functions_other_at_anyone_comment'		=> 'Select "No" for use @ only for a list of friends',//'选择否表示，只有被@人在用户的收听列表和好友中时才有效',
 	'setting_functions_other_chatpmrefreshtime'		=> 'contenu Groupe message chat automatiquement intervalle de rafra&#238;chissement (en secondes)', // '群聊消息内容自动刷新间隔(秒)'
 	'setting_functions_other_chatpmrefreshtime_comment'	=> 'Actualiser contenu d\'un message de groupe de discussion, plus l\'intervalle plus la pression sur le serveur, 0 pour ne pas rafra&#238;chir ', // '用于群聊消息内容刷新, 间隔时间越短对服务器压力越大, 0为不刷新'
-	'setting_functions_other_preventrefresh'		=> '<span class="spectitle">Afficher le nombre d\'ouverture de lutte contre l\'actualisation</span>', // '<span class="spectitle">查看数开启防刷新</span>'
-	'setting_functions_other_preventrefresh_comment'	=> 'Choisissez "Non", Espace et temps de journaux pour chaque visite, parcourir une augmentation dans le volume 1, va accro&#238;tre la pression sur le serveur, Recommand&#233; de choisir "Oui"', // '选择“否”, 空间和日志每访问一次, 浏览量增1, 会增大服务器压力, 建议选择“是”'
+	'setting_functions_other_collectionteamworkernum'		=> 'Collection team size',//'淘帖专辑允许共同维护的人数',
+	'setting_functions_other_collectionteamworkernum_comment'	=> 'The number of people who can maintain each collection together.',//'每个淘帖专辑可以共同参与维护的人数。',
+	'setting_functions_other_closeforumorderby'		=> 'Close the thread list page sorting function',//'关闭主题列表页排序功能',
+	'setting_functions_other_closeforumorderby_comment'	=> 'If selected, users will view only default thread sort, Otherwise users can select the ordering method. This feature increase the server loading.',//'选择“是”用户将只能按默认排序查看，否则，用户自选排序将会增加系统压力。',
 
 	'setting_functions_activity'			=> 'Th&#232;mes Activit&#233;', // '活动主题'
 	'setting_functions_activity_type'		=> 'Built-in Construction de type', // '内置类别'
@@ -1408,6 +1623,10 @@ $lang = array
 	'setting_functions_activity_pp_comment'		=> 'Liste des Utilisateurs indiquant le nombre de personnes impliqu&#233;es dans des activit&#233;s', // '用户列表每页显示参与活动的人数'
 	'setting_functions_activity_credit'		=> 'Utilisez les points', // '使用积分'
 	'setting_functions_activity_credit_comment'	=> 'Consommer des activit&#233;s impliqu&#233;es dans l\'utilisation des parties int&#233;grantes', // '参与消耗积分的活动时使用的积分'
+	'setting_functions_guide'		=> 'Guide settings',//'导读设置',
+	'setting_functions_guide_hotlimt'	=> 'Lower Hot value for aggregate to a guide',//'热帖聚合热度值下限',
+	'setting_functions_guide_hotdt'		=> 'Hot post aggregation time range',//'热帖聚合时间范围',
+	'setting_functions_guide_digestdt'	=> 'Digest aggregation time range',//'精华聚合时间范围',
 
 	'setting_editor'			=> 'Param&#232;tres de l\'&#233;diteur', // '编辑器设置'
 	'setting_editor_global'			=> 'Situation G&#233;n&#233;rale', // '全局'
@@ -1445,6 +1664,8 @@ $lang = array
 	'setting_permissions_dupkarmarate_comment'	=> 'Choisissez "Oui" permettra &#224; plusieurs utilisateurs d\'un poste Score, la valeur par d&#233;faut est "Non"', // '选择“是”将允许用户对一个帖子进行多次评分, 默认为“否”'
 	'setting_permissions_editperdel'		=> 'pour autoriser &#224; cet Utilisateur d\'&#233;diter les messages pour supprimer de posts', // '允许用户编辑帖子时删除帖子'
 	'setting_permissions_editperdel_comment'	=> 'Choisissez "Oui" va permettre aux utilisateurs d\'&#233;diter le de posts lorsque vous supprimez un de posts, la valeur par d&#233;faut est "Non"', //  '选择“是”将允许用户编辑帖子时删除帖子, 默认为“否”'
+	'setting_permissions_hideexpiration'			=> 'Maximum effective time for the post [hide] tag',//'帖子中[hide]标签最大有效天数',
+	'setting_permissions_hideexpiration_comment'		=> 'Number of days from posting time after which the hide tag is expired automatically. Set to or empty for not restrict',//'距发帖日期天数超过此设置时标签自动失效，0或不填为不限制',
 	'setting_permissions_reportpost'		=> 'Pour Autoriser le Rapport', // '允许报告内容'
 	'setting_permissions_minpostsize'		=> 'Plus petit nombre de posts de mots (octets)', // '帖子最小字数(字节)'
 	'setting_permissions_minpostsize_comment'	=> 'Les Membres du Groupe de Gestion &#224; travers le "post illimit&#233;" param&#232;tre n\'est pas affect&#233;, 0 pour aucune limite', //  '管理组成员可通过“发帖不受限制”设置而不受影响, 0 为不限制'
@@ -1457,6 +1678,8 @@ $lang = array
 	'setting_permissions_karmaratelimit_comment'	=> 'Posts publi&#233;s plus de cette dur&#233;e maximale autres Utilisateurs n\'auront pas de score pour ce post, les Mod&#233;rateurs et Administrateurs &#224; cette limitation, 0 pour aucune limite', //  '帖子发表后超过此时间限制其他用户将不能对此帖评分, 版主和管理员不受此限制, 0 为不限制'
 	'setting_permissions_editby'			=> 'Des V&#233;rif.s Suppl&#233;m.Modifier le Post', // '编辑帖子附加编辑记录'
 	'setting_permissions_editby_comment'		=> 'Modif.des Posts apr&#232;s 60 secondes ajouter le "post&#233; par xxx &#224; xxxx-xx-xx Modifier" mots. l\'Administrateur modifi&#233;e &#224; partir cette restriction', // '在 60 秒后编辑帖子添加“本帖由 xxx 于 xxxx-xx-xx 编辑”字样.管理员编辑不受此限制'
+	'setting_permissions_post_append'			=> 'Enable Post append function',//'启用帖子补充功能',
+	'setting_permissions_post_append_comment'		=> 'When enabled, users can not edit their posts, but can add content',//'启用后，当用户无法编辑自己的帖子时，可以补充内容',
 
 	'setting_credits'			=> 'Points Consigne',
 	'setting_credits_base'			=> 'Reglages de base',
@@ -1529,6 +1752,7 @@ $lang = array
 	'setting_credits_formula_comment'	=> 'Note totale est la seule mesure standard du niveau de cet utilisateur, vous pouvez d&#233;finir score total de cet utilisateur est calcul&#233;, ce qui posts Posts Repr&#233;sentant (Th&#232;me + R&#233;ponses)；Le nombre dfe Sujets des utilisateurs publi&#233;es Repr&#233;sentant du Th&#232;me；digestposts Posts au nom Essentiel；oltime Le temps total en ligne au nom des utilisateurs(heure)；friends Representant du Nombre de ses Amis；doings Representant du nombre de dossiers liberes; blogs Albums; Publie au nom du nombre de journaux Au nom des albums t&#233;l&#233;charg&#233;s; partages Le nombre des actions &#233;mis au nom de; extcredits1~extcredits8 Qui repr&#233;sente les huit Une int&#233;gration personnalis&#233;e. Formule peuvent etre utilises comprenant + - * / () Les op&#233;rateurs, y compris',
 	'setting_credits_trans'			=> 'Points de Transaction &#224; D&#233;finir',
 	'setting_credits_trans_comment'		=> 'Le commerce est une int&#233;grante qui  peut &#234;tre transfere entre les utilisateurs propres &#224; eux, la transaction de vente, le type de points de r&#233;compense sujet, vous pouvez specifier une int&#233;gralit&#233; de Transaction en tant que points. Si vous ne sp&#233;cifiez pas son Int&#233;gration des transactions,cette int&#233;gration des transactions entre les fonctions, cet Utilisateur ne sera pas utilis&#233;. Remarque: La transaction doit &#234;tre active des points Int&#233;gr&#233;s, une fois &#233;tabli, Svp. essayer de ne pas changer, ou des enregistrements Transaction passes et peut causer des probl&#232;mes',
+	'setting_credits_trans_credits'		=> 'Use Total Points',//'使用总积分',
 	'setting_credits_trans_used'		=> 'Utilisation Transaction Int&#233;grale',
 	'setting_credits_trans1'		=> 'Th&#232;me(Piece jointe)Transactions Effectu&#233;es dans son Int&#233;gralit&#233;s',
 	'setting_credits_trans1_comment'	=> 'Th&#232;me(Piece jointe)Transactions Effectuees dans son Int&#233;gralit&#233;s',
@@ -1551,6 +1775,8 @@ $lang = array
 	'setting_credits_trans9_comment'	=> 'D&#233;finir int&#233;gration pour utiliser le transfert int&#233;gral',
 	'setting_credits_trans10'		=> 'R&#233;ponses utiliser des points de r&#233;compense',
 	'setting_credits_trans10_comment'	=> 'Lorsque les r&#233;ponses des Utilisateurs du post peut &#234;tre r&#232;gle quand il est utilis&#233; des points de r&#233;compense',
+	'setting_credits_trans11'		=> 'Grab floor points limit',//'抢楼帖积分限制',
+	'setting_credits_trans11_comment'	=> 'Minimum number of points for participate in grab floor post',//'参与抢楼帖积分限制时使用的积分',
 	'setting_credits_tax'			=> 'Cr&#233;dits Taxe Transaction',
 	'setting_credits_tax_comment'		=> 'Cr&#233;dits Taxe Transaction(Taux de perte)Points pour cet utilisateur dans son utilisation du transfert, pour &#233;changer, la vente de cette taxe d&#233;duit, la gamme des 0-1 Entre les nombres &#224; virgule flottante, par exemple, est fix&#233; &#224; 0.2,Utilisateur pointe en unit&#233; 100 de conversion, la perte en unit&#233;s de 20 points, 0 pour aucune perte',
 	'setting_credits_mintransfer'		=> 'Transfert Solde Minim.',
@@ -1692,6 +1918,7 @@ $lang = array
 	'setting_sec_reginput_password2_comment'	=> 'La valeur par d&#233;faut est password2 , Seules les lettres et les chiffres doivent commencer par une lettre. Nom de la forme de modification, il sera plus difficile &#224; jouer un r&#244;le dans la RI Rotary ou rotation', // '默认为 password2 , 只能是字母和数字的组合, 必须以字母开头. 修改后的表单名会使得注册机更难发挥作用'
 	'setting_sec_reginput_email'		=> 'Param&#232;tres du formulaire e-mail', // 'Email表单设置'
 	'setting_sec_reginput_email_comment'	=> 'La valeur par d&#233;faut est email , Seules les lettres et les chiffres doivent commencer par une lettre. Nom de la forme de modification, il sera plus difficile &#224; jouer un r&#244;le dans la RI Rotary ou rotation', // '默认为 email , 只能是字母和数字的组合, 必须以字母开头. 修改后的表单名会使得注册机更难发挥作用'
+	'setting_sec_postperiodtime'		=> 'Post time restriction',//'发帖时间段限制',
 
 	'setting_datetime'		=> 'R&#233;glage Heure', // '时间设置'
 
@@ -1719,7 +1946,7 @@ $lang = array
 			'-1'	=> '(GMT -01:00) Acores, Iles du Cap Vert [GMT] Dublin, Londres, Lisbonne, Casablanca', 
 			'0'	=> '(GMT) Casablanca, Dublin, Edimbourg, Londres, Lisbonne, Monrovia',
 			'1'	=> '(GMT +01:00) Berlin, Bruxelles, Copenhague, Madrid, Paris, Rome', 
-			'2'	=> '(GMT +02:00) Helsinki, Kaliningrad, l\'Afrique du Sud, Varsovie', 
+			'2'	=> '(GMT +02:00) Cairo, Helsinki, Kaliningrad, l\'Afrique du Sud, Varsovie', 
 			'3'	=> '(GMT +03:00) Bagdad, Riyad, Nairobi',
 			'3.5'	=> '(GMT +03:30) T&#233;h&#233;ran',
 			'4'	=> '(GMT +04:00) Abu Dhabi, &#224; Bakou, Moscou, Muscat, Tebilisi',
@@ -1744,6 +1971,10 @@ $lang = array
 	'setting_datetime_postbanperiods_comment'	=> 'Utilisateurs ne peuvent pas poster tous les jours de cette p&#233;riode, le format et l\'utilisation ci-dessus', // '每天该时间段内用户不能发帖, 格式和用法同上'
 	'setting_datetime_postmodperiods'		=> 'P&#233;riode de V&#233;rif. Posts', // '发帖审核时间段'
 	'setting_datetime_postmodperiods_comment'	=> 'La p&#233;riode de temps chaque jour apr&#232;s les utilisateurs ne pr&#233;sente pas directement, pour &#234;tre examin&#233; par les mod&#233;rateurs ou les administrateurs peuvent &#234;tre d&#233;bloqu&#233; manuellement, le format et l\'utilisation ci-dessus', // '每天该时间段内用户发帖不直接显示, 需经版主或管理员人工审核才能发表, 格式和用法同上'
+	'setting_datetime_postignorearea'		=> 'Ignore no posting time location',//'发帖不受时间限制的地区列表',
+	'setting_datetime_postignorearea_comment'	=> 'When a user IP location is in this list, the posting time restriction is not applied. One location per line, i.e. "Beijing" (without quotes). Leave blank to not set.<br />Note: For correct tdistinguish your IP address location you have to download the latest IP address library "qqwry.dat", upload this file to the "data /ipdata/" directory and rename it to "wry.dat", Also delete the "tinyipdata.dat" file.',//'当用户处于本列表中的地址时，发帖不受时间段限制。每个地区一行，例如 "北京"(不含引号)，留空为不设置。<br />注意：如要正确无误的判断您 IP 地址所在的地区，请到网上下载 qqwry.dat IP 地址库文件上传到 "data/ipdata/" 目录下更名为 wry.dat，同时删除 tinyipdata.dat 文件',
+	'setting_datetime_postignoreip'			=> 'IP ignored the No Posting time restrictions',//'发帖不受时间限制的IP列表',
+	'setting_datetime_postignoreip_comment'		=> 'When a user IP address is in this list, the posting time restriction is not applied. One IP per line, a full address or beginning of IP range, For example "192.168." (without quotes) matches all IP adresses in range of 192.168.0.0~192.168.255.255. Leave blank to not set.',//'当用户处于本列表中的 IP 地址时，发帖不受时间段限制。每个 IP 一行，既可输入完整地址，也可只输入 IP 开头，例如 "192.168."(不含引号) 可匹配 192.168.0.0～192.168.255.255 范围内的所有地址，留空为不设置',
 	'setting_datetime_searchbanperiods'		=> 'Interdire le temps de recherche en texte int&#233;gral', // '禁止全文搜索时间段'
 	'setting_datetime_searchbanperiods_comment'	=> 'P&#233;riode de la journ&#233;e cet Utilisateur ne peut pas utiliser la recherche plein texte, le format et l\'utilisation ci-dessus', //  '每天该时间段内用户不能使用全文搜索, 格式和用法同上'
 	'setting_datetime_ban_downtime'		=> 'Interdiction T&#233;l&#233;charger les pi&#232;ces jointes du moment', // '禁止下载附件时间段'
@@ -1791,6 +2022,8 @@ $lang = array
 	'setting_attach_image_thumbstatus_fixwr'	=> 'Et sp&#233;cifier la m&#234;me taille, pour conserver les proportions, l\'exc&#232;s de cisaillement ou d&#233;coupage', // '与指定大小相同、保持比率, 超出部分剪切'
 	'setting_attach_basic_thumbsource'		=> 'Que ce soit directement mise &#224; l\'&#233;chelle originale', // '是否直接缩放原图'
 	'setting_attach_basic_thumbsource_comment'	=> 'Choisissez "Oui", sera directement mise &#224; l\'&#233;chelle de l\'image originale, pas de g&#233;n&#233;rer une vignette', // '选择“是”, 将直接缩放原图, 而不生成缩略图文件'
+	'setting_attach_image_thumbsourcewidthheight'		=> 'Original image zoom size',//'原图缩放大小',
+	'setting_attach_image_thumbsourcewidthheight_comment'	=> 'Set the size of original image. If attached image width/height is greater than this size, the image will be resized automatically to this size (thumbnail created).',//'设置原图的大小，所有大于此尺寸的图片附件将缩小到指定大小',
 	'setting_attach_image_thumbquality'		=> 'Qualit&#233; Miniatures', // '缩略图质量'
 	'setting_attach_image_thumbquality_comment'	=> 'R&#233;glez les param&#232;tres d\'image miniature pi&#232;ce jointe de la qualit&#233;, la gamme de 0 &#224; 100 images valeur sup&#233;rieure entier, meilleurs seront les r&#233;sultats, mais la plus grande taille', // '设置图片附件缩略图的质量参数, 范围为 0～100 的整数, 数值越大结果图片效果越好, 但尺寸也越大'
 	'setting_attach_image_thumbwidthheight'		=> 'Taille Miniature', // '缩略图大小'
@@ -1867,16 +2100,16 @@ $lang = array
 	'setting_attach_remote_minsize_comment'	=> 'Unit&#233;: Kio, seule la Taille &#233;tait plus grande que l\'ensemble actuel la saisie &#224; utiliser de pi&#232;ce jointe &#224; distance, 0 ou laissez vide pour ne pas limiter', // '单位：KB, 只有尺寸大于当前设置的附件才使用远程附件功能, 0 或留空为不限制'
 	'setting_attach_remote_ftpcheck'	=> 'D&#233;tection des accessoires &#224; distance R&#233;glez', // '检测远程附件设置'
 
-	'setting_ftp_remote_-100'		=> 'The current server PHP FTP extension module is not installed or FTP function is disabled',//'当前服务器 PHP 没有安装 FTP 扩展模块或 FTP 函数被禁用',
-	'setting_ftp_remote_-101'		=> 'Connect to the FTP server failed, please check the FTP server address and port number is set correctly',//'尝试连接到 FTP 服务器失败，请检查 FTP 服务器地址和端口号设置是否正确',
-	'setting_ftp_remote_-102'		=> 'Connect to the FTP server failed, please check the FTP server address and port number is set correctly',//'尝试连接到 FTP 服务器失败，请检查 FTP 服务器地址和端口号设置是否正确',
-	'setting_ftp_remote_-103'		=> 'Log into the FTP server failed, check the FTP account password settings are correct',//'尝试登录到 FTP 服务器失败，请检查 FTP 帐号密码设置是否正确',
-	'setting_ftp_remote_-104'		=> 'Change directory failed, check the site directory settings are correct',//'尝试切换目录失败，请检查站点目录设置是否正确',
-	'setting_ftp_remote_-105'		=> 'Create directory failed, check the site directory settings are correct, and check the FTP account to create the directory permissions',//'尝试创建目录失败，请检查站点目录设置是否正确，并检查 FTP 帐号是否具有创建目录的权限',
-	'setting_ftp_remote_-106'		=> 'Upload file failed, check whether the site directory has the permission to upload files',//'尝试上传文件失败，请检查站点目录是否具有上传文件的权限',
-	'setting_ftp_remote_-107'		=> 'Failed attempt to upload files, check the FTP account has permission to upload files, confirm permission is normal, try using passive mode (pasv) connection',//'尝试上传文件失败，请检查 FTP 帐号是否具有上传文件的权限，如果确认权限正常，请尝试使用被动模式(pasv)连接',
-	'setting_attach_ftp_dir'		=> 'The site root directory',//'站点根目录',
-	'setting_attach_ftp_dir_comment'	=> 'The site root directory absolute path or relative path relative to the FTP home directory, at the end do not add the slash "/", "." means the FTP home directory',//'站点根目录的绝对路径或相对于 FTP 主目录的相对路径，结尾不要加斜杠“/”，“.”表示 FTP 主目录',
+	'setting_ftp_remote_-100'	=> 'PHP extension FTP module is not installed or FTP functions are disabled.',//'当前服务器 PHP 没有安装 FTP 扩展模块或 FTP 函数被禁用',
+	'setting_ftp_remote_-101'	=> 'FTP server connection failed. Check the FTP server address and port settings are correct.',//'尝试连接到 FTP 服务器失败，请检查 FTP 服务器地址和端口号设置是否正确',
+	'setting_ftp_remote_-102'	=> 'FTP server connection failed. Check the FTP server address and port settings are correct.',//'尝试连接到 FTP 服务器失败，请检查 FTP 服务器地址和端口号设置是否正确',
+	'setting_ftp_remote_-103'	=> 'Login to the FTP server failed. Check the FTP account and password are correct.',//'尝试登录到 FTP 服务器失败，请检查 FTP 帐号密码设置是否正确',
+	'setting_ftp_remote_-104'	=> 'Change FTP directory failed. Check the site directory setting is correct.',//'尝试切换目录失败，请检查站点目录设置是否正确',
+	'setting_ftp_remote_-105'	=> 'Create FTP directory failed. Check the site directory setting is correct, and check the FTP account have a create directory permissions.',//'尝试创建目录失败，请检查站点目录设置是否正确，并检查 FTP 帐号是否具有创建目录的权限',
+	'setting_ftp_remote_-106'	=> 'FTP upload failed. Check if the FTP account have upload files permission.',//'尝试上传文件失败，请检查站点目录是否具有上传文件的权限',
+	'setting_ftp_remote_-107'	=> 'FTP upload failed. Check if the FTP account enabled to upload files. If the permissions are correct, try to use passive mode (pasv) connection.',//'尝试上传文件失败，请检查 FTP 帐号是否具有上传文件的权限，如果确认权限正常，请尝试使用被动模式(pasv)连接',
+	'setting_attach_ftp_dir'	=> 'Site root directory',//'站点根目录',
+	'setting_attach_ftp_dir_comment'	=> 'Site root directory absolute path (or relative path from FTP home directory), do not add a slash "/" at the end! "." means the FTP home directory.',//'站点根目录的绝对路径或相对于 FTP 主目录的相对路径，结尾不要加斜杠“/”，“.”表示 FTP 主目录',
 
 	'setting_attach_remote_-100'	=> 'PHP est NON install&#233; sur le serveur FTP ou en cours de fonction FTP est d&#233;sactiv&#233; module d\'extension', // '当前服务器 PHP 没有安装 FTP 扩展模块或 FTP 函数被禁用'
 	'setting_attach_remote_-101'	=> 'Fonction de pi&#232;ce jointe &#224; distance n\'est pas ouvert', // '远程附件功能未开启'
@@ -1925,14 +2158,14 @@ $lang = array
 	'setting_search_status_blog'	=> 'Rech.Connecter', // '搜索日志'
 	'setting_search_status_album'	=> 'Rech.Galerie', // '搜索相册'
 	'setting_search_status_group'	=> 'Rech.Groupes', // '搜索群组'
+	'setting_search_status_collection'	=> 'Search Collection',//'搜索淘专辑',
 	'setting_search_status_comment'	=> 'V&#233;rifiez les colonnes que vous souhaitez ouvrir la recherche', // '勾选你要开启的搜索栏目'
 	'setting_search_onoff'		=> 'Fermer', // '开启'
 	'search_item_name'		=> 'Projet de Recherche', // '搜索项目'
 	'setting_search_srchhotkeywords'	=> 'Mots-Cl&#233;s Populaires', // '热门关键词'
 	'setting_search_srchhotkeywords_comment'	=> 'Un par ligne', // '每行一个'
 	'setting_search_srchhotkeywords_disabled'	=> 'Mots-Cl&#233;s Populaires', // '热门关键词'
-	'setting_search_srchhotkeywords_disabled_comment'	=> '<strong>Liste des Mots-Cl&#233;s populaires ont &#233;t&#233; d&#233;sactiv&#233;s, Svp. aller &#224; <a href="admin.php?action=cloud&operation=search">Plate-forme de nuage -> Recherche verticale et horizontale</a> R&#233;glez mots cl&#233;s de recherche Hots</strong>', // '<strong>本热门关键词列表已被禁用, 请到 <a href="admin.php?action=cloud&operation=search">云平台->纵横搜索</a> 设置热搜关键字</strong>'
-
+//	'setting_search_srchhotkeywords_disabled_comment'	=> '<strong>Liste des Mots-Cl&#233;s populaires ont &#233;t&#233; d&#233;sactiv&#233;s, Svp. aller &#224; <a href="admin.php?action=cloud&operation=search">Plate-forme de nuage -> Recherche verticale et horizontale</a> R&#233;glez mots cl&#233;s de recherche Hots</strong>', // '<strong>本热门关键词列表已被禁用, 请到 <a href="admin.php?action=cloud&operation=search">云平台->纵横搜索</a> 设置热搜关键字</strong>'
 	'settings_sphinx'			=> 'Sphinx R&#233;glez de recherche en texte int&#233;gral', // 'Sphinx 全文检索设置'
 	'settings_sphinx_sphinxon'		=> 'est Actif', // '是否开启'
 	'settings_sphinx_sphinxon_comment'	=> 'Soit est activ&#233; sphinx recherche en texte int&#233;gral, le Sphinx avant l\'ouverture de confirmer l\'installation et la configuration avec succ&#232;s', // '设置是否开启 Sphinx 全文检索功能, 开启前确认 Sphinx 安装及配置成功'
@@ -1969,7 +2202,10 @@ $lang = array
 	'setting_ranklist_block_set'	=> 'D&#233;tails Module Fiste figurante', // '排行榜详细模块设置'
 	'setting_ranklist_block_name'	=> 'Nom Module', // '模块名称'
 	'setting_ranklist_index_cache_time'	=> 'Top temps cache de la page (unit&#233;: heures)', // '排行榜首页缓存时间(单位：小时)'
+	'setting_ranklist_index_cache_time_comment'	=> 'Unit: Hours',//'单位：小时',
 	'setting_ranklist_cache_time'		=> 'M&#233;moire cache de temps (unit&#233;: heures)', // '缓存时间(单位：小时)'
+	'setting_ranklist_ignorefid'		=> 'Ignore Forum/Group rating',//'不参与排行的版块/群组',
+	'setting_ranklist_ignorefid_comment'	=> 'Enter the forum ID or group ID, Corresponds forum and group threads will not appear in the list. Separate multiple ID with a comma.',//'填入版块ID或群组ID，对应版块及下面的主题将不进入排行榜，多个版块ID间请用半角逗号 "," 隔开',
 	'setting_ranklist_show_num'		=> 'Affiche Nbres.', // '显示条数'
 	'setting_ranklist_block_comment'	=> 'Selon les conditions de charge serveur, d&#233;finir un intervalle de Maj. raisonnable, le minimum propos&#233; de pas moins de 5 heures. Afficher plus de la charge la plus &#233;lev&#233;e du nombre, il est recommand&#233; &#224; pas plus de 100, la valeur par d&#233;faut est de 20', // '请根据服务器的负载情况, 设置合理的更新时间间隔, 建议最少不能低于 5 小时.显示条数越多负载越高, 建议最多不要超过100条, 默认为 20 条'
 	'setting_ranklist_show_num_comment'	=> 'Changement du nombre, le cache sera affich&#233; apr&#232;s la Maj.', // '更改条数后, 缓存更新后才会显示'
@@ -1996,6 +2232,36 @@ $lang = array
 	'tag_admin'		=> 'Gestion &#233;tiquetage', // '标签管理'
 	'tag_result'		=> 'Nombre Eiquettes Admissibles', // '符合条件的标签数'
 
+	'collection'			=> 'Collections',//'淘帖管理',
+	'collection_date'		=> 'Post time',//'发表时间',
+	'collection_admin'		=> 'Manage collection',//'管理专辑',
+	'collection_comment'		=> 'Manage comments',//'管理评论',
+	'collection_name'		=> 'Collection name',//'淘专辑名称',
+	'collection_ctid'		=> 'Collection ID',//'淘专辑 ID',
+	'collection_username'		=> 'Collection author',//'淘专辑作者',
+	'collection_uid'		=> 'Collection author UID',//'淘专辑作者 UID',
+	'collection_result'		=> 'Number of relevant collections',//'符合条件的淘专辑数',
+	'collection_comment_message'	=> 'Comment text',//'评论内容',
+	'collection_comment_cid'	=> 'Comment ID',//'评论 ID',
+	'collection_comment_username'	=> 'Comment poster name',//'评论人用户名',
+	'collection_comment_uid'	=> 'Comment poster UID',//'评论人 UID',
+	'collection_comment_ratenum'	=> 'Rating',//'评分',
+	'collection_comment_rate'	=> 'Rating is greater than',//'评分大于',
+	'collection_comment_useip'	=> 'IP address',//'IP 地址',
+	'collection_comment_result'	=> 'Number of relevant comments',//'符合条件的评论数',
+
+	'usertag'			=> 'User Tags',//'用户标签',
+	'usertag_list'			=> 'Manage',//'管理',
+	'usertag_count'			=> 'Currently there are {tagcount} user tags',//'目前共有 {tagcount} 个用户标签',
+	'usertag_golist'		=> 'Return to list',//'返回列表',
+	'usertag_add'			=> 'Bulk Add',//'批量添加',
+	'usertag_add_tips'		=> '<li>You can add multiple user tags here</li><li>For the first time the tag list is empty, and you can add some tags</li><li>If the list of labels and user has input, Note to specified user batch tag paste</li>',//'<li>可以给线下活动的用户批量贴标签</li><li>当只填写了标签，用户列表为空时，是批量添加用户标签</li><li>如果标签和用户列表都有输入，说明是给指定用户批量贴标签</li>',
+	'usertag_add_tags'		=> 'Tags',//'标签',
+	'usertag_add_tags_comment'	=> 'You can enter multiple tags, separate multiple tags with a space or comma',//'可以输入多个标签，多个标签可以用空格、逗号 分隔',
+	'usertag_add_usernames'		=> 'User List',//'用户列表',
+	'usertag_add_usernames_comment'	=> 'You can enter multiple users, one user name per line',//'可以输入多个用户，每行输入一个用户名',
+	'usertag_user'			=> 'User',//'用户',
+	'usertag_send_notice'		=> 'Send notification',//'发通知',
 	'mobile'		=> 'T&#233;l&#233;phone', // '手机'
 	'setting_mobile'	=> 'Param&#232;tres Acc&#232;s Mobiles', // '手机版访问设置'
 	'setting_mobile_status'	=> 'La version mobile Param&#232;tres globaux', // '手机版全局设置'
@@ -2164,6 +2430,8 @@ $lang = array
 	'forums_edit_extend_picstyle_comment'	=> 'Liste des Sujets sera affich&#233; l\'image, l\'enveloppe peut &#234;tre th&#232;me unifi&#233;<a href="'.ADMINSCRIPT.'?action=setting&operation=styles&anchor=forumdisplay">Param&#232;tres la largeur et la Hauteur</a>', // '主题列表将以图片方式显示, 主题封面可统一<a href="'.ADMINSCRIPT.'?action=setting&operation=styles&anchor=forumdisplay">设置宽高</a>'
 	'forums_edit_extend_allowside'		=> 'Afficher la barre lat&#233;rale', // '显示边栏'
 	'forums_edit_extend_allowside_comment'	=> 'Equipe locale Choisissez "Oui" section affiche les informations d\'agr&#233;gation de contenu &#233;dition', // '选择“是”版块首页侧边将显示聚合本版内容的信息'
+	'forums_edit_extend_disablecollect'		=> 'Disable Collections',//'禁止淘帖',
+	'forums_edit_extend_disablecollect_comment'	=> 'Select "Yes" to prevent users from using collections',//'选择“是”将禁止用户淘帖本版主题',
 	'forums_edit_extend_defaultorderfield'	=> '<span class="spectitle">Sujet champ de tri par d&#233;faut</span>', //  '<span class="spectitle">主题默认排序字段</span>'
 	'forums_edit_extend_defaultorderfield_comment'	=> 'Liste figurant du Forum de sujets dont le champ de tri par d&#233;faut d\'affichage par d&#233;faut est "temps de r&#233;ponse", En plus des param&#232;tres par d&#233;faut, toutes sortes d\'autres va augmenter la charge sur le serveur', // '设置版块的主题列表默认按照哪个字段进行排序显示.默认为“回复时间”, 除默认设置外其他排序方式会加重服务器负担'
 	'forums_edit_extend_defaultorder'		=> '<span class="spectitle">Trier par th&#232;me par d&#233;faut</span>', // '<span class="spectitle">主题默认排序方式</span>'
@@ -2216,8 +2484,6 @@ $lang = array
 	'forums_edit_posts_modposts'		=> 'Examiner Auparavant ', //  '发帖审核'
 	'forums_edit_posts_modposts_comment'	=> 'Choisissez "Oui" permettra aux Utilisateurs de poster dans la pr&#233;sente &#233;dition sera exAmin&#233; par les Mod&#233;rateurs ou les Administrateurs apr&#232;s l\'affichage, activez cette fonction, vous pouvez d&#233;finir le Groupe Utilisateurs dont le Groupe peut afficher les &#233;tats financiers v&#233;rifi&#233;sVous pouvez &#233;galement que le Groupe de Gestion pr&#233;vue qui reGroupe peuvent consulter les messages d\'autres personnes', // '选择“是”将使用户在本版发表的帖子待版主或管理员审查通过后才显示出来, 打开此功能后, 你可以在用户组中设定哪些组发帖可不经审核, 也可以在管理组中设定哪些组可以审核别人的帖子'
 	'forums_edit_posts_alloweditpost'	=> 'Autoriser Modifications Posts', // '允许编辑帖子'
-	'forums_edit_posts_allowappend'		=> 'Activer des posts des fonctionnalit&#233;s suppl&#233;mentaires', // '启用帖子补充功能'
-	'forums_edit_posts_allowappend_comment'	=> 'Lorsque activ&#233;e, cet Utilisateur ne peut pas &#233;diter vos messages, vous pouvez Ajoutez du contenu', //  '启用后, 当用户无法编辑自己的帖子时, 可以补充内容'
 	'forums_edit_posts_alloweditpost_comment'	=> 'Choisissez "Oui" permettra aux Utilisateurs de Modifier l\'&#233;dition des posts', //  '选择“是”将允许用户编辑本版发表的帖子'
 	'forums_edit_posts_modposts_threads'	=> 'Revue New sujet', //  '审核新主题'
 	'forums_edit_posts_modposts_posts'	=> 'Examen des Newx sujets et de Newx messages', // '审核新主题和新回复'
@@ -2273,6 +2539,8 @@ $lang = array
 	'forums_edit_posts_commentitem'		=> 'Th&#232;me commun pr&#233;d&#233;finis Commentaires vues', // '普通主题点评预置观点'
 	'forums_edit_posts_commentitem_comment'	=> 'Chaque ligne ponctuelles, telles que les lignes vides, vide le contenu de la ligne de fond sera affich&#233;e dans le menu d&#233;roulant comme un point de vue alternatif et seulement poster des commentaires sur ce jeu de fonctionnalit&#233;s pour prendre effet, comme le blanc que l\'utilisation d\'un r&#233;seau mondial "presets th&#232;me commun commentaires vue "R&#233;glez', // '每个观点一行.如存在空行, 空行下方的内容将显示在下拉菜单中作为备选观点.只有开启帖子点评功能后本设置才生效, 如留空表示使用全局的“普通主题点评预置观点”设置'
 
+	'forums_edit_attachtype'		=> 'Attach type',//'附件类型',
+	'forums_edit_attachtype_tips'		=> '<li>This feature can limit the maximum size of a particular type of attachments in this forum. When set here value is less than a user group the maximum size allowed, The attachment size limit of the specified type will be set to this limit.</li><li>You can overall disable some type attachments to be uploaded by setting the maximum size of certain types to 0.</li><li>Leave empty for use the global settings for attachment type size.</li>',//'<li>本功能可限定本版块某特定类型附件的最大尺寸，当这里设定的尺寸小于用户组允许的最大尺寸时，指定类型的附件尺寸限制将按本设定为准。</li><li>你可以设置某类附件最大尺寸为 0 以整体禁止这类附件被上传。</li><li>此处设置留空则使用全局的“附件类型尺寸”设置。</li>',
 
 	'forums_edit_credits'		=> 'Strat&#233;gie Int&#233;gration', // '积分策略'
 	'forums_edit_credits_policy'	=> 'Etendu changement de la strat&#233;gie d\'int&#233;gration', //  '扩展积分增减策略'
@@ -2434,6 +2702,10 @@ $lang = array
 	'threadtype_protect_mode_comment'	=> 'Choisissez une approche photo n&#233;cessite de l\'espace GD Biblioth&#232;que de support', //  '选择图片方式需要空间GD库支持'
 	'threadtype_protect_usergroup'		=> 'Les Utilisateurs peuvent visualiser les informations du Groupe', // '可查看该信息的用户组'
 	'threadtype_protect_usergroup_comment'	=> 'Les Utilisateurs peuvent visualiser les informations du Groupe, Des &#233;lections ne fut pas sans limites', // '可查看该信息的用户组, 不选则为不限制'
+	'threadtype_protect_verify'		=> 'View information of verify group',//'可查看该信息的认证组',
+	'threadtype_protect_verify_comment'	=> 'View information of verify group. If not choosed, compared without limits',//'可查看该信息的认证组，不选则为不限制',
+	'threadtype_protect_permprompt'		=> 'No permission message',//'无权限提示信息',
+	'threadtype_protect_permprompt_comment'	=> 'Message displayed when users are not authorized to view the field content',//'当用户无权查看字段内容时显示的提示信息',
 	'threadtype_defaultvalue'		=> 'Par d&#233;faut (facultatif)', //  '默认值(可选)'
 	'threadtype_manage'			=> 'Gestion des Champs des Renseignements Classifi&#233;s', // '分类信息字段管理'
 	'threadtype_cat_manage'			=> 'Gestion des Champs des Renseignements Classifi&#233;s', // '分类信息字段管理'
@@ -2471,6 +2743,46 @@ $lang = array
 	'threadtype_edit_area'			=> 'Classification &#224; l\'aide de quelques niveaux', // '使用几级分类'
 	'threadtype_edit_profile'		=> 'La valeur initiale associ&#233;e &#224; la partie utilisateur', // '关联用户栏目初始值'
 	'threadtype_edit_profile_comment'	=> 'Vous pouvez sp&#233;cifier une partie Utilisateur comme la valeur initiale, lorsque cet Utilisateur de remplir le poste.<br /> priorit&#233; par d&#233;faut', // '可以指定某个用户栏目作为初始值, 方便用户在发帖时填写.<br />此项优先于默认值'
+	'threadtype_template'			=> 'Template',//'模板',
+	'threadtype_template_viewthread'	=> 'Thread page template',//'帖子页模板',
+	'threadtype_template_forumdisplay'	=> 'Thread list template',//'列表页模板',
+	'threadtype_template_post'		=> 'Post page template',//'发帖页模板',
+	'threadtype_template_diy'		=> 'DIY call template',//'DIY调用模板',
+	'threadtype_template_threadtitle'	=> 'Thread title',//'主题标题',
+	'threadtype_template_threadurl'		=> 'Thread URL',//'主题 URL',
+	'threadtype_template_threadid'		=> 'Thread ID',//'主题 ID',
+	'threadtype_template_dateline'		=> 'Publish time',//'发布时间',
+	'threadtype_template_author'		=> 'Author name',//'作者用户名',
+	'threadtype_template_authorid'		=> 'Author ID',//'作者用户 ID',
+	'threadtype_template_authorurl'		=> 'Author URL',//'作者 URL',
+	'threadtype_template_authoravatar'	=> 'Avatar URL',//'头像 URL',
+	'threadtype_template_authorverify'	=> 'Verified',//'认证标识',
+	'threadtype_template_threadauthor'	=> 'Thread author',//'主题作者',
+	'threadtype_template_threadviews'	=> 'Views',//'主题查看数',
+	'threadtype_template_threadreplies'	=> 'Replies',//'主题回复数',
+	'threadtype_template_lastpostdateline'	=> 'Last Post',//'最后回复时间',
+	'threadtype_template_lastposturl'	=> 'Last Post URL',//'最后回复 URL',
+	'threadtype_template_lastpostuser'	=> 'Last post user',//'最后回复用户',
+	'threadtype_template_lastpostuserurl'	=> 'Last post user URL',//'最后回复用户 URL',
+	'threadtype_template_lastpost'		=> 'Last Post',//'最后回复',
+	'threadtype_template_threadtypename'	=> 'Thread type name',//'主题分类名称',
+	'threadtype_template_threadtypeurl'	=> 'Thread type URL',//'主题分类 URL',
+	'threadtype_template_threadtype'	=> 'Thread type',//'主题分类',
+	'threadtype_template_attachmentexist'	=> 'Whether attachment Image exists',//'是否存在附件的标识图片',
+	'threadtype_template_attachment'	=> 'Attachment identity',//'附件标识',
+	'threadtype_template_modcheck'		=> 'Moderator options',//'版主管理主题的操作选项',
+	'threadtype_template_threadmod'		=> 'Thread operations',//'主题操作',
+	'threadtype_template_loop'		=> 'Single thread loop content',//'单一主题循环内容',
+	'threadtype_template_title'		=> 'Title',//'标题',
+	'threadtype_template_varname'		=> 'Variable name',//'变量名称',
+	'threadtype_template_varvalue'		=> 'Variable value',//'变量的值',
+	'threadtype_template_varunit'		=> 'Variable units',//'变量单位',
+	'threadtype_template_requiredflag'	=> 'Required logo',//'必填标识',
+	'threadtype_template_tipflag'		=> 'Logo prompt',//'提示标识',
+	'threadtype_template_briefdes'		=> 'Short description',//'简短描述',
+	'threadtype_template_tag'		=> 'Tags',//'标签',
+	'threadtype_template_intro'		=> 'Explain',//'说明',
+	'threadtype_template_example'		=> 'Example',//'范例',
 
 
 
@@ -2522,6 +2834,7 @@ $lang = array
 	'nav_spacenav_userpanelarea1'	=> "{navname}Zone 1",
 	'nav_spacenav_userpanelarea2'	=> "{navname}Zone 2",
 	'nav_mynav_add'			=> 'Ajouter des raccourcis de navigation', // '添加快捷导航'
+	'nav_spacenav_tips'		=> 'The following navigation links in the "home show style" are enabled when valid "SNS module style show"',//'以下导航链接在“家园展示风格”中启用“以SNS模块风格展示”时有效',
 
 	'styles'		=> 'Type de Gestion', // '风格管理'
 	'styles_admin'		=> 'Type de Gestion', // '风格管理'
@@ -2656,6 +2969,7 @@ $lang = array
 	'styles_install'		=> 'Installation', // '安装'
 	'styles_stylecount'		=> 'Num&#233;ro de Mod&#232;le', // '风格数'
 	'styles_uninstall'		=> 'D&#233;sinstaller', // '卸载'
+	'styles_find_newversion'	=> 'Found new version',//'发现新版',
 
 	'styles_import'			=> 'Importer programme d\'interface', // '导入界面方案'
 	'styles_import_ignore_version'	=> 'Permet d\'importer l\'ancienne version Discuz! Interface (facile &#224; produire une erreur!)', //  '允许导入老版本 Discuz! 的界面(易产生错误!!)'
@@ -2711,6 +3025,8 @@ $lang = array
 	'members_delete_share'	=> 'Partage', // 'Share'
 	'members_delete_comment'	=> 'Commentaire', // '评论'
 	'members_delete_allitem'	=> 'Tout', // '全部'
+	'members_delete_user_processing_next'	=> 'Processed users from {deletestart} to {nextdeletestart}, continuing...',//'已处理 {deletestart}至{nextdeletestart} 名用户，继续进行...',
+	'members_delete_user_processing'	=> 'Processing users from {deletestart} to {nextdeletestart} ...',//'正处理 {deletestart}至{nextdeletestart} 名用户...',
 	'members_delete_processing_next'	=> '{item} Le traitement est termin&#233;, les utilisateurs face aux {nextitem} Donn&#233;es', // '{item} 处理完成, 即将处理用户 {nextitem} 数据'
 	'members_delete_processing'	=> 'Suppression d\'Utilisateurs{item}Les donn&#233;es de {current} Pour {next} (Cette op&#233;ration consomme plus de ressources, s\'il vous pla&#238;t &#234;tre patient et attendre)', //  '正在删除 用户{item}数据 从 {current} 到 {next} (该操作比较消耗资源, 请你耐心等待)'
 	'members_delete_all'		=> 'Supprimer toutes les donn&#233;es Utilisateur (y compris les pi&#232;ces jointes), l\'op&#233;ration consomme plus de ressources, Svp. &#234;tre patient et attendre', // '删除用户所有数据(含附件), 该操作比较消耗资源, 请你耐心等待'
@@ -2823,10 +3139,12 @@ $lang = array
 	'members_ban_delete_avatar'	=> 'Supprimer Avatar', // '删除头像'
 	'members_ban_clear_content'	=> 'Videz le contenu Utilisateur', // '清空该用户相关内容'
 	'members_ban_clear_content_comment'	=> ', <input type="checkbox" name="chkall" onclick="checkAll(\'prefix\', //  this.form, \'clear\')" class="checkbox">Choisissez', // ', // <input type="checkbox" name="chkall" onclick="checkAll(\'prefix\', //  this.form, \'clear\')" class="checkbox">全选'
+	'members_ban_crime_record'	=> 'Violation log',//'违规记录',
 	'members_edit_current_status'	=> 'La situation actuelle', // '当前状态'
 	'members_ban_validity'		=> 'Interdire aux utilisateurs de valid&#233;s', // '禁止用户有效期'
 	'members_ban_validity_comment'	=> 'Dans la p&#233;riode apr&#232;s laquelle cet Utilisateur peut automatiquement supprimer les restrictions, comme des Utilisateurs r&#233;guliers', //  '在有效期过后该用户可以自动解除限制, 成为普通用户'
 	'members_ban_delpost'		=> 'Messages', // '帖子'
+	'members_ban_delfollow'		=> 'Follows',//'广播',
 	'members_ban_delblog'		=> 'Blog', // 'Blog'
 	'members_ban_delalbum'		=> 'Album', // 'Album'
 	'members_ban_deldoing'		=> 'Humeur', // 'Mood'
@@ -2842,7 +3160,15 @@ $lang = array
 	'members_search_between'	=> 'entre', // '介于'
 	'members_search_group'		=> 'Principal Groupe Utilisateurs', // '主用户组
 	'members_search_group_comment'	=> 'Param&#232;tre permet aux Groupes d\'Utilisateurs impliqu&#233;s dans la recherche, vous pouvez maintenir enfonc&#233;e la touche CTRL choix multiples', // '设置允许参与搜索的用户组, 可以按住 CTRL 多选'
+	'members_search_medal'		=> 'Medals',//'勋章',
+	'members_search_medal_comment'	=> 'Set the specified Medal that users have. Hold down the CTRL for multiple choice',//'设置拥有指定勋章的用户，可以按住 CTRL 多选',
+	'members_search_usertag'	=> 'User Tags',//'用户标签',
+	'members_search_usertag_comment'	=> 'Set specified user tags. Hold down the CTRL for multiple choice',//'设置指定标签的用户，可以按住 CTRL 多选',
 	'members_search_extgroup'	=> 'D&#233;veloppez le Groupe Utilisateurs', // '扩展用户组'
+	'members_search_table'		=> 'User table',//'用户表',
+	'members_search_table_comment'	=> 'When the user data updated, User-related data in the archive table is not updated',//'更新用户数据时，存档表中的用户相关数据不会更新',
+	'members_search_table_master'	=> 'Main table',//'主表',
+	'members_search_table_archive'	=> 'Archive table',//'存档表',
 	'members_search_user'		=> 'Identifiant', //  '用户名'
 	'members_search_user_comment'	=> 'Vous pouvez utiliser des jokers *, Plusieurs noms d\'Utilisateurs avec une virgule "," s&#233;par&#233;e', // '可使用通配符 *, 多个用户名用半角逗号 "," 隔开'
 	'members_search_repeatuser'	=> 'Identifiant', // '用户名'
@@ -2855,12 +3181,14 @@ $lang = array
 	'members_search_regip_comment'	=> 'Comme 192.168, Vous pouvez utiliser des jokers *', //  '如 192.168, 可使用通配符 *'
 	'members_search_lastip'		=> 'Derni&#232;re visite IP a commence ', // '上次访问 IP 开始于'
 	'members_search_lastip_comment'	=> 'Comme 192.168, Vous pouvez utiliser des jokers *', // '如 192.168, 可使用通配符 *'
+	'members_search_oltimerange'	=> 'User online time (hours)',//'用户在线时间(单位小时)',
 	'members_search_repeatip'	=> 'adresse IP', // 'IP 地址'
 	'members_search_regdaterange'	=> 'De la date d\'inscription', // '注册日期介于'
 	'members_search_lastvisitrange'	=> 'Entre l\'heure du dernier acc&#232;s', // '最后访问时间介于'
 	'members_search_lastpostrange'	=> 'Le temps entre le dernier message', // '最后发帖时间介于'
 	'members_search_birthday'	=> 'Anniversaire Utilisateur', // '用户生日'
 	'members_search_result'		=> 'Recherche totale<strong> {membernum} </strong>Sont des utilisateurs qualifi&#233;s', // '共搜索到<strong> {membernum} </strong>名符合条件的用户'
+	'members_search_deleteall'	=> 'Delete all <strong>{membernum}</strong> found users',//'删除搜索到的全部<strong> {membernum} </strong>名用户',
 	'members_search_export'		=> 'Exporter les informations utilisateur', // '导出用户信息'
 	'members_search_nonexistence'	=> 'Vous ne fournissez pas les crit&#232;res de recherche ou ne correspondent pas aux crit&#232;res d\'adh&#233;sion.<a href="javascript:history.go(-1);" class="act">Chercher &#224; New</a>', // '你没有提供搜索条件或没有与条件匹配的会员.<a href="javascript:history.go(-1);" class="act">重新搜索</a>'
 	'members_search_lockstatus'	=> 'est verrouill&#233;', // '是否锁定'
@@ -2872,6 +3200,8 @@ $lang = array
 	'members_search_verify'		=> 'v&#233;rifier', // '认证'
 	'members_search_conisbind'	=> 'Est li&#233; QQ', // '是否绑定QQ'
 	'members_search_uinblacklist'	=> 'Compte QQ est bloqu&#233;', //  'QQ帐号是否被封'
+	'members_search_nonemedal'	=> 'No Medals available',//'暂时没有可用勋章',
+	'members_search_noneusertags'	=> 'No user tags available',//'暂时没有用户标签',
 
 	'members_verify'	=> 'donn&#233;es de V&#233;rif.', // '审核资料'
 
@@ -2891,7 +3221,7 @@ $lang = array
 	'members_verify_newvalue'	=> 'Fournir des Renseignements', // '提交信息'
 	'members_verify_submit'		=> 'Envoyer', // '提交'
 
-//	'members_verify'		=> 'V&#233;rifi&#233;', // '认证设置'
+//vot	'members_verify'		=> 'V&#233;rifi&#233;', // '认证设置'
 	'members_verify_base'		=> 'R&#233;glages de base', //  '基本设置'
 	'members_verify_add'		=> 'Ajouter certification', //  '添加认证'
 	'members_verify_verify'		=> 'Donn&#233;es de V&#233;rif.', // '审核资料'
@@ -2902,6 +3232,7 @@ $lang = array
 	'members_verify_manage'		=> 'certificats d\'audit', //  '认证审核'
 	'members_verify_enable'		=> 'Activ&#233;', // 'Enable'
 	'members_verify_icon'		=> 'Authentification Ic&#244;ne', // '认证图标'
+	'members_unverify_icon'		=> 'Unverified icon',//'未认证图标',
 	'members_verify_showicon'	=> 'Affiche l\'ic&#244;ne du certificat', // '显示认证图标'
 	'members_verify_view_real_name'	=> 'Que ce soit pour permettre aux utilisateurs non authentifi&#233;s pour afficher le nom r&#233;el', // '是否允许未认证用户查看实名'
 	'members_verify_view_real_name_comment'	=> 'Ce param&#232;tre limite l\'authentification de nom r&#233;el si cet Utilisateur ne poss&#232;de pas Autorisation d\'afficher le nom r&#233;el authentification par cet Utilisateur', // '该设置限制了未实名认证用户是否有权限查看认证通过的用户实名'
@@ -2926,6 +3257,9 @@ $lang = array
 	'members_verify_setting'	=> 'v&#233;rif. param&#232;tres', // '认证设置'
 	'members_verify_setting_tips'	=> '<li>Vid&#233;o de certification requise en vertu du principe de l\'ouverture en itin&#233;rance permet de prendre effet.</li><li>V&#233;rif. de certification vid&#233;o d&#233;pend de votre audit de certification de la droite des param&#232;tres vid&#233;o, l\'entr&#233;e la page de V&#233;rif. de certification dans la vid&#233;o</li>', // '<li>视频认证需要在开启漫游应用的前提下启用才能生效.</li><li>视频认证审核取决于你对视频认证审核权的设置, 该审核入口在视频认证页面</li>'
 	'members_verify_setting_field'	=> '<em class="right">(<a href="?action=members&operation=profile">Cliquez ici pour ajouter un &#233;l&#233;ment de donn&#233;es</a>)</em>Option article de donn&#233;es', // '<em class="right">(<a href="?action=members&operation=profile">点此新增资料项</a>)</em>可选资料项'
+	'members_verify_group'			=> 'Allow to participate in verification for user groups',//'允许参于认证的用户组',
+	'members_verify_group_comment'		=> 'This setting allows the user groups to participate in the verification. Hold down the CTRL for multiple choice. Empty for enable verification for all groups',//'设置允许参与认证的用户组，可以按住 CTRL 多选， 空代表都可以参于认证',
+	'members_verify_pic_removed'		=> 'No uploaded image or it have been deleted',//'未上传图片或已被删除',
 
 	'members_newsletter'		=> 'Pr&#233;avis du Site', // '站点通知'
 	'members_newsletter_method'	=> 'Moyen d\'envoyer un avis', //  '通知发送方式'
@@ -2941,6 +3275,7 @@ $lang = array
 	'members_newsletter_posttype'		=> 'M&#233;thode d\'analyse de son contenu', //  '内容解析方式'
 	'members_newsletter_posttype_text'	=> 'Mode Texte', // '文本方式'
 	'members_newsletter_posttype_html'	=> 'Mode html ', // 'html方式'
+	'members_newsletter_mobile_tips'	=> '<li>You can use this feature to send a notification to the mobile client user, for a better user touch up proposals and to promote the mobile client.</li><li>To use this function you have to open the cloud platform service and Mobile client plug-in</li><li><strong>Please pay attention to update the "<a href="http://addon.discuz.com/?@mobile.plugin">Mobile client</a>" in the application center. When enabled, the plug-in detailed description will be shown</strong></li>',//'<li>您可以通过该功能给手机客户端用户发送通知，为了您更好的触达用户建议大力推广我们的手机客户端。</li><li>要使用本功能需要开启云平台服务、手机客户端插件</li><li><strong>请关注应用中心中"<a href="http://addon.discuz.com/?@mobile.plugin">手机客户端</a>"的更新，功能启用时将会在插件中做详细说明</strong></li>',
 
 	'members_grouppmlist'			=> 'Enregistrer et envoyer MP', //  '群发短消息记录'
 	'members_grouppmlist_newsletter'	=> 'Envoyer des notifications', // '发送通知'
@@ -3035,7 +3370,7 @@ $lang = array
 	'members_profile_edit_invisible_comment'	=> 'S\'il est d&#233;fini &#224; Oui, alors peu importe comment les param&#232;tres de vie priv&#233;e ne sont pas affich&#233;s dans la page de profil un espace personnel', // '如果设为是, 则不论个人隐私如何设定都不会在个人空间资料页面显示'
 	'members_profile_edit_showincard'		=> 'Est affich&#233; dans la carte', // '是否在名片中显示'
 	'members_profile_edit_showinthread'		=> 'Est affich&#233; dans le post', // '是否在帖子中显示'
-	'members_profile_edit_showinthread_comment'	=> 'Choix, dont ils ont besoin<a href="admin.php?action=setting&operation=styles&anchor=viewthread" target="__blank">Message de son contenu page de contenu</a>Choisissez la position d\'affichage', // '选择是, 还需在<a href="admin.php?action=setting&operation=styles&anchor=viewthread" target="__blank">帖子内容页</a>中选择展示位置'
+	'members_profile_edit_showinthread_comment'	=> 'Choix, dont ils ont besoin<a href="admin.php?action=setting&operation=styles&anchor=viewthread" target="_blank">Message de son contenu page de contenu</a>Choisissez la position d\'affichage', // '选择是, 还需在<a href="admin.php?action=setting&operation=styles&anchor=viewthread" target="_blank">帖子内容页</a>中选择展示位置'
 	'members_profile_edit_showinregister'	=> 'Que ce soit la page d\'inscription d\'affichage', // '是否在注册页面显示'
 	'members_profile_edit_allowsearch'	=> 'Autoriser recherche', // 'Allow search'
 	'members_profile_edit_default_privacy'	=> 'Confidentialit&#233; par d&#233;faut', // 'Default privacy'
@@ -3058,32 +3393,6 @@ $lang = array
 	'members_stat_update_option'	=> 'Maj. des statistiques article', // '更新统计项'
 	'members_stat_update_data'	=> 'Maj. des donn&#233;es', // '更新数据'
 	'members_stat_tips'		=> '<li>Statistiques des donn&#233;es Utilisateur et les param&#232;tres sur la partie Utilisateur: les &#233;l&#233;ments seule forme de la bo&#238;te d&#233;roulante ou bouton radio va faire des statistiques.</li><li>Si la statistique peut avoir chang&#233;, Svp. mettre &#224; jour l\'&#233;l&#233;ment de statistiques, et ensuite mettre &#224; jour les donn&#233;es</li>', // '<li>统计的用户资料与用户栏目设置有关：只有表单元素为下拉框或单选框的会做统计.</li><li>如果统计项可能有改变, 请先更新统计项, 再更新数据</li>'
-
-	'profilefields'			=> 'Partie Utilisateur personnalis&#233;e', // '用户栏目定制'
-	'profilefields_title'		=> 'Titre de section', // '栏目标题'
-	'profilefields_show_in_thread'	=> 'Voir dans le post', // '在帖子中显示'
-	'profilefields_invisible'	=> 'Cacher', //  '隐藏'
-	'profilefields_unchangeable'	=> 'non modifiables', // '不可修改'
-	'profilefields_fields'		=> 'Sections', // 'Sections'
-	'profilefields_add'		=> 'Ajouter une nouvelle section', // '添加新栏目'
-
-	'profilefields_edit'		=> 'Modifier les champs', // '编辑栏目信息'
-	'profilefields_edit_title'	=> 'Titre de section', // '栏目标题'
-	'profilefields_edit_desc'	=> 'Br&#232;ve description (facultatif)', // '简短描述(可选)'
-	'profilefields_edit_size'	=> 'Longueur maximale du contenu', //  '内容最大长度'
-	'profilefields_edit_size_comment'	=> 'Intervalle de 1 &#224; 255 octets', // '范围 1～255 字节'
-	'profilefields_edit_invisible'		=> 'Cacher', // '隐藏'
-	'profilefields_edit_invisible_comment'	=> 'Choisissez "Oui" pour que l\'Administrateur et les Utilisateurs peuvent visualiser le contenu complet de leurs propres', // '选择“是”将只有管理员和用户自身可以查看填写的内容'
-	'profilefields_edit_unchangeable'	=> 'non modifiables', // '不可修改'
-	'profilefields_edit_unchangeable_comment'	=> 'Choisissez "Oui" lorsque cet Utilisateur de remplir ce contenu, ne sera pas re-modifier le contenu du projet', // '选择“是”则用户一旦填写此内容, 将不可再次自行修改该项目的内容'
-	'profilefields_edit_required'		=> 'Contenu requis', // '必填内容'
-	'profilefields_edit_required_comment'	=> 'Choisissez "Oui", il faudra aux Utilisateurs de s\'inscrire ou remplir ou Choisir les centres individuels ', //  '选择“是”将要求用户在注册或个人中心必须填写或选择'
-	'profilefields_edit_show_in_thread'	=> 'Voir dans le post', //  '在帖子中显示'
-	'profilefields_edit_show_in_thread_comment'	=> 'Choisissez "Oui" lorsque vous lisez des messages affichera le projet', // '选择“是”将在浏览帖子时显示该项目'
-	'profilefields_edit_selective'		=> 'est optionnel', //  '是否可选'
-	'profilefields_edit_selective_comment'	=> 'Choisissez "Oui" pour choisir le type de projet, ou &#224; tout remplir et une fois d&#233;termin&#233; &#224; ne pas changer, sinon il va provoquer une erreur', //  '选择“是”该项目为选择型, 否则为任意填写.一旦确定后切勿更改, 否则将导致显示错误'
-	'profilefields_edit_choices'		=> 'Propri&#233;t&#233;s des options', //  '选项内容'
-	'profilefields_edit_choices_comment'	=> 'Valable uniquement lorsque le projet est en option, un par l\'option de ligne, signe &#233;gal devant d\'une option d\'index (nombre recommand&#233;), suivie par le contenu, tels que: <br /><i>1 = Souris Optique<br />2 = Souris M&#233;canique<br />3 = Pas de souris</i><br />Remarque: Ne modifiez pas les options sur indice et d&#233;termin&#233; le contenu de la correspondance, mais vous pouvez ajouter des options pour l\'&#233;change ordre d\'affichage, vous pouvez d&#233;placer la ligne enti&#232;re vers le haut ou le bas pour atteindre', //  '只在项目为可选时有效, 每行一个选项, 等号前面为选项索引(建议用数字), 后面为内容, 例如: <br /><i>1 = 光电鼠标<br />2 = 机械鼠标<br />3 = 没有鼠标</i><br />注意: 选项确定后请勿修改索引和内容的对应关系, 但仍可以新增选项.如需调换显示顺序, 可以通过移动整行的上下位置来实现'
 
 	'admingroup'			=> 'Groupe de Gestion', // '管理组'
 	'admingroup_tips'		=> '<li>Des groupes de gestion Discuz!, Y compris les administrateurs, Super Moderator, trois Mod&#233;rateur groupes int&#233;gr&#233;s de gestion, et le groupe de gestion personnalis&#233;e.</li>', // '<li>Discuz! 管理组包括管理员、超级版主、版主三个内置管理组以及自定义管理组.</li>'
@@ -3109,6 +3418,8 @@ $lang = array
 	'admingroup_edit_edit_poll_comment'	=> 'D&#233;finissez si pour permettre l\'&#233;dition dans le cadre des options de gestion pour le th&#232;me du vote', // '设置是否允许编辑管理范围内投票主题的选项' 
 	'admingroup_edit_edit_trade'		=> 'Permettre l\'&#233;dition des biens', // '允许编辑商品'
 	'admingroup_edit_edit_trade_comment'	=> 'R&#233;glez s\'il faut autoriser la gestion &#233;ditoriale de biens dans le cadre de l\'objet des biens', // '设置是否允许编辑管理范围内商品主题的商品'
+	'admingroup_edit_usertag'		=> 'Allow users to add tags',//'允许添加用户标签',
+	'admingroup_edit_usertag_comment'	=> 'Set whether to allow users to edit/manageme thread tags',//'设置是否允许编辑管理范围内主题的用户标签',
 	'admingroup_edit_edit_activity'		=> 'Les demandeurs pour permettre aux activit&#233;s de gestion', // '允许管理活动报名者'
 	'admingroup_edit_edit_activity_comment'	=> 'R&#233;glez s\'il faut autoriser les activit&#233;s de gestion au sein de la th&#233;matique des demandeurs', //  '设置是否允许管理范围内活动主题的报名者'
 	'admingroup_edit_remove_reward'		=> 'Autorise le retrait de la r&#233;compense', // '允许移除悬赏'
@@ -3173,6 +3484,8 @@ $lang = array
 	'admingroup_edit_censor_word_comment'	=> 'D&#233;finissez si les mots pour permettre d\'ajouter ou de modifier les param&#232;tres du filtre', //  '设置是否允许添加或修改词语过滤设置'
 	'admingroup_edit_view_ip'		=> 'Autoriser d\'afficher IP', // '允许查看 IP'
 	'admingroup_edit_view_ip_comment'	=> 'D&#233;finissez si pour permettre aux utilisateurs de visualiser IP', // '设置是否允许查看用户 IP'
+	'admingroup_edit_manage_collection'	=> 'Allow collection management',//'允许管理淘专辑',
+	'admingroup_edit_manage_collection_comment'	=> 'Set whether to allow collection management',//'设置是否允许管理淘专辑',
 	'admingroup_edit_ban_ip'		=> 'Autoris&#233;s interdites IP', //  '允许禁止 IP'
 	'admingroup_edit_ban_ip_comment'	=> 'R&#233;glez s\'il faut autoriser l\'interdiction d\'ajouter ou de modifier les param&#232;tres IP', // '设置是否允许添加或修改禁止 IP 设置'
 	'admingroup_edit_edit_user'		=> 'Autoriser aux Utilisateurs de modifier', //  '允许编辑用户'
@@ -3288,6 +3601,28 @@ $lang = array
 	'founder_notidyusers_verifyacommont'	=> 'Commentaire article mod&#233;ration', // '文章评论审核'
 	'founder_notidyusers_verifyfield'	=> 'Certification li&#233;e &#224; v&#233;rifier', // '认证相关审核'
 
+	'founder_patchstatus_0'		=> 'Not fixed',//'未修复',
+	'founder_patchstatus_1'		=> 'Fixed',//'完成修复',
+	'founder_patchstatus_2'		=> 'The file is possibe modified, did not find the vulnerability',//'文件可能已经修改过，未发现漏洞',
+	'founder_patchstatus_error1'	=> 'Security patch code is empty, your local patch information and data possible have a problem',//'安全补丁编码为空，您本地的补丁信息数据可能出现问题',
+	'founder_patchstatus_error2'	=> 'Vulnerability patched file does not exist or can not be modified, check and modify the file permissions to read/write (777)',//'漏洞修补文件不存在或文件不可修改，请检查并修改权限为可读可写(777)',
+	'founder_patchstatus_error3'	=> 'Write to the temporary file failed, check the data directory is writable',//'写入临时文件出错，请查看data目录是否可写',
+	'founder_patchstatus_error4'	=> 'FTP mode can not be used, Make sure the FTP account information is correct',//'ftp方式无法使用，请确认ftp账号等相关信息填写正确',
+	'founder_patchstatus_error5'	=> 'Copy files problem. Make sure the source code directories, subdirectories and files are readable and writable, or files may be locked. Please close the site after the operation',//'复制文件出现问题，请确认源代码文件目录及子目录可读可写，或文件可能被锁，请关闭站点后进行操作',
+	'founder_patchstatus_error6'	=> 'Fix the vulnerability have problems, or rollback have problems. As soon as possible restore files, the file backup can be found in the same directory',//'修复漏洞出现问题，回退时出现问题，请尽快恢复文件，文件备份可在同级目录找到',
+	'founder_patch_tips'		=> '<li>Bug fix status description：</li>
+				<li>
+					<em class="fixed">&nbsp;2</em> The file is possibe modified, did not find the vulnerability<br />
+					<em class="fixed">&nbsp;1</em> Fixed<br />
+					<em class="unfixed">&nbsp;0</em> Not fixed<br />
+					<em class="unfixed">-1</em> Security patch code is empty, your local patch information and data possible have a problem<br />
+					<em class="unfixed">-2</em> Vulnerability patched file does not exist or can not be modified, check and modify the file permissions to read/write (777)<br />
+					<em class="unfixed">-3</em> Write to the temporary file failed, check the data directory is writable<br />
+					<em class="unfixed">-4</em> FTP mode can not be used, Make sure the FTP account information is correct<br />
+					<em class="unfixed">-5</em> Copy files problem. Make sure the source code directories, subdirectories and files are readable and writable, or files may be locked. Please close the site after the operation<br />
+					<em class="unfixed">-6</em> Fix the vulnerability have problems, or rollback have problems. As soon as possible restore files, the file backup can be found in the same directory
+				</li>',
+
 	'usergroups'		=> 'Groupe Utilisateurs', // '用户组'
 	'usergroups_system_0'	=> 'Usagers ordinaires', // '普通用户'
 	'usergroups_system_1'	=> 'Administrateur', // '管理员'
@@ -3370,6 +3705,8 @@ $lang = array
 	'usergroups_edit_basic_blog_comment'		=> 'D&#233;finissez d\'autoriser ou non l\'article Ajouter une collection personnelle d\'essais, ainsi pour les autres pour visualiser', // '设置是否允许把文章加入个人的文集中, 从而供他人浏览'
 	'usergroups_edit_basic_cstatus'			=> 'Autoriser titre personnalis&#233;', // '允许自定义头衔'
 	'usergroups_edit_basic_cstatus_comment'		=> 'D&#233;finissez si pour permettre aux utilisateurs de d&#233;finir leur propre nom et le titre appara&#238;t dans le poste', // '设置是否允许用户设置自己的头衔名字并在帖子中显示'
+	'usergroups_edit_basic_hour_threads'		=> 'Threads per hour limit',//'会员每小时发主题数限制',
+	'usergroups_edit_basic_hour_threads_comment'	=> 'This setting allows the maximum number of published threads per hour. Used for prevent a spam by limiting the bulk postings. The range is 1...255. Set to 0 for no restrictions. This feature will slightly increase the server loading, and is not used for guests',//'设置允许会员每小时最多的发主题数量，可以配合灌水预防功能进一步限制会员的发帖，可设置为 1～255 范围内的数值，0 为不限制。此功能会轻微加重服务器负担，且对游客无效',
 	'usergroups_edit_basic_hour_posts'		=> 'Membres Messages limite par heure', // '会员每小时发帖数限制'
 	'usergroups_edit_basic_hour_posts_comment'	=> 'Permettre aux Membres de mettre en place un certain nombre de messages par heure, peut fonctionner avec d\'irrigation spam pour &#233;viter de restreindre davantage les Membres du poste, peut &#234;tre r&#233;gl&#233; dans la fourchette de 1 &#224; 255 valeurs, 0 pour aucune limite. Cette fonctionnalit&#233; va l&#233;g&#232;rement augmenter la charge sur le serveur, et les touristes invalides', // '设置允许会员每小时最多的发帖数量, 可以配合灌水预防功能进一步限制会员的发帖, 可设置为 1～255 范围内的数值, 0 为不限制.此功能会轻微加重服务器负担, 且对游客无效'
 	'usergroups_edit_basic_disable_periodctrl'	=> 'Sans limite de temps', // '不受时间段限制'
@@ -3385,9 +3722,13 @@ $lang = array
 	'usergroups_edit_basic_allow_stat'		=> 'Vous permet de visualiser les Stats. tendance &#233;volutive', // '允许查看趋势统计'
 	'usergroups_edit_basic_allow_statdata'		=> 'Vous permet de visualiser les Stats. du site', // '允许查看站点统计'
 	'usergroups_edit_basic_domain_length'		=> 'De deux courts de longueur du nom de domaine', // '二级域名最短长度'
-	'usergroups_edit_basic_domain_length_comment'	=> '0 pour d&#233;sactiver les noms de domaine de deuxi&#232;me niveau, les noms de domaine sur le site sur deux efficaces', // '0为禁止使用二级域名, 在站点开启二级域名时有效'
+	'usergroups_edit_basic_domain_length_comment'	=> '0 pour d&#233;sactiver les noms de domaine de deuxi&#232;me niveau, 2~15 les noms de domaine sur le site sur deux efficaces', // '0为禁止使用二级域名, 在站点开启二级域名时有效'
 	'usergroups_edit_basic_intro_length'		=> 'D&#233;crit la longueur maximale du type de texte', // '介绍类文字最大长度'
 	'usergroups_edit_basic_intro_length_comment'	=> 'Octets (unit&#233;s), 0 sans aucune limite', // '字节(单位), 0不限制'
+	'usergroups_edit_basic_allowcreatecollection'		=> 'Allowed number of collections',//'允许用户创建淘专辑的数量',
+	'usergroups_edit_basic_allowcreatecollection_comment'	=> 'Set to "0" for disable collection creating',//'“0”表示不允许创建淘专辑',
+	'usergroups_edit_basic_allowfollowcollection'		=> 'Maximum number of followed collections',//'最多允许关注淘专辑的数量',
+	'usergroups_edit_basic_allowfollowcollection_comment'	=> 'Allow users to follow only this limited number of collections',//'允许用户最多关注淘专辑的数量',
 
 	'usergroups_edit_system'	=> 'Syst&#232;me de Groupe Utilisateurs', // '用户组体制'
 	'usergroups_edit_system_tips'	=> '<li><b><u>Groupe Utilisateurs non-publique</u></b><br />Lorsque le Groupe Utilisateurs est r&#233;gl&#233; sur "Groupe Utilisateurs non-public", ind&#233;pendamment de la forme est le principaux Groupes d\'Utilisateurs, Groupe Utilisateurs ou de d&#233;velopper la forme, tous les Utilisateurs manuellement par l\'Administrateur n\'a rejoint le Groupe.</li><li><b><u>Groupe Utilisateurs public</u></b><br />Lorsque le Groupe Utilisateurs est r&#233;gl&#233; sur "Groupe Utilisateurs public", et le Groupe de cet Utilisateur Utilisateur actuel est autoris&#233; &#224; rejoindre / quitter le Groupe Utilisateurs public, cet Utilisateur sera en mesure de fixer centre personnel de ce Groupe d\'&#233;tendre son principal Groupe Utilisateurs ou Groupe Utilisateurs lors Groupe Utilisateurs bas&#233;es sur des ensembles, l\'autorit&#233; comp&#233;tente suivra les permissions du Groupe Utilisateurs; Lorsqu\'il est r&#233;gl&#233; &#224; &#233;largir le Groupe Utilisateurs, sera en mesure d\'acc&#233;der &#224; des Groupes sp&#233;cifiques d\'Utilisateurs ne peuvent acc&#233;der &#224; ce forum le forum.</li><li><b>Payant Groupe Utilisateurs public</b>: <br />Vous pouvez choisir d\'obliger les Utilisateurs &#224; payer un des points de transaction pour rejoindre le Groupe, le nombre de points pay&#233;s par les usagers de la transaction, le syst&#232;me d&#233;termine les permissions du Groupe pour permettre au propri&#233;taire de ce laps de temps vous pouvez r&#233;gler cet Utilisateur dispose des autorisations &#224; ce Groupe un jour, &#224; payer au montant de la transaction de points. plus de l\'achat de la p&#233;riode correspondante, le syst&#232;me va automatiquement supprimer les attributs de cet Utilisateur Groupe Utilisateurs.</li><li><b>Gratuit Groupe Utilisateurs publics</b>: <br />Les Utilisateurs choisissent simplement les diff&#233;rents centres ont rejoint le Groupe Utilisateur, vous pouvez avoir le Groupe Utilisateurs et le titre, sans avoir &#224; payer n\'importe quel prix.</li>', // '<li><b><u>非公众用户组</u></b><br />当用户组设置为“非公众用户组”时, 无论是以主用户组的形式, 还是以扩展用户组的形式, 均只能由管理员手工将用户加入本组.</li><li><b><u>公众用户组</u></b><br />当本用户组设置为“公众用户组”, 且用户当前所在的用户组被允许加入/离开公众用户组时, 用户将可以在个人中心将本组设置为其主用户组或扩展用户组.当设为主用户组后, 相关权限将遵循本用户组的权限设定;当设为扩展用户组后, 将能访问特定的只有本用户组能够访问的论坛版块.</li><li><b>收费公众用户组</b>: <br />你可以选择要求用户支付一定的交易积分才能加入本组, 用户支付的交易积分多少, 决定了系统允许其拥有本组权限时间的长短.你可以设定用户拥有本组权限一天, 所需支付的交易积分的数额.超过用户购买的相应期限后, 系统会自动去除该用户相关的用户组属性.</li><li><b>免费公众用户组</b>: <br />用户只需在个人中心选择加入本用户组, 即可拥有本用户组的权限和头衔, 而不需要付出任何代价.</li>'
@@ -3495,13 +3836,18 @@ $lang = array
 	'usergroups_edit_post_allowcommentpost_reply'		=> 'Commentaire R&#233;pondre', // '点评回复'
 	'usergroups_edit_post_allowcommentreply'		=> 'Propri&#233;taires &#233;tage', //  '楼层回复点评'
 	'usergroups_edit_post_allowcommentreply_comment'	=> 'Autoriser &#224; cet Utilisateur de ce poste en cliquant sur "R&#233;pondre" r&#233;ponses R&#233;pondre lien &#224; d\'autres, les critiques auto-g&#233;n&#233;r&#233;s sur le plancher<br />Remarque: seuls les <a href="?action=setting&operation=functions&anchor=comment">Globale - les caract&#233;ristiques du site - Messages Commentaires</a> Fonction de r&#233;ponse &#224; l\'&#233;tage ouvert, ce param&#232;tre prenne effet; cliquez sur le th&#232;me de la "r&#233;ponse" lien sur le sujet n\'ont pas Commentaires', // '允许用户通过点击帖子中的“回复”链接回复他人回帖时, 自动对该楼层产生点评<br />注意：只有在 <a href="?action=setting&operation=functions&anchor=comment">全局 - 站点功能 - 帖子点评</a> 中开启楼层回复功能, 本设置才会生效;点击主题中的“回复”链接, 不会对主题产生点评'
+	'usergroups_edit_post_allowat'			=> 'Number of @name used',//'发帖时可 @ 其他人的数量',
+	'usergroups_edit_post_allowat_comment'		=> 'Set to 0 for disable using of @name (including the followings and friends)',//'0为不允许 @ 其他人（包括他关注的人和他的好友）',
 	'usergroups_edit_post_allowcommentitem'		=> 'Permet aux Utilisateurs d\'exprimer leurs opinions dans le commentaire', // '允许用户在点评时发表观点'
 	'usergroups_edit_post_allowcommentitem_comment'	=> 'Permet aux Utilisateurs d\'exprimer leurs opinions dans le commentaire<br />Remarque: seuls les <a href="?action=setting&operation=functions&anchor=comment">Globale - les caract&#233;ristiques du site - Messages Commentaires</a> Commentaires sur la fonction directe de ce param&#232;tre prenne effet', // '允许用户在点评时发表观点<br />注意：只有在 <a href="?action=setting&operation=functions&anchor=comment">全局 - 站点功能 - 帖子点评</a> 中开启直接点评功能, 本设置才会生效'
 	'usergroups_edit_post_allow_down_remote_img'	=> 'Autoriser de t&#233;l&#233;charger des images &#224; distance', // '允许下载远程图片'
 	'usergroups_edit_post_allow_down_remote_img_comment'	=> 'Enregistrer l\'image de localisation &#224; distance', // '远程图片本地化保存'
 	'usergroups_edit_post_allowreplycredit'		=> 'R&#233;ponses accorder d\'incitations', //  '允许设置回帖奖励'
 	'usergroups_edit_post_allowreplycredit_comment'	=> 'Permet &#224; cet Utilisateur de lib&#233;rer un certain th&#232;me pour donner de l\'expansion des r&#233;ponses sont des points de r&#233;compense. Points de bonus dans la r&#233;ponses par d&#233;faut<a href="?action=setting&operation=credits">Global - Cr&#233;dits n\'a aucune incidence</a>pr&#233;cis&#233;', // '允许用户在发布主题时给予回帖者一定的扩展积分奖励.回帖奖励默认积分可在<a href="?action=setting&operation=credits">全局 - 积分设置</a>指定'
-
+	'usergroups_edit_post_allowsetpublishdate'		=> 'Allow to set the publish time',//'允许设置预发帖时间',
+	'usergroups_edit_post_allowsetpublishdate_comment'	=> 'Allow users to set the specified post time when publishing of thread. It can be set only in every half hour (such as 13:00 or 13:30) for automatically published.',//'允许用户在发布主题时设置指定的发帖时间。只能设置在每半小时（如 13:00 或 13:30）自动发布。',
+	'usergroups_edit_post_allowcommentcollection'		=> 'Allow collection comments',//'允许评论淘专辑',
+	'usergroups_edit_post_allowcommentcollection_comment'	=> 'Allow users to comment threads in collections.',//'允许用户在主题和淘专辑页面进行评论。',
 	'usergroups_edit_attach'		=> 'Pi&#232;ce jointe li&#233;es', // '附件相关'
 	'usergroups_edit_attach_get'		=> 'Autoris&#233;s &#224; t&#233;l&#233;charger Pi&#232;ce jointe', // '允许下载附件'
 	'usergroups_edit_attach_get_comment'	=> 'n\'a aucune incidence d\'autoriser ou non des privil&#232;ges sp&#233;ciaux dans le forum n\'est pas configur&#233; pour t&#233;l&#233;charger Pi&#232;ce jointe', // '设置是否允许在没有设置特殊权限的论坛中下载附件'
@@ -3553,6 +3899,8 @@ $lang = array
 	'usergroups_edit_pm'			=> 'Les messages li&#233;s', //  '消息相关'
 	'usergroups_edit_pm_sendallpm'		=> 'quiconque peut envoyer MP', // '是否可以给任何人发短消息'
 	'usergroups_edit_pm_sendallpm_comment'	=> 'Choisissez Non, puis, quand l\'autre est configur&#233; pour n\'accepter que ami un court message, ne sera pas en mesure d\'envoyer de courts messages', //  '选择否的话, 当对方设置为只接受好友短消息, 将无法对其发送短消息'
+	'usergroups_edit_pm_sendpmmaxnum'		=> 'Maximum number of PM per 24 hours',//'24小时内发布短消息最大数',
+	'usergroups_edit_pm_sendpmmaxnum_comment'	=> 'Set the maximum number of published short messages for the user group within 24 hours. It is effective for prevent bulk PM spamming. Set to 0 for no restriction.',//'设置该用户组用户24小时内发布短消息的最大数，有效的控制短消息发布广告的情况, 0为不限制',
 
 	'usergroups_edit_credit'		=> 'Cr&#233;dits li&#233;s', // '积分相关'
 	'usergroups_edit_credit_allowrate'	=> 'Admis &#224; participer au Score', // '允许参与评分'
@@ -3618,6 +3966,8 @@ $lang = array
 	'groups_search_result'		=> 'Recherche totale<strong> {groupnum} </strong>Groupes correspondants', // '共搜索到<strong> {groupnum} </strong>个符合条件的群组'
 	'groups_setting_basic'		=> 'R&#233;glages de base', // '基本设置'
 	'groups_setting_basic_status'	=> 'Fonction de groupe est activ&#233;', // '是否开启群组功能'
+	'groups_setting_basic_mod'		=> 'Premoderate new groups',//'审核新群组',
+	'groups_setting_basic_mod_comment'	=> 'If Administrator need to audit new created groups',//'管理员建立群组时不需要审核',
 	'groups_setting_basic_iconsize'	=> 'Taille du groupe fichier d\'ic&#244;ne (dans: Kio)', // '群组图标文件大小(单位：KB)'
 	'groups_setting_basic_iconsize_comment'	=> 'D&#233;finissez la taille maximale du fichier ic&#244;ne du groupe, 0 ou laissez vide pour ne pas limiter', // '设置群组图标文件的最大尺寸, 0 或留空为不限制'
 	'groups_setting_basic_recommend'	=> 'Groupe a recommand&#233;', // '推荐群组'
@@ -3658,6 +4008,9 @@ $lang = array
 	'groups_editgroup_icon'		=> 'Ic&#244;ne de groupe', // '群组图标'
 	'groups_editgroup_banner'	=> 'Haut de la photo', // '顶部图片'
 	'groups_mergegroup_id'		=> 'Svp. remplir dans l\'ID groupe cible', // '请填写目标群组ID'
+	'group_mod_wait'			=> 'Pending groups',//'待审核的群组',
+	'group_mod_description'			=> 'Description',//'简介',
+	'group_mod_delconfirm'			=> 'Confirm you want to delete the selected groups?',//'确认要删除选中的群组吗？',
 
 	'threads'			=> 'Sujets Gestion des lots', // '批量主题管理'
 	'threads_tips'			=> '<li>Th&#232;me par la gestion des lots, vous pouvez rechercher des rubriques &#224; supprimer en vrac, se d&#233;placer, la classification / annuler classement, suppression, Haut / Annuler top, ensemble / annuler l\'essentiel de l\'ouverture / Fermeture et supprimer la pi&#232;ce jointe le sujet et d\'autres op&#233;rations;</li><li>Svp. Rechercher dans les conditions du th&#232;me, puis Choisissez l\'action appropri&#233;e.</li>', // '<li>通过批量主题管理, 你可以对搜索到的主题进行批量删除、移动、分类/取消分类、删除、置顶/取消置顶、设置/取消精华、打开/关闭以及删除主题中的附件等操作;</li><li>请先根据条件搜索主题, 然后选择相应的操作.</li>'
@@ -3790,6 +4143,7 @@ $lang = array
 
 	'specialuser_defaultuser'	=> 'Recommander &#224; un Ami', //'推荐好友' 
 	'specialuser_defaultuser_tips'	=> '<li>Ce qui suit est une liste d\'Ami recommand&#233;, n\'a pas ajout&#233; &#233;tait vide. Vous pouvez ajouter des Amis.</li><li>Plus la valeur des recommandations prioritaires, plus la priorit&#233;.</li>', // '<li>以下为推荐好友列表, 没添加则为空.可添加好友.</li><li>推荐优先级的数值越小, 优先级越高.</li>'
+	'specialuser_follow_tips'		=> '<li>The following is recommended to follow users</li><li>The smaller priority value means the higher recommended priority.</li>',//'<li>以下为推荐关注用户列表</li><li>推荐优先级的数值越小，优先级越高。</li>',
 	'specialuser_defaultuser_add_tips'	=> '<li>Raisons d\'&#234;tre &#224; la fois le Identifiant et &#224; remplir.</li><li>Ajout&#233; cet Utilisateur ne peut pas ajouter en double.</li>', // '<li>用户名和原因需同时填写.</li><li>已添加的用户不可重复添加.</li>'
 	'specialuser_hotuser'		=> 'Vedette Membres', // '明星会员'
 	'specialuser_hotuser_tips'	=> '<li>Ce qui suit est une liste d\'&#233;toiles Membres, aucune recommandation n\'a &#233;t&#233; vide. Vous pouvez ajouter recommand&#233;e..</li><li>Plus la valeur des recommandations prioritaires, plus la priorit&#233;.</li>', // '<li>以下为明星会员列表, 没推荐则为空.可添加推荐.</li><li>推荐优先级的数值越小, 优先级越高.</li>'
@@ -4130,6 +4484,7 @@ $lang = array
 	'moderate_merge'	=> 'Fusionner les sujets', // '合并主题'
 	'moderate_bump'		=> 'Am&#233;liorer le th&#232;me', // '提升主题'
 	'moderate_repair'	=> 'R&#233;paration des sujets', // '修复主题'
+	'moderate_t_comment'		=> 'Microblog Comments',//'微博评论',
 
 	'recyclebin'		=> 'Corbeille', // '回收站'
 	'recyclebin_list'	=> 'Liste de th&#232;mes', // '主题列表'
@@ -4181,6 +4536,7 @@ $lang = array
 	'recyclebinpost_clean_days_comment'	=> 'Supprimer tous les 0', // '0 为清空全部'
 	'recyclebinpost_none'		=> 'Les r&#233;ponses peuvent &#234;tre blanchi sans', // '没有可清空的回帖'
 	'recyclebinpost_succeed'	=> 'R&#233;ponses Corbeille Maj. est r&#233;ussie, un total de {postsdel} Th&#232;me est supprim&#233;, {postsundel} Sujets d\'&#234;tre restaur&#233;', // '回帖回收站更新成功, 共 {postsdel} 个主题被删除, {postsundel} 个主题被恢复'
+	'recyclebinpost_clean_next'		=> 'Post Recycle Bin updated, Removed {postsdel} posts. The program will automatically continue',//'回帖回收站更新，已经删除 {postsdel} 个回帖，程序将自动继续',
 
 	'isanonymous'	=> 'Presse Anonymat', // '匿名发布'
 	'ishtmlon'	=> 'Soutien html', //  '支持html'
@@ -4222,6 +4578,8 @@ $lang = array
 	'misc_link_edit_description'	=> 'Texte (facultatif)', // '文字说明(可选)'
 	'misc_link_edit_logo'		=> 'logo Adresse (facultative)', // 'logo 地址(可选)'
 	'misc_relatedlink'		=> 'Liens connexes', // '关联链接'
+	'misc_relatedlink_status'		=> 'SEO compatibility mode',//'SEO兼容模式',
+	'misc_relatedlink_status_comment'	=> 'Note: Turning on is good for search engines. However, the server will cause additional pressure to the server',//'注意：开启后对搜索引擎有好处，但会对服务器造成压力',
 	'misc_relatedlink_add'		=> 'Ajouter des liens connexes', // '添加关联链接'
 	'misc_relatedlink_tips'		=> '<li>Surviennent dans un intervalle sp&#233;cifi&#233; de texte ajoutent automatiquement des liens.</li>', // '<li>在指定范围内出现的相关文字自动加上链接.</li>'
 	'misc_relatedlink_edit'		=> 'Associ&#233; au lien modifier', // '关联链接编辑'
@@ -4354,7 +4712,6 @@ $lang = array
 	'smilies_import'	=> 'sur l\'expression', // '导入表情'
 	'smilies_tips'		=> '<li>Svp. t&#233;l&#233;charger une image le visage d\'ajouter l\'expression &#224; l\'expression de l\'annuaire correspondant(static/image/smiley/expression des mati&#232;res/).</li><li>Expression num&#233;rique ne permet que le nom du fichier image, les 26 lettres en anglais, soulignement, espaces, et la demi-largeur<>-.&[]() Symboles, la longueur du nom de fichier ne peut pas d&#233;passer 30 octets, sinon il ne reconna&#238;tra pas.</li><li>Ne pas d&#233;finir l\'expression trop, afin de ne pas prendre les ressources du serveur trop grand.</li>', // '<li>添加表情请上传表情图片到相应的表情目录中(static/image/smiley/表情目录/).</li><li>表情图片文件名只允许数字、26 个英文字母、下划线、半角空格及 <>-.&[]() 等符号, 文件名长度不能超过 30 字节, 否则将会无法识别.</li><li>请不要设置过多的表情, 以免占用过多的服务器资源.</li>'
 	'smilies_tips_smileytypes'	=> '<li>L\'expression des visages des informations classifi&#233;es et l\'exportation de l\'expression contient des informations de code, Svp. le fichier image du visage par t&#233;l&#233;chargement FTP.</li><li>Svp. ne permettent pas l\'expression &#224; la fois trop grand classification et de contr&#244;le de l\'expression de la longueur du nom cat&#233;gorie, afin de ne pas faire face &#224; la fen&#234;tre affiche toutes les expressions ne peuvent pas &#234;tre compl&#232;tement de classification.</li><li>Vous pouvez d&#233;finir le style par d&#233;faut l\'affichage de classification de classification premi&#232;re expression d\'interface de suppression pour supprimer l\'expression de toutes les expressions de la classification.</li>', // '<li>表情导出包含表情分类信息及表情代码信息, 表情图片文件请通过 FTP 下载.</li><li>请不要同时启用过多的表情分类, 并控制好表情分类的名称长度, 以免表情窗口无法完全显示所有表情分类.</li><li>你可以在界面风格中设置默认显示的表情分类.删除表情分类请先删除该分类下所有表情.</li>'
-	'smilies_tips_import'	=> '<li>L\'expression du visage apr&#232;s l\'importation des fichiers d\'image &#224; &#234;tre transf&#233;r&#233; &#224; l\'expression appropri&#233;e de l\'annuaire(static/image/smiley/expression des mati&#232;res/).</li>', // '<li>表情导入后需要上传表情图片文件到相应的表情目录(static/image/smiley/表情目录/).</li>'
 	'smiliesupload_tips'	=> 'Vous ne trouvez pas l\'expression non utilis&#233; de classification, vous pouvezdans le FTP  static/image/smiley/ de classification d\'expression cr&#233;&#233; dans le r&#233;pertoire et de t&#233;l&#233;charger des &#233;motic&#244;nes, puis actualisez cette page. Noms Expression de classification r&#233;pertoire uniquement des chiffres, des lettres et ont soulign&#233; 26', // '没有找到尚未使用的表情分类, 你可以通过 FTP 在 static/image/smiley/ 目录中创建表情分类目录并上传表情图片, 然后刷新本页.表情分类目录名只允许数字、26 个英文字母及下划线'
 
 	'click'			=> 'Situation de Gestion', // '表态管理'
@@ -4415,28 +4772,12 @@ $lang = array
 	'faq_additem'		=> 'Ajouter de nouvelles rubriques d\'aide', // '添加新帮助主题'
 	'faq_addcat'		=> 'Ajouter une nouvelle cat&#233;gorie d\'aide', // '添加新帮助分类'
 
-	'addons'		=> 'Centre Addons Extensions ', // '扩展中心'
-	'addons_tips'		=> '<ul><li>Centre expans&#233; offrira divers types d\'affichages par les fournisseurs de ressources Discuz! Plug-in, le style et l\'expansion des ressources</li><li>Plaintes fournisseur de ressources<a href="http://addons.discuz.com/contact">Cliquez ici</a></li></ul>', // '<ul><li>扩展中心将显示由资源提供商提供各类 Discuz! 插件、风格等扩展资源</li><li>资源提供商投诉<a href="http://addons.discuz.com/contact">请点击这里</a></li></ul>'
-	'addons_plugin'		=> 'Plug-in Liste', // '插件列表'
-	'addons_list'		=> 'Les fournisseurs de ressources', // '资源提供商'
-	'addons_provider_key'	=> 'ID de fournisseur de ressources', // '资源提供商 ID'
-	'addons_add_input'	=> 'Ajouter manuellement', // '手动添加'
-	'addons_provider_listinvalid'	=> 'Fournisseur de ressources n\'a pas pu obtenir la liste, Svp. r&#233;essayer plus tard ou ajouter manuellement', // '资源提供商列表获取失败, 请稍后再试或者手动添加'
-	'addons_provider_key_comment'	=> 'Svp. remplir Autorisation officielle de l\'ID du fournisseur de ressources', // '请填写官方授权的资源提供商 ID'
-	'addons_charset'	=> 'Code de langue:', // '语言编码：'
-	'addons_greenplugin'	=> 'Plug-in d\'identification Green vert', // '绿色插件标识'
-	'addons_recommend'	=> 'Ressources recommand&#233;es pour les fournisseurs', // '推荐的资源提供商'
-	'addons_provider'	=> 'Fournisseur de ressources:', // '资源提供商：'
-	'addons_contact'	=> 'Contact:', // '联系方式：'
-	'addons_search'		=> 'Ressources Recherche', // '搜索资源'
-	'addons_bbsapp'		=> 'Communaut&#233; App Store', // '社区应用商店'
-	'addons_delete_confirm'	=> 'Etes-vous s&#251;r de vouloir supprimer ce fournisseur de ressources?', // '你确定要删除此资源提供商吗？'
-
 	'plugins'		=> 'Plug-in de configuration', // '插件配置'
 	'plugins_home'		=> 'Pr&#233;sentation', // '介绍'
 	'plugins_editlink'	=> 'Conception', // '设计'
 	'plugins_validator'	=> 'V&#233;rifiez les M&#224;j.', // '检查更新'
 	'plugins_list'		=> 'Plug-in Liste', // '插件列表'
+	'plugins_system'		=> 'System plug-ins',//'系统插件',
 	'plugins_install'	=> 'Installez un New Plug-in', // '安装新插件'
 	'plugins_newcomment'	=> 'Les plug-ins suivants r&#233;pertoire source/plugin/ Le plug-in n\'est pas install&#233; sous', // '以下为插件目录 source/plugin/ 下未安装的插件'
 	'plugins_menu'		=> 'Plugin', // 'Plugin'
@@ -4564,6 +4905,12 @@ $lang = array
 	'plugins_import_pass'		=> 'Pas Accepter', // '我不同意'
 	'plugins_conflict_view'		=> 'Voir les D&#233;tails', // '查看细节'
 	'plugins_conflict_info'		=> 'Contactez Auteur', // '联系作者'
+	'plugins_module_sample'			=> '<span title="Download the module template file">[&darr;]</span>',//'<span title="下载模块模板文件">[&darr;]</span>',
+	'plugins_find_newversion'		=> 'Found new version',//'发现新版',
+	'plugins_online_update'			=> 'Click for new version online install',//'点击在线安装新版',
+	'plugins_list_available'		=> 'Available plug-ins',//'已启用的插件',
+	'plugins_list_unavailable'		=> 'Unavailable plug-ins',//'未启用的插件',
+	'plugins_list_new'			=> 'Not installed plug-ins',//'未安装的插件',
 
 	'medals'		=> 'M&#233;daille', // '勋章'
 	'medals_tips'		=> '<li>Cette fonctionnalit&#233; peut &#234;tre utilis&#233;e pour fixer les m&#233;dailles &#224; l\'information des usagers, Svp. compl&#233;ter le tableau la m&#233;daille au nom de fichier image, et de t&#233;l&#233;charger des fichiers &#224; l\'image correspondante static/image/common/ du r&#233;pertoire.</li>', // '<li>本功能用于设置可以颁发给用户的勋章信息, 勋章图片中请填写图片文件名, 并将相应图片文件上传到 static/image/common/ 目录中.</li>'
@@ -4579,6 +4926,7 @@ $lang = array
 	'medals_apply_auto'	=> 'Application Utilisateur &#233;mis automatiquement', // '用户申请自动颁发'
 	'medals_adminadd'	=> 'D&#233;verrouillage Manuel', // '手动发放'
 	'modals_moderate'	=> 'Manuel d\'examen', // '人工审核'
+	'medals_buy'		=> 'Users purchased',//'用户购买',
 	'medals_apply_noauto'	=> 'Les applications des Utilisateurs ne sont pas automatiquement d&#233;livr&#233;s', // '用户申请不自动颁发'
 	'medals_addnew'		=> 'Ajouter une New M&#233;daille', // '添加新勋章'
 	'medals_forever'	=> 'permanent', // '永久有效'
@@ -4602,6 +4950,8 @@ $lang = array
 	'medals_modpass'	=> 'par', // '通过'
 	'medals_modnopass'	=> 'opposer son veto', // '否决'
 	'medals_permformula'	=> 'Lorsque vous d&#233;finissez l\'expression des droits, seulement en ligne avec cette expression de ses membres peuvent recevoir la m&#233;daille, comme "posts > 100 and extcredits1 > 10" express "Nombres de Messages > 100 et le prestige > 10"<br />Format de date "{Y-M-D}", Comme "{2009-10-1}".IP format "{x.x.x.x}",Peut entrer l\'adresse compl&#232;te, entrez l\'adresse IP peut &#234;tre que le d&#233;but, comme "{10.0.0.1}"、"{192.168.0}"', // '当你设定了权限表达式后, 只有符合此表达式的会员才可以领取本勋章.如 "posts > 100 and extcredits1 > 10" 表示 "发帖数 > 100 并且 威望 > 10"<br />日期格式 "{Y-M-D}", 如 "{2009-10-1}".IP 格式 "{x.x.x.x}", 既可输入完整地址, 也可只输入 IP 开头, 如 "{10.0.0.1}"、"{192.168.0}"'
+	'medals_credit'			=> 'Credit',//'积分',
+	'medals_price'			=> 'Price',//'价格',
 
 	'card'			=> 'Secr&#232;te carte pr&#233;pay&#233;e', // '充值卡密'
 	'card_make_tips'	=> '<li>g&#233;n&#233;r&#233;es lorsque la carte est secret, des r&#232;gles simples ou g&#233;n&#233;rer un plus petit nombre de feuilles qui pourraient entra&#238;ner g&#233;n&#233;r&#233;es actuelle est inf&#233;rieure au nombre pr&#233;d&#233;fini de feuilles g&#233;n&#233;r&#233;es le nombre de feuilles.</li>', // '<li>生成卡密时, 简单的规则或较小的生成张数可能导致实际生成张数小于预设生成张数.</li>'
@@ -4978,6 +5328,8 @@ $lang = array
 	'project_option_forum_picstyle'		=> 'Portent sur des Sujets', // '主题封面'
 	'project_option_forum_widthauto'	=> 'Par Defaut est panoramique', // '默认是否宽屏'
 	'project_option_forum_seodescription'	=> 'Description SEO', //  'SEO description'
+	'project_option_forum_showexif'			=> 'Show Images EXIF info​​',//'图片附件显示 EXIF',
+	'project_option_forum_disablecollect'		=> 'Disable Collections',//'禁止淘帖',
 
 	'project_option_group_readaccess'	=> 'Autorisations Cr&#233;dits', //  '阅读权限'
 	'project_option_group_allowvisit'	=> 'Permet l\'Acc&#232;s au forum', // '允许访问论坛'
@@ -5093,6 +5445,13 @@ $lang = array
 	'project_option_group_maximagesize'	=> 'Taille d\'image maximum pour permettre l\'album', // '相册中允许最大图片大小'
 	'project_option_group_allowgetimage'	=> 'Permet d\'afficher les photos', // '允许查看图片'
 	'project_option_group_allowposttag'	=> 'pour autoriser l\'utilisation de labels', // '允许使用标签'
+	'project_option_group_allowat'			=> 'Number of @username used',//'发帖时可 @ 其他人的数量',
+	'project_option_group_allowsendpmmaxnum'	=> 'Maximum number of PM per 24 hours',//'24小时内发布短消息最大数',
+	'project_option_group_allowsetpublishdate'	=> 'Allow to set the publish time',//'允许设置预发帖时间',
+	'project_option_group_allowfollowcollection'	=> 'Maximum number of followed collections',//'最多允许关注淘专辑的数量',
+	'project_option_group_allowcommentcollection'	=> 'Allow collection comments',//'允许评论淘专辑',
+	'project_option_group_allowcreatecollection'	=> 'Allowed number of collections',//'允许用户创建淘专辑的数量',
+	'project_option_group_maxthreadsperhour'	=> 'Threads per hour limit',//'会员每小时发主题数限制',
 
 	'extended'		=> 'Extension', // 'Extension'
 
@@ -5115,7 +5474,7 @@ $lang = array
 					<li>Cache des donn&#233;es: cache tout le site &#224; jour les donn&#233;es</li>
 					<li>Cache Mod&#232;le: Maj. de mod&#232;les de forum, le style et les fichiers cache, lorsque vous modifiez un mod&#232;le ou le style, mais il y a pas d\'effet imm&#233;diat lorsqu\'il est utilis&#233;</li>
 					<li>Cat&#233;gories BRICO Module m&#233;moire cache: Maj. BRICO bricolage module de classification, lorsque vous installez ou modifier une cat&#233;gorie de modules de bricolage DIY, mais ne prennent pas effet imm&#233;diatement masqu&#233;</li>
-					',
+				',
 
 	'tools_updatecache_data'	=> 'Cache de Donn&#233;es', // '数据缓存'
 	'tools_updatecache_tpl'		=> 'Cache de Template', // '模板缓存'
@@ -5139,6 +5498,15 @@ $lang = array
 	'filecheck_doubt'	=> 'Maj. d\'ici une semaine', // '一周内更新'
 	'filecheck_check_ok'	=> 'Corrects', // '正确'
 	'filecheck_status'	=> 'Statut', // '状态'
+
+	'hookcheck_start'		=> 'Start',//'开 始',
+	'hookcheck_verifying'		=> 'Hook check in progress, please wait...',//'正在进行嵌入点校验，请稍候......',
+	'hookcheck_tips_step1'		=> 'Embedded hook check is used for the Discuz! official release files, Click the button below to verify the {template}',//'嵌入点校验是针对 Discuz! 官方发布的文件为基础进行核对，点击下面按钮开始进行校验{template}',
+	'hookcheck_tips'		=> '<li>"<font color="red">Hook</font>" is used as a code "&lt;!--{hook/xxx}--&gt;" in template files. If a template file lost the hook code, this will cause the cloud services (Such as QQ groups, Tencent analysis) plug-ins can not be used normally.</li><li>If "<font color="red">Hook</font>" is missing, the template file need to use a comparison tool for compare the original file on the server with the corresponding template file, and the missing Hook code must be added</li>',//'<li>“<font color="red">嵌入点</font>”是模板文件中的“&lt;!--{hook/xxx}--&gt;”代码,模板文件丢失嵌入点代码会造成云服务（如QQ群、腾讯分析等）等插件无法正常使用</li><li>缺失“<font color="red">嵌入点</font>”的模板文件需要使用对比工具,对比原始文件和服务器上对应的模板文件进行对比,将丢失的嵌入点代码补充好</li>',
+	'hookcheck_completed'		=> 'Check results',//'校验结果',
+	'hookcheck_delete'		=> 'Lost hook files',//'丢失嵌入点的文件',
+	'hookcheck_discuzhook'		=> 'Original Hook',//'源文件嵌入点',
+	'hookcheck_delhook'		=> 'Lost Hook',//'丢失的嵌入点',
 
 	'imagepreview_imagesize_source'	=> 'La taille de l\'image originale', // '原图片大小'
 	'imagepreview_imagesize_target'	=> 'Taille de l\'image apr&#232;s le traitement', // '处理后图片大小'
@@ -5184,8 +5552,12 @@ $lang = array
 	'counter_friendnum'	=> 'Reconstruction de l\'espace Nombre d\'Amis', // '重建空间好友数'
 	'counter_album_picnum'	=> 'Album photo de reconstruction', // '重建相册图片数'
 	'counter_thread_cover'	=> 'Les sujets trait&#233;s couvrent la reconstruction', // '重建主题封面'
+	'counter_thread_cover_settime'	=> 'Thread Last Post Time Range',//'主题最后回复时间范围',
 	'counter_forumid'	=> 'Forum ID', //  '版块ID'
 	'counter_have_cover'	=> 'Couvrir des th&#232;mes ont inclus', // '包含已有封面主题'
+	'counter_tips'			=> '<li>The following data is not normal. You can use this function to update the data to correct state. Please try to avoid the peak time of members access</li>' . //'<li>当下列数据不正常时，可以使用此功能对数据进行更新校正。请尽量避开会员访问的高峰时间</li>
+					'<li>Each cycle update the number: Set the value in a reasonable range. Must be not too large, Otherwise it increase the server load pressure</li>',//<li>每个循环更新数量：数值请在一个合理范围，不要过大，否则会给服务器带来负载压力</li>',
+
 
 	'db'			=> 'Base de Donn&#233;es', // '数据库'
 	'db_export'		=> 'Sauvegarde des Donn&#233;es', // '数据备份'
@@ -5339,11 +5711,16 @@ $lang = array
 	'logs_credit_update_BGC'	=> 'Plant&#233; enveloppe rouge', // '埋下红包'
 	'logs_credit_update_RGC'	=> 'R&#233;cup&#233;ration des enveloppes rouges', // '回收红包'
 	'logs_credit_update_RKC'	=> 'Ppc Classement', // '竞价排名'
+	'logs_credit_update_BME'	=> 'Buy Medal',//'购买勋章',
+	'logs_credit_update_RPR'	=> 'Background points rewards and punishments',//'后台积分奖惩',
+	'logs_credit_update_RPZ'	=> 'Background points rewards and punishments clean',//'后台积分奖惩清零',
+	'logs_credit_update_reward_clean'	=> 'Clean',//'清零',
 	'logs_select_operation'		=> 'Svp. choisissez le type', // '请选择类型'
 	'logs_viewtype'		=> 'Voir Mode', // '查看方式'
 	'logs_credit_relatedid'	=> 'Pertinence ID', // '关联 ID'
 	'logs_task_id'		=> 'Mission ID', // '任务 ID'
 	'logs_magic_id'		=> 'Accessoires ID', // '道具 ID'
+	'logs_medal_id'			=> 'Medal ID',//'勋章 ID',
 	'logs_member_id'	=> 'Utilisateur ID', // '用户 ID'
 	'logs_usergroup_id'	=> 'Groupe Utilisateurs ID', // '用户组 ID'
 	'logs_thread_id'	=> 'Th&#232;me ID', // '主题 ID'
@@ -5356,11 +5733,29 @@ $lang = array
 	'logs_unlock'		=> 'D&#233;verrouiller', // '解锁'
 	'logs_select_ridtype'	=> 'Svp. choisir le type associ&#233; &#224; ID', // '请选择关联 ID 类型'
 
+	'crime_action'			=> 'Action',//'操作行为',
+	'crime_dateline'		=> 'Operate time',//'操作时间',
+	'crime_reason'			=> 'Moderatorial reason',//'操作理由',
+	'crime_operator'		=> 'Operator',//'操作者',
+	'crime_user'			=> 'Operation object',//'操作对象',
+	'crime_record'			=> 'Violation log',//'违规记录',
+	'crime_delpost'			=> 'Delete post',//'删除帖子',
+	'crime_warnpost'		=> 'Warn Post',//'警告帖子',
+	'crime_banpost'			=> 'Ban posts',//'屏蔽帖子',
+	'crime_banspeak'		=> 'R/O',//'禁止发言',
+	'crime_banvisit'		=> 'Disable access',//'禁止访问',
+	'crime_banstatus'		=> 'User ban',//'锁定用户',
+	'crime_avatar'			=> 'Remove Avatar',//'清除头像',
+	'crime_sightml'			=> 'Remove signature',//'清除签名',
+	'crime_customstatus'		=> 'Remove custom status',//'清除自定义头衔',
+	'crime_checkrecord'		=> 'View violation log',//'查看违规记录',
+
 	'adv'			=> 'Publicit&#233;s', // '广告'
 	'adv_admin'		=> 'Publicit&#233;s du Site', // '站点广告'
 	'adv_admin_setting'	=> 'Mise en place', // '设置'
 	'adv_admin_list'	=> 'Position Publicit&#233;s', // '广告位'
 	'adv_admin_listall'	=> 'Toutes les Publicit&#233;s', // '所有广告'
+	'adv_admin_discuzunion'		=> 'Discuz! Union',//'Discuz!联盟',
 
 	'adv_type_version'		=> 'Version du Module', // '模块版本'
 	'adv_type_headerbanner'		=> 'Banni&#232;res d\'en-t&#234;te', // '页头通栏广告'
@@ -5521,6 +5916,7 @@ $lang = array
 	'runwizard_particular'		=> 'Ensemble D&#233;taill&#233;', // 详细设置
 	'runwizard_database_backup'	=> 'Nous Vous Recommandons de Sauvegarder R&#233;guli&#232;rement les Donn&#233;es:', // '我们建议你定期备份数据：'
 
+	'upgrade_tips'			=> '<li><font color="red">Online upgrade, make sure you have backed up the program and database</font></li>',//'<li><font color="red">在线升级前，请确认您已经备份程序及数据库</font></li>',
 
 
 	'cplog_home'		=> 'Direction du Centre Accueil', // 管理中心首页
@@ -5656,6 +6052,7 @@ $lang = array
 	'cplog_tools_relatedtag'	=> 'Balise Agr&#233;gation', // '标签聚合'
 	'cplog_tools_fileperms'		=> 'V&#233;rifiez Permissions Fichier', // '文件权限检查'
 
+	'cplog_checktools_hookcheck'	=> 'Check Hooks',//'嵌入点校验',
 	'cplog_checktools_filecheck'	=> 'Somme de Contr&#244;le Cheksum de Fichiers', // '文件校验'
 	'cplog_checktools_ftpcheck'	=> 'D&#233;tection des Accessoires &#224; distance en s&#233;rie', //  '检测远程附件设置'
 	'cplog_checktools_mailcheck'	=> 'Testez les param&#232;tres de messagerie', // '检测邮件发送设置'
@@ -5807,9 +6204,16 @@ $lang = array
 	'portalcategory_viewpage'		=> 'Contenu Page Article', // 文章内容页
 	'portalcategory_inheritupsetting'	=> 'H&#233;riter des param&#232;tres plus &#233;lev&#233;s', // 继承上级设置
 	'diy_template_filename_invalid'		=> 'Nom du mod&#232;le DIY BRICO est incorrect', // 
+	'diy_tpldirectory_invalid'		=> 'DIY template directory is not correct',//'DIY模板目录不正确',
 	'diy_template_extension_invalid'	=> 'Extension Fichier Modèle est Incorrect', // 
 	'diy_template_noexist'			=> 'Modèle Fichiers Inexistants', // 
+	'diy_sign_invalid'			=> 'DIY template data validation error',//'DIY模板数据验证错误',
 
+	'portalpermission'			=> 'Portal permissions',//'权限列表',
+	'portalpermission_article'		=> 'Articles permissions',//'文章权限',
+	'portalpermission_template'		=> 'Page layout permissions',//'页面权限',
+	'portalpermission_block'		=> 'Block permission',//'模块权限',
+	'portalpermission_no_inherited'		=> 'Permissions are not inherited',//'非继承权限',
 
 	'blogcategory'			=> 'Classification Connexion', // 
 	'blogcategory_addcategory'	=> 'Ajout.une Cat&#233;gorie', // 
@@ -5865,6 +6269,7 @@ $lang = array
 	'blockstyle_add_urltitle'	=> 'Lien avec le titre', // 带链接的标题
 	'blockstyle_add_picthumb'	=> 'Peut g&#233;n&#233;rer des images miniatures', // 可生成缩略图的图片
 	'blockstyle_add_currentorder'	=> 'Donn&#233;es actuelles en vue', // 当前数据顺序
+	'blockstyle_add_moreurl'	=> 'More links',//'更多链接',
 	'blockstyle_add_parity'		=> 'Donn&#233;es actuelles sont en lignes impaires', // 当前数据是否在奇数行
 
 	'blockxml'		=> 'Modules Tiers', // 
@@ -6052,6 +6457,22 @@ $lang = array
 	'threadsplit_move_threads_per_time'	=> 'Chaque fois que le num&#233;ro du th&#232;me mobiles', // '每次移动主题数'
 	'threadsplit_move_threads_per_time_comment'	=> 'Recommander pas plus de 1000', // '建议不超过 1000'
 
+	'membersplit'				=> 'Optimize user table',//'用户表优化',
+	'membersplit_check'			=> 'Check now',//'立即体检',
+	'membersplit_lasttime_check'		=> 'Last checked',//'上次体检',
+	'membersplit_has_no_check'		=> 'Your website have never used the user table optimization, recommended for check immediately',//'您的网站从未进行过用户表优化，建议立即体检',
+	'membersplit_without_optimization'	=> 'The user table is good, no optimisation required',//'用户表良好，目前不用优化',
+	'membersplit_check_tips'		=> '<li>Using the user optimization can significantly improve the site performance.</li><li>Because of the physical examination operation is slow, the results of the physical examination is cached once per day</li>',//'<li>通过用户优化可以大幅度提高网站的性能。</li><li>因体检操作较慢，所以体检的结果会缓存一天的时间</li>',
+	'membersplit_tips'			=> '<li>Using the user optimization can significantly improve the site performance.</li><li>When the number of users is large, the optimizing can improve performance more than 30%, we strongly recommend to perform user table optimization</li><li>Depending on server performance, Appropriate adjustments to single-step optimization of the number.</li><li>It is recommended to close the site before optimization!</li>',//'<li>通过用户优化可以大幅度提高网站的性能。</li><li>当可优化用户数大于30%以上时，我们强烈建议进行用户表优化操作</li><li>请根据服务器性能，适当调整单步优化数。</li><li>建议在关闭站点下进行优化操作。</li>',
+	'membersplit_combie_count'		=> 'Can be optimized the number of users',//'可优化用户数',
+	'membersplit_splitnum'			=> 'Single-step optimized number',//'单步优化数',
+	'membersplit_count'			=> 'Total number of users',//'总用户数',
+	'membersplit_table_orig'		=> 'User table information',//'用户表信息',
+	'membersplit_message0'			=> 'User table in good condition, no optimization required',//'用户表状态良好，无可优化',
+	'membersplit_message10'			=> 'Recommended to optimize the user table',//'推荐优化用户表',
+	'membersplit_message100'		=> 'Is strongly recommended to optimize the user table',//'强烈建议优化用户表',
+	'membersplit_archive'			=> 'Optimize Now',//'立即优化',
+
 	'category_channel'		=> 'R&#233;glages de Base', // '基本设置'
 	'category_channel_config'	=> 'R&#233;glages de Base', // '基本设置'
 	'category_channel_open'		=> 'Est Actif', // '是否开启'
@@ -6064,17 +6485,17 @@ $lang = array
 	'category_area'		=> 'La Gestion Quartier', // '地区管理'
 	'category_counter'	=> 'Donn&#233;es Statistiques', // '统计数据'
 
-//	'category_channel'		=> 'R&#233;glages de Base', // '基本设置'
-//	'category_channel_config'	=> 'R&#233;glages de Base', // '基本设置'
-//	'category_channel_open'		=> 'Est Actif', // '是否开启'
-//	'category_channel_title'	=> 'Nom', // '名称'
-//	'category_channel_identifier'	=> 'Logo', // '标识'
-//	'category_channel_identifier_comment'	=> 'Comme un identificateur unique pour le module de changer, sinon n&#233;cessaire, de ne pas modifier', // '做为改模块的唯一标识, 如无必要请勿修改'
+//vot	'category_channel'		=> 'R&#233;glages de Base', // '基本设置'
+//vot	'category_channel_config'	=> 'R&#233;glages de Base', // '基本设置'
+//vot	'category_channel_open'		=> 'Est Actif', // '是否开启'
+//vot	'category_channel_title'	=> 'Nom', // '名称'
+//vot	'category_channel_identifier'	=> 'Logo', // '标识'
+//vot	'category_channel_identifier_comment'	=> 'Comme un identificateur unique pour le module de changer, sinon n&#233;cessaire, de ne pas modifier', // '做为改模块的唯一标识, 如无必要请勿修改'
 
-//	'category_option'	=> 'Gestion Options', // '选项管理'
-//	'category_sort'		=> 'Gestion Classement', // '分类管理'
-//	'category_area'		=> 'Gestion District', // '地区管理'
-//	'category_counter'	=> 'Donn&#233;es Stats.', // '统计数据'
+//vot	'category_option'	=> 'Gestion Options', // '选项管理'
+//vot	'category_sort'		=> 'Gestion Classement', // '分类管理'
+//vot	'category_area'		=> 'Gestion District', // '地区管理'
+//vot	'category_counter'	=> 'Donn&#233;es Stats.', // '统计数据'
 
 	'setting_manyou'	=> 'Manyou Mis en place', // 'Manyou 设置'
 	'setting_manyou_tips'	=> '<li>Itin&#233;rance sur sa Caract&#233;ristique, Les Utilisateurs peuvent choisir librement parmi une vari&#233;t&#233; d\'applications(Tels que la ferme heureuse, heureuse Manor, le poker Texas, la gloire de l\'h&#244;pital......)Pour une Utilisation dans la Station.</li>
@@ -6143,12 +6564,16 @@ $lang = array
 	'import_data_typeinvalid'	=> 'Erreur Type Donn&#233;es, Svp. revenir', // '数据类型错误, 请返回'
 
 	'cloudaddons_ftp_setting'	=> 'Site FTP settings',//'站点 FTP 设置',
-	'cloudaddons_unwriteabledirs'	=> 'Site {basedir} directory below the directory is not writable, can not install this application online, please fill out the site FTP connection parameters (this setting is not saved):<br />{unwriteabledirs}',//'站点 {basedir} 目录下的以下目录不可写，无法在线安装此应用，请填写本站点的 FTP 连接参数(本设置不会被保存):<br />{unwriteabledirs}',
-	'cloudaddons_plugin_link'	=> 'Get more plugins',//'获取更多插件',
+	'cloudaddons_unwriteabledirs'	=> 'The following directories uder the {basedir} directory are not writable, Can not install this application online, Please fill in the site FTP connection parameters (This setting will not be saved):<br />{unwriteabledirs}',//'站点 {basedir} 目录下的以下目录不可写，无法在线安装此应用，请填写本站点的 FTP 连接参数(本设置不会被保存):<br />{unwriteabledirs}',
+	'cloudaddons_plugin_link'	=> 'Get more plug-ins',//'获取更多插件',
 	'cloudaddons_style_link'	=> 'Get more styles',//'获取更多风格',
+	'cloudaddons_linkto'		=> 'View the Application Center',//'在应用中心中查看',
+	'plugins_validator_nowupgrade'	=> 'The following plug-ins can now be updated to the new version, click to install updates',//'以下插件现在可以更新为新版本，点击安装更新',
+	'plugins_validator_newversion'	=> 'The following plug-ins have new versions, click to install updates',//'以下插件存在新版本，点击安装更新',
+	'plugins_validator_error'	=> 'The following plug-ins are not original plug-ins, click to install original plug-ins',//'以下插件不是正版插件，点击安装正版插件',
 
 
-	'rewrite_message'		=> '<h1>Apache Web Serveur(Ind&#233;pendamment de cet Utilisateur h&#244;te)</h1>
+	'rewrite_message'	=> '<h1>Apache Web Serveur(Ind&#233;pendamment de cet Utilisateur h&#244;te)</h1>
 <pre class="colorbox">
 &lt;IfModule mod_rewrite.c&gt;
 	RewriteEngine On
@@ -6201,35 +6626,17 @@ RepeatLimit 32
 {nginx}
 </pre>',
 
-
-
 //---------------------------
 // Added by Valery Votintsev
 
-//source/admincp/admincp_index.php - javascript function shownews()
-	'subscribe'			=> 'Subscribe',//'订阅',
+//source/function/function_admincp.php
+	'upload_selectfile'		=> 'Browse',//'浏览',
 
-//source/admincp/admincp_quickquery.php
-	'quick_enable'			=> 'Rapide activer les fonctions',//'快速开启论坛版块功能',
-	'quick_enable_trash'		=> 'Activer la Corbeille pour tous les forums',//'开启 所有版块 主题回收站',
-	'quick_enable_bbcode'		=> 'Activer BB-Codes pour tous les forums',//'开启 所有版块 Discuz! 代码”',
-	'quick_enable_img'		=> 'Activer [IMG] code pour tous les forums',//'开启 所有版块 [IMG] 代码”',
-	'quick_enable_smilies'		=> 'Activer smileys code pour tous les forums',//'开启 所有版块 Smilies 代码',
-	'quick_enable_jammer'		=> 'Activer le code brouilleur pour tous les forums',//'开启 所有版块 内容干扰码',
-	'quick_enable_anonymous'	=> 'Activer affichage anonyme pour tous les forums',//'开启 所有版块 允许匿名发贴”',
-	'quick_disable'			=> 'Fonctions rapide d&#233;sactiv&#233;s',//'快速关闭论坛版块功能',
-	'quick_disable_trash'		=> 'D&#233;sactiver  Corbeille pour tous les forums',//'关闭 所有版块 主题回收站',
-	'quick_disable_html'		=> 'D&#233;sactiver  Code HTML pour tous les forums',//'关闭 所有版块 HTML 代码',
-	'quick_disable_bbcode'		=> 'D&#233;sactive  BB-Codes pour tous les forums',//'关闭 所有版块 Discuz! 代码',
-	'quick_disable_img'		=> 'D&#233;sactive  Code [IMG] pour tous les forums',//'关闭 所有版块 [IMG] 代码',
-	'quick_disable_smilies'		=> 'D&#233;sactive  Codes Smileys pour tous les forums',//'关闭 所有版块 Smilies 代码',
-	'quick_disable_jammer'		=> 'D&#233;sactive  Code brouilleur pour tous les forums',//'关闭 所有版块 内容干扰码',
-	'quick_disable_anonymous'	=> 'D&#233;sactive  Post Anonyme pour tous les forums',//'关闭 所有版块 允许匿名发贴',
-	'quick_members'			=> 'Les membres des Fonctions li&#233;s',//'会员操作相关',
-	'quick_clean_trans'		=> 'Nettoyez tous les journaux des transactions des Points des Membres',//'清空 所有会员 积分交易记录',
+//source/admincp/admincp_index.php - javascript function shownews()
+	'subscribe'		=> 'Subscribe',//'订阅',
 
 //---------------------------
-//Change Language/Style
+//Change Language
 'change_language'	=> 'Changer la langue',
 'change_style'		=> 'Changer le style',
 
@@ -6247,14 +6654,13 @@ RepeatLimit 32
 //	'setting_language_...'			=> 'Language Settings ....',
 //	...
 	'nav_language'				=> 'Languages',
-//	...
 );
 
 //------------------------------------------------------
 // Extend the language variables from other language files
 
 $adminextend = array();
-if(file_exists($adminextendfile = DISCUZ_ROOT.'./data/cache/cache_adminextend.php')) {
+if(file_exists($adminextendfile = DISCUZ_ROOT.'./data/sysdata/cache_adminextend.php')) {
 	@include $adminextendfile;
 	foreach($adminextend as $extend) {
 		$extend_lang = array();

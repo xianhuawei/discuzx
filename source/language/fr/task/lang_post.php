@@ -7,6 +7,10 @@
  *      $Id: lang_post.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'post_name'				=> 'T&#226;che des Post',
@@ -33,4 +37,3 @@ $lang = array
 	'task_complete_act_newreply_author'	=> 'R&#233;ponses {value}\'s sujet {num} fois.',
 );
 
-?>

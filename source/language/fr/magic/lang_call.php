@@ -7,6 +7,10 @@
  *      $Id: lang_call.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'call_name'	=> 'Carte Sur Appel',   // Call card 

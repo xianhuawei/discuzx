@@ -7,6 +7,10 @@
  *      $Id: lang_piclist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'piclist_picids'		=> 'Specified images',//'指定图片',
@@ -25,7 +29,7 @@ $lang = array
 	'piclist_hours_month'		=> '1 month',//'1月内',
 	'piclist_hours_year'		=> '1 year',//'1年内',
 	'piclist_titlelength'		=> 'Title length',//'标题长度',
-	'piclist_titlelength_comment'	=> 'Set the max length of specific image title',//'指定图片标题最大长度',
+/*vot*/	'piclist_titlelength_comment'	=> 'Set the max length of specific image title',//'指定图片标题最大长度',
 	'piclist_orderby'		=> 'Order by',//'图片排序方式',
 	'piclist_orderby_comment'	=> 'Set the result ordering',//'设置以哪一字段或方式对图片进行排序',
 	'piclist_orderby_dateline'	=> 'Post time',//'按发布时间倒序',

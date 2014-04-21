@@ -1,12 +1,16 @@
 <?php
 
-/**+++
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_notification.php by Khalid Nahhal, http://www.ar-discuz.com
- *      Modified by Valery Votintsev at sources.ru
+ *      $Id: lang_notification.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -18,7 +22,7 @@ $lang = array
 	'type_clickarticle'	=> 'موقع مقالة',//'文章表态',
 	'type_clickpic'		=> 'موقع صورة',//'图片表态',
 	'type_sharecomment'	=> 'تعليق منشور',//'分享评论',
-	'type_doing'		=> 'افعال',//'记录',
+	'type_doing'		=> 'أفعال',//'记录',
 	'type_friend'		=> 'أصدقاء',//'好友',
 	'type_credit'		=> 'نقاط',//'积分',
 	'type_bbs'		=> 'المنتدى',//'论坛',
@@ -56,10 +60,11 @@ $lang = array
 	'myinvite_request'	=> 'رسالة تطبيق جديدة <a href="home.php?mod=space&do=notice&view=userapp">إضغط هنا لرؤية التفاصيل</a>',//'有新的应用消息<a href="home.php?mod=space&do=notice&view=userapp">点此进入应用消息页面进行相关操作</a>',
 
 
-	'group_member_join'	=> '{actor} يريد الانضمام إلى مجموعتك, الرجاء اخذ الإجراء المناسب  <a href="{url}" target="_blank">من لوحة إدارة المجموعة</a>',//'{actor} 加入你的群组需要审核，请到群组 <a href="{url}" target="_blank">管理后台</a> 进行审核',
+	'group_member_join'	=> '{actor} يريد الإنضمام إلى مجموعتك, الرجاء اخذ الإجراء المناسب  <a href="{url}" target="_blank">من لوحة إدارة المجموعة</a>',//'{actor} 加入你的群组需要审核，请到群组 <a href="{url}" target="_blank">管理后台</a> 进行审核',
 	'group_member_invite'	=> '{actor} قام بدعوتك للإنضمام إلى مجموعة  <a href="forum.php?mod=group&fid={fid}" target="_blank">{groupname}</a>, <a href="{url}" target="_blank">إضغط هنا للإنضمام الآن</a>',//'{actor} 邀请你加入 <a href="forum.php?mod=group&fid={fid}" target="_blank">{groupname}</a> 群组，<a href="{url}" target="_blank">点此马上加入</a>',
-	'group_member_check'	=> 'طلبك في الانضمام إلى  <a href="{url}" target="_blank">{groupname}</a> تم قبوله, please <a href="{url}" target="_blank">إضغط هنا لزيارة المجموعة</a>',//'你已经通过了 <a href="{url}" target="_blank">{groupname}</a> 群组的审核，请 <a href="{url}" target="_blank">点击访问</a>',
+	'group_member_check'	=> 'طلبك في الإنضمام إلى  <a href="{url}" target="_blank">{groupname}</a> تم قبوله, please <a href="{url}" target="_blank">إضغط هنا لزيارة المجموعة</a>',//'你已经通过了 <a href="{url}" target="_blank">{groupname}</a> 群组的审核，请 <a href="{url}" target="_blank">点击访问</a>',
 	'group_member_check_failed'	=> 'مجموعتك  <a href="{url}" target="_blank">{groupname}</a> لم تجتاز التحقق',//'你没有通过 <a href="{url}" target="_blank">{groupname}</a> 群组的审核。',
+	'group_mod_check' => 'يمكنك إنشاء مجموعة <a href="{url}" target="_blank">{groupname}</a> للحصول على الموافقة، <a href="{url}" target="_blank">点击这里访问</a>',
 
 	'reason_moderate'	=> 'موضوعك  <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> لقد تم  {modaction} بواسطة {actor} <div class="quote"><blockquote>{reason}</blockquote></div>',//'你的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 被 {actor} {modaction} <div class="quote"><blockquote>{reason}</blockquote></div>',
 
@@ -72,7 +77,7 @@ $lang = array
 	'reason_ban_post'	=> 'موضوعك  <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> لقد تم  {modaction} بواسطة {actor} <div class="quote"><blockquote>{reason}</blockquote></div>',//'你的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 被 {actor} {modaction} <div class="quote"><blockquote>{reason}</blockquote></div>',
 
 	'reason_warn_post'	=> 'موضوعك  <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> لقد تم  {modaction} بواسطة {actor}.<br />
-				اذا تم تحذيره  {warninglimit} مرات في  {warningexpiration} أيام/يوم, سوف تكون لا تستطيع المشاركة لمدة  {warningexpiration} يوم تلقائيا.<br />
+				إذا تم تحذيره  {warninglimit} مرات في  {warningexpiration} أيام/يوم, سوف تكون لا تستطيع المشاركة لمدة  {warningexpiration} يوم تلقائياً.<br />
 				حالياً, تم تحذيرك  {authorwarnings} مرات!
 				<div class="quote"><blockquote>{reason}</blockquote></div>',
 
@@ -86,17 +91,21 @@ $lang = array
 
 	'reason_stamp_delete'	=> 'موضوعك <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> تم حذف الختم منه بواسطة {actor} <div class="quote"><blockquote>{reason}</blockquote></div>',//'你的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 被 {actor} 撤销了图章 <div class="quote"><blockquote>{reason}</blockquote></div>',
 
-	'reason_stamplist_update'	=> 'موضوعك <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> بواسطة {actor} تم إضافة له ايقونة  {stamp} <div class="quote"><blockquote>{reason}</blockquote></div>',//'你的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 被 {actor} 添加了图标 {stamp} <div class="quote"><blockquote>{reason}</blockquote></div>',
+	'reason_stamplist_update'	=> 'موضوعك <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> بواسطة {actor} تم إضافة له أيقونة  {stamp} <div class="quote"><blockquote>{reason}</blockquote></div>',//'你的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 被 {actor} 添加了图标 {stamp} <div class="quote"><blockquote>{reason}</blockquote></div>',
 
 	'reason_stamplist_delete'	=> 'موضوعك <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> بواسطة {actor} تم ازالة الايقونة <div class="quote"><blockquote>{reason}</blockquote></div>',//'你的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 被 {actor} 撤销了图标 <div class="quote"><blockquote>{reason}</blockquote></div>',
 
 	'reason_stickreply'		=> 'ردك في موضوع  <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> تم تثبيته في الاعلى بواسطة {actor}. <div class="quote"><blockquote>{reason}</blockquote></div>',
 
-	'reason_stickdeletereply'	=> 'ردك في موضوع  <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> تم ازالة تثبيته بواسطة {actor} <div class="quote"><blockquote>{reason}</blockquote></div>',//'你在主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 的回帖被 {actor} 撤销置顶 <div class="quote"><blockquote>{reason}</blockquote></div>',
+	'reason_stickdeletereply'	=> 'ردك في موضوع  <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> تم إزالة تثبيته بواسطة {actor} <div class="quote"><blockquote>{reason}</blockquote></div>',//'你在主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 的回帖被 {actor} 撤销置顶 <div class="quote"><blockquote>{reason}</blockquote></div>',
+
+	'reason_quickclear' => '{cleartype} الخاص بك  تم مسحه بواسطة  {actor} والسبب <div class="quote"><blockquote>{reason}</blockquote></div>',
 
 	'modthreads_delete'	=> 'موضوعك {threadsubject} لم يتم الموافقة عليه, تم حذفه! <div class="quote"><blockquote>{reason}</blockquote></div>',//'你发表的主题 {threadsubject} 没有通过审核，现已被删除！<div class="quote"><blockquote>{reason}</blockquote></div>',
 
-	'modthreads_validate'	=> 'موضوعك <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{threadsubject}</a> تم الموافقة عليه! &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">إضغط هنا لرؤيته;</a> <div class="quote"><blockquote>{reason}</blockquote></div>',//'你发表的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{threadsubject}</a> 已经审核通过！ &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">查看 &rsaquo;</a> <div class="quote"><blockquote>{reason}</blockquote></div>',
+	'modthreads_delete_reason' => 'Published by you thread {threadsubject} was not approved, and now has been deleted! <div class="quote"><blockquote>{reason}</blockquote></div>',//'您发表的主题 {threadsubject} 未通过审核，现已被删除！<div class="quote"><blockquote>{reason}</blockquote></div>',
+
+	'modthreads_validate'	=> 'موضوعك <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{threadsubject}</a> تم الموافقة عليه! &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">إضغط هنا لرؤيته&LSaquo;</a>',//'你发表的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{threadsubject}</a> 已经审核通过！ &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">查看 &rsaquo;</a>',
 
 	'modreplies_delete'	=> 'لم يتم الموافقة على ردك, لقد تم حذفه! <p class="summary">المحتوى: <span>{post}</span></p> <div class="quote"><blockquote>{reason}</blockquote></div>',//'你发表回复没有通过审核，现已被删除！ <p class="summary">回复内容：<span>{post}</span></p> <div class="quote"><blockquote>{reason}</blockquote></div>',
 
@@ -112,6 +121,8 @@ $lang = array
 				<p class="summary">النقاط الواردة : <span>{value}</span></p>',
 
 	'rate_reason'		=> 'مشاركتك في موضوع  <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank">{subject}</a> تم تقييمها  {ratescore} بواسطة {actor} <div class="quote"><blockquote>{reason}</blockquote></div>',//'你在主题 <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank">{subject}</a> 的帖子被 {actor} 评分 {ratescore} <div class="quote"><blockquote>{reason}</blockquote></div>',
+
+	'recommend_note_post'	=> 'تهانينا, مشاركتك <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> تم إستحسانها',//'恭喜，您的帖子 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 被编辑采用',
 
 	'rate_removereason'	=> '{actor} ازال تقييمه  {ratescore} من الموضوع <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank">{subject}</a> <div class="quote"><blockquote>{reason}</blockquote></div>',//'{actor} 撤销了你在主题 <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank">{subject}</a> 中帖子的评分 {ratescore} <div class="quote"><blockquote>{reason}</blockquote></div>',
 
@@ -153,7 +164,7 @@ $lang = array
 
 	'task_reward_credit'	=> 'تهانينا! لقد اكملت مهمتك: <a href="home.php?mod=task&do=view&id={taskid}" target="_blank">{name}</a>, وحصلت على  {creditbonus} نقطة . &nbsp; <a href="home.php?mod=spacecp&ac=credit&op=base" target="_blank" class="lit">إضغط هنا لعرض نقاطي &rsaquo;</a></p>',//'恭喜你完成任务：<a href="home.php?mod=task&do=view&id={taskid}" target="_blank">{name}</a>，获得积分 {creditbonus} &nbsp; <a href="home.php?mod=spacecp&ac=credit&op=base" target="_blank" class="lit">查看我的积分 &rsaquo;</a></p>',
 
-	'task_reward_magic'	=> 'مبروك! اكملت المهمة: <a href="home.php?mod=task&do=view&id={taskid}" target="_blank">{name}</a>, وحصلت على  {bonus} magic <a href="home.php?mod=magic&action=mybox" target="_blank">{rewardtext}</a>',//'恭喜你完成任务：<a href="home.php?mod=task&do=view&id={taskid}" target="_blank">{name}</a>，获得道具 <a href="home.php?mod=magic&action=mybox" target="_blank">{rewardtext}</a> {bonus} 张',
+	'task_reward_magic'	=> 'تهانينا! اكملت المهمة: <a href="home.php?mod=task&do=view&id={taskid}" target="_blank">{name}</a>, وحصلت على  {bonus} magic <a href="home.php?mod=magic&action=mybox" target="_blank">{rewardtext}</a>',//'恭喜你完成任务：<a href="home.php?mod=task&do=view&id={taskid}" target="_blank">{name}</a>，获得道具 <a href="home.php?mod=magic&action=mybox" target="_blank">{rewardtext}</a> {bonus} 张',
 
 	'task_reward_medal'	=> 'تهانينا! لقد اكملت مهمتك: <a href="home.php?mod=task&do=view&id={taskid}" target="_blank">{name}</a>, وحصلت على وسام <a href="forum.php?mod=medal" target="_blank">{rewardtext}</a>. وصالح حتى : {bonus} يوم.',//'恭喜你完成任务：<a href="home.php?mod=task&do=view&id={taskid}" target="_blank">{name}</a>，获得勋章 <a href="forum.php?mod=medal" target="_blank">{rewardtext}</a> 有效期 {bonus} 天',
 
@@ -168,17 +179,23 @@ $lang = array
 	'grouplevel_update'	=> 'تهانينا! مجموعتك {groupname} تم ترقية مستواها إلى  {newlevel}.',//'恭喜你，你的群组 {groupname} 已经升级到了 {newlevel}。',
 
 	'thread_invite'		=> '{actor} قام بدعوتك إلى  {invitename}  <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a>. &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">عرض</a>',//'{actor} 邀请你{invitename} <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">查看 &rsaquo;</a>',
+	'blog_invite'		=> '{actor} قام بدعوتك لرؤية المدونة <a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank">{subject}</a>, &nbsp; <a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank" class="lit">مشاهدة &rsaquo;</a>',//'{actor} 邀请您查看日志 <a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank">{subject}</a> &nbsp; <a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank" class="lit">查看 &rsaquo;</a>',
+	'article_invite'	=> '{actor} قام بدعوتك لرؤية المقالة <a href="portal.php?mod=view&aid={aid}" target="_blank">{subject}</a>, &nbsp; <a href="portal.php?mod=view&aid={aid}" target="_blank" class="lit">مشاهدة &rsaquo;</a>',//'{actor} 邀请您查看文章 <a href="portal.php?mod=view&aid={aid}" target="_blank">{subject}</a> &nbsp; <a href="portal.php?mod=view&aid={aid}" target="_blank" class="lit">查看 &rsaquo;</a>',
 	'invite_friend'		=> 'تهانينا! لقد تم دعوتك من طرف  {actor} واصبحتما أصدقاء.',//'恭喜你成功邀请到 {actor} 并成为你的好友',
 
 	'poke_request'		=> '<a href="{fromurl}" class="xi2">{fromusername}</a>: <span class="xw0">{pokemsg}&nbsp;</span><a href="home.php?mod=spacecp&ac=poke&op=reply&uid={fromuid}&from=notice" id="a_p_r_{fromuid}" class="xw1" onclick="showWindow(this.id, this.href, \'get\', 0);">القي تحية</a><span class="pipe">|</span><a href="home.php?mod=spacecp&ac=poke&op=ignore&uid={fromuid}&from=notice" id="a_p_i_{fromuid}" onclick="showWindow(\'pokeignore\', this.href, \'get\', 0);">تجاهل</a>',
 
-	'profile_verify_error'		=> '{verify} من البيانات تم رفضه, يجب ملئ الحقول التالية:<br/>{profile}<br/>سبب الرفض: {reason}',//'{verify}资料审核被拒绝,以下字段需要重新填写:<br/>{profile}<br/>拒绝理由:{reason}',
+	'profile_verify_error'		=> '{verify} من البيانات تم رفضه, يجب ملء الحقول التالية:<br/>{profile}<br/>سبب الرفض: {reason}',//'{verify}资料审核被拒绝,以下字段需要重新填写:<br/>{profile}<br/>拒绝理由:{reason}',
 	'profile_verify_pass'		=> 'تهانينا، البيانات التي ادخلت  {verify} تم معاينتها بنجاح بواسطة ',//'恭喜你，你填写的{verify}资料审核通过了',
 	'profile_verify_pass_refusal'	=> 'للاسف, تم رفض البيانات المقدمة  ({verify})  ',//'很遗憾，你填写的{verify}资料审核被拒绝了',
 	'member_ban_speak'		=> 'قد يحق لك التحدث {user}, المدة : {day}(0: نيابة عن هفوة دائمة), حظر من المشاركة بسبب: {reason}',//'你已被 {user} 禁止发言，期限：{day}天(0：代表永久禁言)，禁言理由：{reason}',
+	'member_ban_visit'		=> 'لقد تم حظرك من قبل {user} لفترة  {day} يوم (0 يعني فرض حظر دائم). سبب الحظر: {reason}',//'您已被 {user} 禁止访问，期限：{day}天(0：代表永久禁止访问)，禁止访问理由：{reason}',
+	'member_ban_status'		=> 'لقد تم حظرك من قبل {user}, سبب الحظر: {reason}',//'您已被 {user} 锁定，禁止访问理由：{reason}',
+	'member_follow'			=> 'There are {count} new feeds from people you follow. <a href="home.php?mod=follow">Click to view</a>',//'您关注的人已有{count}条新动态。<a href="home.php?mod=follow">Click to view</a>',
+	'member_follow_add' => '{actor} يتتبعك <a href="home.php?mod=follow&do=follower">ألقي نظرة</a>',
 
-	'member_moderate_invalidate'		=> 'تم رفض حسابك من قبل المدير , الرجاء  <a href="home.php?mod=spacecp&ac=profile">إعادة تقديم معلومات التسجيل مرة أخرى </a>.<br />ملاحظة المدير: <b>{remark}</b>',//'你的账号未能通过管理员的审核，请<a href="home.php?mod=spacecp&ac=profile">重新提交注册信息</a>。<br />管理员留言: <b>{remark}</b>',
-	'member_moderate_validate'		=> 'تم الموافقة على حسابك .<br />ملاحظة المدير : <b>{remark}</b>',//'你的账号已经通过审核。<br />管理员留言: <b>{remark}</b>',
+	'member_moderate_invalidate'	=> 'تم رفض حسابك من قبل المدير , الرجاء  <a href="home.php?mod=spacecp&ac=profile">إعادة تقديم معلومات التسجيل مرة أخرى </a>.<br />ملاحظة المدير: <b>{remark}</b>',//'你的账号未能通过管理员的审核，请<a href="home.php?mod=spacecp&ac=profile">重新提交注册信息</a>。<br />管理员留言: <b>{remark}</b>',
+	'member_moderate_validate'	=> 'تم الموافقة على حسابك .<br />ملاحظة المدير : <b>{remark}</b>',//'你的账号已经通过审核。<br />管理员留言: <b>{remark}</b>',
 	'member_moderate_invalidate_no_remark'	=> 'تم رفض حسابك من قبل المدير , الرجاء  <a href="home.php?mod=spacecp&ac=profile">إعادة تقديم معلومات التسجيل مرة أخرى </a>.',//'你的账号未能通过管理员的审核，请<a href="home.php?mod=spacecp&ac=profile">重新提交注册信息</a>。',
 	'member_moderate_validate_no_remark'	=> 'تم الموافقة على حسابك .',//'你的账号已经通过审核。',
 	'manage_verifythread'		=> 'موضوع جديد في الإنتظار, <a href="admin.php?action=moderate&operation=threads&dateline=all"> معاينة الآن </a>',
@@ -199,19 +216,21 @@ $lang = array
 	'system_notice'			=> '{subject}<p class="summary">{message}</p>',
 	'system_adv_expiration'		=> 'الإعلان التالي سوف ينتهي خلال {day} يوم. الرجاء الاتفاق مع:<br />{advs}',
 	'report_change_credits'		=> '{actor} تعامل مع تقريرا خاص بك, نقاطك {creditchange}',
+	'at_message'			=> '<a href="home.php?mod=space&uid={buyerid}" target="_blank">{buyer}</a> in the thread <a href="forum.php?mod=redirect&goto=findpost&ptid={tid}&pid={pid}" target="_blank">{subject}</a> mentioned of your name <div class="quote"><blockquote>{message}</blockquote></div><a href="forum.php?mod=redirect&goto=findpost&ptid={tid}&pid={pid}" target="_blank">View now</a>.',//'<a href="home.php?mod=space&uid={buyerid}" target="_blank">{buyer}</a> 在主题 <a href="forum.php?mod=redirect&goto=findpost&ptid={tid}&pid={pid}" target="_blank">{subject}</a> 中提到了你<div class="quote"><blockquote>{message}</blockquote></div><a href="forum.php?mod=redirect&goto=findpost&ptid={tid}&pid={pid}" target="_blank">现在去看看</a>。',
 	'new_report'			=> 'هناك تقرير جديد, <a href="admin.php?action=report" target="_blank">إضغط هنا</a> لدخول لوحة تحكم الإدارة.',
 	'new_post_report'		=> 'تقرير جديد في الإنتظار ,<a href="forum.php?mod=modcp&action=report&fid={fid}" target="_blank"> الإدارة</a>.',
 	'magics_receive'		=> 'لقد استقبلت من {actor} دعامة  {magicname}
 					<p class="summary">{actor} يقول: <span>{msg}</span></p>
 					<p class="mbn"><a href="home.php?mod=magic" target="_blank">رجوع</a>
 					<span class="pipe">|</span><a href="home.php?mod=magic&action=mybox" target="_blank">عرض الدعائم الخاصة بي</a></p>',
+	'invite_collection'		=> '{actor} يدعوك للإشتراك في ألبوم <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> work team.<br /><a href="forum.php?mod=collection&action=edit&op=acceptinvite&ctid={ctid}&dateline={dateline}">Accept the invitation</a>',//'{actor} 邀请您参与维护淘专辑  <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a>。<br /> <a href="forum.php?mod=collection&action=edit&op=acceptinvite&ctid={ctid}&dateline={dateline}">接受邀请</a>',
+	'collection_removed'		=> 'إشتراكك في المشاركات  <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> تم إلغائه بواسطة {actor}.',//'您参与维护的淘专辑  <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> 已被 {actor} 关闭。',
+	'exit_collection'		=> 'تم خروجك من الألبوم بنجاح <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> ',//'您已经退出维护淘专辑  <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a>。',
+	'collection_becommented'	=> 'ألبوم المشاركات الخاص بك <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> إستقبل تعليق جديد.',//'您的淘专辑  <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> 收到了新评论。',
+	'collection_befollowed'		=> 'ألبوم المشاركات الخاص بك <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> ,إشترك به عضو!',//'您的淘专辑  <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> 有新用户订阅了！',
+	'collection_becollected'	=> 'تهانينا, موضوعك <a href="forum.php?mod=viewthread&tid={tid}">{threadname}</a> تم إضافته إلى ألبوم المشاركات <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> !',//'恭喜您的主题 <a href="forum.php?mod=viewthread&tid={tid}">{threadname}</a> 被淘专辑  <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> 收录了！',
 
-	'pmreportcontent' => '{pmreportcontent}',
-
-//vot ToDo: From install_data.sql
-//'welcome_message_title'		=> 'Hello {username}! Thank you for your registration, please read the following ...',
-//'welcome_message_content'	=> 'Dear {username}, you have already registered as a member at {sitename}, please when you publish, compliance with local laws and regulations.\nIf you have any questions please contact the administrator, Email: {adminemail}.\n\n\n{bbname}\n{time}',
-//'terms_of_services'		=> 'This is Rules.\nMust read!',
+	'pmreportcontent'		=> '{pmreportcontent}',
 
 );
 

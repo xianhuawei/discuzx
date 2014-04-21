@@ -7,6 +7,10 @@
  *      $Id: lang_threadlist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'threadlist_fids'			=> 'Forums',//'所在版块',
@@ -26,11 +30,11 @@ $lang = array
 	'threadlist_tids'			=> 'Specified threads',//'指定主题',
 	'threadlist_tids_comment'		=> 'Set the specified threads tid you want to display, use "," to seperate tids',//'设置要指定显示的主题 tid ，多个 tid 请用半角逗号“,”隔开。注意: 留空为不进行任何过滤',
 	'threadlist_keyword'			=> 'Keywords',//'标题关键字',
-	'threadlist_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤<br />关键字中可使用通配符 "*"<br />匹配多个关键字全部，可用空格或 "AND" 连接。如 win32 AND unix<br />匹配多个关键字其中部分，可用 "|" 或 "OR" 连接。如 win32 OR unix',
-	'threadlist_tagkeyword'			=> 'Tags',
-	'threadlist_tagkeyword_comment' 	=> 'Choose Tags (keywords). Note: Leave blank for no filtering; keywords can use wildcards *; For match one or more keywords use | or "OR" separator, i.e. "win32 OR unix"',
-	'threadlist_typeids'			=> 'Thread types',//'主题分类',
-	'threadlist_typeids_comment'		=> 'Select specific thread type. Note: Select All or Clear All for disable any filtering.',//'设置特定分类的主题。注意: 全选或全不选均为不进行任何过滤',
+	'threadlist_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤； 关键字中可使用通配符 *； 匹配多个关键字全部，可用空格或 AND 连接。如 win32 AND unix； 匹配多个关键字其中部分，可用 | 或 OR 连接。如 win32 OR unix',
+	'threadlist_tagkeyword'			=> 'Tags',//'TAG标签',
+	'threadlist_tagkeyword_comment' 	=> 'Choose Tags (keywords). Note: Leave blank for no filtering; keywords can use wildcards *; For match one or more keywords use | or "OR" separator, i.e. "win32 OR unix"',//'TAG标签关键字。注意: 留空为不进行任何过滤； 关键字中可使用通配符 *； 匹配多个关键字其中部分，可用 | 或 OR 连接。如 win32 OR unix',
+	'threadlist_typeids'			=> 'Thread types',//'主题分类ID',
+	'threadlist_typeids_comment'		=> 'Select specific thread type. Note: Select All or Clear All for disable any filtering.',//'输入主题分类ID，多个 ID 之间用半角逗号“,”隔开。',
 	'threadlist_typeids_all'		=> 'All thread types',//'全部的主题分类',
 	'threadlist_sortids'			=> 'Sort IDs(Categories?)',//'分类信息',
 	'threadlist_sortids_comment'		=> 'Set the thread classification. Note: Select All or None for disable filtering',//'设置特定分类信息的主题。注意: 全选或全不选均为不进行任何过滤',
@@ -61,7 +65,7 @@ $lang = array
 	'threadlist_special_reward_1'		=> 'Finished',//'已解决',
 	'threadlist_special_reward_2'		=> 'Active',//'未解决',
 	'threadlist_recommend'			=> 'Recommended thread filter',//'推荐主题过滤',
-	'threadlist_viewmod'			=> 'Portal view mode',//'门户模式查看',
+	'threadlist_viewmod'			=> 'Portal view mode',//'文章模式查看',
 	'threadlist_recommend_comment'		=> 'Display only recommended threads',//'设置是否只显示推荐的主题',
 	'threadlist_picrequired'		=> 'Image attachment required',//'必须含图片附件',
 	'threadlist_picrequired_comment'	=> 'Set only to display threads contain image attachments',//'设置是否只显示含有图片附件的主题',
@@ -83,12 +87,12 @@ $lang = array
 	'threadlist_orderby_weekhots'		=> 'Hots last week',//'按本周累计售出数倒序排序',
 	'threadlist_orderby_monthhots'		=> 'Hots last month',//'按当月累计售出数倒序排序',
 	'threadlist_lastpost'			=> 'Last post',//'最后更新时间',
-	'threadlist_postdateline'		=> 'Publish time',
-	'threadlist_postdateline_nolimit'	=> 'Any',
-	'threadlist_postdateline_hour'		=> 'Last Hour',
-	'threadlist_postdateline_day'		=> 'Last Day',
-	'threadlist_postdateline_week'		=> 'Last Week',
-	'threadlist_postdateline_month'		=> 'Last Month',
+	'threadlist_postdateline'		=> 'Publish time',//'主题发布时间',
+	'threadlist_postdateline_nolimit'	=> 'Any',//'不限制',
+	'threadlist_postdateline_hour'		=> 'Last Hour',//'1小时内',
+	'threadlist_postdateline_day'		=> 'Last Day',//'24小时内',
+	'threadlist_postdateline_week'		=> 'Last Week',//'7天内',
+	'threadlist_postdateline_month'		=> 'Last Month',//'1个月内',
 	'threadlist_lastpost_nolimit'		=> 'No limit',//'不限制',
 	'threadlist_lastpost_hour'		=> 'Last hour',//'1小时内',
 	'threadlist_lastpost_day'		=> 'Last day',//'24小时内',
@@ -105,6 +109,6 @@ $lang = array
 	'threadlist_orderby_monthstart'		=> 'Started last month',//'按一月内活动开始时间排序',
 	'threadlist_orderby_weekexp'		=> 'Expired last week',//'按一周内报名截止时间排序',
 	'threadlist_orderby_monthexp'		=> 'Expired last month',//'按一月内报名截止时间排序',
-	'threadlist_highlight'			=> 'Highlight found words',
+	'threadlist_highlight'			=> 'Highlight found words',//'获得高亮值',
 );
 

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -9,8 +9,8 @@
 
 $lang = array
 (
-	'bloglist_blogids'		=> 'Specified blogs',//'指定日志',
-	'bloglist_blogids_comment'	=> 'Please fill in specific blog ID (blogid), use comma (,) to separate blog IDs',//'填入指定日志的ID(blogid)，多个日志之间用逗号(,)分隔',
+	'bloglist_blogids'		=> '포스트지정',//'指定日志',
+	'bloglist_blogids_comment'	=> '지정 포스트ID (blogid)입력, 여러개일 경우 ","로 띄워쓰기',//'填入指定日志的ID(blogid)，多个日志之间用逗号(,)分隔',
 	'bloglist_uids'			=> 'Author UID',//'作者UID',
 	'bloglist_uids_comment'		=> 'Please fill in specific users ID (uid), use comma (,) to separate users',//'填入指定用户的ID(uid)，多个用户之间用逗号(,)分隔',
 	'bloglist_catid'		=> 'Select category',//'指定分类',

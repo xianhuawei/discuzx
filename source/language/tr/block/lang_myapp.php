@@ -7,6 +7,10 @@
  *      $Id: lang_blank.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'myapp_titlelength'	=> 'Title length',//'名称长度',

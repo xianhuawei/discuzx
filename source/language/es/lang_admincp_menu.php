@@ -29,7 +29,7 @@ $lang = array
 	'header_portal'		=> 'Portal',//'门户',
 	'header_group'		=> 'Grupos',//'群组',
 	'header_founder'	=> 'Administradores',//'站长',
-	'header_cloudaddons'		=> 'Addons',//'扩展中心',
+	'header_addons'		=> 'Addons',//'扩展中心',
 
 
 	'menu_home'			=> 'Centro de Admin',//'管理中心首页',
@@ -182,8 +182,6 @@ $lang = array
 
 	'admincp_title'			=> $_G['setting']['bbname'].' Centro de Admin',//$_G['setting']['bbname'].' 管理中心',
 
-// Added by Valery Votintsev
-	'menu_setting_language'		=> 'Languages',
-
 );
 
+?>

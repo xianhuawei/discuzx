@@ -4,7 +4,8 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_feed.php by Khalid Nahhal, http://www.ar-discuz.com
+ *      $Id: lang_feed.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
 
 $lang = array
@@ -57,42 +58,42 @@ $lang = array
 
 	'feed_invite'			=> '{actor} دعا {username}, ولقد اصبحا أصدقاء',//'{actor} ????,? {username} ?????',
 
-	'magicuse_thunder_announce_title'	=> '<strong>{username} issued a &quot;Sound of Thunder&quot;</strong>',//'<strong>{username} ???“????”</strong>',
+	'magicuse_thunder_announce_title'	=> '<strong>{username} أصدر &quot;دعامة صوت الرعد&quot;</strong>',//'<strong>{username} ???“????”</strong>',
 	'magicuse_thunder_announce_body'	=> 'مرحبا!<br /><a href="home.php?mod=space&uid={uid}">مرحبا بكم في ملفي الشخصي</a>',//'???,????<br /><a href="home.php?mod=space&uid={uid}" target="_blank">????????</a>',
 
 
-	'feed_thread_title'	=>			'{actor} بدء بموضوع جديد',//'{actor} ??????',
-	'feed_thread_message'	=>		'<b>{subject}</b><br />{message}',//'<b>{subject}</b><br />{message}',
+	'feed_thread_title'		=> '{actor} بدء بموضوع جديد',//'{actor} ??????',
+	'feed_thread_message'		=> '<b>{subject}</b><br />{message}',//'<b>{subject}</b><br />{message}',
 
-	'feed_reply_title'	=>			'{actor} رد على  {subject} لـ {author}',//'{actor} ??? {author} ??? {subject}',
-	'feed_reply_title_anonymous'	=>		'مجهول قام بالرد على  {subject} لـ {author}',//'{actor} ????? {subject}',
-	'feed_reply_message'	=>			'',
+	'feed_reply_title'		=> '{actor} رد على  {subject} لـ {author}',//'{actor} ??? {author} ??? {subject}',
+	'feed_reply_title_anonymous'	=> 'مجهول قام بالرد على  {subject} لـ {author}',//'{actor} ????? {subject}',
+	'feed_reply_message'		=> '',
 
-	'feed_thread_poll_title'	=>		'{actor} قام بانشاء إستطلاع',//'{actor} ??????',
-	'feed_thread_poll_message'	=>		'<b>{subject}</b><br />{message}',//'<b>{subject}</b><br />{message}',
+	'feed_thread_poll_title'	=> '{actor} قام بانشاء إستطلاع',//'{actor} ??????',
+	'feed_thread_poll_message'	=> '<b>{subject}</b><br />{message}',//'<b>{subject}</b><br />{message}',
 
-	'feed_thread_votepoll_title'	=>		'{actor} قام بالتصويت في  {subject}',//'{actor} ????? {subject} ???',
+	'feed_thread_votepoll_title'	=> '{actor} قام بالتصويت في  {subject}',//'{actor} ????? {subject} ???',
 	'feed_thread_votepoll_message'	=> '',
 
-	'feed_thread_goods_title'	=>		'{actor} قام بعرض منتج للبيع',//'{actor} ????????',
+	'feed_thread_goods_title'	=> '{actor} قام بعرض منتج للبيع',//'{actor} ????????',
 	'feed_thread_goods_message_1'	=> '<b>{itemname}</b><br />السعر: {itemprice}  لكل اضافية (???) {itemcredit} {creditunit}',//'<b>{itemname}</b><br />?? {itemprice} ? ?? {itemcredit}{creditunit}',
 	'feed_thread_goods_message_2'	=> '<b>{itemname}</b><br />السعر: {itemprice} دولار (???)',//'<b>{itemname}</b><br />?? {itemprice} ?',
 	'feed_thread_goods_message_3'	=> '<b>{itemname}</b><br />السعر: {itemcredit} {creditunit}',//'<b>{itemname}</b><br />?? {itemcredit}{creditunit}',
 
-	'feed_thread_reward_title'	=>		'{actor} قام بوضع طلب',//'{actor} ??????',
-	'feed_thread_reward_message'	=>		'<b>{subject}</b><br /> المكافئة : {rewardprice} {extcredits}',//'<b>{subject}</b><br />?? {rewardprice}{extcredits}',
+	'feed_thread_reward_title'	=> '{actor} قام بوضع طلب',//'{actor} ??????',
+	'feed_thread_reward_message'	=> '<b>{subject}</b><br /> المكافئة : {rewardprice} {extcredits}',//'<b>{subject}</b><br />?? {rewardprice}{extcredits}',
 
-	'feed_reply_reward_title'	=>		'{actor} قام بالرد على الطلب التالي : {subject}',//'{actor} ????? {subject} ???',
-	'feed_reply_reward_message'	=>		'',
+	'feed_reply_reward_title'	=> '{actor} قام بالرد على الطلب التالي : {subject}',//'{actor} ????? {subject} ???',
+	'feed_reply_reward_message'	=> '',
 
-	'feed_thread_activity_title'	=>		'{actor} قام بإنشاء فعالية جديدة',//'{actor} ??????',
+	'feed_thread_activity_title'	=> '{actor} قام بإنشاء فعالية جديدة',//'{actor} ??????',
 	'feed_thread_activity_message'	=> '<b>{subject}</b><br /> وقت البدء :{starttimefrom}<br /> الموقع : {activityplace}<br />{message}',//'<b>{subject}</b><br />????:{starttimefrom}<br />????:{activityplace}<br />{message}',
 
-	'feed_reply_activity_title'	=>		'{actor} التحق في أنشطة {subject}',//'{actor} ????? {subject} ???',
+	'feed_reply_activity_title'	=> '{actor} التحق في أنشطة {subject}',//'{actor} ????? {subject} ???',
 	'feed_reply_activity_message'	=> '',
 
-	'feed_thread_debate_title'	=>		'{actor} قما بإنشاء تحدي جديد',//'{actor} ??????',
-	'feed_thread_debate_message'	=>		'<b>{subject}</b><br />المنافس: {affirmpoint}<br />الخصم: {negapoint}<br />{message}',//'<b>{subject}</b><br />??:{affirmpoint}<br />??:{negapoint}<br />{message}',
+	'feed_thread_debate_title'	=> '{actor} قما بإنشاء تحدي جديد',//'{actor} ??????',
+	'feed_thread_debate_message'	=> '<b>{subject}</b><br />المنافس: {affirmpoint}<br />الخصم: {negapoint}<br />{message}',//'<b>{subject}</b><br />??:{affirmpoint}<br />??:{negapoint}<br />{message}',
 
 	'feed_thread_debatevote_title_1'	=> '{actor} يساند المنافس في  {subject}',//'{actor} ?????????? {subject} ???',
 	'feed_thread_debatevote_title_2'	=> '{actor} ساند الخصم في  {subject}',//'{actor} ?????????? {subject} ???',
@@ -103,4 +104,3 @@ $lang = array
 
 );
 
-?>

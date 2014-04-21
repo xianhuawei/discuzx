@@ -9,7 +9,7 @@
  */
 
 $lang = array(
-	'blockclass_html'			=> 'Display type',//'展示类',
+	'blockclass_html'			=> 'Display',
 
 	'blockclass_html_html'			=> 'Display type',//'展示类',
 	'blockclass_html_script_blank'		=> 'Custom HTML',//'自定义HTML',
@@ -226,7 +226,7 @@ $lang = array(
 	'blockclass_member_field_qq'			=> 'QQ',//'QQ号',
 	'blockclass_member_field_yahoo'			=> 'Yahoo',//'YAHOO帐号',
 	'blockclass_member_field_msn'			=> 'MSN',//'MSN帐号',
-	'blockclass_member_field_taobao'		=> 'Wangwang',//'阿里旺旺帐号',
+	'blockclass_member_field_taobao'		=> 'Wangwang',
 	'blockclass_member_field_site'			=> 'Personal Space',//'个人主页',
 	'blockclass_member_field_bio'			=> 'Self intro',//'自我介绍',
 	'blockclass_member_field_interest'		=> 'Interests',//'兴趣爱好',
@@ -455,3 +455,4 @@ $lang = array(
 );
 
 
+?>

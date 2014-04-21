@@ -13,6 +13,6 @@ $lang = array
 	'friendnum_name'	=> '인원 카드',
 	'friendnum_desc'	=> '친구의 최대 인원을 늘리십시오',
 	'friendnum_info'	=> '친구 {num} 추가 한도',
-	'friendnum_addnum'	=> '친구의 수가 증가',
+	'friendnum_addnum'	=> '친구의 수가 추가',
 );
 

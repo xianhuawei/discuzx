@@ -230,7 +230,7 @@ $lang = array (
 	'no_invitation_code'			=> 'Invitation code can not be empty, please fill in',//'邀请码为空请填写，没有邀请码不允许注册',
 	'wrong_invitation_code'			=> 'The invitation code error, or invitations are disabled, please re-fill',//'邀请码错误，请重新填写，没有邀请码不允许注册',
 	'username_nonexistence'			=> 'Specified user does not exist.',//'指定用户不存在，请返回修改。',
-	'group_name_oversize'			=> 'Group name length must be in range of 2 ~ 80 characters.',//'群组名称超过20个字节将被截断，请修改。',
+	'group_name_oversize'			=> 'If group name is longer than 20 characters, it will be truncuted automatically.',//'群组名称超过20个字节将被截断，请修改。',
 	'set_cover_succeed'			=> 'The cover is set successfully',//'封面设置成功',
 
 	'announcement_nonexistence'		=> 'There are no announces for view.',//'目前没有公告供查看，请返回。',
@@ -282,7 +282,6 @@ $lang = array (
 	'thread_closed'				=> 'This thread has been closed and can not be commented!',//'该帖子已被关闭，不能评论！',
 	'postcomment_error'			=> 'Sorry, you can not comment this post or the post not found',//'抱歉，您不能点评此帖或帖子尚未找到',
 	'postappend_only_yourself'		=> 'You can add posts only into your own content',//'只能在自己的帖子后补充内容',
-	'postappend_not_open'			=> 'Sorry, forum is not enable Post complementary functions',//'抱歉，版块没有开启帖子补充功能',
 	'postappend_add_succeed'		=> 'Post added successfully',//'添加成功',
 	'replynotice_success_1'			=> 'Set Home successfully',//'接收设置成功 ',
 	'replynotice_success_0'			=> 'Cancel Home successfully',//'取消设置成功 ',
@@ -974,3 +973,4 @@ $lang = array (
 
 );
 
+?>

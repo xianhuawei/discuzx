@@ -7,6 +7,10 @@
  *      $Id: lang_articlelist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'articlelist_name'		=> 'Advertising at the portal article list',// '门户 文章列表广告',

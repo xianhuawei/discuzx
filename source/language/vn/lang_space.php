@@ -4,8 +4,12 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *		Translate by DCV team - http://www.discuz.vn
- *      $Id: lang_space.php 20882 2011-03-07 07:22:17Z lifangming $
+ *      $Id: lang_space.php 28726 2012-03-09 03:05:19Z yexinhao $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'hour' => 'giờ',
@@ -97,8 +101,8 @@ $lang = array(
 	'block3' => 'Kiểu 3',
 	'block4' => 'Kiểu 4',
 	'block5' => 'Kiểu 5',
-	'blockdata' => array(
-		'personalinfo' => 'Hồ sơ',
+/*vot*/	'blockdata' => array(
+		'personalinfo' => 'Cá nhân',
 		'profile' => 'Avatar',
 		'doing' => 'Status',
 		'feed' => 'Tin tức',
@@ -110,7 +114,7 @@ $lang = array(
 		'wall' => 'Tường',
 		'share' => 'Chia sẻ',
 		'thread' => 'Chủ đề',
-		'group' => 'Nhóm',
+		'group' => $_G[setting][navs][3][navname],
 		'music' => ' Âm nhạc',
 		'statistic' => 'Thống kê',
 		'myapp' => 'Ứng dụng',
@@ -130,24 +134,24 @@ $lang = array(
 	'visitor_anonymity' => '<div class="avatar48"><img src="image/magic/hidden.gif" alt="Ẩn danh"></div><p>Ẩn danh</p>',
 	'visitor_list' => '<a href="home.php?mod=space&uid={uid}" target="_blank" class="avt"><em class="{class}"></em>{avatar}</a><p><a href="home.php?mod=space&uid={uid}" title="{username}">{username}</a></p>',
 	'wall_form' => '<div class="space_wall_post">
-					<form action="home.php?mod=spacecp&ac=comment" id="quickcommentform_{uid}" name="quickcommentform_{uid}" method="post" autocomplete="off" onsubmit="ajaxpost(\'quickcommentform_{uid}\', \'return_commentwall_{uid}\');doane(event);">
-					'.($_G['uid'] ? '<span id="message_face" onclick="showFace(this.id, \'comment_message\');return false;" class="cur1"><img src="static/image/common/facelist.gif" alt="facelist" class="mbn vm" /></span>
-					<br /><textarea name="message" id="comment_message" class="pt" rows="3" cols="60" onkeydown="ctrlEnter(event, \'commentsubmit_btn\');" style="width: 90%;"></textarea>
-					<input type="hidden" name="refer" value="home.php?mod=space&uid={uid}" />
-					<input type="hidden" name="id" value="{uid}" />
-					<input type="hidden" name="idtype" value="uid" />
-					<input type="hidden" name="commentsubmit" value="true" />' :
-					'<div class="pt hm">Để hoạt động bạn cần <a href="member.php?mod=logging&action=login" onclick="showWindow(\'login\', this.href)" class="xi2">Đăng nhập</a> | <a href="member.php?mod='.$_G['setting']['regname'].'" class="xi2">Đăng ký</a></div>').'
-					<p class="ptn"><button '.($_G['uid'] ? 'type="submit"' : 'type="button" onclick="showWindow(\'login\', \'member.php?mod=logging&action=login&guestmessage=yes\')"').' name="commentsubmit_btn" value="true" id="commentsubmit_btn" class="pn"><strong>Nhắn tin</strong></button></p>
-					<input type="hidden" name="handlekey" value="commentwall_{uid}" />
-					<span id="return_commentwall_{uid}"></span>
-					<input type="hidden" name="formhash" value="{FORMHASH}" />
-					</form>'.
-					($_G['uid'] ? '<script type="text/javascript">
-						function succeedhandle_commentwall_{uid}(url, msg, values) {
-							wall_add(values[\'cid\']);
-						}
-					</script>' : '').'
+						<form action="home.php?mod=spacecp&ac=comment" id="quickcommentform_{uid}" name="quickcommentform_{uid}" method="post" autocomplete="off" onsubmit="ajaxpost(\'quickcommentform_{uid}\', \'return_commentwall_{uid}\');doane(event);">
+							'.($_G['uid'] ? '<span id="message_face" onclick="showFace(this.id, \'comment_message\');return false;" class="cur1"><img src="static/image/common/facelist.gif" alt="facelist" class="mbn vm" /></span>
+							<br /><textarea name="message" id="comment_message" class="pt" rows="3" cols="60" onkeydown="ctrlEnter(event, \'commentsubmit_btn\');" style="width: 90%;"></textarea>
+							<input type="hidden" name="refer" value="home.php?mod=space&uid={uid}" />
+							<input type="hidden" name="id" value="{uid}" />
+							<input type="hidden" name="idtype" value="uid" />
+							<input type="hidden" name="commentsubmit" value="true" />' :
+							($_G['connectguest'] ? '<div class="pt hm">Bạn cần phải <a href="member.php?mod=connect" class="xi2">cập nhật thông tin</a> trước khi trả lời</div>' : '<div class="pt hm">Bạn cần phải đăng nhập trước, <a href="member.php?mod=logging&action=login" onclick="showWindow(\'login\', this.href)" class="xi2">đăng nhập</a> | <a href="member.php?mod='.$_G['setting']['regname'].'" class="xi2">'.$_G['setting']['reglinkname'].'</a></div>')).'
+							<p class="ptn"><button '.($_G['uid'] ? 'type="submit"' : 'type="button" onclick="showWindow(\'login\', \'member.php?mod=logging&action=login&guestmessage=yes\')"').' name="commentsubmit_btn" value="true" id="commentsubmit_btn" class="pn"><strong>Tin nhắn</strong></button></p>
+							<input type="hidden" name="handlekey" value="commentwall_{uid}" />
+							<span id="return_commentwall_{uid}"></span>
+							<input type="hidden" name="formhash" value="{FORMHASH}" />
+						</form>'.
+						($_G['uid'] ? '<script type="text/javascript">
+							function succeedhandle_commentwall_{uid}(url, msg, values) {
+								wall_add(values[\'cid\']);
+							}
+						</script>' : '').'
 					</div>',
 	'wall_li' => '<dl class="bbda cl" id="comment_{cid}_li">
 				<dd class="m avt">
@@ -174,6 +178,7 @@ $lang = array(
 	'block_profile_wall' => 'Tường',
 	'block_profile_avatar' => 'Avatar',
 	'block_profile_update' => 'Cập nhật',
+	'block_profile_follow' => 'Xem người hâm mộ',
 	'block_profile_wall_to_me' => 'Gửi lời nhắn',
 	'block_profile_friend_add' => 'Kết bạn',
 	'block_profile_friend_ignore' => 'Hủy bạn bè',
@@ -235,6 +240,7 @@ $lang = array(
 	'doing_you_can' => 'Bạn đang nghĩ gì, hãy chia sẻ cho bạn bè biết nhé...',
 	'block_profile_all' => '<p style="text-align: right;"><a href="home.php?mod=space&uid={uid}&do=profile">Xem tất cả thông tin</a></p>',
 	'block_profile_edit' => '<span class="y xw0"><a href="home.php?mod=spacecp&ac=profile">Chỉnh sửa Hồ sơ</a></span>',
+	'sb_follow' => '{who} hâm mộ',
 
 	'viewthread_userinfo_hour' => 'Giờ',
 	'viewthread_userinfo_uid' => 'UID',
@@ -251,6 +257,34 @@ $lang = array(
 	'viewthread_userinfo_regtime' => 'Đăng ký',
 	'viewthread_userinfo_lastdate' => 'Đăng nhập lần cuối',
 	'viewthread_userinfo_oltime' => 'Online',
+	'viewthread_userinfo_sellercredit' => 'Người bán tín dụng',
+	'viewthread_userinfo_buyercredit' => 'Người mua tín dụng',
+	'viewthread_userinfo_follower' => 'Số người theo dõi',
+	'viewthread_userinfo_following' => 'Đang theo dõi',
+	'follow_view_follow' => 'Tôi theo dõi',
+	'follow_view_special' => 'Chú ý đến',
+	'follow_view_other' => 'Loại khác',
+	'follow_view_feed' => '{who} cập nhật',
+	'follow_view_thread' => '{who} chủ đề',
+	'follow_view_reply' => '{who} trả lời',
+	'follow_view_profile' => '{who} cá nhân',
+	'follow_view_type_feed' => 'Cập nhật',
+	'follow_view_type_thread' => 'Chủ đề',
+	'follow_view_type_reply' => 'Trả lời',
+	'follow_view_type_profile' => 'Cá nhân',
+	'follow_view_type_follower' => 'Danh sách',
+	'follow_view_type_following' => 'Đang theo dõi',
+	'follow_view_my_follower' => 'Tôi đang theo',
+	'follow_view_my_following' => 'Tôi đang nghe',
+	'follow_view_do_follower' => 'Khán giả của tôi',
+	'follow_view_do_following' => 'Theo mọi người',
+	'follow_view_fulltext' => '... Xem rõ',
+	'follow_retract' => 'Từ bỏ',
+	'follow_click_play' => 'Nhấn để xem',
+	'follow_cancle_follow' => 'Bỏ theo',
+	'follow_follow_ta' => 'Nghe TA',
+
 
 );
 
+?>

@@ -7,10 +7,13 @@
  *      $Id: lang_calc.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'calc_name'	=> 'Addition et soustraction &#224; moins de 100',
 	'calc_desc'	=> 'Outre l\'affichage al&#233;atoire et la soustraction &#224; moins de 100 pour la s&#233;curit&#233; Q&R',
 );
 
-?>

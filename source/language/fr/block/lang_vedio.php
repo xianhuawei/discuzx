@@ -7,6 +7,10 @@
  *      $Id: lang_vedio.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'vedio_url'	=> 'Adresse Vid&#233;o',

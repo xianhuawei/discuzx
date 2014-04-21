@@ -7,6 +7,10 @@
  *      $Id: lang_albumlist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'albumlist_aids'		=> 'Specified albums',//'指定相册',

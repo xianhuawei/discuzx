@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -10,6 +10,6 @@
 $lang = array
 (
 	'blog_name'	=> 'Реклама в блогах',
-	'blog_desc'	=> 'Реклама показывается справа от блога',
+	'blog_desc'	=> 'Реклама показывается справа от текста блога',
 );
 

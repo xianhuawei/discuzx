@@ -4,8 +4,12 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *      Translate by Kyehani - discuz.vn
- *      $Id: lang_admincp_menu.php 21679 2011-04-08 04:13:12Z congyushuai $
+ *      $Id: lang_admincp_menu.php 29171 2012-03-28 02:59:31Z monkey $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -28,7 +32,7 @@ $lang = array
 	'header_portal' => 'Portal',
 	'header_group' => 'Group',
 	'header_founder' => 'Sáng lập',
-	'header_cloudaddons' => 'Mở rộng',
+	'header_cloudaddons' => 'Trung tâm ứng dụng',
 
 
 	'menu_home' => 'Trang chủ',
@@ -51,6 +55,7 @@ $lang = array
 	'menu_setting_imgwater' => 'Đóng dấu ảnh',
 	'menu_setting_uc' => 'UCenter',
 	'menu_setting_uchome' => 'UCHome',
+	'menu_setting_follow' => 'Cài đặt Theo Dõi',
 	'menu_setting_home' => 'Không gian',
 	'menu_setting_search' => 'Tìm kiếm',
 	'menu_setting_district' => 'Địa chỉ Tỉnh Thành',
@@ -67,6 +72,8 @@ $lang = array
 	'menu_members_add' => 'Thêm thành viên',
 	'menu_members_edit' => 'Sửa thành viên',
 	'menu_members_newsletter' => 'Gửi thông báo',
+	'menu_members_mobile' => 'Gửi thông báo điện thoại',
+	'menu_usertag' => 'Tag người dùng',
 	'menu_members_edit_ban_user' => 'Cấm thành viên',
 	'menu_members_ipban' => 'Cấm IP',
 	'menu_members_credits' => 'Điểm thưởng',
@@ -78,7 +85,7 @@ $lang = array
 	'menu_profilefields' => 'Thêm thông tin',
 	'menu_admingroups' => 'Nhóm quản lý',
 	'menu_usergroups' => 'Nhóm thành viên',
-	'menu_hotuser' => 'Thành viên Hot',
+	'menu_follow' => 'Quan tâm',
 	'menu_defaultuser' => 'Giới thiệu bạn',
 
 	'menu_moderate_posts' => 'Bài viết',
@@ -95,6 +102,7 @@ $lang = array
 	'menu_maint_threads_group' => 'Nhóm',
 	'menu_maint_prune_group' => 'Xóa nhóm',
 	'menu_maint_attaches_group' => 'Đính kèm của nhóm',
+	'menu_setting_collection' => 'Bộ sưu tập',
 	'menu_posting_tags' => 'Từ khóa TAG',
 	'menu_posting_censors' => 'Từ cấm',
 	'menu_maint_report' => 'Báo cáo',
@@ -119,6 +127,9 @@ $lang = array
 	'menu_founder_permgrouplist' => 'Quyền hạn nhóm - {perm}',
 	'menu_founder_memberperm' => 'Biên tập nhóm - {username}',
 
+	'menu_patch' => 'Trung tâm an ninh',
+	'menu_upgrade' => 'Nâng cấp trực tuyến',
+
 	'menu_addons' => 'Addons',
 	'menu_plugins' => 'Plugins',
 	'menu_tasks' => 'Nhiệm vụ',
@@ -130,7 +141,7 @@ $lang = array
 	'menu_card' => 'Thẻ nạp tiền bí mật',
 
 	'menu_styles' => 'Cài đặt giao diện',
-	'menu_styles_templates' => 'Tempalte',
+	'menu_styles_templates' => 'Templaltes',
 	'menu_posting_smilies' => 'Smiles',
 	'menu_click' => 'Đánh giá',
 	'menu_thread_icon' => 'Biểu tượng',
@@ -151,11 +162,13 @@ $lang = array
 	'menu_tools_relatedtag' => ' Nhãn TAG',
 	'menu_tools_creditwizard' => 'Tín dụng',
 	'menu_tools_fileperms' => 'Quyền tập tin',
+	'menu_tools_hookcheck' => 'Kiểm tra hook',
 	'menu_tools_filecheck' => 'KT tập tin',
 	'menu_forum_scheme' => 'Quản lý',
 	'menu_db' => 'Cơ sở dữ liệu',
 	'menu_postsplit' => 'Bảng điểm',
 	'menu_threadsplit' => 'Điểm chủ đề',
+	'menu_membersplit' => 'Tối ưu hóa bảng',
 	'menu_logs' => 'Nhật ký',
 	'menu_custommenu_manage' => 'Quản lý chung',
 	'menu_misc_cron' => 'Cronjob',
@@ -166,6 +179,7 @@ $lang = array
 	'menu_albumcategory' => 'Loại Album',
 	'menu_block' => 'Module',
 	'menu_blockstyle' => 'Kiểu module',
+	'menu_portalpermission' => 'Danh sách quyền hạn',
 	'menu_blockxml' => 'Module bên thứ 3',
 	'menu_topic' => 'Dự án',
 	'menu_diytemplate' => 'Mẫu DIY',
@@ -175,14 +189,14 @@ $lang = array
 	'menu_group_manage' => 'Quản lý nhóm',
 	'menu_group_userperm' => 'Quyền nhóm',
 	'menu_group_level' => 'Cấp độ nhóm',
+	'menu_group_mod' => 'Kiểm toán nhóm',
 
-	'menu_setting_manyou' => 'Manyou',
-	'menu_setting_qqconnect' => 'QQ',
+	'menu_setting_manyou'		=> 'Manyou settings',//'Manyou 设置',
+	'menu_setting_qqconnect'	=> 'QQ binding settings',//'QQ 绑定设置',
 
-	'admincp_title' => $_G['setting']['bbname'].' trung tâm quản lý',
+	'admincp_title' => 'Trung tâm quản lý '.$_G['setting']['bbname'].'',
 
 // Added by Valery Votintsev
 	'menu_setting_language'		=> 'Languages',
-
 );
 

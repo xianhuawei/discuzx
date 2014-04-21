@@ -54,7 +54,7 @@ $lang = array
 	'feed_profile_update_bbs'	=> '{actor} aktualisierte Informationen &uuml;ber das BBS',
 	'feed_profile_update_verify'	=> '{actor} hat die Authentifizierungsinformationen aktualisiert',
 
-
+	'feed_add_attachsize'		=> '{actor} spent {credit} points to enlarge the upload space on {size}. Now more images may be uploaded. (<a href="home.php?mod=spacecp&ac=credit&op=addsize">I want this too!</a>)',//'{actor} 用 {credit} 个积分兑换了 {size} 附件空间，可以上传更多的图片啦(<a href="home.php?mod=spacecp&ac=credit&op=addsize">我也来兑换</a>)',
 
 	'feed_invite'		=> '{actor} hat {username} eingeladen um Freunde zu werden',
 
@@ -102,7 +102,5 @@ $lang = array
 	'feed_thread_debatevote_message_2' =>	'',
 	'feed_thread_debatevote_message_3' =>	'',
 
-
 );
 
-?>

@@ -1,11 +1,16 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_friendlink.php by Khalid Nahhal, http://www.ar-discuz.com
+ *      $Id: lang_friendlink.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -19,8 +24,8 @@ $lang = array
 	'friendlink_type_group3'	=> 'مجموعة 3',//'分组3',
 	'friendlink_type_group4'	=> 'مجموعة 4',//'分组4',
 	'friendlink_titlelength'	=> 'طول العنوان',
-	'friendlink_titlelength_comment'	=> 'Max length of site name',
+	'friendlink_titlelength_comment'	=> 'Set the maximum length of site name',//'设置站点名称的最大长度',
 	'friendlink_summarylength'	=> 'طول الملخص',
-	'friendlink_summarylength_comment'	=> 'Max summary length',
+	'friendlink_summarylength_comment'	=> 'Set the maximum length of site summary',//'设置站点简介最大长度',
 );
 

@@ -4,8 +4,12 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_blockclass.php 22735 2011-05-18 10:09:30Z zhangguosheng $
+ *      $Id: lang_blockclass.php 31069 2012-07-12 09:13:58Z zhangguosheng $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'blockclass_html' => '展示類',
@@ -37,6 +41,7 @@ $lang = array(
 	'blockclass_myapp_field_title' => '應用名稱',
 	'blockclass_myapp_field_icon' => '應用圖標',
 	'blockclass_myapp_field_icon_small' => '應用圖標(小)',
+	'blockclass_myapp_field_icon_abouts' => '應用圖標(大圖)',
 	'blockclass_myapp_script_myapp' => '漫遊應用',
 
 	'blockclass_forum' => '論壇類',
@@ -51,7 +56,6 @@ $lang = array(
 	'blockclass_thread_field_avatar' => '樓主頭像',
 	'blockclass_thread_field_avatar_middle' => '樓主頭像(中)',
 	'blockclass_thread_field_avatar_big' => '樓主頭像(大)',
-	'blockclass_thread_field_icon' => '帖子圖標',
 	'blockclass_thread_field_forumurl' => '版塊URL',
 	'blockclass_thread_field_forumname' => '版塊名稱',
 	'blockclass_thread_field_typename' => '主題分類名稱',
@@ -184,7 +188,7 @@ $lang = array(
 	'blockclass_member_field_reason' => '推薦原因',
 	'blockclass_member_field_unitprice' => '竟價單次訪問單價',
 	'blockclass_member_field_showcredit' => '竟價總積分',
-	'blockclass_member_field_shwonote' => '竟價上榜宣言',
+	'blockclass_member_field_shownote' => '竟價上榜宣言',
 	'blockclass_member_field_extcredits1' => '擴展積分1',
 	'blockclass_member_field_extcredits2' => '擴展積分2',
 	'blockclass_member_field_extcredits3' => '擴展積分3',
@@ -451,6 +455,8 @@ $lang = array(
 	'blockclass_other_stat_albums_title' => '相冊顯示名',
 	'blockclass_other_stat_pics_title' => '圖片顯示名',
 	'blockclass_other_stat_shares_title' => '分享顯示名',
+
+	'blockclass_field_id' => '數據ID',
 );
 
 

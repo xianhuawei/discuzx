@@ -1,11 +1,16 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_portalcp.php  by Khalid Nahhal, http://www.ar-discuz.com
+ *      $Id: lang_portalcp.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'block_diy_nopreview'		=> '<p>هذه القائمة الجانبية تحتوي على  js, لا يمكنك المعاينة, الرجاء الحفظ للمشاهدة.</p>',
@@ -15,9 +20,10 @@ $lang = array(
 	'block_first_category'		=> 'أعلى الأقسام',//'顶级分类',
 	'block_all_forum'		=> 'كل المنتديات',//'全部版块',
 	'block_all_group'		=> 'جميع مجموعات الأعضاء',//'全部用户组',
-	'block_all_type'		=> 'كل الانواع',//'全部分类',
+	'block_all_type'		=> 'كل الأنواع',//'全部分类',
 	'file_size_limit'		=> 'الملف تجاوز  {size} ك.ب, الرجاء الرجوع.',//'文件不能大于 {size} kb，请返回．',
 	'set_to_conver'			=> 'وضع كغلاف',//'设为封面',
+	'small_image'			=> 'صورة صغيرة',//'小图',
 	'insert_small_image'		=> 'ادراج صورة صغيرة',//'插入小图',
 	'insert_large_image'		=> 'ادراج صورة كبيرة',//'插入大图',
 	'insert_file'			=> 'ادراج ملف',//'插入文件',
@@ -27,6 +33,8 @@ $lang = array(
 	'article_noexist'		=> 'المقالة المطلوبة غير موجودة',//'指定的文章不存在，请检查',
 	'article_noallowed'		=> 'أنت لا تملك الصلاحيات لعمل هذه العملية للمقالة',//'你没有权限对指定的文章进行操作',
 	'article_publish_noallowed'	=> 'أنت لا تملك الصلاحيات لنشر مقالة',//'你没有权限进行文章发布操作',
+	'article_category_empty'	=> 'عذراً, القسم لا يمكن ان يكون فارغ',//'抱歉，栏目不能为空',
+	'article_edit_nopermission'	=> 'عذراً, أنت لا تمتلك صلاحيات لتعديل هذه المقالة',//'抱歉，您没有权限进行当前文章操作',
 	'article_publish'		=> 'نشر مقالة',//'发布文章',
 	'article_manage'		=> 'إدارة مقالة',//'管理文章',
 	'article_tag'			=> 'الكلمات الدلالية',//'标签',
@@ -36,6 +44,8 @@ $lang = array(
 	'article_pushplus_info'		=> '<p><center><i><a href="{url}" class="xg1 xs1">هذه المقالة مقدمة من  {author}</a></i><center></p>',
 
 	'diytemplate_name_null'		=> '[غير مكتمل]',//'[未填写]',
+	'portal_view_name'		=> ' صفحة عرض المقالة',//' 文章查看页',
+	'forum_viewthread_name'		=> ' صفحة عرض المشاركات',//' 帖子查看页',
 	'portal/index'			=> 'الرئيسية',//'文章首页',
 	'portal/list'			=> 'قائمة المقالات',//'文章列表页(公共)',
 	'portal/view'			=> 'المقالة, رؤية الصفحة (عام)',//'文章查看页(公共)',
@@ -44,7 +54,7 @@ $lang = array(
 	'forum/viewthread'		=> 'عرض مواضيع المنتدى',//'帖子查看首页(公共)',
 	'forum/forumdisplay'		=> 'صفحات قائمة المنتديات (عام)',//'版块列表页(公共)',
 	'group/index'			=> 'المجموعة الرئيسية',//'群组首页',
-	'group/group_my'		=> 'بلدي المجموعات الرئيسية',//'我的群组首页',
+	'group/group_my'		=> 'المجموعات الخاصة بي',//'我的群组首页',
 	'group/group'			=> 'المجموعات الرئيسية',//'群组内容页',
 	'home/space_home'		=> 'الملف الشخصي',//'空间首页',
 	'home/space_trade'		=> 'صفحة المنتجات',//'空间商品页',
@@ -78,12 +88,17 @@ $lang = array(
 	'ranklist/thread'		=> 'أعلى المواضيع',//'帖子排行榜页',
 	'ranklist/member'		=> 'أعلى الأعضاء',//'用户排行榜页',
 	'other_page'			=> 'موديلات غير  DIY ',//'非DIY模块',
-	'upload'	=> 'رفع',
-	'remote'	=> 'من رابط',
-	'portal_index'	=> 'رئيسية المجلة',
+	'upload'		=> 'رفع',
+	'remote'		=> 'من رابط',
+	'portal_index'		=> 'رئيسية المجلة',
 	'portal_topic_blue'	=> 'الاستايل الازرق',
 	'portal_topic_green'	=> 'الاستايل الاخضر',
 	'portal_topic_grey'	=> 'الاستايل الرمادي',
 	'portal_topic_red'	=> 'الاستايل الاحمر',
+
+	'itemtypename0'			=> 'تلقائي',//'自动',
+	'itemtypename1'			=> '<span style="color: #FF0000">ثابت</span>',//'<span style="color: #FF0000">固定</span>',
+	'itemtypename2'			=> '<span style="color: #00BFFF">تعديل</span>',//'<span style="color: #00BFFF">编辑</span>',
+	'itemtypename3'			=> '<span style="color: #0000FF">نشر</span>',//'<span style="color: #0000FF">推送</span>',
 
 );

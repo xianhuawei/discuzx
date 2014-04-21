@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_feed.php by Valery Votintsev at sources.ru
+ *      $Id: lang_feed.php 14490 2010-08-12 04:32:34Z zhengqingpeng $
  */
 
 $lang = array
@@ -103,3 +103,4 @@ $lang = array
 
 );
 
+?>

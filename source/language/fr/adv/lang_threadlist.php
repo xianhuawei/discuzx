@@ -7,6 +7,10 @@
  *      $Id: lang_threadlist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'threadlist_name'		=> 'Forum/Groupe affiche une liste des messages de publicit&#233;',

@@ -8,6 +8,10 @@
  *      German Discuz!X Translation (2011-08-12) by Coldcut - http://www.cybertipps.com
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'blog_name'	=> 'Space Adv',// '空间 日志广告',

@@ -7,6 +7,10 @@
  *      $Id: lang_articlelist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'articlelist_aids'			=> 'Specified articles',//'指定文章',
@@ -34,14 +38,14 @@ $lang = array
 	'articlelist_orderby_dateline'		=> 'Post time',//'按发布时间倒序',
 	'articlelist_orderby_viewnum'		=> 'Views',//'按查看数倒序',
 	'articlelist_orderby_commentnum'	=> 'Comments',//'按评论数倒序',
-	'articlelist_orderby_click'		=> 'Number of "{clickname}", desc',
-	'articlelist_publishdateline'		=> 'Article Publish Time',
-	'articlelist_publishdateline_nolimit'	=> 'Any time',
-	'articlelist_publishdateline_hour'	=> 'Last Hour',
-	'articlelist_publishdateline_day'	=> 'Last Day',
-	'articlelist_publishdateline_week'	=> 'Last Week',
-	'articlelist_publishdateline_month'	=> 'Last Month',
-	'articlelist_keyword'			=> 'Article Keywords',
-	'articlelist_keyword_comment'		=> 'Set the keywords contained in the title. Note: Leave blank for no filtering. Keywords can use wildcards *; For search keywords with "AND" condition, separate it by space or "AND". i.e. "win32 AND unix". For match keywords with "OR" condition use | or "OR" separator, i.e. "win32 OR unix"',
+	'articlelist_orderby_click'		=> 'Number of "{clickname}", desc',//'按表态 {clickname} 数倒序',
+	'articlelist_publishdateline'		=> 'Article Publish Time',//'文章发布时间',
+	'articlelist_publishdateline_nolimit'	=> 'Any time',//'不限制',
+	'articlelist_publishdateline_hour'	=> 'Last Hour',//'1小时内',
+	'articlelist_publishdateline_day'	=> 'Last Day',//'24小时内',
+	'articlelist_publishdateline_week'	=> 'Last Week',//'7天内',
+	'articlelist_publishdateline_month'	=> 'Last Month',//'1个月内',
+	'articlelist_keyword'			=> 'Article Keywords',//'标题关键字',
+	'articlelist_keyword_comment'		=> 'Set the keywords contained in the title. Note: Leave blank for no filtering. Keywords can use wildcards *; For search keywords with "AND" condition, separate it by space or "AND". i.e. "win32 AND unix". For match keywords with "OR" condition use | or "OR" separator, i.e. "win32 OR unix"',//'设置标题包含的关键字。注意: 留空为不进行任何过滤； 关键字中可使用通配符 *； 匹配多个关键字全部，可用空格或 AND 连接。如 win32 AND unix； 匹配多个关键字其中部分，可用 | 或 OR 连接。如 win32 OR unix',
 );
 

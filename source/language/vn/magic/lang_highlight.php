@@ -8,6 +8,10 @@
  *      $Id: lang_highlight.php 17773 2010-11-01 09:29:31Z liulanbo $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'highlight_name' => 'Thẻ đổi màu',

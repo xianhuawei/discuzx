@@ -7,6 +7,10 @@
  *      $Id: lang_email.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'email_name'	=> 'Activate Email Task',//'验证邮箱任务',
@@ -19,4 +23,3 @@ $lang = array
 		</ul>',
 );
 
-?>

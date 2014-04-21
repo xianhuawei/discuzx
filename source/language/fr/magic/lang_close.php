@@ -7,6 +7,10 @@
  *      $Id: lang_close.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'close_name'			=> 'Carte du Silence',   //  Silence card

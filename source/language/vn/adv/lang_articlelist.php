@@ -7,6 +7,10 @@
  *      $Id: lang_articlelist.php 13730 2010-07-30 03:03:10Z zhangguosheng $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'articlelist_name' => 'Giữa danh sách bài',

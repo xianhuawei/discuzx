@@ -7,6 +7,10 @@
  *      $Id: lang_cornerbanner.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'cornerbanner_name'		=> 'Bottom right corner of the global advertising',//'全局 右下角广告',
@@ -20,6 +24,9 @@ $lang = array
 	'cornerbanner_animator_comment'	=> 'Set whether to display animation show',//'设置展现时是否显示动画效果',
 	'cornerbanner_category'		=> 'Put the portal channels',//'投放门户频道',
 	'cornerbanner_category_comment'	=> 'Set the channel classified advertising, when ads included in the scope of "Portal" valid',//'设置广告投放的频道分类，当广告投放范围中包含“门户”时有效',
+	'cornerbanner_disableclose'	=> 'Close advertising link',//'关闭广告的链接',
+	'cornerbanner_disableclose_comment'	=> 'If you want the Advertising can not be closed, you can disable to show the Close link',//'如果广告代码中已内置关闭操作，可以关闭系统预置的关闭链接',
+	'cornerbanner_show'		=> 'Show',//'显示',
+	'cornerbanner_hidden'		=> 'Hide',//'隐藏',
 );
 
-?>

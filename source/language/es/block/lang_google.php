@@ -15,8 +15,6 @@ $lang = array
 	'google_lang'			=> 'Resultados del lenguaje',//'搜索网页的语言',
 	'google_lang_comment'		=> 'Configurar el idioma del sitio correctamente para dar los mejores resultados de búsqueda',//'设置适合自己论坛的网页语言可以有效的提高搜索结果的质量',
 	'google_lang_any'		=> 'Cualquier idioma',//'任何语言',
-// ToDo:
-// Make Language List from the config settings!
 	'google_lang_en'		=> 'Inglés',//'英文',
 	'google_lang_zh-CN'		=> 'Chino Simplificado',//'简体中文',
 	'google_lang_zh-TW'		=> 'Chino Tradicional',//'繁体中文',
@@ -27,6 +25,7 @@ $lang = array
 	'google_client'			=> 'Google Adsense ID',//'搜索联盟 ID',
 	'google_client_comment'		=> 'Si se ha unido Google Adsense, usted puede llenar su identificación aquí',//'如果您加入了 Google 搜索联盟，可以在这里填写 ID',
 // Added by vot
-	'google_lang_ru'		=> 'Ruso',//'俄语',
+// ToDo:
+// Make Language List from the config settings!
 );
 

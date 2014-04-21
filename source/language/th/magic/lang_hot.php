@@ -4,13 +4,18 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_hot.php by Valery Votintsev at sources.ru
+ *      $Id: lang_hot.php 27449 2012-02-01 05:32:35Z zhangguosheng $
+ *	Translated to Thai by jaideejung007
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
-	'hot_name'	=> 'Add Hot',//'热点灯',
-	'hot_desc'	=> 'Add hot value to your own blog',//'把自己的日志热度增加站点推荐的热点值',
-	'hot_info'	=> 'Add {num} points to your blog hot value',//'把自己的日志热度增加 {num} 个热点值',
+	'hot_name' => 'ทำให้ได้รับความนิยม',
+	'hot_desc' => 'เปลี่ยนแปลงบล็อกของคุณ จากบล็อกธรรมดาเป็นบล็อกยอดนิยม',
+	'hot_info' => 'สามาถเพิ่มบล็อกธรรมดาเป็นบล็อกยอดนิยมได้ {num} บล็อก',
 );
 

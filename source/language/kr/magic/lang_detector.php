@@ -11,8 +11,8 @@
 $lang = array
 (
 	'detector_name'	=> '레이더',
-	'detector_desc'	=> '광장에서 알림 쪽지을 탐지 하는 아이템 입니다',
+	'detector_desc'	=> '광장에서 통지서 글문을 탐지 하는 아이템 입니다',
 	'detector_num'	=> '보유 개수',
-	'detector_info'	=> '회원(최대 {num} 개) 광장에서 알림 쪽지을 탐지합니다.',
+	'detector_info'	=> '회원(최대 {num} 개) 광장에서 통지서 글문을 탐지합니다.',
 );
 

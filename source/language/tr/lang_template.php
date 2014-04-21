@@ -60,7 +60,7 @@ $lang = array (
 	'admincp'			=> 'Admin Center',//'管理中心',
 	'changestyle'			=> 'Change Style',//'切换风格',
 	'default'			=> 'Default',//'默认',
-	'forum_manager'			=> 'Düzenle Forum',
+	'forum_manager'			=> 'Moderatör paneli',
 	'go_to_mobile'			=> 'To the mobile version',//'进入手机版',
 	'login_switch_invisible_mode'	=> 'Değiştir',
 	'logout'			=> 'Çıkış',
@@ -81,6 +81,10 @@ $lang = array (
 	'your_mobile_browser'		=> 'Please select ',//'请选择 ',
 	'e_redo'			=> 'Tekrar',
 	'e_undo'			=> 'Geri',
+	'e_full_screen'			=> 'Full Screen',//'全屏',
+	'e_restore_size'		=> 'Restore size',//'恢复',
+	'e_simple'			=> 'General Mode',//'常用',
+	'e_advanced'			=> 'Advanced Mode',//'高级',
 	'header_add_frame'		=> 'Çerçeve ekle',
 	'header_add_module'		=> 'Modül ekle',
 	'header_clearall'		=> 'Temizle',
@@ -358,11 +362,6 @@ $lang = array (
 //---------------------------
 // Added by Valery Votintsev
 
-	'e_full_screen'			=> 'Full Screen',//'全屏',
-	'e_restore_size'		=> 'Restore size',//'恢复',
-	'e_simple'			=> 'General Mode',//'常用',
-	'e_advanced'			=> 'Advanced Mode',//'高级',
-
 //static/space/t1/style.css
 	'default_style'	=> 'Default style',//'[name]默认风格[/name]',
 
@@ -417,5 +416,7 @@ $lang = array (
 	'e_map'		=> 'Map',//'地图',
 	'e_map_insert'	=> 'Insert Google Map',//'插入google地图',
 	'e_map_address'	=> 'Enter address for search: ',//'地址： ',
+
 );
 
+?>

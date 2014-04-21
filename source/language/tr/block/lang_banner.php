@@ -7,6 +7,10 @@
  *      $Id: lang_banner.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'banner_pic'		=> 'Image URL',//'图片地址',

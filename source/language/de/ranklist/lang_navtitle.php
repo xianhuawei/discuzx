@@ -15,16 +15,16 @@ $lang = array(
 	'ranklist_title_member_girl'	=> 'Top-Madchen',
 	'ranklist_title_member_boy'	=> 'Top-Jungs',
 	'ranklist_title_member_friend'	=> 'Top-Freunde',
-'ranklist_title_member_invite'	=> 'Top inviters',//'????',
+	'ranklist_title_member_invite'	=> 'Top inviters',//'邀请排行',
 	'ranklist_title_member_post'	=> 'Top-Beitrage',
 	'ranklist_title_member_blog'	=> 'Top-Blog',
-'ranklist_title_member_onlinetime'	=> 'Top online',//'??????',
+	'ranklist_title_member_onlinetime'	=> 'Top-Online',//'在线时间排行',
 
 	'ranklist_title_thread_reply'	=> 'Top Beitrags-Antworten',
 	'ranklist_title_thread_view'	=> 'Top-Beitr&auml;ge angesehen',
 	'ranklist_title_thread_share'	=> 'Beitr&auml;ge geteilt',
 	'ranklist_title_thread_favorite'	=> 'Top-Favorit Beitr&auml;ge',
-'ranklist_title_thread_heat'	=> 'Top Hot Beitr&auml;ge',//'??????',
+	'ranklist_title_thread_heat'	=> 'Top Hot Beitr&auml;ge',//'??????',
 
 	'ranklist_title_blog_heat'	=> 'Beliebtheits Ranking',
 	'ranklist_title_blog_reply'	=> 'Blog  Antworten',
@@ -65,8 +65,7 @@ $lang = array(
 	'ranklist_title_group_post_30'	=> 'Gruppen Beitrags-Ranking der letzten 30 Tage',
 	'ranklist_title_group_post_24'	=> 'Gruppen Beitrags-Ranking der letzten 24 Stunden',
 
-'ranklist_title_app_today'	=> 'Anwendung heute der aktiven Rangliste',//'????????',
-'ranklist_title_app_all'	=> 'Die beliebtesten Anwendungen',//'?????',
+	'ranklist_title_app_today'	=> 'Anwendung heute der aktiven Rangliste',//'????????',
+	'ranklist_title_app_all'	=> 'Die beliebtesten Anwendungen',//'?????',
 );
 
-?>

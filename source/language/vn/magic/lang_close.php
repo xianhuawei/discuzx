@@ -8,6 +8,10 @@
  *      $Id: lang_close.php 7980 2010-04-15 07:04:00Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'close_name' => 'Thẻ im lặng',
@@ -20,6 +24,7 @@ $lang = array
 	'close_succeed' => 'Chủ đề đã được đóng cửa.',
 	'close_info_noperm' => 'Có lỗi, không được phép sử dụng đạo cụ ở đây.',
 	'close_info_user_noperm' => 'Có lỗi, bạn không thể sử dụng đạo cụ với người này',
+
 	'close_notification' => 'Chủ đề của bạn {subject} được {actor} sử dụng {magicname}, <a href="forum.php?mod=viewthread&tid={tid}">Xem</a>',
 );
 

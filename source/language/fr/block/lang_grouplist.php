@@ -7,6 +7,10 @@
  *      $Id: lang_grouplist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'grouplist_gtids'		=> 'Cat&#233;gories du Groupe',  //  '群组类别'
@@ -16,7 +20,7 @@ $lang = array
 	'grouplist_startrow'		=> 'Nbres. initiaux de lignes de Donn&#233;es',  //  '起始数据行数'
 	'grouplist_startrow_comment'	=> 'Pour la premi&#232;re s&#233;rie de lignes de donn&#233;es, Svp. entrez les valeurs sp&#233;cifiques, 0 &#224; partir de la premi&#232;re ligne, et ainsi de suite',  // '如需设定起始的数据行数, 请输入具体数值, 0 为从第一行开始, 以此类推' 
 	'grouplist_titlelength'		=> 'Longueur du Nom',  //  '名称长度'
-	'grouplist_titlelength_comment'	=> 'R&#233;glez la longueur Max. de d&#233;nomination du Groupe',  //  '设置群组名称最大长度'
+/*vot*/	'grouplist_titlelength_comment'	=> 'R&#233;glez la longueur Max. de d&#233;nomination du Groupe',  //  '设置群组名称最大长度'
 	'grouplist_summarylength'	=> 'Longueur de la Description',  //  '介绍长度'
 	'grouplist_summarylength_comment'	=> 'R&#233;glez la longueur Max. du Groupe introduit',  //  '设置群组介绍最大长度'
 	'grouplist_orderby'			=> 'Trier par Groupe',  //  '群组排序方式'

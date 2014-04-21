@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -67,7 +67,7 @@ $lang = array
 	'threadlist_picrequired_comment'	=> 'Показывать только темы с прикреплёнными изображениями.',
 	'threadlist_orderby'			=> 'Сортировка',
 	'threadlist_orderby_comment'		=> 'Укажите метод сортировки',
-	'threadlist_orderby_lastpost'		=> 'По дате последнего поста',
+	'threadlist_orderby_lastpost'		=> 'По дате последнего сообщения',
 	'threadlist_orderby_dateline'		=> 'По дате создания',
 	'threadlist_orderby_replies'		=> 'По кол-ву ответов',
 	'threadlist_orderby_views'		=> 'По кол-ву просмотров',
@@ -82,7 +82,7 @@ $lang = array
 	'threadlist_orderby_todayhots'		=> 'Популярные сегодня',
 	'threadlist_orderby_weekhots'		=> 'Популярные за неделю',
 	'threadlist_orderby_monthhots'		=> 'Популярные за месяц',
-	'threadlist_lastpost'			=> 'Дата последнего поста',
+	'threadlist_lastpost'			=> 'Дата последнего сообщения',
 	'threadlist_postdateline'		=> 'Дата создания',
 	'threadlist_postdateline_nolimit'	=> 'Без ограничений',
 	'threadlist_postdateline_hour'		=> 'За последний час',

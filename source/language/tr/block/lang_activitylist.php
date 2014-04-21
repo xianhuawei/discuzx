@@ -7,6 +7,10 @@
  *      $Id: lang_activitylist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'activitylist_fids'			=> 'Forums',//'所在版块',
@@ -26,7 +30,7 @@ $lang = array
 	'activitylist_tids'			=> 'Threads',//'指定主题',
 	'activitylist_tids_comment'		=> 'Set the specified threads id you want to display, use "," to seperate tids',//'设置要指定显示的主题 tid ，多个 tid 请用半角逗号“,”隔开。注意: 留空为不进行任何过滤',
 	'activitylist_keyword'			=> 'Keywords',//'标题关键字',
-	'activitylist_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤<br />关键字中可使用通配符 "*"<br />匹配多个关键字全部，可用空格或 "AND" 连接。如 win32 AND unix<br />匹配多个关键字其中部分，可用 "|" 或 "OR" 连接。如 win32 OR unix',
+	'activitylist_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤； 关键字中可使用通配符 *； 匹配多个关键字全部，可用空格或 AND 连接。如 win32 AND unix； 匹配多个关键字其中部分，可用 | 或 OR 连接。如 win32 OR unix',
 	'activitylist_typeids'			=> 'Thread types',//'主题分类',
 	'activitylist_typeids_comment'		=> 'Select specific thread type. Note: Select All or Clear All for disable any filtering.',//'设置特定分类的主题。注意: 全选或全不选均为不进行任何过滤',
 	'activitylist_typeids_all'		=> 'All thread types',//'全部的主题分类',
@@ -89,10 +93,9 @@ $lang = array
 	'activitylist_orderby_monthstart'	=> 'Started last month',//'按一月内活动开始时间排序',
 	'activitylist_orderby_weekexp'		=> 'Expired last week',//'按一周内报名截止时间排序',
 	'activitylist_orderby_monthexp'		=> 'Expired last month',//'按一月内报名截止时间排序',
-	'activitylist_orderby_weekhot'		=> 'Hots last week',//'按一周内热度排序',
-	'activitylist_orderby_monthhot'		=> 'Hots last month',//'按一月内热度排序',
+	'activitylist_orderby_weekhot'		=> 'Hot last week',//'按一周内已参加人数排序',
+	'activitylist_orderby_monthhot'		=> 'Hot last month',//'按一月内已参加人数排序',
 	'activitylist_orderby_alltimehot'	=> 'At the end of activity has not participated in any order of the number',//'按所有未结束活动已参加人数排序',
-	'activitylist_highlight'		=> 'Highlight found words',
+	'activitylist_highlight'		=> 'Highlight found words',//'获得高亮值',
 );
 
-?>

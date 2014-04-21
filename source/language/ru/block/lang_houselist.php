@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -67,7 +67,7 @@ $lang = array
 	'categorylist_recommend_comment'	=> 'Показывать только рекомендованные темы',
 	'categorylist_orderby'			=> 'Сортировка',
 	'categorylist_orderby_comment'		=> 'Укажите порядок сортировки тем',
-	'categorylist_orderby_lastpost'		=> 'По дате последнего поста',
+	'categorylist_orderby_lastpost'		=> 'По дате последнего сообщения',
 	'categorylist_orderby_dateline'		=> 'По дате создания',
 	'categorylist_orderby_replies'		=> 'По кол-ву ответов',
 	'categorylist_orderby_views'		=> 'По кол-ву просмотров',

@@ -7,6 +7,10 @@
  *      $Id: lang_showip.php 14918 2010-08-17 05:35:02Z chenchunshao $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'showip_name' => 'Thẻ IP',
@@ -15,6 +19,7 @@ $lang = array
 	'showip_info_nonexistence' => 'Vui lòng nhập tên người dùng cần xem',
 	'showip_ip_message' => 'IP của {username} là {ip}',
 	'showip_info_noperm' => 'Có lỗi, bạn không có quyền xem IP của người này',
+
 	'showip_notification' => 'Bạn đã được người khác sử dụng {magicname} để xem IP',
 );
 

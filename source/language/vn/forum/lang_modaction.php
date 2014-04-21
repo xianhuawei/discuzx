@@ -7,6 +7,10 @@
  *      $Id: lang_modaction.php 19194 2010-12-21 10:05:33Z shanzongjun $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 

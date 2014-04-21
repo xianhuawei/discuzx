@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -19,8 +19,9 @@ $lang = array(
 	'block_all_type'	=> 'Alle Kategorien',
 	'file_size_limit'	=> 'Die Datei darf nicht gr&ouml;&szlig;er als {size} KB sein. Bitte geh zur&uuml;ck.',
 	'set_to_conver'		=> 'Set einer Abdeckung',
-'insert_small_image'	=> 'Insert a small map',
-'insert_large_image'	=> 'Insert the larger',
+	'small_image'			=> 'Small image',//'小图',
+	'insert_small_image'		=> 'Insert small image',//'插入小图',
+	'insert_large_image'		=> 'Insert large image',//'插入大图',
 	'insert_file'		=> 'Datei einf&uuml;gen.',
 	'delete'		=> 'L&ouml;schen',
 	'upload_error'		=> 'Upload fehlgeschlagen.',
@@ -28,22 +29,26 @@ $lang = array(
 	'article_noexist'	=> 'Der ausgew&auml;hlte Artikel existiert nicht.',
 	'article_noallowed'	=> 'Du hast keine Berechtigung um diese Funktion auszuf&uuml;hren.',
 	'article_publish_noallowed'	=> 'Du hast keine Berechtigung um einen Artikel zu ver&ouml;ffentlichen.',
+	'article_category_empty'	=> 'Sorry, the category can not be empty',//'抱歉，栏目不能为空',
+	'article_edit_nopermission'	=> 'Sorry, you do not have permission to edit current article',//'抱歉，您没有权限进行当前文章操作',
 	'article_publish'	=> 'Ver. Artikel',
 	'article_manage'	=> 'Management',
 	'article_tag'		=> 'Tag',
 	'select_category'	=> 'Kategorie w&auml;hlen',
-'blockstyle_diy'	=> 'Custom template',
+	'blockstyle_diy'		=> 'Custom Template',//'自定义模板',
 
 'article_pushplus_info'	=> '<p><center><i><a href="{url}" class="xg1 xs1">This content provided by the {author}</a></i><center></p>',
 
 	'diytemplate_name_null'	=> '[Nicht ausgef&uuml;llt]',
+	'portal_view_name'		=> ' Article view page',//' 文章查看页',
+	'forum_viewthread_name'		=> ' Posts View Page',//' 帖子查看页',
 	'portal/index'		=> 'Artikel Home',
 	'portal/list'		=> 'Artikel Liste Page (&Ouml;ffentlich)',
 	'portal/view'		=> 'Artikel anzeigen Seite (&Ouml;ffentlich)',
 	'portal/comment'	=> 'Artikel Kommentare Page',
-'forum/discuz'		=> 'Forum Home',
+	'forum/discuz'			=> 'Forum Home',//'论坛首页',
 	'forum/viewthread'	=> 'Beitr&auml;ge View Home (&Ouml;ffentlich)',
-'forum/forumdisplay'	=> 'Forum List Page (&Ouml;ffentliches)',
+	'forum/forumdisplay'		=> 'Forum list of pages (public)',//'版块列表页(公共)',
 	'group/index'		=> 'Gruppe Home',//'群组首页',
 	'group/group_my'	=> 'Meine Gruppe Home',//'我的群组首页',
 	'group/group'		=> 'Gruppen Inhalt-Seite',//'群组内容页',
@@ -57,9 +62,9 @@ $lang = array(
 	'space_share_view'	=> 'Space-Share',
 	'home/space_poll'	=> 'Voting-Seite',
 	'home/space_pm'		=> 'Space PM',
-'home/space_notice'	=> 'Space Notice',
+	'home/space_notice'		=> 'Space reminder Page',//'空间提醒页',
 	'home/space_group'	=> 'Space Gruppe Seite',//'空间群组页',
-'home/space_friend'	=> 'Space Friends Seite',
+	'home/space_friend'		=> 'Space friends page',//'空间好友页',
 	'home/space_favorite'	=> 'Space Sammlung Seite',
 	'home/space_doing'	=> 'Space Shouts Seite',
 	'home/space_debate'	=> 'Debatte Space Seite',
@@ -68,12 +73,12 @@ $lang = array(
 	'home/space_album_view'	=> 'Space Album Seite',
 	'home/space_album_pic'	=> 'Bilder Space Seite',
 	'home/space_album_list'	=> 'Space Albumliste',
-'home/space_activity'	=> 'Event Space Page',
-'ranklist/ranklist'	=> 'Full list page',
-'ranklist/blog'		=> 'Blog list page',
-'ranklist/poll'		=> 'Vote Ranking Page',
-'ranklist/activity'	=> 'Events Top Seite',
-'ranklist/forum'	=> 'Forum Page-Ranking',
+	'home/space_activity'		=> 'Space Events Page',//'空间活动页',
+	'ranklist/ranklist'		=> 'All Ranks',//'全部排行榜页',
+	'ranklist/blog'			=> 'Top Blogs',//'日志排行榜页',
+	'ranklist/poll'			=> 'Top Polls',//'投票排行榜页',
+	'ranklist/activity'		=> 'Top Events',//'活动排行榜页',
+	'ranklist/forum'		=> 'Top Forums',//'版块排行榜页',
 	'ranklist/picture'	=> 'Bilder-Liste Seite',
 	'ranklist/group'	=> 'Gruppen-Liste Seite',
 	'ranklist/thread'	=> 'Top-Beitrags Seite',
@@ -86,5 +91,10 @@ $lang = array(
 	'portal_topic_green'	=> 'Gr&uuml;nes, Thema',//'绿色调专题',
 	'portal_topic_grey'	=> 'Graues Thema',//'灰色调专题',
 	'portal_topic_red'	=> 'Rotes-Thema',//'红色调专题',
+
+	'itemtypename0'			=> 'Auto',//'自动',
+	'itemtypename1'			=> '<span style="color: #FF0000">Fixed</span>',//'<span style="color: #FF0000">固定</span>',
+	'itemtypename2'			=> '<span style="color: #00BFFF">Edit</span>',//'<span style="color: #00BFFF">编辑</span>',
+	'itemtypename3'			=> '<span style="color: #0000FF">Push</span>',//'<span style="color: #0000FF">推送</span>',
 
 );

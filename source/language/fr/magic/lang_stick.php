@@ -7,6 +7,10 @@
  *      $Id: lang_stick.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'stick_name'			=> 'Carte Scotch',   // Stick card 

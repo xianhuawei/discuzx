@@ -7,9 +7,13 @@
  *      $Id: lang_post.php 20567 2011-02-28 02:30:15Z congyushuai $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
-	'post_name' => 'Viết bài tại diễn đàn',
+	'post_name' => 'Viết bài',
 	'post_desc' => 'Trả lời, viết bài viết để hoàn thành nhiệm vụ.',
 	'post_complete_var_act' => 'Hành động',
 	'post_complete_var_act_newthread' => 'Chủ đề mới',
@@ -26,11 +30,11 @@ $lang = array
 	'post_complete_var_time' => 'Thời gian giới hạn (giờ)',
 	'post_complete_var_time_comment' => 'Các thành viên của nhiệm vụ thiết lập để hoàn thành nhiệm vụ từ việc áp dụng chế về thời gian, các thành viên không hoàn thành nhiệm vụ thời gian này không đủ điều kiện cho giải thưởng và đánh dấu các công việc không thành công, 0 hoặc trống là không hạn chế',
 
-	'task_complete_forumid' => 'Trong diễn đàn {value} ',
+	'task_complete_forumid' => 'Trong diễn đàn {value}.',
 	'task_complete_act_newthread' => 'Chủ đề mới {num}.',
 	'task_complete_act_newpost' => 'Bài mới/Trả lời {num}',
-	'task_complete_act_newreply_thread' => 'Trả lời chủ đề"{value}" {num}.',
-	'task_complete_act_newreply_author' => 'Trả lời tác giả"{value}" chủ đề {num}.',
+	'task_complete_act_newreply_thread' => 'Trả lời chủ đề "{value}" {num}.',
+	'task_complete_act_newreply_author' => 'Trả lời tác giả "{value}" {num} chủ đề.',
 );
 
 ?>

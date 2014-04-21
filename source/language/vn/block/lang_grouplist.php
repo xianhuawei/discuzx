@@ -7,29 +7,33 @@
  *      $Id: lang_grouplist.php 19504 2011-01-05 04:51:17Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
-	'grouplist_gtids' => 'Các mục của nhóm',
-	'grouplist_gtids_comment' => 'Chọn các mục của nhóm',
-	'grouplist_fids' => 'Quy định nhóm',
-	'grouplist_fids_comment' => 'Đầu vào các Quy định nhómID, cách nhau bằng dấu phẩy giữa nhiều ID',
-	'grouplist_startrow' => 'Số hàng ban đầu',
-	'grouplist_startrow_comment' => 'Để thiết lập số ban đầu của các hàng, nhập các giá trị cụ thể, 0 để bắt đầu từ những dòng đầu tiên, và như vậy',
-	'grouplist_titlelength' => 'Độ dài tên',
-	'grouplist_titlelength' => 'Thiết lập độ dài tối đa của tên nhóm',
-	'grouplist_summarylength' => ' Độ dài mô tả',
-	'grouplist_summarylength_comment' => 'Thiết lập độ dài tối đa của nhóm giới thiệu',
-	'grouplist_orderby' => 'Phân loại theo nhóm',
-	'grouplist_orderby_comment' => 'Cài đặt để sắp xếp của nhóm',
-	'grouplist_orderby_dateline' => 'Tạo đảo ngược',
-	'grouplist_orderby_posts' => 'Tổng số bài viết đảo ngược',
-	'grouplist_orderby_todayposts' => 'Đảo ngược thứ tự theo số lượng bài viết ngày hôm nay',
-	'grouplist_orderby_threads' => 'Đảo ngược thứ tự của số chủ đề',
-	'grouplist_orderby_level' => 'Xếp ngược lại',
-	'grouplist_orderby_membernum' => 'Đảo ngược thứ tự của số lượng thành viên',
-	'grouplist_orderby_activity' => 'Mức độ hoạt động đảo ngược',
-	'grouplist_orderby_commoncredits' => 'Trên các điểm chung đảo ngược',
-	'grouplist_orderby_displayorder' => 'Theo mặc định, trật tự'
+	'grouplist_gtids' => 'Danh mục nhóm',
+	'grouplist_gtids_comment' => 'Chọn danh mục nhóm',
+	'grouplist_fids' => 'Thiết lập nhóm',
+	'grouplist_fids_comment' => 'Thiết lập hiện thị nhóm.Bạn hãy nhấm giữ phím CTRL để chọn các nhóm',
+	'grouplist_startrow' => 'Hàng đầu tiên',
+	'grouplist_startrow_comment' => 'Nếu bạn cần phải thiết lập hàng đầu, vui lòng nhập một số, 0 là hàng đầu tiên.',
+	'grouplist_titlelength' => 'Chiều dài tiêu đề',
+/*vot*/	'grouplist_titlelength_comment' => 'Thiết lập độ dài tối đa của tiêu đề nhóm.',
+	'grouplist_summarylength' => 'Mô tả danh mục nhóm',
+	'grouplist_summarylength_comment' => 'Thiết lập độ dài tối đa của mô tả',//'设置群组介绍最大长度',
+	'grouplist_orderby' => 'Sắp xếp',
+	'grouplist_orderby_comment' => 'Thiết lập sắp xếp các nhóm',
+	'grouplist_orderby_dateline' => 'Ngày tạo',
+	'grouplist_orderby_posts' => 'Đăng bài',
+	'grouplist_orderby_todayposts' => 'Đăng trong ngày',
+	'grouplist_orderby_threads' => 'Chủ đề',
+	'grouplist_orderby_level' => 'Cấp độ',
+	'grouplist_orderby_membernum' => 'Thành viên',
+	'grouplist_orderby_activity' => 'Sôi nổi',
+	'grouplist_orderby_commoncredits' => 'Điểm',//'按共同积分倒序',
+	'grouplist_orderby_displayorder' => 'Sắp xếp theo mặc định',//'按默认顺序'
 );
 
 ?>

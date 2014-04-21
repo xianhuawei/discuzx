@@ -7,6 +7,10 @@
  *      $Id: lang_blog.php 6752 2010-03-25 08:47:54Z cnteacher $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'blog_name' => 'Trang Blog',

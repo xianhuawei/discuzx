@@ -7,6 +7,10 @@
  *      $Id: lang_money.php 7828 2010-04-14 02:11:48Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'money_name' => 'Thẻ tiền tài',

@@ -7,6 +7,10 @@
  *      $Id: lang_editor.php 20565 2011-02-28 02:24:52Z congyushuai $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array(
 	'editor_switch_media' => 'Đầy đủ',
 	'editor_cut' => 'Cắt',
@@ -24,13 +28,14 @@ $lang = array(
 	'editor_hyperlink' => 'Liên kết',
 	'editor_remove_link' => 'Xóa liên kết',
 	'editor_link_image' => 'Chèn hình',
+	'editor_link_attach' => 'Thêm file đính kèm',
 	'editor_link_flash' => 'Chèn FLASH',
-	'editor_insert_smiley' => 'Chèn smile',
+	'editor_insert_smiley' => 'Chèn smiley',
 	'editor_doodle' => 'Bảng vẽ',
 	'editor_pagebreak' => 'Phân trang',
 	'editor_download_remote' => 'Đính kèm hình ảnh',
 	'editor_restore' => 'Khôi phục nội dung',
-	'editor_switch_text' => 'Văn bản thuần',
+	'editor_switch_text' => 'Văn bản',
 	'editor_font_song' => 'Times New Roman',
 	'editor_font_hei' => 'Bold',
 	'editor_font_kai' => 'Times New Roman',
@@ -74,6 +79,7 @@ $lang = array(
 	'editor_prompt_video_media' => 'Media',
 	'editor_prompt_video_real' => 'Real',
 	'editor_prompt_mp3' => 'Nhạc MP3',
+	'editor_full_screen' => 'Toàn màn hình',
 );
 
 ?>

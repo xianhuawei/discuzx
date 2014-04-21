@@ -7,18 +7,22 @@
  *      $Id: lang_doinglist.php 16414 2010-09-06 07:29:53Z zhangguosheng $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
-	'doinglist_uids' => ' UID Người dùng',
-	'doinglist_uids_comment' => 'Điền vào các quy định người dùng ID(uid), điền nhiều phân cách bằng dấu ","',
-	'doinglist_startrow' => 'Số hàng ban đầu',
-	'doinglist_startrow_comment' => 'Để thiết lập số ban đầu của các hàng, nhập các giá trị cụ thể0 Bắt đầu từ những dòng đầu tiên, và như vậy',
-	'doinglist_titlelength' => 'Chiều dài kỷ lục',
-	'doinglist_titlelength_comment' => 'Chỉ định chiều dài kỷ lục tối đa, thiết lập0 Sự hỗ trợ cho các biểu tượng cảm xúc',
-	'doinglist_orderby' => 'Phân loại năng động',
-	'doinglist_orderby_comment' => 'Cài đặt để sắp xếp năng động',
-	'doinglist_orderby_dateline' => 'Được đăng đảo ngược',
-	'doinglist_orderby_replynum' => 'Bởi số lượng phục hồi ngược'
+	'doinglist_uids' => 'ID người dùng',
+	'doinglist_uids_comment' => 'Thiết lập người dùng mà bạn muốn hiển thị.Sử dụng ","  ngăn cách nhiều UIDs',//'填入指定用户的ID(uid)，多个用户之间用逗号(,)分隔',
+	'doinglist_startrow' => 'Hàng đầu tiên',
+	'doinglist_startrow_comment' => 'Điền số 0 nếu muốn là hàng đầu tiên.',//'如需设定起始的数据行数，请输入具体数值，0 为从第一行开始，以此类推',
+	'doinglist_titlelength' => 'Tiêu đề hoạt động',
+	'doinglist_titlelength_comment' => 'Thiết lập độ dài tối đa của tiêu đề.',//'指定记录的最大长度',
+	'doinglist_orderby' => 'Sắp xếp',
+	'doinglist_orderby_comment' => 'Thiết lập sắp xếp theo nguồn dữ liệu',//'设置以哪一字段或方式对动态进行排序',
+	'doinglist_orderby_dateline' => 'Theo thời gian đăng',//'按发布时间倒序',
+	'doinglist_orderby_replynum' => 'Trả lời',//'按回复数倒序'
 );
 
 ?>

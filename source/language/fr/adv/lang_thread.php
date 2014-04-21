@@ -7,6 +7,10 @@
  *      $Id: lang_thread.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'thread_name'		=> 'Forum/Postes au sein du Groupes d\'annonces',

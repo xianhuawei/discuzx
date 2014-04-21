@@ -4,8 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_country.php by Valery Votintsev
- *      			http://codersclub.org/discuzx/
+ *      $Id: lang_country.php by Valery Votintsev, http://codersclub.org/discuzx/
  *
  *	Translated to English by Valery Votintsev
  */
@@ -195,7 +194,7 @@ $lang = array(
 	'PL'	=> 'Poland',
 	'PM'	=> 'Saint Pierre and Miquelon',
 	'PR'	=> 'Puerto Rico',
-	'PS'	=> 'Palestinian Territory, Occupied',
+	'PS'	=> 'Palestina',
 	'PT'	=> 'Portugal',
 	'PW'	=> 'Palau',
 	'PY'	=> 'Paraguay',
@@ -203,7 +202,7 @@ $lang = array(
 	'RE'	=> 'Reunion',
 	'RO'	=> 'Romania',
 	'RS'	=> 'Serbia',
-	'RU'	=> 'Russian Federation',
+	'RU'	=> 'Russia',
 	'RW'	=> 'Rwanda',
 	'SA'	=> 'Saudi Arabia',
 	'SB'	=> 'Solomon Islands',
@@ -262,4 +261,7 @@ $lang = array(
 	'ZM'	=> 'Zambia',
 	'ZW'	=> 'Zimbabwe',
 	'??'	=> 'Unknown',
+	'LAN'	=> 'LAN',
+	'LOC'	=> 'Localhost',
+	'ERR'	=> 'Invalid IP Address',
 );

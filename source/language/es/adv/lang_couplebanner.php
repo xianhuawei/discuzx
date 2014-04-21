@@ -25,5 +25,9 @@ $lang = array
 	'couplebanner_coupleadid_comment'	=> 'Establecer la publicidad vinculados a la publicidad actual',//'设置和当前广告配对的上/下联广告',
 	'couplebanner_category'			=> 'Doble banner categoría Portal',
 	'couplebanner_category_comment'		=> 'Establecer una categoría de portal para mostrar el doble banner. Este efecto se toma solamente cuando se asigna anuncios en el portal',
+	'couplebanner_disableclose'		=> 'Close advertising link',//'关闭广告的链接',
+	'couplebanner_disableclose_comment'	=> 'If you want the Advertising can not be closed, you can disable to show the Close link',//'如果广告代码中已内置关闭操作，可以关闭系统预置的关闭链接',
+	'couplebanner_show'			=> 'Show',//'显示',
+	'couplebanner_hidden'			=> 'Hide',//'隐藏',
 );
 

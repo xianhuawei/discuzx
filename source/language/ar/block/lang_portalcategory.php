@@ -1,11 +1,16 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_portalcategory.php by Khalid Nahhal, http://www.ar-discuz.com
+ *      $Id: lang_portalcategory.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -15,7 +20,7 @@ $lang = array
 	'portalcategory_catid_comment'		=> 'Select parent category',//'选择父级栏目',
 	'portalcategory_orderby'		=> 'ترتيب حسب',//'排序方式',
 	'portalcategory_orderby_comment'	=> 'Set the order of categories',//'设置以哪一字段或方式对分类进行排序',
-	'portalcategory_orderby_displayorder'	=> 'الافتراضي',//'按默认顺序排序',
+	'portalcategory_orderby_displayorder'	=> 'الإفتراضي',//'按默认顺序排序',
 	'portalcategory_orderby_articles'	=> 'المقالات',//'按文章数倒序',
 );
 

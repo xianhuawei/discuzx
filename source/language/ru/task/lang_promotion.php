@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -15,4 +15,3 @@ $lang = array
 	'promotion_complete_var_iplimit_comment'	=> 'Для выполнения данной задачи необходимо привлечь на сайт не менее указанного количества уникальных IP адресов.',
 );
 
-?>

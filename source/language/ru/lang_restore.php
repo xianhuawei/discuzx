@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      $Id: lang_restore.php by Valery Votintsev at sources.ru
  */
 

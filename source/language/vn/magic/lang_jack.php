@@ -7,6 +7,10 @@
  *      $Id: lang_jack.php 7906 2010-11-30 01:45:11Z liulanbo $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'jack_name' => 'Đóng đinh',

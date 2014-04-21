@@ -7,6 +7,10 @@
  *      $Id: lang_float.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'float_name'		=> 'Globaux des publicitaires flottantes',
@@ -22,5 +26,9 @@ $lang = array
 	'float_position_right'		=> 'A droite',
 	'float_category'		=> 'Portail des canaux Emplacement',
 	'float_category_comment'	=> 'Jeu de cha&#238;nes publicitaires annonce, quand la publicit&#233; de la gamme avec un "portail" est effective',
+	'float_disableclose'		=> 'Close advertising link',//'关闭广告的链接',
+	'float_disableclose_comment'	=> 'If you want the Advertising can not be closed, you can disable to show the Close link',//'如果广告代码中已内置关闭操作，可以关闭系统预置的关闭链接',
+	'float_show'			=> 'Show',//'显示',
+	'float_hidden'			=> 'Hide',//'隐藏',
 );
 

@@ -19,6 +19,7 @@ $lang = array(
 	'block_all_type'		=> 'Todos los tipos',//'全部分类',
 	'file_size_limit'		=> 'El archivo exede el limita que es {size} kb, porfavor vuelve.',//'文件不能大于 {size} kb，请返回．',
 	'set_to_conver'			=> 'Establecer como la cubierta',//'设为封面',
+	'small_image'			=> 'Small image',//'小图',
 	'insert_small_image'		=> 'Inserte la imagen pequeña',//'插入小图',
 	'insert_large_image'		=> 'Inserte la imagen grande',//'插入大图',
 	'insert_file'			=> 'Insertar archivo',//'插入文件',
@@ -28,6 +29,8 @@ $lang = array(
 	'article_noexist'		=> 'Artículo específico no existe',//'指定的文章不存在，请检查',
 	'article_noallowed'		=> 'No tiene permisos para operar este artículo',//'你没有权限对指定的文章进行操作',
 	'article_publish_noallowed'	=> 'No tiene permisos para publicar el artículo',//'你没有权限进行文章发布操作',
+	'article_category_empty'	=> 'Sorry, the category can not be empty',//'抱歉，栏目不能为空',
+	'article_edit_nopermission'	=> 'Sorry, you do not have permission to edit current article',//'抱歉，您没有权限进行当前文章操作',
 	'article_publish'		=> 'Publicar el artículo',//'发布文章',
 	'article_manage'		=> 'Gestionar el articulo',//'管理文章',
 	'article_tag'			=> 'Etiquetas',//'标签',
@@ -37,6 +40,8 @@ $lang = array(
 	'article_pushplus_info'		=> '<p><center><i><a href="{url}" class="xg1 xs1">Este artículo proporcionado por el {author}</a></i><center></p>',
 
 	'diytemplate_name_null'		=> '[no se ha completado]',//'[未填写]',
+	'portal_view_name'		=> ' Article view page',//' 文章查看页',
+	'forum_viewthread_name'		=> ' Posts View Page',//' 帖子查看页',
 	'portal/index'			=> 'Inicio de los artículos ',//'文章首页',
 	'portal/list'			=> 'Lista de artículos(públicos)',//'文章列表页(公共)',
 	'portal/view'			=> 'Artículo, mire la página(público)',//'文章查看页(公共)',
@@ -86,5 +91,10 @@ $lang = array(
 	'portal_topic_green'		=> 'Tema verde',//'绿色调专题',
 	'portal_topic_grey'		=> 'Tema gris',//'灰色调专题',
 	'portal_topic_red'		=> 'Tema rojo',//'红色调专题',
+
+	'itemtypename0'			=> 'Auto',//'自动',
+	'itemtypename1'			=> '<span style="color: #FF0000">Fixed</span>',//'<span style="color: #FF0000">固定</span>',
+	'itemtypename2'			=> '<span style="color: #00BFFF">Edit</span>',//'<span style="color: #00BFFF">编辑</span>',
+	'itemtypename3'			=> '<span style="color: #0000FF">Push</span>',//'<span style="color: #0000FF">推送</span>',
 
 );

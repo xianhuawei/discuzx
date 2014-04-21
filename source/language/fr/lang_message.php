@@ -12,10 +12,11 @@
 $lang = array (
 
 	'undefined_action'		=> 'Action ind&#233;finie, Svp. revenir.',
-	'to_login'			=> 'Vous devez vous connecter en premier',
-	'profile_passwd_notmatch'	=> 'Le mot de passe des deux ne correspondent pas, Svp. merci de revenir.',
-	'profile_passwd_illegal'	=> 'Mot de passe est vide ou contient des caract&#232;res invalides',
+	'plugin_nonexistence'		=> 'Plug-in n\'existe pas ou a &#233;t&#233; ferm&#233;',//'插件不存在或已关闭', // 'Plug-in does not exist or has been closed'
+	'profile_username_protect'	=> 'Identifiant contient des caract&#232;res bannis ou interdits',
 	'set_cover_faild'		=> 'Cover d&#233;finir a &#233;chou&#233;',//'封面设置失败', //  'Cover set failed'
+	'set_cover_succeed'		=> 'Le Cover  est fix&#233; avec Succ&#232;s',//'封面设置成功', //  'The cover is set successfully'
+	'quickclear_noperm'		=> 'You do not have permission to do this',//'您没有权限进行此操作',
 	'attachment_nonexistence'	=> 'Pi&#232;ce jointe n\'est pas existante ou ne peut pas lire, Svp. merci de contacter l\'administrateur.',
 	'attachment_forum_nopermission'	=> 'D&#233;sol&#233;, seuls les Membres particuli&#232;res peuvent t&#233;l&#233;charger la pi&#232;ce jointe, Svp. merci de revenir.',
 	'forum_not_group'		=> 'Ce forum n\'est pas un Groupe',
@@ -29,12 +30,16 @@ $lang = array (
 	'group_category_empty'		=> 'Svp. choisir la cat&#233;gorie du Groupe.',
 	'group_description_failed'	=> 'La description du groupe contient des mots d&#233;sactiv&#233;',//'{_G/setting/navs/3/navname}简介含有敏感词语', //  'The group description contains disabled words'
 	'group_setup_succeed'		=> 'Mise &#224; Jour des Param&#232;tres du Groupe avec Succ&#232;s.',
+	'to_login'			=> 'Vous devez vous connecter en premier',
 	'postcomment_closed'		=> 'Les commentaires sont d&#233;sactiv&#233;s',//'点评功能已关闭', // 'Comments are disabled'
 	'group_nopermission'		=> 'Votre Groupe Utilisateur({grouptitle}) n\'autorise pas &#224; faire cette op&#233;ration.',
 	'thread_nonexistence'		=> 'Sujets sp&#233;cifique Inexistant ou est sous la mod&#233;ration, Svp. merci de revenir.',
 	'parameters_error'		=> 'Erreur Param&#232;tres',//'参数错误', // 'Parameters error'
+	'thread_poll_succeed'		=> 'Votez avec Succ&#232;s, maintenant vous allez &#234;tre rediriger vers la page du sujet.',
 	'thread_rate_range_invalid'	=> 'Vous n\'avez pas entr&#233; notes ou exc&#233;der la limite pour chaque note, Svp. merci de revenir.',
 	'rate_post_error'		=> 'Post Inexistant ou ne peut pas &#234;tre &#233;valu&#233;',//'帖子不存在或不能被推送', // 'Post does not exist or can not be rated'
+	'thread_rate_log_nonexistence'	=> 'D&#233;sol&#233;, le poste sp&#233;cifi&#233; n\'a pas un enregistrement d\'&#233;valuation au cours de l\'ann&#232;e derni&#232;re, Svp. merci de revenir.',
+	'targetpost_donotbelongto_thisthread'	=> 'Post cible n\'appartient pas &#224; ce Sujet',//'目标帖子不属于本主题', // 'Target post does not belong to this thread'
 	'credits_transaction_disabled'	=> 'D&#233;sol&#233;, les points de Commerce ne sont pas activ&#233;s vous ne pouvez pas utiliser cette fonction, Svp. merci de retourner ou contacter l\'Administrateur ..',
 	'credits_balance_insufficient'	=> 'D&#233;sol&#233;, votre {title} n\'est pas suffisante (moins de {minbalance}), Svp. merci de revenir.',
 	'not_loggedin'			=> 'D&#233;sol&#233;, vous devez vous connecter pour faire cette op&#233;ration.',
@@ -46,6 +51,7 @@ $lang = array (
 	'debate_poll_end'		=> 'Sondage est fini, vous ne pouvez pas voter.',
 	'debate_poll_succeed'		=> 'Vote avec Succ&#232;s..',
 	'debate_umpire_bestdebater_invalid'	=> 'Vous sp&#233;cifiques Le meilleur d&#233;batteur Inexistant ou est ill&#233;gitime, Svp. merci de revenir.',
+	'group_status_off'		=> 'Groupe a &#233;t&#233; d&#233;sactiv&#233;',
 	'thread_nopermission'		=> 'D&#233;sol&#233;, ce post a besoin d\'une autorisation de lecture. {readperm}, Svp. merci de revenir.',
 	'forum_passwd'			=> 'Vous avez besoin d\'un mot de passe de visualiser ce forum',
 	'trade_credit_lack'		=> 'Vos points ne suffisent pas, Svp. merci de revenir.',
@@ -54,7 +60,6 @@ $lang = array (
 	'trade_lack'			=> 'Quantit&#233; des biens ne suffisent pas, Svp. merci de revenir.',
 	'forum_access_view_disallow'	=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; faire cette op&#233;ration est de ce forum, Svp. merci de revenir',
 	'view_log_invalid'		=> 'Points de vue du fichier journal({logfile}) ne peut pas &#234;tre &#233;crit, Svp. merci de d&#233;finir &#224; 777 ou supprimer, puis de reconstruire.',
-	'group_status_off'		=> 'Groupe a &#233;t&#233; d&#233;sactiv&#233;',
 	'invite_code_error'		=> 'D&#233;sol&#233;, l\'URL de votre invitation n\'est pas correcte.',
 	'magics_nopermission'		=> 'Votre Groupe Utilisateur n\'est pas autoris&#233; &#224; utiliser ces accessoires, Svp. merci de revenir.',
 	'magics_nonexistence'		=> 'Les accessoires demand&#233;s Inexistant, Svp. merci d\'acheter<a href="home.php?mod=magic" target="_blank">Props Shop</a>.',
@@ -65,10 +70,15 @@ $lang = array (
 	'magics_filename_nonexistence'	=> 'Du fichier des accessoires {file} est inexistant.',
 	'magics_amount_no_enough'	=> 'Vous ne poss&#233;dez pas suffisamment d\'accessoires pour le bon fonctionnement, Svp. merci de revenir.',
 	'magics_username_nonexistence'	=> 'Vous n\'avez pas saisi un identifiant, Svp. merci de revenir.',
+	'medal_apply_existence'		=> 'Vous avez d&#233;j&#224; demand&#233; Vous avez d&#233;j&#224; demand&#233; ou re&#184;u des m&#233;dailles, Svp. ne pas r&#233;p&#233;ter l\'application ou &#224; recevoir.',
 	'space_does_not_exist'		=> 'D&#233;sol&#233;, votre espace Utilisateur particuliers Inexistant.',
+	'login_before_enter_home'	=> 'Svp. veuillez vous connecter pour continuer &#224; visualiser ',
 	'home_status_off'		=> 'D&#233;sol&#233;, la fonction Accueil n\'est pas ouverte',//'抱歉，家园功能尚未开启', // 'Sorry, the Home feature is not open'
 	'space_has_been_locked'		=> 'Espace a &#233;t&#233; verrouill&#233;, Svp. merci de communiquer avec l\'Administrateur',
+	'activate_illegal'		=> 'Vous UID Inexistant ou vous n\'&#234;tes pas Membres de ceux qui sont n&#233;cessaires afin de v&#233;rifier s\'il Inexistant ou vous n\'&#234;tes pas en attente aux Membres pour la v&#233;rification.',
 	'getpasswd_account_notmatch'	=> 'Identifiant, adresse par Courrier &#233;lectronique ou d\'une question de s&#233;curit&#233; ne correspondent pas, Svp. merci de revenir.',
+	'credits_addfunds_order_invalid'	=> 'Num&#233;ro de commande actuelle n\'est pas valide, Svp. merci de re-soumettre &#224; la page pr&#233;c&#233;dente, comprenez Svp. les inconv&#233;nients caus&#233;s &#224; vous-m&#234;me.',
+	'do_success'			=> 'Op&#233;ration Termin&#233;e',
 	'group_member_maximum'		=> 'Le niveau du groupe peuvent avoir jusqu\'&#224; {membermaximum} Membres, ont atteint la limite. Svp. merci de revenir.',
 	'group_choose_friends_max'	=> 'La plupart ont choisi 20 Amis, Svp. merci de revenir.',
 	'group_invite_succeed'		=> 'Inviter Succ&#232;s.',
@@ -79,18 +89,20 @@ $lang = array (
 	'search_ctrl'			=> 'D&#233;sol&#233;, vous pouvez uniquement rechercher une fois en {searchctrl} second(s), Svp. merci de revenir.',
 	'search_toomany'		=> 'D&#233;sol&#233;, par minute, l\'Administrateur du syst&#232;me a mis en place pour r&#233;pondre aux demandes de recherche {maxspm} fois, Svp. merci de revenir et essayer &#224; nouveau plus tard.',
 	'no_privilege_myop'		=> 'D&#233;sol&#233;, vous actuellement n\'avez pas la permission d\'utiliser cette application, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour les autorisations</a>',//'抱歉，您目前没有权限使用此应用，<a href="home.php?mod=spacecp&ac=usergroup">点击这里查看权限</a>', // 'Sorry, you currently do not have permission to use this application, <a href="home.php?mod=spacecp&ac=usergroup">Click here for permissions</a>'
-	'do_success'			=> 'Op&#233;ration Termin&#233;e',
+	'collection_permission_deny'	=> 'Sorry, the collection does not exist or no permissions',//'抱歉，该淘专辑不存在或没有相应的权限',
+	'collection_edit_checkentire'	=> 'Please fill in the content',//'请将内容填写完整',
+	'collection_teamworkers_exceed'	=> 'The number of people joined to the collection exceeds the maximum, Can not invite or accept yet another person to maintain the collection',//'共同维护人数已达上限，不能再邀请或接受其他人参与维护',
 	'no_privilege_guest'		=> 'D&#233;sol&#233;, les visiteurs n\'ont pas l\'autorisation de le faire',//'抱歉，游客没有权限进行此操作', // 'Sorry, guests do not have permission to do this'
 	'forum_nonexistence'		=> 'Forum sp&#233;cifique est Inexistant, Svp. merci de revenir.',
 	'ranklist_this_status_off'	=> 'Cette liste de classement a &#233;t&#233; d&#233;sactiv&#233;',
 	'modcp_mod_succeed'		=> 'Revue &#233;limin&#233;es',
 	'article_not_exist'		=> 'Article particulier est inexistant',
-	'article_edit_nopermission'	=> 'Vous n\'&#234;tes pas autoriser &#224; exploiter cet article',
 	'article_delete_success'	=> 'Suppression d\'article particulier avec Succ&#232;s',
 	'no_article_specified_for_pushplus'	=> 'Vous n\'avez pas d\'article en particulier en s&#233;rie',
 	'block_edit_nopermission'	=> 'Vous n\'&#234;tes pas autoris&#233; &#224; ajouter ou modifier des modules',
 	'block_no_right_recommend'	=> 'vous n\'avez pas autoris&#233; &#224; recommander des donn&#233;es &#224; ce module',
 	'portal_nopermission'		=> 'Vous n\'&#234;tes pas autoriser &#224; utiliser le portail panneau de contr&#244;le',//Modify
+	'operating_too_fast'		=> "L\'op&#233;ration des deux publi&#233;s trop rapidement, Svp. essayer de nouveau apr&#232;s {waittime} secondes",
 	'topic_not_exist'		=> 'Sujet particulier Inexistant',
 	'post_sm_isnull'		=> 'Vous n\'avez pas entrer de titre ou de contenu, Svp. merci de revenir.',
 	'activity_fromtime_error'	=> 'D&#233;sol&#233;, format de l\'heure de d&#233;part est l\'activit&#233; d\'erreurs, Svp. merci de revenir.',
@@ -100,7 +112,6 @@ $lang = array (
 	'post_nonexistence'		=> 'Post est Inexistant',//'帖子不存在', // 'Post does not exist'
 	'post_thread_closed'		=> 'D&#233;sol&#233;, ce sujet a &#233;t&#233; trop proche, vous ne pouvez pas poster une nouvelle r&#233;ponse, Svp. merci de revenir.',
 	'reply_quotepost_error'		=> 'Interdit de citer vos propres messages et sujets en dehors des posts',//'禁止引用自己和主题帖之外的帖子', // 'Prohibited to quote your own posts and topics outside posts'
-	'targetpost_donotbelongto_thisthread'	=> 'Post cible n\'appartient pas &#224; ce Sujet',//'目标帖子不属于本主题', // 'Target post does not belong to this thread'
 	'post_flood_ctrl'		=> 'D&#233;sol&#233;, vous avez &#233;mis deux intervalles de moins de {floodctrl} secondes!',
 	'post_flood_ctrl_posts_per_hour'	=> 'D&#233;sol&#233;, vous n\'avez pas pour &#233;crire des posts plus que {posts_per_hour} en une heure, Svp. reposter plus tard',
 	'trade_please_name'		=> 'D&#233;sol&#233;, le nom des biens ne peut pas &#234;tre vide, Svp. merci de revenir.',
@@ -110,13 +121,13 @@ $lang = array (
 	'trade_credit_more_than'	=> 'D&#233;sol&#233;, le prix des biens devrait &#234;tre plus grandes que {mintradeprice} , Svp. merci de revenir.',
 	'trade_pricecredit_need'	=> 'D&#233;sol&#233;, le prix des biens ne peut pas &#234;tre vide, Svp. merci de revenir.',
 	'tread_please_number'		=> 'D&#233;sol&#233;, la quantit&#233; des biens ne peut pas &#234;tre vide, Svp. merci de revenir.',
+	'post_reply_mod_succeed'	=> 'Merci, votre un post a besoin de mod&#233;ration, il sera affich&#233; lorsque la mod&#233;ration passera, maintenant vous allez &#234;tre rediriger vers la liste du sujet.',
 	'postperm_login_nopermission'	=> 'D&#233;sol&#233;, vous devez vous connecter.',
 	'post_type_isnull'		=> 'Vous n\'avez pas choisi le type de sujet, Svp. merci de revenir.',
 	'post_net_price_iszero'		=> 'Prix de vente d&#233;duction faite des th&#232;me de vos arguments pour la taxe sur les transactions 0, Svp. merci de revenir.',
 	'post_poll_option_toomany'	=> 'D&#233;sol&#233;, vos options sont plus de {maxpolloptions}, Svp. merci de revenir.',
 	'reward_credits_between'	=> 'D&#233;sol&#233;, les points de r&#233;compense devrait &#234;tre entre {minrewardprice} de {maxrewardprice}, Svp. merci de revenir.',
 	'reward_credits_shortage'	=> 'D&#233;sol&#233;, vos points ne suffisent pas, Svp. merci de revenir.',
-	'reward_credits_closed'			=> 'Cr&#233;dits commerciaux fonction est d&#233;sactiv&#233;e, Svp. contactez l\'administrateur.',//'交易积分被关闭，请联系管理员。', // 'Trade credits feature is turned off, please contact the administrator.'
 	'activity_fromtime_please'	=> 'D&#233;sol&#233;, heure de d&#233;but d\'activit&#233; ne peut pas &#234;tre vide, Svp. merci de revenir.',
 	'activity_sort_please'		=> 'D&#233;sol&#233;, le type d\'activit&#233; ne peut pas &#234;tre vide, Svp. merci de revenir.',
 	'activity_address_please'	=> 'D&#233;sol&#233;, lieux de leurs emplacements des activit&#233;s ne peut pas &#234;tre vide, Svp. merci de revenir.',
@@ -126,29 +137,32 @@ $lang = array (
 	'debate_endtime_invalid'	=> 'D&#233;sol&#233;, vous r&#233;glez la fin de la p&#233;riode du d&#233;bat est inf&#233;rieur &#224; l\'heure actuelle, Svp. merci de revenir.',
 	'debate_umpire_invalid'		=> 'D&#233;sol&#233;, arbitre sp&#233;cifiques (<b>{umpire}</b>) Inexistant ou a &#233;t&#233; supprim&#233;, Svp. merci de revenir.',
 	'post_rushreply_timewrong'	=> 'D&#233;sol&#233;, prenez le temps au niveau r&#233;glage de la plage d\'erreur',//'抱歉，抢楼时间范围设置错误', // 'Sorry, grab level time range setting error'
-	'submitcheck_error'		=> 'D&#233;sol&#233;, votre envoie est incorrect',//'抱歉，您的提交有误', //  'Sorry, your submission is incorrect'
-	'post_forum_newthread_nopermission'	=> 'D&#233;sol&#233;, seuls les Groupes Utilisateurs sp&#233;cifi&#233;s peuvent poster nouveau sujet, Svp. merci de revenir.',
 	'post_newthread_mod_succeed'	=> 'Votre au sujet a besoin de mod&#233;ration, il sera affich&#233; au passage de la mod&#233;ration.',
 	'post_newthread_succeed'	=> 'Merci, votre au sujet a &#233;t&#233; publi&#233;, maintenant vous allez &#234;tre rediriger vers la page du contenu du sujet.<br /><a href="forum.php?mod=forumdisplay&fid={fid}">[cliquez ici au sujet de la liste]</a>',
+	'submitcheck_error'		=> 'D&#233;sol&#233;, votre envoie est incorrect',//'抱歉，您的提交有误', //  'Sorry, your submission is incorrect'
+	'post_forum_newthread_nopermission'	=> 'D&#233;sol&#233;, seuls les Groupes Utilisateurs sp&#233;cifi&#233;s peuvent poster nouveau sujet, Svp. merci de revenir.',
+	'thread_flood_ctrl_threads_per_hour'	=> 'Sorry, you have reached the posted per hour thread for your usr group, please try again later',//'抱歉，您所在的用户组每小时限制发主题 {threads_per_hour} 个，请稍候再发表',
 	'search_forum_invalid'		=> 'Vous ne sp&#233;cifiez pas le champ d\'application du forum de recherche, Svp. merci de revenir.',
 	'search_invalid'		=> 'Vous ne sp&#233;cifiez pas de mot cl&#233; ou nom Utilisateur, Svp. merci de revenir.',
 	'search_redirect'		=> 'Rechercher avec Succ&#232;s, maintenant vous vous allez &#234;tre rediriger vers la page de r&#233;sultats.',
+	'search_closed'				=> 'Search function is turned off',//'搜索功能已关闭',
 	'to_view_the_photo_does_not_exist'	=> 'Oups, album sp&#233;cifique Inexistant',
 	'ban_view_other_thead'		=> 'Vous n\'&#234;tes pas autoris&#233; &#224; voir les autres sujets des Utilisateurs et leurs messages, Svp. revenir.',
 	'album_does_not_exist'		=> 'Album sp&#233;cifique est Inexistant',
-	'operating_too_fast'		=> "L\'op&#233;ration des deux publi&#233;s trop rapidement, Svp. essayer de nouveau apr&#232;s {waittime} secondes",
+	'is_blacklist'			=> 'Par uns des autres param&#232;tres de confidentialit&#233; affectent-vous actuellement n\'avez pas l\'autorisation pour cette op&#233;ration',
 	'content_is_too_short'		=> 'Entrez le contenu d\'au moins deux caract&#232;res',
 	'no_privilege_comment'		=> 'D&#233;sol&#233;, actuellement vous n\'avez pas la permission de commenter, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>',//'抱歉，您目前没有权限进行评论，<a href="home.php?mod=spacecp&ac=usergroup">点击这里查看权限</a>', // 'Sorry, currently you do not have permission to comment, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>'
 	'action_closed'			=> 'La fonction n\'est pas activ&#233;e ou d&#233;sactiv&#233;e par l\'Administrateur, Svp. revenir.',
-	'credits_addfunds_order_invalid'	=> 'Num&#233;ro de commande actuelle n\'est pas valide, Svp. merci de re-soumettre &#224; la page pr&#233;c&#233;dente, comprenez Svp. les inconv&#233;nients caus&#233;s &#224; vous-m&#234;me.',
+	'credits_addfunds_ctrl'				=> 'Deux envoies de votre commande d\'intervalle est trop petit.',
+	'credits_addfunds_toomuch'			=> 'Votre d&#233;passez la limite (acheter maximum {ec_maxcreditspermonth}) de ce mois.',
 	'credits_transaction_amount_invalid'	=> 'Le montant des points que vous voulez transf&#233;rer ou l\'&#233;changer est pas correct voir mauvais, Svp. merci de revenir.',
 	'credits_password_invalid'	=> 'Vous n\'avez pas le mot de passe ou le mot de passe est erron&#233;, Svp. merci de revenir.',
 	'extcredits_dataerror'		=> 'Echec de l\'&#233;change, Svp. contacter l\'Administrateur.',
 	'start_time_is_greater_than_end_time'	=> 'La date de d&#233;but ne peut pas &#234;tre plus petite que la date de fin',
 	'should_write_that'		=> 'Si quelque chose &#224; &#234;tre r&#233;diger au moins pour les',
-	'is_blacklist'			=> 'Par uns des autres param&#232;tres de confidentialit&#233; affectent-vous actuellement n\'avez pas l\'autorisation pour cette op&#233;ration',
 	'eccredit_nofound'		=> 'Notation sp&#233;cifique Inexistant ou a &#233;t&#233; supprim&#233;.',
 	'non_normal_operation'		=> 'Non-service normal',
+	'failed_to_delete_operation'	=> 'Impossible de supprimer, Svp. r&#233;essayez',
 	'you_have_friends'		=> 'Vous &#234;tes d&#233;j&#224; Amis',
 	'no_privilege_addfriend'	=> 'D&#233;sol&#233;, vous actuellement n\'avez pas la permission d\'ajouter des amis, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>',//'抱歉，您目前没有权限添加好友，<a href="home.php?mod=spacecp&ac=usergroup">点击这里查看权限</a>', // 'Sorry, you currently do not have permission to add friends, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>'
 	'enough_of_the_number_of_friends_with_magic'	=> 'Le nombre de vos Amis actuels de restrictions du syst&#232;me, <a id="a_magic_friendnum2" href="magic.php?mid=friendnum" onclick="ajaxmenu(event, this.id, 1)">Carte de compatibilit&#233; compatibilisation &#224; l\'aide d\'amis</a>', // 'Le nombre de vos Amis actuels de restrictions du syst&#232;me, <a id="a_magic_friendnum2" href="magic.php?mid=friendnum" onclick="ajaxmenu(event, this.id, 1)">Compatibilizer compatibilizer card using friends</a>',
@@ -164,13 +178,12 @@ $lang = array (
 	'there_is_no_record_of_invitation_specified'	=> 'Votre dossier invitations sp&#233;cifique Inexistant',
 	'no_color_yet'			=> 'Vous n\'utilisez pas les lumi&#232;res de couleur sur cette information',
 	'message_can_not_send_onlyfriend'	=> 'D&#233;sol&#233;, l\'utilisateur peut recevoir/envoyer des messages seulement pour les amis',//'抱歉，该用户只接收好友发送的短消息', // 'Sorry, the user can receive/send messages only for friends'
+	'message_bad_touid'		=> 'SD&#233;sol&#233;, l\'utilisateur est Inexistant, Svp. v&#233;rifier l\'uid d\'utilisateur est correct',//'抱歉，用户不存在，请检查用户uid是否正确', // 'Sorry, the user does not exist, please check the user uid is correct'
 	'message_can_not_send_2'	=> 'Rapidement &#224; deux reprises pour envoyer un message court, Svp. attendre un peu plus de temps pour les re-envoy&#233;s',
 	'message_can_not_send_9'	=> 'Le destinataire est vide ou bloqu&#233; vos messages courts',//'收件人为空或对方屏蔽了您的短消息', // 'The recipient is empty or blocked your short messages'
 	'pm_report_error_nopm'		=> 'D&#233;sol&#233;, le message court que vous avez sp&#233;cifi&#233; Inexistant',//'抱歉，您指定的短消息不存在', // 'Sorry, the short message that you specify does not exist'
 	'no_privilege_sendpm'		=> 'D&#233;sol&#233;, vous n\'avez pas  actuellement cette autorisation pour  Envoyer PM, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>',//'抱歉，您目前没有权限发短消息，<a href="home.php?mod=spacecp&ac=usergroup">点击这里查看权限</a>', //  'Sorry, you currently do not have permission Send PM, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>'
-	'profile_email_illegal'		=> 'E-mail est invalide',
-	'profile_email_domain_illegal'	=> 'Votre Email ou adresse &#233;lectronique n\'est pas autoris&#233;',
-	'profile_email_duplicate'	=> 'Cette adresse &#233;lectronique ou E-mail existe d&#233;j&#224;',
+	'profile_passwd_illegal'	=> 'Mot de passe est vide ou contient des caract&#232;res invalides',
 	'share_does_not_exist'		=> 'Partage sp&#233;cifique Inexistant',
 	'image_does_not_exist'		=> 'Image sp&#233;cifique Inexistant',
 	'showcredit_error'		=> 'La n&#233;cessit&#233; de combler le nombre sup&#233;rieur &#224; 0 et inf&#233;rieur au nombre de vos points, assurez-vous',
@@ -186,40 +199,44 @@ $lang = array (
 	'admin_split_new_invalid'	=> 'Vous n\'avez pas choisi un post &#224; fractionner, Svp. merci de revenir.',
 	'view_images_do_not_exist'	=> 'Image sp&#233;cifi&#233;e Inexistante',
 	'view_to_info_did_not_exist'	=> 'Oups, une information sp&#233;cifique Inexistant ou a &#233;t&#233; supprim&#233;',
-	'plugin_nonexistence'		=> 'Plug-in n\'existe pas ou a &#233;t&#233; ferm&#233;',//'插件不存在或已关闭', // 'Plug-in does not exist or has been closed'
 	'plugin_module_nonexistence'	=> 'Sp&#233;cifiques fichier du module plug-in({mod}) Inexistant ou n\'existe erreur de syntaxe, Svp. merci de v&#233;rifier les fichiers.',
-	'submit_seccode_invalid'	=> 'Erreur de code de s&#233;curit&#233;, Svp. revenir.',
-	'submit_invalid'		=> 'Votre cha&#238;ne d\'authentification demande l\'origine sont inexactes ou la forme ne correspond pas, n\'a pas pu &#234;tre soumis.',
-	'word_banned'			=> 'D&#233;sol&#233;, votre contenu (signature, discussions, posts, etc) contiennent des mots interdits, Svp. merci de revenir pour modifier.',
 	'postperm_none_nopermission'	=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; poster des discussions dans ce forum.</p></div><div>',
 	'replyperm_none_nopermission'	=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; r&#233;pondre dans ce forum.</p></div><div>',
 	'getattachperm_none_nopermission'	=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; t&#233;l&#233;charger cette pi&#232;ce jointe.</p></div><div>',
-	'magics_target_nonexistence'	=> 'D&#233;sol&#233;, la cible est inexistante, Svp. merci de revenir.',
+	'magics_target_member_nonexistence'	=> 'Sorry, specified user does not exist or is banned',//'抱歉，您指定的用户不存在或被冻结',
 	'unknown_magic'			=> 'Accessoire Sp&#233;cifiques Inexistant ou a &#233;t&#233; interdite',
 	'magic_groupid_not_allowed'	=> 'Vous Groupe Utilisateur n\'est pas autoris&#233; &#224; utiliser des accessoires',
+	'profile_email_illegal'		=> 'E-mail est invalide',
+	'profile_email_domain_illegal'	=> 'Votre Email ou adresse &#233;lectronique n\'est pas autoris&#233;',
+	'profile_email_duplicate'	=> 'Cette adresse &#233;lectronique ou E-mail existe d&#233;j&#224;',
 	'article_category_empty'	=> 'La cat&#233;gorie ne peut pas &#234;tre vide',
+	'article_edit_nopermission'	=> 'Vous n\'&#234;tes pas autoriser &#224; exploiter cet article',
+	'post_message_toolong'		=> 'D&#233;sol&#233;, votre message est plus long que {maxpostsize} octets, Svp. merci de revenir.',
 	'no_privilege_newbiespan'	=> 'Vous &#234;tes dans la p&#233;riode probatoire, besoin d\'attendre {newbiespan} heures puis effectuer cette op&#233;ration',
 	'no_privilege_avatar'		=> 'Vous devez d&#233;finir votre avatar peut effectuer cette op&#233;ration apr&#232;s avoir, <a href="home.php?mod=spacecp&ac=avatar">Cliquez ici pour d&#233;finir</a>',
 	'no_privilege_email'		=> 'Vous devez v&#233;rifier votre adresse de courriel, <a href="home.php?mod=spacecp&ac=profile&op=password">Cliquez ici pour v&#233;rifier Email</a>',
 	'no_privilege_friendnum'	=> 'Vous devez ajouter {friendnum} apr&#232;s un Ami afin de r&#233;aliser cette op&#233;ration, <a href="home.php?mod=spacecp&ac=friend&op=find">Cliquez ici pour ajouter un Ami</a>',
 	'login_succeed'			=> 'Bon retour {username},d&#233;sormais rediriger Vous &#224; la page pr&#233;c&#233;dente.',
+	'login_strike'			=> 'Vous avez essay&#233; trop de fois, Svp. connexion apr&#232;s 15 minutes',
 	'logout_succeed'		=> 'D&#233;connexion avec Succ&#232;s, maintenant Vous allez &#234;tre rediriger vers la page pr&#233;c&#233;dente en tant qu\'invit&#233;. <br /><a href="member.php?mod=clearcookies&formhash={formhash}">[ Nettoyer Cookies ]</a> {ucsynlogout} ',
 	'register_activation_invalid'	=> 'Impossible de l\'activit&#233; active Svp. essayer de vous connecter &#224; nouveau.',
 	'profile_username_tooshort'	=> 'D&#233;sol&#233;, votre pseudo ou identifiant est de moins de 3 caract&#232;res, Svp. merci de revenir.',
 	'profile_username_toolong'	=> 'D&#233;sol&#233;, votre identifiant est plus long que 15 caract&#232;res, Svp. merci de revenir.',
-	'profile_username_protect'	=> 'Identifiant contient des caract&#232;res bannis ou interdits',
+	'profile_passwd_notmatch'	=> 'Le mot de passe des deux ne correspondent pas, Svp. merci de revenir.',
 	'profile_username_illegal'	=> 'Identifiant contenant des caract&#232;res bannis ou interdits',
 	'profile_username_duplicate'	=> 'Identifiant existe d&#233;j&#224;',
 	'profile_illegal'		=> 'Format incorrect ou vide',//'格式不正确或为空', // 'Incorrect format or empty'
 	'task_nonexistence'		=> 'Cette T&#226;che Inexistant ou a &#233;t&#233; supprim&#233;, Svp. merci de revenir.',
 	'task_not_found'		=> 'Fichier de T&#226;che {taskclassname} pas trouv&#233;',//'任务文件丢失，{taskclassname}', // 'Task file {taskclassname} not found'
 	'task_not_underway'		=> 'Pas de t&#226;ches en cours',//'不是进行中的任务', // 'No ongoing tasks'
+	'user_banned'			=> 'D&#233;sol&#233;, votre adresse IP n\'est pas autoris&#233;e ou votre compte a &#233;t&#233; interdit, vous ne pouvez plus acc&#233;der &#224; notre site.',
+	'submit_seccode_invalid'	=> 'Erreur de code de s&#233;curit&#233;, Svp. revenir.',
+	'submit_invalid'		=> 'Votre cha&#238;ne d\'authentification demande l\'origine sont inexactes ou la forme ne correspond pas, n\'a pas pu &#234;tre soumis.',
+	'word_banned'			=> 'D&#233;sol&#233;, votre contenu (signature, discussions, posts, etc) contiennent des mots interdits, Svp. merci de revenir pour modifier.',
 	'magics_use_success'		=> 'Utiliser des accessoires {magicname} avec Succ&#232;s',
 	'magicuse_object_once_limit'	=> 'Vous avez d&#233;j&#224; utilis&#233; les accessoires sur cette information, ne peut pas &#234;tre r&#233;utilis&#233;s',
 	'magicuse_bad_object'		=> 'Ne pas s&#233;lectionner l\'objet appropri&#233;',
 	'magicuse_has_no_valid_friend'	=> 'Utilisez Les accessoires ont &#233;chou&#233;s, il n\'y a pas d\'amis valides',
-	'admin_cpanel_noaccess'		=> 'Vous n\'&#234;tes pas autoris&#233; &#224; acc&#233;der au panneau de contr&#244;le gestionnaire, Svp. re-logguez, puis essayez &#224; nouveau',
-	'admin_cpanel_locked'		=> 'D&#233;sol&#233;, Comme vous le mot de passe erron&#233; plusieurs fois, le panneau de gestion temporairement bloqu&#233;e, et vous &#234;tes incapable d\'entrer dans le panneau admin.<br />Verrouillage sera automatiquement lev&#233;e <strong>{unlocktime}</strong>',
 
 	'portal_status_off'		=> 'D&#233;sol&#233;, la fonction de portail n\'est pas ouverte',//'抱歉，门户功能尚未开启', // 'Sorry, the portal feature is not open'
 
@@ -230,8 +247,10 @@ $lang = array (
 	'no_invitation_code'		=> 'Svp. veuillez entrez le code d\'invitation, ou vous ne pouvez pas vous inscrire',
 	'wrong_invitation_code'		=> 'Erreur de code d\'invitation, Svp. merci de Re-essayez &#224; nouveau.',
 	'username_nonexistence'		=> 'Utilisateur sp&#233;cifique Inexistant, Svp. merci de revenir.',
+	'thread_reshreply_membernum'	=> 'Total {membernum} involved in this thread',//'共有 {membernum}人参与了本主题',
 	'group_name_oversize'		=> 'Si le nom du groupe est plus long que 20 caract&#232;res, il sera coup&#233; automatiquement, Octets sera tronqu&#233;e, Svp..',
-	'set_cover_succeed'		=> 'Le Cover  est fix&#233; avec Succ&#232;s',//'封面设置成功', //  'The cover is set successfully'
+	'quickclear_need_operation'	=> 'Please select the operation type',//'请选择操作类型',
+	'quickclear_success'		=> 'Clean-up completed',//'清理完成',
 
 	'announcement_nonexistence'	=> 'Il n\'y a pas de bulletins pour la visualisation, Svp. merci de revenir.',
 
@@ -244,6 +263,7 @@ $lang = array (
 	'forum_passwd_correct'		=> 'V&#233;rification du mot de passe avec Succ&#232;s, maintenant vous allez &#234;tre rediriger au sujet de la page de la liste.',
 
 	'group_rediret_now'		=> 'Maintenant, vous rediriger vers la page d\'index du Groupe',
+	'group_verify'			=> '{_G/setting/navs/3/navname} is under verifying',//'{_G/setting/navs/3/navname}正在审核中',
 	'group_has_joined'		=> 'Vous avez d&#233;j&#224; rejoint ce Groupe',
 	'group_join_need_invite'	=> 'Etre invit&#233; &#224; rejoindre le groupe',
 	'group_join_succeed'		=> 'Rejoindre Groupe avec Succ&#232;s',
@@ -253,6 +273,7 @@ $lang = array (
 	'group_create_usergroup_failed'	=> 'Votre Groupe Utilisateurs n\'est pas autoris&#233; &#224; cr&#233;er le Groupe',
 	'group_create_max_failed'	=> 'Cr&#233;er un Groupe pour votre webmaster pour d&#233;finir le nombre a atteint la limite, ne peut pas cr&#233;er un nouveau Groupe',
 	'group_category_error'		=> 'Choisissez la cat&#233;gorie d\'erreur du Groupe.',
+	'group_create_mod_succeed'	=> 'Create {_G/setting/navs/3/navname} application is submitted, We will try to verify it as soon as possible',//'创建{_G/setting/navs/3/navname}的申请已经提交，我们会尽快进行审核',
 	'group_create_succeed'		=> 'Cr&#233;er un Groupe avec Succ&#232;s.',
 	'group_edit_only_founder'	=> 'Fondateur du groupe Seuls pouvez modifier le nom du groupe ou cat&#233;gorie, Svp. merci de revenir.',
 	'group_close_only_founder'	=> 'Fondateur du Groupe Seuls peuvent fermer du Groupe, Svp. merci de revenir.',
@@ -281,8 +302,8 @@ $lang = array (
 	'no_privilege_postattach'	=> 'D&#233;sol&#233;, actuellement vous n\'&#234;tes pas autoris&#233; &#224; t&#233;l&#233;charger les pi&#232;ces jointes, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>',//'抱歉，您目前没有权限上传附件，<a href="home.php?mod=spacecp&ac=usergroup">点击这里查看权限</a>', // 'Sorry, currently you are not have permission to upload attachments, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>' // 'Sorry, currently you are not have permission to upload attachments, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>'
 	'thread_closed'			=> 'Cette discussion a &#233;t&#233; ferm&#233;e et ne peut &#234;tre comment&#233;!',//'该帖子已被关闭，不能评论！', // 'This thread has been closed and can not be commented!'
 	'postcomment_error'		=> 'D&#233;sol&#233;, vous ne pouvez pas commenter ce post ou le poste pas trouv&#233;',//'抱歉，您不能点评此帖或帖子尚未找到', // 'Sorry, you can not comment this post or the post not found'
+	'postappend_not_open'		=> 'Sorry, the post append function is turned off',//'抱歉，站点没有开启帖子补充功能',
 	'postappend_only_yourself'	=> 'Vous ne pouvez ajouter du contenu dans vos messages',
-	'postappend_not_open'			=> 'Sorry, forum is not enable Post complementary functions',//'抱歉，版块没有开启帖子补充功能',
 	'postappend_add_succeed'	=> 'Ajouter avec Succ&#232;s',
 	'replynotice_success_1'		=> 'R&#233;glez Accueil avec succ&#232;s',//'接收设置成功 ', // 'Set Home successfully'
 	'replynotice_success_0'		=> 'Annuler Accueil avec succ&#232;s',//'取消设置成功 ', // 'Cancel Home successfully'
@@ -294,7 +315,6 @@ $lang = array (
 	'poll_overdue'			=> 'Ce sondage est expir&#233;, Svp. merci de revenir.',
 	'poll_choose_most'		=> 'Vous ne pouvez choisir {maxchoices} option(s) de ce sondage, Svp. merci de revenir.',
 	'thread_poll_voted'		=> 'Vous avez d&#233;j&#224; vot&#233;, Svp. merci de revenir.',
-	'thread_poll_succeed'		=> 'Votez avec Succ&#232;s, maintenant vous allez &#234;tre rediriger vers la page du sujet.',
 	'thread_poll_none'		=> 'D&#233;sol&#233;, le poste est non-votants',//'抱歉，本帖非投票帖', //  'Sorry, the post is non-voting'
 	'thread_poll_nopermission'	=> 'D&#233;sol&#233;, vous ne pouvez pas voir les &#233;lecteurs des Posts',//'抱歉，您无权查看本帖投票人', // 'Sorry, you can not see the posts voters'
 	'thread_rate_moderator_invalid'	=> 'D&#233;sol&#233;, vous pouvez faire seulement le taux de votre forums que vous g&#233;rer, Svp. merci de revenir.',
@@ -308,7 +328,6 @@ $lang = array (
 	'thread_rate_succeed'		=> 'Merci pour votre note, Vous allez &#234;tre rediriger d&#232;s &#224; pr&#233;sent &#224; la page pr&#233;c&#233;dente.',
 	'no_privilege_removerate'	=> 'D&#233;sol&#233;, vous n\'avez pas la permission d\'enlever les notes',//'抱歉，您没有权限撤销评分', // 'Sorry, you do not have permission to remove ratings'
 	'thread_rate_removesucceed'	=> 'Enlever note avec Succ&#232;s, maintenant Vous allez &#234;tre rediriger vers la page pr&#233;c&#233;dente.',
-	'thread_rate_log_nonexistence'	=> 'D&#233;sol&#233;, le poste sp&#233;cifi&#233; n\'a pas un enregistrement d\'&#233;valuation au cours de l\'ann&#232;e derni&#232;re, Svp. merci de revenir.',
 	'member_no_found'		=> 'Utilisateur ne se trouve pas',//'该用户未找到', // 'The user not found'
 	'thread_warning_nonexistence'	=> 'Poste particulier n\'a pas un enregistrement d\'alerte, Svp. merci de revenir.',
 	'thread_pay_error'		=> 'D&#233;sol&#233;, vous ne pouvez pas acheter ce sujet',//'抱歉，您不能购买本主题', // 'Sorry, you can not purchase this topic'
@@ -322,6 +341,7 @@ $lang = array (
 	'reward_completion'		=> 'R&#233;gler la meilleure solution avec Succ&#232;s, Svp. merci de revenir.',
 	'activity_stop'			=> 'D&#233;sol&#233;, l\'activit&#233; a cess&#233; depuis, Svp. merci de revenir.',
 	'activity_repeat_apply'		=> 'Applications D&#233;sol&#233;, les activit&#233;s peuvent pas &#234;tre r&#233;p&#233;t&#233;.',
+	'activity_imgurl_error'		=> 'Invalid Image URL ',//'图片地址错误 ',
 	'activity_exile_field'		=> 'Les champs marqu&#233;s par \'*\' sont n&#233;cessaires, Svp. merci de compl&#233;ter.',
 	'activity_completion'		=> '&#201;v&#233;nement de la demande est retenue, Svp. merci d\'attendre l\'examen du commanditaire.',
 	'activity_cancel_success'	=> 'Annuler avec Succ&#232;s.',
@@ -347,6 +367,10 @@ $lang = array (
 	'recommend_outoftimes'		=> 'Recommandons Niveau <strong id="recommentc" class="xi1 xs2">{recommendc}</strong><br />Vous ne pouvez pas recommander davantage aujourd\'hui',
 	'recommend_daycount_succed'	=> 'Recommandons Niveau <strong id="recommentc" class="xi1 xs2">{recommendc}</strong> <span id="recommentv" class="xg2 xs0">{recommendv}</span><br />Vous pouvez toujours recommander {daycount} fois aujourdhui',
 	'recommend_succed'		=> 'Recommandons Niveau <strong id="recommentc" class="xi1 xs2">{recommendc}</strong> <span id="recommentv" class="xg2 xs0">{recommendv}</span>',
+	'thread_poll_voter_isnull'	=> 'No one have voted this poll, You can not add tags.',//'暂时还没有人参与投票，不能添加标签。',
+	'thread_activityapply_isnull'	=> 'Temporarily no one participated in activity, can not add tags.',//'暂时还没有人参加活动，不能添加标签。',
+	'forum_usertag_set_continue'	=> 'Total {count} users, now set from {limit} to {next} users, please wait ',//'共 {count} 个用户，正在设置 {limit} 至 {next} 个用户，请稍候 ',
+	'forum_usertag_succeed'		=> 'User tag set successfully ',//'用户标签设置成功 ',
 
 	'group_admin_enter_panel'	=> 'Svp. entrer dans la page de gestion de groupe pour g&#233;rer.',//'请进入群组管理页面进行管理。', // 'Please enter the Group Management page to manage.'
 
@@ -355,6 +379,7 @@ $lang = array (
 	'forum_disablepost'		=> 'Ce forum est interdit pour poster.',
 	'post_newbie_span'		=> 'D&#233;sol&#233;, vous devez attendre {newbiespan} heures apr&#232;s l\'enregistrement, ensuite alors vous pouvez poster le sujet, Svp. merci de revenir.',
 	'post_hide_nopermission'	=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; utiliser le code [cacher], Svp. merci de revenir.',
+	'reward_credits_closed'			=> 'Cr&#233;dits commerciaux fonction est d&#233;sactiv&#233;e, Svp. contactez l\'administrateur.',//'交易积分被关闭，请联系管理员。', // 'Trade credits feature is turned off, please contact the administrator.'
 	'forum_access_disallow'		=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; faire cette op&#233;ration est de ce forum, Svp. merci de revenir',
 
 	'post_check'			=> 'Post particulier Inexistant ou a &#233;t&#233; retir&#233; ou sont en cours de mod&#233;ration.<br /><a href="forum.php?mod=viewthread&tid={tid}">[cliquez ici au sujet du contenu de ce post]</a>',
@@ -375,6 +400,8 @@ $lang = array (
 
 	'setup_finished'		=> 'R&#233;gler avec Succ&#232;s',
 
+	'follow_visituser_not_exist'	=> 'Sorry, specified user does not exist',//'抱歉，您所访问的用户不存在',
+
 	'not_open_invite'		=> 'D&#233;sol&#233;, notre site ne supporte pas l\'inscription invitations',
 	'invite_accept_no'		=> 'Amis invit&#233;s d\'avoir ignor&#233; actuellement',
 	'invite_code_fuid'		=> 'D&#233;sol&#233;, l\'URL de votre invitation a &#233;t&#233; utilis&#233;.',
@@ -394,14 +421,12 @@ $lang = array (
 	'magics_drop_succeed'		=> 'vous abandonn&#233; {num} {magicname}',
 
 	'medal_apply_invalid'		=> 'D&#233;sol&#233;, cette m&#233;daille ne peut pas &#234;tre appliqu&#233;e, Svp. merci de revenir.',
-	'medal_apply_existence'		=> 'Vous avez d&#233;j&#224; demand&#233; Vous avez d&#233;j&#224; demand&#233; ou re&#184;u des m&#233;dailles, Svp. ne pas r&#233;p&#233;ter l\'application ou &#224; recevoir.',
 	'medal_permforum_nopermission'	=> 'Vous ne remplissez pas les conditions pour recevoir la m&#233;daille</p></div><div><p><b>Les Conditions Requises: </b><br />&nbsp;&nbsp;&nbsp;{formulamessage}<br /><b>Vos informations: </b>{usermsg} ',
+	'medal_not_get_credit'		=> 'Sorry, your {credit} is not enough, unable to purchase this medal',//'抱歉，您的{credit}不足，无法购买此勋章',
 	'medal_get_succeed'		=> 'F&#233;licitations, vous obtenez {medalname}',
 	'medal_apply_succeed'		=> 'Appliquer la M&#233;daille {medalname} avec succ&#232;s, Svp. attendre l\'approbation d\'Administrateur.',
 
 	'enter_the_space'		=> 'Entrez sur son Espace Perso.',
-
-	'login_before_enter_home'	=> 'Svp. veuillez vous connecter pour continuer &#224; visualiser ',
 
 	'task_close'		=> 'T&#226;che a &#233;t&#233; ferm&#233;, Svp. merci de revenir.',
 	'task_relatedtask'	=> 'Pour cette t&#226;che doit d\'abord remplir une t&#226;che, va maintenant se tourner vers la page des t&#226;ches.',
@@ -416,7 +441,6 @@ $lang = array (
 	'task_giveup'		=> 'Vous avez renonc&#233; &#224; cette t&#226;che.',
 
 	'activate_succeed'	=> 'Salut {username}, votre compte a &#233;t&#233; activ&#233; avec succ&#232;s, maintenant r&#233;orienter votre page d\'index.',
-	'activate_illegal'	=> 'Vous UID Inexistant ou vous n\'&#234;tes pas Membres de ceux qui sont n&#233;cessaires afin de v&#233;rifier s\'il Inexistant ou vous n\'&#234;tes pas en attente aux Membres pour la v&#233;rification.',
 
 	'login_clearcookie'	=> 'Nettoyage des Cookies avec Succ&#232;s',
 
@@ -427,6 +451,8 @@ $lang = array (
 	'getpasswd_illegal'		=> 'Vous utilisez un ID Inexistant ou a expir&#233;, ne peut pas r&#233;cup&#233;rer votre mot de passe.',
 	'getpasswd_succeed'		=> 'Votre mot de passe a &#233;t&#233; r&#233;initialis&#233;, Svp. merci d\'utiliser le nouveau mot de passe.',
 
+	'lostpasswd_email_not_exist'	=> 'Sorry, this Email does not exist in our database and can not be used to the retrieve password function',//'抱歉，使用此 Email 的用户不存在，不能使用取回密码功能',
+	'lostpasswd_many_users_use_email'	=> 'Sorry, more than one users have this EMail address. Please fill in the user name for retrieve your password',//'抱歉，存在多个使用此 Email 的用户，请填写您需要找回密码的用户名',
 	'getpasswd_account_invalid'	=> 'Administrateurs et Super  Mod&#233;rateurs peuvent pas utiliser une fonction de verrouillage du mot de passe de r&#233;cup&#233;ration, Svp. merci de revenir.',
 	'getpasswd_send_succeed'	=> 'Un email est envoy&#233; &#224; votre adresse que vous nous avez fournit, <br />Svp. changer votre mot de passe d\'ici 3 jours.',
 
@@ -439,8 +465,15 @@ $lang = array (
 	'faq_content_empty'		=> 'Sp&#233;cifiques &#233;l&#233;ment de FAQ Inexistant, Svp. merci de revenir.',
 	'faq_keywords_empty'		=> 'Vous ne sp&#233;cifiez pas les mots-cl&#233;s pour rechercher, Svp. merci de revenir.',
 
+	'imagepreview_errorcode_0'	=> 'The image does not meet the processing conditions, can not be processed',//'图片不符合处理条件，无法处理',
+	'imagepreview_errorcode_-1'	=> 'Invalid image, can not handle',//'无效的图片，无法处理',
+	'imagepreview_errorcode_-2'	=> 'No permissions to read and write file, can not handle the image',//'文件读写权限不足，无法处理图片',
+	'imagepreview_errorcode_-3'	=> 'System settings are incorrect, can not handle image',//'系统设置错误，无法处理图片',
+	'imagepreview_errorcode_-4'	=> 'Server does not support a functionality to deal with images. Can not handle.',//'服务器缺少处理图片所需的功能，无法处理',
+
 	'group_invite_failed'		=> 'Vous n\'&#234;tes pas un Membre de ce Groupe ne peut pas inviter, Svp. merci de revenir.',
-	'group_invite_not_author'	=> 'Vous n\'&#234;tes pas l\'Auteur de ce Sujet, vous ne pouvez pas envoyer des invitations',//'您不是本主题的作者无法发出邀请', // 'You are not the author of this thread, you can not send invitation'
+	'noperm_at_user'		=> 'You do not have permissions to use the "@user" function',//'您没有@用户的权限',
+	'thread_at_usernum_limit'	=> 'You have reached the number of "@user" limit at this topic',//'本主题的@用户数达到上限',
 
 	'ranklist_status_off'	=> 'Liste de classement a &#233;t&#233; cl&#244;tur&#233;',
 
@@ -454,6 +487,10 @@ $lang = array (
 	'portal_attachment_noexist'		=> 'Pi&#232;ce jointe sp&#233;cifique est inexistante',
 	'portal_attachment_nopermission_delete'	=> 'Vous n\'&#234;tes pas autoris&#233; &#224; supprimer ce fichier',
 	'portal_image_noexist'			=> 'Image a &#233;t&#233; supprimer',
+
+	'block_choose_bid'		=> 'Sorry, you have not correctly specified the block you want to view',//'抱歉，您尚未正确指定要查看的模块',
+	'block_noexist'			=> 'Sorry, the block you want to view does not exist',//'抱歉，您指定要查看的模块不存在',
+	'block_nomore'			=> 'Sorry, the block you want to view have no more information',//'抱歉，您指定要查看的模块不存在更多信息',
 
 	'comment_no_aid_id'		=> 'Vous n\'avez pas choisi cet article ID correctement',//'Sorry, You have not correctly specified the article ID to view',//'抱歉，您尚未正确指定要查看的文章 ID',
 	'comment_no_topicid_id'		=> 'D&#233;sol&#233;, vous n\'avez pas correctement sp&#233;cifi&#233; l\'identifiant ID de la rubrique pour afficher',//'抱歉，您尚未正确指定要查看的专题 ID', // 'Sorry, You have not correctly specified the topic ID to view'
@@ -481,9 +518,43 @@ $lang = array (
 
 	'no_privilege_myapp'	=> 'D&#233;sol&#233;, cette application Inexistant ou a &#233;t&#233; supprim&#233;, vous pouvez <a href="userapp.php?mod=manage&my_suffix=%2Fapp%2Flist">choisissez d\'autres applications</a>',
 
+	'collection_comment_closed'		=> 'Sorry, collection comment function is disabled',//'抱歉，管理员没有开放淘专辑的评论功能',
+	'collection_comment_succ'		=> 'Comment saved successfully',//'发表评论成功',
+	'collection_comment_remove_succ'	=> 'Comment was successfully deleted',//'评论成功删除',
+	'collection_recommend_url'		=> 'Please fill in the thread URL',//'请填写主题地址',
+	'collection_recommend_succ'		=> 'Collection successfully recommended',//'已经成功向淘专辑作者发送了推荐消息',
+	'collection_recommend_message'		=> '{fromuser} recommended for your collection "{collectioname}" this thread: [url]{url}[/url]',//'{fromuser}  向您的专辑《{collectioname}》推荐了一个主题：[url]{url}[/url]',
+
+	'collection_create_exceed_limit'	=> 'Sorry, exceeded the number of collection created',//'抱歉，已经超过了可以创建的淘专辑数量',
+	'collection_create_succ'		=> 'New collection created successfully, going to the collection page',//'新建淘专辑成功，即将进入淘专辑页面',
+	'collection_edit_succ'			=> 'Collection successfully edited, going to the collection page',//'淘专辑编辑成功，即将进入淘专辑页面',
+	'collection_delete_succ'		=> 'Collection successfully deleted, going to collection list',//'删除淘专辑成功，即将进入我的专辑',
+	'collection_forum_deny'			=> 'Sorry, administrator have disabled to add  this thread into collections',//'抱歉，管理员设置了本版主题不能被加入淘专辑',
+	'collection_none_avail_collection'	=> 'Sorry, there are no collections available',//'抱歉，现在没有可以能够淘帖的淘专辑，您所在的用户也无法再创建新的淘专辑。',
+	'collection_no_selected'		=> 'You have to choose the collection to add',//'您还没有选择可以添加的淘专辑',
+	'collection_non_creator'		=> 'Sorry, only creator and the team members can manage the collection',//'抱歉，只有创建人和参与者可以管理淘专辑',
+	'collection_thread_exists'		=> 'Selected thread is already placed in the collection, do not need to add again',//'您选择的主题已经在淘专辑中了，不需要重复添加',
+	'collection_collect_succ'		=> 'The post is successfully added to the corresponding collection',//'淘帖成功，主题已经被加入到相应淘专辑中',
+	'collection_no_thread'			=> 'Can not find the thread you want to delete, Please select the thread for deletion',//'无法找到要删除的主题，请先选择要删除的主题',
+	'collection_remove_thread'		=> 'The thread successfully deleted from the collection, going to the collection page',//'删除淘专辑内主题成功，即将返回淘专辑页面',
+	'collection_teamworkers_noselect'	=> 'You did not choose users to invite',//'您还没有选择要邀请的用户',
+	'collection_no_teamworkers'		=> 'Invited to the team user does not exist or banned',//'邀请参与维护的用户不存在或被冻结',
+	'collection_non_friend'			=> 'You can invite to the team only your friends',//'只能邀请自己的好友加入维护淘专辑',
+	'collection_teamworkers_exists'		=> 'The user has been successfully invited to the collection team',//'邀请参与维护的用户已在共同维护名单中',
+	'collection_invite_succ'		=> 'Invitation successfully sent. Wait for the user accepted your invitation to join the collection team. Invitation is actual for 7 days only.',//'邀请成功，等待该用户接受邀请后即可成为淘专辑共同维护者，邀请7天内有效。',
+	'collection_invite_accept'		=> 'Invitation accepted successfully. You have become the collection co-maintainer.',//'接受邀请成功，您已经成为该淘专辑的共同维护者',
+	'collection_remove_deny'		=> 'Sorry, only the founder and administrator can maintain this collection',//有创建人和管理员可以维护淘专辑',
+	'collection_teamworkers_nonexists'	=> 'Sorry, no team workers found',//'抱歉，没有找到该共同维护者',
+	'collection_teamworkers_exit_succ'	=> 'You have successfully exited from the collectiom team. Going to the collection page',//'取消共同维护成功，即将进入淘帖首页',
+
+	'collection_follow_limited'		=> 'The number of collection team members can not exceed {limit}',//'关注淘专辑的数量不能超过 {limit} 个',
+	'collection_follow_succ'		=> 'Successfuly subscribed to the collection',//'成功订阅淘专辑',
+	'collection_unfollow_succ'		=> 'Successfuly unsubscribed from the collection',//'成功取消订阅淘专辑',
+
 	'no_privilege_deluserapp'	=> 'D&#233;sol&#233;, vous n\'avez pas la permission d\'exploiter cette application',//'抱歉，您没有权限操作此应用', // 'Sorry, you do not have permission to operate this application'
 
 	'email_check_sucess'	=> 'V&#233;rifiez votre e-mail({email}) avec Succ&#232;s, Svp. revenir',
+/*!*/	'email_check_account_invalid'		=> 'Sorry, the Founder or protected user can not use the mailbox verification. Modify the user information directly.',//'抱歉，受保护用户或创始人不能使用邮箱验证，直接修改用户信息。',
 	'email_check_error'	=> 'Lien de v&#233;rification e-mail que vous avez entr&#233; est incorrect. Vous pouvez page de profil, la re-v&#233;rification lien pour recevoir de nouveaux messages.',
 
 	'news_does_not_exist'		=> 'Des informations sp&#233;cifiques Inexistantes',
@@ -518,7 +589,6 @@ $lang = array (
 	'article_ignored'		=> 'L\'article a &#233;t&#233; ignor&#233;',
 	'article_deleted'		=> 'L\'article a &#233;t&#233; supprim&#233;',
 	'select_operation'		=> 'Svp. veuillez choisir un objet',
-	'article_delete_invalid_lastpage'	=> 'Ceci est la derni&#232;re page, ne peut pas &#234;tre supprimer',
 	'article_move_success'		=> 'Article Déplacé avec Succès',//'文章转移成功 ', // 'Article moved successfully'
 	'article_move_select_cat'	=> 'Svp. Choisissez la cat&#233;gorie cible pour passer au',//'请选择要转移到的目标栏目', // 'Please select the target category to move to'
 	'all_posts_pushed_already'	=> 'Tous les postes ont d&#233;j&#224; &#233;t&#233; re-pouss&#233;s',//modify
@@ -529,31 +599,31 @@ $lang = array (
 	'article_push_invalid_private'	=> 'cet article Actuellement ne peut pas g&#233;n&#233;rer d\'article de la vie priv&#233;e',
 
 	'block_not_exist'		=> 'Module particulier est inexistant',
+	'block_topic_nopermission'		=> 'Sorry, you do not have permission to add thread block',//'抱歉，您没有权限添加专题模块',
+	'block_add_nopermission'		=> 'Sorry, you do not have permission to add this block',//'抱歉，您没有权限添加此模块',
 	'block_no_recommend_library'	=> 'Ce module ne contient pas de recommandation de la biblioth&#232;que',
 	'data_in_mod_library'		=> 'Les donn&#233;es sont d&#233;j&#224; dans la biblioth&#232;que recommander du module',
 	'block_data_type_invalid'	=> 'Le type de donn&#233;es ne correspond pas, ne peuvent pas &#234;tre presser',
 	'no_right_manage_data'		=> 'Vous n\'&#234;tes pas autoriser &#224; g&#233;rer les donn&#233;es recommand&#233;es de ce module',
-
-	'select_a_option'		=> 'Svp. veuillez Choisir une op&#233;ration',
-	'select_a_moderate_data'	=> 'Svp. veuillez s&#233;lectionner au moins une des donn&#233;es',
-	'operation_done'		=> 'Op&#233;rer avec Succ&#232;s',
 
 	'comment_edit_noexist'		=> 'R&#233;ponse est inexistante',
 	'comment_delete_noexist'	=> 'R&#233;ponse est inexistante',
 
 	'diy_topic_noexist'		=> 'Sujet sp&#233;cifique inexistant, Svp. merci de v&#233;rifier',
 	'diy_remote_upload_failed'	=> 'T&#233;l&#233;chargement &#224; distance a &#233;chou&#233;',
+	'diy_sign_invalid'			=> 'DIY template data validation error',//'DIY模板数据验证错误',
 	'diy_backup_noexist'		=> 'Fichier de sauvegarde inexistant.',
 	'diy_data_format_invalid'	=> 'Erreur de format de donn&#233;es',
 	'diy_no_export_data'		=> 'Aucune Donn&#233;es &#224; Exporter',
+	'diy_export_no_data'			=> 'This page have no DIY data',//'此页面无DIY数据',
+	'diy_export_tpl_invalid'		=> 'Specified page identity is invalid',//'指定的页面标识不正确',
 	'diy_operation_invalid'		=> 'Op&#233;ration non valide',
 	'diy_nopermission'		=> 'Vous n\'&#234;tes pas autoris&#233; &#224; BRICOLER',
 
-	'article_push_invalid_object'	=> 'Des informations sp&#233;cifiques ne peuvent pas g&#233;n&#233;rer cet article',
-	'article_push_invalid_repeat'	=> 'Ce contenu a d&#233;j&#224; &#233;t&#233; re-press&#233;',
-
 	'portalcp_block_push_the_update_line'	=> 'Bloc s&#233;lectionn&#233; a &#233;t&#233; rejoint &#224; mettre &#224; jour la file d\'attente',//'所选的模块已加入更新队列', // 'Selected block has been joined to update queue'
-	'portalcp_block_has_no_block'		=> 'Svp. Choisissez le module pour rejoindre la file d\'attente mise &#224; jour',//'请选择要加入更新队列的模块', // 'Please select the module to join the update queue'
+	'select_a_option'		=> 'Svp. veuillez Choisir une op&#233;ration',
+	'select_a_moderate_data'	=> 'Svp. veuillez s&#233;lectionner au moins une des donn&#233;es',
+	'operation_done'		=> 'Op&#233;rer avec Succ&#232;s',
 
 	'post_edit_nopermission'	=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; modifier des messages d\'une autre personne, Svp. merci de revenir.',
 	'post_edit_timelimit'		=> 'D&#233;sol&#233;, votre post a &#233;t&#233; affich&#233; plus que {edittimelimit}minutes, vous ne pouvez pas le modifier, Svp. merci de revenir.',
@@ -575,10 +645,10 @@ $lang = array (
 
 	'post_forum_newreply_nopermission'	=> 'D&#233;sol&#233;, seuls les Groupes Utilisateurs sp&#233;cifi&#233;s ne pouvez pas r&#233;pondre, Svp. merci de revenir.',
 	'comment_add_succeed'		=> 'Publiez commentaires avec Succ&#232;s',
+	'post_rushreply_creditlimit'		=> 'Sorry, your {creditlimit_title} insufficient. For grab the floor you must have {creditlimit_title} at least {creditlimit}',//'抱歉，您的 {creditlimit_title} 不足，本抢楼帖限制最小 {creditlimit_title} 为 {creditlimit}',
 	'trade_newreply_nopermission'	=> 'D&#233;sol&#233;, seulement ouvert aux marchandises soumises aux r&#233;ponses, Svp. merci de revenir.',
 	'post_reply_succeed'		=> 'Merci, Votre r&#233;ponse a &#233;t&#233; publi&#233;e, maintenant vous allez &#234;tre rediriger vers la page de contenu du sujet.<br /><a href="forum.php?mod=forumdisplay&fid={fid}">[cliquez ici liste des discussions de cette liste]</a>',
 	'trade_add_succeed'		=> 'Merci, votre produit a &#233;t&#233; publi&#233; et sera maintenant &#224; la page sujet des mati&#232;res premi&#232;res.<br /><a href="forum.php?mod=post&action=reply&fid={fid}&tid={tid}&addtrade=yes">[Cliquez ici pour continuer &#224; ajouter des produits] </a><br /><a href="forum.php?mod=forumdisplay&fid={fid}">[Cliquez ici pour liste de sujets]</a>',
-	'post_reply_mod_succeed'	=> 'Merci, votre un post a besoin de mod&#233;ration, il sera affich&#233; lorsque la mod&#233;ration passera, maintenant vous allez &#234;tre rediriger vers la liste du sujet.',
 
 	'postperm_login_nopermission_mobile'	=> 'Vous n\'&#234;tes pas <a href="member.php?mod=logging&action=login&referer={referer}&mobile=yes">Connexion</a>, et ont la permission de poster dans le forum',//'您尚未<a href="member.php?mod=logging&action=login&referer={referer}&mobile=yes">登录</a>，没有权限在该版块发帖', // 'You are not <a href="member.php?mod=logging&action=login&referer={referer}&mobile=yes">Log in</a>, and have permission to post in the forum'
 	'post_sort_isnull'		=> 'Vous n\'avez pas choisi la cat&#233;gorie du sujet, Svp. merci de revenir.',
@@ -589,12 +659,11 @@ $lang = array (
 	'reward_credits_lower'		=> 'D&#233;sol&#233;, points de fid&#233;lit&#233; doit &#234;tre sup&#233;rieur {minrewardprice}, Svp. merci de revenir.',
 	'threadtype_expiration_invalid'	=> 'Ce sujet doit &#234;tre sp&#233;cifi&#233; p&#233;riode de validit&#233;, Svp. merci de revenir.',
 	'replycredit_morethan_self'	=> 'D&#233;sol&#233;, vous n\'avez pas assez de points pour r&#233;pondre',//'抱歉，回帖送积分额度大于您的积分', // 'Sorry, you have not enough points to reply'
+	'post_newthread_set_cover'		=> 'Set the thread cover, &nbsp; ',//'正在设置主题封面, &nbsp; ',
 
 	'search_threadtype_invalid'	=> 'Vous n\'avez pas entrer la classification des postes des informations de recherche, Svp. merci de revenir.',
 
 	'home_no_privilege'	=> 'Vous devez vous connecter et visualiser',
-
-	'thread_delete_succeed'	=> 'Suppression du sujet avec Succ&#232;s, pas de redirection vous allez &#234;tre redirig&#233; vers la page pr&#233;c&#233;dente.',
 
 	'member_nonexistence'	=> 'Utilisateur sp&#233;cifique Inexistant ou a &#233;t&#233; supprim&#233;, Svp. merci de revenir.',
 
@@ -612,7 +681,6 @@ $lang = array (
 	'no_privilege_blog'		=> 'D&#233;sol&#233;, vous n\'&#234;tes pas le droit de poster au Blog, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>',//'抱歉，您目前没有权限发表日志，<a href="home.php?mod=spacecp&ac=usergroup">点击这里查看权限</a>', // 'Sorry, You are not allowed to post blog, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>'
 	'blog_choose_system_category'	=> 'Svp. choisir la cat&#233;gorie',
 	'that_should_at_least_write_things'	=> 'Vous devriez &#233;crire quelque chose de au moins',
-	'failed_to_delete_operation'	=> 'Impossible de supprimer, Svp. r&#233;essayez',
 	'failed_to_stick_operation'	=> 'D&#233;sol&#233;, vous pouvez suivre votre propre blog seulement',//'抱歉，只能置顶自己的日志，且日志已被审核通过', // 'Sorry, you can stick only your own blog'
 	'no_privilege_edithot_blog'	=> 'D&#233;sol&#233;, vous n\'avez pas la permission pour r&#233;gler le Top HOT  pour ce blog',//'抱歉，您没有权限调整此日志的热度', //  'Sorry, you do not have permission to adjust the heat for this blog'
 
@@ -637,8 +705,6 @@ $lang = array (
 	'memcp_credits_card_msg_succeed'		=> '<span class="xi1">{extcreditsval} {extcreditstitle}</span>, Recharg&#233; avec Succ&#232;s ',//'<span class="xi1">{extcreditsval}{extcreditstitle}</span>，充值成功 ', // '<span class="xi1">{extcreditsval} {extcreditstitle}</span>, Recharged successfully '
 	'memcp_credits_addfunds_msg_incorrect'		=> 'Vous n\'avez pas besoin de recharger le nombre d\'entr&#233;es',
 	'credits_addfunds_amount_invalid'		=> 'Votre seul achat d&#233;passe le montant maximum de points {ec_maxcredits} ou minimum {ec_mincredits} restrictions.',
-	'credits_addfunds_ctrl'				=> 'Deux envoies de votre commande d\'intervalle est trop petit.',
-	'credits_addfunds_toomuch'			=> 'Votre d&#233;passez la limite (acheter maximum {ec_maxcreditspermonth}) de ce mois.',
 	'memcp_credits_transfer_msg_self_incorrect'	=> 'Vous n\'avez pas besoin de poss&#233;der le transfert',
 	'credits_transfer_balance_insufficient'		=> 'D&#233;sol&#233;, apr&#232;s le transfert votre {title} est inf&#233;rieure &#224; {minbalance}, Svp. merci de revenir.',
 	'credits_net_amount_iszero'			=> 'La transaction points d&#233;duits apr&#232;s imp&#244;t des op&#233;rations de n&#233;gociations 0, Svp. merci de revenir.',
@@ -675,6 +741,20 @@ $lang = array (
 	'feed_no_found'			=> 'De flux sp&#233;cifiques sont inexistants',
 	'no_privilege_feed_del'		=> 'D&#233;sol&#233;, vous n\'avez pas la permission de supprimer ce flux',//'抱歉，您没有权限删除此动态', // 'Sorry, you do not have permission to delete this feed'
 
+	'follow_not_follow_self'	=> 'Can not be follow to yourself',//'不能关注自己',
+	'follow_other_unfollow'		=> 'The author disabled to follow him',//'对方不允许您关注TA',
+	'follow_followed_ta'		=> 'You have followed the author',//'您已经收听了TA',
+	'follow_add_succeed'		=> 'Followed successfully',//'成功收听',
+	'follow_cancel_succeed'		=> 'The following is stopped',//'取消成功',
+	'follow_not_assignation_user'	=> 'The user is not specified',//'未指定用户',
+	'follow_remark_succeed'		=> 'Remarks added successfully',//'备注成功',
+	'follow_anonymous_unfollow'	=> 'Anonymous posts are not allowed to follow',//'匿名帖子不允许被转播',
+	'follow_content_not_exist'	=> 'The content to follow does not exist',//'转播的内容不存在',
+	'follow_input_word_limit'	=> 'The follow remark can not exceed 140 characters',//'您输入的转播理由超过140个字',
+	'follow_only_allow_the_relay_time'	=> 'Sorry, the following is enabled only after reply',//'抱歉，第二次转播必须同时进行回帖操作',
+	'relay_feed_success'			=> 'Broadcasted successfully',//'转播成功',
+	'follow_specify_follow_not_exist'	=> 'Specified for broadcast record does not exist',//'指定的广播记录不存在',
+
 	'friend_self_error'		=> 'D&#233;sol&#233;, vous ne pouvez pas vous ajouter comme ami',
 	'friends_add'			=> 'Ajouter {username} en tant qu\'Ami avec Succ&#232;s',
 	'waiting_for_the_other_test'	=> 'La v&#233;rification est en attente pour les autres',
@@ -702,7 +782,6 @@ $lang = array (
 	'delete_pm_success'		=> 'Supprim&#233; avec Succ&#232;s ',
 	'this_message_could_note_be_option'	=> 'D&#233;sol&#233;, votre action est mauvaise',//'抱歉，您的操作有误', // 'Sorry, your action is wrong'
 	'unable_to_send_air_news'	=> 'Vous ne pouvez pas envoyer un message vierge',
-	'message_bad_touid'		=> 'SD&#233;sol&#233;, l\'utilisateur est Inexistant, Svp. v&#233;rifier l\'uid d\'utilisateur est correct',//'抱歉，用户不存在，请检查用户uid是否正确', // 'Sorry, the user does not exist, please check the user uid is correct'
 	'message_bad_touser'		=> 'Utilisateur Inexistant,',
 	'message_can_not_send_to_self'	=> 'Vous ne pouvez pas envoyer un message &#224; vous-m&#234;me',//'不能给自己发送短消息', // 'You can not send message to yourself'
 	'message_send_result'		=> 'Envoyer un Message avec Succ&#232;s. Succ&#232;s: <strong>{succeed}</strong>, Svp. v&#233;rifiez les utilisateurs a &#233;chou&#233; de ces identifiants(<strong>{users}</strong>)',
@@ -719,6 +798,7 @@ $lang = array (
 	'message_can_not_send_13'	=> 'Ce n\'est pas un message de conversation du groupe',//'这不是群聊消息', // 'This is not a group chat message'
 	'message_can_not_send_14'	=> 'Ce n\'est pas un message priv&#233;',//'这不是私人消息', // 'This is not a private message'
 	'message_can_not_send_15'	=> 'Donn&#233;es sont incorrectes',//'数据有误', // 'Data is incorrect'
+	'message_can_not_send_16'	=> 'You have exceeded the maximum number of PM within 24 hours',//'您超出了24小时内发短消息数量的上限',
 	'message_can_not_send'		=> 'D&#233;sol&#233;, pas r&#233;ussi &#224; envoyer un message',
 	'pm_onlyacceptfriend_error'	=> 'D&#233;sol&#233;, votre action est pas bonne',//'抱歉，您的操作有误', // 'Sorry, your action is wrong'
 	'do_success_pm'			=> 'Court Message Mis avec Succ&#232;s ',//'短消息设置成功 ', // 'Short message set successfully '
@@ -732,7 +812,7 @@ $lang = array (
 	'pm_emport_banned_export'	=> 'Aucun message ne peut &#234;tre export&#233;',
 
 	'not_to_their_own_greeted'	=> 'Impossible de dire bonjour &#224; vous m&#234;mes',
-	'no_privilege_poke'	=> 'D&#233;sol&#233;, vous n\'avez pas la permission d\'envoyer de vœux, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour voir les autorisations</a>',//'抱歉，您目前没有权限打招呼，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>', // 'Sorry, you do not have permission to send greeting, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour voir les autorisations</a>'
+	'no_privilege_poke'		=> 'D&#233;sol&#233;, vous n\'avez pas la permission d\'envoyer de vœux, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour voir les autorisations</a>',//'抱歉，您目前没有权限打招呼，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>', // 'Sorry, you do not have permission to send greeting, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour voir les autorisations</a>'
 	'poke_success'			=> 'A &#233;t&#233; envoy&#233;, {username} seront avis&#233;s lors de la prochaine visite',
 	'has_been_hailed_overlooked'	=> 'L\'appel a &#233;t&#233; ignor&#233;',
 
@@ -766,6 +846,7 @@ $lang = array (
 	'showcredit_friend_do_success'	=> 'Vous avez pr&#233;sent&#233; avec succ&#232;s amis points de classement, recevront une notification Amis',
 	'showcredit_do_success'		=> 'Vous avez r&#233;ussi &#224; augmenter points de classement, consulter rapidement leur dernier classement, il',
 
+	'upload_select_image'		=> 'Please select the album you want to upload images',//'请选择要上传的相册图片',
 	'upload_images_completed'	=> 'T&#233;l&#233;charger image avec Succ&#232;s',
 	'no_privilege_upload'		=> 'D&#233;sol&#233;, actuellement vous n\'avez pas la permission de t&#233;l&#233;charger des images, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>',//'抱歉，您目前没有权限上传图片，<a href="home.php?mod=spacecp&ac=usergroup">点击这里查看权限</a>', // 'Sorry, currently you have no permission to upload images, <a href="home.php?mod=spacecp&ac=usergroup">Cliquez ici pour afficher les autorisations</a>'
 
@@ -841,9 +922,6 @@ $lang = array (
 	'sharing_does_not_exist'	=> 'Commentaires partage Inexistant',
 	'note_wall_reply_success'	=> 'R&#233;ponse {username} avec Succ&#232;s',
 
-	'not_in_mobile'			=> 'Vous avez acc&#233;d&#233; &#224; une page dans le mode non-mobiles. Que faut un acc&#232;s ult&#233;rieur &#224; la version ordinateur?',//'您访问的页面无手机页面，是否进一步访问电脑版？', // 'You accessed a page in non-mobile mode. Whether need a further access to the computer version?'
-	'submit_secqaa_invalid'		=> 'Erreur de r&#233;ponse de s&#233;curit&#233;, Svp. revenir.',
-	'post_url_nopermission'		=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; poster des URL, Svp. merci de revenir.',
 	'period_nopermission'		=> 'D&#233;sol&#233;, l\'administrateur a mis {banperiods} quotidiennement, vous ne pouvez pas exploiter ou afficher cette page maintenant, Svp. essayer une autre fois.',
 
 	'credits_policy_lowerlimit'	=> 'D&#233;sol&#233;, votre {title} n\'est pas suffisant(inf&#233;rieure &#224; {lowerlimit} {unit}).',
@@ -867,7 +945,7 @@ $lang = array (
 	'replyperm_upgrade_nopermission'	=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; r&#233;pondre avant le sa mise &#224; niveau, Svp. <a href="home.php?mod=spacecp&ac=credit&op=usergroup&ptype=1" target="_blank">click here</a> to view details.</p></div><div><p><b>Allowed usergroups:</b><br />&nbsp;&nbsp;&nbsp; {permgroups}',
 	'getattachperm_upgrade_nopermission'	=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; t&#233;l&#233;charger cette pi&#232;ce jointe, avant mise &#224; niveau, Svp. <a href="home.php?mod=spacecp&ac=credit&op=usergroup&ptype=1" target="_blank">click here</a> to view details.</p></div><div><p><b>Allowed usergroups:</b><br />&nbsp;&nbsp;&nbsp; {permgroups}',
 	'getattachperm_login_nopermission'	=> 'D&#233;sol&#233;, vous devez vous connecter.',
-'postattachperm_none_nopermission'	=> 'Sorry, you are not allowed to upload attachment, please <a href="home.php?mod=spacecp&ac=credit&op=usergroup" target="_blank">click here to view details</a></p></div><div>',//'对不起，您无权上传附件，详细请<a href="home.php?mod=spacecp&ac=credit&op=usergroup" target="_blank">点击这里查看</a></p></div><div>',
+	'postattachperm_none_nopermission'	=> 'Sorry, you are not allowed to upload attachment, please <a href="home.php?mod=spacecp&ac=credit&op=usergroup" target="_blank">click here to view details</a></p></div><div>',//'对不起，您无权上传附件，详细请<a href="home.php?mod=spacecp&ac=credit&op=usergroup" target="_blank">点击这里查看</a></p></div><div>',
 	'postattachperm_upgrade_nopermission'	=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; t&#233;l&#233;charger des pi&#232;ces jointes avant sa mise &#224; niveau, Svp. <a href="home.php?mod=spacecp&ac=credit&op=usergroup&ptype=1" target="_blank">click here</a> to view details.</p></div><div><p><b>Allowed usergroups:</b><br />&nbsp;&nbsp;&nbsp; {permgroups}',
 	'postattachperm_login_nopermission'	=> 'D&#233;sol&#233;, vous devez vous connecter.',
 	'file_size_overflow'			=> 'La taille du fichier est plus grand que {size} octets, Svp. revenir.',
@@ -879,6 +957,7 @@ $lang = array (
 	'length_is_not_within_the_scope_of'	=> 'Sous-pages ne sont pas dans la mesure autoris&#233;e',
 
 	'magics_weight_range_invalid'	=> 'D&#233;sol&#233;, la capacit&#233; insuffisante paquet accessoires sup&#233;rieure &#224; {less}, Svp. merci de revenir.',//Modify
+	'magics_target_nonexistence'	=> 'D&#233;sol&#233;, la cible est inexistante, Svp. merci de revenir.',
 	'magics_give_myself'		=> 'D&#233;sol&#233;, vous ne pouvez pas pr&#233;sent&#233; &#224; vous m&#234;me, Svp. merci de revenir.',
 	'magics_give_weight_range_invalid'	=> 'D&#233;sol&#233;, la capacit&#233; des accessoires du r&#233;ception n\'est pas assez, seulement vous pouvez recevoir max. {num} props.',
 	'magics_give_succeed'		=> 'Vous avez pr&#233;sent&#233; {toname} {num} {magicname}',
@@ -894,6 +973,7 @@ $lang = array (
 
 	'css_contains_elements_of_insecurity'	=> 'Le contenu comporte des &#233;l&#233;ments d\'ins&#233;curit&#233;',
 	'diy_template_filename_invalid'		=> 'Nom BRICO fichier mod&#232;le est incorrect',//'DIY模板名不正确', // 'DIY template file name is incorrect'
+	'diy_tpldirectory_invalid'		=> 'DIY template directory is not correct',//'DIY模板目录不正确',
 	'diy_template_extension_invalid'	=> 'Extension du fichier mod&#232;le est incorrect',//'模板文件扩展名不正确', // 'Template file extension is incorrect' 
 	'diy_template_noexist'		=> 'Mod&#232;le de fichier inexistant.',
 	'topic_title_cannot_be_empty'	=> 'Nom de la Rubrique ne peut pas &#234;tre vide',
@@ -903,7 +983,6 @@ $lang = array (
 	'comment_comment_notallowed'	=> 'Cet article ne peut pas &#234;tre commenter',
 
 	'post_subject_toolong'		=> 'D&#233;sol&#233;, votre titre est plus long que 80 octets, Svp. merci de revenir.',
-	'post_message_toolong'		=> 'D&#233;sol&#233;, votre message est plus long que {maxpostsize} octets, Svp. merci de revenir.',
 	'post_message_tooshort'		=> 'D&#233;sol&#233;, votre message est plus court que {minpostsize} octets, Svp. merci de revenir.',
 
 	'no_privilege_realname'		=> 'Vous devez remplir le vrai nom seulement apr&#232;s l\'op&#233;ration en cours,, <a href="home.php?mod=spacecp&ac=profile">Cliquez ici pour d&#233;finir le nom r&#233;el</a>',
@@ -915,21 +994,21 @@ $lang = array (
 	'threadtype_num_invalid'	=> 'La valeur des donn&#233;es n\'est pas correct, Svp. revenir. V&#233;rifiez {typetitle} options',
 	'threadtype_unchangeable_invalid'	=> 'Information ne doit pas &#234;tre modifi&#233;, Svp. revenir. V&#233;rifiez {typetitle} options',
 
-	'user_banned'		=> 'D&#233;sol&#233;, votre adresse IP n\'est pas autoris&#233;e ou votre compte a &#233;t&#233; interdit, vous ne pouvez plus acc&#233;der &#224; notre site.',
-	'board_closed'		=> 'D&#233;sol&#233;, le site est ferm&#233; temporairement, contactez <a href="mailto:'.$_G['setting']['adminemail'].'"> Administrateur</a> for details.',
-
-	'login_strike'			=> 'Vous avez essay&#233; trop de fois, Svp. connexion apr&#232;s 15 minutes',
+	'location_login'		=> '',
 	'location_login_succeed_mobile'	=> 'Bienvenue &#224; nouveau, {username}. Cliquez ici pour aller &#224; page de connexion avant',
 	'location_login_succeed'	=> 'Bienvenue, {username}! Attendre pour rediriger vers la page avant de vous connecter',//'欢迎您回来，{username}。现在将转入登录前页面，请稍候……', // 'Welcome, {username}! Wait for redirecting to the page before login'
 	'login_succeed_inactive_member'	=> 'Bon retour {username}. Votre compte doit &#234;tre activ&#233;, maintenant Vous allez &#234;tre rediriger au panneau de contr&#244;le. {ucsynlogin} ',
 	'login_question_empty'		=> 'Svp. veuillez entr&#233;e le code de S&#233;curit&#233; Q&R',
 	'login_question_invalid'	=> 'Question de s&#233;curit&#233; erreur, Svp. revenir',
 	'login_invalid'			=> 'Connexion a &#233;chou&#233;, vous pouvez re-essayer {loginperm} times',
+	'login_password_invalid'	=> 'Sorry, the password you have entered is invalid',//'抱歉，您输入的密码有误',
 	'register_disable'		=> 'D&#233;sol&#233;, l\'enregistrement a &#233;t&#233; cl&#244;tur&#233;, Svp. merci de revenir.',
 	'register_disable_activation'	=> 'D&#233;sol&#233;, l\'activation a &#233;t&#233; cl&#244;tur&#233;, Svp. merci de revenir.',
+	'register_email_send_succeed'	=> 'Thank you for your registration at {bbname},<br />The system have sent to you the E-Mail with a registration link,  please check your mailbox and follow the registration link for submit your registration.',//'感谢您注册 {bbname}，<br />系统给您发送了一封带有注册地址的邮件，快去登录邮箱获取注册链接进行下一步注册吧',
 	'not_open_registration_invite'	=> 'D&#233;sol&#233;, ce site n\'est pas autoris&#233; &#224; vous inscrire directement, vous avez besoin invitations',
 	'register_rules_agree'		=> 'Vous devez accepter les conditions de service',
 	'register_activation_message'	=> 'D&#233;sol&#233;, votre identifiant "{username}" existe d&#233;j&#224;, Svp. merci de vous connecter pour être actif.',
+	'profile_password_tooshort'	=> 'The password specified is too short, please enter at least {pwlength} characters',//'密码太短了，至少要{pwlength}个字符',
 	'profile_required_info_invalid'	=> 'Vous devez saisir tous les &#233;l&#233;ments requis, Svp. merci de revenir.',
 	'register_ctrl'			=> 'Votre IP ne peut pas s\'inscrire {regctrl} heure(s)',
 	'register_flood_ctrl'		=> 'Vous ne pouvez enregistrer {regfloodctrl} fois avec la m&#234;me adresse IP dans les 24 heures',
@@ -948,6 +1027,16 @@ $lang = array (
 	'task_waiting_rt'	=> 'Vous ne commencez pas encore la t&#226;che, tout en laissant beaucoup de temps {t}, Svp. d&#233;p&#234;chez-vous!',
 	'task_waiting'		=> 'Vous ne commencez pas encore la t&#226;che, Svp. d&#233;p&#234;chez-vous!',
 
+	'board_closed'		=> 'D&#233;sol&#233;, le site est ferm&#233; temporairement, contactez <a href="mailto:'.$_G['setting']['adminemail'].'"> Administrateur</a> for details.',
+
+	'admin_cpanel_noaccess'		=> 'Vous n\'&#234;tes pas autoris&#233; &#224; acc&#233;der au panneau de contr&#244;le gestionnaire, Svp. re-logguez, puis essayez &#224; nouveau',
+	'admin_cpanel_locked'		=> 'D&#233;sol&#233;, Comme vous le mot de passe erron&#233; plusieurs fois, le panneau de gestion temporairement bloqu&#233;e, et vous &#234;tes incapable d\'entrer dans le panneau admin.<br />Verrouillage sera automatiquement lev&#233;e <strong>{unlocktime}</strong>',
+
+	'submit_secqaa_invalid'		=> 'Erreur de r&#233;ponse de s&#233;curit&#233;, Svp. revenir.',
+	'post_url_nopermission'		=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; poster des URL, Svp. merci de revenir.',
+
+	'not_in_mobile'			=> 'Vous avez acc&#233;d&#233; &#224; une page dans le mode non-mobiles. Que faut un acc&#232;s ult&#233;rieur &#224; la version ordinateur?',//'您访问的页面无手机页面，是否进一步访问电脑版？', // 'You accessed a page in non-mobile mode. Whether need a further access to the computer version?'
+
 	'magics_operation_nopermission'	=> 'D&#233;sol&#233;, ces seuls accessoires peuvent &#234;tre utilis&#233;s sur vos sujets et posts, Svp. merci de revenir.',
 
 	'magics_attachsize_message'	=> 'Augmenter {num}M suppl&#233;mentaires la pi&#232;ce jointe de sa capacit&#233;',
@@ -960,17 +1049,7 @@ $lang = array (
 
 	'magics_thunder_message'	=> '{magicname} a &#233;t&#233; publi&#233; avec Succ&#232;s',
 
-	'admin_cpanel_noaccess_ip'	=> 'D&#233;sol&#233;, seuls l\'Administrateur a d&#233;fini une plage d\'adresses IP sp&#233;cifique pour acc&#233;der aux param&#232;tres du syst&#232;me, votre adresse n\'est pas sans permission',
-
-//---------------------------
-// Added by Valery Votintev
-//source/include/misc/misc_security.php
-	'attackevasive_1_subject'	=> 'Frequence limite de rafra&#238;chissement',//'&#x9891;&#x7e41;&#x5237;&#x65b0;&#x9650;&#x5236;', // Frequent refresh limit
-	'attackevasive_1_message'	=> 'Vous visit&#233; le site trop rapidement, ou un temps de rafra&#238;chissement est de moins de deux secondes! Svp. attendez quelques secondes...',//'&#x60a8;&#x8bbf;&#x95ee;&#x672c;&#x7ad9;&#x901f;&#x5ea6;&#x8fc7;&#x5feb;&#x6216;&#x8005;&#x5237;&#x65b0;&#x95f4;&#x9694;&#x65f6;&#x95f4;&#x5c0f;&#x4e8e;&#x4e24;&#x79d2;&#xff01;&#x8bf7;&#x7b49;&#x5f85;&#x9875;&#x9762;&#x81ea;&#x52a8;&#x8df3;&#x8f6c;&#x20;&#x2e;&#x2e;&#x2e;', // 'Your are visited the site too fast, or a refresh time is less than two seconds! Please wait a few seconds...'
-	'attackevasive_2_subject'	=> 'L\'acc&#232;s restreint  par Proxy',//'&#x4ee3;&#x7406;&#x670d;&#x52a1;&#x5668;&#x8bbf;&#x95ee;&#x9650;&#x5236;', // 'Proxy access restricted'
-	'attackevasive_2_message'	=> 'L\'acc&#232;s au site en utilisant des serveurs proxy est maintenant restreint. Retirez vos param&#232;tres de proxy, et l\'acc&#232;s au site directement.',//'&#x672c;&#x7ad9;&#x73b0;&#x5728;&#x9650;&#x5236;&#x4f7f;&#x7528;&#x4ee3;&#x7406;&#x670d;&#x52a1;&#x5668;&#x8bbf;&#x95ee;&#xff0c;&#x8bf7;&#x53bb;&#x9664;&#x60a8;&#x7684;&#x4ee3;&#x7406;&#x8bbe;&#x7f6e;&#xff0c;&#x76f4;&#x63a5;&#x8bbf;&#x95ee;&#x672c;&#x7ad9;&#x3002;', // 'Access to the site using proxy servers is now restricted. Remove your proxy settings, and access to the site directly.'
-	'attackevasive_4_subject'	=> 'recharger la page ouverte',//'&#x9875;&#x9762;&#x91cd;&#x8f7d;&#x5f00;&#x542f;', // 'reload the page opens'
-	'attackevasive_4_message'	=> 'Bienvenue sur le site! La page est d&#233;sormais recharger, Svp. attendre...',//'&#x6b22;&#x8fce;&#x5149;&#x4e34;&#x672c;&#x7ad9;&#xff0c;&#x9875;&#x9762;&#x6b63;&#x5728;&#x91cd;&#x65b0;&#x8f7d;&#x5165;&#xff0c;&#x8bf7;&#x7a0d;&#x5019;&#x20;&#x2e;&#x2e;&#x2e;', // 'Welcome to the site! The page is reloading now, please wait...'
-
+// Added by Valery Votintsev
+	'timeout_or_data_error'		=> 'Operation timeout or data source error',//'操作超时或者数据来源错误',
 );
 

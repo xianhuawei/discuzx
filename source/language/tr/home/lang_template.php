@@ -1,12 +1,12 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_template.php by Valery Votintsev at sources.ru
  *
- *      This file is automatically generate
+ *	This file is automatically generate
  */
 
 $lang = array (
@@ -614,7 +614,7 @@ $lang = array (
 	'view_newpm'		=> 'Click here to view unread private messages',//'点击这里查看未读的私人消息',
 	'view_privatepm'	=> 'Tüm Özel Mesajlar',
 	'yes'			=> 'Yes',//'是',
-	'you_to'		=> 'to',//'对',
+	'you_to'		=> 'Söyle to',//'对',
 	'pmreport'		=> 'Report',//'举报',
 	'create_new_poll'	=> 'Anket ekle',
 	'friend_poll'		=> 'Arkadaşların',
@@ -692,6 +692,20 @@ $lang = array (
 		'12'	=> '(GMT +12:00) Auckland, Wellington, Fiji, Marshall Island'",
 	'used_space'			=> 'Used Space',//'已用空间',
 	'view_friend_list'		=> 'Arkadaş Listesi',
+	'crime_action'			=> 'Action',//'操作行为',
+	'crime_avatar'			=> 'Remove Avatar',//'清除头像',
+	'crime_banpost'			=> 'Ban posts',//'屏蔽帖子',
+	'crime_banspeak'		=> 'R/O',//'禁止发言',
+	'crime_banstatus'		=> 'User ban',//'锁定用户',
+	'crime_banvisit'		=> 'Disable access',//'禁止访问',
+	'crime_customstatus'		=> 'Remove custom status',//'清除自定义头衔',
+	'crime_dateline'		=> 'Operate time',//'操作时间',
+	'crime_delpost'			=> 'Delete post',//'删除帖子',
+	'crime_operator'		=> 'Operator',//'操作者',
+	'crime_reason'			=> 'Moderatorial reason',//'操作理由',
+	'crime_record'			=> 'Violation log',//'违规记录',
+	'crime_sightml'			=> 'Remove signature',//'清除签名',
+	'crime_warnpost'		=> 'Warn Post',//'警告帖子',
 	'email_status'			=> 'Email status',//'邮箱状态',
 	'group_useful_life'		=> 'Valid until',
 	'hours'				=> 'saat',
@@ -906,7 +920,6 @@ $lang = array (
 	'previous_page'		=> 'Geri',
 	'save_publish'		=> 'Kaydet',
 	'select_album'		=> 'Albüm Seç',
-	'select_pic'		=> 'Resim Seç',
 	'select_site_blog_categories'	=> 'Site kategorilerin\'den seçebilirsiniz.',
 	'select_system_cat'	=> 'Sistem kategori seçiniz',
 	'stick_blog'			=> 'Stick the blog',//'置顶日志',
@@ -1397,7 +1410,6 @@ $lang = array (
 	'comment_add_inonetime'		=> 'Comments also published',//'同时作为评论发表',
 	'delete_share'			=> 'Paylaşım silme',
 	'delete_share_message'		=> 'Seçilen paylaşımlari siliyormusunuz',
-	'post_add_inonetime'		=> 'Replies also published',//'同时作为回复发表',
 	'share_copylink'		=> 'Adres kopyalandı.<br />Ctrl + V kısayol tuşlarını kullanabilirsiniz ',
 	'share_count'			=> 'Toplam <b>$share_count</b> kere paylaşıldı',
 	'share_im'			=> 'MSN ile paylaş',
@@ -1405,12 +1417,12 @@ $lang = array (
 	'hide_app_message'		=> 'App gizliyormusnuz?',
 	'add_to_existing_album'		=> 'Mevcut Albüm',
 	'back_to_my_album'		=> 'Albümlerim',
-	'bulk_upload'			=> 'Toplu Yükleme',
 	'camera_pic'			=> 'Webcam Resim',
 	'common_upload'			=> 'Normal Yükleme',
 	'hava_attach_size'		=> 'Kalan alan',
 	'i_want_more_space'		=> 'Alan artırma',
 	'recount'			=> 'Recount',
+	'select_pic'			=> 'Resim Seç',
 	'select_upload_pic'		=> 'Yüklemek için bir resim seçin',
 	'upload_pic_tips'		=> '<p>Yüklemek istediğiniz resmi bilgisayarınızdan seçiniz. Not:Tek tek veya çoklu yükleme yaparak birden fazla resim seçebilirsiniz.</p>',
 	'you_can_buy_magictools'	=> 'For increase your attachment space size and upload more attachments, you can buy the magic "{$_G[setting][magics][attachsize]}"',//'你可以购买道具“{$_G[setting][magics][attachsize]}”来增加附件容量，上传更多的附件',
@@ -1471,9 +1483,11 @@ $lang = array (
 	'video_cer_audit_message'	=> 'You can access the video certification tool to manage your certificated images',//'你可以进入视频认证平台，自行进行设置认证审核管理',
 	'video_certification_audit'	=> 'Video certification audit',//'视频认证审核',
 /* Obsolete
+	'post_add_inonetime'		=> 'Replies also published',//'同时作为回复发表',
+	'bulk_upload'			=> 'Toplu Yükleme',
 	'email_acitve_message'	=> '<img src="{IMGDIR}/mail_inactive.png" alt="Doğrulanmamış" class="vm" /> <span class="xi1">Doğrulama için bekleyen email...</span><br />
-								Sisteme size email doğrulama mesajı gönderdi,etkinleştirmek için lütfen bağlantıyı kullanın.<br>
-								Eğer email almadıysanız emailinizi değiştiriniz veya buraya <a href="home.php?mod=spacecp&ac=profile&op=password&resend=1" class="xi2">tiklayarak</a> tekrar gönderilmesini isteyiniz',
+					Sisteme size email doğrulama mesajı gönderdi,etkinleştirmek için lütfen bağlantıyı kullanın.<br>
+					Eğer email almadıysanız emailinizi değiştiriniz veya buraya <a href="home.php?mod=spacecp&ac=profile&op=password&resend=1" class="xi2">tiklayarak</a> tekrar gönderilmesini isteyiniz',
 	'info_publish'	=> 'Haber',
 	'somebody_activity'	=> 'Etkinlikler',
 	'category_browse'	=> 'Kategoriler',
@@ -1590,6 +1604,19 @@ $lang = array (
 	'memcp_usergroups_main_comment'	=> '主用户组决定了你在本论坛拥有哪些权限，<br/>你可以通过查看权限详细了解它',
 	'memcp_usergroups_title'	=> 'Üye Grup Başlığı',
 */
-);
 
-?>
+//---------------------------------------------------------------
+// Added by Valery Votintsev
+	'login_immediately'	=> 'Login Now',//'马上登录',
+	'nofollow'		=> 'Stop follow',//'不收听',
+	'views'			=> 'Views',//'空间查看数',
+	'in'			=> ' &nbsp;In',//'在',
+	'poston'		=> 'Post time',//'发表于',
+	'views'			=> 'Views',//'查看',
+	'reply_num'		=> 'Replies',//'回复',
+	'follow_intro1'		=> 'How to broadcast?',//'广播怎么玩？',
+	'follow_intro2'		=> 'Write your message here',//'在这里可以快速发广播',
+	'follow_intro3'		=> 'Check your followings and listeners',//'查看收听的人<br/>和听众',
+	'follow_intro4'		=> 'Your content will be shown here',//'您收听的人发的广播<br/>会在这里出现',
+	'say_to'		=> '',//'说',
+);

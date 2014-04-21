@@ -4,7 +4,8 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_calc.php by Khalid Nahhal, http://www.ar-discuz.com
+ *      $Id: lang_calc.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
 
 $lang = array
@@ -13,4 +14,3 @@ $lang = array
 	'calc_desc'	=> 'عرض بشكل عشوائي اسئلة جمع وطرح بحدود رقم 100 (مفيدة)',
 );
 
-?>

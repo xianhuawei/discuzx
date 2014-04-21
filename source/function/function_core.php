@@ -2762,6 +2762,33 @@ function currentlang() {
 	}
 }
 
+//Detect User Preferred Language from Browser
+function detect_language() {
+	global $_G;
+
+	$default = strtolower($_G['config']['output']['language']);
+	
+	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+
+		$langs = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+		//start going through each one
+		foreach ($langs as $value){
+			// zh-tw/zh-hk patch by ken
+			$value = strtolower($value);
+			if(($value=='zh-tw')||($value=='zh-hk')){
+				$choice = 'tc';
+			} else {
+				$choice = substr($value,0,2);
+				if($choice=='zh') $choice = 'zh-cn';
+			}
+			if(isset($_G['config']['languages'][$choice])){
+				return $choice;
+			}
+		}
+	} 
+	return $default;
+}
 /*
  * 尽量不要在此文件中添加全局函数
  * 请在source/class/helper/目录下创建相应的静态函数集类文件

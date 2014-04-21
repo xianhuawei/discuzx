@@ -25,6 +25,7 @@ $lang = array(
 	'editor_hyperlink'		=> 'Enlace',//'超链接',
 	'editor_remove_link'		=> 'Remover link',//'移除链接',
 	'editor_link_image'		=> 'Imagen',//'引用图片',
+	'editor_link_attach'		=> 'Add attachment',//'添加附件',
 	'editor_link_flash'		=> 'Flash',//'引用视频FLASH',
 	'editor_insert_smiley'		=> 'Insertar Smiley',//'插入表情',
 	'editor_doodle'			=> 'Grafiti',//'涂鸦',
@@ -75,5 +76,6 @@ $lang = array(
 	'editor_prompt_video_media'	=> 'Media Video',//'Media视频',
 	'editor_prompt_video_real'	=> 'Real Video',//'Real视频',
 	'editor_prompt_mp3'		=> 'Mp3 audio',//'mp3 audio',
+	'editor_full_screen'		=> 'Full Screen',
 );
 

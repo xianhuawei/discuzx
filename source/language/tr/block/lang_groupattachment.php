@@ -7,6 +7,10 @@
  *      $Id: lang_groupattachment.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'groupattachment_name'			=> 'Attachment list',//'论坛附件列表',
@@ -57,9 +61,9 @@ $lang = array
 	'groupattachment_dateline_week'			=> 'Last week',//'最近1周',
 	'groupattachment_dateline_month'		=> 'Last month',//'最近1月',
 	'groupattachment_gviewperm'			=> 'Group view permissions',//'群组浏览权限',
-	'groupattachment_gviewperm_nolimit'		=> 'No limits',
+	'groupattachment_gviewperm_nolimit'		=> 'No limits',//'不限制',
 	'groupattachment_gviewperm_only_member'		=> 'Members only',//'仅成员',
 	'groupattachment_gviewperm_all_member'		=> 'All',//'所有人',
-	'groupattachment_highlight'			=> 'Highlight found words',
+	'groupattachment_highlight'			=> 'Highlight found words',//'获得高亮值',
 );
 

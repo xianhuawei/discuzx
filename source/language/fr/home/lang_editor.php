@@ -7,6 +7,10 @@
  *      $Id: lang_editor.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array(
 	'editor_switch_media'	=> 'Interrupteur aux M&#233;dias',  //  'Switch to media'
 	'editor_cut'		=> 'Couper',  //  'Cut'
@@ -24,6 +28,7 @@ $lang = array(
 	'editor_hyperlink'	=> 'Lien',  //  'Link'
 	'editor_remove_link'	=> 'Supprimer Lien',  //  'Remove link'
 	'editor_link_image'	=> 'Citation Image',  //  'Quote image'
+	'editor_link_attach'		=> 'Add attachment',//'添加附件',
 	'editor_link_flash'	=> 'Citation Flash',  //  'Quote flash'
 	'editor_insert_smiley'	=> 'Ins&#233;rer smilies',  //  'Insert smilies'
 	'editor_doodle'		=> 'griffonner',  //  'Doodle'
@@ -74,5 +79,6 @@ $lang = array(
 	'editor_prompt_video_media'	=> 'M&#233;dia Vid&#233;o',  //  'Media video'
 	'editor_prompt_video_real'	=> 'Real Vid&#233;o',  // 'Real video' 
 	'editor_prompt_mp3'		=> 'Mp3 Music',  //  'Mp3 Music'
+	'editor_full_screen'		=> 'Full Screen',
 );
 

@@ -7,7 +7,7 @@
  *      $Id: lang_convert.php by Valery Votintsev at sources.ru
  *	Translated to Spanish by razor007, discuzhispano.com
  */
-$lang = array(
+$language = array(
 
 	'config_dbhost'		=> 'Servidor de la base de datos',//'数据库服务器',
 	'config_dbuser'		=> 'Nombre de usuario de la base de datos',//'数据库用户名',

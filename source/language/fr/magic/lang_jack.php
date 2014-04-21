@@ -7,6 +7,10 @@
  *      $Id: lang_jack.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'jack_name'		=> 'Crucifixion',   //  
@@ -23,5 +27,3 @@ $lang = array
 
 	'jack_notification'	=> 'Rubrique du Sujet {subject} du votre {actor} histoire d\'utilisation {magicname}, <a href="forum.php?mod=viewthread&tid={tid}">Voir</a>',   //  Chủ đề {subject} của bạn được {actor} sử dụng {magicname}, <a href="forum.php?mod=viewthread&tid={tid}">Xem</a>
 );
-
-?>

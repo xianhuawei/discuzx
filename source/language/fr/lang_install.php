@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: install_lang.php by Valery Votintsev at sources.ru
+ *      $Id: lang_install.php by Valery Votintsev, codersclub.org
  */
 
 define('UC_VERNAME', 'International Version');
@@ -87,10 +87,13 @@ $lang = array(
 	'tips_ucenter_comment'	=> 'UCenter est le Comsenz inc. programme de service de base. Discuz! Conseil et d\'autres applications Comsenz comptent sur ce programme. Si vous avez d&#233;j&#224; install&#233; UCenter, Svp. remplir les informations ci-dessous. Sinon, Svp. aller &#224; <a href="http://www.discuz.com/" target="blank">Produits Comsenz</a> pour t&#233;l&#233;charger et installer UCenter, puis continuer.',//'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="http://www.discuz.com/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。', // 'UCenter is the Comsenz inc. core service program. Discuz! Board and other Comsenz applications rely on this program. If you have already installed UCenter, please fill in the information below. Otherwise, please go to <a href="http://www.discuz.com/" target="blank">Comsenz Products</a> to download and install UCenter, and then continue.'
 
 	'advice_mysql_connect'		=> 'Svp. v&#233;rifiez le module MySQL est correctement charg&#233;.',//'请检查 mysql 模块是否正确加载', // 'Please check the mysql module is loaded correctly.'
-	'advice_fsockopen'		=> 'Cette fonction n&#233;cessite <b>allow_url_fopen</b> possibilit&#233; d\'&#234;tre <b>On</b> in php.ini. Svp. contactez l\'administrateur du serveur pour r&#233;soudre ce probl&#232;me.',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能', // 'This function require the <b>allow_url_fopen</b> option to be <b>On</b> in php.ini. Please contact the server administrator to resolve this problem.'
 	'advice_gethostbyname'		=> 'Configuration de PHP n\'est pas permis &#224; la <b>gethostbyname</b> fonction. Svp. contactez l\'administrateur du serveur pour r&#233;soudre ce probl&#232;me.',//'是否php配置中禁止了gethostbyname函数。请联系空间商，确定开启了此项功能', // 'PHP configuration is not allowed the <b>gethostbyname</b> function. Please contact the server administrator to resolve this problem.'
 	'advice_file_get_contents'	=> 'Cette fonction n&#233;cessite <b>allow_url_fopen</b> option to <b>On</b> in php.ini. Svp. contactez l\'administrateur du serveur pour r&#233;soudre ce probl&#232;me.',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能', // 'This function require the <b>allow_url_fopen</b> option to <b>On</b> in php.ini. Please contact the server administrator to resolve this problem.'
 	'advice_xml_parser_create'	=> 'Cette fonction n&#233;cessite le soutien PHP de XML. Svp. contactez l\'administrateur du serveur pour r&#233;soudre ce probl&#232;me.',//'该函数需要 PHP 支持 XML。请联系空间商，确定开启了此项功能', // 'This function require the PHP support for XML. Please contact the server administrator to resolve this problem.'
+	'advice_fsockopen'		=> 'Cette fonction n&#233;cessite <b>allow_url_fopen</b> possibilit&#233; d\'&#234;tre <b>On</b> in php.ini. Svp. contactez l\'administrateur du serveur pour r&#233;soudre ce probl&#232;me.',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能', // 'This function require the <b>allow_url_fopen</b> option to be <b>On</b> in php.ini. Please contact the server administrator to resolve this problem.'
+	'advice_pfsockopen'		=> 'This function requires to allow_url_fopen in php.ini. Please contact the hosting provider to set this value',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
+	'advice_stream_socket_client'	=> 'Whether enabled the stream_socket_client function in PHP configuration',//'是否 PHP 配置中禁止了 stream_socket_client 函数',
+	'advice_curl_init'		=> 'Whether enabled the curl_init function in PHP configuration',//'是否 PHP 配置中禁止了 curl_init 函数',
 
 	'ucurl'				=> 'UCenter URL',//'UCenter 的 URL', // 'UCenter URL'
 	'ucpw'				=> 'Ucenter Mot de Passe Administrateur',//'UCenter 创始人密码', // 'UCenter administrator password'
@@ -137,8 +140,8 @@ $lang = array(
 	'admininfo_password_invalid'	=> 'Mot de passe administrateur est vide, Svp. remplir',//'管理员密码为空，请填写', // 'Administrator password is blank, please fill in'
 	'admininfo_password2_invalid'	=> 'Deux mots de passe ne sont pas &#233;gaux, Svp. v&#233;rifier',//'两次密码不一致，请检查', // 'Two passwords are not equal, please check'
 
-	'install_dzfull'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> New Discuz! X installation (incluant UCenter serveur)</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> 全新安装 Discuz! X (含 UCenter Server)</label>', // '<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> New Discuz! X installation (including UCenter Server)</label>'
-	'install_dzonly'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> Installez Discuz! X uniquement (Indiquer manuellement install&#233; UCenter serveur)</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> 仅安装 Discuz! X (手工指定已经安装的 UCenter Server)</label>', // '<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> Install Discuz! X only (specify manually already installed UCenter Server)</label>'
+/*vot*/	'install_dzfull'		=> 'New Discuz! X installation (incluant UCenter serveur)',//'全新安装 Discuz! X (含 UCenter Server)</label>',//'New Discuz! X installation (including UCenter Server)',
+/*vot*/	'install_dzonly'		=> 'Installez Discuz! X uniquement (Indiquer manuellement install&#233; UCenter serveur)',//'仅安装 Discuz! X (手工指定已经安装的 UCenter Server)',
 
 	'username'			=> 'Admin.Identifiant',//'管理员账号', // 'Administrator username'
 	'email'				=> 'Admin.E-mail',//'管理员 Email', // 'Administrator Email'
@@ -285,9 +288,13 @@ $lang = array(
 
 
 <p>Hong produits chantent sur l\'utilisateur final de licence contrat de licence d\'entreprise, et des services techniques aux d&#233;tails fournis par le Hong Chantez exclusif. Chantez la soci&#233;t&#233; a, sans pr&#233;avis, de modifier le contrat de licence et la liste des prix des services droit de l\'accord modifi&#233; ou liste de prix du changement de la date du nouvel utilisateur autoris&#233; &#224; prendre effet.</p>
+
 <p>Une fois que vous lancez l\'installation &#224; Hong produits Sing, est r&#233;put&#233; pour bien comprendre et accepter les termes du pr&#233;sent Accord, les termes dans la jouissance des droits reconnus dans le m&#234;me temps, par les contraintes et des restrictions pertinentes. Accord de licence en dehors de la port&#233;e des actes serait une violation directe de cet accord de licence et constituerait une contrefa&#184;on, nous avons le droit de r&#233;silier l\'autorisation, doit &#234;tre command&#233; d\'arr&#234;ter les d&#233;g&#226;ts, et de conserver le pouvoir d\'enqu&#234;ter responsabilit&#233;s connexes.</p>
+
 <p>L\'interpr&#233;tation des termes du contrat de licence, la validit&#233; et de r&#232;glement des diff&#233;rends, applicable &#224; la partie continentale de gens de la R&#233;publique de droit.</p>
+
 <p>Entre Hong Sing si vous et tout litige ou toute controverse, devrait d\'abord &#234;tre r&#233;gl&#233;s par voie de consultations amicales, la consultation &#233;choue, vous acceptez de soumettre le diff&#233;rend ou controverse Cour Chantez Haidian District gens d\'o&#249; la comp&#233;tence. Hong Chantez Soci&#233;t&#233; a le droit d\'interpr&#233;ter les termes ci-dessus et la discr&#233;tion.</p>
+
 </div>',
 
 	'uc_installed'		=> 'Vous avez install&#233; le UCenter. Si vous avez besoin de r&#233;-installer, supprimer les donn&#233;es/install.lock fichier',//'您已经安装过 UCenter，如果需要重新安装，请删除 data/install.lock 文件', // 'You have installed the UCenter. If you need to re-install, delete the data/install.lock file'
@@ -335,14 +342,6 @@ $lang = array(
 	'create_table'		=> 'Cr&#233;er la Table',//'建立数据表',  // 'Create table'
 	'succeed'		=> 'Succ&#232;s',//'成功 ',  // 'Success'
 
-	'testdata'			=> 'Ajouter des donn&#233;es des r&#233;gions',//'附加数据',  // 'Add regions data'
-	'testdata_check_label'		=> 'Installez donn&#233;es r&#233;gionales suppl&#233;mentaires (countries/regions/cities)',//'Install demo page templates (4)', // 'Install additional regional data'
-	'portalstatus'			=> 'Statut Portail',  // 'Portal status'
-	'portalstatus_check_label'	=> '',  //  '',
-	'groupstatus'			=> 'Groupes Statut', // 'Groups status'
-	'groupstatus_check_label'	=> '',  // '',
-	'homestatus'			=> 'Statut Accueil',  // 'Home Status'
-	'homestatus_check_label'	=> '',  // '',
 	'install_data'			=> 'Les donn&#233;es sont Install&#233;es avec Succ&#232;s',//'正在安装数据',  // 'Data installed successfully'
 	'install_test_data'		=> 'Installer les Donn&#233;es R&#233;gionales',//'正在安装附加数据',  // 'Install regional data'
 
@@ -350,20 +349,19 @@ $lang = array(
 	'database_nonexistence'		=> 'Objet base de donn&#233;es Inexistante',//'数据库操作对象不存在', // 'Database object does not exist'
 	'skip_current'			=> 'Passer cette &#233;tape',//'跳过本步', // 'Skip this step'
 	'topic'				=> 'Topic',//'专题', // 'Topic'
+
 //---------------------------------------------------------------
-//vot 2 vars for language select:
+// Added by Valery Votintsev
+// 2 vars for language select:
 	'welcome'			=> 'Bienvenue chez Discuz! X Installation!',  //  'Welcome to Discuz! X Installation!'
 	'select_language'		=> '<b>Choisissez la langue d\'installation</b>:', // '<b>Select the installation language</b>:'
+	'mbstring'			=> 'MBstring Library',//'MBstring 库',
 //vot !!!Translate to Chinese!!!
 //vot	'regiondata'			=> 'Add regions data',//'Add location data',
 //vot	'regiondata_check_label'	=> 'Install additional regional data (countries/regions/cities)',//'Install additional regional data (countries/regions/cities)',
 //vot	'install_region_data'		=> 'Install regional data',//'Install regional data',
 
 //---------------------------------------------------------------
-// Added by Bertrand
-
-	'FR_UTF8'		=> 'FRANCAIS UTF-8', // 'FRANCAIS UTF-8'
-	'FR_ISO'		=> 'FRANCAIS ISO8859', // 'FRANCAIS ISO8859'
 
 );
 
@@ -371,4 +369,3 @@ $msglang = array(
 	'config_nonexistence'	=> 'Votre config.inc.php fichier sont Inexistants. Impossible de de poursuivre l\'installation, Svp. utiliser le FTP pour télécharger le fichier et essayez à nouveau.',//'您的 config.inc.php 不存在, 无法继续安装, 请用 FTP 将该文件上传后再试。',
 );
 
-?>

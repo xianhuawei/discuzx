@@ -7,6 +7,10 @@
  *      $Id: lang_doinglist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'doinglist_uids'		=> 'UID Utilisateur',  //  '用户UID'

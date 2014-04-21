@@ -9,8 +9,7 @@
 
 $lang = array
 (
-	'gift_name'	=> 'Gift Task',//'红包类任务',
-	'gift_desc'	=> 'Complete this task to get a gift package.',//'申请此任务即可领取红包。',
+	'gift_name'	=> '금일봉 유형의 미션',//'红包类任务',
+	'gift_desc'	=> '이 미션 신청하시면 금일봉 수령 가능합니다.',//'申请此任务即可领取红包',
 );
 
-?>

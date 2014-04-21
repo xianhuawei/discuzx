@@ -7,6 +7,10 @@
  *      $Id: lang_member.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'member_name'			=> 'T&#226;ches des Membres',
@@ -14,6 +18,7 @@ $lang = array
 	'member_complete_var_act'	=> 'Action',
 	'member_complete_var_act_favorite'	=> 'Sujets Favoris',
 	'member_complete_var_act_magic'		=> 'utiliser des accessoires',
+	'member_complete_var_act_userapp'	=> 'Add application',//'添加漫游应用',
 	'member_complete_var_num'		=> 'D&#233;lai inf&#233;rieure d\'action',
 	'member_complete_var_num_comment'	=> 'Le temps min. d\'actions n&#233;cessaires',
 	'member_complete_var_time'		=> 'D&#233;lai (heures)',
@@ -23,6 +28,6 @@ $lang = array
 	'task_complete_time_limit'	=> 'Vous avez seulement {value} heures pour ',
 	'task_complete_act_favorite'	=> 'ajouter {value} discussions &#224; vos favoris.',
 	'task_complete_act_magic'	=> 'utiliser des accessoires {value} fois.<br />Vous pouvez utiliser des accessoires en sujet, le blog de pages d\'images,',
+	'task_complete_act_userapp'		=> 'Added {value} applications',//'添加 {value} 个漫游应用',
 );
 
-?>

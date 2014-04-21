@@ -1,11 +1,15 @@
 <?php
 
-/**+++
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_spacecp.php by Valery Votintsev at sources.ru
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 
@@ -16,7 +20,7 @@ $lang = array(
 	'share_action'		=> 'добавил закладку',
 
 	'pm_comment'		=> 'Ответить на сообщение',
-	'pm_thread_about'	=> 'О Вашем постинге в теме &quot;{subject}&quot;',
+	'pm_thread_about'	=> 'О Вашем сообщении в теме &quot;{subject}&quot;',
 
 	'wall_pm_subject'	=> 'Новое сообщение на стене',
 	'wall_pm_message'	=> 'Здравствуйте, на Вашей стене оставлено новое сообщение. Для просмотра сообщение перейдите по ссылке: [url=\\1]Новое сообщение на Вашей стене[/url]',
@@ -40,6 +44,7 @@ $lang = array(
 	'message_can_not_send_13'	=> 'Это НЕ сообщение группового чата',
 	'message_can_not_send_14'	=> 'Это НЕ личное сообщение',
 	'message_can_not_send_15'	=> 'Неверные данные!',
+	'message_can_not_send_16'	=> 'Вы исчерпали лимит отправки личных сообщений за 24 часа.',//'您超出了24小时内发短消息数量的上限',
 	'message_can_not_send_onlyfriend'	=> 'Пользователь может получать личные сообщения только от друзей',
 
 
@@ -163,7 +168,7 @@ $lang = array(
 
 	'magicunit'		=> 'шт.',
 	'magic_note_wall'	=> '{actor} оставил сообщение на Вашей <a href="{url}" target="_blank">Стене</a>',
-	'magic_call'		=> 'упомянул Ваше имя в постинге. <a href="{url}" target="_blank">Посмотреть</a>',
+	'magic_call'		=> 'упомянул Ваше имя в сообщении <a href="{url}" target="_blank">Посмотреть</a>',
 
 
 	'present_user_magics'	=> 'Вы получили в подарок от администратора артефакт: \\1',
@@ -204,14 +209,14 @@ $lang = array(
 	'do_stat_eventcomment'	=> 'Комментарии к мероприятиям',
 	'do_stat_eventjoin'	=> 'Участие в мероприятиях',
 	'do_stat_sharecomment'	=> 'Комментарии к закладкам',
-//	'do_stat_post'		=> 'Ответы в темах',
+//vot	'do_stat_post'		=> 'Ответы в темах',
 	'do_stat_click'		=> 'Рейты',
 	'do_stat_wall'		=> 'Стены',
 	'do_stat_poke'		=> 'Приветы',
 	'do_stat_sendpm'	=> 'Отправка ЛС',
 	'do_stat_addfriend'	=> 'Предложения дружбы',
 	'do_stat_friend'	=> 'Стали друзьями',
-	'do_stat_post_number'	=> 'Количество постов',
+	'do_stat_post_number'	=> 'Количество сообщений',
 	'do_stat_statistic'	=> 'Общая статистика',
 	'logs_credit_update_TRC'	=> 'Бонусы за задачи',
 	'logs_credit_update_RTC'	=> 'Бонусы за темы',
@@ -236,11 +241,14 @@ $lang = array(
 	'logs_credit_update_RCA'	=> 'Бонус за лучший ответ',
 	'logs_credit_update_RCB'	=> 'Возврат бонуса за ответ',
 	'logs_credit_update_CDC'	=> 'Использование купонов',
-
 	'logs_credit_update_RGC'	=> 'Удаление подарка',
 	'logs_credit_update_BGC'	=> 'Возврат подарка',
 	'logs_credit_update_AGC'	=> 'Получение подарка',
 	'logs_credit_update_RKC'	=> 'Поднятие в Топ',
+	'logs_credit_update_BME'	=> 'Buy Medal',//'购买勋章',
+	'logs_credit_update_RPR'	=> 'Background points rewards and punishments',//'后台积分奖惩',
+	'logs_credit_update_RPZ'	=> 'Background points rewards and punishments clean',//'后台积分奖惩清零',
+	'logs_credit_update_reward_clean'	=> 'Clean',//'清零',
 	'logs_select_operation'		=> 'Выберите тип операции',
 	'task_credit'			=> 'Баллы за задачу',
 	'special_3_credit'		=> 'Баллы за тему',
@@ -264,6 +272,7 @@ $lang = array(
 	'thread_credit2'		=> 'Расход на платные темы',
 	'buy_credit'			=> 'Пополнение баллов',
 	'buy_usergroup'			=> 'Расход доступ к сообществам',
+	'buy_medal'			=> 'Buy Medal',//'购买勋章',
 	'report_credit'			=> 'Расход/Приход за жалобы',
 	'join'				=> 'Участие',
 	'activity_credit'		=> 'Расходы на мероприятия',
@@ -275,22 +284,44 @@ $lang = array(
 	'replycredit_thread'		=> 'Баллы за дайджесты',
 	'card_credit'			=> 'Баллы за пополнение ч-з купон',
 	'ranklist_top'			=> 'Баллы за заявки на ТОП',
+	'admincp_op_credit'		=> 'Credit rewards and punishments operations',//'后台积分奖惩操作',
+	'credit_update_reward_clean'	=> 'Clean',//'清零',
 
 	'profile_unchangeable'		=> 'Внимание! Данная информация заполняется только один раз! После сохранения изменение будет невозможно!',
 	'profile_is_verifying'		=> 'Данная информация находится на проверке',
-	'profile_mypost'		=> 'Мои постинги',
+	'profile_mypost'		=> 'Мои сообщения',
 	'profile_need_verifying'	=> 'Данная информация требует проверки модератором',
 	'profile_edit'			=> 'Изменить',
 	'profile_censor'		=> '(список запрещённых слов)',
 	'profile_verify_modify_error'	=> 'Поле &quot;{verify}&quot; было проверено. Изменению не подлежит!',
 	'profile_verify_verifying'	=> 'Ваша информация &quot;{verify}&quot; отправлена на проверку. Пожалуйста, дождитесь завершения проверки модератором.',
 
-//'district_level_0'		=> '- Country -',//'-国家-',
 	'district_level_1'		=> '- Страна- ',
 	'district_level_2'		=> '- Регион -',
 	'district_level_3'		=> '- Город -',
 	'district_level_4'		=> '- Район/Поселение -',
 	'invite_you_to_visit'		=> 'Пользователь {user} приглашает Вас посетить сайт {bbname}',
+//vot	'district_level_0'		=> '- Country -',//'-国家-',
+	'portal'		=> 'Portal',//'门户',
+	'group'			=> 'Groups',//'群组',
+	'follow'		=> 'Follow',//'广播',
+	'collection'		=> 'Collection',//'淘帖',
+	'guide'			=> 'Guide',//'导读',
+	'feed'			=> 'Feeds',//'动态',
+	'blog'			=> 'Blogs',//'日志',
+	'doing'			=> 'Doings',//'记录',
+	'wall'			=> 'Wall',//'留言板',
+	'homepage'		=> 'Personal Space',//'个人主页',
+	'ranklist'		=> 'RankList',//'排行榜',
+	'select_the_navigation_position'	=> 'Select {type} navigation position',//'选择{type}导航位置',
+	'close_module'		=> 'Close the {type} module',//'关闭{type}功能',
+
+	'follow_add_remark'		=> 'Add remark',//'添加备注',
+	'follow_modify_remark'		=> 'Edit remark',//'修改备注',
+	'follow_specified_group'	=> 'Follow specified group',//'广播专区',
+	'follow_specified_forum'	=> 'Follow specified forum',//'广播专版',
+
+	'filesize_lessthan'		=> 'File size should be less than ',//'文件大小应该小于',
 
 	'spacecp_message_prompt'	=> '(Поддерживается {msg} код. Максимум 1000 символов)',
 	'card_update_doing'		=> ' <a class="xi2" href="###">[Обновить настроение]</a>',

@@ -7,6 +7,10 @@
  *      $Id: lang_invite.php 20567 2011-02-28 02:30:15Z congyushuai $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'invite_message' => '<p style="color:red;">Oh ! Bạn đã mời được {count} người bạn ! Hãy tiếp tục nào.</p><br>',

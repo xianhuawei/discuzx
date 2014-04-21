@@ -1,11 +1,16 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_editor.php by Khalid Nahhal, http://www.ar-discuz.com
+ *      $Id: lang_editor.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'editor_switch_media'		=> 'متطور',//'切换到多媒体',
@@ -24,6 +29,7 @@ $lang = array(
 	'editor_hyperlink'		=> 'رابط',//'超链接',
 	'editor_remove_link'		=> 'حذف رابط',//'移除链接',
 	'editor_link_image'		=> 'صورة',//'引用图片',
+	'editor_link_attach'		=> 'Add attachment',//'添加附件',
 	'editor_link_flash'		=> 'فلاش',//'引用视频FLASH',
 	'editor_insert_smiley'		=> 'اداراج ابتسامة',//'插入表情',
 	'editor_doodle'			=> 'Graffity',//'涂鸦',
@@ -65,14 +71,15 @@ $lang = array(
 	'editor_color_silver'		=> 'فضي',//'银色',
 	'editor_color_white'		=> 'ابيض',//'白色',
 	'editor_ok'			=> 'موافق',//'确定',
-	'editor_cancel'	=> 'إلغاء',
-	'editor_prompt_textlink'	=> 'الرجاء إدخال الوصلة',//'请输入选定文字链接地址',
+	'editor_cancel'			=> 'إلغاء',
+	'editor_prompt_textlink'	=> 'الرجاء إدخال الرابط',//'请输入选定文字链接地址',
 	'editor_prompt_imagelink'	=> 'الرجاء إدخال رابط الصورة',//'请输入图片URL地址',
 	'editor_prompt_pagetitle'	=> 'الرجاء ادخل عنوان الصفحة',
 	'editor_prompt_videolink'	=> 'الرجاء قم بإدخال عنوان الفلاش',
 	'editor_prompt_video_flash'	=> 'فلاش',//'Flash动画',
 	'editor_prompt_video_media'	=> 'فيديو كليب',//'Media视频',
 	'editor_prompt_video_real'	=> 'فيديو حقيقي',//'Real视频',
-	'editor_prompt_mp3'	=> 'موسيقى mp3',
+	'editor_prompt_mp3'		=> 'موسيقى mp3',
+	'editor_full_screen'		=> 'Full Screen',
 );
 

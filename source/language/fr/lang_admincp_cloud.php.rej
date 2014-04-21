@@ -1,0 +1,276 @@
+***************
+*** 3,130 ****
+  /**
+   *	  [Discuz!] (C)2001-2099 Comsenz Inc.
+   *	  This is NOT a freeware, use is subject to license terms
+-  *
+   *	  $Id: lang_admincp_cloud.php by Valery Votintsev at sources.ru
+   */
+  
+  $extend_lang = array
+  (
+- 	'header_cloud'		=> 'Cloud Platform',//'云平台',
+- 	'header_navcloud'	=> 'Discuz! Cloud Platform',//'Discuz!云平台',
+- 	'nav_cloud'		=> 'Discuz! cloud platform',//'Discuz!云平台',
+- 
+- 	'menu_cloud_open'	=> 'Enable Discuz! cloud platform',//'开通Discuz!云平台',
+  	'menu_cloud_upgrade'	=> 'Enable Discuz! cloud platform',//'开通Discuz!云平台',
+- 	'menu_cloud_applist'	=> 'Cloud Platform Home',//'平台首页',
+- 	'menu_cloud_siteinfo'	=> 'Site information',//'站点信息',
+- 	'menu_cloud_doctor'	=> 'Diagnostic tools',//'诊断工具',
+- 
+- 	'menu_setting_manyou'		=> 'Roaming application settings',//'漫游应用设置',
+- 	'menu_setting_qqconnect'	=> 'QQ Connect Settings',//'QQ互联设置',
+- 
+- 	'menu_cloud_manyou'	=> 'Roaming applications',//'漫游应用',
+- 	'menu_cloud_connect'	=> 'QQ Connect',//'QQ互联',
+- 	'menu_cloud_search'	=> 'Aspect Search',//'纵横搜索',
+- 	'menu_cloud_stats'	=> 'Tencent analysis',//'腾讯分析',
+- 	'menu_cloud_security'	=> 'Cloud security',//'云安全',
+- 	'menu_cloud_smilies'	=> 'SOSO Smiles',//'SOSO表情',
+- 	'menu_cloud_qqgroup'	=> 'QQ Community Group',//'社区QQ群',
+  	'menu_cloud_union'	=> 'Adv Union',//'广告联盟',
+  
+- 	'close'			=> 'Close',//'关闭',
+- 	'continue'		=> 'Continue',//'继续',
+  	'message_title'		=> 'Message',//'提示信息',
+- 	'jump_to_cloud'		=> 'Jump to Discuz! cloud platform (http://cp.discuz.qq.com) for complete opening of the process',//'您即将转向Discuz!云平台（http://cp.discuz.qq.com）完成开通流程',
+- 
+- 	'cloud_status_error'	=> 'There is some small mistakes, May result in loss of information because the site Discuz! abnormal cloud platform services. If you have any questions please visit <a href="http://www.discuz.net/forum-3926-1.html" target="_blank">Official Forum</a> for help.',//'出了点小错，可能由于站点信息丢失导致Discuz!云平台服务出现异常，如果有疑问请访问<a href="http://www.discuz.net/forum-3926-1.html" target="_blank">官方论坛</a>寻求帮助',
+- 
+- 	'cloud_introduction'	=> 'View description',//'查看介绍',
+- 	'cloud_confirm_open'	=> 'Confirm open',//'确认开通',
+- 	'cloud_confirm_upgrade'	=> 'Confirm the upgrade',//'确认升级',
+- 	'cloud_page_loading'	=> 'Loading page ...',//'页面加载中...',
+- 	'cloud_time_out'	=> 'If you can not access Discuz! cloud platform, try to <a href="javascript:;" onclick="location.reload()">Refresh</a>.',//'您无法访问Discuz!云平台，请尝试<a href="javascript:;" onclick="location.reload()">刷新</a>。',
+- 	'cloud_unknown_dns'	=> 'If you unable to connect to Discuz! cloud platform site, please check your server network settings, <a href="http://cp.discuz.qq.com/faq?fId=1305690058" target="_blank">View Help</a>. If you have questions, please visit <a href="http://www.discuz.net/forum-3926-1.html" target="_blank">official forum</a> for help.',//'您的站点目前无法连接Discuz!云平台，请检查您服务器网络设置，<a href="http://cp.discuz.qq.com/faq?fId=1305690058" target="_blank">查看帮助</a>。如果有疑问，请访问<a href="http://www.discuz.net/forum-3926-1.html" target="_blank">官方论坛</a>求助',
+- 
+- 	'cloud_category'	=> 'Set the site category',//'设置站点分类',
+- 	'cloud_site_name'	=> 'Site Name',//'站点名称',
+- 	'cloud_site_url'	=> 'Site URL',//'站点URL',
+- 	'cloud_site_category'	=> 'Site category',//'站点分类',
+- 	'cloud_select'		=> 'Select',//'请选择',
+- 	'cloud_agree_protocal'	=> 'I have read and agree',//'我已仔细阅读并同意',
+- 	'read_protocal'		=> 'Discuz! cloud platform service using protocol',//'《Discuz!云平台服务使用协议》',
+- 	'cloud_will_open'	=> 'I want to open',//'我要开通',
+- 	'cloud_will_upgrade'	=> 'I want to upgrade',//'我要升级',
+- 	'cloud_protocal'	=> 'Discuz! cloud platform service agreement',//'Discuz!云平台服务协议',
+- 	'cloud_select_category'	=> 'Please select the site category',//'请选择站点分类',
+- 	'cloud_select_sub_category'	=> 'Please select the sub-category',//'请选择二级分类',
+- 	'cloud_select_return'	=> 'Please select the site category, return',//'请选择站点分类，返回',
+- 	'cloud_open_success'	=> 'Discuz! cloud platform launched successfully',//'Discuz!云平台开通成功',
+- 	'cloud_upgrade_success'	=> 'Discuz! cloud platform upgraded successfully',//'Discuz!云平台升级成功',
+- 	'cloud_network_busy'	=> 'Network is busy, please try again later, because:<br />{errMessage}<br />(ERRCODE: {errCode})',//'网络繁忙，稍后请重新操作，原因：<br />{errMessage} (ERRCODE:{errCode})',
+- 	'cloud_turnto_applist'	=> 'Your site has opened Discuz! cloud platform, Jump to the platform home now',//'您的站点已开通Discuz!云平台，现跳转到平台首页',
+  	'cloud_site_id'		=> 'Site ID',//'站点ID',
+- 	'cloud_api_ip_btn'	=> 'Set the cloud platform interface IP',//'设置云平台接口IP',
+- 	'cloud_api_ip'		=> 'Cloud platform interface IP',//'云平台接口IP',
+- 	'cloud_api_ip_comment'	=> 'If the site server can not connect to the cloud platform interface because of DNS resolution issues, please fill out the IP address of api.discuz.qq.com, <a href="http://cp.discuz.qq.com/faq?fId=1304068911" target="_blank">View Help</a>',//'若站点服务器由于DNS解析问题无法连接到云平台接口，请填写api.discuz.qq.com的IP地址，<a href="http://cp.discuz.qq.com/faq?fId=1304068911" target="_blank">查看帮助</a>',
+  	'cloud_manyou_ip'	=> 'Application Interface IP',//'漫游接口IP',
+- 	'cloud_manyou_ip_comment'	=> 'If DNS server have a resolution problem and the site can not connect to the Application interface, Please fill api.manyou.com IP address, Use <a href="admin.php?action=cloud&operation=doctor">Diagnostic tools</a> for check, <a href="http://faq.comsenz.com/viewnews-400" target="_blank">View Help</a>',//'若站点服务器由于DNS解析问题无法连接到漫游接口，请填写api.manyou.com的IP地址，使用<a href="admin.php?action=cloud&operation=doctor">诊断工具</a>检测，<a href="http://faq.comsenz.com/viewnews-400" target="_blank">查看帮助</a>',
+  	'cloud_connect_api_ip'	=> 'QQ Internet interface IP',//'QQ互联接口IP',
+- 	'cloud_connect_api_ip_comment'	=> 'If your site have problems in DNS resolving the QQ IP interface address openapi.qzone.qq.com, use the <a href="admin.php?action=cloud&operation=doctor">Diagnostic tool</a> for testing, <a href="http://cp.discuz.qq.com/faq?fId=1316571929&ADTAG=CP.CLOUD.FAQ.FID" target="_blank">View Help</a>',//'若站点服务器由于DNS解析问题无法连接到QQ互联接口，请填写openapi.qzone.qq.com的IP地址，使用<a href="admin.php?action=cloud&operation=doctor">诊断工具</a>检测，<a href="http://cp.discuz.qq.com/faq?fId=1316571929&ADTAG=CP.CLOUD.FAQ.FID" target="_blank">查看帮助</a>',
+- 	'cloud_ipsetting_success'	=> 'Cloud platform interface IP set successfully',//'云平台接口IP设置成功',
+- 	'cloud_open_first'	=> 'Please open Discuz! cloud platform first',//'请先开通Discuz!云平台',
+- 	'cloud_sync'		=> 'Synchronize site information',//'同步站点信息',
+- 	'cloud_sync_success'	=> 'Site Information Synchronized successfully',//'站点信息同步成功',
+- 	'cloud_sync_failure'	=> 'Site Information Synchronization failed due to:<br />{errMessage}<br />(ERRCODE: {errCode})<br /><br />For any questions, please visit <a href="http://www.discuz.net/forum-3926-1.html" target="_blank">Official Forum</a> for help',//'站点信息同步失败，原因：<br />{errMessage} (ERRCODE:{errCode})<br /><br />如有疑问，请访问<a href="http://www.discuz.net/forum-3926-1.html" target="_blank">官方论坛</a>寻求帮助',
+- 	'cloud_resetkey'	=> 'Replace the site Key',//'更换站点Key',
+- 	'cloud_reset_success'	=> 'Site Key replaced successfully',//'站点Key更换成功',
+- 
+- 	'cloud_siteinfo_tips'	=> '<li>If the site name or site URL has changed, Please click the "Synchronize the site information" button.</li><li>Site Key is the site to communicate with the cloud platform, authentication key, If the recent leakage of dangerous operation site Key and other information, Please click the "Replace Site Key " button. <span style="color:red;">Use this feature with caution.</span></li>',//'<li>如果站点名称或者站点URL有变动，请点击“同步站点信息”按钮。</li><li>站点Key是站点与云平台通信的验证密钥，若近期有危险操作泄漏站点Key等信息，请点击“更换站点Key”按钮。<span style="color:red;">请谨慎使用此功能。</span></li>',
+- 
+- 	'cloud_doctor_tips'	=> '<li>Discuz! Cloud platform diagnostic tools can help you to analyze the site situation, whether the cloud platform is communicate properly with other functions.</li>
+- 				<li>Site ID is your site unique identifier in the cloud platform, Other sites can not share the same site ID and the site communication KEY</li>',//'<li>Discuz!云平台诊断工具是帮助您分析站点上的状况，是否能与云平台正常通信等功能。</li><li>站点ID是您的站点在云平台的唯一标识，请勿和其他站点共用一套站点ID和站点通信KEY</li>',
+- 
+- 	'cloud_doctor_setidkey'		=> 'Modify the site Discuz! ID and KEY',//'修改Discuz!上的站点ID和KEY',
+- 	'cloud_doctor_setidkey_tips'	=> '<li style="color:red">Wrong modifying the Discuz! site ID and KEY may cause to communication errors, mistakes and other failures, so do not forget to read the official guide of settings modify.</li>
+- 					<li style="color:red">Before modifying the ID, KEY, or the state, make the forum common_setting table backup.</li>',//'<li style="color:red">修改Discuz!上的站点ID和KEY，可能会导致通信错误、签名错误以及其他的故障，请勿在没有官方人员指导的情况下修改。</li><li style="color:red">修改ID、KEY和状态前，请先备份论坛的common_setting表。</li>',
+- 	'cloud_site_key'		=> 'Site communication KEY',//'站点通信KEY',
+- 	'cloud_site_key_safetips'	=> '(For security reasons, partially hidden)',//'(出于安全考虑，部分隐藏)',
+- 	'cloud_site_key_comment'	=> 'Do not disclose site communication KEY',//'站点通信KEY请勿对外公布',
+- 	'cloud_site_status'		=> 'Status',//'状态',
+- 	'cloud_idkeysetting_success'	=> 'Site ID / KEY status is set successfully ',//'站点ID/KEY状态设置成功 ',
+- 	'cloud_idkeysetting_siteid_failure'	=> 'Site ID must be only numeric, do not be modified. If necessary, changes in customer service assistance.',//'站点ID必须为纯数字，请勿随意修改。如有必要，请在客服人员协助下修改。',
+- 	'cloud_idkeysetting_sitekey_failure'	=> 'Site communication KEY must be 32 characters in length, do not be modified. If necessary, changes in customer service assistance.',//'站点通信KEY必须为32位，请勿随意修改。如有必要，请在客服人员协助下修改。',
+  
+  	'cloud_doctor_result_success'	=> '<img align="absmiddle" src="static/image/admincp/cloud/right.gif" />',
+  	'cloud_doctor_result_failure'	=> '<img align="absmiddle" src="static/image/admincp/cloud/wrong.gif" /> ',
+  
+- 	'cloud_doctor_api_test_other'	=> 'Test the cloud platform other interface IP',//'测试云平台其他接口IP',
+- 	'cloud_doctor_manyou_test_other'	=> 'Testing Manyou other interface IP',//'测试漫游其他接口IP',
+- 	'cloud_doctor_qzone_test_other'	=> 'Testing Another QQ Internet interface IP',//'测试QQ互联其他接口IP',
+- 	'cloud_doctor_api_test_success'	=> 'Interface requests: %s, successfully: %s, Took %01.3f seconds %s',//'%s 请求接口 %s 成功，耗时 %01.3f 秒 %s',
+- 	'cloud_doctor_api_test_failure'	=> 'Interface requests: %s, failed: %s, Please consult the space provider %s',//'%s 请求接口 %s 失败，请咨询空间商 %s',
+- 	'cloud_doctor_status_0'		=> 'The cloud platform is not opened yet',//'尚未开通云平台',
+- 	'cloud_doctor_status_1'		=> 'The cloud platform has opened',//'已开通云平台',
+- 	'cloud_doctor_status_2'		=> 'The cloud platform is under Registration, wait for completion',//'注册云平台，等待完成',
+- 
+- 	'cloud_doctor_title_status'	=> 'System Status',//'系统状态',
+- 	'cloud_doctor_modify_siteidkey'	=> 'Manually modify the Site ID/KEY',//'手动修改站点ID/KEY',
+  	'cloud_doctor_close_yes'	=> 'Is ON (front Connect will not be displayed)',//'是 (前台Connect将不显示)',
+  
+- 	'cloud_site_version'		=> 'Product Version',//'产品版本',
+- 	'cloud_site_release'		=> 'Product release date',//'产品发布日期',
+- 
+- 	'cloud_doctor_title_result'	=> 'Test results (<a href="#" onClick="self.location.reload();">Re-test</a>)',//'检测结果(<a href="#" onClick="self.location.reload();">重新检测</a>)',
+- 
+- 	'cloud_doctor_php_ini_separator'	=> 'URL separator',//'URL分隔符',
+- 	'cloud_doctor_php_ini_separator_true'	=> 'Empty or &',//'空或&',
+- 	'cloud_doctor_php_ini_separator_false'	=> 'Set the arg_separator.output value in php.ini to non &, or ini_get function is disabled, Please contact your hosting support',//'php.ini 的 arg_separator.output 设置成非&值 或 ini_get 函数被禁用，请联系空间商',
+- 
+- 	'cloud_doctor_fsockopen_function'	=> 'fsockopen function',//'fsockopen函数',
+- 	'cloud_doctor_gethostbyname_function'	=> 'DNS resolution functions',//'DNS解析函数',
+- 	'cloud_doctor_function_disable'		=> 'Function is disabled, please contact the hosting provider',//'函数被禁用，请联系空间商',
+- 
+- 	'cloud_doctor_dns_api'		=> 'Cloud platform Domain Name',//'云平台域名解析',
+- 	'cloud_doctor_dns_api_test'	=> 'Cloud platform main interface test',//'云平台主接口测试',
+  	'cloud_doctor_other_api_test'	=> 'Other cloud platform interface testing',//'云平台其他接口测试',
+  	'cloud_doctor_dns_manyou'	=> 'Manyou Domain Name',//'漫游域名解析',
+  	'cloud_doctor_dns_manyou_test'	=> 'Manyou main interface testing',//'漫游主接口测试',
+--- 3,130 ----
+  /**
+   *	  [Discuz!] (C)2001-2099 Comsenz Inc.
+   *	  This is NOT a freeware, use is subject to license terms
++  *    Translate in French by Andre13 - Support :discuz-fr.fr- 26.déc.2011
+   *	  $Id: lang_admincp_cloud.php by Valery Votintsev at sources.ru
+   */
+  
+  $extend_lang = array
+  (
++ 	'header_cloud'		=> 'Plateforme  de Nuages',//'云平台',
++ 	'header_navcloud'	=> 'Discuz! Plateforme Nuages',//'Discuz!云平台',
++ 	'nav_cloud'		=> 'Discuz! plateforme  Nuages',//'Discuz!云平台',
++ 
++ 	'menu_cloud_open'	=> 'Activé Discuz! Plate-forme Nuages',//'开通Discuz!云平台',
+  	'menu_cloud_upgrade'	=> 'Enable Discuz! cloud platform',//'开通Discuz!云平台',
++ 	'menu_cloud_applist'	=> 'Accueil Plate-forme Nuages',//'平台首页',
++ 	'menu_cloud_siteinfo'	=> 'Site Information',//'站点信息',
++ 	'menu_cloud_doctor'	=> 'Outils Diagnostique',//'诊断工具',
++ 
++ 	'menu_setting_manyou'		=> 'Paramètres des applications Itinéraires',//'漫游应用设置',
++ 	'menu_setting_qqconnect'	=> 'Paramètres QQ de connexion',//'QQ互联设置',
++ 
++ 	'menu_cloud_manyou'	=> 'Applications Itinéraires',//'漫游应用',
++ 	'menu_cloud_connect'	=> 'Connexion QQ ',//'QQ互联',
++ 	'menu_cloud_search'	=> 'Rechercher Exposition',//'纵横搜索',
++ 	'menu_cloud_stats'	=> 'Analyse Tencent',//'腾讯分析',
++ 	'menu_cloud_security'	=> 'Nuage de Sécurité',//'云安全',
++ 	'menu_cloud_smilies'	=> 'SOSO Smileys',//'SOSO表情',
++ 	'menu_cloud_qqgroup'	=> 'Groupe QQ Communautaire',//'社区QQ群',
+  	'menu_cloud_union'	=> 'Adv Union',//'广告联盟',
+  
++ 	'close'			=> 'Fermer',//'关闭',
++ 	'continue'		=> 'Continuer',//'继续',
+  	'message_title'		=> 'Message',//'提示信息',
++ 	'jump_to_cloud'		=> 'Sauter vers Discuz! Plate-forme Nuages (http://cp.discuz.qq.com) pour ouvrir complètement la procédure',//'您即将转向Discuz!云平台（http://cp.discuz.qq.com）完成开通流程',
++ 
++ 	'cloud_status_error'	=> 'Si il existe quelques petites erreurs, peuvent entraîner une perte des informations parce que le site Discuz! anormaux plateforme de services nuages. Si vous avez des questions Svp. visitez <a href="http://www.discuz.net/forum-3926-1.html" target="_blank">Forum Officiel</a> for help.',//'出了点小错，可能由于站点信息丢失导致Discuz!云平台服务出现异常，如果有疑问请访问<a href="http://www.discuz.net/forum-3926-1.html" target="_blank">官方论坛</a>寻求帮助',
++ 
++ 	'cloud_introduction'	=> 'Voir la Description',//'查看介绍',
++ 	'cloud_confirm_open'	=> 'Confirmer son ouverture',//'确认开通',
++ 	'cloud_confirm_upgrade'	=> 'Confirmer la mise à jour',//'确认升级',
++ 	'cloud_page_loading'	=> 'Chargement de la Page ...',//'页面加载中...',
++ 	'cloud_time_out'	=> 'Si vous ne pouvez pas accéder Discuz! plate-forme de nuage, essayer de <a href="javascript:;" onclick="location.reload()">Actualiser</a>.',//'您无法访问Discuz!云平台，请尝试<a href="javascript:;" onclick="location.reload()">刷新</a>。',
++ 	'cloud_unknown_dns'	=> 'Si vous êtes incapable pour vous connecter à Discuz! site de la plate-forme nuages, Svp. vérifier vos paramètres réseau du serveur, <a href="http://cp.discuz.qq.com/faq?fId=1305690058" target="_blank">Voir Aide</a>. Si vous avez des questions, Svp. visitez <a href="http://www.discuz.net/forum-3926-1.html" target="_blank">Forum Officiel</a> pour un soutien.',//'您的站点目前无法连接Discuz!云平台，请检查您服务器网络设置，<a href="http://cp.discuz.qq.com/faq?fId=1305690058" target="_blank">查看帮助</a>。如果有疑问，请访问<a href="http://www.discuz.net/forum-3926-1.html" target="_blank">官方论坛</a>求助',
++ 
++ 	'cloud_category'	=> 'Définissez la Catégorie du Site',//'设置站点分类',
++ 	'cloud_site_name'	=> 'Nom du Site',//'站点名称',
++ 	'cloud_site_url'	=> 'Url du Site ',//'站点URL',
++ 	'cloud_site_category'	=> 'Catégorie  du Site',//'站点分类',
++ 	'cloud_select'		=> 'Choisissez',//'请选择',
++ 	'cloud_agree_protocal'	=> 'J\'ai lu et j\'accepte',//'我已仔细阅读并同意',
++ 	'read_protocal'		=> 'Discuz! Plateforme de Services Nuages en Utilisant le Protocole',//'《Discuz!云平台服务使用协议》',
++ 	'cloud_will_open'	=> 'Je veux ouvrir',//'我要开通',
++ 	'cloud_will_upgrade'	=> 'Je veux mettre à niveau',//'我要升级',
++ 	'cloud_protocal'	=> 'Discuz! Accord et plateforme du Service Nuages',//'Discuz!云平台服务协议',
++ 	'cloud_select_category'	=> 'Svp.Choisissez la Catégorie du Site',//'请选择站点分类',
++ 	'cloud_select_sub_category'	=> 'Svp.Choisissez la Sous-Catégorie',//'请选择二级分类',
++ 	'cloud_select_return'	=> 'Svp.choisissez la Catégorie du Site, Retour',//'请选择站点分类，返回',
++ 	'cloud_open_success'	=> 'Discuz! Plateforme Nuages Lancé avec Succès',//'Discuz!云平台开通成功',
++ 	'cloud_upgrade_success'	=> 'Discuz! Plateforme Nuages mis à niveau avec Succès',//'Discuz!云平台升级成功',
++ 	'cloud_network_busy'	=> 'Réseau est occupé, Svp. essayer à nouveau plus tard, parce que:<br />{errMessage}<br />(ERRCODE: {errCode})',//'网络繁忙，稍后请重新操作，原因：<br />{errMessage} (ERRCODE:{errCode})',
++ 	'cloud_turnto_applist'	=> 'Votre site a ouvert Plateforme Nuages de Discuz!, Sauter vers son Accueil de la Plateforme Nuages dès à présent',//'您的站点已开通Discuz!云平台，现跳转到平台首页',
+  	'cloud_site_id'		=> 'Site ID',//'站点ID',
++ 	'cloud_api_ip_btn'	=> 'Définissez la Plateforme des Nuages de son Interface IP',//'设置云平台接口IP',
++ 	'cloud_api_ip'		=> 'interface IP Plateforme Nuages ',//'云平台接口IP',
++ 	'cloud_api_ip_comment'	=> 'Si le serveur du site ne peut pas se connecter à son interface de la plateforme des nuages à cause de problèmes de la résolution DNS, Svp. remplir son adresse IP de api.discuz.qq.com, <a href="http://cp.discuz.qq.com/faq?fId=1304068911" target="_blank">Voir Aide</a>',//'若站点服务器由于DNS解析问题无法连接到云平台接口，请填写api.discuz.qq.com的IP地址，<a href="http://cp.discuz.qq.com/faq?fId=1304068911" target="_blank">查看帮助</a>',
+  	'cloud_manyou_ip'	=> 'Application Interface IP',//'漫游接口IP',
++ 	'cloud_manyou_ip_comment'	=> 'Si le DNS du serveur ont un problème de résolution et que le site ne peut pas se connecter a son  interface de cette application, Svp. remplir adresse  api.manyou.com IP , Utilisez <a href="admin.php?action=cloud&operation=doctor">Outils de Diagnostique</a> pour vérifier, <a href="http://faq.comsenz.com/viewnews-400" target="_blank">Voir Aide</a>',//'若站点服务器由于DNS解析问题无法连接到漫游接口，请填写api.manyou.com的IP地址，使用<a href="admin.php?action=cloud&operation=doctor">诊断工具</a>检测，<a href="http://faq.comsenz.com/viewnews-400" target="_blank">查看帮助</a>',
+  	'cloud_connect_api_ip'	=> 'QQ Internet interface IP',//'QQ互联接口IP',
++ 	'cloud_connect_api_ip_comment'	=> 'Si votre site a des problèmes de résolution DNS dans cette adresse QQ IP de son interface openapi.qzone.qq.com, utilisez ses  <a href="admin.php?action=cloud&operation=doctor">Outils de Diagnostique</a> pour les tests, <a href="http://cp.discuz.qq.com/faq?fId=1316571929&ADTAG=CP.CLOUD.FAQ.FID" target="_blank">Voir Aide</a>',//'若站点服务器由于DNS解析问题无法连接到QQ互联接口，请填写openapi.qzone.qq.com的IP地址，使用<a href="admin.php?action=cloud&operation=doctor">诊断工具</a>检测，<a href="http://cp.discuz.qq.com/faq?fId=1316571929&ADTAG=CP.CLOUD.FAQ.FID" target="_blank">查看帮助</a>',
++ 	'cloud_ipsetting_success'	=> 'Interface de la Plateforme des Nuages IP régler avec Succès',//'云平台接口IP设置成功',
++ 	'cloud_open_first'	=> 'Svp. Ouvrir Discuz! Plateforme Nuages en premier',//'请先开通Discuz!云平台',
++ 	'cloud_sync'		=> 'Synchronisez les Informations du Site',//'同步站点信息',
++ 	'cloud_sync_success'	=> 'Informations sur le Site Synchronisé avec Succès',//'站点信息同步成功',
++ 	'cloud_sync_failure'	=> 'Informations sur le Site de Synchronisation a Echoué en Raison de:<br />{errMessage}<br />(ERRCODE: {errCode})<br /><br />Pour toutes questions, Svp. visitez <a href="http://www.discuz.net/forum-3926-1.html" target="_blank">Forum Officiel</a> for help',//'站点信息同步失败，原因：<br />{errMessage} (ERRCODE:{errCode})<br /><br />如有疑问，请访问<a href="http://www.discuz.net/forum-3926-1.html" target="_blank">官方论坛</a>寻求帮助',
++ 	'cloud_resetkey'	=> 'Remplacer la Clé du Site',//'更换站点Key',
++ 	'cloud_reset_success'	=> 'Clés du Site Remplacé avec Succès',//'站点Key更换成功',
++ 
++ 	'cloud_siteinfo_tips'	=> '<li>Si le nom du site ou une URL du site a changé, Svp. cliquer sur le bouton "Synchroniser les Informations du Site" .</li><li>Clés du site est le site pour communiquer avec la Plateforme Nuages, authentification par clé, Si la fuite récente de manipulation des touches du site est dangereux et pour des autres informations, Svp. cliquer sur le bouton "Remplacer Clés du Site ". <span style="color:red;">Utilisez cette fonctionnalité avec prudence.</span></li>',//'<li>如果站点名称或者站点URL有变动，请点击“同步站点信息”按钮。</li><li>站点Key是站点与云平台通信的验证密钥，若近期有危险操作泄漏站点Key等信息，请点击“更换站点Key”按钮。<span style="color:red;">请谨慎使用此功能。</span></li>',
++ 
++ 	'cloud_doctor_tips'	=> '<li>Discuz! Plateforme Nuages outils de diagnostiques peut vous aider à analyser la situation du site, que ce soit la Plateforme Nuages de communiquer correctement avec les autres fonctions.</li>
++ 				<li>Site ID est votre identifiant de site unique dans la Plateforme Nuages, des autres sites ne peuvent pas partager le même site ID et la CLE de communication du site</li>',//'<li>Discuz!云平台诊断工具是帮助您分析站点上的状况，是否能与云平台正常通信等功能。</li><li>站点ID是您的站点在云平台的唯一标识，请勿和其他站点共用一套站点ID和站点通信KEY</li>',
++ 
++ 	'cloud_doctor_setidkey'		=> 'Modifier le Site Discuz! ID et sa CLE',//'修改Discuz!上的站点ID和KEY',
++ 	'cloud_doctor_setidkey_tips'	=> '<li style="color:red">Modification Incorrect de Discuz! ID du site et KEY peut causer des erreurs de communication, les erreurs et les échecs des autres, alors ne pas oublier de lire le guide officiel des paramètres de modification.</li>
++ 					<li style="color:red">Avant de modifier le ID, CLE, ou de son état, faire la sauvegarde de la table Forum common_setting.</li>',//'<li style="color:red">修改Discuz!上的站点ID和KEY，可能会导致通信错误、签名错误以及其他的故障，请勿在没有官方人员指导的情况下修改。</li><li style="color:red">修改ID、KEY和状态前，请先备份论坛的common_setting表。</li>',
++ 	'cloud_site_key'		=> 'Site communication CLE',//'站点通信KEY',
++ 	'cloud_site_key_safetips'	=> '(Pour des raisons de sécurité, partiellement caché)',//'(出于安全考虑，部分隐藏)',
++ 	'cloud_site_key_comment'	=> 'Ne divulguez pas la CLE de communication du Site',//'站点通信KEY请勿对外公布',
++ 	'cloud_site_status'		=> 'Statut',//'状态',
++ 	'cloud_idkeysetting_success'	=> 'Site ID / statut de la CLE est réglé avec Succès',//'站点ID/KEY状态设置成功 ',
++ 	'cloud_idkeysetting_siteid_failure'	=> 'Site ID ne doit être que numérique, ne doit pas être modifié. Si nécessaire, des changements pour une assistance de service à la clientèle.',//'站点ID必须为纯数字，请勿随意修改。如有必要，请在客服人员协助下修改。',
++ 	'cloud_idkeysetting_sitekey_failure'	=> 'Site communication CLE doit être de 32 caractères enlongueur, ne peut pas être modifier. Si nécessaire, des changements dans une assistance du service clientèle.',//'站点通信KEY必须为32位，请勿随意修改。如有必要，请在客服人员协助下修改。',
+  
+  	'cloud_doctor_result_success'	=> '<img align="absmiddle" src="static/image/admincp/cloud/right.gif" />',
+  	'cloud_doctor_result_failure'	=> '<img align="absmiddle" src="static/image/admincp/cloud/wrong.gif" /> ',
+  
++ 	'cloud_doctor_api_test_other'	=> 'Test de la Plateforme Nuages interface IP des autres',//'测试云平台其他接口IP',
++ 	'cloud_doctor_manyou_test_other'	=> 'Test Manyou interface IP des autres',//'测试漫游其他接口IP',
++ 	'cloud_doctor_qzone_test_other'	=> 'Tests autre IP QQ interface Internet',//'测试QQ互联其他接口IP',
++ 	'cloud_doctor_api_test_success'	=> 'Requêtes Interface: %s, avec Succès: %s, a Pris %01.3f secondes %s',//'%s 请求接口 %s 成功，耗时 %01.3f 秒 %s',
++ 	'cloud_doctor_api_test_failure'	=> 'Requêtes Interface: %s, en échec: %s, Svp. consulter son espace pour son emplacement %s',//'%s 请求接口 %s 失败，请咨询空间商 %s',
++ 	'cloud_doctor_status_0'		=> 'Plateforme Nuages pas encore ouvert',//'尚未开通云平台',
++ 	'cloud_doctor_status_1'		=> 'Plateforme Nuages a été ouvert',//'已开通云平台',
++ 	'cloud_doctor_status_2'		=> 'Plateforme Nuages est sous enregistrement, attendez la fin',//'注册云平台，等待完成',
++ 
++ 	'cloud_doctor_title_status'	=> 'Etat du système',//'系统状态',
++   'cloud_doctor_modify_siteidkey'	=> 'Manuellement modifier le ID/KEY du Site',//'手动修改站点ID/KEY',
+  	'cloud_doctor_close_yes'	=> 'Is ON (front Connect will not be displayed)',//'是 (前台Connect将不显示)',
+  
++ 	'cloud_site_version'		=> 'Version du produit',//'产品版本',
++ 	'cloud_site_release'		=> 'Date de sortie du produit',//'产品发布日期',
++ 
++ 	'cloud_doctor_title_result'	=> 'Les résultats des tests (<a href="#" onClick="self.location.reload();">Re-test</a>)',//'检测结果(<a href="#" onClick="self.location.reload();">重新检测</a>)',
++ 
++ 	'cloud_doctor_php_ini_separator'	=> 'URL séparateur',//'URL分隔符',
++ 	'cloud_doctor_php_ini_separator_true'	=> 'vide ou &',//'空或&',
++ 	'cloud_doctor_php_ini_separator_false'	=> 'Régler le arg_separator.output value in php.ini à des non &, ou ini_get fonction est désactivée, Svp. contacter votre support de votre hébergement',//'php.ini 的 arg_separator.output 设置成非&值 或 ini_get 函数被禁用，请联系空间商',
++ 
++ 	'cloud_doctor_fsockopen_function'	=> 'la fonction fsockopen',//'fsockopen函数',
++ 	'cloud_doctor_gethostbyname_function'	=> 'DNS fonctions de résolution',//'DNS解析函数',
++ 	'cloud_doctor_function_disable'		=> 'Fonction est désactivée, Svp.Contacter le fournisseur de votre hébergement',//'函数被禁用，请联系空间商',
++ 
++ 	'cloud_doctor_dns_api'		=> 'Plateforme Nuages Nom du Domaine',//'云平台域名解析',
++ 	'cloud_doctor_dns_api_test'	=> 'Plateforme Nuages Test Interface Principale',//'云平台主接口测试',
+  	'cloud_doctor_other_api_test'	=> 'Other cloud platform interface testing',//'云平台其他接口测试',
+  	'cloud_doctor_dns_manyou'	=> 'Manyou Domain Name',//'漫游域名解析',
+  	'cloud_doctor_dns_manyou_test'	=> 'Manyou main interface testing',//'漫游主接口测试',
+***************
+*** 272,278 ****
+  	'qqgroup_ctrl_add_miniportal_normal'	=> 'Pushed to the list',//'推送到列表',
+  	'qqgroup_ctrl_up'		=> 'Move Up',//'向上移动',
+  	'qqgroup_ctrl_down'		=> 'Move Down',//'向下移动',
+- 	'qqgroup_ctrl_edit'		=> 'Edit',//'编辑',
+  	'qqgroup_ctrl_remove'		=> 'Remove',//'移出',
+  	'qqgroup_ctrl_upload_image'	=> 'Upload image',//'上传图片',
+  	'qqgroup_ctrl_choose_image'	=> 'Select image: ',//'选择图片：',
+--- 272,278 ----
+  	'qqgroup_ctrl_add_miniportal_normal'	=> 'Pushed to the list',//'推送到列表',
+  	'qqgroup_ctrl_up'		=> 'Move Up',//'向上移动',
+  	'qqgroup_ctrl_down'		=> 'Move Down',//'向下移动',
++ 	'qqgroup_ctrl_edit'		=> 'Modifier',//'编辑',
+  	'qqgroup_ctrl_remove'		=> 'Remove',//'移出',
+  	'qqgroup_ctrl_upload_image'	=> 'Upload image',//'上传图片',
+  	'qqgroup_ctrl_choose_image'	=> 'Select image: ',//'选择图片：',

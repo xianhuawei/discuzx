@@ -4,8 +4,12 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *		Translate by DCV team - http://www.discuz.vn
- *      $Id: lang_error.php 21026 2011-03-10 07:46:16Z congyushuai $
+ *      $Id: lang_error.php 27449 2012-02-01 05:32:35Z zhangguosheng $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -24,17 +28,17 @@ $lang = array
 	'db_notconnect' => 'Không thể kết nối đến máy chủ cơ sở dữ liệu',
 	'db_security_error' => 'Query security threats',
 	'db_query_sql' => 'Truy vấn',
-	'db_query_error' => 'Query error',
+	'db_query_error' => 'Truy vấn lỗi',
 	'db_config_db_not_found' => 'Cấu hình cơ sở dữ liệu lỗi, hãy kích config_global.php kiểm tra lại',
 	'system_init_ok' => 'Website system initialization is complete, please <a href="index.php"> Click here </ a> into the',
-	'backtrace' => 'Operating information',
+	'backtrace' => 'Các thông tin về',
 	'error_end_message' => '<a href="http://{host}">{host}</a> Có hồ sơ chi tiết của thông báo lỗi này, mà mang đến cho bạn truy cập để xin lỗi cho bất kỳ sự bất tiện chúng tôi',
 	'mobile_error_end_message' => '<a href="http://{host}">{host}</a> Lỗi này cho bạn, chúng tôi xin lỗi vì sự bất tiện',
 
-	'file_upload_error_-101' => 'Tải lên không thành công! Tải lên tập tin không tồn tại hoặc không hợp pháp, xin vui lòng quay trở lại.',
-	'file_upload_error_-102' => 'Tải lên không thành công! Không phải kiểu tập tin ảnh, xin vui lòng quay trở lại.',
-	'file_upload_error_-103' => 'Tải lên không thành công! Không thể ghi tập tin, xin vui lòng quay trở lại.',
-	'file_upload_error_-104' => 'Tải lên không thành công! Không nhận ra định dạng hình ảnh, xin vui lòng quay trở lại.',
+	'file_upload_error_-101' => 'Tải lên thất bại! Tải lên tập tin không tồn tại hoặc không hợp pháp, xin vui lòng quay trở lại. ',
+	'file_upload_error_-102' => 'Tải lên thất bại! Tập tin đang tải lên không phải là ảnh .',
+	'file_upload_error_-103' => 'Tải lên thất bại! Không thể để ghi tập tin hoặc viết .',
+	'file_upload_error_-104' => 'Tải lên thất bại! Không được nhận định dạng được tập tin ảnh .',
 );
 
 ?>

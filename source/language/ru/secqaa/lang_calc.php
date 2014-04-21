@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -13,4 +13,3 @@ $lang = array
 	'calc_desc'	=> 'Выбрать случайным образом один из 100 проверочных вопросов/ответов на сложение и вычитание',
 );
 
-?>

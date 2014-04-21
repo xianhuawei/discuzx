@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -38,4 +38,3 @@ $lang = array
 );
 //	'db_error'			=> '<b>$message</b>$errorno<br />$info $sql<br /><a href="$helplink" target="_blank">Click here for help</a><br /><br />',//'<b>$message</b>$errorno<br />$info$sql<br /><a href="$helplink" target="_blank">点击这里寻求帮助</a><br /><br />',
 
-?>

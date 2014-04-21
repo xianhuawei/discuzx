@@ -7,8 +7,14 @@
  *      $Id: lang_forumlist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
+	'forumlist_fids'			=> 'Specified forum',//'指定版块',
+	'forumlist_fids_comment'		=> 'Fill in specified forum ID (fid), separate multiple forums with a comma (,)',//'填入指定版块的ID(fid)，多个版块之间用逗号(,)分隔',
 	'forumlist_fups'		=> 'Forum Parents',  // '上级版块' 
 	'forumlist_fups_comment'	=> 'R&#233;glez l\'affichage dans certaines cat&#233;gories du Forum ou de l\'Instance',  //  '设置显示某些分类或版块下属的版块'
 	'forumlist_titlelength'		=> 'Longueur du Nom',  // '名称长度' 

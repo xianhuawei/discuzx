@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -64,7 +64,7 @@ $lang = array
 	'grouptrade_recommend_comment'		=> 'Показывать только рекомендованные темы.',
 	'grouptrade_orderby'			=> 'Сортировка',
 	'grouptrade_orderby_comment'		=> 'Укажите поряток сортировки',
-	'grouptrade_orderby_lastpost'		=> 'По дате последнего поста',
+	'grouptrade_orderby_lastpost'		=> 'По дате последнего сообщения',
 	'grouptrade_orderby_dateline'		=> 'По дате создания',
 	'grouptrade_orderby_replies'		=> 'По кол-ву ответов',
 	'grouptrade_orderby_views'		=> 'По кол-ву просмотров',

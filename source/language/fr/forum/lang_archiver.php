@@ -8,6 +8,10 @@
  *	Traduction en French par Andre13
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 

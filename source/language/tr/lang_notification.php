@@ -205,12 +205,6 @@ $lang = array
 					<p class="mbn"><a href="home.php?mod=magic" target="_blank">Return the gift back!</a>
 					<span class="pipe">|</span><a href="home.php?mod=magic&action=mybox" target="_blank">View my magics</a></p>',
 
-	'pmreportcontent' => '{pmreportcontent}',
-
-//vot ToDo: From install_data.sql
-'welcome_message_title'		=> 'Hello {username}! Thank you for your registration, please read the following ...',
-'welcome_message_content'	=> 'Dear {username}, you have already registered as a member at {sitename}, please when you publish, compliance with local laws and regulations.\nIf you have any questions please contact the administrator, Email: {adminemail}.\n\n\n{bbname}\n{time}',
-'terms_of_services'		=> 'This is Rules.\nMust read!',
-
 );
 
+?>

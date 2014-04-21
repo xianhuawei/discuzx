@@ -7,9 +7,13 @@
  *      $Id: lang_open.php 7980 2010-04-15 07:04:00Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
-	'open_name' => 'Thẻ mở', 
+	'open_name' => 'Thẻ mở',
 	'open_desc' => 'Dùng để trả lời trong các chủ đề đã đóng',
 	'open_forum' => 'Cho phép sử dụng các đạo cụ của Diễn đàn',
 	'open_info' => 'Nhập ID chủ đề cần mở',

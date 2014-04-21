@@ -88,6 +88,39 @@ Atentamente,<br />
 {bbname} Equipo de Administración.<br />
 {siteurl}</p>',
 
+	'email_register_subject' =>	'Forum registration',//'论坛注册地址',
+'email_register_message' =>	'<br />
+<p>This letter is sent from {bbname}.</p>
+
+<p>You have received this message due to somebody (may be you) registered this E-Mail address at {bbname}.
+If you do not want to access to {bbname}, or you did not registered at this site,
+please ignore this message.
+
+You do not need to unsubscribe or do any other further action.</p>
+<br />
+----------------------------------------------------------------------<br />
+<strong>New user registration instructions</strong><br />
+----------------------------------------------------------------------<br />
+<br />
+<p>If you are a {bbname} new user, or have modified your registered before Email address,
+it is required to verify your mailbox address in order to avoid junk or malicious e-mail.</p>
+
+<p>For register just click on the link below. The following link is valid for 3 days. After expired you can request to re-send the activation email to a new e-mail address:<br />
+
+<a href="{url}" target="_blank">{url}</a>
+<br />
+(If the above link is not working, copy the link URL and paste it into your browser address bar manually)</p>
+
+<p>Thank you for your visit, we are glad to see you at our site!</p>
+
+
+<p>
+Sincerely yours,<br />
+
+{bbname} management team.<br />
+{siteurl}</p>',
+
+
 	'add_member_subject'	=> 'Se le agrego como un miembro',//'您被添加成为会员',
 	'add_member_message'	=> '
 {newusername},

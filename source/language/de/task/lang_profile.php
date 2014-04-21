@@ -13,21 +13,6 @@ $lang = array
 	'profile_name'		=> 'Aufgabe der Verbesserung der Information der Benutzer',
 	'profile_desc'		=> 'Besserer Zugang zu den angegebenen Benutzerdaten entsprechende Belohnung.',
 
-	'profile_fields'	=> array(
-		'mp.realname'		=> 'richtiger Name',
-		'mp.gender'		=> 'Geschlecht',
-		'mp.birthyear'		=> 'Geburtstag (Jahr)',
-		'mp.birthmonth'		=> 'Geburtstag (Monat)',
-		'mp.birthday'		=> 'Geburtstag (Tag)',
-		'mp.bloodtype'		=> 'Blutgruppe',
-		'mp.affectivestatus'	=> 'Beziehungsstatus',
-		'mp.birthcountry'	=> 'Geburtsland',//'??(?)',
-		'mp.birthprovince'	=> 'Home (Provinz)',
-		'mp.birthcity'		=> 'Hometown (Stadt)',
-		'mp.resideprovince'	=> 'Residence (Provinz)',
-		'mp.residecity'		=> 'Wohnort (Stadt)'
-	),
-
 	'profile_view'	=> '<strong>Du hast die folgenden Teile der pers&ouml;nlichen Integrit&auml;t der Daten hinzugef&uuml;gt:</strong><br>
 		<span style="color:red;">{profiles}</span><br><br>
 		<strong>Bitte folge den Anweisungen, um diese Aufgabe auszuf&uuml;hren:</strong>
@@ -37,4 +22,3 @@ $lang = array
 		</ul>',
 );
 
-?>

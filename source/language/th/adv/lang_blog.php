@@ -5,11 +5,16 @@
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_blog.php by Valery Votintsev at sources.ru
+ *	Translated to Thai by jaideejung007
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
-	'blog_name'	=> 'Space Adv',// '空间 日志广告',
+	'blog_name'	=> 'ด้านขวาหน้าเนื้อบล็อก',// '空间 日志广告',
 	'blog_desc'	=> 'Display mode: Ads displayed on the blog right side.',// '展现方式: 日志广告显示于日志右方。',
 );
 

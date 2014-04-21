@@ -9,7 +9,7 @@
 
 $lang = array
 (
-	'calc_name'	=> 'Addition and subtraction inside 100',//'100 以内加减法',
-	'calc_desc'	=> 'Show mathematical verification question using a random addition/subtraction in a range of 1...100',//'随机显示 100 以内加减法的验证问答',
+	'calc_name'	=> '100이내의 더하기와 빼기',//'100 以内加减法',
+	'calc_desc'	=> '랜덤으로 100이내 더하기와 빼기의 검증문답 표시',//'随机显示 100 以内加减法的验证问答',
 );
 

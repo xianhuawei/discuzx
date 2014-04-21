@@ -7,22 +7,28 @@
  *      $Id: lang_member.php 20567 2011-02-28 02:30:15Z congyushuai $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
-	'member_name' => 'Thành viên tham gia',
-	'member_desc' => 'Thêm một người bạn, chủ đề bộ sưu tập, sử dụng đạo cụ, chẳng hạn nhiệm vụ khuyến khích và hướng dẫn thành viên sử dụng diễn đàn của một tính năng, không khí hoạt động của Diễn đàn.',
+	'member_name' => 'Nhiệm vụ thành viên',
+	'member_desc' => 'Đăng bài, úp ảnh, tạo album, sử dụng đạo cụ, cụ thể là sử dụng các chức năng của diễn đàn.',
 	'member_complete_var_act' => 'Hành động',
-	'member_complete_var_act_favorite' => 'Thêm chủ đề',
-	'member_complete_var_act_magic' => 'Sử dụng đạo cụ',
-	'member_complete_var_num' => 'Hạn chế số lượng hành động điều hành',
-	'member_complete_var_num_comment' => 'Các thành viên cần phải thực hiện số lượng tối thiểu của hành động tương ứng',
-	'member_complete_var_time' => 'Thời gian giới hạn (giờ)',
-	'member_complete_var_time_comment' => 'Các thành viên của nhiệm vụ thiết lập để hoàn thành nhiệm vụ từ việc áp dụng chế về thời gian, các thành viên không hoàn thành nhiệm vụ thời gian này không đủ điều kiện cho giải thưởng và đánh dấu các công việc không thành công, 0 hoặc trống là không hạn chế',
+	'member_complete_var_act_favorite' => 'Theo dõi chủ đề',
+	'member_complete_var_act_magic' => 'Dùng đạo cụ',
+	'member_complete_var_act_userapp' => 'Chơi trò chơi',
+	'member_complete_var_num' => 'Thực hiện số hành động của giới hạn dưới',
+	'member_complete_var_num_comment' => 'Thành viên cần phải thực hiện số lượng tối thiểu của hành động tương ứng',
+	'member_complete_var_time' => 'Giới hạn thời gian (giờ)',
+	'member_complete_var_time_comment' => 'Đặt thời gian giới hạn để thành viên phải làm xong nhiệm vụ, đặt 0 hoặc để trống là ko giới hạn.',
 
-	'task_complete_time_start' => 'Thời gian bắt đầu, ',
+	'task_complete_time_start' => 'Bắt đầu, ',
 	'task_complete_time_limit' => '{value} giờ, ',
-	'task_complete_act_favorite' => 'Yêu thích {value} chủ đề.',
-	'task_complete_act_magic' => 'Sử dụng {value} đạo cụ.',
+	'task_complete_act_favorite' => 'Theo dõi {value} chủ đề.',
+	'task_complete_act_magic' => 'Dùng {value} cái đạo cụ.',
+	'task_complete_act_userapp' => 'Chơi {value} trò chơi.',
 );
 
 ?>

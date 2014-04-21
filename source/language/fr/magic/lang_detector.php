@@ -7,6 +7,10 @@
  *      $Id: lang_detector.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'detector_name'	=> 'Carte D&#233;tecteur',   //  Detect card

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -38,6 +38,7 @@ $lang = array(
 	'blockclass_myapp_field_title'		=> 'Name',
 	'blockclass_myapp_field_icon'		=> 'Bild',
 	'blockclass_myapp_field_icon_small'	=> 'Application-Ikon',
+	'blockclass_myapp_field_icon_abouts'	=> 'Application icon',//'应用图标(大图)',
 	'blockclass_myapp_script_myapp'		=> 'Apps',
 
 	'blockclass_forum'			=> 'Forum',
@@ -52,7 +53,7 @@ $lang = array(
 	'blockclass_thread_field_avatar'	=> 'Avatar',
 	'blockclass_thread_field_avatar_middle'	=> 'Avatar mitte',
 	'blockclass_thread_field_avatar_big'	=> 'Avatar gro&szlig;',
-	'blockclass_thread_field_icon'		=> 'Ikon',
+//REMOVED	'blockclass_thread_field_icon'		=> 'Ikon',
 	'blockclass_thread_field_forumurl'	=> 'Forum URL',
 	'blockclass_thread_field_forumname'	=> 'Forum Name',
 	'blockclass_thread_field_typename'	=> 'Datentyp Name',
@@ -185,7 +186,7 @@ $lang = array(
 	'blockclass_member_field_reason'	=> 'Empfehlung Grund',//'????',
 	'blockclass_member_field_unitprice'	=> 'Preis fur den Zugang zu einer Einheit',//'????????',
 	'blockclass_member_field_showcredit'	=> 'Preis Gesamtpunktzahl',//'?????',
-	'blockclass_member_field_shwonote'	=> 'Preis fur die Show Ankundigung',//'??????',
+	'blockclass_member_field_shownote'	=> 'Preis fur die Show Ankundigung',//'??????',
 	'blockclass_member_field_extcredits1'	=> 'Extension Punkte 1',
 	'blockclass_member_field_extcredits2'	=> 'Extension Punkte 2',
 	'blockclass_member_field_extcredits3'	=> 'Extension Punkte 3',
@@ -452,7 +453,8 @@ $lang = array(
 	'blockclass_other_stat_albums_title'		=> 'Titel der Alben',//'?????',
 	'blockclass_other_stat_pics_title'		=> 'Bilder Titel',//'?????',
 	'blockclass_other_stat_shares_title'		=> 'Aktien Titel',//'?????',
+
+	'blockclass_field_id'			=> 'Field ID',//'数据ID',
 );
 
 
-?>

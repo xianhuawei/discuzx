@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: install_lang.php by Valery Votintsev at sources.ru
+ *      $Id: lang_install.php by Valery Votintsev, codersclub.org
  *      German Discuz!X Translation (2010-09-20) by Coldcut - http://www.cybertipps.com
  */
 
@@ -57,11 +57,11 @@ $lang = array(
 	'database_errno_1045'	=> 'Keine Verbindung zur Datenbank, &uuml;berpr&uuml;fe ob der Datenbankbenutzername und das Passwort korrekt sind',
 	'database_connect_error'	=> 'Datenbank Verbindungsfehler',
 
-'step_title_1'		=> 'Check environment',//'检查安装环境',
-'step_title_2'		=> 'Set environment',//'设置运行环境',
-'step_title_3'		=> 'Create Database',//'创建数据库',
-'step_title_4'		=> 'Install',//'安装',
-'step_env_check_title'	=> 'Start Installation',//'开始安装',
+	'step_title_1'		=> 'Check environment',//'检查安装环境',
+	'step_title_2'		=> 'Set environment',//'设置运行环境',
+	'step_title_3'		=> 'Create Database',//'创建数据库',
+	'step_title_4'		=> 'Install',//'安装',
+	'step_env_check_title'	=> 'Start Installation',//'开始安装',
 	'step_env_check_desc'	=> 'Env & Einstellungs-Check',
 	'step_db_init_title'	=> 'Installiere Datenbank',
 	'step_db_init_desc'	=> 'Installiere Datenbank und Administrator-Konfiguration',
@@ -88,13 +88,16 @@ $lang = array(
 	'tips_ucenter_comment'	=> 'UCenter ist ein Comsenz Produkte des Core Service Program. Die Discuz! Board Installation und den Betrieb verlassen sich auf dieses Programm. Wenn bereits UCenter installiert ist, f&uuml;lle bitte die unten angegebenen Informationen aus. Ansonsten gehe bitte auf <a href="http://www.discuz.com/" target="blank">Comsenz Produkte</a> downloade und installiere es.',
 
 	'advice_mysql_connect'		=> 'Bitte stellen Sie sicher, dass MySQL korrekt ist',
-	'advice_fsockopen'		=> 'Sie m&uuml;ssen allow_url_fopen in der php.ini erlauben, wenden Sie sich bitte an Ihren Provider, um sicherzustellen, dass es eingeschaltet ist',
 	'advice_gethostbyname'		=> 'gethostbyname Funktion wird in der php.ini eingestellt, bitte wenden Sie sich an Ihren Provider um Sicherzustellen das es eingeschaltet ist',
 	'advice_file_get_contents'	=> 'allow_url_fopen Funktion wird in der php.ini, bitte wenden Sie sich an Ihren Provider um Sicherzustellen das es eingeschaltet ist',
 	'advice_xml_parser_create'	=> 'XML Funktion wird in der php config, bitte wenden Sie sich an Ihren Provider um Sicherzustellen das es eingeschaltet ist',
+	'advice_fsockopen'		=> 'Sie m&uuml;ssen allow_url_fopen in der php.ini erlauben, wenden Sie sich bitte an Ihren Provider, um sicherzustellen, dass es eingeschaltet ist',
+	'advice_pfsockopen'		=> 'This function requires to allow_url_fopen in php.ini. Please contact the hosting provider to set this value',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
+	'advice_stream_socket_client'	=> 'Whether enabled the stream_socket_client function in PHP configuration',//'是否 PHP 配置中禁止了 stream_socket_client 函数',
+	'advice_curl_init'		=> 'Whether enabled the curl_init function in PHP configuration',//'是否 PHP 配置中禁止了 curl_init 函数',
 
-	'ucurl'				=> 'UCenter URL',
-	'ucpw'				=> 'UCenter Founder Pwd',
+	'ucurl'				=> 'UCenter URL',//'UCenter 的 URL',
+	'ucpw'				=> 'UCenter Founder Passwort',
 	'ucip'				=> 'IP-Adresse von UCenter',
 	'ucenter_ucip_invalid'		=> 'Falsche IP Adresse',
 	'ucip_comment'			=> 'Normalerweise musst du das nicht ausf&uuml;llen',
@@ -138,8 +141,8 @@ $lang = array(
 	'admininfo_password_invalid'	=> 'Admin Passwort leer, bitte ausf&uuml;llen',
 	'admininfo_password2_invalid'	=> 'Passwort funktioniert nicht, bitte &uuml;berpr&uuml;fen',
 
-	'install_dzfull'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> Neue Installation von Discuz! X (Ucenter Server enthalten)</label>',
-	'install_dzonly'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> Nur Discuz! X installieren (Ucenter Server wurde bereits installiert)</label>',
+/*vot*/	'install_dzfull'		=> 'Neue Installation von Discuz! X (Ucenter Server enthalten)',
+/*vot*/	'install_dzonly'		=> 'Nur Discuz! X installieren (Ucenter Server wurde bereits installiert)',
 
 	'username'			=> 'Admin Benutzernamename',
 	'email'				=> 'Admin Email',
@@ -167,9 +170,9 @@ $lang = array(
 
 	'install_in_processed'		=> 'Installiere ...',
 	'install_succeed'		=> 'User Center wurde installiert, bitte hier klicken um fortzufahren',
-'install_cloud'			=> 'After successful installation, Welcome to the opening Discuz! Cloud platform<br>Discuz! Cloud platform dedicated to help website owners to increase their websites traffic, enhance the ability of Web site operators, and increase a website revenue.<br>Discuz! Cloud platform currently provides a free QQ Internet, Tencent analysis, Cloud search, QQ Group Community,Roaming,SOSO emoticon services.Discuz! Cloud platform will continue to provide more quality services to the project.<br>Before open the Discuz! Platform make sure that your website (Discuz!, UCHome or SupeSite) has been upgraded to Discuz! X2.',//'安装成功，欢迎开通Discuz!云平台<br>Discuz!云平台致力于帮助站长提高网站流量，增强网站运营能力，增加网站收入。<br>Discuz!云平台目前免费提供了QQ互联、腾讯分析、纵横搜索、社区QQ群、漫游应用、SOSO表情服务。Discuz!云平台将陆续提供更多优质服务项目。<br>开通Discuz!平台之前，请确保您的网站（Discuz!、UCHome或SupeSite）已经升级到Discuz!X2。',
-'to_install_cloud'		=> 'Open Admin-Center',//'到后台开通',
-'to_index'			=> 'Temporarily not open',//'暂不开通',
+	'install_cloud'			=> 'After successful installation, Welcome to the opening Discuz! Cloud platform<br>Discuz! Cloud platform dedicated to help website owners to increase their websites traffic, enhance the ability of Web site operators, and increase a website revenue.<br>Discuz! Cloud platform currently provides a free QQ Internet, Tencent analysis, Cloud search, QQ Group Community,Roaming,SOSO emoticon services.Discuz! Cloud platform will continue to provide more quality services to the project.<br>Before open the Discuz! Platform make sure that your website (Discuz!, UCHome or SupeSite) has been upgraded to Discuz! X2.5.',//'安装成功，欢迎开通Discuz!云平台<br>Discuz!云平台致力于帮助站长提高网站流量，增强网站运营能力，增加网站收入。<br>Discuz!云平台目前免费提供了QQ互联、腾讯分析、纵横搜索、社区QQ群、漫游应用、SOSO表情服务。Discuz!云平台将陆续提供更多优质服务项目。<br>开通Discuz!平台之前，请确保您的网站（Discuz!、UCHome或SupeSite）已经升级到Discuz!X2.5。',
+	'to_install_cloud'		=> 'Open Admin-Center',//'到后台开通',
+	'to_index'			=> 'Temporarily not open',//'暂不开通',
 
 	'init_credits_karma'	=> 'Karma',
 	'init_credits_money'	=> 'Geld',
@@ -183,21 +186,21 @@ $lang = array(
 	'init_opposition'	=> 'Contra',
 
 	'init_group_0'	=> 'Mitglied',
-	'init_group_1'	=> 'Administrator',
+	'init_group_1'	=> 'Administrator',//'管理员',
 	'init_group_2'	=> 'Super-Moderator',
-	'init_group_3'	=> 'Moderator',
+	'init_group_3'	=> 'Moderator',//'版主',
 	'init_group_4'	=> 'Sprechverbot',
-	'init_group_5'	=> 'Forbidden',
-	'init_group_6'	=> 'Banned IP',
+	'init_group_5'	=> 'Banned',//'禁止访问',
+	'init_group_6'	=> 'IP Banned',//'禁止 IP',
 	'init_group_7'	=> 'Besucher',
 	'init_group_8'	=> 'Abspanns Mitglied',
 	'init_group_9'	=> 'Neuling',
 	'init_group_10'	=> 'Neues Mitglied',
 	'init_group_11'	=> 'Registriertes Mitglied',
 	'init_group_12'	=> 'Standard Mitglied',
-	'init_group_13'	=> 'Senior Member',
-	'init_group_14'	=> 'Gold Member',
-	'init_group_15'	=> 'Forum Veteran',
+	'init_group_13'	=> 'Senior Member',//'高级会员',
+	'init_group_14'	=> 'Gold Member',//'金牌会员',
+	'init_group_15'	=> 'Veteran',//'论坛元老',
 
 	'init_rank_1'	=> 'Neuling',
 	'init_rank_2'	=> 'Kleiner Chooper',
@@ -214,28 +217,28 @@ $lang = array(
 	'init_cron_7'	=> 'Zeitlich begr&auml;nzte Clean-Ups',
 	'init_cron_8'	=> 'Forum Promotion Clean-up',
 	'init_cron_9'	=> 'Monatliches Clean-up',
-	'init_cron_10'	=> 'Daily X-Space Update',
+	'init_cron_10'	=> 'Daily update X-Space users',//'每日 X-Space更新用户',
 	'init_cron_11'	=> 'W&ouml;chentliches Themen Update',
 
 	'init_bbcode_1'	=> 'Inhalte horizontal Scrollen HTML der marquee Label. Hinweis: Dieser Effekt nur in der Internet Explorer auslesen',
 	'init_bbcode_2'	=> 'Embedded-Flash-Animation',
 	'init_bbcode_3'	=> 'Zeige QQ Online',
 	'init_bbcode_4'	=> 'Hochgestellt',
-	'init_bbcode_5'	=> 'Subscript',
-	'init_bbcode_6'	=> 'Embedded Windows Media Audio',
+	'init_bbcode_5'	=> 'Subscript',//'下标',
+	'init_bbcode_6'	=> 'Embedded Windows Media Audio',//'嵌入 Windows media 音频',
 	'init_bbcode_7'	=> 'Embedded Windows Media Audio-oder Video',
 
 	'init_qihoo_searchboxtxt'	=> 'Stichworte, f&uuml;r eine schnelle Suche in diesem Forum',
 	'init_threadsticky'		=>'Global Top, Top eingestuft, Ausgabe oben',
 
 	'init_default_style'		=> 'Standard-Style',
-	'init_default_forum'		=> 'Version',
+	'init_default_forum'			=> 'Default Forum',//'默认版块',
 	'init_default_template'		=> 'Abteilung Standard-Template-Set',
 	'init_default_template_copyright'	=> 'Comsenz (Beijing) Technology Co., Ltd',
 
-	'init_dataformat'	=> 'Y-m-d',
+	'init_dataformat'	=> 'Y-m-d',//'Y-n-j',
 	'init_modreasons'	=> 'Werbung/SPAM\r\nSch&auml;dlicher Code\r\nIllegale Inhalte\r\nIrrelevant\r\nDoppelposting\r\n\r\nEinverstanden\r\nArtikel\r\nOriginal-Inhalt',
-'init_userreasons'	=> 'Powerfull!\r\nUsefull\r\nVery nice\r\nThe best!\r\nInteresting',
+	'init_userreasons'	=> 'Powerfull!\r\nUsefull\r\nVery nice\r\nThe best!\r\nInteresting',//'很给力!\r\n神马都是浮云\r\n赞一个!\r\n山寨\r\n淡定',
 	'init_link'		=> 'Discuz! Official Forums',
 	'init_link_note'	=> 'Discuz! Produkte. Software und Downloads.',
 
@@ -280,14 +283,19 @@ $lang = array(
 <li>F&uuml;r die freiwillige Nutzung dieser Software sowie aller Produkte tragen Sie die Risiken. Wir versprechen keine technische Unterst&uuml;tzung oder bieten Garantien.</li>
 <li>Sing Wunsch (Beijing) Technology Co., Ltd Software, f&uuml;r Gegenst&auml;nde oder Informationen.</li>
 <li>Hong Sing company provides software and services in a timely manner, security, accuracy is not guaranteed, due to force majeure, Hong Sing factors beyond the control of the company (including hacker attacks, stopping power, etc.) caused by software and services Suspension or termination, and give your losses, you agree to Sing corporate responsibility waiver of all rights.</li>
-<li>Hong Sing Company specifically draw your attention to Hong Sing Company in order to protect business development and adjustment of autonomy, Hong Sing Company has at any time with or without prior notice to modify the service content, suspend or terminate some or all of the rights of software and services , changes will be posted on the relevant pages of Sing website, including without notice. Hong Sing Company to modify or discontinue the exercise, termination of some or all of the rights of software and services resulting from the loss, without Hong Sing Company to you or any third party.</li>
+<li>Hong Sing Company specifically draw your attention to Hong Sing Company in order to protect business development and adjustment of autonomy, Hong Sing Company has at any time with or without prior notice to modify the service content, suspend or terminate some or all of the rights of software and services , changes will be posted on the relevant pages of Sing website, including without notice. Hong Sing Company to modify or discontinue the exercise, termination of some or all of the rights of software and services resulting from the loss, without Hong Sing Company to you or any third party.
+</li>
 </ol>
 
 
 <p>Hong Sing products on the end user license agreement, business license and technical services to the details provided by the Hong Sing exclusive. Sing the company has without prior notice, modify the license agreement and services price list right to the modified agreement or price list from the change of the date of the new authorized user to take effect.</p>
+
 <p>Once you start the installation Hong Sing products, shall be deemed to fully understand and accept the terms of this Agreement, the terms in the enjoyment of the rights granted at the same time, by the relevant constraints and restrictions. Licensing agreement outside the scope of acts would be a direct violation of this License Agreement and constitute an infringement, we have the right to terminate the authorization, shall be ordered to stop the damage, and retain the power to investigate related responsibilities.</p>
+
 <p>The interpretation of the terms of the license agreement, validity, and dispute resolution, applicable to the mainland People\'s Republic of law.</p>
+
 <p>Between Hong Sing if you and any dispute or controversy, should first be settled through friendly consultations, the consultation fails, you hereby agree to submit the dispute or controversy Sing Haidian District People\'s Court where jurisdiction. Hong Sing Company has the right to interpret the above terms and discretion.</p>
+
 </div>',
 
 	'uc_installed'		=> 'Sie haben UCenter zuvor schon installiert, wenn sie es nocheinmal installieren m&ouml;chten, l&ouml;schen Sie bitte data/install.lock ',
@@ -335,14 +343,6 @@ $lang = array(
 	'create_table'		=> 'Tabelle erstellen',
 	'succeed'		=> 'Erfolgt',
 	
-	'testdata'			=> 'Installations und Testdaten',
-	'testdata_check_label'		=> 'Ja',
-	'portalstatus'			=> 'Portal Status',
-	'portalstatus_check_label'	=> '',
-	'groupstatus'			=> 'Gruppen Status',
-	'groupstatus_check_label'	=> '',
-'homestatus'			=> 'Home Status',
-	'homestatus_check_label'	=> '',
 	'install_data'			=> 'Zus&auml;tzliche Daten werden installiert',
 	'install_test_data'		=> 'Testdaten werden installiert',
 
@@ -350,10 +350,13 @@ $lang = array(
 	'database_nonexistence'		=> 'Datenbank nicht vorhanden',
 	'skip_current'			=> 'Diesen Schritt &uuml;berspringen',
 	'topic'				=> 'Themen',
+
 //---------------------------------------------------------------
-//vot 2 vars for language select:
+// Added by Valery Votintsev
+// 2 vars for language select:
 	'welcome'			=> 'Willkommen bei Discuz! X Installation!',
 	'select_language'		=> '<b>Wählen Sie die Sprache für die Installation</b>:',
+	'mbstring'			=> 'MBstring Library',//'MBstring 库',
 //vot !!!Translate to Chinese!!!
 //vot	'regiondata'			=> 'Add regions data',//'Add location data',
 //vot	'regiondata_check_label'	=> 'Install additional regional data (countries/regions/cities)',//'Install additional regional data (countries/regions/cities)',
@@ -361,12 +364,9 @@ $lang = array(
 
 //---------------------------------------------------------------
 
-
-
 );
 
 $msglang = array(
 	'config_nonexistence'	=> 'Die config.inc.php existiert nicht. Bitte lade sie per FTP hoch und versuche es erneut.',
 );
 
-?>

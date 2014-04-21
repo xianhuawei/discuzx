@@ -7,39 +7,43 @@
  *      $Id: lang_forumstat.php 6752 2010-03-25 08:47:54Z cnteacher $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'forumstat_name' => 'Thống kê diễn đàn',
-	'forumstat_desc' => 'Diễn đàn số liệu thống kê gọi',
-	'forumstat_forums_allow' => 'Diễn đàn thống kê cho thấy số',
-	'forumstat_forums_order' => 'Diễn đàn thống kê cho thấy số thứ tự',
-	'forumstat_forums_text' => 'Diễn đàn Thống kê cho thấy số từ',
-	'forumstat_forums_default' => 'Số diễn đàn:',
+	'forumstat_desc' => 'Hiện diễn đàn về dữ liệu thống kê',
+	'forumstat_forums_allow' => 'Hiển thị thống kê diễn đàn ',//'显示版块数统计',
+	'forumstat_forums_order' => 'Hiển thị số thứ tự diễn đàn',//'版块数统计显示顺序',
+	'forumstat_forums_text' => 'Hiển thị lời khuyên diễn đàn',
+	'forumstat_forums_default' => 'Diễn đàn:',//'版块数:',
 
-	'forumstat_threads_allow' => 'Thống kê cho thấy số chủ đề',
-	'forumstat_threads_order' => 'Thống kê cho thấy thứ tự của một số chủ đề',
-	'forumstat_threads_text' => 'Thống kê cho thấy số lượng các chủ đề văn bản',
-	'forumstat_threads_default' => 'Chủ đề:',
+	'forumstat_threads_allow' => 'Hiển thị thống kê chủ đề',//'显示主题数统计',
+	'forumstat_threads_order' => 'Hiển thị số thứ tự chủ đề',//'主题数统计显示顺序',
+	'forumstat_threads_text' => 'Hiển thị lời khuyên chủ đề',//'主题数统计提示文字',
+	'forumstat_threads_default' => 'Chủ đề:',//'主题数:',
 
-	'forumstat_posts_allow' => 'Thống kê cho thấy số lượng bài viết',
-	'forumstat_posts_order' => 'Thống kê cho thấy thứ tự của số lượng các bài viết',
-	'forumstat_posts_text' => 'Thống kê cho thấy số lượng các bài văn bản',
-	'forumstat_posts_default' => 'Bài viết:',
+	'forumstat_posts_allow' => 'Hiển thị thống kê bài viết ',
+	'forumstat_posts_order' => 'Hiển thị thứ tự bài viết',
+	'forumstat_posts_text' => 'Hiện thị lời khuyên bài viết',
+	'forumstat_posts_default' => 'Đăng bài:',//'帖子数:',
 
-	'forumstat_members_allow' => 'Thống kê cho thấy số lượng người dùng',
-	'forumstat_members_order' => 'Thống kê cho thấy số lượng người dùng để',
-	'forumstat_members_text' => 'Thống kê cho thấy số người sử dụng văn bản',
-	'forumstat_members_default' => 'Số người sử dụng:',
+	'forumstat_members_allow' => 'Hiển thị thống kê thành viên ',//'显示用户数统计',
+	'forumstat_members_order' => 'Hiển thị số thành viên ',//'用户数统计显示顺序',
+	'forumstat_members_text' => 'Hiện thị lời khuyên thành viên',//'用户数统计提示文字',
+	'forumstat_members_default' => 'Thành viên:',//'用户数:',
 
-	'forumstat_online_allow' => 'Thống kê cho thấy trực tuyến',
-	'forumstat_online_order' => 'Thống kê cho thấy đặt hàng trực tuyến',
-	'forumstat_online_text' => 'Thống kê cho thấy số lượng các dòng văn bản',
-	'forumstat_online_default' => 'Online:',
+	'forumstat_online_allow' => 'Hiển thị thống kê online',//'显示在线人数统计',
+	'forumstat_online_order' => 'Hiển thị số người online',//'在线人数统计显示顺序',
+	'forumstat_online_text' => 'Hiện thị lời khuyên online',
+	'forumstat_online_default' => 'Online:',//'在线人数:',
 
-	'forumstat_onlinemember_allow' => 'Thống kê thành viên Online',
-	'forumstat_onlinemember_order' => 'Thống kê cho thấy thứ tự thành viên Online',
-	'forumstat_onlinemember_text' => 'Thống kê nhắc nhở thành viên Online',
-	'forumstat_onlinemember_default' => 'Thành viên trực tuyến:',
+	'forumstat_onlinemember_allow' => 'Hiển thị thống kê thành viên đang online ',//'显示在线会员统计',
+	'forumstat_onlinemember_order' => 'Hiển thị số thành viên online',//'在线会员统计显示顺序',
+	'forumstat_onlinemember_text' => 'Hiện thị lời khuyên thành viên online',//'在线会员统计提示文字',
+	'forumstat_onlinemember_default' => 'Thành viên online:',//'在线会员:',
 );
 
 ?>

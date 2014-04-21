@@ -7,6 +7,10 @@
  *      $Id: lang_activitylist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'activitylist_fids'		=> 'Dans le forum',  // '所在版块' 
@@ -95,4 +99,3 @@ $lang = array
 	'activitylist_highlight'		=> 'Choisissez la valeur obtenue',  //  '获得高亮值' 
 );
 
-?>

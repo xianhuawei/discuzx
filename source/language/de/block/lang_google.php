@@ -15,8 +15,6 @@ $lang = array
 	'google_lang'		=> 'Suche im Web nach Sprache',
 	'google_lang_comment'	=> 'Forum-Set f&uuml;r deine Web-Seiten Sprache kann eine effektive Verbesserung der Qualit&auml;t der Suchergebnisse bringen',
 	'google_lang_any'	=> 'Jede Sprache',
-// ToDo:
-// Make Language List from the config settings!
 	'google_lang_en'		=> 'Englisch',
 	'google_lang_zh-CN'		=> 'Vereinfachtes Chinesisch',
 	'google_lang_zh-TW'		=> 'Traditionelles Chinesisch',
@@ -27,6 +25,7 @@ $lang = array
 	'google_client'			=> 'League ID Suche',
 	'google_client_comment'		=> 'Wenn du die Google Suche verwendest kannst du nach bestimmten ID suchen.',
 // Added by vot
-	'google_lang_ru'		=> 'Russian',//'俄语',
+// ToDo:
+// Make Language List from the config settings!
 );
 

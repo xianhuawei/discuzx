@@ -7,33 +7,37 @@
  *      $Id: lang_bloglist.php 11146 2010-05-25 02:52:53Z xupeng $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
-	'bloglist_blogids' => 'Xác định Blog',
-	'bloglist_blogids_comment' => 'Điền vào các quy định Blog ID(blogid), nhiều Blog thêm dấu phẩy(,)riêng biệt',
-	'bloglist_uids' => 'Của UID',
-	'bloglist_uids_comment' => 'Điền vào các quy định người dùng ID(uid)nhiều qui định thêm dấu phẩy(,)riêng biệt',
-	'bloglist_catid' => 'Chỉ',
-	'bloglist_catid_comment' => 'Chọn đăng nhập thuộc về phân loại hệ thống đăng nhập, có thể được lựa chọn',
-	'bloglist_startrow' => 'Số hàng ban đầu ',
-	'bloglist_startrow_comment' => 'Để thiết lập số ban đầu của các hàng, nhập các giá trị cụ thể0 Bắt đầu từ những dòng đầu tiên, và như vậy',
-	'bloglist_titlelength' => 'Độ dài tiêu đề',
-	'bloglist_summarylength' => 'Thông tin về độ dài của',
-	'bloglist_picrequired' => 'Không có bộ lọc đăng nhập bao gồm',
-	'bloglist_picrequired_comment' => 'Không hình ảnh trang bìa của các bộ lọc đăng nhập',
-	'bloglist_hours' => 'Phạm vi thời gian',
-	'bloglist_hours_nolimit' => 'Không giới hạn',
+	'bloglist_blogids' => 'Thiết lập Blog',
+	'bloglist_blogids_comment' => 'Xin vui lòng điền vào ID blog của cụ thể (blogid), sử dụng dấu phẩy (,) để ngăn cách nhiều ID blog.',//'填入指定日志的ID(blogid)，多个日志之间用逗号(,)分隔',
+	'bloglist_uids' => 'UID tác giả',
+	'bloglist_uids_comment' => 'Thiết lập người dùng mà bạn muốn hiển thị.Sử dụng ","  để ngăn cách nhiều UIDs',
+	'bloglist_catid' => 'Chọn thể loại',
+	'bloglist_catid_comment' => 'Chọn thể loại Blog',//'选择日志所属的系统日志分类，可多选',
+	'bloglist_startrow' => 'Hàng đầu tiên',
+	'bloglist_startrow_comment' => 'Điền số 0 nếu muốn là hàng đầu tiên.',//'如需设定起始的数据行数，请输入具体数值，0 为从第一行开始，以此类推',
+	'bloglist_titlelength' => 'Tiêu đề blog',
+	'bloglist_summarylength' => 'Mô tả blog',//'简介长度',
+	'bloglist_picrequired' => 'Chọn lọc hình ảnh trong Blog',
+	'bloglist_picrequired_comment' => 'Chọn lọc mà không cần bìa blog',//'是否过滤没有封面图片的日志',
+	'bloglist_hours' => 'Chọn lọc theo thời gian',
+	'bloglist_hours_nolimit' => 'Không giới hạn',//'不限制',
 	'bloglist_hours_hour' => '1 giờ',
-	'bloglist_hours_day' => '24 giờ',
-	'bloglist_hours_week' => '7 ngày',
-	'bloglist_hours_month' => '1 Tháng',
+	'bloglist_hours_day' => '1 ngày',
+	'bloglist_hours_week' => '1 tuần',
+	'bloglist_hours_month' => '1 tháng',
 	'bloglist_hours_year' => '1 năm',
-	'bloglist_orderby' => 'Phân loại Blog',
-	'bloglist_orderby_comment' => 'Cài đặt để để sắp xếp các Blog',
-	'bloglist_orderby_dateline' => 'Được đăng đảo ngược',
-	'bloglist_orderby_viewnum' => 'Xem đảo ngược thứ tự theo số',
-	'bloglist_orderby_replynum' => 'Bởi số lượng phục hồi ngược',
-	'bloglist_orderby_hot' => 'Ngược lại theo độ hot'
+	'bloglist_orderby' => 'Sắp xếp',
+	'bloglist_orderby_comment' => 'Thiết lập sắp xếp các blog',//'设置以哪一字段或方式对日志进行排序',
+	'bloglist_orderby_dateline' => 'Theo thời gian đăng',//'按发布时间倒序',
+	'bloglist_orderby_viewnum' => 'Lượt xem',//'按查看数倒序',
+	'bloglist_orderby_replynum' => 'Trả lời',//'按回复数倒序',
+	'bloglist_orderby_hot' => 'Hot'
 );
 
 ?>

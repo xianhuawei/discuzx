@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -10,6 +10,8 @@
 
 $lang = array
 (
+	'forumlist_fids' => '指定版块',
+	'forumlist_fids_comment' => '填入指定版块的ID(fid)，多个版块之间用逗号(,)分隔',
 	'forumlist_fups'		=> 'Superior Forum',
 	'forumlist_fups_comment'	=> 'Stelle die Anzeige nach Kategorie oder Unterforen ein.',
 	'forumlist_titlelength'		=> 'Titel L&auml;nge',

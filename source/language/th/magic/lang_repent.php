@@ -5,18 +5,23 @@
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_repent.php by Valery Votintsev at sources.ru
+ *	Translated to Thai by jaideejung007
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
-	'repent_name'			=> 'Repentance Card',//'悔悟卡',
-	'repent_desc'			=> 'Enable to delete your own posts',//'可以删除自己的帖子',
-	'repent_forum'			=> 'Target forums',//'允许使用本道具的版块',
-	'repent_info'			=> 'For delete your post, please enter the post ID',//'删除自己的帖子，请输入帖子的 ID',
-	'repent_info_nonexistence'	=> 'Enter the post to delete',//'请指定要删除的帖子',
-	'repent_succeed'		=> 'Your post was deleted successfully',//'你操作的帖子已删除',
-	'repent_info_noperm'		=> 'Using this magic for this forum is disabled',//'对不起，主题所在版块不允许使用本道具',
-	'repent_info_user_noperm'	=> 'You can delete only your own posts',//'对不起，你只能删除自己的帖子',
+	'repent_name' => 'ลบโพสต์',
+	'repent_desc' => 'ลบโพสต์ ้ข้อความ หรือความคิดเห็นของคุณ ',
+	'repent_forum' => 'สามารถใช้งานได้ในเว็บบอร์ด',
+	'repent_info' => 'ลบข้อความของคุณ กรุณากรอก ID โพสต์',
+	'repent_info_nonexistence' => 'กรุณาระบุโพสต์ที่คุณต้องการลบ',
+	'repent_succeed' => 'โพสต์ของคุณถูกลบเรียบร้อย',
+	'repent_info_noperm' => 'ขออภัย! บอร์ดนี้ไม่อนุญาตให้ใช้ไอเท็มนี้',
+	'repent_info_user_noperm' => 'ขออภัย! คุณไม่สามารถใช้ไอเท็มนี้ได้',
 	'repent_do_not_rushreply'	=> 'Can not use this magic for grabbed floor posts',//'不能在抢楼帖中使用此道具',
 );
 

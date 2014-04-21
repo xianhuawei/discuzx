@@ -7,6 +7,10 @@
  *      $Id: lang_attachmentlist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'attachmentlist_name'		=> 'Liste des Pi&#232;ces Jointes Forum',  //  '论坛附件列表'

@@ -1,10 +1,10 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_template.php by Valery Votintsev at sources.ru
+ *      $Id: lang_template.php by Valery Votintsev, codersclub.org
  *
  *      German Discuz!X Translation (2011-08-16) by Coldcut - http://www.cybertipps.com
  */
@@ -14,6 +14,11 @@ $lang = array (
 	'login_guest'			=> 'Noch kein Konto? <a href="member.php?mod={$_G[setting][regname]}" onclick="hideWindow(\'login\');showWindow(\'register\', this.href);return false;" title="Jetzt registrieren">{$_G[setting][reglinkname]}</a>',//'没有帐号？<a href="member.php?mod={$_G[setting][regname]}" onclick="hideWindow('login');showWindow('register', this.href);return false;" title="注册帐号">注册</a>',
 	'new_password'			=> 'Neues Passwort',//'新密码',
 	'new_password_confirm'		=> 'Neues Passwort best&auml;tigen',//'确认密码',
+	'password_weak'			=> 'Password too weak, it must contain ',//'密码太弱，密码中必须包含',
+	'strongpw_1'			=> 'Digits',//'数字',
+	'strongpw_2'			=> 'Lowercase letters',//'小写字母',
+	'strongpw_3'			=> 'Capital letters',//'大写字母',
+	'strongpw_4'			=> 'Special symbols',//'特殊符号',
 	'submit'			=> 'Absenden',//'提交',
 	'close'				=> 'Schlie&szlig;en',//'关闭',
 	'faq'				=> 'FAQ',//'帮助',
@@ -39,10 +44,12 @@ $lang = array (
 	'register_email_tips'		=> 'Bitte eine g&uuml;ltige E-Mail-Adresse eingeben',//'请输入正确的邮箱地址',
 	'register_message'		=> 'Register Reason',//'注册原因',
 	'register_message1'		=> 'So, if you decided to create a new account here, please fill in the registration info carefully. We will verify all the registration info before approove your apply.',//'您填写的注册原因会被当作申请注册的重要参考依据，请务必认真填写，我们会认真审核。',
+	'register_password_length_tips1'	=> 'The minimum length is ',//'最小长度为',
+	'register_password_length_tips2'	=> ' sharacters',//'个字符',
 	'register_password_tips'	=> 'Bitte Kennwort eingeben',//'请填写密码',
 	'register_repassword_tips'	=> 'Bitte Kennwort erneut eingeben',//'请再次输入密码',
 	'register_username_tips'	=> 'Benutzername muss zwischen 2 und 15 Zeichen bestehen',//'用户名由 3 到 15 个字符组成',
+	'register_validate_email_tips'	=> 'Registration need to verify your mailbox, be sure to fill in correct E-Mail! Please check your email after submission.<br />You may need to wait a few minutes to receive e-mail inbox. If there is no new message, please check the Spam folder.',//'注册需要验证邮箱，请务必填写正确的邮箱，提交后请及时查收邮件。<br />您可能需要等待几分钟才能收到邮件，如果收件箱没有，请检查一下垃圾邮件箱。',
 	'rulemessage'			=> 'Bitte lese dir vor der Registration die Nutzungsbedingungen sorgf&auml;ltig durch!',//'网站服务条款',
-//	'return_login'			=> 'Return to login',//'返回登录',
 );
 

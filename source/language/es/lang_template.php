@@ -60,7 +60,7 @@ $lang = array (
 	'admincp'			=> 'Panel Admin',//'管理中心',
 	'changestyle'			=> 'Cambiar estilo',//'切换风格',
 	'default'			=> 'Default',//'默认',
-	'forum_manager'			=> 'Moderador del foro:',//'论坛管理',
+	'forum_manager'			=> 'ModCP',//'论坛管理',
 	'go_to_mobile'			=> 'Para la versión para móviles',//'进入手机版',
 	'login_switch_invisible_mode'	=> 'Cambiar el estado en línea',//'切换在线状态',
 	'logout'			=> 'Cerrar sesión',//'退出',
@@ -81,6 +81,10 @@ $lang = array (
 	'your_mobile_browser'		=> 'Por favor, seleccione ',//'请选择 ',
 	'e_redo'			=> 'Rehacer',//'重做',
 	'e_undo'			=> 'Deshacer',//'撤销',
+	'e_full_screen'			=> 'Pantalla completa',//'全屏',
+	'e_restore_size'		=> 'Restaurar tamaño',//'恢复',
+	'e_simple'			=> 'Modo general',//'常用',
+	'e_advanced'			=> 'Modo avanzado',//'高级',
 	'header_add_frame'		=> 'Añadir marco',//'添加框架',
 	'header_add_module'		=> 'Añadir bloque',//'添加模块',
 	'header_clearall'		=> 'Borrar todos',//'清空',
@@ -357,11 +361,6 @@ $lang = array (
 
 //---------------------------
 // Added by Valery Votintsev
-
-	'e_full_screen'			=> 'Pantalla completa',//'全屏',
-	'e_restore_size'		=> 'Restaurar tamaño',//'恢复',
-	'e_simple'			=> 'Modo general',//'常用',
-	'e_advanced'			=> 'Modo avanzado',//'高级',
 
 //static/space/t1/style.css
 	'default_style'	=> 'Estilo por defecto',//'[name]默认风格[/name]',

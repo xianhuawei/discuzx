@@ -7,6 +7,10 @@
  *      $Id: lang_email.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 
 $lang = array
 (
@@ -66,7 +70,7 @@ Votre E-mail, Svp. Ignorer ce Mail.</p>
 ----------------------------------------------------------------------<br />
 <strong>Comment Activer le Compte</strong><br />
 ----------------------------------------------------------------------<br />
-
+<br />
 <p>Vous &#202;tes un D&#233;butant de notre Site ou Que Vous Modifiez votre Adresse Email,
 Nous Avons Besoin de V&#233;rifier votre Adresse Email pour &#201;viter un Mail Invalide.</p>
 
@@ -85,6 +89,39 @@ Votre,<br />
 
 {bbname} Team.<br />
 {siteurl}</p>',
+
+	'email_register_subject' =>	'Forum registration',//'论坛注册地址',
+'email_register_message' =>	'<br />
+<p>This letter is sent from {bbname}.</p>
+
+<p>You have received this message due to somebody (may be you) registered this E-Mail address at {bbname}.
+If you do not want to access to {bbname}, or you did not registered at this site,
+please ignore this message.
+
+You do not need to unsubscribe or do any other further action.</p>
+<br />
+----------------------------------------------------------------------<br />
+<strong>New user registration instructions</strong><br />
+----------------------------------------------------------------------<br />
+<br />
+<p>If you are a {bbname} new user, or have modified your registered before Email address,
+it is required to verify your mailbox address in order to avoid junk or malicious e-mail.</p>
+
+<p>For register just click on the link below. The following link is valid for 3 days. After expired you can request to re-send the activation email to a new e-mail address:<br />
+
+<a href="{url}" target="_blank">{url}</a>
+<br />
+(If the above link is not working, copy the link URL and paste it into your browser address bar manually)</p>
+
+<p>Thank you for your visit, we are glad to see you at our site!</p>
+
+
+<p>
+Sincerely yours,<br />
+
+{bbname} management team.<br />
+{siteurl}</p>',
+
 
 	'add_member_subject'	=> 'Renseignements Sur le Compte Important',
 	'add_member_message'	=> '
@@ -148,13 +185,13 @@ Ce Courrier est Envoy&#233; Par {$_G[member][username]} de {$_G[setting][bbname]
 Vous Recevez ce Mail car {$_G[member][username]} a utilis&#233; "Recommandons &#224; des Amis" de {$_G[setting][bbname]}
 et de recommander le contenu ci-dessous. Si cela ne vous int&#233;resses pas, vous pouvez ignorer ce message.
 Vous n\'avez pas besoin de faire d\'autres op&#233;rations.
-
+<br />
 ----------------------------------------------------------------------
 D&#233;but secteur de son contenu
 ----------------------------------------------------------------------
-
-$message
-
+<br />
+$message<br />
+<br />
 ----------------------------------------------------------------------
 Fin du contenu
 ----------------------------------------------------------------------
@@ -169,40 +206,40 @@ $_G[siteurl]',
 	'email_to_invite_message'	=> '
 $sendtoname,
 Ce courrier est envoy&#233; par {$_G[member][username]} de {$_G[setting][bbname]}.
-
+<br />
 Vous recevez ce mail car {$_G[member][username]} a utilis&#233; "Envoyer le code d\'invitation &#224; des amis" de notre forum
 &#224; recommander certains contenus pour vous. Si vous n\'&#234;tes pas interess&#233; eux, vous pouvez ignorer cet e-mail.
 Vous n\'avez pas besoin de faire d\'autres op&#233;rations.
-
+<br />
 ----------------------------------------------------------------------
 D&#233;but secteur de son contenu
 ----------------------------------------------------------------------
-
-$message
-
+<br />
+$message<br />
+<br />
 ----------------------------------------------------------------------
-Contenu Fin
+Contenu Fin<br />
 ----------------------------------------------------------------------
-
+<br />
 Ce mail est envoy&#233; en utilisant "Envoyer le code d\'invitation &#224; des Amis" pour cette fonction,
 ceci n\'est pas un courrier officiel, nous ne serons pas tenus responsables.
-
+<br />
 Bienvenue pour visiter {$_G[setting][bbname]}
 $_G[siteurl]',
 
 
 	'moderate_member_subject'	=> 'Result. Moderation Utilisateur',
 	'moderate_member_message'	=> '
-<p>{username} ,
+<p>{username},
 Ce courrier est envoy&#233; par {bbname}.</p>
 
 <p>Vous recevez ce mail car vous vous &#234;tes enregistr&#233; sur notre site ou quelqu\'un a utilis&#233; votre adresse email.
 Ce mail est utilis&#233; pour envoyer le r&#233;sultat de la mod&#233;ration.</p>
-
+<br />
 ----------------------------------------------------------------------<br />
 <strong>Enreg. information et Resul. moderation</strong><br />
 ----------------------------------------------------------------------<br />
-
+<br />
 Identifiant: {username}<br />
 Date Enreg.: {regdate}<br />
 Date Env.: {submitdate}<br />
@@ -251,4 +288,3 @@ Important!
 <br />----------------------------------------------------------------------<br />',
 );
 
-?>

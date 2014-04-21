@@ -7,6 +7,10 @@
  *      $Id: lang_intercat.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'intercat_name'			=> 'Forum Category adv',//'论坛 分类间广告',
@@ -16,5 +20,6 @@ $lang = array
 	'intercat_position'		=> 'Ads Position',//'投放位置',
 	'intercat_position_comment'	=> 'Set the adv positon below which area',//'设置广告在哪个分区的下方显示',
 	'intercat_position_random'	=> 'Random position',//'所有位置随机',
+	'intercat_position_fav'		=> 'Favorites bar',
 );
 

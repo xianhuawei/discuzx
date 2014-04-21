@@ -7,6 +7,10 @@
  *      $Id: lang_threadlist.php 14950 2010-08-17 08:06:45Z chenchunshao $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'threadlist_name' => 'Danh sách bài',

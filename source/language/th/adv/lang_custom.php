@@ -5,11 +5,16 @@
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_custom.php by Valery Votintsev at sources.ru
+ *	Translated to Thai by jaideejung007
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
-	'custom_name'		=> 'Custom Adv',//'自定义广告',
+	'custom_name'		=> 'โฆษณาแบบกำหนดเอง',//'自定义广告',
 	'custom_desc'		=> 'Add custom adv code in templates or HTML file.<br /><br />
 				<a href="javascript:;" onclick="prompt(\'Please copy (CTRL+C) the content below to templates\', \'<!--{ad/custom_'.$_G['gp_customid'].'}-->\')" />Internal js call/a>&nbsp;
 				<a href="javascript:;" onclick="prompt(\'Please copy (CTRL+C) the content below to HTML files\', \'&lt;script type=\\\'text/javascript\\\' src=\\\''.$_G['siteurl'].'api.php?mod=ad&adid=custom_'.$_G['gp_customid'].'\\\'&gt;&lt;/script&gt;\')" />External js call</a>',

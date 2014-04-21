@@ -1,11 +1,15 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_cornerbanner.php by Valery Votintsev at sources.ru
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -20,6 +24,10 @@ $lang = array
 	'cornerbanner_animator_comment'	=> 'Set whether to display animation show',//'设置展现时是否显示动画效果',
 	'cornerbanner_category'		=> 'Put the portal channels',//'投放门户频道',
 	'cornerbanner_category_comment'	=> 'Set the channel classified advertising, when ads included in the scope of "Portal" valid',//'设置广告投放的频道分类，当广告投放范围中包含“门户”时有效',
+	'cornerbanner_disableclose' => '关闭广告的链接',
+	'cornerbanner_disableclose_comment' => '如果广告代码中已内置关闭操作，可以关闭系统预置的关闭链接',
+	'cornerbanner_show' => '显示',
+	'cornerbanner_hidden' => '隐藏',
 );
 
 ?>

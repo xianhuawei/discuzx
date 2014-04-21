@@ -7,6 +7,10 @@
  *      $Id: lang_groupthread.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'groupthread_fids'			=> 'Group ID',//'群组ID',
@@ -16,7 +20,7 @@ $lang = array
 	'groupthread_uids'			=> 'Author UID',//'楼主UID',
 	'groupthread_uids_comment'		=> 'Specific thread author ID, use "," to seperate IDs',//'指定主题作者ID，多个ID之间用 , 分割',
 	'groupthread_keyword'			=> 'Keywords',//'标题关键字',
-	'groupthread_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤<br />关键字中可使用通配符 "*"<br />匹配多个关键字全部，可用空格或 "AND" 连接。如 win32 AND unix<br />匹配多个关键字其中部分，可用 "|" 或 "OR" 连接。如 win32 OR unix',
+	'groupthread_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤； 关键字中可使用通配符 *； 匹配多个关键字全部，可用空格或 AND 连接。如 win32 AND unix； 匹配多个关键字其中部分，可用 | 或 OR 连接。如 win32 OR unix',
 	'groupthread_startrow'			=> 'Start Row',//'起始数据行数',
 	'groupthread_startrow_comment'		=> 'If you need to set start row, please enter a number, 0 is the first row',//'如需设定起始的数据行数，请输入具体数值，0 为从第一行开始，以此类推',
 	'groupthread_items'			=> 'Rows',//'显示数据条数',
@@ -32,7 +36,7 @@ $lang = array
 	'groupthread_tids'			=> 'Specified threads',//'指定主题',
 	'groupthread_tids_comment'		=> 'Set the specified threads tid you want to display, use "," to seperate tids',//'设置要指定显示的主题 tid ，多个 tid 请用半角逗号“,”隔开。注意: 留空为不进行任何过滤',
 //	'groupthread_keyword'			=> 'Keywords',//'标题关键字',
-//	'groupthread_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤<br />关键字中可使用通配符 "*"<br />匹配多个关键字全部，可用空格或 "AND" 连接。如 win32 AND unix<br />匹配多个关键字其中部分，可用 "|" 或 "OR" 连接。如 win32 OR unix',
+//	'groupthread_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤； 关键字中可使用通配符 *； 匹配多个关键字全部，可用空格或 AND 连接。如 win32 AND unix； 匹配多个关键字其中部分，可用 | 或 OR 连接。如 win32 OR unix',
 	'groupthread_typeids'			=> 'Thread types',//'主题分类',
 	'groupthread_typeids_comment'		=> 'Select specific thread type. Note: Select All or Clear All for disable any filtering.',//'设置特定分类的主题。注意: 全选或全不选均为不进行任何过滤',
 	'groupthread_typeids_all'		=> 'All thread types',//'全部的主题分类',
@@ -86,12 +90,12 @@ $lang = array
 	'groupthread_orderby_todayviews'	=> 'Views today',//'按当天浏览次数倒序排序',
 	'groupthread_orderby_weekviews'		=> 'Views last week',//'按本周浏览次数倒序排序',
 	'groupthread_orderby_monthviews'	=> 'Views last month',//'按当月浏览次数倒序排序',
-	'groupthread_postdateline'		=> 'Publish Time',
-	'groupthread_postdateline_nolimit'	=> 'Any',
-	'groupthread_postdateline_hour'		=> 'Last Hour',
-	'groupthread_postdateline_day'		=> 'Last Day',
-	'groupthread_postdateline_week'		=> 'Last Week',
-	'groupthread_postdateline_month'	=> 'Last Month',
+	'groupthread_postdateline'		=> 'Publish Time',//'主题发布时间',
+	'groupthread_postdateline_nolimit'	=> 'Any',//'不限制',
+	'groupthread_postdateline_hour'		=> 'Last Hour',//'1小时内',
+	'groupthread_postdateline_day'		=> 'Last Day',//'24小时内',
+	'groupthread_postdateline_week'		=> 'Last Week',//'7天内',
+	'groupthread_postdateline_month'	=> 'Last Month',//'1个月内',
 	'groupthread_lastpost'			=> 'Last post',//'最后更新时间',
 	'groupthread_lastpost_nolimit'		=> 'No limit',//'不限制',
 	'groupthread_lastpost_hour'		=> 'Last hour',//'1小时内',
@@ -100,9 +104,9 @@ $lang = array
 	'groupthread_lastpost_month'		=> 'Last month',//'1个月内',
 	'groupthread_orderby_displayorder'	=> 'Order by default',//'按默认顺序',
 	'groupthread_gviewperm'			=> 'Group view permissions',//'群组浏览权限',
-	'groupthread_gviewperm_nolimit'		=> 'No limits',
+	'groupthread_gviewperm_nolimit'		=> 'No limits',//'不限制',
 	'groupthread_gviewperm_only_member'	=> 'Members only',//'仅成员',
-	'groupthread_gviewperm_all_member'	=> 'All',//'所有人'
-	'groupthread_highlight'			=> 'Highlight found words',
+	'groupthread_gviewperm_all_member'	=> 'All',//'所有人',
+	'groupthread_highlight'			=> 'Highlight found words',//'获得高亮值',
 );
 

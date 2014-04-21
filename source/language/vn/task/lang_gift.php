@@ -7,6 +7,10 @@
  *      $Id: lang_gift.php 20567 2011-02-28 02:30:15Z congyushuai $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'gift_name' => 'Lì xì',

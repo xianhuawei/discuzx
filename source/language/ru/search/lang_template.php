@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -25,7 +25,7 @@ $lang = array (
 	'7_days_ago'		=> '1 нед',
 	'90_days_ago'		=> '3 мес',
 	'author'		=> 'Автор',
-	'dateline'		=> 'Дата поста',
+	'dateline'		=> 'Дата публикации',
 	'keywords'		=> 'Ключевые слова',
 	'order_asc'		=> 'По возрастанию',
 	'order_desc'		=> 'По убыванию',
@@ -41,7 +41,7 @@ $lang = array (
 	'search_older'		=> ' ранее ',
 	'search_orderby'	=> 'Тип сортировки',
 	'search_range'		=> 'Диапазон поиска',
-	'search_thread_higher'		=> 'Расширенный поиск постов',
+	'search_thread_higher'		=> 'Расширенный поиск сообщений',
 	'search_thread_range'		=> 'Диапазон тем',
 	'search_thread_range_all'	=> 'Все темы',
 	'search_thread_range_digest'	=> 'Темы с дайджестом',
@@ -64,10 +64,14 @@ $lang = array (
 	'search_group_result_keyword'	=> 'Найдено сообществ: <em>$groupnum</em>, записей: $index[num]</em>',
 	'search_group_viewgroup'	=> 'Просмотр сообщества',
 	'threads'			=> 'Темы',
+	'subscribe'		=> 'Подписка',//'订阅',
+	'comment'		=> 'Комментировать',//'评论',
+	'lastupdate'		=> 'Обновление',//'最后更新',
 	'return_homepage'	=> 'Назад на главную',
 	'visit_my_space'	=> 'На мою страницу',
 	'album'			=> 'Альбомы',
 	'blog'			=> 'Блоги',
+	'collection'		=> 'Коллекции',//'淘帖',
 	'portal'		=> 'Статьи',
 	'quick'			=> 'Быстрый',
 	'search_adv'		=> 'Расширенный',
@@ -87,13 +91,4 @@ $lang = array (
 	'goto_memcp'		=> 'Панель управления',
 	'thread_list_message1'	=> 'Содержит скрытые темы, показать все',
 );
-//	'search_return_normal'		=> 'Return to general search',//'返回普通搜索',
-//	'threadtype_option'	=> 'Thread type option',//'分类信息',
-//	'search_info'		=> 'Sort info(Categories?)',//'分类信息',
-//	'subject'		=> 'Subject',//'标题',
-//	'contactus'		=> 'Contact us',//'联系我们',
-//	'none'			=> 'None',//'无',
-//	'search_option'		=> 'Search Options',//'搜索选项',
-//	'search_quick'		=> 'Quick Search',//'便捷搜索',
 
-?>

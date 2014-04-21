@@ -1,12 +1,16 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_admincp_menu.php by Khalid Nahhal, http://www.ar-discuz.com
- *      Modified by Valery Votintsev at sources.ru
+ *      $Id: lang_admincp_menu.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -29,7 +33,7 @@ $lang = array
 	'header_portal'		=> 'المجلة',//'门户',
 	'header_group'		=> 'المجموعات الاجتماعية',//'群组',
 	'header_founder'	=> 'المدير',//'站长',
-	'header_cloudaddons'	=> 'الاضافات',//'扩展中心',
+	'header_cloudaddons'	=> 'الاضافات',//'应用中心',
 
 
 	'menu_home'			=> 'لوحة تحكم الإدارة',//'管理中心首页',
@@ -38,7 +42,7 @@ $lang = array
 	'menu_setting_basic'		=> 'الإعدادات الاساسية',//'站点信息',
 	'menu_setting_access'		=> 'التسجيل ولوحة التحكم',//'注册与访问',
 	'menu_setting_customnav'	=> 'شريط التنقل (النافبار)',//'导航栏',
-	'menu_setting_styles'		=> 'اعدادت الاستايل',//'界面设置',
+	'menu_setting_styles'		=> 'إعدادت الاستايل',//'界面设置',
 	'menu_setting_optimize'		=> 'الارشفة والسيرفر',//'优化设置',
 	'menu_setting_seo'		=> 'إعدادات الأرشفة SEO',
 	'menu_setting_functions'	=> 'مزايا المنتدى',//'站点功能',
@@ -52,6 +56,7 @@ $lang = array
 	'menu_setting_imgwater'		=> 'العلامة المائية',//'水印设置',
 	'menu_setting_uc'		=> 'إعدادات اليوسينتر',//'UCenter 设置',
 	'menu_setting_uchome'		=> 'UCHome اعددات',//'UCHome 设置',
+	'menu_setting_follow'		=> 'التتبعات',//'广播设置',
 	'menu_setting_home'		=> 'إعدادات الملف الشخصي',//'空间设置',
 	'menu_setting_search'		=> 'إعدادات البحث',//'搜索设置',
 	'menu_setting_district'		=> 'اعدادت الدول والسكن',//'地区设置',
@@ -61,13 +66,15 @@ $lang = array
 
 	'menu_forums'			=> 'الأقسام',//'版块管理',
 	'menu_forums_merge'		=> 'دمج الأقسام',//'版块合并',
-	'menu_forums_threadtypes'	=> 'انواع المواضيع',//'主题分类',
-	'menu_forums_infotypes'		=> 'انواع الأقسام',//'分类信息',//vot: !!! May be 'Sort IDs',/'Category(ies)',/
-	'menu_forums_infooption'	=> 'خيارات الانواع',//'分类信息选项',
+	'menu_forums_threadtypes'	=> 'أنواع المواضيع',//'主题分类',
+	'menu_forums_infotypes'		=> 'أنواع الأقسام',//'分类信息',//vot: !!! May be 'Sort IDs',/'Category(ies)',/
+	'menu_forums_infooption'	=> 'خيارات الأنواع',//'分类信息选项',
 
 	'menu_members_add'		=> 'إضافة عضو',//'添加用户',
 	'menu_members_edit'		=> 'تعديل عضو',//'用户管理',
 	'menu_members_newsletter'	=> 'رسائل إدارية',//'发送通知',
+	'menu_members_mobile'		=> 'إرسال إشعار للهواتف',//'发送手机通知',
+	'menu_usertag'			=> 'الكلمات الدلالية للأعضاء',//'用户标签',
 	'menu_members_edit_ban_user'	=> 'حظر عضو',//'禁止用户',
 	'menu_members_ipban'		=> 'حظر  IP ',//'禁止 IP',
 	'menu_members_credits'		=> 'نقاط المكافأت',//'积分奖惩',
@@ -79,10 +86,10 @@ $lang = array
 	'menu_profilefields'		=> 'حقول الملف الشخصي',//'用户栏目定制',
 	'menu_admingroups'		=> 'مجموعات الإدارة',//'管理组',
 	'menu_usergroups'		=> 'مجموعات الأعضاء',//'用户组',
-	'menu_hotuser'			=> 'الأعضاء النشيطون',//'明星会员',
+	'menu_follow'			=> 'التتبع',//'推荐关注',
 	'menu_defaultuser'		=> 'الأعضاء الافتراضيون',//'推荐好友',
 
-	'menu_moderate_posts'		=> 'الاشراف على المشاركات',//'审核帖子',
+	'menu_moderate_posts'		=> 'الإشراف على المشاركات',//'审核帖子',
 	'menu_moderate_blogs'		=> 'المدونات',//'审核日志',
 	'menu_moderate_doings'		=> 'الأفعال',//'审核记录',
 	'menu_moderate_pictures'	=> 'الصور',//'审核图片',
@@ -93,9 +100,10 @@ $lang = array
 	'menu_maint_threads'		=> 'إدارة المواضيع',//'主题管理',
 	'menu_maint_prune'		=> 'حذف مشاركة',//'批量删帖',
 	'menu_maint_attaches'		=> 'إدارة المرفقات',//'附件管理',
-	'menu_maint_threads_group'	=> 'الاشراف على مواضيع المجموعات',//'群组主题管理',
+	'menu_maint_threads_group'	=> 'الإشراف على مواضيع المجموعات',//'群组主题管理',
 	'menu_maint_prune_group'	=> 'الحذف الجماعي لمواضيع المجموعات',//'群组批量删帖',
-	'menu_maint_attaches_group'	=> 'الاشراف على مرفقات المجموعات',//'群组附件管理',
+	'menu_maint_attaches_group'	=> 'الإشراف على مرفقات المجموعات',//'群组附件管理',
+	'menu_setting_collection'	=> 'إدارة ألبومات المشاركات',
 	'menu_posting_tags'		=> 'إدارة الكلمات الدلالية',//'标签管理',
 	'menu_posting_censors'		=> 'تصفية الكلمات السيئة',//'词语过滤',
 	'menu_maint_report'		=> 'التبليغات',//'用户举报',
@@ -120,15 +128,18 @@ $lang = array
 	'menu_founder_permgrouplist'	=> 'تعديل الصلاحيات - {perm}',//'编辑权限 - {perm}',
 	'menu_founder_memberperm'	=> 'تعديل صلاحيات العضو - {username}',//'编辑团队成员 - {username}',
 
-	'menu_addons'			=> 'الاضافات',//'扩展中心',
+	'menu_patch'			=> 'مركز الحماية',//'安全中心',
+	'menu_upgrade'			=> 'الترقية أونلاين',//'在线升级',
+
+	'menu_addons'			=> 'الاضافات',//'应用中心',
 	'menu_plugins'			=> 'الهاكات',//'插件',
 	'menu_tasks'			=> 'المهام',//'站点任务',
 	'menu_magics'			=> 'الدعائم',//'道具中心',
 	'menu_medals'			=> 'الأوسمة',//'勋章中心',
 	'menu_misc_help'		=> 'التعليمات',//'站点帮助',
 	'menu_google'			=> 'بحث جوجل',//'Google 搜索',
-	'menu_ec'			=> 'التجارة الالكترونية (غير معرب)',//'电子商务',
-	'menu_card'			=> 'إعادة شحن',
+	'menu_ec'			=> 'التجارة الالكترونية (إنجليزي)',//'电子商务',
+	'menu_card'			=> 'نظام الكابونات',
 
 	'menu_styles'			=> 'إدارة الاستايل',//'风格管理',
 	'menu_styles_templates'		=> 'إدارة القوالب',//'模板管理',
@@ -148,42 +159,45 @@ $lang = array
 	'menu_tools_updatecaches'	=> 'تحديث الكاش',//'更新缓存',
 	'menu_tools_postposition'	=> 'تحسين مواقع المشاركات',//'高楼贴优化',
 	'menu_tools_updatecounters'	=> 'تحديث الإحصائيات',//'更新统计',
-	'menu_tools_javascript'		=> 'Javascript calls',//'数据调用',
+	'menu_tools_javascript'		=> 'نداءات الجافا سكربت',//'数据调用',
 	'menu_tools_relatedtag'		=> ' الكلمات الدلالية المتعلقة',//' 标签聚合',
 	'menu_tools_creditwizard'	=> 'معالجة النقاط',//'积分策略向导',
 	'menu_tools_fileperms'		=> 'فحص صلاحيات الملفات',//'文件权限检查',
+	'menu_tools_hookcheck'		=> 'فحص Hooks',//'嵌入点校验',
 	'menu_tools_filecheck'		=> 'فحص الملفات',//'文件校验',
 	'menu_forum_scheme'		=> 'نظام برنامج الموقع',//'站点方案管理',
 	'menu_db'			=> 'قاعدة البيانات',//'数据库',
 	'menu_postsplit'		=> 'تقسيم المشاركات',//'帖子分表',
 	'menu_threadsplit'		=> 'جداول المواضيع',//'主题分表',
+	'menu_membersplit'		=> 'جداول الأعضاء',//'用户表优化',
 	'menu_logs'			=> 'السجلات',//'运行记录',
 	'menu_custommenu_manage'	=> 'إدارة قائمة مخصصة',//'常用操作管理',
 	'menu_misc_cron'		=> 'الجدولة الدورية',//'计划任务',
 
-	'menu_article'			=> 'إدارة المقالات',//'文章管理',
-	'menu_portalcategory'		=> 'أقسام المدونات',//'日志分类',
-	'menu_blogcategory'		=> 'أقسام المدونات',
-	'menu_albumcategory'		=> 'أقسام الألبومات',//'相册分类',
-	'menu_block'			=> 'المربعات الجانبية',//'模块管理',
-	'menu_blockstyle'		=> 'ستايلات المربعات الجانبية',//'模块样式',
-	'menu_blockxml'			=> '3rd-party موديلات ',
-	'menu_topic'			=> 'إدارة المواضيع',//'专题管理',
-	'menu_diytemplate'		=> 'إدارة استايل مخصص',//'DIY页面管理',
+	'menu_article'		=> 'إدارة المقالات',//'文章管理',
+	'menu_portalcategory'	=> 'أقسام المدونات',//'文章分类',
+	'menu_blogcategory'	=> 'أقسام المدونات',//'日志分类',
+	'menu_albumcategory'	=> 'أقسام الألبومات',//'相册分类',
+	'menu_block'		=> 'المربعات الجانبية',//'模块管理',
+	'menu_blockstyle'	=> 'ستايلات المربعات الجانبية',//'模块样式',
+	'menu_portalpermission'		=> 'إذونات المجلة',//'权限列表',
+	'menu_blockxml'		=> '3rd-party موديلات ',//'第三方模块',
+	'menu_topic'		=> 'إدارة المواضيع',//'专题管理',
+	'menu_diytemplate'	=> 'إدارة إستايل مخصص',//'DIY页面管理',
 
-	'menu_group_setting'		=> 'إعدادات المجموعات',//'群组设置',
-	'menu_group_type'		=> 'أقسام المجموعات',//'群组分类',
-	'menu_group_manage'		=> 'إدارة المجموعات',//'群组管理',
-	'menu_group_userperm'		=> 'صلاحيات المجموعات',//'群主权限',
-	'menu_group_level'		=> 'مستويات المجموعات',//'群组等级',
+	'menu_group_setting'	=> 'إعدادات المجموعات',//'群组设置',
+	'menu_group_type'	=> 'أقسام المجموعات',//'群组分类',
+	'menu_group_manage'	=> 'إدارة المجموعات',//'群组管理',
+	'menu_group_userperm'	=> 'صلاحيات المجموعات',//'群主权限',
+	'menu_group_level'	=> 'مستويات المجموعات',//'群组等级',
+	'menu_group_mod'		=> 'الإشراف على المجموعات',//'审核群组',
 
-	'menu_setting_manyou'		=> 'Manyou settings',//'Manyou 设置',
-	'menu_setting_qqconnect'	=> 'QQ binding settings',//'QQ 绑定设置',
+	'menu_setting_manyou'		=> 'Manyou إعدادات',//'Manyou 设置',
+	'menu_setting_qqconnect'	=> 'إعدادات إتصال QQ ',//'QQ 绑定设置',
 
 	'admincp_title'			=> $_G['setting']['bbname'].' لوحة التحكم ',
 
 // Added by Valery Votintsev
-	'menu_setting_language'		=> 'Languages',
-
+	'menu_setting_language'		=> 'اللغات',
 );
 

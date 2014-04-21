@@ -17,6 +17,7 @@ $lang = array (
 	'join'				=> 'Unirse',//'人参加',
 	'message'			=> 'Mensaje',//'条留言',
 	'none_data'			=> 'No hay datos',//'没有相关数据',
+	'ranklist'			=> 'Lista de Ranking',//'排行',
 	'ranklist_activity'		=> 'Top Eventos',//'活动排行',
 	'ranklist_activity_end'		=> 'Fecha límite',//'报名截止',
 	'ranklist_activity_start'	=> 'Hora de inicio:',//'活动时间:',
@@ -33,7 +34,6 @@ $lang = array (
 	'comment'			=> 'Comentarios',//'评论',
 	'comment_ranklist'		=> 'Top Comentadados',//'评论排行',
 	'hot_ranklist'			=> 'Top Clasificado',//'人气排行',
-	'ranklist'			=> 'Lista de Ranking',//'排行',
 	'ranklist_thread_view'		=> 'Temas vistos',//'查看',
 	'views'				=> 'vistas:',//'人气:',
 	'visit_ranklist'		=> 'Top visitado',//'查看排行',
@@ -44,7 +44,6 @@ $lang = array (
 	'ranklist_forum_post'		=> 'Mensajes',//'发帖',
 	'ranklist_post'			=> 'Publicar clasificado',//'发帖排行',
 	'ranklist_post_day'		=> 'Calificación el último día',//'最近 24 小时发帖排行',
-	'ranklist_post_month'		=> 'Calificación el mes pasado',//'最近 30 天发帖排行',
 	'ranklist_reply'		=> 'Top Respuestas',//'回复排行',
 	'reply'				=> 'Respuestas',//'回复',
 	'credit_num'			=> 'Número de puntos',//'积分数',
@@ -135,4 +134,3 @@ $lang = array (
 	'thread'		=> 'Temas',//'主题',
 );
 
-?>

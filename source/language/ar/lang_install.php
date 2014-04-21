@@ -4,9 +4,9 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: install_lang.php by Valery Votintsev at sources.ru
+ *      $Id: lang_install.php by Valery Votintsev at sources.ru
  *
- *	Arabic Language Pack by Khalid Nahhal, http://www.ar-discuz.com
+ *	Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
 
 define('UC_VERNAME', 'النسخة العربية');
@@ -14,7 +14,7 @@ define('UC_VERNAME', 'النسخة العربية');
 $lang = array(
 	'SC_GBK'		=> 'Simplified Chinese GBK encoding',//'简体中文版',
 	'TC_BIG5'		=> 'Traditional Chinese BIG5 encoding',//'繁体中文版',
-	'SC_UTF8'		=> 'النسخة العربية من Discux X2 !',//'简体中文 UTF8 版',
+	'SC_UTF8'		=> 'Simplified Chinese UTF8 encoding',//'简体中文 UTF8 版',
 	'TC_UTF8'		=> 'Traditional Chinese UTF8 encoding',//'繁体中文 UTF8 版',
 	'EN_ISO'		=> 'عربي ISO8859',
 	'EN_UTF8'		=> 'عربي UTF-8',
@@ -31,12 +31,12 @@ $lang = array(
 	'install_wizard'	=> 'الاعداد والتثبيت ',//'安装向导',
 	'config_nonexistence'	=> 'ملف الاعدادت الكونفيج غير موجود',//'配置文件不存在',
 	'nodir'			=> 'الدليل غير موجود',//'目录不存在',
-	'redirect'		=> 'سيتم التوجيه التلقائي<br>اذا كان متصفحك لا يدعم الإنتقال التلقائي إضغط هنا',
+	'redirect'		=> 'سيتم التوجيه التلقائي<br>إذا كان متصفحك لا يدعم الإنتقال التلقائي إضغط هنا',
 	'auto_redirect'		=> 'سيتم التوجيه التلقائي',
 	'database_errno_2003'	=> 'لا يمكن الاتصال بقاعدة البيانات، تحقق ما إذا كان يتم تشغيل قاعدة البيانات وعنوان ملقم قاعدة البيانات بشكل صحيح.',//'无法连接数据库，请检查数据库是否启动，数据库服务器地址是否正确',
 	'database_errno_1044'	=> 'غير قادر على إنشاء قاعدة بيانات جديدة، الرجاء التحقق من إسم قاعدة بيانات غير صحيحة.',//'无法创建新的数据库，请检查数据库名称填写是否正确',
 	'database_errno_1045'	=> 'لا يمكن الاتصال بقاعدة البيانات، تحقق من صحة إسم مستخدم قاعدة البيانات وكلمة المرور.',//'无法连接数据库，请检查数据库用户名或者密码是否正确',
-	'database_errno_1064'	=> 'SQL Syntax error',//'SQL 语法错误',
+	'database_errno_1064'	=> 'خطأ SQL Syntax',//'SQL 语法错误',
 
 	'dbpriv_createtable'	=> 'لا يوجد صلاحية  CREATE TABLE , لا يمكن مواصلة عملية التثبيت.',//'没有CREATE TABLE权限，无法继续安装',
 	'dbpriv_insert'		=> 'لا يوجد صلاحية  INSERT , لا يمكن مواصلة عملية التثبيت.',//'没有INSERT权限，无法继续安装',
@@ -45,11 +45,11 @@ $lang = array(
 	'dbpriv_delete'		=> 'لا يوجد صلاحية DELETE , لا يمكن مواصلة عملية التثبيت.',//'没有DELETE权限，无法继续安装',
 	'dbpriv_droptable'	=> 'لا يوجد صلاحية DROP TABLE  للتثبيت.',//'没有DROP TABLE权限，无法安装',
 
-	'db_not_null'		=> ' قاعدة بيانات UCenter مثبتة مسبقاً, continue the installation will clear the old data.',//'数据库中已经安装过 UCenter, 继续安装会清空原有数据。',
+	'db_not_null'		=> ' قاعدة بيانات UCenter مثبتة مسبقاً, إستمرار التثبيت سيقوم بمسح البيانات القديمة.',//'数据库中已经安装过 UCenter, 继续安装会清空原有数据。',
 	'db_drop_table_confirm'	=> 'لاستكمال التثبيت يجب مسح كافة البيانات القديمة ,استمرار?',
 
-	'writeable'		=> 'مسموح للكتابة',//'可写',
-	'unwriteable'		=> 'غير مسموح',//'不可写',
+	'writeable'		=> 'قابل للكتابة',//'可写',
+	'unwriteable'		=> 'غير قابل للكتابة',//'不可写',
 	'old_step'		=> 'الخطوة السابقة',//'上一步',
 	'new_step'		=> 'الخطوة التالية',//'下一步',
 
@@ -80,22 +80,25 @@ $lang = array(
 
 	'ext_info_succ'		=> 'تم التثبيت بنجاح.',//'安装成功。',
 	'install_submit'	=> 'موافق',//'提交',
-	'install_locked'	=> 'تم اقفال التثبيت.<br><br>اذا كنت تريد إعادة التثبي قم من فضلك بحذف ملف <br />'.str_replace(ROOT_PATH, '', $lockfile),//'安装锁定，已经安装过了，如果您确定要重新安装，请到服务器上删除<br /> '.str_replace(ROOT_PATH, '', $lockfile),
+	'install_locked'	=> 'تم اقفال التثبيت.<br><br>إذا كنت تريد إعادة التثبي قم من فضلك بحذف ملف <br />'.str_replace(ROOT_PATH, '', $lockfile),//'安装锁定，已经安装过了，如果您确定要重新安装，请到服务器上删除<br /> '.str_replace(ROOT_PATH, '', $lockfile),
 	'error_quit_msg'	=> 'ويجب أن حل المشاكل المذكورة أعلاه، قبل متابعة التثبيت.',//'您必须解决以上问题，安装才可以继续',
 
-	'step_app_reg_title'	=> 'اخيار البيئة',//'设置运行环境',
-	'step_app_reg_desc'	=> 'Check the server environment, and set UCenter',//'检测服务器环境以及设置 UCenter',
-	'tips_ucenter'		=> 'Please fill in the information for UCenter',//'请填写 UCenter 相关信息',
-	'tips_ucenter_comment'	=> 'UCenter is the Comsenz inc. core service program. Discuz! Board and other Comsenz applications rely on this program. If you have already installed UCenter, please fill in the information below. Otherwise, please go to <a href="http://www.discuz.com/" target="blank">Comsenz Products</a> to download and install UCenter, and then continue.',//'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="http://www.discuz.com/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。',
+	'step_app_reg_title'	=> 'إختيار البيئة',//'设置运行环境',
+	'step_app_reg_desc'	=> 'فحص حالة الخادم, وتعيين UCenter',//'检测服务器环境以及设置 UCenter',
+	'tips_ucenter'		=> 'الجراء ملئ المعلومات لـ UCenter',//'请填写 UCenter 相关信息',
+	'tips_ucenter_comment'	=> 'UCenter هو إحدى برامج شركة Comsenz. وهو برنامج يقدم خدمات. منتدى Discuz! ومنتجات Comsenz الأخرى تتأسس على هذا البرنامج. إذا قمت بتثبيت UCenter مسبقاً , الرجاء ملء المعلومات بالأسفل. غير ذلك, إذهب إلى  <a href="http://www.discuz.com/" target="blank">منتجات Comsenz</a> لتحميل وتثبيت  UCenter, ومن ثم المواصلة.',//'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="http://www.discuz.com/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。',
 
 	'advice_mysql_connect'		=> 'Please check the mysql module is loaded correctly.',//'请检查 mysql 模块是否正确加载',
-	'advice_fsockopen'		=> 'This function require the <b>allow_url_fopen</b> option to be <b>On</b> in php.ini. Please contact the server administrator to resolve this problem.',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
 	'advice_gethostbyname'		=> 'PHP configuration is not allowed the <b>gethostbyname</b> function. Please contact the server administrator to resolve this problem.',//'是否php配置中禁止了gethostbyname函数。请联系空间商，确定开启了此项功能',
 	'advice_file_get_contents'	=> 'This function require the <b>allow_url_fopen</b> option to <b>On</b> in php.ini. Please contact the server administrator to resolve this problem.',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
 	'advice_xml_parser_create'	=> 'This function require the PHP support for XML. Please contact the server administrator to resolve this problem.',//'该函数需要 PHP 支持 XML。请联系空间商，确定开启了此项功能',
+	'advice_fsockopen'		=> 'This function require the <b>allow_url_fopen</b> option to be <b>On</b> in php.ini. Please contact the server administrator to resolve this problem.',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
+	'advice_pfsockopen'		=> 'This function requires to allow_url_fopen in php.ini. Please contact the hosting provider to set this value',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
+	'advice_stream_socket_client'	=> 'Whether enabled the stream_socket_client function in PHP configuration',//'是否 PHP 配置中禁止了 stream_socket_client 函数',
+	'advice_curl_init'		=> 'Whether enabled the curl_init function in PHP configuration',//'是否 PHP 配置中禁止了 curl_init 函数',
 
-	'ucurl'				=> 'UCenter URL',//'UCenter 的 URL',
-	'ucpw'				=> 'UCenter administrator password',//'UCenter 创始人密码',
+	'ucurl'				=> 'رابط UCenter',//'UCenter 的 URL',
+	'ucpw'				=> 'كلمة مرور مدير UCenter ',//'UCenter 创始人密码',
 	'ucip'				=> 'UCenter IP address',//'UCenter 的IP地址',
 	'ucenter_ucip_invalid'		=> 'Invalid format, please fill in the correct IP address',//'格式错误，请填写正确的 IP 地址',
 	'ucip_comment'			=> 'In most cases you can leave this empty',//'绝大多数情况下您可以不填',
@@ -111,7 +114,7 @@ $lang = array(
 	'adminemail'			=> 'بريد الإدارة',//'系统信箱 Email',
 	'adminemail_comment'		=> 'يستخدم لإرسال اخطاء النظام',//'用于发送程序错误报告',
 	'dbhost_comment'		=> 'عادة يكون localhost',//'数据库服务器地址, 一般为 localhost',
-	'tablepre_comment'		=> 'For use multiple applications with the same database, please modify the teble prefix',//'同一数据库运行多个论坛时，请修改前缀',
+	'tablepre_comment'		=> 'For use multiple applications with the same database, please modify the table prefix',//'同一数据库运行多个论坛时，请修改前缀',
 	'forceinstall_check_label'	=> 'أريد حذف كافة البيانات، وبدء تثبيت جديدة!',//'我要删除数据，强制安装 !!!',
 
 	'uc_url_empty'			=> 'You have to fill in the UCenter URL',//'您没有填写 UCenter 的 URL，请返回填写',
@@ -139,8 +142,8 @@ $lang = array(
 	'admininfo_password_invalid'	=> 'Administrator password is blank, please fill in',//'管理员密码为空，请填写',
 	'admininfo_password2_invalid'	=> 'Two passwords are not equal, please check',//'两次密码不一致，请检查',
 
-	'install_dzfull'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> تثبيت جديد لـ Discuz! X 2 (يحتوي على UCenter (مستحسن))</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> 全新安装 Discuz! X (含 UCenter Server)</label>',
-	'install_dzonly'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> تثبيت Discuz! X فقط (غير مستحسن)</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> 仅安装 Discuz! X (手工指定已经安装的 UCenter Server)</label>',
+/*vot*/	'install_dzfull'		=> 'تثبيت جديد لـ Discuz! X (يحتوي على UCenter (مستحسن))',//'全新安装 Discuz! X (含 UCenter Server)',
+/*vot*/	'install_dzonly'		=> 'تثبيت Discuz! X فقط (غير مستحسن)',//'仅安装 Discuz! X (手工指定已经安装的 UCenter Server)',
 
 	'username'			=> 'إسم المدير',//'管理员账号',
 	'email'				=> 'بريد المدير',//'管理员 Email',
@@ -244,7 +247,7 @@ $lang = array(
 	'init_gift_task'	=> 'Init Gift Task',//'红包类任务',
 	'init_avatar_task'	=> 'Avatar Task',//'头像类任务',
 
-	'license'	=> '<div class="license"><h1>Chinese version of license agreement applies to Chinese users</h1>
+	'license'	=> '<div class="license"><h1>License agreement</h1>
 
 <p>Copyright (c) 2001-2010, Hong Sing Imagination (Beijing) Technology Co., Ltd. All rights reserved.</p>
 
@@ -287,16 +290,20 @@ $lang = array(
 
 
 <p>Hong Sing products on the end user license agreement, business license and technical services to the details provided by the Hong Sing exclusive. Sing the company has without prior notice, modify the license agreement and services price list right to the modified agreement or price list from the change of the date of the new authorized user to take effect.</p>
+
 <p>Once you start the installation Hong Sing products, shall be deemed to fully understand and accept the terms of this Agreement, the terms in the enjoyment of the rights granted at the same time, by the relevant constraints and restrictions. Licensing agreement outside the scope of acts would be a direct violation of this License Agreement and constitute an infringement, we have the right to terminate the authorization, shall be ordered to stop the damage, and retain the power to investigate related responsibilities.</p>
+
 <p>The interpretation of the terms of the license agreement, validity, and dispute resolution, applicable to the mainland People\'s Republic of law.</p>
+
 <p>Between Hong Sing if you and any dispute or controversy, should first be settled through friendly consultations, the consultation fails, you hereby agree to submit the dispute or controversy Sing Haidian District People\'s Court where jurisdiction. Hong Sing Company has the right to interpret the above terms and discretion.</p>
+
 </div>',
 
-	'uc_installed'		=> 'You have installed the UCenter. If you need to re-install, delete the data/install.lock file',//'您已经安装过 UCenter，如果需要重新安装，请删除 data/install.lock 文件',
+	'uc_installed'		=> 'أنت قمت بتثبيت UCenter. اذا كنت تريد إعادة التثبيت, إحذف ملف data/install.lock ',//'您已经安装过 UCenter，如果需要重新安装，请删除 data/install.lock 文件',
 	'i_agree'		=> 'لقد قمت بقراءة الشروط واوفق على مانص',//'我已仔细阅读，并同意上述条款中的所有内容',
 	'supportted'		=> 'مدعوم',//'支持',
 	'unsupportted'		=> 'غير مدعوم',//'不支持',
-	'max_size'		=> 'مدعوم / الحد الاقصى من الحجم',//'支持/最大尺寸',
+	'max_size'		=> 'مدعوم / الحد الأقصى من الحجم',//'支持/最大尺寸',
 	'project'		=> 'مشروع',//'项目',
 	'ucenter_required'	=> 'مطلوب',//'Discuz! 所需配置',
 	'ucenter_best'		=> 'مستحسن',//'Discuz! 最佳',
@@ -337,14 +344,6 @@ $lang = array(
 	'create_table'		=> 'إنشاء جدول ',//'建立数据表',
 	'succeed'		=> ' تم بنجاح ',//'成功 ',
 
-	'testdata'		=> 'بيانات إضافية)باللغة الانجليزية)',
-	'testdata_check_label'	=> 'بيانات إقليمي كامل (أربعة مستويات)(باللغة الانجليزية)',
-	'portalstatus'		=> 'فتح المجلة',
-	'portalstatus_check_label'	=> '',
-	'groupstatus'		=> 'فتح المجموعات الاجتماعية',
-	'groupstatus_check_label'	=> '',
-	'homestatus'		=> 'فتح الملف الشخصي',
-	'homestatus_check_label'	=> '',
 	'install_data'		=> 'تثبيت البيانات',
 	'install_test_data'	=> 'تثبيت بيانات إضافية(باللغة الانجليزية)',
 
@@ -352,14 +351,15 @@ $lang = array(
 	'database_nonexistence'	=> 'لا يوجد قاعدة بيانات',
 	'skip_current'		=> 'تخطي هذه الخطوة',
 	'topic'			=> 'المواضيع',
+
+
 //---------------------------------------------------------------
-//vot 2 vars for language select:
+// Added by Valery Votintsev
+// 2 vars for language select:
 	'welcome'			=> 'أهلا ومرحبا بك في برنامج تثبيت Discuz!',
 	'select_language'		=> '<b>الرجاء إختيار لغة برنامج التثبيت</b>:',
-//vot !!!Translate to Chinese!!!
-//vot	'regiondata'			=> 'Add regions data',//'Add location data',
-//vot	'regiondata_check_label'	=> 'Install additional regional data (countries/regions/cities)',//'Install additional regional data (countries/regions/cities)',
-//vot	'install_region_data'		=> 'Install regional data',//'Install regional data',
+	'mbstring'			=> 'MBstring Library',//'MBstring 库',
+
 
 //---------------------------------------------------------------
 
@@ -371,4 +371,3 @@ $msglang = array(
 	'config_nonexistence'	=> 'ملف config.inc.php غير موجود, غير قادر على متابعة التثبيت، الرجاء إستخدام بروتوكول نقل الملفات لتحميل الملف وحاول مرة أخرى.',
 );
 
-?>

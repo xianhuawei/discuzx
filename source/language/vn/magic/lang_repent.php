@@ -7,6 +7,10 @@
  *      $Id: lang_repent.php 21648 2011-04-06 09:13:41Z liulanbo $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'repent_name' => 'Thẻ hối hận',

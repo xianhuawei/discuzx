@@ -7,6 +7,10 @@
  *      $Id: lang_connect.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 
@@ -14,6 +18,7 @@ $lang = array
 	'deletethread_sync_success'	=> 'Effacer Rubrique de la synchronisation avec Succ&#232;s ', // 'Delete topic successful synchronization'
 	'deletethread_sync_failed'	=> 'La synchronisation a &#233;chou&#233; le sujet Effacer', // 'Delete topic synchronization failed'
 	'server_busy'			=> 'D&#233;sol&#233;, Il existe actuellement des probl&#232;mes de r&#233;seau ou de serveur occup&#233;, Svp. essayer &#224; nouveau plus tard. ', // 'Sorry, currently there are network problems or server busy, please try again later. '
+	'share_token_outofdate'		=> 'For your account security, Please use QQ account to log in again for upgrade your account security mechanisms<br/><br/>Click <a href={login_url}><img src=static/image/common/qq_login.gif class=vm alt="QQ login" /></a>, the page will redirected',//'为了您的账号安全，请使用QQ帐号重新登录，将为您升级帐号安全机制<br/><br/>点击<a href={login_url}><img src=static/image/common/qq_login.gif class=vm alt=QQ登录 /></a>页面将发生跳转',
 	'share_success'			=> 'Partage en cours avec Succ&#232;s', // 'Sharing success'
 	'broadcast_success'		=> 'Diffusion r&#233;ussie', // Successful broadcast
 
@@ -26,6 +31,7 @@ $lang = array
 	'qzone_subject_is_empty'	=> 'Le titre ne peut pas &#234;tre vide', // 'The title can not be empty'
 	'qzone_subject_is_long'		=> 'Le titre d&#233;passe la limite en longueur', // 'The title over the length limit'
 	'qzone_reason_is_long'		=> 'La raison d&#233;passe la limite en longueur', // 'The reason more than the length limit'
+	'qzone_share_same_url'		=> 'The post is allready shared, Not need to repeat sharing',//'该帖子您已经分享过，不需要重复分享',
 
 	'weibo_title'			=> 'Pour partager mon microblog, par la mani&#232;re Dites quelque chose', // 'To share my microblogging, by the way Say something'
 	'weibo_input'			=> 'Peut entrer dans le  <strong id=checklen></strong> mot', // 'Can enter the  <strong id=checklen></strong> word'
@@ -33,6 +39,7 @@ $lang = array
 	'weibo_share'			=> 'Partage', // Share
 	'weibo_share_to'		=> 'Tencent pour diffusions microblogging', // 'Tencent broadcasts to microblogging'
 	'weibo_reason_is_long'		=> 'Blog micro contenu sup&#233;rieures &#224; la limite en longueur', // 'Microblogging content exceeds the length limit'
+	'weibo_same_content'		=> 'The post is allready broadcasted, not need to repeat broadcasting',//'该帖子您已经转播过，不需要重复转播',
 	'weibo_account_not_signup'	=> 'D&#233;sol&#233;, vous ne pouvez pas ouvrir Blog micro, ne peut pas partager le contenu <a href=http://t.qq.com/reg/index.php target=_blank>Cliquez ici pour ouvrir imm&#233;diatement</a>.', // 'Sorry,your can not open microblogging,can not share content <a href=http://t.qq.com/reg/index.php target=_blank>Click here to immediately open</a>.'
 	'user_unauthorized'		=> 'D&#233;sol&#233;, vous n\'&#234;tes pas autoris&#233; &#224; partager le th&#232;me de cette Espace pour le QQ, Tencent, Tencent micro-Bo et ses Amis.', // 'Sorry, you are not authorized to share the space theme to the QQ, Tencent, Tencent micro-Bo and friends.'
 
@@ -40,6 +47,9 @@ $lang = array
 	'connect_errlog_access_token_incomplete'	=> 'L\'insuffisance des donn&#233;es jeton d\'Acc&#232;s', // 'Incomplete Access Token data'
 	'connect_errlog_request_token_not_authorized'	=> 'Jeton Utilisateurs non autoris&#233;s ou retourner sur des donn&#233;es incompl&#232;tes', // 'Token unauthorized users or return incomplete data'
 	'connect_errlog_sig_incorrect'			=> 'URL de la Signature est Incorrecte', // 'URL Signature is not correct'
+
+	'connect_tthread_broadcast'	=> 'Broadcast to microblog',//'转播微博',
+	'connect_tthread_message'	=> '<br><br><img class="vm" src="static/image/common/weibo.png">&nbsp;<a href="http://t.qq.com/{username}" target="_blank">From {nick} at Tencent microblog</a>',//'<br><br><img class="vm" src="static/image/common/weibo.png">&nbsp;<a href="http://t.qq.com/{username}" target="_blank">来自 {nick} 的腾讯微博</a>',
+	'connect_tthread_comment'	=> 'Microblog Comments',//'微博评论',
 );
 
-?>

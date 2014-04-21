@@ -1,10 +1,10 @@
 <?php
 
 /**
- *	[Discuz!] (C)2001-2099 Comsenz Inc.
- *	This is NOT a freeware, use is subject to license terms
+ *	  [Discuz!] (C)2001-2099 Comsenz Inc.
+ *	  This is NOT a freeware, use is subject to license terms
  *
- *	$Id: lang_admincp_cloud.php by Valery Votintsev at sources.ru
+ *	  $Id: lang_admincp_cloud.php by Valery Votintsev at sources.ru
  */
 
 $extend_lang = array
@@ -26,12 +26,10 @@ $extend_lang = array
 	'menu_cloud_connect'	=> 'QQ Connect',//'QQ互联',
 	'menu_cloud_search'	=> 'Aspect Search',//'纵横搜索',
 	'menu_cloud_stats'	=> 'Tencent analysis',//'腾讯分析',
-	'menu_cloud_security'	=> 'Cloud security',//'防水墙',
+	'menu_cloud_security'	=> 'Cloud security',//'云安全',
 	'menu_cloud_smilies'	=> 'SOSO Smiles',//'SOSO表情',
 	'menu_cloud_qqgroup'	=> 'QQ Community Group',//'社区QQ群',
 	'menu_cloud_union'	=> 'Adv Union',//'广告联盟',
-	'menu_cloud_mobile'	=> 'Mobile client',//'手机客户端',
-	'menu_cloud_storage'	=> 'Tornado storage',//'旋风存储',
 
 	'close'			=> 'Close',//'关闭',
 	'continue'		=> 'Continue',//'继续',
@@ -169,17 +167,14 @@ $extend_lang = array
 	'cloud_smilies'			=> 'SOSO smiles',//'SOSO表情',
 	'cloud_smilies_tips'		=> '<li>Search to make the world look for the site brings a lot of fun and experience.</li><li>Omit the tedious process of uploading smiles, seamless "illegal"QQ expression to your website, forum expression is no longer monotonous.</li>',//'<li>搜尽天下表情，为网站带来无穷的乐趣与体验。</li>
 //		<li>省略繁琐的上传表情流程，无缝“偷渡”QQ表情到您的网站，论坛表情变得不再单调无味。</li>',
-	'cloud_storage'			=> 'Tornado storage',//'旋风存储',
-	'cloud_storage_tips'		=> '<li>Space-saving bandwidth for the site, allowing users to enjoy high-speed storage of large files, upload and download the best in the clouds.</li>
-					<li>Experience high-speed uploading and downloading, support for a single file attachment upload up to 2GB, permanent attachment to reduce costs for the Forum.</li>',
 
 	'cloud_smilies_status'		=> 'Enable SOSO smiles',//'启用SOSO 表情',
 
 	'setting_manyou'		=> 'Roaming application settings',//'漫游应用设置',
 	'setting_manyou_tips'		=> '<li>If open roaming applications, the user can choose a variety of applications (such as Texas Hold\'em, Bouncing Church, ten years at the station sword ...) for use.</li><li>Roaming applications provided by <a target="_blank" href="http://www.manyou.com/www/">MYOP open platform</a>, Manyou Open Platform (Manyou open platform / MYOP) Service is provided by Comsenz company provides open application development platform, enable the roaming service before, <a href="http://wiki.developer.manyou.com/wiki/index.php?title=MYOP%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AE&printable=yes" target="_blank">Read MYOP site service agreement</a></li>',//'<li>开启漫游应用功能后，用户可以自由选择各种不同的应用(诸如德克萨斯扑克、弹弹堂、十年一剑......)在站内进行使用。</li>
 //					<li>漫游应用功能由 <a target="_blank" href="http://www.manyou.com/www/">MYOP开放平台</a> 提供， Manyou Open Platform(Manyou开放平台/MYOP)服务是由 Comsenz 公司为应用开发者提供的开放平台，启用漫游服务前，<a href="http://wiki.developer.manyou.com/wiki/index.php?title=MYOP%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AE&printable=yes" target="_blank">请先阅读MYOP网站服务协议</a></li>',
-	'setting_manyou_base'			=> 'Basic settings',//'基本设置',
-	'setting_manyou_base_status'		=> 'Enable roaming applications',//'启用漫游应用',
+	'setting_manyou_base'		=> 'Basic settings',//'基本设置',
+	'setting_manyou_base_status'	=> 'Enable roaming applications',//'启用漫游应用',
 	'setting_manyou_base_status_comment'	=> 'Choose whether to open roaming applications. If you turn off roaming application, your site users will not use any roaming-based application',//'选择是否开启漫游应用。如果关闭漫游应用，您的网站用户将不能使用任何基于漫游的应用',
 	'setting_manyou_search_status'		=> 'Enable Roaming search',//'启用漫游搜索',
 	'setting_manyou_search_status_comment'	=> 'Roaming search is designed for Discuz! products and tailored to the efficient, full-text search service, does not used the site MySQL resources',//'漫游搜索是专为 Discuz! 产品量身定做的高效、全文搜索服务，无须网站的 MySQL 资源',
@@ -198,14 +193,14 @@ $extend_lang = array
 	'setting_manyou_manage'			=> 'Roaming Application Management',//'漫游应用管理',
 	'setting_manyou_search_manage'		=> 'Roaming Search Management',//'漫游搜索管理',
 
-	'connect_menu_setting'			=> 'Basic settings',//'基本设置',
-	'connect_menu_service'			=> 'Service',//'其他',
-	'connect_menu_stat'			=> 'Statistic',//'数据统计',
-	'connect_setting_allow'			=> 'Allow QQ Registration/Binding/Login Service',//'开启QQ注册/绑定/登录服务',
-	'connect_setting_allow_comment'		=> 'If turned on, the user can use QQ account for login to the site, as well as do more related operations',//'开启后，用户可以通过QQ帐号登录站点，以及进行更多和QQ相关的操作',
-	'connect_setting_siteid'		=> 'QQ binding site ID',//'QQ绑定站点ID',
-	'connect_setting_sitekey'		=> 'QQ binding site key',//'QQ绑定站点密钥',
-	'connect_setting_feed_allow'		=> 'Allow post synchronous push to the QQ space feed',//'开启发帖同步推送到QQ空间动态',
+	'connect_menu_setting'		=> 'Basic settings',//'基本设置',
+	'connect_menu_service'		=> 'Service',//'其他',
+	'connect_menu_stat'		=> 'Statistic',//'数据统计',
+	'connect_setting_allow'		=> 'Allow QQ Registration/Binding/Login Service',//'开启QQ注册/绑定/登录服务',
+	'connect_setting_allow_comment'	=> 'If turned on, the user can use QQ account for login to the site, as well as do more related operations',//'开启后，用户可以通过QQ帐号登录站点，以及进行更多和QQ相关的操作',
+	'connect_setting_siteid'	=> 'QQ binding site ID',//'QQ绑定站点ID',
+	'connect_setting_sitekey'	=> 'QQ binding site key',//'QQ绑定站点密钥',
+	'connect_setting_feed_allow'	=> 'Allow post synchronous push to the QQ space feed',//'开启发帖同步推送到QQ空间动态',
 	'connect_setting_feed_allow_comment'	=> 'If enabled, users can synchronous push post to the QQ space feed, for show to the user friends in QQ space',//'开启后，用户发帖可以同步推送到QQ空间动态，展现给用户的QQ空间好友',
 	'connect_setting_feed_fids'		=> 'Allow Push the forum IDs',//'允许推送的论坛版块',
 	'connect_setting_feed_group'		=> 'Group are allowed to push',//'群组是否允许推送',
@@ -291,63 +286,8 @@ $extend_lang = array
 	'qqgroup_preview_button'	=> 'Push information',//'推送信息',
 	'attach_img'			=> 'Image Attachment',//'图片附件',
 
-	'security_member_list'		=> 'Violation users',//'违规用户',
-	'security_thread_list'		=> 'Violation threads',//'违规主题',
-	'security_post_list'		=> 'Violation replies',//'违规回帖',
-	'security_members_name'		=> 'User names',//'用户名',
-	'security_members_eviltype'	=> 'Malicious type',//'恶意类型',
-	'security_post_eviltype'	=> 'Malicious type',//'恶意类型',
-	'security_thread_eviltype'	=> 'Malicious type',//'恶意类型',
-	'security_isreported'		=> 'Has been reported before',//'是否已经上报过',
-	'security_admin_operate'	=> 'Status',//'状态',
-	'security_isreported_yes'	=> 'Yes',//'是',
-	'security_isreported_no'	=> 'No',//'否',
-	'security_type_1'		=> 'Politic',//'政治',
-	'security_type_2'		=> 'Porno',//'色情',
-	'security_type_3'		=> 'Irrigation',//'灌水',
-	'security_type_4'		=> 'Hang horse',//'',//'挂马',
-	'security_type_5'		=> 'Advertising',//'广告',
-	'security_type_6'		=> 'Other',//'其他',
-	'security_opreateresult_0'	=> 'Recycle Bin',//'回收站',
-	'security_opreateresult_1'	=> 'Normal',//'正常',
-	'security_opreateresult_2'	=> 'Deleted',//'已删除',
-	'security_opreateresult_3'	=> 'Ignored',//'忽略',
-	'security_subject'		=> 'Title',//'标题',
-	'security_forum'		=> 'Forum',//'版块',
-	'security_author'		=> 'Author/Post time',//'作者/发帖时间',
-	'security_view'			=> 'View',//'查看',
-	'security_view_thread'		=> 'View thread',//'查看主题',
-	'security_clicktotoggle'	=> 'Click to collapse/expand details',//'点击折叠/展开详细内容',
-	'security_foldall'		=> 'Collapse all',//'全部折叠',
-	'security_exfoldall'		=> 'Expand all',//'全部展开',
-	'security_userdeleted'		=> 'User was deleted',//'该用户已被管理人员删除',
-	'security_postdeleted'		=> 'Post was deleted',//'该帖子已被管理人员删除',
-	'security_modreason'		=> 'Waterproof wall automatic processing',//'防水墙自动处理',
-	'security_restore_user'		=> 'Restore user',//'恢复该用户',
-	'security_change_usergroup'	=> 'Change User Group',//'更改用户组',
-
-	'recyclebin_search_security_thread'	=> 'Contains only waterproof wall subject',//'仅包含防水墙处理的主题',
-	'recyclebin_search_security_post'	=> 'Contains only waterproof wall replies',//'仅包含防水墙处理的回帖',
-
-	'security_index'			=> 'Home',//'首页',
-	'security_index_list'			=> 'Home',//'首页',
-	'security_setting'			=> 'White List settings',//'白名单设置',
-	'security_blanklist'			=> 'White List settings',//'白名单设置',
-	'security_setting_list'			=> 'White List settings',//'白名单设置',
-	'security_tips'				=> 'Tips',//'小贴士',
-	'security_tips_1'			=> '<li><p>Threads and replies into the system identifies Violation threads and irregularities replies, automatic <a href="admin.php?action=recyclebin" style="text-decoration:none; color:#0000FF;">Recycle Bin</a></p></li>',//'<li><p>系统识别到违规主题和违规回帖后，自动将主题和回帖放入<a href="admin.php?action=recyclebin" style="text-decoration:none; color:#0000FF;">回收站</a></p></li>',
-	'security_white_list_setting'		=> 'White List settings',//'白名单设置',
-	'security_usergroup_white_list'		=> 'White list of user groups',//'用户组白名单',
-	'security_usergroup_white_list_comment'	=> 'Operation for the selected user groups. If waterproof wall is not treated, you can hold down the CTRL for multiple choice',//'所选用户组内用户的操作，防水墙不做处理，可以按住 CTRL 多选',
-	'security_forum_white_list'		=> 'Forum white list',//'版块白名单',
-	'security_forum_white_list_comment'	=> 'Thread and reply within the selected forum, waterproof wall not deal with, hold down the CTRL for multiple choice',//'所选版块内的主题和回复，防水墙不做处理，可以按住 CTRL 多选',
-	'security_recyclebin_thread'		=> 'Deal with Threads to the Recycle Bin',//'到回收站处理主题',
-	'security_recyclebin_post'		=> 'To recycle bin processing replies',//'到回收站处理回帖',
-	'security_thread_status'		=> 'Thread Status',//'主题状态',
-	'security_post_status'			=> 'Replies status',//'回帖状态',
-	'security_thread_member'		=> 'User status',//'用户状态',
-	'setting_update_succeed'		=> 'Current settings updated successfully',//'当前设置更新成功',
 );
 
-$GLOBALS['admincp_actions_normal'][] = 'cloud'; // DO NOT TRANSLATE THIS!!
+$GLOBALS['admincp_actions_normal'][] = 'cloud';
 
+?>

@@ -4,17 +4,14 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_admincp_msg.php by Valery Votintsev at sources.ru
+ *      $Id: lang_admincp_msg.php by Valery Votintsev, codersclub.org
  *
  *      This file is automatically generate
  */
 
 $lang = array (
 
-  'addons_provider_nonexistence'	=> 'Fournisseur des Ressources inexistant',
-  'addons_provider_disabled'		=> 'Fournisseur des Ressources inexistant ou a &#233;t&#233; Ferm&#233;',
   'admingroups_edit_succeed'		=> 'Param&#232;tres de Gestion des Autorisations de Groupe Mis &#224; Jour R&#233;ussi ',
-  'adv_succeed'				=> 'R&#233;ussi Ajout&#233; ou Mis &#224; Jour Publicit&#233; ou Annonce',
   'albumcategory_move_category_failed'	=> 'Album ne Peut pas &#234;tre D&#233;plac&#233; Vers la Cat&#233;gorie Sp&#233;cifi&#233;e',
   'albumcategory_delete_succeed'	=> 'Supprim&#233; R&#233;ussi Classification Album ',
   'announce_time_invalid'		=> 'Nous Sommes D&#233;sol&#233;s, Vous n\'Avez pas Entr&#233; le Temps de D&#233;marrage ou la Fin du Temps Vous Saisissez une Entr&#233;e Incorrect',
@@ -25,6 +22,10 @@ $lang = array (
   'blockstyle_delete_succeed'		=> 'Succ&#232;s pour enlever le mod&#232;le du module ',
   'blogcategory_move_category_failed'	=> 'Impossible de d&#233;placer le journal &#224; la Cat&#233;gorie Indiquez',
   'blogcategory_delete_succeed'		=> 'Effacer la r&#233;ussite de classification des journaux ',
+  'filecheck_nofound_md5file'	=> 'Consultez le fichier qui inexistant, Cette opération ne peut aboutir',
+	'cloudaddons_download_error'		=> 'Data download error',//'数据下载错误',
+	'cloudaddons_downloading'		=> 'Application {addonid} downloading, please wait...',//'应用 {addonid} 下载中，请稍候 ......',
+	'collection_admin_updated'		=> 'Collection managed successfully',//'专辑管理操作成功',
   'counter_member_succeed'		=> 'Messages de l\'Utilisateur reconstruites',
   'credits_update_succeed'		=> 'R&#233;ussite de l\'int&#233;gration des r&#232;gles M-&#224;j. ',
   'noaccess_isfounder'			=> 'Vous n\'avez pas la permission d\'acc&#233;der aux R&#233;glages, Pour des raisons de s&#233;curit&#233; seulement le fondateur peut utiliser le site, Svp. V&#233;rifiez config/config_global.php Fondateur de l\'ensemble des documents',
@@ -40,15 +41,16 @@ $lang = array (
   'founder_perm_member_noexists'	=> 'L\'Utilisateur inexistant',
   'founder_perm_member_update_succeed'	=> 'Informations sur l\'&#233;quipe de Gestion a &#233;t&#233; mis &#224; jour avec Succ&#232;s ',
   'group_nonexist'			=> 'Groupe inexistant',
+  'grouptype_delete_sub_notnull'	=> 'Il y a des niveaux inf&#233;rieurs de la classification, Svp. revenir &#224; supprimer la ou les Cat&#233;gories des groupes subordonn&#233;s',
   'magics_data_succeed'			=> 'M-&#224;j. sur avec Succ&#232;s des accessoires ',
   'medals_please_input'			=> 'Svp. choisissez l\'action m&#233;daille',
   'forums_formulaperm_error'		=> 'Expression des droits est non valide',
   'medals_succeed'			=> 'Modification de la m&#233;daille avec Succ&#232;s ',
   'members_no_find_deluser'		=> 'D&#233;sol&#233;, Il n\'est pas n&#233;cessaire de supprimer la recherche l\'Utilisateur',
   'members_delete_succeed'		=> 'Admissibles Conditions {numdeleted} L\'Utilisateur a &#233;t&#233; supprim&#233; avec Succ&#232;s',
-  'undefined_action'			=> 'Op&#233;ration Non D&#233;fini',
   'members_nonexistence'		=> 'Svp. entrer votre nom d\'Utilisateur pour faire fonctionner',
   'members_edit_nonexistence'		=> 'Indiquez que l\'Utilisateur inexistant',
+  'undefined_action'			=> 'Op&#233;ration Non D&#233;fini',
   'members_edit_medals_nonexistence'	=> 'M&#233;daille pas disponible actuellement, Allez "m&#233;daille Centre", puis faire cela afin de permettre la m&#233;daille',
   'members_email_illegal'		=> 'Adresse E-mail n\'est pas valide',
   'members_email_domain_illegal'	=> 'Email Ne pas utiliser un nom de domaine e-mail qui contient',
@@ -57,16 +59,19 @@ $lang = array (
   'members_profile_edit_succeed'	=> 'A jour la colonne Utilisateur Succ&#232;s ',
   'members_stat_update_data_succeed'	=> 'Statistiques M-&#224;j. avec Succ&#232;s ',
   'members_reward_succeed'		=> 'Mise en œuvre r&#233;ussie de l\'Utilisateur des points de R&#233;compense ',
+	'membersplit_split_must_be_closed'	=> 'Please close access to the site before the users optimization',//'请在站点关闭的状态下进行用户优化操作',
   'dzcode_edit_tag_invalid'		=> 'Etiquette de code est vide ou contient des caract&#232;res ill&#233;gaux',
   'dzcode_edit_succeed'			=> 'Discuz! Code est mis &#224; jour ',
   'censor_keywords_tooshort'		=> 'Ajouter la longueur mot cl&#233; est trop court (moins de 3 octets)',
+  'attachtypes_duplicate'		=> 'R&#233;p&#233;tez la proc&#233;dure pour ajouter des extensions en vigueur',
   'crons_succeed'			=> 'T&#226;che de mise avec Succ&#232;s du Plan ',
   'nav_add_succeed'			=> 'Barre de navigation &#224; jour avec Succ&#232;s ',
   'nav_not_found'			=> 'Navigation ou de type non trouv&#233;',
+	'patch_successful'			=> 'Operation completed successfully',//'操作成功',
   'plugin_not_found'			=> 'Plugin non trouv&#233;',
-  'plugins_edit_identifier_invalid'	=> 'Identifiant unique que vous avez entr&#233; n\'est pas valide ou dupliquer plug-ins existants',
   'plugins_install_succeed'		=> 'Plugin install&#233; avec Succ&#232;s!<br />Pour utiliser correctement ce plug-in, Vous pouvez aussi avoir besoin de t&#233;l&#233;charger ou de modifier le fichier appropri&#233; ou un mod&#232;le, Svp. v&#233;rifiez les instructions d\'installation du plug-in',
   'plugin_file_error'			=> 'Plug-in fichiers manquants',
+  'plugins_edit_identifier_invalid'	=> 'Identifiant unique que vous avez entr&#233; n\'est pas valide ou dupliquer plug-ins existants',
   'plugins_upgrade_succeed'		=> 'Plug-in d\'am&#233;lioration &#224; la r&#233;ussite de {toversion}',
   'plugins_edit_name_invalid'		=> 'Vous n\'avez pas saisi le nom du plugin',
   'plugins_edit_succeed'		=> 'avec Succ&#232;s &#224; jour du plug-in de configuration ',
@@ -77,13 +82,15 @@ $lang = array (
   'postsplit_forum_must_be_closed'	=> 'Svp. &#233;tat du site ferm&#233; d\'exploitation mobile sous les posts des titres',
   'postsplit_done'			=> 'Succ&#232;s de transfert des Donn&#233;es, Le prochain post sera la source pour optimiser la table d\'op&#233;ration, Remarque: Plus le temps pass&#233; &#224; optimiser la table, Durant cette p&#233;riode, il ne faut pas red&#233;marrer le serveur ou arr&#234;ter le service MySQL',
   'postsplit_doing'			=> 'Les Donn&#233;es sont transf&#233;r&#233;es,La table actuel est{datalength}Les Donn&#233;es, Gauche{nowdatalength}Stockage des Donn&#233;es en attente',
-  'fields_edit_succeed'			=> 'Section des informations Utilisateur &#224; jour avec Succ&#232;s ',
   'recyclebin_succeed'			=> 'Corbeille &#224; jour avec Succ&#232;s, Commun {threadsdel} Th&#232;me est supprim&#233;, {threadsundel} Sujets &#224; &#234;tre restaur&#233;',
   'search_result_noexists'		=> 'D&#233;sol&#233;, Aucune op&#233;ration de configuration ou de gestion pour trouver des concern&#233;s!<br />Entrez les mots de recherche multiples(Entre diff&#233;rents mots s&#233;par&#233;s par un espace, Non sensible &#224; la casse)Vous pouvez obtenir des r&#233;sultats plus pr&#233;cis',
   'smilies_directory_invalid'		=> 'Expression des Mati&#232;res {smurl} inexistante, Vous pouvez FTP Cr&#233;er un R&#233;pertoire {smurl} Et de t&#233;l&#233;charger l\'&#233;motic&#244;ne correspondante',
   'smilies_edit_succeed'		=> 'Liste M-&#224;j. de l\'expression avec Succ&#232;s ',
   'smilies_type_nonexistence'		=> 'Expression Classification Sp&#233;cifi&#233;e inexistant',
   'specialuser_defaultuser_edit_succeed'	=> 'Modification avec Succ&#232;s ',
+  'specialuser_defaultuser_add_invaild'		=> 'Vous devez saisir un nom Utilisateur et ajouter des raisons',
+  'specialuser_defaultuser_added_invalid'	=> 'L\'Utilisateur doit ajout&#233; un',
+  'specialuser_defaultuser_nouser_invalid'	=> 'Cet Utilisateur est inexistant',
   'styles_edit_succeed'			=> 'Interface du programme mis &#224; jour ',
   'parameters_error'			=> 'Erreur de Param&#232;tre',
   'tasks_succeed'			=> 'T&#226;che avec Succ&#232;s ajout&#233;s ou &#224; jour ',
@@ -99,14 +106,17 @@ $lang = array (
   'threadtype_infotypes_optionvariable_iskeyword'	=> 'Nom de la variable d\'options n\'est pas autoris&#233;e &#224; utiliser',
   'threadtype_infotypes_optionvariable_invalid'	=> 'Les options de tri d&#233;doublement nom de la variable',
   'threadtype_infotypes_succeed'	=> 'Option de M-&#224;j. au Succ&#232;s de classification ',
+  'forums_threadtypes_duplicate'	=> 'Proc&#233;dure pour Ajouter Classification des Sujets et le Syst&#232;me Actuel',
+	'threadtype_import_succeed'		=> 'Imported successfully',//'导入成功',
   'usergroups_nonexistence'		=> 'Groupe Utilisateurs sp&#233;cifi&#233; inexistant',
   'usergroups_copy_source_invalid'	=> 'Vous n\'avez pas choisis pour copier le Groupe Utilisateur source',
   'members_verify_succeed'		=> 'R&#233;ussite de l\'audit des Donn&#233;es ',
   'members_verify_update_succeed'	=> 'Les param&#232;tres d\'authentification &#224; jour avec Succ&#232;s ',
+  'action_noaccess'			=> 'D&#233;sol&#233;, Vous n\'avez aucun droit d\'utiliser cette fonctionnalit&#233;',
   'members_delete_confirm'		=> 'Cette action ne peut pas &#234;tre restaur&#233;, Etes-vous s&#251;r de vouloir Effacer &#233;ligibles {membernum} Utilisateurs ne sont?',
-
-  'addons_provider_apiinvalid'		=> 'Erreur de Connexion des Fournisseurs de Ressources',
-  'addons_provider_removesucceed'	=> 'Fournisseur de ressources a &#233;t&#233; supprim&#233;',
+	'cloudaddons_check_write_error'		=> 'Unable to create or write directory "data/download/" or "data/addonmd5/", This will cause the application can not be installed. Please check the server environment',//'"data/download/" 或 "data/addonmd5/" 目录无法创建或写入，这将会导致应用无法安装，请检查服务器环境',
+	'cloudaddons_file_read_error'		=> 'File read error, please try again',//'文件读取错误，请重试',
+	'cloudaddons_file_write_error'		=> 'File write error, please try again',//'文件写入错误，请重试',
 
   'admingroups_edit_nonexistence'	=> 'Svp. choisir un Groupe de Gestion &#224; op&#233;rer:',
 
@@ -116,6 +126,7 @@ $lang = array (
   'adv_title_more'			=> 'D&#233;sol&#233;, Plus de titre de votre annonce 50 Les caract&#232;res',
   'adv_endtime_invalid'			=> 'Vous entrez dans l\'annonce se termine avant l\'heure de d&#233;part de l\'heure courante ou additionnel',
   'adv_parameter_invalid'		=> 'Et montrer le chemin vous ne remplissez pas le Contenu obligatoire des correspondants',
+  'adv_succeed'				=> 'R&#233;ussi Ajout&#233; ou Mis &#224; Jour Publicit&#233; ou Annonce',
 
   'album_move_succeed'			=> 'Album a &#233;t&#233; d&#233;plac&#233; de la Cat&#233;gorie Indiquez',
   'album_choose_at_least_one_operation'	=> 'Svp. Choisir l\'exploitation',
@@ -159,9 +170,8 @@ $lang = array (
   'card_make_step'			=> 'Carte est g&#233;n&#233;r&#233;e: la premi&#232;re{step}Etape/Commun{step_num}Etape, Avec Succ&#232;s{succeed_num}M. Zhang/R&#233;p&#233;tition{fail_num}M. Zhang',
   'card_make_rate_succeed'		=> 'Carte &#224; g&#233;n&#233;rer compl&#232;tes!Cliquez ici pour g&#233;n&#233;rer des r&#232;gles pour le num&#233;ro de carte est r&#233;p&#233;t&#233; de trop au hasard!La Symbiose est Devenu{succeed_num}M. Zhang, Un Echec{fail_num}M. Zhang',
   'card_make_succeed'			=> 'Carte &#224; g&#233;n&#233;rer compl&#232;tes!La symbiose est devenu{succeed_num}M. Zhang, En &#233;chec{fail_num}M. Zhang',
-  'action_noaccess'			=> 'D&#233;sol&#233;, Vous n\'avez aucun droit d\'utiliser cette fonctionnalit&#233;',
 
-  'filecheck_nofound_md5file'	=> 'Consultez le fichier qui inexistant, Cette opération ne peut aboutir',
+	'hookcheck_nodelhook'		=> 'There is NO lost Hook files',//'没有丢失嵌入点的文件',
   'imagepreview_errorcode_0'	=> 'Les photos ne r&#233;pondent pas aux conditions de transformation, ne peut pas g&#233;rer',
   'imagepreview_errorcode_-1'	=> 'Image non valide, ne peut pas g&#233;rer',
   'imagepreview_errorcode_-2'	=> 'Fichier droits d\'acc&#232;s insuffisants, Impossible de traiter l\'image',
@@ -169,6 +179,13 @@ $lang = array (
   'imagepreview_errorcode_-4'	=> 'Le serveur est absent des fonctions n&#233;cessaires de traitement d\'image, ne peut pas g&#233;rer',
   'watermarkpreview_error'	=> 'Fonction filigrane n\'est pas activ&#233;, Impossible de pr&#233;visualiser',
   'robots_output'		=> 'T&#233;l&#233;charger ce Fichier, Et de t&#233;l&#233;charger dans le r&#233;pertoire racine de votre site <a href="{siteurl}robots.txt" target="_blank">{siteurl}robots.txt</a> Lieu Bureau',
+
+	'cloudaddons_validator_error'		=> 'Validation failed, You can not download this application',//'校验失败，您无法下载此应用',
+	'cloudaddons_download_write_error'	=> 'File can not be downloaded, make sure the "data/download/" directory is writable',//'文件无法下载，请确认 "data/download/" 目录是否可写',
+	'cloudaddons_install_error'		=> 'You can not install this application: ({ErrorCode})',//'您不能安装此应用({ErrorCode})',
+	'cloudaddons_installing'		=> 'Installing the application {addonid}, please wait...',//'应用 {addonid} 安装中，请稍候......',
+	'cloudaddons_install_files_changed'	=> 'The following files are missing or modified, Whether to continue the covering?<br /><br />{files}',//'以下文件丢失或者被修改过，是否继续覆盖？<br /><br />{files}',
+	'cloudaddons_pack_installed'		=> 'Addon installation is completed',//'扩展安装完毕',
 
   'counter_forum_succeed'		=> 'Messages du forum reconstruites',
   'counter_digest_succeed'		=> 'Sujets de bons ou biens reconstruites',
@@ -206,6 +223,7 @@ $lang = array (
   'setting_district_edit_success'	=> 'Modifier la r&#233;ussite de Donn&#233;es r&#233;gionales ',
 
   'setting_domain_repeat_error'	=> 'Dupliquer la configuration du nom de domaine',
+	'setting_domain_need_default_error'	=> 'Please set the default domain name',//'请设置默认域名',
 
   'alipay_not_contract'		=> 'Svp. entrer dans le Alipay informations relatives aux abonn&#233;s',
   'alipay_succeed'		=> 'Fonction Alipay mis avec Succ&#232;s ',
@@ -252,7 +270,6 @@ $lang = array (
   'group_status_off'		=> 'Svp. ouvrir le groupe de fonctions, Maintenant, allez &#224; la page Param&#232;tres du Groupe',
   'group_update_succeed'	=> 'Param&#232;tres de classification Groupe mis &#224; jour avec Succ&#232;s ',
   'grouptype_delete_succeed'	=> 'Classification du Groupe supprim&#233; avec Succ&#232;s ',
-  'grouptype_delete_sub_notnull'	=> 'Il y a des niveaux inf&#233;rieurs de la classification, Svp. revenir &#224; supprimer la ou les Cat&#233;gories des groupes subordonn&#233;s',
   'grouptype_delete_confirm'	=> 'Cette action ne peut pas &#234;tre restaur&#233;, Etes-vous s&#251;r de vouloir supprimer la classification, Il nettoie que les messages et les accessoires?<br />Remarque: Suppression d\'un groupe ne met pas &#224; jour les messages des Utilisateurs et des points',
   'grouptype_delete_alarm'	=> 'Cette action ne peut pas &#234;tre restaur&#233;, Suppression des Donn&#233;es du groupe...',
   'group_name_exist'		=> 'Le nom du Groupe existe d&#233;j&#224;',
@@ -280,6 +297,7 @@ $lang = array (
   'group_mergetype_confirm'	=> 'Action de Groupe combin&#233; ne peut pas &#234;tre restaur&#233;, Confirmez que vous souhaitez fusionner?',
   'group_mergetype_target_error'	=> 'Erreur de classification cible',
   'group_mergetype_succeed'	=> 'Classification des Succ&#232;s de la fusion ',
+	'group_mod_succeed'			=> 'Group moderated successfully ',//'群组审核成功 ',
 
   'magics_parameter_invalid'	=> 'compl&#233;ter le param&#232;tre Accessoiriste incompl&#232;te',
   'magics_identifier_invalid'	=> 'Accessoiriste pour identifier uniquement r&#233;p&#233;t&#233;s',
@@ -302,11 +320,12 @@ $lang = array (
   'members_edit_groups_isfounder'	=> 'Le Fondateur du site que l\'Utilisateur est, Vous ne pouvez pas changer de Groupe de l\'Utilisateur au propre Utilisateur',
   'members_edit_groups_illegal'		=> 'Groupes d\'Utilisateurs et Groupes d\'Utilisateurs a expir&#233; l\'Utilisateur appartient &#224; par le m&#234;me actuel',
   'members_edit_groups_succeed'		=> 'Modifier Groupe Utilisateurs de l\'Utilisateur attribue le Succ&#232;s de ',
+	'members_edit_credits_failure'		=> 'Optimized user Will not be able to edit points ',//'已优化的用户将不能编辑积分 ',
   'members_edit_credits_succeed'	=> 'R&#233;ussite de l\'int&#233;gration modifier Identifiant ',
   'members_edit_medals_succeed'		=> 'M&#233;daille modifier Identifiant avec Succ&#232;s ',
   'members_edit_illegal'		=> 'Vous ne pouvez pas directement emp&#234;cher l\'Utilisateur, Svp.<a href="{ADMINSCRIPT}?action=members&operation=search&uid={uid}&submit=yes&frames=yes" target="_blank">Modifier</a>D&#233;barrassez-vous de son "{grouptitle}"Statut',
+	'members_edit_illegal_portal'		=> 'You can not directly prevent the user, please <a href="{ADMINSCRIPT}?action=portalpermission&uid={uid}" target="_blank">Check its related portal permissions</a> and clear',//'您不能直接禁止该用户，请<a href="{ADMINSCRIPT}?action=portalpermission&uid={uid}" target="_blank">查询其门户相关权限</a>并清除',
   'members_edit_reason_invalid'		=> 'Vous n\'avez pas saisi les raisons de ce changement',
-  'members_not_found'			=> 'Indique que l\'Utilisateur n\'est pas trouv&#233;',
   'members_access_succeed'		=> 'avec Succ&#232;s l\'autorisation de mettre &#224; jour le site de l\'Utilisateur sp&#233;cifi&#233; ',
   'members_ipban_nopermission'		=> 'Seul un Administrateur peut utiliser la fonction "*"Wildcard',
   'members_ipban_illegal'		=> 'Erreur de L\'op&#233;rateur!Votre propre IP Existe d&#233;j&#224; dans la liste des blocs',
@@ -326,6 +345,14 @@ $lang = array (
   'members_confermedal_notify_succeed'	=> 'Mise en œuvre avec Succ&#232;s la M&#233;daille, Et avertir l\'Utilisateur doit',
   'members_confermagic_notify_succeed'	=> 'Donner des Accessoiristes avec Succ&#232;s, Et avertir l\'Utilisateur doit',
 
+	'membersplit_split_in_backstage'	=> 'Optimization in progress, Please try again later ...',//'正在进行用户优化，请稍后重试...',
+	'membersplit_split_check_table'		=> 'Data table consistency check in progress ...',//'正在进行数据表一致性检查...',
+	'membersplit_split_succeed'		=> 'Optimization is completed, no more user sto optimize',//'优化完毕，已经没有可以优化的用户 ',
+	'membersplit_split_doing'		=> 'User optimization in progress. Optimized users: {num}',//'正在进行用户优化，已经优化{num}个用户... ',
+	'membersplit_split_check_table_done'	=> 'Data table consistency check is completed, user data optimization in progress',//'数据表结构一致性检查完毕，正在进行用户数据优化',
+	'membersplit_split_checking_table'	=> 'Data table consistency check in progress, step: {step}',//'正在进行数据表一致性检查，第{step}步',
+	'membersplit_split_check_table_fail'	=> 'Table data structure refresh failed, process the main table manualy ({tablename}) and optimize the table ({tablename}_archive) structure in order to adjust the consistency.',//'数据表数据结构整理失败，请手工处理将主表({tablename})和优化表({tablename}_archive)的数据结构调整按顺序调整一致。',
+
   'onlinelist_succeed'		=> 'Liste des articles en ligne mis &#224; jour avec Succ&#232;s ',
   'forumlinks_succeed'		=> 'Liens mis &#224; jour avec Succ&#232;s ',
   'relatedlink_succeed'		=> 'Liens associ&#233;s &#224; une M-&#224;j. r&#233;ussie ',
@@ -336,7 +363,6 @@ $lang = array (
   'censor_keywords_existence'	=> 'Ce qui a &#233;t&#233; des mots du lexique actuel, ne pas ajouter les mots en double',
   'censor_succeed'		=> 'Filtre parole correctement mis &#224; jour ',
   'thread_stamp_succeed'	=> 'Th&#232;me de timbre mis &#224; jour avec Succ&#232;s ',
-  'attachtypes_duplicate'	=> 'R&#233;p&#233;tez la proc&#233;dure pour ajouter des extensions en vigueur',
   'attachtypes_succeed'		=> 'Type de pi&#232;ce jointe &#224; jour avec Succ&#232;s ',
   'cron_not_found'		=> 'Travail ou Emploi ne se trouve pas',
   'crons_filename_illegal'	=> 'Vous entrez le nom du fichier de t&#226;che de script contient des caract&#232;res ill&#233;gaux',
@@ -354,7 +380,13 @@ $lang = array (
   'focus_conf_succeed'		=> 'Param&#232;tres recommand&#233;s pour bon Webmaster ',
   'custommenu_add_succeed'	=> 'Menu {title} Le fonctionnement a &#233;t&#233; ajout&#233; avec Succ&#232;s au courant, A propos pour revenir aux pr&#233;c&#233;dentes, Vous pouvez<a href="{ADMINSCRIPT}?action=misc&operation=custommenu">Cliquez ici pour Modifier exploitation couramment utilis&#233;s</a>',
 
-  'plugins_validator_enable_confirm'	=> '<h4 class="infotitle3">Ce plug-in n\'est pas l\'original de plug-ins vous s&#251;r que vous souhaitez ouvrir?</h4>',
+	'patch_no_privilege_autoupdate'		=> 'Do not have permission to modify files, Automatic Update can not be performed',//'没有权限修改文件，无法开启自动更新',
+	'patch_updatesetting_successful'	=> 'Settings updated successfully',//'设置更新成功',
+	'patch_please_select_patch'		=> 'Please select a security patch for apply',//'请选择需要修复的安全补丁',
+	'patch_cannot_access_file'		=> 'Modify the permissions of your directories and files, Please fill out the ftp account, Or modify the file permissions for read/writable, and then retry',//'发现您的目录及文件无修改权限，请您填写ftp账号，或者修改文件权限为可读可写后重试',
+	'patch_updatesetting_failed'		=> 'The following security patch update failed: <br>{list}',//'以下安全补丁更新失败: <br>{list}',
+	'patch_cheking'				=> 'Inspecting for security patch',//'正在检测安全补丁',
+
   'plugins_enable_succeed'		=> 'Plug-in activ&#233;',
   'plugins_conflict'			=> 'Plug-in activ&#233;</h4><br />Conseils: Il suffit de brancher et la certains plug-ins permettent l\'existence de points partag&#233;s incorpor&#233;.Bien que le point commun incorpor&#233; est normale, Toutefois, si vous rencontrez des plug-in ne fonctionne pas correctement, Svp. contactez rapidement l\'Auteur du plugin.<a href="javascript:;" onclick="display(\'conflict\')">[Cliquez pour voir]</a><br /><div id="conflict" style="display:none"><br />{plugins}<br /></div><br />',
   'plugins_disable_succeed'		=> 'Plug-in est ferm&#233;',
@@ -378,13 +410,12 @@ $lang = array (
   'plugins_edit_var_invalid'		=> 'Nom de la variable de configuration Que vous entrez n\'est pas valide ou r&#233;p&#233;ter',
   'plugins_delete_error'		=> 'Vous ne pouvez pas d&#233;sinstaller le syst&#232;me de plugin.',
   'plugins_delete_confirm'		=> 'Etes-vous s&#251;r que vous souhaitez d&#233;sinstaller {pluginname} {toversion} de le brancher?',
+	'styles_delete_confirm'			=> 'Are you sure you want to uninstall these styles?<br /><br />Please select the reason you uninstall the application, So that we can later provide you with a better application:<br /><br /><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="1" />Function does not meet the demand</label> <label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="2" />Interface unsightly</label> <label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="3" />Efficiency problem, slow running</label> <label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="4" />Found a better application</label><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="5" />Pure trial now uninstall</label>',//'您确定要卸载这些风格吗？<br /><br />请选择您卸载该应用的原因，以便我们以后为您提供更好的应用：<br /><br /><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="1" />功能不满足需求</label> <label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="2" />界面不美观</label> <label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="3" />效率问题运行速度慢</label> <label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="4" />发现了更好的应用</label><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="5" />纯试用现在卸载</label>',
   'pluginvar_not_found'			=> 'Plug-in des variables non trouv&#233;',
   'plugins_edit_var_title_invalid'	=> 'Vous n\'avez pas entrer le nom de configuration',
   'plugins_edit_vars_succeed'		=> 'Plug-in variable de configuration mis &#224; jour ',
+	'plugins_edit_vars_invalid'		=> 'Plug-in configuration variable name is not legitimate, or is already in use',//'插件配置变量名不合法或者已被占用',
   'plugins_validator_noupdate'		=> 'Vous n\'avez pas d&#233;tecter la nouvelle version du plug-in',
-  'plugins_validator_nowupgrade'	=> '<h4 class="infotitle2">Les plug-ins suivants peuvent maintenant &#234;tre mis &#224; jour pour la nouvelle version, cliquez sur mise &#224; niveau</h4>',
-  'plugins_validator_newversion'	=> '<h4 class="infotitle2">Il y a une nouvelle version du plug-ins suivants, cliquez sur T&#233;l&#233;charger la M-&#224;j.</h4>',
-  'plugins_validator_error'		=> '<h4 class="infotitle3">Les plug-ins suivants ne sont pas les originaux de plug-in ne peut pas fournir la M-&#224;j. cocher, cliquez pour t&#233;l&#233;charger originale</h4>',
 
   'portalcategory_update_succeed'	=> 'M-&#224;j. avec Succ&#232;s de classification ',
   'portal_delete_confirm'		=> 'Cette action ne peut pas &#234;tre restaur&#233;, vous s&#251;r de vouloir supprimer la classification selon les articles?',
@@ -400,10 +431,8 @@ $lang = array (
   'postsplit_do_succeed'		=> 'F&#233;licitations, sous-poste table d\'op&#233;ration a &#233;t&#233; un Succ&#232;s, revenir &#224;',
   'postsplit_resetpid_succeed'		=> 'R&#233;initialiser ID post est termin&#233;',
 
-  'profilefield_not_found'	=> 'Paragraphe ou Section voir article  non trouv&#233;',
-  'fields_edit_invalid'		=> 'Nom du projet et la longueur ne peut pas &#234;tre vide',
-
   'recyclebin_none_selected'	=> 'Les messages choisis ne fonctionnent pas',
+	'recyclebin_clean_next'			=> 'Recycle Bin updated, removed {threadsdel} threads, The program will automatically continue',//'回收站更新, 已经删除 {threadsdel} 个主题，程序将自动继续',
 
   'report_resolve_succeed'	=> 'Succ&#232;s du traitement, et maintenant revenir &#224; la page de la liste',
   'report_receive_succeed'	=> 'op&#233;ration r&#233;ussie ',
@@ -411,6 +440,8 @@ $lang = array (
   'searchindex_not_found'	=> 'Fichier d\'index manquant',
   'search_keyword_noexists'	=> 'Svp. entrer des mots cl&#233;s pour rechercher',
 
+	'setting_memory_rm_succeed'		=> 'Cache deleted successfully',//'缓存删除成功',
+	'setting_memory_rm_error'		=> 'Please enter the cache KEY you want to delete',//'请输入要删除的缓存KEY',
   'founder_action'			=> 'Fondateur fonctions sp&#233;cifiques, vous n\'avez aucun droit d\'usage',
   'setting_extcredits_must_available'	=> 'Vous devez ouvrir au moins une extension &#224; son int&#233;gralit&#233;',
   'uc_database_connect_error'		=> 'Serveur de base centrale a &#233;chou&#233; pour connecter les Utilisateurs &#224; v&#233;rifier les param&#232;tres',
@@ -435,17 +466,15 @@ $lang = array (
   'smilies_import_succeed_renamed'	=> 'L\'expression dedans avec Succ&#232;s.L\'expression dans une Cat&#233;gorie existante noms et r&#233;p&#233;ter, Ont &#233;t&#233; automatiquement renomm&#233;s',
   'smilies_import_succeed'		=> 'L\'expression dedans avec Succ&#232;s ',
 
-  'specialuser_defaultuser_noreason_invalid'	=> 'Svp. entrer une raison',
   'specialuser_hotuser_noreason_invalid'	=> 'Svp. entrer une raison',
+	'specialuser_follow_del_succeed'	=> 'Special user follows deleted successfully ',//'删除推荐关注成功 ',
   'specialuser_defaultuser_del_succeed'		=> 'Supprim&#233; avec Succ&#232;s Recommander &#224; un Ami ',
   'specialuser_hotuser_del_succeed'		=> 'Effacer Membres star ou &#233;toile avec Succ&#232;s ',
   'specialuser_hotuser_edit_succeed'		=> 'Modification avec Succ&#232;s ',
-  'specialuser_defaultuser_add_invaild'		=> 'Vous devez saisir un nom Utilisateur et ajouter des raisons',
   'specialuser_hotuser_add_invaild'		=> 'Vous devez saisir un nom Utilisateur et le motif de la recommandation',
-  'specialuser_defaultuser_added_invalid'	=> 'L\'Utilisateur doit ajout&#233; un',
   'specialuser_hotuser_added_invalid'		=> 'Cet Utilisateur a &#233;t&#233; recommand&#233;',
-  'specialuser_defaultuser_nouser_invalid'	=> 'Cet Utilisateur est inexistant',
   'specialuser_hotuser_nouser_invalid'		=> 'Cet Utilisateur est inexistant',
+	'specialuser_follow_add_succeed'	=> 'Special user follows added successfully ',//'添加推荐关注成功 ',
   'specialuser_defaultuser_add_succeed'		=> 'Ami qui m\'a &#233;t&#233; recommand&#233; Ajout.avec Succ&#232;s ',
   'specialuser_hotuser_add_succeed'		=> 'Ajouter avec Succ&#232;s Membres ',
 
@@ -461,9 +490,8 @@ $lang = array (
   'style_not_found'			=> 'Le style ne se trouve pas',
   'styles_edit_variable_duplicate'	=> 'Le nouveau nom de remplacement variable existe d&#233;j&#224;',
   'styles_edit_variable_illegal'	=> 'Le nouveau nom de variable ne se substitue pas l&#233;galement',
+	'styles_validator_noupdate'		=> 'No new style version detected',//'没有检测到新版本风格',
 
-  'tag_empty'			=> 'Un nouveau label ne peut pas &#234;tre vide',
-  'tag_length'			=> '3-20 caract&#232;res dans un nouvel onglet n\'y sont pas',
   'tag_admin_updated'		=> 'Etiquette &#224; jour avec Succ&#232;s ',
 
   'tasks_setting_invalid'	=> 'Partie irrationnelle de l\'ensemble des T&#226;ches ne peut pas &#234;tre activ&#233;s, Svp. re param&#233;tr&#233;',
@@ -503,7 +531,6 @@ $lang = array (
   'threadsplit_manage_forum_processing'	=> 'A Termin&#233; le Traitement {table}, Svp. Attendre...',
   'threadsplit_manage_forum_complete'	=> 'M-&#224;j. Toutes Archives du Forum de la Zone',
 
-  'forums_threadtypes_duplicate'	=> 'Proc&#233;dure pour Ajouter Classification des Sujets et le Syst&#232;me Actuel',
   'forums_threadtypes_succeed'		=> 'Classification Correctement Mis &#224; Jour ',
   'threadtype_infotypes_noexist'	=> 'Cat&#233;gorie Rubrique Options inexistant',
   'typeoption_not_found'		=> 'Options Non Trouv&#233;s',
@@ -511,6 +538,7 @@ $lang = array (
   'threadtype_infotypes_invalid'	=> 'Les Renseignements Classifi&#233;s Doivent Avoir au Moins une Option',
   'threadtype_content_no_choice'	=> 'Les Renseignements Classifi&#233;s ne sont pas choisiss',
   'threadtype_content_delete_succeed'	=> 'Suppression de Donn&#233;es Termin&#233;es',
+	'threadtype_export_error'		=> 'Thread type export failed',//'分类选项导出失败',
 
   'update_cache_succeed'	=> 'Tous le Cache a &#233;t&#233; Mis &#224; Jour',
 
@@ -519,6 +547,25 @@ $lang = array (
   'topic_close_succeed'			=> 'Rubriques Fermer avec Succ&#232;s ',
   'topic_open_succeed'			=> 'Rubriques avec Succ&#232;s ',
   'topic_choose_at_least_one_optype'	=> 'Svp. Choisir un &#201;l&#233;ment d\'Action',
+
+	'upgrade_close_site'			=> 'Before upgrading, please turn OFF the site, and backup all files and database',//'升级前，请先关闭站点，并对文件及数据备份',
+	'upgrade_none'				=> 'No upgrade information',//'没有该升级信息',
+	'upgrade_continue'			=> 'The last time you upgraded to {step}, Please continue to complete the upgrade',//'您上次升级到 {step}，请继续完成升级',
+	'upgrade_download_upgradelist_error'	=> 'Get list of files to be updated failed, Whether to re-obtain? {upgradeurl}',//'获取待更新文件列表失败，是否重新获取？ {upgradeurl}',
+	'upgrade_download_complete_to_compare'	=> 'Files to be updated downloaded ok, now going to compare with local files',//'待更新文件下载完成，即将进行本地文件比较',
+/*!*/	'upgrade_redownload'			=> 'Upgrade file {file} download problem. Please check your server network access, as well as the data directory have write permisson. Make sure all this is correct, and then click to {upgradeurl}',//'文件 {file} 下载出现问题，请查看您的服务器网络以及data目录是否有写权限，请确认无误后点击确定 {upgradeurl}',
+/*!*/	'upgrade_downloading_file'		=> 'Downloading file {file} from official server.<br>Finished: {percent}, {upgradeurl}',//'正在从官方下载更新文件 {file} <br>已完成{percent} {upgradeurl}',
+	'upgrade_cannot_access_file'		=> 'No permissions to modify your directories and files. Please fill out the ftp account, or modify the file permissions to read/write, and then retry',//'发现您的目录及文件无修改权限，请您填写 ftp 账号，或者修改文件权限为可读可写后重试',
+	'upgrade_backuping'			=> 'Backing up the original file...',//'正在备份原始文件...',
+	'upgrade_backup_error'			=> 'Original file backup error',//'备份原始文件出错',
+	'upgrade_backup_complete'		=> 'The backup is completed, starting to upgrade...',//'备份完成，正在进行升级...',
+	'upgrade_ftp_upload_error'		=> 'FTP upload error, whether to retry the upload?',//'ftp 上传文件出错，是否重新上传？',
+	'upgrade_copy_error'			=> 'File copy error, whether to retry copy?',//'复制文件出错，是否重新复制？',
+	'upgrade_file_successful'		=> 'File update was successful, now starting to update the database',//'文件升级成功，即将进入更新数据库',
+	'upgrade_successful'			=> 'Congratulations, upgrade is successfully finished!<br />Your current version is: Discuz! X{version} Release {release}',//'恭喜您，升级成功! <br />您当前的版本为：[Discuz! X{version} Release[{release}]',
+	'upgrade_checking'			=> 'Checking for new upgraded version',//'正在检测新的升级版本',
+	'upgrade_latest_version'		=> 'You are currently using the latest version, do not need to upgrade',//'您目前使用的已经是最新版本，不需要升级',
+	'upgrade_param_error'			=> 'Request parameter is incorrect',//'请求的参数不正确',
 
   'usergroups_type_nonexistence'	=> 'Erreur de Type du Groupe Utilisateurs',
   'usergroups_update_creditshigher_invalid'	=> 'Vous n\'Avez pas Rempli les Points de la Limite Inf&#233;rieure',
@@ -534,6 +581,12 @@ $lang = array (
   'usergroups_copy_target_invalid'	=> 'Vous avez pas Choisi de Copier le Groupe Utilisateurs Cibles',
   'usergroups_copy_options_invalid'	=> 'Vous avez pas Choisir les &#201;l&#233;ments Que Vous Souhaitez Copier',
   'usergroups_copy_succeed'		=> 'Exemplaire avec Succ&#232;s des Param&#232;tres de Groupe Utilisateur ',
+
+	'usertag_delete_succeed'		=> 'Tag removed successfully',//'删除标签成功',
+	'usertag_merge_succeed'			=> 'Tag successfully merged',//'标签合并成功',
+	'usertag_add_succeed'			=> 'User tag added successfully',//'成功为用户添加标签',
+	'usertag_add_tag_succeed'		=> 'Tag added successfully',//'成功添加标签',
+	'usertag_add_error'			=> 'Add failed. User or tag error, Please try again.',//'添加失败，用户或标签错误，请重新填写',
 
   'members_verify_add_user_succeed'	=> 'Authentification aux Utilisateurs d\'Ajouter Compl&#232;tements',
   'members_verify_update_title_error'	=> 'l\'Authentification est Activ&#233; pour Modifier le Nom d\'Authentification et ne Peut pas &#234;tre Vide',
@@ -566,19 +619,10 @@ $lang = array (
 
   'moderate_threads_succeed'	=> 'Examiner le Fonctionnement a R&#233;ussi, Commun {validates} Th&#232;me a Et&#233; Adopt&#233;, {ignores} Les Sujets sont Ignor&#233;s, {recycles} Le Th&#232;me est dans la Corbeille, {deletes} Th&#232;me est effac&#233;',
 
-	'cloudaddons_validator_error'		=> 'Check failed, you can not download this application',//'校验失败，你无法下载此应用',
-	'cloudaddons_downloading'		=> 'Download the addon {addonid}, please wait ...',//'应用 {addonid} 下载中，请稍候 ......',
-	'cloudaddons_download_error'		=> 'Data Download Error',//'数据下载错误',
-	'cloudaddons_download_write_error'	=> 'Can not download the file, make sure the "data/download/" directory is writable',//'文件无法下载，请确认 "data/download/" 目录是否可写',
-	'cloudaddons_installing'		=> 'Installing the addon {addonid}, please wait ...',//'应用 {addonid} 安装中，请稍候......',
-	'cloudaddons_install_error'		=> 'You can not install this application ({ErrorCode})',//'你不能安装此应用({ErrorCode})',
-	'cloudaddons_install_files_changed'	=> 'The following files are missing or has been modified, whether or not to continue coverage? <br /> <br /> {files}',//'以下文件丢失或者被修改过，是否继续覆盖？<br /><br />{files}',
-	'cloudaddons_pack_installed'		=> 'Extension installation is completed',//'扩展安装完毕',
-	'cloudaddons_genuine_message'		=> 'Sorry, you have installed not genuine application, the installer can not continue<br /><br /><a href="admin.php?action=cloudaddons&id={addonid}">Click here to install the genuine application</a>',//'对不起，您安装的不是正版应用，安装程序无法继续执行<br /><br /><a href="admin.php?action=cloudaddons&id={addonid}">点击这里安装正版应用</a>',
-	'cloudaddons_file_read_error'		=> 'File read error, please try again',//'文件读取错误，请重试',
-	'cloudaddons_file_write_error'		=> 'File write error, please try again',//'文件写入错误，请重试',
-	'cloudaddons_ftp_path_error'		=> 'FTP Site path errors, please re-fill',//'站点 FTP 路径错误，请重新填写',
-	'cloudaddons_check_write_error'		=> '"data/download/" or "data/addonmd5/" Directory can not be created or written to, this will cause the application can not be installed, check the server environment',//'"data/download/" 或 "data/addonmd5/" 目录无法创建或写入，这将会导致应用无法安装，请检查服务器环境',
-	'cloudaddons_check_url_fopen_error'	=> 'Your server can not access Application Center, which will cause the application can not be installed. Please contact your service provider or Web technical staff to ensure that your server to function properly access addon.discuz.com',//'您的服务器无法访问应用中心，这将会导致应用无法安装。请联系您的服务商或者网站技术人员，确保您的服务器能够正常访问 addon.discuz.com',
+	'cloudaddons_ftp_path_error'		=> 'Site FTP path is wrong, Please try again.',//'站点 FTP 路径错误，请重新填写',
+
+	'cloudaddons_check_url_fopen_error'	=> 'Your server can not access the Application Center, This will cause the application can not be installed. Please contact your service provider or site technical staff, Ensure that your server can normal access to addon.discuz.com or addon1.discuz.com',//'您的服务器无法访问应用中心，这将会导致应用无法安装。请联系您的服务商或者网站技术人员，确保您的服务器能够正常访问 addon.discuz.com 或 addon1.discuz.com',
+/*!*/	'cloudaddons_check_gzuncompress_error'	=> 'Your server does not support Zlib, This will cause the application can not be installed. Please contact your service provider or the site technical staff.',//'您的服务器不支持 Zlib，这将会导致应用无法安装。请联系您的服务商或者网站技术人员。',
+	'cloudaddons_genuine_message'		=> 'Sorry, You installed not genuine applications, can not continue to implement the Setup.<br /><br /><a href="admin.php?action=cloudaddons&id={addonid}">Click here to install the genuine application</a>',//'对不起，您安装的不是正版应用，安装程序无法继续执行<br /><br /><a href="admin.php?action=cloudaddons&id={addonid}">点击这里安装正版应用</a>',
 );
 

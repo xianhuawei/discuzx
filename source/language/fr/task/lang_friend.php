@@ -7,6 +7,10 @@
  *      $Id: lang_friend.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'friend_name'	=> 'Ajouter des Amis aux T&#226;ches',
@@ -19,4 +23,3 @@ $lang = array
 		</ul>',
 );
 
-?>

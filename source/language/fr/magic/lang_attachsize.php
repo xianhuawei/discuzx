@@ -7,6 +7,10 @@
  *      $Id: lang_attachsize.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'attachsize_name'	=> 'Carte pi&#232;ce jointe',   // Attachment card 

@@ -4,27 +4,32 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_highlight.php by Valery Votintsev at sources.ru
+ *      $Id: lang_highlight.php 27449 2012-02-01 05:32:35Z zhangguosheng $
+ *	Translated to Thai by jaideejung007
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
-	'highlight_name'		=> 'Thread highlighter card',//'主题变色卡',
-	'highlight_desc'		=> 'Highlight a thread by changing a color',//'可以将主题高亮，变更颜色',
-	'highlight_expiration'		=> 'Highlight period',//'高亮有效期',
-	'highlight_expiration_comment'	=> 'Set how to long the thread will be highlighted, the default is 24 hours',//'设置主题可以被高亮多长时间，默认 24 小时',
-	'highlight_forum'		=> 'Target forums',//'允许使用本道具的版块',
-	'highlight_info_tid'		=> 'Highlight title expiration: {expiration} hours',//'高亮主题的标题 {expiration} 小时',
-	'highlight_info_blogid'		=> 'You can highlight the log or the post title, change the color',//'可以将日志或帖子的标题高亮，变更颜色',
-	'highlight_color'		=> 'Color',//'颜色',
-	'highlight_info_nonexistence_tid'	=> 'Specify the thread to highlight',//'请指定要高亮的帖子',
-	'highlight_info_nonexistence_blogid'	=> 'Please specify the blog to highlight',//'请指定要高亮的日志',
-	'highlight_succeed_tid'		=> 'The thread highlighted successfully',//'你操作的帖子已高亮',
-	'highlight_succeed_blogid'	=> 'You have been highlighted the blog',//'你操作的日志已高亮',
-	'highlight_info_noperm'		=> 'Using this magic for this forum is disabled',//'对不起，主题所在版块不允许使用本道具',
-	'highlight_info_notype'		=> 'Parameter error, operation type is not specified.',//'参数错误，没有指定操作类型。',
+	'highlight_name' => 'เน้นสีกระทู้และบล๊อก',
+	'highlight_desc' => 'เน้นสีกระทู้และบล๊อกของคุณ เปลี่ยนสีให้น่าสนใจ',
+	'highlight_expiration' => 'ระยะเวลาเน้นสี',
+	'highlight_expiration_comment' => 'ตั้งค่าระยะเวลาการเน้นสีกระทู้ ค่าเริ่มต้นคือ 24 ชั่วโมง',
+	'highlight_forum' => 'สามารถใช้งานได้ในเว็บบอร์ด',
+	'highlight_info_tid' => 'เน้นสีกระทู้เป็นระยะเวลา {expiration} ชั่วโมง',
+	'highlight_info_blogid' => 'เน้นสี เปลี่ยนสี ชื่อบล๊อก',
+	'highlight_color' => 'สี',
+	'highlight_info_nonexistence_tid' => 'กรุณาระบุกระทู้ที่คุณต้องการเน้นสี',
+	'highlight_info_nonexistence_blogid' => 'กรุณาระบุบล๊อกที่คุณต้องการเน้นสี',
+	'highlight_succeed_tid' => 'กระทู้ที่คุณต้องการถูกเน้นสีเรียบร้อยแล้ว',
+	'highlight_succeed_blogid' => 'บล๊อกที่คุณต้องการถูกเน้นสีเรียบร้อยแล้ว',
+	'highlight_info_noperm' => 'ขออภัย! บอร์ดนี้ไม่อนุญาตให้ใช้ไอเท็มนี้',
+	'highlight_info_notype' => 'เกิดข้อผิดพลาด คุณไม่ได้ระบุประเภทของการดำเนินการ',
 
-	'highlight_notification'	=> '{actor} used a magic &quot;{magicname}&quot; for your thread &quot;{subject}&quot;, <a href="forum.php?mod=viewthread&tid={tid}">view</a>',//'你的主题 {subject} 被 {actor} 使用了{magicname}，<a href="forum.php?mod=viewthread&tid={tid}">快去看看吧！</a>',
-	'highlight_notification_blogid'	=> 'User {actor} was used a magic {magicname} at your blog {subject}, <a href="home.php?mod=space&do=blog&id={blogid}">Go to see it!</a>',//'你的日志 {subject} 被 {actor} 使用了{magicname}，<a href="home.php?mod=space&do=blog&id={blogid}">快去看看吧！</a>',
+	'highlight_notification' => '{actor} ใช้ไอเท็ม{magicname} กับกระทู้ {subject} ของคุณ <a href="forum.php?mod=viewthread&tid={tid}">ไปดูกระทู้!</a>',
+	'highlight_notification_blogid' => '{actor} ใช้ไอเท็ม{magicname} กับบล๊อก {subject} ของคุณ <a href="home.php?mod=space&do=blog&id={blogid}">ไปดูบล๊อก!</a>',
 );
 

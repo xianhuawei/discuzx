@@ -195,7 +195,7 @@ $lang = array(
 	'PL'	=> 'Польша',//'Poland',
 	'PM'	=> 'Сен-Пьер и Микелон',//'Saint Pierre and Miquelon',
 	'PR'	=> 'Пуэрто-Рико',//'Puerto Rico',
-	'PS'	=> 'Палестина',//'Palestinian Territory, Occupied',
+	'PS'	=> 'Палестина',//'Palestina',
 	'PT'	=> 'Португалия',//'Portugal',
 	'PW'	=> 'Палау',//'Palau',
 	'PY'	=> 'Парагвай',//'Paraguay',
@@ -262,4 +262,7 @@ $lang = array(
 	'ZM'	=> 'Замбия',//'Zambia',
 	'ZW'	=> 'Зимбабве',//'Zimbabwe',
 	'??'	=> 'Неизвестно',//'Unknown',
+	'LAN'	=> 'LAN',
+	'LOC'	=> 'Localhost',
+	'ERR'	=> 'Invalid IP Address',
 );

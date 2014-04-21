@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -14,8 +14,8 @@ $lang = array (
 	'nomobiletype'		=> 'Версия для ПК',
 	'simplemobiletype'	=> 'Облегчённая версия',
 	'favorite'		=> 'Избранное',
-	'my_posts'		=> 'Мои посты',
-	'new_pm'		=> 'Новые ЛС',
+	'my_posts'		=> 'Мои сообщения',
+	'new_pm'		=> 'Новые письма',
 	'waptitle'		=> 'Мобильная версия',
 	'login_mobile'		=> 'Вход в систему - {$_G[setting][bbname]} через мобильный',
 	'login_mobile_join'	=> 'Вы можете использовать для доступа мобильный телефон',
@@ -23,7 +23,7 @@ $lang = array (
 	'mobile_favorite_comment'	=> 'Вы можете быстро получить доступ с мобильного телефона к форуму и управлению своим Избранным в любое время и из любого места.',
 	'mobile_other_1'		=> 'Экономия трафика и качественный доступ к контенту через мобильные устройства',
 	'mobile_pm'			=> 'Отправка и получение личных сообщений в реальном времени. Чат с одним или несколькими друзьями.',
-	'mobile_viewthread'		=> 'Быстрое чтение постингов и комментариев.',
+	'mobile_viewthread'		=> 'Быстрое чтение сообщений и комментариев.',
 	'mobile_viewthread_comment'	=> 'Используя мобильную версию, Вы можете не только быстро просматривать темы, но и публиковать новые темы и ответы.',
 	'continue'			=> 'Продолжить...',
 	'goback'			=> 'Назад',
@@ -60,7 +60,7 @@ $lang = array (
 	'admin_close_expire_comment'	=> '<span class="xg1">Дополнительный формат даты: 2010-12-01 10:50</span>',
 	'admin_delthread_confirm'	=> 'Вы уверены, что хотите удалить эту тему?',
 	'topicadmin_mobile_mod'		=> 'Мобильная версия управления темой',
-	'admin_banpost_confirm'		=> 'Вы уверены, что хотите забанить данный пост?',
+	'admin_banpost_confirm'		=> 'Вы уверены, что хотите заблокировать данное сообщение?',
 	'admin_delpost_confirm'		=> 'Вы уверены, что хотите удалить этот ответ?',
 	'admin_warn_confirm'		=> 'Оповещение автора о предупреждении',
 	'attach_nopermission_login'	=> 'Вам необходимо <a href="member.php?mod=logging&action=login">Войти</a> для загрузки и просмотра вложений. Еще не зарегистрированы? <a href="member.php?mod={$_G[setting][regname]}" title="Регистрация">Регистрация</a>',
@@ -89,11 +89,11 @@ $lang = array (
 	'favorite_description_default'	=> 'Мобильное Избранное',
 	'favorite_forum_confirm'	=> 'Добавить этот раздел:',
 	'favorite_thread_confirm'	=> 'Добавить эту тему:',
-	'user_mobile_pm_comment'	=> 'После отправки ЛС вернёмся на предыдущую страницу',
+	'user_mobile_pm_comment'	=> 'После отправки ЛС система вернёт Вас на предыдущую страницу',
 	'reset'				=> 'Сбросить',
 	'reg_username'			=> 'Имя пользователя должно быть длиной от 3 до 15 символов',
-	'viewimg'			=> 'Просмотр изображения',
 
+//	'viewimg'			=> 'Просмотр изображения',
 //	'nextpage'		=> 'Next',//'下一页',
 //	'prevpage'		=> 'Prev',//'上一页',
 //	'forum_threads'		=> 'Threads',//'帖',
@@ -104,4 +104,3 @@ $lang = array (
 
 );
 
-?>

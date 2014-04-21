@@ -7,6 +7,10 @@
  *      $Id: lang_namepost.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'namepost_name'			=> 'Carte visible',   //  Visible card

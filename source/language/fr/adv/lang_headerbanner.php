@@ -7,6 +7,10 @@
  *      $Id: lang_headerbanner.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'headerbanner_name'		=> 'Globaux des banni&#232;res publicitaires en-t&#234;te',

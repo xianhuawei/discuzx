@@ -10,8 +10,8 @@
 
 $lang = array
 (
-	'showip_name'	=> 'IP 스카우터',
-	'showip_desc'	=> '상대 회원의 IP를 볼수 있는 아이템 입니다.',
+	'showip_name'		=> 'IP 스카우터',
+	'showip_desc'		=> '상대 회원의 IP를 볼수 있는 아이템 입니다.',
 	'showip_targetuser'	=> 'IP을 볼 회원님을 선택하십시오',
 	'showip_info_nonexistence'	=> '회원이름을 입력 하십시오',
 	'showip_ip_message'	=> '{username}님의 IP 는 {ip} 입니다.',

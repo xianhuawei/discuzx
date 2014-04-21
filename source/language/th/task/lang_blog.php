@@ -1,21 +1,25 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_blog.php 16433 2010-09-07 00:04:33Z monkey $
+ *      $Id: lang_blog.php 27449 2012-02-01 05:32:35Z zhangguosheng $
+ *	Translated to Thai by jaideejung007
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
-	'blog_name'	=> 'กิจกรรมเขียนบล็อก',
-	'blog_desc'	=> 'เขียนบล็อกเพื่อสำเร็จกิจกรรมและรับรางวัล',
-	'blog_view'	=> '<strong>กรุณาทำตามขั้นตอนดังนี้:</strong>
+	'blog_name' => 'เขียนบล็อก',
+	'blog_desc' => 'เขียนบทความลงในบล็อกของคุณ และแบ่งปันบล็อกให้เพื่อนๆ',
+	'blog_view' => '<strong>คำแนะนำในการเข้าร่วมกิจกรรมนี้: </strong>
 		<ul>
-		<li>1. <a href="home.php?mod=spacecp&ac=blog" target="_blank">เปิดหน้าเขียนบล็อกในหน้าต่างใหม่</a>;</li>
-		<li>2. เขียนบล็อกใหม่และเผยแพร่ต่อสาธารณะ</li>
+		<li>1. <a href="home.php?mod=spacecp&ac=blog" target="_blank">เปิดหน้าต่างใหม่เพื่อเขียนบล็อก</a></li>
+		<li>2. ในหน้าบล็อกที่จะเปิดขึ้นมาใหม่ ให้คุณเขียนบล็อกตามใจที่อยากจะเขียน และเผยแพร่หรือแบ่งปัน</li>
 		</ul>',
 );
 
-?>

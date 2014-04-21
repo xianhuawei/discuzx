@@ -323,7 +323,71 @@ class discuz_application extends discuz_base{
 			dsetcookie('saltkey', $this->var['cookie']['saltkey'], 86400 * 30, 1, 1);
 		}
 		$this->var['authkey'] = md5($this->var['config']['security']['authkey'].$this->var['cookie']['saltkey']);
+		
+		/**
+		//---------------------------
+		//多语言支持
+		// set default
+		$default_lang = strtolower($this->var['config']['output']['language']);
+		$lng = '';
 
+		if($this->var['config']['enable_multilingual']) {
+
+			// Adjust language names with language titles
+			foreach($this->var['config']['languages'] AS $k=>$v) {
+				if(empty($v['name'])) {
+					$this->var['config']['languages'][$k]['name'] = $v['title'];
+				}
+			}
+
+			// set language from cookies
+			if($this->var['cookie']['language']) {
+				$lng = strtolower($this->var['cookie']['language']);
+			}
+
+			// check if the language from GET is valid
+			if(isset($_GET['language'])) {
+				$tmp = strtolower($_GET['language']);
+				if(isset($this->var['config']['languages'][$tmp])) {
+					// set from GET
+					$lng = $tmp;
+				}
+			}
+			
+			// Check for language auto-detection
+			if(!$lng) {
+				$detect = (boolean) $this->var['config']['detect_language'];
+				if($detect) {
+					$lng = detect_language($this->var['config']['languages'],$default_lang);
+				}
+			}
+		}
+		// Set language to default if no language detected
+		if(!$lng) {
+			$lng = $default_lang;
+		}
+
+		$this->var['oldlanguage'] = $lng; // Store Old Language Value for compare
+
+		// define DISCUZ_LANG
+		define('DISCUZ_LANG', $lng);
+
+		// set new language to cookie
+		dsetcookie('language', $lng);
+
+		// set new language variables
+		$this->var['language']  = $lng;
+		$this->var['langpath']  = DISCUZ_ROOT . 'source/language/'.$lng . '/';
+		$this->var['langurl']   = $this->var['siteroot'] . 'source/language/'.$lng . '/';
+		$this->var['langicon']  = $this->var['config']['languages'][$lng]['icon'];
+		$this->var['langname'] = $this->var['config']['languages'][$lng]['name'];
+		$this->var['langtitle'] = $this->var['config']['languages'][$lng]['title'];
+		$this->var['langdir']   = strtolower($this->var['config']['languages'][$lng]['dir']);
+
+		// define LANGUAGE RTL Suffix
+		define('RTLSUFFIX', $this->var['langdir'] == 'rtl' ? '_rtl' : '');
+		define('LANGURL', $this->var['langurl']);
+		**/
 	}
 
 	private function _init_config() {

@@ -7,6 +7,10 @@
  *      $Id: lang_avatar.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'avatar_name'	=> 'Avatar T&#226;ches',
@@ -18,4 +22,3 @@ $lang = array
 		</ul>',
 );
 
-?>

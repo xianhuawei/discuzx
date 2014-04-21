@@ -92,16 +92,5 @@ $lang = array (
 	'user_mobile_pm_comment'	=> 'Después de los mensajes enviados se regresará a la página anterior',//'短消息发出后将跳回上一页',
 	'reset'				=> 'Reajustar',//'重填',
 	'reg_username'			=> 'Longitud de nombre de usuario debe estar en un rango de 3-15 caracteres',//'用户名必须为大于3位小于15位',
-	'viewimg'			=> 'Ver imagen',//'查看图片',
-
-//	'nextpage'		=> 'Siguiente',//'下一页',
-//	'prevpage'		=> 'Anterior',//'上一页',
-//	'forum_threads'		=> 'Temas',//'帖',
-//	'send_posts'		=> 'Respuesta',//'回复',
-//	'other'			=> 'Otro',//'其他',
-//	'thread_lock'		=> 'Bloqueado',//'锁定',
-//	'required_select'	=> 'Necesario',//'必选',
-
 );
 
-?>

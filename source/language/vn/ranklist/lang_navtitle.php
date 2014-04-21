@@ -9,6 +9,10 @@
  *      This file is automatically generate
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array(
   'ranklist_title_member_credit' => 'Top điểm thành viên',
   'ranklist_title_member_bid' => 'Top thành viên đấu giá',

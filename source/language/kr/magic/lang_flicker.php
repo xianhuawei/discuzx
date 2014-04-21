@@ -8,8 +8,8 @@
  */
 $lang = array
 (
-	'flicker_name'	=> '무지개 타이틀',
-	'flicker_desc'	=> '글을 무지개빛으로 표시할수 있는 아이템입니다.',
-	'flicker_info'	=> '글을 무지개빛으로 표시할수 있는 아이템입니다.',
+	'flicker_name'		=> '무지개 타이틀',
+	'flicker_desc'		=> '글을 무지개빛으로 표시할수 있는 아이템입니다.',
+	'flicker_info'		=> '글을 무지개빛으로 표시할수 있는 아이템입니다.',
 	'flicker_succeed'	=> '무지개 타이틀 아이템을 사용했습니다.',
 );

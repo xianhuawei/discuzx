@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -54,7 +54,7 @@ $lang = array
 	'attachmentlist_dateline_day'		=> 'Last day',//'最近24小时',
 	'attachmentlist_dateline_week'		=> 'Last week',//'最近1周',
 	'attachmentlist_dateline_month'		=> 'Last month',//'最近1月',
-	'attachmentlist_highlight'		=> 'Highlight found words',
+	'attachmentlist_highlight'		=> 'Highlight found words',//'获得高亮值',
 
 );
 

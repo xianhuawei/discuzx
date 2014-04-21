@@ -7,6 +7,10 @@
  *      $Id: lang_stick.php 7906 2010-04-15 01:45:11Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'stick_name' => 'Thẻ Đính',
@@ -18,6 +22,7 @@ $lang = array
 	'stick_info_nonexistence' => 'Hãy xác định đối tượng để đính',
 	'stick_succeed' => 'Bạn đã đính chủ đề thành công',
 	'stick_info_noperm' => 'Có lỗi, không được phép sử dụng đạo cụ ở đây.',
+
 	'stick_notification' => 'Chủ đề của bạn {subject} được {actor} sử dụng {magicname}, <a href="forum.php?mod=viewthread&tid={tid}">Xem</a>',
 );
 

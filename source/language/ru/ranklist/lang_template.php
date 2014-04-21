@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -17,6 +17,7 @@ $lang = array (
 	'join'			=> 'Присоединиться',
 	'message'		=> 'Сообщение',
 	'none_data'		=> 'Нет данных',
+	'ranklist'			=> 'Топ-лист',
 	'ranklist_activity'		=> 'Топ-мероприятия',
 	'ranklist_activity_end'		=> 'Завершение приёма заявок',
 	'ranklist_activity_start'	=> 'Начало:',
@@ -33,18 +34,16 @@ $lang = array (
 	'comment'			=> 'Комментарии',
 	'comment_ranklist'		=> 'По комментариям',
 	'hot_ranklist'			=> 'По рейтингу',
-	'ranklist'			=> 'Топ-лист',
 	'ranklist_thread_view'		=> 'Просмотры темы',
 	'views'				=> 'просмотров:',
 	'visit_ranklist'		=> 'По визитам',
 	'forum'				=> 'Форум',
 	'ranklist_forum'		=> 'Топ-разделы',
-	'ranklist_forum_day_post'	=> 'По постам за сутки',
-	'ranklist_forum_month_post'	=> 'По постам за месяц',
-	'ranklist_forum_post'		=> 'По кол-ву постов',
-	'ranklist_post'			=> 'По рейтингу постов',
+	'ranklist_forum_day_post'	=> 'По сообщениям за сутки',
+	'ranklist_forum_month_post'	=> 'По сообщениям за месяц',
+	'ranklist_forum_post'		=> 'По кол-ву сообщений',
+	'ranklist_post'			=> 'По рейтингу сообщений',
 	'ranklist_post_day'	=> 'Рейтинги за сутки',
-	'ranklist_post_month'	=> 'Рейтинги за месяц',
 	'ranklist_reply'	=> 'По кол-ву ответов',
 	'reply'			=> 'Ответы',
 	'credit_num'		=> 'Количество баллов',
@@ -95,7 +94,7 @@ $lang = array (
 	'your_current_bid'		=> 'Ваша текущая ставка',
 	'add_friend'		=> 'В друзья',
 	'blogs_num'		=> 'Блогов',
-	'day_post_num'		=> 'Постов за сутки',
+	'day_post_num'		=> 'Сообщений за сутки',
 	'digest_num'		=> 'Дайджестов',
 	'friends_num'		=> 'Друзей',
 	'invite_num'		=> 'Приглашений',
@@ -107,8 +106,8 @@ $lang = array (
 	'online'		=> 'Онлайн',
 	'online_time'		=> 'Время онлайн',
 	'order'			=> 'Сортировка:',
-	'post_num'		=> 'Кол-во постов',
-	'posts_num'		=> 'Постов',
+	'post_num'		=> 'Кол-во сообщений',
+	'posts_num'		=> 'Сообщений',
 	'say_hi'		=> 'Отправить привет',
 	'send_pm'		=> 'Отправить ЛС',
 	'show_credit'		=> 'Осталось ставок(???)',
@@ -127,7 +126,7 @@ $lang = array (
 	'blogs'			=> 'Блоги',
 	'pics'			=> 'Изображения',
 	'poll'			=> 'Опросы',
-	'posts'			=> 'Посты',
+	'posts'			=> 'Сообщения',
 	'user'			=> 'Пользователи',
 	'author'		=> 'Автор',
 	'ranklist_thread_heat'	=> 'Горячие темы',
@@ -135,4 +134,3 @@ $lang = array (
 	'thread'		=> 'Тема',
 );
 
-?>

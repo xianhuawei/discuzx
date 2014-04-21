@@ -7,6 +7,10 @@
  *      $Id: lang_blockclass.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array(
 	'blockclass_html'		=> 'Affichage', // Display
 
@@ -37,6 +41,7 @@ $lang = array(
 	'blockclass_myapp_field_title'	=> 'NOM', // Name
 	'blockclass_myapp_field_icon'	=> 'Ic&#244;ne', // Icon
 	'blockclass_myapp_field_icon_small'	=> 'Ic&#244;ne(petit)', // 'Icon(small)'
+	'blockclass_myapp_field_icon_abouts'	=> 'Application icon',//'应用图标(大图)',
 	'blockclass_myapp_script_myapp'		=> 'App.', // Apps
 
 	'blockclass_forum'		=> 'Forum', // Forum
@@ -51,7 +56,7 @@ $lang = array(
 	'blockclass_thread_field_avatar'	=> 'Auteur avatar', // Author avatar
 	'blockclass_thread_field_avatar_middle'	=> 'Auteur avatar(moy.)', // Author avatar(middle)
 	'blockclass_thread_field_avatar_big'	=> 'Auteur Avatar(large)', // Author Avatar(Big)
-	'blockclass_thread_field_icon'		=> 'Ic&#244;ne', // Icon
+//REMOVED	'blockclass_thread_field_icon'		=> 'Ic&#244;ne', // Icon
 	'blockclass_thread_field_forumurl'	=> 'Url du Forum', // Forum url
 	'blockclass_thread_field_forumname'	=> 'Nom du Forum', // Forum name
 	'blockclass_thread_field_typename'	=> 'Nom de Type du Sujet', // Thread type name
@@ -129,9 +134,9 @@ $lang = array(
 	'blockclass_activity_script_activitynew'	=> 'Derni&#232;res Activit&#233;s', // Latest activities
 	'blockclass_activity_script_activitycity'	=> 'M&#234;me Ville', // Same city
 	'blockclass_activity_script_activity'		=> 'Personnaliser', // Customize
-	
+
 	'blockclass_portal'	=> 'Portail', // Portal
-	
+
 	'blockclass_portal_article'		=> 'Article', // Article
 	'blockclass_article_field_url'		=> 'Url', // Url
 	'blockclass_article_field_title'	=> 'Titre', // Title
@@ -152,13 +157,13 @@ $lang = array(
 	'blockclass_article_script_articlehot'	=> 'Hot Articles', // Hot articles
 	'blockclass_article_script_articlespecified'	=> 'Articles Particularit&#233;s', // Specific article
 	'blockclass_article_script_article'	=> 'Personnaliser', // Customize
-	
+
 	'blockclass_portal_category'		=> 'Cat&#233;gorie', // Category
 	'blockclass_category_field_url'		=> 'Url Cat&#233;gorie', // Category url
 	'blockclass_category_field_title'	=> 'Nom Cat&#233;gorie', // Category name
 	'blockclass_category_field_articles'	=> 'Articles', // Articles
 	'blockclass_category_script_portalcategory'	=> 'Cat&#233;gorie', // Category
-	
+
 	'blockclass_portal_topic'		=> 'Topic', // Topic
 	'blockclass_topic_field_url'		=> 'Url', // Url
 	'blockclass_topic_field_title'		=> 'Nom', // Name
@@ -173,7 +178,7 @@ $lang = array(
 	'blockclass_topic_script_topicspecified'	=> 'Topic Particularit&#233;', // Specific topic
 	'blockclass_topic_script_topic'		=> 'Personnaliser', // Customize
 	'blockclass_member'			=> 'Membre', // Member
-	
+
 	'blockclass_member_member'		=> 'Membre', // Member
 	'blockclass_member_field_url'		=> 'Url Espace ', // Space url
 	'blockclass_member_field_title'		=> 'Identifiant', // Username
@@ -184,7 +189,7 @@ $lang = array(
 	'blockclass_member_field_reason'	=> 'Raisons', // Reasons
 	'blockclass_member_field_unitprice'	=> 'Unit. Prix', // 'Unit price'
 	'blockclass_member_field_showcredit'	=> 'Total points', // 'Total points'
-	'blockclass_member_field_shwonote'	=> 'Slogan', // Slogan
+	'blockclass_member_field_shownote'	=> 'Slogan', // Slogan
 	'blockclass_member_field_extcredits1'	=> 'Points Prolong&#233;s 1', // 'Extended points 1'
 	'blockclass_member_field_extcredits2'	=> 'Points Prolong&#233;s 2', // 'Extended points 2'
 	'blockclass_member_field_extcredits3'	=> 'Points Prolong&#233;s 3', // 'Extended points 3'
@@ -253,7 +258,7 @@ $lang = array(
 	'blockclass_member_script_memberspecified'	=> 'Utilisateur Particularit&#233;', // 'Specific user'
 	'blockclass_member_script_member'	=> 'Personnaliser', // 'Customize'
 	'blockclass_space'			=> 'Espace', // 'Space'
-	
+
 	'blockclass_space_doing'		=> 'Agissement', // Doing
 	'blockclass_doing_field_url'		=> 'Url Agiss.', // 'Doing url'
 	'blockclass_doing_field_title'		=> 'Contenu', // Content
@@ -267,7 +272,7 @@ $lang = array(
 	'blockclass_doing_script_doingnew'	=> 'Agiss.(dernier)', // 'Doing(latest)'
 	'blockclass_doing_script_doinghot'	=> 'Agiss.(hot)', // 'Doing(hot)'
 	'blockclass_doing_script_doing'		=> 'Personnaliser', // 'Customize'
-	
+
 	'blockclass_space_blog'		=> 'Blog', // Blog
 	'blockclass_blog_field_url'	=> 'Url', // Url
 	'blockclass_blog_field_title'	=> 'Titre', // Title
@@ -293,7 +298,7 @@ $lang = array(
 	'blockclass_blog_script_bloghot'	=> 'Hot blogs', // Hot blogs
 	'blockclass_blog_script_blogspecified'	=> 'Blog Particularit&#233;', // 
 	'blockclass_blog_script_blog'		=> 'Personnaliser', // Customize
-	
+
 	'blockclass_space_album'	=> 'Album', // Album
 	'blockclass_album_field_url'	=> 'Url', // Url
 	'blockclass_album_field_title'	=> 'Nom', // Name
@@ -306,7 +311,7 @@ $lang = array(
 	'blockclass_album_script_albumnew'	=> 'Dernier Albums', // Latest albums
 	'blockclass_album_script_albumspecified'	=> 'Album Particularit&#233; ', // Specific album
 	'blockclass_album_script_album'		=> 'Personnaliser', // Customize
-	
+
 	'blockclass_space_pic'		=> 'Image', // Image
 	'blockclass_pic_field_url'	=> 'Url', // Url
 	'blockclass_pic_field_title'	=> 'Nom', // Name
@@ -329,7 +334,7 @@ $lang = array(
 	'blockclass_pic_script_picspecified'	=> 'Image Particularit&#233;', // Specific Image
 	'blockclass_pic_script_pic'	=> 'Personnaliser', // Customize
 	'blockclass_group'		=> 'Groupe', // Group
-	
+
 	'blockclass_group_group'	=> 'Groupe', // 'Group'
 	'blockclass_group_field_url'	=> 'Url du Groupe', // 'Group url'
 	'blockclass_group_field_title'	=> 'Nom du Groupe', // 'Group name'
@@ -350,7 +355,7 @@ $lang = array(
 	'blockclass_group_script_grouphot'	=> 'Groupe Hot', // 'Hot Group'
 	'blockclass_group_script_groupspecified'	=> 'Groupe Particulier', // 'Specific Group'
 	'blockclass_group_script_group'		=> 'Personnaliser', // 'Customize'
-	
+
 	'blockclass_group_thread'		=> 'Sujet', // 'Thread'
 	'blockclass_groupthread_field_url'	=> 'Url du Sujet', // 'Thread url'
 	'blockclass_groupthread_field_title'	=> 'Titre du Sujet', // 'Thread title'
@@ -377,7 +382,7 @@ $lang = array(
 	'blockclass_groupthread_script_groupthreadspecial'	=> 'Sujets Sp&#233;ciaux', // Special threads
 	'blockclass_groupthread_script_groupthreadspecified'	=> 'Sujets Sp&#233;cifiques', // Specific threads
 	'blockclass_groupthread_script_groupthread'	=> 'Personnaliser', // Customize
-	
+
 	'blockclass_group_trade'		=> 'Commerce', // Trade
 	'blockclass_grouptrade_field_title'	=> 'Noms des Marchand. Biens', // Goods name
 	'blockclass_grouptrade_field_url'	=> 'Url des Biens', // Goods url
@@ -391,7 +396,7 @@ $lang = array(
 	'blockclass_grouptrade_script_grouptradehot'	=> 'Hot Biens ', // 'Hot goods '
 	'blockclass_grouptrade_script_grouptradespecified'	=> 'Biens Particuliers ', // 'Specific goods '
 	'blockclass_grouptrade_script_grouptrade'	=> 'Personnaliser', // Customize
-	
+
 	'blockclass_group_groupactivity'	=> 'Activit&#233;', // Activity
 	'blockclass_group_activity'		=> 'Activit&#233;', // Activity
 	'blockclass_groupactivity_field_url'	=> 'Sujet URL', // 'Thread URL'
@@ -411,9 +416,9 @@ $lang = array(
 	'blockclass_groupactivity_script_groupactivitynew'	=> 'Derni&#232;res Activit&#233;s', // 'Latest activities'
 	'blockclass_groupactivity_script_groupactivitycity'	=> 'M&#234;me Ville', // 'Same city'
 	'blockclass_groupactivity_script_groupactivity'	=> 'Personnaliser', // Customize
-	
+
 	'blockclass_xml'		=> 'Troisi&#232;me classe', // 'Third class'
-	
+
 	'blockclass_other'			=> 'Other', // Other
 	'blockclass_other_script_friendlink'	=> 'Av. Personnalisation', // 'Adv. Customization'
 	'blockclass_other_friendlink'		=> 'Liens', // Links
@@ -421,7 +426,7 @@ $lang = array(
 	'blockclass_other_friendlink_field_title'	=> 'Nom du Site', // 'Site Name'
 	'blockclass_other_friendlink_field_pic'		=> 'Site LOGO', // 'Site LOGO'
 	'blockclass_other_friendlink_field_summary'	=> 'Au Sujet du Site', // 'About Site'
-	
+
 	'blockclass_other_script_stat'		=> 'Personnalisation', // 'Customization'
 	'blockclass_other_stat'			=> 'Statistiques Module', // 'Statistics Module'
 	'blockclass_other_stat_posts'		=> 'Total Posts', // 'Total Posts'
@@ -437,7 +442,7 @@ $lang = array(
 	'blockclass_other_stat_albums'		=> 'Total Albums', // 'Total Albums'
 	'blockclass_other_stat_pics'		=> 'Total Photos', // 'Total Photos'
 	'blockclass_other_stat_shares'		=> 'Total Partages', // 'Total Shares'
-	
+
 	'blockclass_other_stat_posts_title'	=> 'Affich. Noms Post', // 'Post display name'
 	'blockclass_other_stat_groups_title'	=> 'Affich. Noms Groupes', // 'Group Display Name'
 	'blockclass_other_stat_members_title'	=> 'Affich. Noms Membres', // 'Member display name'
@@ -451,7 +456,8 @@ $lang = array(
 	'blockclass_other_stat_albums_title'	=> 'Nom Affich. Album', // 'Album Display Name'
 	'blockclass_other_stat_pics_title'	=> 'Nom Affich. Photos', // 'Photo Display Name'
 	'blockclass_other_stat_shares_title'	=> 'Nom complet Partage', // 'Sharing Display Name'
+
+	'blockclass_field_id'			=> 'Field ID',//'数据ID',
 );
 
 
-?>

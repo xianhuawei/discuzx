@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -62,7 +62,7 @@ $lang = array
 	'activitylist_recommend_comment'	=> 'Показывать только рекомендованные темы',
 	'activitylist_orderby'			=> 'Сортировка по',
 	'activitylist_orderby_comment'		=> 'Настройте порядок сортировки',
-	'activitylist_orderby_lastpost'		=> 'По дате последнего поста',
+	'activitylist_orderby_lastpost'		=> 'По дате последнего сообщения',
 	'activitylist_orderby_dateline'		=> 'По дате создания',
 	'activitylist_orderby_replies'		=> 'По кол-ву ответов',
 	'activitylist_orderby_views'		=> 'По просмотрам',
@@ -95,4 +95,3 @@ $lang = array
 	'activitylist_highlight'		=> 'Подсветка найденных слов',
 );
 
-?>

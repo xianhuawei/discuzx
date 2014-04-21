@@ -7,6 +7,10 @@
  *      $Id: lang_portalcategory.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'portalcategory_thecatid'		=> 'Pr&#233;cisez la partie',  // '指定栏目' 

@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -24,4 +24,3 @@ $lang = array
 	'jack_notification'	=> '{actor} использовал артефакт &quot;{magicname}&quot; для поднятия в топ темы &quot;<a href="forum.php?mod=viewthread&tid={tid}">{subject}</a>&quot;',
 );
 
-?>

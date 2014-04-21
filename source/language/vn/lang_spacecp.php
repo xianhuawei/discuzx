@@ -4,8 +4,12 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *		Translate by DCV team - http://www.discuz.vn
- *      $Id: lang_spacecp.php 22088 2011-04-21 07:50:14Z zhengqingpeng $
+ *      $Id: lang_spacecp.php 28195 2012-02-24 02:59:57Z svn_project_zhangjie $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 
@@ -16,7 +20,7 @@ $lang = array(
 	'share_action' => 'Chia sẻ',
 
 	'pm_comment' => 'Trả lời bình luận',
-	'pm_thread_about' => 'Trả lời chủ đề “{subject}” của bạn',
+	'pm_thread_about' => 'Trả lời chủ đề "{subject}" của bạn',
 
 	'wall_pm_subject' => 'Hello!',
 	'wall_pm_message' => 'Tôi đã gửi một tin nhắn lên bảng tin của bạn, [url=\\1]bấm vào đây để đến bảng tin để xem nó[/url]',
@@ -40,12 +44,13 @@ $lang = array(
 	'message_can_not_send_13' => 'Đây không phải là 1 tin nhắn Nhóm',
 	'message_can_not_send_14' => 'Đây không phải 1 tin nhắn',
 	'message_can_not_send_15' => 'Dữ liệu không chính xác',
+	'message_can_not_send_16' => 'Bạn đã vượt quá số lượng tối đa PM trong vòng 24 giờ',
 	'message_can_not_send_onlyfriend' => 'Chỉ nhận được 1 tin nhắn để gửi cho bạn bè',
 
 
 	'friend_subject' => '<a href="{url}" target="_blank">{username} gửi yêu cầu kết bạn với bạn</a>',
 	'friend_request_note' => ' , PS: {note}',
-	'comment_friend' =>'<a href="\\2" target="_blank">\\1 Gửi cho bạn 1 bình luận</a>',
+	'comment_friend' =>'<a href="\\2" target="_blank">\\1 Tin nhắn của bạn</a>',
 	'photo_comment' => '<a href="\\2" target="_blank">\\1 Bình luận Ảnh của bạn</a>',
 	'blog_comment' => '<a href="\\2" target="_blank">\\1 Bình luận Blog của bạn</a>',
 	'poll_comment' => '<a href="\\2" target="_blank">\\1 Tham gia Khảo sát của bạn</a>',
@@ -71,15 +76,15 @@ $lang = array(
 		<tr>
 		<td valign="top">{avatar}</td>
 		<td valign="top">
-		<h3>Hi. Tôi là {username}. Mời bạn đến {sitename} và trở thành bạn của tôi</h3><br>
-		Khi kết bạn với tôi ở đó, bạn có thể biết tình hình hiện tại của tôi, thông tin liên lạc của tôi, dễ dàng liên hệ với tôi.<br>
+		<h3>Hi, tôi {username}, mời bạn cùng tham gia {sitename} và làm bạn của tôi</h3><br>
+		Làm bạn với tôi bạn sẽ cập nhật được các thông tin của tôi.<br>
 		<br>
-		Lời nhắn: <br>{saymsg}
+		Mời:<br>{saymsg}
 		<br><br>
-		<strong>Xin vui lòng nhấp vào liên kết dưới đây để nhận được lời mời bạn bè.</strong><br>
+		<strong>Xin vui lòng bấm vào liên kết dưới đây, để chấp nhận lời mời:</strong><br>
 		<a href="{inviteurl}">{inviteurl}</a><br>
 		<br>
-		<strong>Nếu bạn có tài khoản trên {sitename}, hãy nhấp vào liên kết sau để xem trang của tôi</strong><br>
+		<strong>Nếu bạn có tài khoản tại {sitename} hãy nhấn vào liên kết để xem hồ sơ của tôi：</strong><br>
 		<a href="{siteurl}home.php?mod=space&uid={uid}">{siteurl}home.php?mod=space&uid={uid}</a><br>
 		</td></tr></table>',
 
@@ -88,15 +93,15 @@ $lang = array(
 		<tr>
 		<td valign="top">{avatar}</td>
 		<td valign="top">
-		<h3>Xin chào, tôi là {username}. Mời bạn tham gia {sitename} để cùng chơi {appname} với tôi</h3><br>
+		<h3>Hi, tôi {username}, tại {sitename} đang chơi {appname}, mời bạn cùng chơi.</h3><br>
 		<br>
-		Lời nhắn: <br>
+		Mời:<br>
 		{saymsg}
 		<br><br>
-		<strong>Xin vui lòng nhấp vào liên kết dưới đây để nhận được lời mời từ bạn bè để chơi {appname}.</strong><br>
+		<strong>Xin vui lòng bấm vào liên kết dưới đây, để chấp nhận lời mời cùng chơi {appname}：</strong><br>
 		<a href="{inviteurl}">{inviteurl}</a><br>
 		<br>
-		<strong>Nếu bạn có tài khoản trên {sitename}, vui lòng nhấp vào liên kết sau đây để xem trang chủ cá nhân của tôi.</strong><br>
+		<strong>Nếu bạn có tài khoản tại {sitename} hãy nhấn vào liên kết để chơi cùng tôi</strong><br>
 		<a href="{siteurl}home.php?mod=space&uid={uid}">{siteurl}home.php?mod=space&uid={uid}</a><br>
 		</td></tr></table>',
 
@@ -115,8 +120,8 @@ $lang = array(
 	'share_article' => 'Tiêu đề chia sẻ',
 	'album' => 'Album',
 	'share_thread' => 'Chia sẻ chủ đề',
-	'mtag' => 'Nhóm',
-	'share_mtag' => 'Chia sẻ Nhóm',
+	'mtag' => '{$_G[setting][navs][3][navname]}',
+	'share_mtag' => 'Chia sẻ {$_G[setting][navs][3][navname]}',
 	'share_mtag_membernum' => 'Chia sẻ thành viên: {membernum}',
 	'share_tag' => 'Chia sẻ Tag',
 	'share_tag_blognum' => 'Chia sẻ blog: {blognum}',
@@ -184,10 +189,10 @@ $lang = array(
 	'do_stat_reward' => 'Treo thưởng',
 	'do_stat_debate' => 'Tranh luận',
 	'do_stat_trade' => 'Mua bán',
-	'do_stat_group' => "Tạo Nhóm",
-	'do_stat_tgroup' => "Nhóm",
-	'do_stat_home' => "Không gian",
-	'do_stat_forum' => "Diễn đàn",
+	'do_stat_group' => "Tạo {$_G[setting][navs][3][navname]}",
+	'do_stat_tgroup' => "{$_G[setting][navs][3][navname]}",
+	'do_stat_home' => "{$_G[setting][navs][4][navname]}",
+	'do_stat_forum' => "{$_G[setting][navs][2][navname]}",
 	'do_stat_groupthread' => 'Chủ đề Nhóm',
 	'do_stat_post' => 'Trả lời chủ đề',
 	'do_stat_grouppost' => 'Trả lời chủ đề nhóm',
@@ -204,7 +209,7 @@ $lang = array(
 	'do_stat_eventcomment' => 'Bình luận sự kiện',
 	'do_stat_eventjoin' => 'Tham gia sự kiện',
 	'do_stat_sharecomment' => 'Bình luận chia sẻ',
-
+//vot	'do_stat_post' => 'Trả lời chủ đề',
 	'do_stat_click' => 'Click',
 	'do_stat_wall' => 'Thông điệp',
 	'do_stat_poke' => 'Chọc',
@@ -236,11 +241,14 @@ $lang = array(
 	'logs_credit_update_RCA' => 'Tranh luận thắng',
 	'logs_credit_update_RCB' => 'Trả lại điểm thưởng',
 	'logs_credit_update_CDC' => 'Thẻ nạp tiền',
-
 	'logs_credit_update_RGC' => 'Mua Bao lì xì',
 	'logs_credit_update_BGC' => 'Dùng Bao lì xì',
 	'logs_credit_update_AGC' => 'Nhận quà',
 	'logs_credit_update_RKC' => 'Xếp hạng',
+	'logs_credit_update_BME' => 'Mua huy chương',
+	'logs_credit_update_RPR' => 'Điểm thưởng và trừng phạt',
+	'logs_credit_update_RPZ' => 'Thiếu khuyến khích xóa',
+	'logs_credit_update_reward_clean' => 'Xóa',
 	'logs_select_operation' => 'Chọn loại hoạt động',
 	'task_credit' => 'Thưởng hoàn thành nhiệm vụ',
 	'special_3_credit' => 'Điểm khấu trừ',
@@ -264,6 +272,7 @@ $lang = array(
 	'thread_credit2' => 'Điểm khấu trừ',
 	'buy_credit' => 'Điểm mua',
 	'buy_usergroup' => 'Điểm mua nhóm',
+	'buy_medal' => 'Mua huy chương',
 	'report_credit' => 'Điểm từ báo cáo',
 	'join' => 'Tham gia',
 	'activity_credit' => 'Điểm hoạt động',
@@ -275,6 +284,8 @@ $lang = array(
 	'replycredit_thread' => 'Phân phối bài viết',
 	'card_credit' => 'Điểm được nạp thẻ truy cập',
 	'ranklist_top' => 'Điểm xếp hạng',
+	'admincp_op_credit' => 'Thiếu khuyến khích điều hành',
+	'credit_update_reward_clean' => 'Xóa',
 
 	'profile_unchangeable' => 'Thông tin không thể thay đổi sau khi xác nhận',
 	'profile_is_verifying' => 'Thông tin đang được xác minh',
@@ -292,12 +303,33 @@ $lang = array(
 	'district_level_4' => '-Xã/Phường-',
 	'invite_you_to_visit' => '{user} mời bạn ghé thăm {bbname}',
 
+	'portal' => 'Portal',
+	'group' => 'Nhóm',
+	'follow' => 'Theo dõi',
+	'collection' => 'Album',
+	'guide' => 'Hướng dẫn',
+	'feed' => 'Cập nhật',
+	'blog' => 'Blog',
+	'doing' => 'Tâm trạng',
+	'wall' => 'Tường',
+	'homepage' => 'Hồ sơ',
+	'ranklist' => 'Top',
+	'select_the_navigation_position' => 'Chọn kiểu danh mục {type}',
+	'close_module' => 'Đóng chức năng {type}',
+
+	'follow_add_remark' => 'Thêm ghi chú',
+	'follow_modify_remark' => 'Sửa Ghi chú',
+	'follow_specified_group' => 'Theo dõi nhóm',
+	'follow_specified_forum' => 'Theo dõi diễn đàn',
+
+	'filesize_lessthan' => 'Kích thước tập tin phải nhỏ hơn',
+
 	'spacecp_message_prompt' => '({msg} hỗ trợ, tối đa 1000 kí tự)',
 	'card_update_doing' => ' <a class="xi2" href="###">[Cập nhật Profile]</a>',
-	'email_acitve_message' => '<img src="{imgdir}/mail_inactive.png" alt="Chưa xác minh" class="vm" />
-					<span class="xi1"> New Email({newemail})Đang chờ xác minh...</span><br />
-					Hệ thống đã gửi một email xác minh đến email của bạn, vui lòng kiểm tra email của bạn, kích hoạt để xác minh.<br>
-					Nếu bạn không nhận được email xác minh, bạn có thể đổi Email, hoặc <a href="home.php?mod=spacecp&ac=profile&op=password&resend=1" class="xi2">Gửi lại email xác minh lần nữa</a>',
+	'email_acitve_message' => '<img src="{imgdir}/mail_inactive.png" alt="Chưa xác minh" class="vm" /> <span class="xi1">Thư mới ({newemail}) chờ xác minh...</span><br />
+								Hệ thống đã gửi email xác minh, vui lòng kiểm tra email của bạn để kích hoạt.<br>
+								Nếu bạn không nhận được email, hãy thử thay email khác hoặc <a href="home.php?mod=spacecp&ac=profile&op=password&resend=1" class="xi2">gửi lại email xác minh.</a>',
 
 );
 
+?>

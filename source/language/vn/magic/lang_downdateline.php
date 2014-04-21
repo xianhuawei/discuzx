@@ -8,6 +8,10 @@
  *      $Id: lang_downdateline.php 7828 2010-04-14 02:11:48Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'downdateline_name' => 'Máy thời gian',

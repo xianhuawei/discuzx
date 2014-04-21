@@ -64,10 +64,14 @@ $lang = array (
 	'search_group_result_keyword'	=> 'Resultados: <em>Encontrado {$_G[setting][navs][3][navname]} $groupnum artículos,&nbsp;&nbsp;temas relacionados: $index[num] artículos</em>',//'结果: <em>找到相关{$_G[setting][navs][3][navname]} $groupnum 个,&nbsp;&nbsp;相关主题 $index[num] 个</em>',
 	'search_group_viewgroup'	=> 'Ver {$_G[setting][navs][3][navname]}',//'查看{$_G[setting][navs][3][navname]}',
 	'threads'			=> 'Temas',//'主题',
+	'subscribe'		=> 'Subscribe',//'订阅',
+	'comment'		=> 'Comment',//'评论',
+	'lastupdate'		=> 'Last Update',//'最后更新',
 	'return_homepage'	=> 'Volver a la página principal',//'返回首页',
 	'visit_my_space'	=> 'Visitar mi espacio',//'访问我的空间',
 	'album'			=> 'Albums',//'相册',
 	'blog'			=> 'Blogs',//'日志',
+	'collection'		=> 'Collection',//'淘帖',
 	'portal'		=> 'Portal',//'文章',
 	'quick'			=> 'Rápido',//'快速',
 	'search_adv'		=> 'Avanzado',//'高级',
@@ -87,13 +91,4 @@ $lang = array (
 	'goto_memcp'		=> 'Ir a Panel de control',//'进入管理面板',
 	'thread_list_message1'	=> 'Contienen temas ocultos, haga clic para ver todos',//'内容隐藏需要，请点击进去查看',
 );
-//	'search_return_normal'		=> 'Volver a la búsqueda general',//'返回普通搜索',
-//	'threadtype_option'	=> 'Opción tipo de tema',//'分类信息',
-//	'search_info'		=> 'Ordenar info(Categorías?)',//'分类信息',
-//	'subject'		=> 'Asunto',//'标题',
-//	'contactus'		=> 'Contáctenos',//'联系我们',
-//	'none'			=> 'Ninguno',//'无',
-//	'search_option'		=> 'Opciones de Búsqueda',//'搜索选项',
-//	'search_quick'		=> 'Búsqueda rápida',//'便捷搜索',
 
-?>

@@ -10,8 +10,8 @@
 
 $lang = array
 (
-	'checkonline_name'	=> '온라인 체크',
-	'checkonline_desc'	=> '온라인 중인 회원을 볼수 있는 아이템 입니다.',
+	'checkonline_name'		=> '온라인 체크',
+	'checkonline_desc'		=> '온라인 중인 회원을 볼수 있는 아이템 입니다.',
 	'checkonline_targetuser'	=> '회원 온라인 상태 확인',
 	'checkonline_info_nonexistence'	=> '회원 이름을 입력하십시오',
 	'checkonline_hidden_message'	=> '{username}님은 현재 오프 모드 입니다. {time}',

@@ -7,6 +7,10 @@
  *      $Id: lang_attachsize.php 7828 2010-04-14 02:11:48Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'attachsize_name' => 'Tăng dung lượng',

@@ -9,6 +9,10 @@
  *      This file is automatically generate
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array(
   'ranklist_title_member_credit'	=> 'Points rang',   // Points ranking 
   'ranklist_title_member_bid'		=> 'Note du Classement',   //  Bidding ranking
@@ -69,4 +73,3 @@ $lang = array(
   'ranklist_title_app_all'	=> 'Demandes plus Populaires',   // The most popular applications 
 );
 
-?>

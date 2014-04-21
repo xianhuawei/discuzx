@@ -23,5 +23,9 @@ $lang = array
 	'float_position_right'		=> 'Derecha',//'右侧',
 	'float_category'		=> 'Portal Categoria',
 	'float_category_comment'	=> 'Establecer una categoría de portal para mostrar la bandera del emitidor. Este efecto se toma solamente cuando se asigna anuncios en el portal',
+	'float_disableclose'		=> 'Close advertising link',//'关闭广告的链接',
+	'float_disableclose_comment'	=> 'If you want the Advertising can not be closed, you can disable to show the Close link',//'如果广告代码中已内置关闭操作，可以关闭系统预置的关闭链接',
+	'float_show'			=> 'Show',//'显示',
+	'float_hidden'			=> 'Hide',//'隐藏',
 );
 

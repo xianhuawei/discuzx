@@ -7,6 +7,10 @@
  *      $Id: lang_subnavbanner.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'subnavbanner_name'		=> 'Les deux premi&#232;res pages de publicit&#233; global par la barre de Navigation.',

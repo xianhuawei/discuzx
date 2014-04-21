@@ -7,6 +7,10 @@
  *      $Id: lang_misc.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'discuz_lang'		=> 'Divers',  //  'misc'
@@ -25,7 +29,7 @@ $lang = array
 	'post_single_banned'	=> '**** Ce post est interdit ou bannit ****',  //  '**** This post has been banned ****'
 	'message_ishidden_hiddenreplies'	=> 'Ce post ne ??s\'affiche qu\'&#224; l\'Auteur du sujet',  // 'This post is only shown to author of the thread' 
 	'post_reply_quote'	=> '{author} a post&#233; en {time}',  //  '{author} posted on {time}'
-	'post_edit'		=> '[i=s] Derni&#232;re &#233;dition par {editor} sur {edittime} [/i]\n\n',  //  '[i=s] Last edited by {editor} on {edittime} [/i]\n\n'
+	'post_edit'		=> "[i=s] Derni&#232;re &#233;dition par {editor} sur {edittime} [/i]\n\n",  //  '[i=s] Last edited by {editor} on {edittime} [/i]\n\n'
 	'post_edit_regexp'	=> '/^\[i=s\] Derni&#232;re &#233;dition par .*? sur .*? \[\/i\]\n\n/s',  //  '/^\[i=s\] Last edited by .*? on .*? \[\/i\]\n\n/s'
 	'post_edithtml'		=> '[i=s] Ce post a &#233;t&#233; &#233;dit&#233; par {editor} sur {edittime} [/i]<br /><br />',  //  '[i=s] This post was edited by {editor} on {edittime} [/i]<br /><br />'
 	'post_edithtml_regexp'	=> '/^\[i=s\] Ce post a &#233;t&#233; &#233;dit&#233; par .*? sur .*? \[\/i\]&lt;br \/&gt;&lt;br \/&gt;/s',  //  '/^\[i=s\] This post was edited by .*? on .*? \[\/i\]&lt;br \/&gt;&lt;br \/&gt;/s'
@@ -57,7 +61,6 @@ $lang = array
 	'post_trade_pm_buynum'		=> 'Quantit&#233;',  //  'Quantity'
 	'post_trade_pm_wishprice'	=> 'Prix d&#233;sirez',  //  'Wish Price'
 	'post_trade_pm_reason'		=> 'Raison',  //  'Reason'
-	'post_deleted'			=> 'a supprim&#233;',  //  'Deleted'
 	'postappend_content'		=> 'Contenu suppl&#233;mentaire',  //  'Additional Content'
 	'payment_unit'			=> '€',  //  '€'
 
@@ -71,7 +74,7 @@ $lang = array
 	'attach_downloads'	=> 'T&#233;l&#233;chargements',  //  'Downloads'
 
 	'post_trade_transport'		=> 'Frais d\'exp&#233;dition',  //   'Shipping fee'
-//	'post_trade_transport_mail'	=> 'Mail',  //  'Mail'
+//vot	'post_trade_transport_mail'	=> 'Mail',  //  'Mail'
 	'post_trade_quality'		=> 'Etat de l\'article',  // 'Item condition'  //Modify
 	'post_trade_quality_new'	=> 'Nouveau',  //  'New'
 	'post_trade_quality_secondhand'	=> 'Seconde main',  //  'Secondhand'
@@ -114,6 +117,8 @@ $lang = array
 	'credit_forum_payment'	=> 'Approvisionner',  //  'Add Funds'
 	'credit_forum_royalty'	=> 'Taxes TTC',  //  'Tax fee'
 	
+	'credit_total'			=> 'Total Points',//'总积分',
+
 	'invite_payment'	=> 'Acheter un code d\'invitation',  //  'Buy an invitation code'
 	'invite_forum_payment'	=> 'Acheter un code d\'invitation',  // 'Buy an invitation code' 
 	'invite_forum_payment_unit'	=> '$',  //  '$'
@@ -176,7 +181,7 @@ $lang = array
 	'week_5'	=> 'Ven',  //  'Fri'
 	'week_6'	=> 'Sam',  //  'Sat'
 
-	'notice_actor'	=> 'and so on. Total $actorcount personne(s)',  //  'and so on. Total $actorcount person(s)'
+	'notice_actor'	=> ' and so on. Total $actorcount personne(s)',  //  'and so on. Total $actorcount person(s)'
 
 	'perms_allowvisit'	=> 'Acc&#232;s Forum',  //  'Access forum'
 	'perms_readaccess'	=> 'R.P.',  //  'R.P.'
@@ -264,6 +269,11 @@ $lang = array
 	'perms_allowstat'	=> 'Voir Stats. &#233;volution',  //  'View stats trend'
 	'perms_allowpostarticle'	=> 'Post articles',  //  'Post articles'
 	'perms_raterange'	=> 'Autoriser notations',  //  'Allow to ratings'
+	'perms_allowcommentpost'	=> 'Allow to comment',//'允许参与点评',
+	'perms_allowat'			=> 'Allow the number of @name',//'允许 @ 的人数',
+	'perms_allowreplycredit'	=> 'Allow to set replies reward',//'允许设置回帖奖励',
+	'perms_allowposttag'		=> 'Allow to use tags',//'允许使用标签',
+	'perms_allowcreatecollection'	=> 'Allow to create collections',//'允许创建淘专辑的数量',
 	'perms_allowsendpm'	=> 'Autoriser envoie M.P',  //  'Allow Send PM'
 	'perms_maximagesize'	=> 'Taille de l\'image Max.',  //  'Max size of picture'
 	'perms_allowmediacode'	=> 'Code multim&#233;dia',  //  'Multimedia code'
@@ -274,10 +284,44 @@ $lang = array
 	'join_reward'	=> 'Se joint aux r&#233;compenses',  // 'Join rewards' 
 	'join_activity'	=> 'Se joint aux activit&#233;s',  // 'Join activities' 
 	'join_debate'	=> 'Se joint aux d&#233;bats',  //  'Join debates'
+	'at_invite'		=> '@name for friends',//'@我的好友',
 
 	'lower'			=> ' inf&#233;rieure &#224; ',  //  ' lower than '
 	'higher'		=> ' plus &#233;lev&#233; que ',  //  ' higher than '
 	'report_msg_your'	=> 'Vos ',  //  'Your '
 	'report_noreward'	=> 'Aucune incitation',  //  'No incentive'
+	'activity_viewimg'	=> 'Click to view',//'点击查看',
+
+	'crime_postreason'	=> '{reason} &nbsp; <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank" class="xi2">Details</a>',//'{reason} &nbsp; <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank" class="xi2">查看详情</a>',
+	'crime_reason'		=> '{reason}',
+
+	'connectguest_message_search'	=> array('Not logged in', 'Logged'),//array('尚未登录', '先登录'),
+	'connectguest_message_replace'	=> array('Not yet <a href="member.php?mod=connect">Improve current account</a> or <a href="member.php?mod=connect&ac=bind">Bind existing account</a>', 'You need to <a href="member.php?mod=connect">Improve account information</a> or <a href="member.php?mod=connect&ac=bind">Bind existing account</a> '),//array('尚未 <a href="member.php?mod=connect">完善帐号信息</a> 或 <a href="member.php?mod=connect&ac=bind">绑定已有帐号</a> ', '您需要先 <a href="member.php?mod=connect">完善帐号信息</a> 或 <a href="member.php?mod=connect&ac=bind">绑定已有帐号</a> '),
+	'connectguest_message_mobile_search'	=> array('Not logged in', 'Logged'),//array('尚未登录', '先登录'),
+	'connectguest_message_mobile_replace'	=> 'Provide your account information or Bind existing account, ',//'在电脑版完善资料或绑定已有帐号，',
+
+	'avatar'		=> 'Avatar',//'头像',
+	'signature'		=> 'Signature',//'签名',
+	'custom_title'		=> 'Custom Title',//'自定义头衔',
+
+	'forum_guide'		=> 'Guide',//'导读',
+
+	'patch_site_have'	=> 'Your site have',//'您的网站有',
+	'patch_is_fixed'	=> 'Security vulnerabilities, has been fixed',//'个安全漏洞，已修复',
+	'patch_need_fix'	=> 'Security vulnerabilities',//'个安全漏洞，请尽快修复',
+	'patch_fixed_status'	=> 'Fixed',//'已修复',
+	'patch_unfix_status'	=> 'NOT fixed',//'未修复',
+	'patch_fix_failed_status'	=> 'Repair failed',//'修复失败',
+	'patch_fix_right_now'	=> 'Repair right now',//'立即修复',
+	'patch_view_fix_detail'	=> 'Details',//'查看详情',
+	'patch_name'		=> 'Vulnerability',//'漏洞名称',
+	'patch_dateline'	=> 'Date',//'发布日期',
+	'patch_status'		=> 'Status',//'当前状态',
+	'patch_close'		=> 'Close',//'关闭',
+
+	'plugin_title'		=> 'Application update reminder',//'应用更新提醒',
+	'plugin_memo'		=> 'Updates available: <span class="xi1">{number}</span>',//'您有 <span class="xi1">{number}</span> 款应用有可用更新',
+	'plugin_link'		=> 'Update Now',//'现在更新',
+
 );
 

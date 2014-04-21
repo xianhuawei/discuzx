@@ -17,7 +17,7 @@ $lang = array
 	'header_user'		=> 'Users',//'用户',
 	'header_topic'		=> 'Topics',//'内容',
 	'header_extended'	=> 'Extensions',//'扩展',
-	'header_plugin'		=> 'Plugins',//'应用',
+	'header_plugin'		=> 'Plugins',//'插件',
 	'header_style'		=> 'Styles',//'界面',
 	'header_adv'		=> 'Ads',//'广告',
 	'header_tools'		=> 'Tools',//'工具',
@@ -27,8 +27,8 @@ $lang = array
 	'header_bbs'		=> 'The&nbsp;Site',//'站点首页',
 	'header_portal'		=> 'Portal',//'门户',
 	'header_group'		=> 'Groups',//'群组',
-	'header_founder'	=> 'Admins',//'站长',
-	'header_cloudaddons'	=> 'Addons',//'应用中心',
+	'header_founder'	=> 'Admin',//'站长',
+	'header_addons'		=> 'Addons',//'扩展中心',
 
 
 	'menu_home'			=> 'Admin Center',//'管理中心首页',
@@ -119,7 +119,7 @@ $lang = array
 	'menu_founder_permgrouplist'	=> 'Edit Permissions - {perm}',//'编辑权限 - {perm}',
 	'menu_founder_memberperm'	=> 'Edit member permissions - {username}',//'编辑团队成员 - {username}',
 
-	'menu_addons'			=> 'Addons',//'应用中心',
+	'menu_addons'			=> 'Addons',//'扩展中心',
 	'menu_plugins'			=> 'Plugins',//'插件',
 	'menu_tasks'			=> 'Tasks',//'站点任务',
 	'menu_magics'			=> 'Magics',//'道具中心',
@@ -150,7 +150,7 @@ $lang = array
 	'menu_tools_javascript'		=> 'Javascript calls',//'数据调用',
 	'menu_tools_relatedtag'		=> ' Tags related',//' 标签聚合',
 	'menu_tools_creditwizard'	=> 'Points Wizard',//'积分策略向导',
-	'menu_tools_fileperms'		=> 'File permissions',//'文件权限检查',
+	'menu_tools_fileperms'		=> 'Check file permissions',//'文件权限检查',
 	'menu_tools_filecheck'		=> 'File Checksum',//'文件校验',
 	'menu_forum_scheme'		=> 'Site Program Scheme',//'站点方案管理',
 	'menu_db'			=> 'Database',//'数据库',
@@ -181,8 +181,6 @@ $lang = array
 
 	'admincp_title'			=> $_G['setting']['bbname'].' Admin Center',//$_G['setting']['bbname'].' 管理中心',
 
-// Added by Valery Votintsev
-	'menu_setting_language'		=> 'Languages',
-
 );
 
+?>

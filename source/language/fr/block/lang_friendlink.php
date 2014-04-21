@@ -7,6 +7,10 @@
  *      $Id: lang_friendlink.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'friendlink_content'		=> 'Voir Style',  //  '展示样式'

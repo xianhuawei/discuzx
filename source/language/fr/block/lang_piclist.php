@@ -8,6 +8,10 @@
  *	Traduction en French par Andre13
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'piclist_picids'		=> 'Pr&#233;cisez Image',  //  '指定图片'
@@ -26,7 +30,7 @@ $lang = array
 	'piclist_hours_month'		=> '1 mois',  // '1月内' 
 	'piclist_hours_year'		=> '1 ann&#233;e',  // '1年内' 
 	'piclist_titlelength'		=> 'Longueur Titre',  //  '标题长度' 
-	'piclist_titlelength_comment'	=> 'Sp&#233;cifie la longueur du titre Max. de l\'image',  // '指定图片标题最大长度' 
+/*vot*/	'piclist_titlelength_comment'	=> 'Sp&#233;cifie la longueur du titre Max. de l\'image',  // '指定图片标题最大长度' 
 	'piclist_orderby'		=> 'Trier les images',  // '图片排序方式' 
 	'piclist_orderby_comment'	=> 'Quel chemin vers le champ ou s&#233;rie d\'images &#224; trier',  // '设置以哪一字段或方式对图片进行排序' 
 	'piclist_orderby_dateline'	=> 'Publi&#233; par Inversion',  // '按发布时间倒序' 

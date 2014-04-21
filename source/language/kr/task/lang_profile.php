@@ -9,31 +9,15 @@
 
 $lang = array
 (
-	'profile_name'		=> 'Update the personal info',//'完善用户资料任务',
-	'profile_desc'		=> 'Fill in specified user info and receive award.',//'完善指定的用户资料获得相应的奖励。',
+	'profile_name'		=> '사용자 정보 보충완성 미션',//'完善用户资料任务',
+	'profile_desc'		=> '지정 사용자 정보 보충완성시 받을수 있는 보상.',//'完善指定的用户资料获得相应的奖励',
 
-	'profile_fields'		=> array(
-		'mp.realname'		=> 'Real Name',//'姓名',
-		'mp.gender'		=> 'Gender',//'性别',
-		'mp.birthyear'		=> 'Birth year',//'生日(年)',
-		'mp.birthmonth'		=> 'Birth month',//'生日(月)',
-		'mp.birthday'		=> 'Birth Day',//'生日(日)',
-		'mp.bloodtype'		=> 'Blood type',//'血型',
-		'mp.affectivestatus'	=> 'Emotional category',//'情感状态',
-'mp.birthcountry'	=> 'Birth country',//'家乡(国)',
-		'mp.birthprovince'	=> 'Birth region',//'家乡(省)',
-		'mp.birthcity'		=> 'Birth city',//'家乡(市)',
-		'mp.resideprovince'	=> 'Reside region',//'居住地(省)',
-		'mp.residecity'		=> 'Reside city',//'居住地(市)'
-	),
-
-	'profile_view'	=> '<strong>You have to fill the following items in your personal information:</strong><br>
+	'profile_view'	=> '<strong>다음 개인정보를 보충입력 완성 해야 합니다:</strong><br>
 		<span style="color:red;">{profiles}</span><br><br>
-		<strong>Follow this instructions to complete the task:</strong>
+		<strong>다음 설명에 따라 미션을 완성해 주십시오:</strong>
 		<ul>
-		<li><a href="home.php?mod=spacecp&ac=profile" target="_blank">Open in a new window your personal information page</a>;</li>
-		<li>Add the listed above your personal information.</li>
+		<li><a href="home.php?mod=spacecp&ac=profile" target="_blank">1.클릭하여 개인정보 설정 페이지를 오픈 하세요.</a>;</li>
+		<li>2.오픈한 페이지에서 위 개인정보 내용들을 모두 빠짐없이 정확히 입력하여 주세요.</li>
 		</ul>',
 );
 
-?>

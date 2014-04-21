@@ -7,6 +7,10 @@
  *      $Id: lang_grouptrade.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'grouptrade_fids'		=> 'Sp&#233;cifiez le Groupe',  //  '指定群组'

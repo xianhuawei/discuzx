@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -16,7 +16,7 @@ $lang = array(
 	'ranklist_title_member_boy'	=> 'Топ-парни',
 	'ranklist_title_member_friend'	=> 'Топ-друзья',
 	'ranklist_title_member_invite'	=> 'Топ-приглашения',
-	'ranklist_title_member_post'	=> 'Топ-посты',
+	'ranklist_title_member_post'	=> 'Топ сообщений',
 	'ranklist_title_member_blog'	=> 'Топ-блоггеры',
 	'ranklist_title_member_onlinetime'	=> 'Топ-онлайн',
 
@@ -54,19 +54,18 @@ $lang = array(
 	'ranklist_title_picture_5'	=> 'По "Eggs"',
 
 	'ranklist_title_forum_thread'	=> 'По рейтингу',
-	'ranklist_title_forum_post'	=> 'По постам',
-	'ranklist_title_forum_post_30'	=> 'По постам за месяц',
-	'ranklist_title_forum_post_24'	=> 'По постам за сутки',
+	'ranklist_title_forum_post'	=> 'По сообщениям',
+	'ranklist_title_forum_post_30'	=> 'По сообщениям за месяц',
+	'ranklist_title_forum_post_24'	=> 'По сообщениям за сутки',
 
 	'ranklist_title_group_credit'	=> 'По баллам',
 	'ranklist_title_group_member'	=> 'По кол-ву участников',
 	'ranklist_title_group_thread'	=> 'По кол-ву тем',
-	'ranklist_title_group_post'	=> 'По кол-ву постов',
-	'ranklist_title_group_post_30'	=> 'По кол-ву постов за месяц',
-	'ranklist_title_group_post_24'	=> 'По кол-ву постов за сутки',
+	'ranklist_title_group_post'	=> 'По кол-ву сообщений',
+	'ranklist_title_group_post_30'	=> 'По кол-ву сообщений за месяц',
+	'ranklist_title_group_post_24'	=> 'По кол-ву сообщений за сутки',
 
 	'ranklist_title_app_today'	=> 'Топ-приложения за сегодня',
 	'ranklist_title_app_all'	=> 'Самые популярные приложения',
 );
 
-?>

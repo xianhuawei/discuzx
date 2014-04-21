@@ -7,6 +7,10 @@
  *      $Id: lang_subnavbanner.php 19237 2010-12-23 04:27:46Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'subnavbanner_name' => 'Dưới Menu',

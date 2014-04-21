@@ -9,10 +9,10 @@
 
 $lang = array
 (
-	'announcement_type'		=> 'Announce type',//'公告类型',
-	'announcement_type_text'	=> 'Announce text',//'文字公告',
-	'announcement_type_link'	=> 'Link',//'网站链接',
-	'announcement_titlelength'	=> 'Title length',//'标题长度',
-	'announcement_summarylength'	=> 'Content length',//'内容长度',
-	'announcement_startrow'		=> 'Start row',//'起始位置',
+	'announcement_type'		=> '공지유형',//'公告类型',
+	'announcement_type_text'	=> '텍스공고',//'文字公告',
+	'announcement_type_link'	=> '링크',//'网站链接',
+	'announcement_titlelength'	=> '제목길이',//'标题长度',
+	'announcement_summarylength'	=> '내용길이',//'内容长度',
+	'announcement_startrow'		=> '시작위치',//'起始位置',
 );

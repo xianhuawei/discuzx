@@ -7,11 +7,15 @@
  *      $Id: lang_visit.php 7828 2010-04-14 02:11:48Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'visit_name' => 'Thẻ ghé thăm',
 	'visit_desc' => 'Truy cập ngẫu nhiên vào Blog/Chào hỏi/Trêu chọc',
-	'visit_num' => 'Số lượng bạn bè thăm',
+	'visit_num' => 'Lượt ghé thăm',
 	'visit_info' => 'Truy cập ngẫu nhiên (lên đến {num} lần)',
 );
 

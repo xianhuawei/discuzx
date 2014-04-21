@@ -4,8 +4,12 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *		Translate by DCV team - http://www.discuz.vn
- *      $Id: lang_couplebanner.php 19237 2010-12-23 04:27:46Z monkey $
+ *      $Id: lang_couplebanner.php 27449 2012-02-01 05:32:35Z zhangguosheng $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -24,6 +28,10 @@ $lang = array
 	'couplebanner_coupleadid_comment' => 'Thiết lập và kết hợp với các quảng cáo hiện tại / quảng cáo dòng thứ hai',
 	'couplebanner_category' => 'Đặt các kênh cổng thông tin',
 	'couplebanner_category_comment' => 'thiết lập các kênh quảng cáo phân loại, khi quảng cáo bao gồm trong phạm vi của các “cổng” hợp lệ',
+	'couplebanner_disableclose' => 'Close links to advertising',
+	'couplebanner_disableclose_comment' => 'If the ad code has been built to close the operation, close the link you can close the System Preferences',
+	'couplebanner_show' => 'Hiện',
+	'couplebanner_hidden' => 'Ẩn',
 );
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -62,7 +62,7 @@ $lang = array
 	'tradelist_recommend_comment'	=> 'Показывать только рекомендованные темы',
 	'tradelist_orderby'		=> 'Сортировка',
 	'tradelist_orderby_comment'	=> 'Укажите метод сортировки',
-	'tradelist_orderby_lastpost'	=> 'По дате последнего поста',
+	'tradelist_orderby_lastpost'	=> 'По дате последнего сообщения',
 	'tradelist_orderby_dateline'	=> 'По дате создания',
 	'tradelist_orderby_replies'	=> 'По кол-ву ответов',
 	'tradelist_orderby_views'	=> 'По кол-ву просмотров',

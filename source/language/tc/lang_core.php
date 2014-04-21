@@ -4,13 +4,22 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_core.php 22638 2011-05-16 06:29:59Z svn_project_zhangjie $
+ *      $Id: lang_core.php 28082 2012-02-22 06:58:29Z monkey $
+ *	Modified by Valery Votintsev, codersclub.org
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
 	'nextpage' => '下一頁',
 	'prevpage' => '上一頁',
+	'pageunit' => '頁',
+	'total' => '共',
+	'10k' => '萬',
+	'pagejumptip' => '輸入頁碼，按回車快速跳轉',
 	'date' => array(
 		'before' => '前',
 		'day' => '天',
@@ -40,7 +49,7 @@ $lang = array
 
 	'seccode_image_tips' => '輸入下圖中的字符<br />',
 	'seccode_image_ani_tips' => '請輸入下面動畫圖片中的字符<br />',
-	'seccode_sound_tips' => '輸入你聽到的字符<br />',
+	'seccode_sound_tips' => '輸入您聽到的字符<br />',
 	'secqaa_tips' => '輸入下面問題的答案<br />',
 
 	'fullblankspace' => '　',
@@ -173,7 +182,7 @@ $lang = array
 	'title_ranklist_group' => '群組排行',
 	'title_ranklist_app' => '應用排行',
 	'title_ranklist_index' => '全部排行',
-	'title_ranklist_index' => '排行榜',
+	'title_ranklist_rankname' => '排行榜',
 	'title_search' => '搜索',
 	'title_topic_management' => '創建專題',
 	'title_portal_management' => '門戶管理',
@@ -199,23 +208,32 @@ $lang = array
 	'title_userapp_index_we' => '好友在玩什麼',
 	'title_userapp_index_me' => '我在玩的',
 	'title_userapp_manage' => '{userapp}管理',
+
+	'title_collection' => '淘帖',
+	'title_collection_create' => '創建淘專輯',
+	'title_collection_edit' => '編輯淘專輯',
+	'title_collection_comment_list' => '評論列表',
+	'title_collection_followers_list' => '訂閱用戶列表',
+
 	'faq' => '幫助',
 	'search' => '搜索',
 	'page' => '第{page}頁',
 
-//---------------------------------------------
+	'close' => '關閉',
+
+//--------------------------------------------------------------------------
 // Added by Valery Votintsev
+
 //source/include/misc/misc_security.php
-	'attackevasive_1_subject'	=> '刷新频率限制',//'Refresh frequency limit',
-	'attackevasive_1_message'	=> '您访问网站的速度太快，不到两秒钟！请等一下...',//'You visit the site too fast, less than two seconds! Please wait a little...',
-	'attackevasive_2_subject'	=> '通过代理服务器的访问是受到限制',//'Access through proxy servers is restricted',
-	'attackevasive_2_message'	=> '通过代理服务器访问网站限制亩。请删除您的代理设置配置，并直接访问该网站。',//'Access to the site through a proxy servers is restricted for mow. Please remove your proxy setting configuration, and access to the site directly.',
-	'attackevasive_4_subject'	=> '打开页面重载',//'Open the page reload',
-	'attackevasive_4_message'	=> '欢迎的网站，页面重新载入，请稍候...',//'Welcome to the site, the page is re-loading, please wait ...',
+	'attackevasive_1_subject'	=> '刷新頻率限制',//'Refresh frequency limit',
+	'attackevasive_1_message'	=> '您訪問網站的速度太快，不到兩秒鐘！請等一下...',//'You visit the site too fast, less than two seconds! Please wait a little...',
+	'attackevasive_2_subject'	=> '通過代理服務器的訪問是受到限制',//'Access throug proxy servers is restricted',
+	'attackevasive_2_message'	=> '通過代理服務器訪問網站限制畝。請刪除您的代理設置配置，並直接訪問該網站。',//'Access to the site through a proxy servers is restricted for mow. Please remove your proxy setting configuration, and access to the site directly.',
+	'attackevasive_4_subject'	=> '打開頁面重載',//'Open the page reload',
+	'attackevasive_4_message'	=> '歡迎的網站，頁面重新載入，請稍候...',//'Welcome to the site, the page is re-loading, please wait ...',
 
 // Months Names
 	'month_name'	=> array('月','一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'),//array('Month','January','February','March','April','May','June','July','August','September','October','November','December'),
 
 );
 
-?>

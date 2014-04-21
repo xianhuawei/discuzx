@@ -7,6 +7,10 @@
  *      $Id: lang_groupattachment.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'groupattachment_name'		=> 'Liste la pi&#232;ce jointe Forum',  //  '论坛附件列表'

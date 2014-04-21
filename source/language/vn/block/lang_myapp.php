@@ -7,9 +7,13 @@
  *      $Id: lang_blank.php 6757 2010-03-25 09:01:29Z cnteacher $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
-	'myapp_titlelength' => 'Độ dài tên',
-	'myapp_startrow' => 'Bắt đầu từ vị trí',
+	'myapp_titlelength' => 'Tiêu đề chiều dài',//'名称长度',
+	'myapp_startrow' => 'Hàng đầu tiên',//'起始位置',
 );
 ?>

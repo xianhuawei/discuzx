@@ -125,7 +125,7 @@ $lang = array(
 	'blog_li'		=> '<dl class="bbda cl"><dt><a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank">{subject}</a><span class="xg2 xw0"> {date}</span></dt>',
 	'blog_li_img'		=> '<dd class="atc"><a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank"><img src="{src}" class="summaryimg" /></a></dd>',
 	'blog_li_ext'		=> '<dd class="xg1"><a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank">({viewnum})izleme</a><span class="pipe">|</span><a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}#comment" target="_blank">({replynum}) yorum</a></dd>',
-	'album_li'		=> '<li style="width:70px"><div class="c"><a href="home.php?mod=space&uid={uid}&do=album&id={albumid}" target="_blank"><img src="{src}" alt="{albumname}" width="120" /></a></div><p><a href="home.php?mod=space&uid={uid}&do=album&id={albumid}" target="_blank" title="{albumname]}">{albumname}</a></p><span>Resim:({picnum})</span><span>Güncelleme {date}</span></li>',
+	'album_li'		=> '<li><div class="c"><a href="home.php?mod=space&uid={uid}&do=album&id={albumid}" target="_blank"><img src="{src}" alt="{albumname}" width="120" /></a></div><p><a href="home.php?mod=space&uid={uid}&do=album&id={albumid}" target="_blank" title="{albumname]}">{albumname}</a></p><span>Resim:({picnum})</span><span>Güncelleme {date}</span></li>',
 	'doing_li'		=> '<li>{message}</li><br />{date} {from} Cevaplama({replynum})',
 	'visitor_anonymity'	=> '<div class="avatar48"><img src="image/magic/hidden.gif" alt="Anonim"></div><p>Anonim</p>',
 	'visitor_list'		=> '<a href="home.php?mod=space&uid={uid}" target="_blank"><em class="{class}"></em>{avatar}</a><p><a href="home.php?mod=space&uid={uid}" title="{username}">{username}</a></p>',
@@ -251,6 +251,19 @@ $lang = array(
 	'viewthread_userinfo_regtime'	=> 'Kayıt:',
 	'viewthread_userinfo_lastdate'	=> 'Son giriş:',
 	'viewthread_userinfo_oltime'	=> 'Online süre:',
+/* Obsolete
+	'block_friend_no_content'	=> 'Arkadaş yok!',
+	'block_friend_no_content_publish'	=> '，<a href ="home.php?mod=spacecp&ac=search">Arkadaş ara</a> veya <a href ="home.php?mod=spacecp&ac=invite">davet et</a>',
+	'block_visitor_no_content'	=> 'Ziyaretçiniz yok!',
+	'block_visitor_no_content_publish'	=> ',<a href ="home.php?mod=space&do=friend&view=online&type=member"> kimler online!</a>',
+	'block_share_no_content'	=> 'Paylaşımınız yok!',
+	'block_wall_no_content'	=> 'Mesajınız bulunmuyor!',
+	'block_group_no_content'	=> 'grubunuz yok!',
+	'block_group_no_content_publish'	=> '，<a href ="forum.php?mod=group&action=create">Kendi grubunu oluştur</a> veya <a href ="group.php?mod=index">Gruba katıl!</a>',
+	'block_myapp_no_content'	=> 'Henüz uygulama kullanmıyorsunuz!',
+	'block_myapp_no_content_publish'	=> '，<a href ="userapp.php?mod=manage&my_suffix=/app/list">Uygulamalar</a>',
+*/	
 
 );
 
+?>

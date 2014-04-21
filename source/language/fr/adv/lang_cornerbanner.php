@@ -7,6 +7,10 @@
  *      $Id: lang_cornerbanner.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'cornerbanner_name'		=> 'Coin inf&#233;rieur droit de la publicit&#233; globales',
@@ -20,6 +24,9 @@ $lang = array
 	'cornerbanner_animator_comment'	=> 'R&#233;glez s\'il faut afficher l\'affichage d\'animation',
 	'cornerbanner_category'		=> 'Portail des canaux Emplacement',
 	'cornerbanner_category_comment'	=> 'Jeu de cha&#238;nes publicitaires annonce, quand la publicit&#233; de la gamme avec un "portail" est effective',
+	'cornerbanner_disableclose'	=> 'Close advertising link',//'关闭广告的链接',
+	'cornerbanner_disableclose_comment'	=> 'If you want the Advertising can not be closed, you can disable to show the Close link',//'如果广告代码中已内置关闭操作，可以关闭系统预置的关闭链接',
+	'cornerbanner_show'		=> 'Show',//'显示',
+	'cornerbanner_hidden'		=> 'Hide',//'隐藏',
 );
 
-?>

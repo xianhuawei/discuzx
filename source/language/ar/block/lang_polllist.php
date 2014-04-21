@@ -1,20 +1,25 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_polllist.php by Khalid Nahhal, http://www.ar-discuz.com
+ *      $Id: lang_polllist.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
-	'polllist_name'		=> 'قائمة الإستطلاعات',//'投票列表',
-	'polllist_desc'		=> 'Call poll list',//'投票列表调用',
-	'polllist_uids'		=> 'ارقام الأعضاء',//'用户UID',
-	'polllist_uids_comment'	=> 'Please fill in specific users ID (uid), use comma (,) to separate users',//'填入指定用户的ID(uid)，多个用户之间用逗号(,)分隔',
-	'polllist_startrow'	=> 'صف البدء',//'起始数据行数',
-	'polllist_startrow_comment'	=> 'If you need to set start row, please enter a number, 0 is the first row',//'如需设定起始的数据行数，请输入具体数值，0 为从第一行开始，以此类推',
+	'polllist_name'			=> 'قائمة الإستطلاعات',//'投票列表',
+	'polllist_desc'			=> 'Call poll list',//'投票列表调用',
+	'polllist_uids'			=> 'أرقام الأعضاء',//'用户UID',
+	'polllist_uids_comment'		=> 'Please fill in specific users ID (uid), use comma (,) to separate users',//'填入指定用户的ID(uid)，多个用户之间用逗号(,)分隔',
+	'polllist_startrow'		=> 'صف البدء',//'起始数据行数',
+	'polllist_startrow_comment'	=> 'إذا كنت بحاجة لتعيين صف البدء,الرجاء إدخال الرقم, 0 هو الصف الأول',//'如需设定起始的数据行数，请输入具体数值，0 为从第一行开始，以此类推',
 	'polllist_titlelength'		=> 'طول العنوان',//'标题长度',
 	'polllist_summarylength'	=> 'طول الملخص',//'简介长度',
 	'polllist_orderby'		=> 'ترتيب حسب',//'投票排序方式',

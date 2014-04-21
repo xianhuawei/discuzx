@@ -15,6 +15,7 @@ $lang = array
 	'member_complete_var_act'		=> 'Acción',//'动作',
 	'member_complete_var_act_favorite'	=> 'Añadir tema a favoritos',//'收藏主题',
 	'member_complete_var_act_magic'		=> 'Usa la magia',//'使用道具',
+	'member_complete_var_act_userapp'	=> 'Add application',//'添加漫游应用',
 	'member_complete_var_num'		=> 'Número mínimo de veces para realizar la acción',//'执行动作次数下限',
 	'member_complete_var_num_comment'	=> 'Los miembros necesitan para llevar a cabo las medidas adecuadas por lo menos este número de veces',//'会员需要执行相应动作的最少次数',
 	'member_complete_var_time'		=> 'Tiempo límite (hours)',//'时间限制(小时)',
@@ -24,6 +25,6 @@ $lang = array
 	'task_complete_time_limit'		=> '{value} horas',//'{value} 小时内，',
 	'task_complete_act_favorite'		=> 'Agregar a los favoritos {value} Temas.',//'收藏 {value} 个主题。',
 	'task_complete_act_magic'		=> 'Usa la magia {value} veces.',//'使用 {value} 次道具。',
+	'task_complete_act_userapp'		=> 'Added {value} applications',//'添加 {value} 个漫游应用',
 );
 
-?>

@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -10,7 +10,7 @@
 $lang = array
 (
 	'anonymouspost_name'			=> 'Анонимйзер',
-	'anonymouspost_desc'			=> 'Позволяет публиковать посты анонимно',
+	'anonymouspost_desc'			=> 'Позволяет публиковать сообщения анонимно',
 	'anonymouspost_num'			=> 'Количество артефактов: {magicnum}',
 	'anonymouspost_forum'			=> 'Разрешено использование в форумах',
 	'anonymouspost_info'			=> 'Введите ID Вашей темы, которая будет опубликована от имени анонима',

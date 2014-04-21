@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -9,8 +9,8 @@
 
 $lang = array
 (
-	'post_name'				=> 'Постинг на форуме',
-	'post_desc'				=> 'Для получения бонуса необходимо сделать новый постинг на форуме.',
+	'post_name'				=> 'Сообщение на форуме',
+	'post_desc'				=> 'Для получения бонуса необходимо создать новое сообщение на форуме.',
 	'post_complete_var_act'			=> 'Действие',
 	'post_complete_var_act_newthread'	=> 'Создать новую тему',
 	'post_complete_var_act_newreply'	=> 'Ответить на существующую тему',
@@ -33,4 +33,3 @@ $lang = array
 	'task_complete_act_newreply_author'	=> 'Ответов на темы автора &quot;{value}&quot;: {num}',
 );
 
-?>

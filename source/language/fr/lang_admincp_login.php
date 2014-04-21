@@ -7,6 +7,10 @@
  *      $Id: lang_admincp_login.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'login_title'		=> 'Connexion Centre de Gestion',
@@ -37,4 +41,3 @@ $lang = array
 
 );
 
-?>

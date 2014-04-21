@@ -16,5 +16,7 @@ $lang = array
 	'interthread_fids_comment'	=> 'Establecer foros para mostrar el Anuncio',//'设置广告投放的论坛版块，当广告投放范围中包含“论坛”时有效',
 	'interthread_groups'		=> 'Objetivo Grupos',//'投放群组分类',
 	'interthread_groups_comment'	=> 'Establecer los grupos para mostrar publicidad. Sólo tendrá efecto cuando los anuncios incluidos en el ámbito &quot;group&quot;.',//'设置广告投放的群组分类，当广告投放范围中包含“群组”时有效',
+	'interthread_pnumber'		=> 'Advertizing at post',//'广告显示楼层',
+	'interthread_pnumber_comment'	=> 'Set the post number: #1 #2 #3... You can hold down the CTRL for multiple choice, default is the first post.',//'选项 #1 #2 #3 ... 表示帖子楼层，可以按住 CTRL 多选，默认只投放 1 楼',
 );
 

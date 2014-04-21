@@ -2,9 +2,10 @@
 	[Discuz!] (C)2001-2009 Comsenz Inc.
 	This is NOT a freeware, use is subject to license terms
 
-	Javascript Language variables for Vietnamese
+	Javascript Language variables
 
-	$Id: static/js/lang_js.js by Valery Votintsev, vot at sources.ru
+	$Id: lang_js.js by Valery Votintsev, codersclub.org
+
 	Vietnamese by Discuz.vn
 */
 
@@ -17,6 +18,7 @@ var emaildomains = [
 		'gmail.com',
 		'hotmail.com',
 		'msn.com',
+		'qq.com',
 		'yahoo.com'
 		];
 
@@ -95,7 +97,6 @@ var lng = {
 	'plain_text_warn'	: 'Chuyển thành chỉ chữ sẽ mất các định dạng!\nBạn có chắc chắn tiếp tục?',//'转换为纯文本时将会遗失某些格式。\n您确定要继续吗？',
 	'browser_update'	: 'Trình duyệt của bạn không hỗ trợ tính năng này. Hãy cập nhật phiên bản mới!',//'你的浏览器不支持此功能，请升级浏览器版本',
 	'tips'			: 'Trợ giúp',//'小提示',
-//	'show_tips'		: 'Show Tips',//'友情提示',
 
 //---------------------------
 //static/image/editor/editor_function.js
@@ -111,6 +112,9 @@ var lng = {
 	'int_cloud_test'	: 'Thử tính năng điện toán đám mây',//'云平台其他接口测试',
 	'int_roaming_test'	: 'Testing other Roaming interface',//'漫游其他接口测试',
 	'int_qq_test'		: 'Testing QQ Internet interface',//'QQ互联接口测试',
+	'server_busy'		: 'The server is busy, please try again later',//'服务器繁忙，请稍后再试',
+	'tested_ok'		: 'The test is successful, time used: ',//'测试成功，耗时 ',
+	'seconds'		: ' sec.',//' 秒',
 
 //---------------------------
 //static/image/admincp/cloud/qqgroup.js
@@ -126,6 +130,9 @@ var lng = {
 
 
 
+//---------------------------
+//upload/static/js/at.js
+//	'enter_username'	: 'Please enter the user name',//'请输用户名',
 
 //---------------------------
 //upload/static/js/common_extra.js
@@ -151,6 +158,7 @@ var lng = {
 	'today'		: 'Hôm nay',//'今天',
 	'hours'		: 'Giờ',//'点',
 	'minutes'	: 'Phút',//'分',
+	'halfhour'	: 'Nữa Giờ',//'分',
 	'ok'		: 'Ok',//'OK',
 
 //--------------------------------
@@ -162,9 +170,7 @@ var lng = {
 	'wheel_zoom'		: 'Dùng con lăn để phóng to hoặc thu nhỏ ảnh',//'鼠标滚轮缩放图片',
 	'reminder'		: 'Nhắc nhở',//'提示信息',
 	'submit'		: 'OK',//'确定',
-//	'submit'		: 'Submit',//'提交',
 	'cancel'		: 'Hủy',//'取消',
-//	'cancel'		: 'Cancel',//'取消',
 	'wait_please'		: 'Đang tải ...',//'请稍候...',
 	'int_error'		: 'Lỗi nội bộ không hiển thị được nội dung này',//'内部错误，无法显示此内容',
 	'flash_required'	: 'Yêu cầu phải cài Adobe Flash Player 9.0.124 hoặc mới hơn',//'此内容需要 Adobe Flash Player 9.0.124 或更高版本',
@@ -207,6 +213,9 @@ var lng = {
 	'error_message'		: 'Tin nhắn lỗi',//'错误信息',
 	'ctrl_d_favorites'	: 'Ấn Ctrl + D để đặt bookmark',//'请按 Ctrl+D 键添加到收藏夹',
 	'non_ie_manually'	: 'Không dùng IE thì hãy đặt trang chủ thủ công',//'非 IE 浏览器请手动将本站设为首页',
+	'blind_enable'		: 'Enable blind experience',//'开启盲人体验',//tc:'開啟盲人體驗',
+	'blind_disable'		: 'Disable blind experience',//'关闭盲人体验',//tc:'關閉盲人體驗',
+
 //--------------------------------
 //static/js/common_diy.js
 
@@ -219,18 +228,11 @@ var lng = {
 //static/js/common_extra.js
 
 	'copy_failed'		: 'Không copy được, hãy "Đồng ý truy cập"',//'复制失败，请选择“允许访问”',
-//	'permanent'		: 'Permanent',//'永久',
-//	'open_new_win'		: 'Open in new window',//'在新窗口打开',
-//	'actual_size'		: 'Actual Size',//'实际大小',
-//	'close'			: 'Đóng',//'关闭',
-//	'wheel_zoom'		: 'Use mouse wheel to zoom in/out the image',//'鼠标滚轮缩放图片',
-//	'reminder'		: 'Reminder',//'提示信息',
 	'prev'			: 'Trước.',//'上一张',
 	'next'			: 'Sau',//'下一张',
 
 //--------------------------------
 //static/js/editor.js
-//static/js/seditor.js
 
 	'restore_size_edit'	: 'Khôi phục kích thước khung soạn thảo',//'恢复编辑器大小',
 	'full_screen_edit'	: 'Soạn thảo toàn màn hình',//'全屏方式编辑',
@@ -277,13 +279,7 @@ var lng = {
 	'sec_before_saving'	: 's trước khi lưu tự động',//'秒后保存',
 	'insert_quote'		: 'Điền vào trích dẫn',//'请输入要插入的引用',
 	'insert_code'		: 'Điền vào code',//'请输入要插入的代码',
-//	'enter_image_url'	: 'Enter the image URL',//'请输入图片地址',
-//	'width_optional'	: 'Width (optional)',//'宽(可选)',
-//	'height_optional'	: 'Height (optional)',//'高(可选)',
 	'enter_item_list'	: 'Nhập danh sách item.\r\nĐể trống hoặc nhấp vào Huỷ.',//'输入一个列表项目.\r\n留空或者点击取消完成此列表.',
-//	'enter_link_url'	: 'Enter the link URL',//'请输入链接地址',
-//	'enter_link_text'	: 'Enter the link text',//'请输入链接文字',
-//	'insert_quote'		: 'Insert the Quote',//'请输入要插入的引用',
 	'width'			: 'Rộng',//'宽',
 	'height'		: 'Cao',//'高',
 	'audio_support'		: 'Hỗ trợ định dạng wma, mp3, ra, rm, ...<br />Ví dụ: http://server/audio.wma',//'支持 wma mp3 ra rm 等音乐格式<br />示例: http://server/audio.wma',
@@ -291,12 +287,14 @@ var lng = {
 	'flash_support'		: 'Hỗ trợ Flash: swf flv <br /> Ví dụ: http://server/flash.swf',//'支持 swf flv 等 Flash 网址<br />示例: http://server/flash.swf',
 	'paste_from_word'	: 'Paste từ file Word',//'从 Word 粘贴内容',
 	'paste_word_tip'	: 'Hãy sử dụng (Ctrl + V) để dán nội dung từ file Word',//'请通过快捷键(Ctrl+V)把 Word 文件中的内容粘贴到上',
+	'show_tips'		: 'Show Tips',//'友情提示',
+	'expire_days'		: 'Valid for (days)',//'有效天数',
+	'expire_days_invalid'	: 'Distance from the posting date is greater than the number of days when the label automatically expire',//'距离发帖日期大于这个天数时标签自动失效',
 //--------------------------------
 //static/js/forum.js
 
 	'del_thread_sure'	: 'Bạn có chắc xóa độ nóng của chủ đền này?',//'您确认要把此主题从热点主题中移除么？',
 	'there_are'		: 'Có ',//'有',
-//	'new_reply_exists'	: ' new replies in the thread, click to view',//'条存在新回复的主题，点击查看',
 	'new_reply_exists'	: 'Chủ đề có trả ời mới, bấm để Xem',//'有新回复的主题，点击查看',
 //--------------------------------
 //static/js/forum_google.js
@@ -321,24 +319,13 @@ var lng = {
 	'can_not_save_attach'	: 'Không lưu được file Đính kèm',//'附件文件无法保存',
 	'invalid_file'		: 'Không có file được tải lên',//'没有合法的文件被上传',
 	'illegal_operation'	: 'Hoạt động không hợp lệ',//'非法操作',
-//	'current_length'	: 'Current Length',//'当前长度',
-//	'bytes'			: 'bytes',//'字节',
-//	'system_limit'		: 'System limit',//'系统限制',
-//	'up_to'			: 'to',//'到',
-//	'bytes'			: 'bytes',//'字节',
-//	'check_length'		: 'Word Count',//'字数检查',
 	'enter_content'		: 'Nhập tiêu đề hoặc nội dung',//'请完成标题或内容栏',
 	'select_category'	: 'Chọn một thể loại tương ứng cho chủ đề',//'请选择主题对应的分类',
 	'select_category_info'	: 'Chọn một thể loại tương ứng cho các thông tin chủ đề',//'请选择主题对应的分类信息',
 	'title_long'		: 'Tiêu đề chiều dài vượt quá giới hạn 255 ký tự',//'您的标题超过 80 个字符的限制',
 	'content_long'		: 'Chiều dài nội dung không đáp ứng được yêu cầu.\n\n',//'您的帖子长度不符合要求。\n\n',
-//	'bytes'			: 'bytes',//'字节',
-//	'system_limit'		: 'System limit',//'系统限制',
-//	'up_to'			: 'to',//'到',
 	'ignore_pending_attach'	: 'Có tập tin đính kèm đang chờ giải quyết, bạn có chắc bỏ qua nó?',//'您有等待上传的附件，确认不上传这些附件吗？',
 	'still_uploading'	: 'Một số file đính kèm được tải lên, xin vui lòng chờ đợi. Chủ đề sẽ được công bố tự động sau khi các tập tin đã được tải lên ...',//'您有正在上传的附件，请稍候，上传完成后帖子将会自动发表...',
-//	'q&a_invalid'			: 'Wrong answer, please try again',//'验证问答错误，请重新填写',
-//	'code_invalid'			: 'Wrong security code, please try again',//'验证码错误，请重新填写',
 	'no_data_recover'	: 'Không có dữ liệu có thể được phục hồi',//'没有可以恢复的数据！',
 	'content_overwrite'	: 'Chủ đề nội dung hiện tại sẽ được ghi đè bởi hoạt động này, bạn có chắc để khôi phục lại dữ liệu?',//'此操作将覆盖当前帖子内容，确定要恢复数据吗？',
 	'upload_finished'	: 'Tải lên xong!',//'附件上传完成！',
@@ -348,7 +335,6 @@ var lng = {
 	'uploading'		: 'Đang tải...',//'上传中...',
 	'select_image_files'	: 'Chọn file ảnh',//'请选择图片文件',
 	'delete'		: 'Xóa',//'删除',
-//	'cancel'		: 'Cancel',//'取消',
 	'contains'		: 'Chứa ',//'包含',
 	'img_attached_num'	: 'Hình ảnh đính kèm',//'个图片附件',
 	'files attached_num'	: 'File đính kèm',//'个附件',
@@ -367,17 +353,12 @@ var lng = {
 	'vote_max_reached'	: 'Đạt số phiếu tối đa: ',//'已达到最大投票数',
 	'no_remote_attach'	: 'Xin lỗi, không có file đính kèm từ xa',//'抱歉，暂无远程附件',
 	'delete_post_sure'	: 'Bạn có chắc xóa bài này?',//'确定要删除该帖子吗？',
+	'feed_add_confirm'	: 'Because of you have set read permission or sell the post, do you confirm also the broadcast to your listeners to see?',//'由于您设置了阅读权限或出售帖，您确认还转播给您的听众看吗？',
 //--------------------------------
 //static/js/forum_viewthread.js
 
 	'best_answer_sure'	: 'Bạn có chắc đây là "Câu trả lời tốt nhất"?',//'您确认要把该回复选为“最佳答案”吗？',
-//	'title_long'		: 'Title length exceeds the limit of 255 characters',//'您的标题超过 255 个字符的限制',
-//	'content_long'		: 'The content length does not meet the requirements.\n\nCurrent Length '//'您的帖子长度不符合要求。\n\n当前长度',
-//	'bytes'			: 'bytes',//'字节',
-//	'system_limit'		: 'System limit',//'系统限制',
-//	'up_to'			: 'to',//'到',
 	'premoderated'		: 'Trả lời cần được kiểm tra. Bài viết của bạn sẽ được hiển thị sau khi xác minh',//'本版回帖需要审核，您的帖子将在通过审核后显示',
-//	'credit_confirm1'	: 'This costs ',//'下载积分将',
 	'credit_confirm1'	: 'Giá để tải ',//'下载需要消耗',
 	'credit_confirm2'	: ' điểm, bạn có chắc tải nó?',//'，您是否要下载？',
 	'thread_to_clipboard'	: 'Địa chỉ bài viết đã được sao chép vào clipboard',//'帖子地址已经复制到剪贴板',
@@ -386,8 +367,33 @@ var lng = {
 	'notify_on_reply_cancel'	: 'Không nhắc nhở có trả lời',//'取消回复通知',
 	'share_connection_failed'	: 'Lỗi kết nối để chia sẻ, hãy thử lại sau',//'分享服务连接失败，请稍后再试',
 	'qq_bind'		: 'Xin vui lòng liên kết tài khoản QQ của bạn',//'请先绑定QQ账号',
-	'quote_by'	: 'Trích dẫn bởi .*? trong đoạn mã .*?',//'本帖最后由 .*? 于 .*? 编辑',
-	'copy_code'	: 'Copy mã',//'复制代码',
+	'quote_by'		: 'Trích dẫn bởi .*? trong đoạn mã .*?',//'本帖最后由 .*? 于 .*? 编辑',
+	'copy_code'		: 'Copy mã',//'复制代码',
+
+//--------------------------------
+//static/js/handlers.js
+	'file_selected_exceed'	: 'You have selected too many files.',//'您选择的文件个数超过限制。',
+	'upload_number_exceed'	: 'You cannot add any more files.',//'您已达到上传文件的上限了。',
+	'can_choose_more'	: 'You may only add ',//'您还可以选择 ',
+	'files'			: ' more files',//' 个文件',
+	'file_is_large'		: 'File is too large.',//'文件太大.',
+	'file_is_empty'		: 'You can not upload a zero byte file.',//'不能上传零字节文件.',
+	'file_type_disabled'	: 'Upload of such type files is disabled.',//'禁止上传该类型的文件.',
+	'unhandled_error'	: 'Unhandled Error',//'',
+	'upload_progress'	: 'Uploaded ',//'正在上传',
+	'upload_cancelled'	: 'Cancelled',//'取消上传',
+	'file_description'	: 'File Description',//'图片描述',
+	'image_upload_failed'	: 'Image upload failed',//'图片上传失败',
+	'upload_failed'		: 'Upload failed',//'上传失败',
+	'upload_completed'	: 'Upload completed.',//'上传完成.',
+	'upload_error'		: 'Upload Error: ',//'',
+	'config_error'		: 'Configuration Error',//'',
+	'server_error'		: 'Server (IO) Error',//'',
+	'security_error'	: 'Security Error',//'',
+	'upload_limit_exceed'	: 'Upload limit exceeded.',//'',
+	'file_not_found'	: 'File not found.',//'',
+	'validation_failed'	: 'Failed Validation.  Upload skipped.',//'',
+	'upload_stopped'	: 'Stopped',//'',
 
 //--------------------------------
 //static/js/home.js
@@ -432,12 +438,10 @@ var lng = {
 	'leave_message'		: 'Gửi tin nhắn',//'给TA留言',
 	'or'			: 'hoặc',//'或者',
 	'send_greeting'		: 'gửi chào hỏi',//'打个招呼',
-//	'collapse'			: 'Collapse',//'收起',
 	'reply'			: 'Trả lời',//'回复',
 	'comment'		: 'Nhận xét',//'评论',
 	'close_list'		: 'Đóng danh sách',//'收起列表',
 	'more_feeds'		: 'Xem thêm',//'更多动态',
-//	'day'			: 'Day',//'日',
 
 //--------------------------------
 //static/js/home_uploadpic.js
@@ -445,10 +449,7 @@ var lng = {
 	'image_type_invalid'	: 'Xin lỗi, hình ảnh với phần mở rộng như vậy không được hỗ trợ',//'对不起，不支持上传此类扩展名的图片',
 	'insert_to_content'	: 'Click vào đây để chèn vào nội dung ở vị trí con trỏ hiện tại',//'点击这里插入内容中当前光标的位置',
 	'insert'		: 'Chèn',//'插入',
-//	'delete'		: 'Delete',//'删除',
 	'image_description'	: 'Hình ảnh mô tả',//'图片描述',
-//	'upload_ok'		: 'Uploaded Successfully',//'上传成功',
-//	'upload_failed'		: 'Upload Failed',//'上传失败',
 	'uploading_wait'	: 'Tải lên, vui lòng chờ...',//'上传中，请等待',
 	'retry'			: 'Thử lại',//'重试',
 
@@ -474,6 +475,10 @@ var lng = {
 	'custom_content_error'	: 'Tuỳ chỉnh nội dung lỗi!HTML code: ',//'自定义内容错误，',
 	'html_error'		: 'Mã HTML: ',//'HTML代码：',
 	'tags_not_match'	: ' - Tags không phù hợp',//' 标签不匹配',
+	'entered'		: 'Have entered ',//'已输入 ',
+	'exceed'		: 'Exceed ',//'超出 ',
+	'title_length_bad'	: 'The title is incorrect',//'标题长度不正确',
+	'summary_length_bad'	: 'Summary length is incorrect',//'简介长度不正确',
 
 //--------------------------------
 //static/js/portal_diy.js
@@ -490,9 +495,7 @@ var lng = {
 	'no_border'		: 'Không có viền',//'无边框框架',
 	'no_border_no_margin'	: 'Không viền và lề',//'无边框且无边距',
 
-//	'choose_style'		: 'Choose a Style',//'选择样式',
 	'title'			: 'Tiêu đề',//'标题',
-//	'delete'		: 'Delete',//'删除',
 	'attribute'		: 'Thuộc tính',//'属性',
 	'data'			: 'Dữ liệu',//'数据',
 	'update'		: 'Cập nhật',//'更新',
@@ -505,7 +508,6 @@ var lng = {
 	'solid_line'		: 'Nét thẳng',//'实线',
 	'dotted_line'		: 'Nét chấm chấm',//'点线',
 	'dashed_line'		: 'Nét đứt',//'虚线',
-//	'font'			: 'Font',//'字体',
 	'link'			: 'Liên kết',//'链接',
 	'border'		: 'Viền',//'边框',
 	'size'			: 'Kích thước',//'大小',
@@ -517,65 +519,48 @@ var lng = {
 	'left'			: 'Trái',//'左',
 	'margin'		: 'Lợi nhuận',//'外边距',
 	'padding'		: 'Sự lót vào',//'内边距',
-//	'background_color'	: 'Background Color',//'背景颜色',
 	'bg_image'		: 'Ảnh nền',//'背景图片',
 	'class'			: 'Mẫu mã phong cách lớp',//'指定class',
 	'block'			: 'Khối',//'模块',
 	'frame'			: 'Khung',//'框架',
-//	'edit'			: 'Edit',//'编辑',
-//	'style'			: 'Style',//'样式',
-//	'close'			: 'Close',//'关闭',
-//	'submit'		: 'Submit',//'确定',
-//	'cancel'		: 'Cancel',//'取消',
-//	'tile'			: 'Tile',//'平铺',
-//	'no_tile'		: 'No tile',//'不平铺',
-//	'tile_hor'		: 'Horizontal Tile',//'横向平铺',
-//	'tile_ver'		; 'Vertical Tile',//'纵向平铺',
 	'onclick'		: 'onClick',//'点击',
 	'onmouseover'		: 'onMouseover',//'滑过',
 	'switch_type'		: 'Chuyển đổi loại',//'切换类型',
-//	'title'			: 'Title',//'标题',
-//	'link'			: 'Link',//'链接',
 	'image'			: 'Ảnh',//'图片',
 	'position'		: 'Vị trí',//'位置',
 	'align_left'		: 'Căn trái',//'居左',
 	'align_right'		: 'Căn phải',//'居右',
 	'offset'		: 'Bù đắp',//'偏移量',
-//	'font'			: 'Font',//'字体',
-//	'size'			: 'Size',//'大小',
 //!!! mainly the same as 'color' !!!!!!
 //	'colour'		: 'Colour',//'色',
 	'add_new_title'		: 'Thêm tiêu đề mới',//'添加新标题',
-//	'edit'			: 'Edit',//'编辑',
-//	'title'			: 'Title',//'标题',
-//	'close'			: 'Close',//'关闭',
-//	'submit'		: 'Submit',//'确定',
-//	'cancel'		: 'Cancel',//'取消',
 	'delete_this_sure'	: 'Bạn có chắc xóa nó? Nó không thể phục hồi nếu bạn xóa nó.',//'您确实要删除吗,删除以后将不可恢复',
 	'loading_content'	: 'Tải nội dung...',//'正在加载内容...',
 	'modified_import'	: 'Bạn đã thực hiện một số sửa đổi, xin vui lòng nhập nó sau khi bạn lưu nó, nếu không thì dữ liệu nhập khẩu sẽ không bao gồm sửa đổi, bổ sung thời gian này.',//'您已经做过修改，请保存后再做导出，否则导出的数据将不包括您这次所做的修改。',
 	'total'			: 'Tổng cộng ',//'共',
 	'blocks'		: 'khối',//'个模块',
 	'updating_the'		: 'cập nhật #',//'正在更新第',
-//	'ones'			: 'ones',//'个',
 	'done'			: 'xong',//'已完成',
 	'start_updating'	: 'Bắt đầu cập nhật ...',//'开始更新...',
 	'update_block_data'	: 'Cập nhật các khối dữ liệu',//'更新模块数据',
 	'clear_diy_sure'	: 'Bạn có chắc chắn để xóa dữ liệu trang hiện tại DIY? Nó không thể được phục hồi.',//'您确实要清空页面上所在DIY数据吗,清空以后将不可恢复',
 	'frame_not_found'	: 'Cảnh báo: Khung hình không tìm thấy, xin vui lòng thêm khung.',//'提示：未找到框架，请先添加框架。',
-//	'warn_not_saved'	: 'You have modified the data. If you exit, all the changes will be lost.',//'您的数据已经修改,退出将无法保存您的修改。',
 	'apply_all_pages'	: 'Áp dụng cho tất cả các loại trang',//'应用于此类全部页面',
 	'apply_current_page'	: 'Áp dụng cho trang hiện tại',//'只应用于本页面',
 	'save_temp_sure'	: 'Lưu dữ liệu tạm thời?<br />Nhấp vào trình lưu dữ liệu tạm thời, nhấp vào hủy bỏ để xóa các dữ liệu tạm thời.',//'是否保留暂存数据？<br />按确定按钮将保留暂存数据，按取消按钮将删除暂存数据。',
 	'save_temp'		: 'Lưu dữ liệu tạm thời',//'保留暂存数据',
 	'revert_last_saved'	: 'Bạn chắc chắn rằng bạn muốn quay trở lại phiên bản trước đó kết quả đã lưu?',//'您确定要恢复到上一版本保存的结果吗？',
 	'continue_temp_sure'	: 'Tiếp tục DIY với các dữ liệu tạm thời?',//'是否继续暂存数据的DIY？',
-//	'warn_not_saved'	: 'You have modified the data. If you exit, all the changes will be lost.',//'您的数据已经修改,退出将无法保存您的修改。',
 	'update_completed'	: 'Tải lên hoàn tất.',//'已更新完成。',
 	'tab_label'		: 'Tab nhãn',//'tab标签',
 	'temp_action'		: 'Click vào nút "Tiếp tục" để tải các dữ liệu tạm thời vào phong cách hiện tại,<br />Click vào nút "Delete" để xóa dữ liệu tạm thời.',//'按继续按钮将打开暂存数据并DIY，<br />按删除按钮将删除暂存数据。',
 	'continue'		: 'Tiếp tục',//'继续',
+	'block_no_rights'	: 'Sorry, you have no permission to add or edit block',//'抱歉，您没有权限添加或编辑模块',
 
+//--------------------------------
+//static/js/portal_diy_data.js
+	'data_manage'		: 'Direct management of the block data',//'可直接管理模块数据',
+	'quit'			: 'Quit',//'退出',
 //--------------------------------
 //static/js/qshare.js
 	'from_tencent'		: 'Tôi đến từ microblogging Tencent một nền tảng mở',//"\u6211\u6765\u81EA\u4E8E\u817E\u8BAF\u5FAE\u535A\u5F00\u653E\u5E73\u53F0",
@@ -592,9 +577,37 @@ var lng = {
 	'password_fill'		: 'Xin vui lòng điền mật khẩu',//'请填写密码',
 	'password_again'	: 'Xin vui lòng nhập lại mật khẩu',//'请再次输入密码',
 	'email_fill'		: 'Xin vui lòng nhập địa chỉ email',//'请输入邮箱地址',
+	'length_min'		: ', Minimum length',//', 最小长度为 '
+	'chars'			: ' characters',//' 个字符',
+	'password_strength'	: 'Password strength: ',//'密码强度:',
+	'pw_weak'		: 'Weak',//'弱',
+	'pw_middle'		: 'Middle',//'中',
+	'pw_strong'		: 'Strong',//'强',
+	'pass_short'		: 'Password is too short, must be not less than ',//'密码太短，不得少于 ',
+	'digital'		: 'Digital',//'数字',
+	'lowercase'		: 'Lowercase letters',//'小写字母',
+	'capitals'		: 'Capital letters',//'大写字母',
+	'specials'		: 'Special symbols',//'特殊符号',
+	'pw_weak_info'		: 'Weak password, the password must contain ',//'密码太弱，密码中必须包含 ',
+
+//--------------------------------
+//static/js/seditor.js
+	'enter_username'	: 'Please enter the user name',//'请输用户名',
+	'at_friend'		: '@Friend, you can remind him to view the post',//'@朋友账号，就能提醒他来看帖子',
 
 //--------------------------------
 //static/js/smilies.js
+
+//--------------------------------
+//static/js/space_diy.js
+
+	'save_js'		: 'javascript saved',//'javascript脚本保存后显示',
+	'settings'		: 'Settings',//'设置',
+
+//---------------------------
+//static/js/swfupload.js
+
+	'attach_file'		: 'Attachment',
 
 //---------------------------
 //static/js/threadsort.js
@@ -607,19 +620,12 @@ var lng = {
 	'text_too_long'		: 'Giá trị trường quá dài',//'填写项目长度过长',
 	'value_is_greater'	: 'Giá trị lớn hơn mức tối đa',//'大于设置最大值',
 	'value_is_less'		: 'Giá trị thấp hơn tối thiểu',//'小于设置最小值',
-//--------------------------------
-//static/js/space_diy.js
-
-//	'delete'		: 'Delete',//'删除',
-//	'attribute'		: 'Attribute',//'属性',
-	'save_js'		: 'Lưu javascript sau khi hiển thị',//'javascript脚本保存后显示',
-	'settings'		: 'Tùy chọn',//'设置',
+	'enter_valid_url'	: 'Please enter correct URL address beginning with http://',//'请正确填写以http://开头的URL地址',
 
 //--------------------------------
 //static/js/upload.js
 
 	'file_not_supported'	: 'Xin lỗi, loại file này không hỗ trợ.',//'对不起，不支持上传此类文件',
-//	'uploading'		: 'Uploading...',//'上传中...',
 
 //-------------------------------------
 //source/function/function_admincp.php

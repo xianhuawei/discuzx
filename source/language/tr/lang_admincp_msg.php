@@ -377,7 +377,7 @@ $lang = array (
 	'plugins_edit_modules_duplicated'	=> 'Entered module name is duplicated with existing module, go back to modify.',//'您输入的程序模块名称与现有模块重复，请返回修改。',
 	'plugins_edit_var_invalid'		=> 'Configuration variable name is not valid or repeated, go back to modify.',//'您输入的配置变量名不合法或重复，请返回修改。',
 	'plugins_delete_error'			=> 'You can not uninstall the system plug-in.',//'你不能卸载系统插件。',
-	'plugins_delete_confirm'		=> 'Are you sure you want to uninstall the plugin {pluginname} version {toversion} ?',//'你确定要卸载 {pluginname} {toversion} 插件吗？',
+	'plugins_delete_confirm'		=> 'Are you sure you want to uninstall the plugin {pluginname} version {toversion}?<br /><br />Please select the reason you uninstall the application,<br>So that we can later provide you with a better application:<br /><br /><table align="center"><tr><th><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="1" />Function does not meet the demand</label><br><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="2" />Interface unsightly</label><br><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="3" />Efficiency problem, slow running</label><br><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="4" />Found a better application</label><br><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="5" />Pure trial now uninstall</label></th></tr></table>',//'您确定要卸载 {pluginname} {toversion} 插件吗？<br /><br />请选择您卸载该应用的原因，以便我们以后为您提供更好的应用：<br /><br /><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="1" />功能不满足需求</label> <label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="2" />界面不美观</label> <label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="3" />效率问题运行速度慢</label> <label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="4" />发现了更好的应用</label><label><input name="uninstallreason[]" class="checkbox" type="checkbox" value="5" />纯试用现在卸载</label>',
 	'pluginvar_not_found'			=> 'Plug-in variable not found',//'插件变量未找到',
 	'plugins_edit_var_title_invalid'	=> 'You did not enter the configuration variable name, please return to modify.',//'您没有输入配置名称，请返回修改。',
 	'plugins_edit_vars_succeed'		=> 'Plug-in variable configuration successfully updated.',//'插件变量配置成功更新。',
@@ -431,7 +431,7 @@ $lang = array (
 
 	'smilies_delete_invalid'		=> 'You can not directly delete non-empty smile category, please return to remove all smiles in this category first.',//'您不能直接删除非空的表情分类，请先返回删除本分类下的所有表情。',
 	'smilies_update_succeed'		=> 'Updated successfully. {num} smiles in the directory {smurl} yet not activated for search, have been automatically added to the smile category &quot;{typename}&quot;.',//'更新成功，在 {smurl} 目录中共搜索到 {num} 个尚未启用的表情，已自动添加到表情分类“{typename}”。',
-	'smilies_update_error'			=> 'Can not find any smile images in directory {smurl}, please return.<br />Please add the smile images to {smurl} directory via FTP, and then refresh this page.',//'目录 {smurl} 中没有找到尚未使用的表情图片，请返回。<br />添加表情请通过 FTP 上传表情图片到 {smurl} 目录，然后刷新本页。',
+	'smilies_update_error'			=> 'No new smile images found in directory {smurl}.<br />Please add new smile images to {smurl} directory via FTP, and then refresh this page.',//'目录 {smurl} 中没有找到尚未使用的表情图片，请返回。<br />添加表情请通过 FTP 上传表情图片到 {smurl} 目录，然后刷新本页。',
 	'smilies_import_succeed_renamed'	=> 'Smile category name already exists, and have been automatically renamed. Smile import successfully completed.',//'导入表情分类名称与现有重复，已被自动重命名。表情成功导入。',
 	'smilies_import_succeed'		=> 'Smiles successfully imported.',//'表情成功导入。',
 
@@ -565,20 +565,6 @@ $lang = array (
 	'moderate_shares_succeed'	=> 'Review operation is successful, a total of {validates} shares passed, {ignores} shares ignored, {deletes} shares removed.',//'审核操作成功，共 {validates} 个分享被通过，{ignores} 个分享被忽略，{deletes} 个分享被删除。',
 
 	'moderate_threads_succeed'	=> 'Verification is completed successfully. Total {validates} threads approved, {ignores} threads rejected, {recycles} threads moved to Recycle Bin, {deletes} threads removed.',//'审核操作成功，共 {validates} 个主题被通过，{ignores} 个主题被忽略，{recycles} 个主题被放入回收站，{deletes} 个主题被删除。',
-
-	'cloudaddons_validator_error'		=> 'Check failed, you can not download this application',//'校验失败，你无法下载此应用',
-	'cloudaddons_downloading'		=> 'Download the addon {addonid}, please wait ...',//'应用 {addonid} 下载中，请稍候 ......',
-	'cloudaddons_download_error'		=> 'Data Download Error',//'数据下载错误',
-	'cloudaddons_download_write_error'	=> 'Can not download the file, make sure the "data/download/" directory is writable',//'文件无法下载，请确认 "data/download/" 目录是否可写',
-	'cloudaddons_installing'		=> 'Installing the addon {addonid}, please wait ...',//'应用 {addonid} 安装中，请稍候......',
-	'cloudaddons_install_error'		=> 'You can not install this application ({ErrorCode})',//'你不能安装此应用({ErrorCode})',
-	'cloudaddons_install_files_changed'	=> 'The following files are missing or has been modified, whether or not to continue coverage? <br /> <br /> {files}',//'以下文件丢失或者被修改过，是否继续覆盖？<br /><br />{files}',
-	'cloudaddons_pack_installed'		=> 'Extension installation is completed',//'扩展安装完毕',
-	'cloudaddons_genuine_message'		=> 'Sorry, you have installed not genuine application, the installer can not continue<br /><br /><a href="admin.php?action=cloudaddons&id={addonid}">Click here to install the genuine application</a>',//'对不起，您安装的不是正版应用，安装程序无法继续执行<br /><br /><a href="admin.php?action=cloudaddons&id={addonid}">点击这里安装正版应用</a>',
-	'cloudaddons_file_read_error'		=> 'File read error, please try again',//'文件读取错误，请重试',
-	'cloudaddons_file_write_error'		=> 'File write error, please try again',//'文件写入错误，请重试',
-	'cloudaddons_ftp_path_error'		=> 'FTP Site path errors, please re-fill',//'站点 FTP 路径错误，请重新填写',
-	'cloudaddons_check_write_error'		=> '"data/download/" or "data/addonmd5/" Directory can not be created or written to, this will cause the application can not be installed, check the server environment',//'"data/download/" 或 "data/addonmd5/" 目录无法创建或写入，这将会导致应用无法安装，请检查服务器环境',
-	'cloudaddons_check_url_fopen_error'	=> 'Your server can not access Application Center, which will cause the application can not be installed. Please contact your service provider or Web technical staff to ensure that your server to function properly access addon.discuz.com',//'您的服务器无法访问应用中心，这将会导致应用无法安装。请联系您的服务商或者网站技术人员，确保您的服务器能够正常访问 addon.discuz.com',
 );
 
+?>

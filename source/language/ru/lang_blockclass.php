@@ -1,11 +1,15 @@
 <?php
 
-/**+++
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_blockclass.php by Valery Votintsev at sources.ru
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'blockclass_html'			=> 'Типы блоков',
@@ -37,6 +41,7 @@ $lang = array(
 	'blockclass_myapp_field_title'		=> 'Заголовок',
 	'blockclass_myapp_field_icon'		=> 'Иконка большая',
 	'blockclass_myapp_field_icon_small'	=> 'Иконка маленькая',
+	'blockclass_myapp_field_icon_abouts'	=> 'Application icon',//'应用图标(大图)',
 	'blockclass_myapp_script_myapp'		=> 'Мои приложения',
 
 	'blockclass_forum'			=> 'Форум',
@@ -51,7 +56,7 @@ $lang = array(
 	'blockclass_thread_field_avatar'	=> 'Аватар (мелкий)',
 	'blockclass_thread_field_avatar_middle'	=> 'Аватар (средний)',
 	'blockclass_thread_field_avatar_big'	=> 'Аватар (большой)',
-	'blockclass_thread_field_icon'		=> 'Иконка',
+//REMOVED	'blockclass_thread_field_icon'		=> 'Иконка',
 	'blockclass_thread_field_forumurl'	=> 'URL форума',
 	'blockclass_thread_field_forumname'	=> 'Название форума',
 	'blockclass_thread_field_typename'	=> 'Тип данных',
@@ -59,10 +64,10 @@ $lang = array(
 	'blockclass_thread_field_typeurl'	=> 'URL категории',
 	'blockclass_thread_field_sortname'	=> 'Название категории',
 	'blockclass_thread_field_sorturl'	=> 'URL категории',
-	'blockclass_thread_field_posts'		=> 'Посты',
-	'blockclass_thread_field_todayposts'	=> 'Постов сегодня',
-	'blockclass_thread_field_lastpost'	=> 'Последний пост',
-	'blockclass_thread_field_dateline'	=> 'Время поста',
+	'blockclass_thread_field_posts'		=> 'Сообщения',
+	'blockclass_thread_field_todayposts'	=> 'Сообщений сегодня',
+	'blockclass_thread_field_lastpost'	=> 'Последнее сообщение',
+	'blockclass_thread_field_dateline'	=> 'Время сообщения',
 	'blockclass_thread_field_replies'	=> 'Ответов',
 	'blockclass_thread_field_views'		=> 'Просмотров',
 	'blockclass_thread_field_heats'		=> 'Рейтинг',
@@ -84,9 +89,9 @@ $lang = array(
 	'blockclass_forum_field_url'		=> 'URL',
 	'blockclass_forum_field_summary'	=> 'Описание',
 	'blockclass_forum_field_icon'		=> 'Иконка',
-	'blockclass_forum_field_posts'		=> 'Постов',
+	'blockclass_forum_field_posts'		=> 'Сообщений',
 	'blockclass_forum_field_threads'	=> 'Тем',
-	'blockclass_forum_field_todayposts'	=> 'Постов сегодня',
+	'blockclass_forum_field_todayposts'	=> 'Сообщений сегодня',
 	'blockclass_forum_script_forum'		=> 'Подразделы',
 
 	'blockclass_sort_sort'			=> 'Категории',
@@ -159,7 +164,7 @@ $lang = array(
 	'blockclass_category_field_articles'		=> 'Кол-во статей',
 	'blockclass_category_script_portalcategory'	=> 'Категория статей',
 
-	'blockclass_portal_topic'		=> 'Топики',
+	'blockclass_portal_topic'		=> 'Темы',
 	'blockclass_topic_field_url'		=> 'URL',
 	'blockclass_topic_field_title'		=> 'Название',
 	'blockclass_topic_field_pic'		=> 'Изображение',
@@ -168,9 +173,9 @@ $lang = array(
 	'blockclass_topic_field_username'	=> 'Автор',
 	'blockclass_topic_field_dateline'	=> 'Дата публикации',
 	'blockclass_topic_field_viewnum'	=> 'Просмотров',
-	'blockclass_topic_script_topicnew'	=> 'Новые топики',
-	'blockclass_topic_script_topichot'	=> 'Лучшие топики',
-	'blockclass_topic_script_topicspecified'	=> 'Указанные топики',
+	'blockclass_topic_script_topicnew'	=> 'Новые темы',
+	'blockclass_topic_script_topichot'	=> 'Лучшие темы',
+	'blockclass_topic_script_topicspecified'	=> 'Указанные темы',
 	'blockclass_topic_script_topic'			=> 'Дополнительная настройка',
 	'blockclass_member'				=> 'Пользователи',
 
@@ -184,7 +189,7 @@ $lang = array(
 	'blockclass_member_field_reason'	=> 'Причина рекомендации',
 	'blockclass_member_field_unitprice'	=> 'Цена за единицу',
 	'blockclass_member_field_showcredit'	=> 'Полная стоимость',
-	'blockclass_member_field_shwonote'	=> 'Цена показа заметки',
+	'blockclass_member_field_shownote'	=> 'Цена показа заметки',
 	'blockclass_member_field_extcredits1'	=> 'Тип кредита 1',
 	'blockclass_member_field_extcredits2'	=> 'Тип кредита 2',
 	'blockclass_member_field_extcredits3'	=> 'Тип кредита 3',
@@ -216,7 +221,7 @@ $lang = array(
 	'blockclass_member_field_position'		=> 'Должность',
 	'blockclass_member_field_revenue'		=> 'Ежегодный доход',
 	'blockclass_member_field_affectivestatus'	=> 'Эмоциональный типаж',
-	'blockclass_member_field_lookingfor'	=> 'Что ищет',
+	'blockclass_member_field_lookingfor'	=> 'Что ищем',
 	'blockclass_member_field_bloodtype'	=> 'Группа крови',
 	'blockclass_member_field_height'	=> 'Рост',
 	'blockclass_member_field_weight'	=> 'Вес',
@@ -237,19 +242,19 @@ $lang = array(
 	'blockclass_member_field_field6'	=> 'Произвольное поле 6',
 	'blockclass_member_field_field7'	=> 'Произвольное поле 7',
 	'blockclass_member_field_field8'	=> 'Произвольное поле 8',
-	'blockclass_member_field_posts'		=> 'Посты',
+	'blockclass_member_field_posts'		=> 'Сообщения',
 	'blockclass_member_field_threads'	=> 'Темы',
 	'blockclass_member_field_digestposts'	=> 'Дайджесты',
 	'blockclass_member_field_regdate'	=> 'Дата рег.',
-	'blockclass_member_field_hourposts'	=> 'Постов в час',
-	'blockclass_member_field_todayposts'	=> 'Постов сегодня',
-	'blockclass_member_field_weekposts'	=> 'Постов за неделю',
-	'blockclass_member_field_monthposts'	=> 'Постов за месяц',
+	'blockclass_member_field_hourposts'	=> 'Сообщений в час',
+	'blockclass_member_field_todayposts'	=> 'Сообщений сегодня',
+	'blockclass_member_field_weekposts'	=> 'Сообщений за неделю',
+	'blockclass_member_field_monthposts'	=> 'Сообщений за месяц',
 	'blockclass_member_script_membernew'	=> 'Новые участники',
 	'blockclass_member_script_memberspecial'	=> 'Специальные участники',
 	'blockclass_member_script_membercredit'		=> 'Топ-кредиты',
 	'blockclass_member_script_membershow'		=> 'Топ-участники',
-	'blockclass_member_script_memberposts'		=> 'Ранг по постам',
+	'blockclass_member_script_memberposts'		=> 'Ранг по сообщениям',
 	'blockclass_member_script_memberspecified'	=> 'Указанные пользователи',
 	'blockclass_member_script_member'		=> 'Дополнительная настройка',
 	'blockclass_space'				=> 'Персональная страница',
@@ -339,8 +344,8 @@ $lang = array(
 	'blockclass_group_field_founderuid'	=> 'UID основателя',
 	'blockclass_group_field_icon'		=> 'Иконка сообщества',
 	'blockclass_group_field_threads'	=> 'Тем',
-	'blockclass_group_field_posts'		=> 'Постов',
-	'blockclass_group_field_todayposts'	=> 'Постов сообщений',
+	'blockclass_group_field_posts'		=> 'Сообщений',
+	'blockclass_group_field_todayposts'	=> 'Сообщений сегодня',
 	'blockclass_group_field_membernum'	=> 'Участников',
 	'blockclass_group_field_dateline'	=> 'Дата создания',
 	'blockclass_group_field_level'		=> 'Уровень',
@@ -362,9 +367,9 @@ $lang = array(
 	'blockclass_groupthread_field_avatar'	=> 'Аватар (мелкий)',
 	'blockclass_groupthread_field_avatar_middle'	=> 'Аватар (средний)',
 	'blockclass_groupthread_field_avatar_big'	=> 'Аватар (большой)',
-	'blockclass_groupthread_field_posts'		=> 'Постов',
-	'blockclass_groupthread_field_todayposts'	=> 'Постов сегодня',
-	'blockclass_groupthread_field_lastpost'		=> 'Последний пост',
+	'blockclass_groupthread_field_posts'		=> 'Сообщений',
+	'blockclass_groupthread_field_todayposts'	=> 'Сообщений сегодня',
+	'blockclass_groupthread_field_lastpost'		=> 'Последнее сообщение',
 	'blockclass_groupthread_field_dateline'		=> 'Дата публикации',
 	'blockclass_groupthread_field_replies'		=> 'Ответов',
 	'blockclass_groupthread_field_views'		=> 'Просмотров',
@@ -424,12 +429,12 @@ $lang = array(
 
 	'blockclass_other_script_stat'		=> 'Расширенная статистика',
 	'blockclass_other_stat'			=> 'Блок статистики',
-	'blockclass_other_stat_posts'		=> 'Всего постов',
+	'blockclass_other_stat_posts'		=> 'Всего сообщений',
 	'blockclass_other_stat_groups'		=> 'Всего групп',
 	'blockclass_other_stat_members'		=> 'Всего пользователей',
-	'blockclass_other_stat_groupnewposts'	=> 'Сегодня групповых постов',
-	'blockclass_other_stat_bbsnewposts'	=> 'Сегодня постов на форуме',
-	'blockclass_other_stat_bbslastposts'	=> 'Вчера постов на форуме',
+	'blockclass_other_stat_groupnewposts'	=> 'Сегодня групповых сообщений',
+	'blockclass_other_stat_bbsnewposts'	=> 'Сегодня сообщений на форуме',
+	'blockclass_other_stat_bbslastposts'	=> 'Вчера сообщений на форуме',
 	'blockclass_other_stat_onlinemembers'	=> 'Сейчас онлайн',
 	'blockclass_other_stat_maxmembers'	=> 'Рекорд онлайн',
 	'blockclass_other_stat_doings'		=> 'Всего настроений',
@@ -438,12 +443,12 @@ $lang = array(
 	'blockclass_other_stat_pics'		=> 'Всего изображений',
 	'blockclass_other_stat_shares'		=> 'Всего закладок',
 
-	'blockclass_other_stat_posts_title'	=> 'Заголовок поста',
+	'blockclass_other_stat_posts_title'	=> 'Заголовок сообщения',
 	'blockclass_other_stat_groups_title'	=> 'Названия группы',
 	'blockclass_other_stat_members_title'	=> 'Имя пользователя',
-	'blockclass_other_stat_groupnewposts_title'	=> 'Групповых постов сегодня',
-	'blockclass_other_stat_bbsnewposts_title'	=> 'Постов на форуме сегодня',
-	'blockclass_other_stat_bbslastposts_title'	=> 'Групповых постов вчера',
+	'blockclass_other_stat_groupnewposts_title'	=> 'Групповых сообщений сегодня',
+	'blockclass_other_stat_bbsnewposts_title'	=> 'Сообщений на форуме сегодня',
+	'blockclass_other_stat_bbslastposts_title'	=> 'Групповых сообщений вчера',
 	'blockclass_other_stat_onlinemembers_title'	=> 'Сейчас онлайн',
 	'blockclass_other_stat_maxmembers_title'	=> 'Рекорд онлайн',
 	'blockclass_other_stat_doings_title'	=> 'Заголовок для настроений',
@@ -451,7 +456,8 @@ $lang = array(
 	'blockclass_other_stat_albums_title'	=> 'Заголовок для альбомов',
 	'blockclass_other_stat_pics_title'	=> 'Заголовок для изображений',
 	'blockclass_other_stat_shares_title'	=> 'Заголовок для закладок',
+
+	'blockclass_field_id'			=> 'ID поля',
 );
 
 
-?>

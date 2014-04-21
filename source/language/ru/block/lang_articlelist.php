@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -31,7 +31,7 @@ $lang = array
 	'articlelist_picrequired_comment'	=> 'Показ только статей, имеющих "обложку"',
 	'articlelist_orderby'			=> 'Сортировка',
 	'articlelist_orderby_comment'		=> 'Выберите порядок сортировки статей',
-	'articlelist_orderby_dateline'		=> 'По дате постинга',
+	'articlelist_orderby_dateline'		=> 'По дате публикации',
 	'articlelist_orderby_viewnum'		=> 'По кол-ву просмотров',
 	'articlelist_orderby_commentnum'	=> 'По кол-ву комментариев',
 	'articlelist_orderby_click'		=> 'По количеству рейтингов типа "{clickname}", в порядке убывания',

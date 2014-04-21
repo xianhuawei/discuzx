@@ -7,6 +7,10 @@
  *      $Id: lang_updateline.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'updateline_name'	=> 'Carte Bou&#233;e',   // Buoy card 

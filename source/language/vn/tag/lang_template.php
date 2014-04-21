@@ -10,17 +10,17 @@
  */
 
 $lang = array (
-  'no_tag' => 'Chưa có tag nào',
+  'no_tag' => 'Chưa có tag',
   'tag' => 'Tags',
   'blog_read' => 'Đọc',
   'blog_replay' => 'Đánh giá',
-  'empty_tags' => 'Nếu không có tag này bạn có thể <a href="misc.php?mod=tag" title="Trở lại trang tag">trở lại trang tag</a>',
+  'empty_tags' => 'Nếu không có tag này bạn có thể <a href="misc.php?mod=tag" title="Vào trang Tags">Vào trang Tags</a>',
   'forum' => 'Diễn đàn',
   'hot' => 'Hot',
-  'lastpost' => 'Bài viết cuối',
-  'no_content' => 'Không có nội dung liên quan',
+  'lastpost' => 'Bài mới',
+  'no_content' => 'Không có nội dung',
   'personal_category' => 'Phân loại cá nhân',
-  'related_blog' => 'Liên quan đến đăng nhập',
+  'related_blog' => 'Blog liên quan',
   'related_thread' => 'Bài viết liên quan',
   'replies' => 'Trả lời/Xem',
 );

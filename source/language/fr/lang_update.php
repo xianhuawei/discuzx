@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *      Traduit par Andre13 Support French: http://discuz-fr.fr
@@ -134,4 +134,25 @@ $lang = array(
 	'reports_completed'		=> 'Rapports M-&#224;-j. est Compl&#233;t&#233;',//'举报升级完成', // 'Reports upgrade is completed' 
 	'magics_updated'		=> 'M-&#224;-j. magie est termin&#233;e',//'道具升级完成', // 'Magics upgrade is completed' 
 	'birthday'			=> 'Anniversaire',//'出生日期', // 'Birthday' 
+//-----------------------------------------------------------------------------
+// Added in X2.5:
+	'table_optimize'	=> 'Optimize table',//'优化数据表',
+	'close_wait'		=> 'Your site is not closed, is being closed, please wait...',//'您的站点未关闭，正在关闭，请稍后...',
+	'length'		=> '[Length]',//'[时长]',
+	'status'		=> '[Status]',//'[状态]',
+	'info'			=> '[Info]',//'[信息]',
+	'next_step_wait'	=> 'Ready to enter the next step, please wait...',//'准备进入下一步操作，请稍后...',
+	'upgrade_wait'		=> 'Is being upgraded, please wait...',//'正在升级数据，请稍后...',
+//	'ready_to_db_upgrade'	=> 'Ready to enter the next step: upgrade the database structure',//'准备完毕，进入下一步数据库结构升级',
+	'patches_dayly'		=> 'Security patches daily access',//'每日获取安全补丁',
+	'regular_publish'	=> 'Regular published topics',//'定时发布主题',
+	'archive_weekly'	=> 'Weekly broadcast archive',//'每周广播归档',
+	'updates_daily'		=> 'Number of daily update checks',//'更新每日查看数',
+	'users_daily'		=> 'Daily user table optimization',//'每日用户表优化',
+	'collection_follow'	=> 'Collection followed rule (Taobao album subscription)',//'淘专辑被订阅',
+	'new_post'		=> 'New posts',//'新人帖',
+	'moderated_completed'	=> 'Moderated data conversion is completed',//'审核数据转换完毕',
+	'medal_completed'	=> 'User Medal data upgrade is completed',//'用户勋章数据升级完毕',
+	'data_update_completed'	=> 'Data update is completed',//'数据升级结束',
+	'group_stat_completed'	=> 'Forum Group statistics upgrade is completed',//'论坛版块统计数据升级完毕',
 );

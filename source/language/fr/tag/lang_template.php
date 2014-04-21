@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: langmerge.php by Valery Votintsev at sources.ru
+ *      $Id: lang_template.php by Valery Votintsev at sources.ru
  *
  *      This file is automatically generate
  */
@@ -25,4 +25,3 @@ $lang = array (
   'replies'		=> 'R&#233;pondre/Voir',
 );
 
-?>

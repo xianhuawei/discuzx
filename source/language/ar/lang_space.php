@@ -1,11 +1,16 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_space.php  by Khalid Nahhal, http://www.ar-discuz.com
+ *      $Id: lang_space.php by Valery Votintsev at sources.ru
+ *      Translated to Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'hour'			=> ' ساعة ',//'小时',
@@ -33,11 +38,11 @@ $lang = array(
 	'clickthread'		=> 'موقف موضوع',//'话题表态',
 	'share_comment'		=> 'تعليق منشور',//'分享评论',
 	'share_notice'		=> 'منشورات',//'分享',
-	'doing_comment'		=> 'تعليق مقولة',//'记录回复',
+	'doing_comment'		=> 'تعليق على فعل',//'记录回复',
 	'friend_notice'		=> 'الأصدقاء',//'好友',
 	'poll_comment'		=> 'تعليقات إستطلاع',//'投票评论',
 	'poll_invite'		=> 'دعوات الإستطلاع',//'投票邀请',
-	'default_albumname'	=> 'الألبوم الافتراضي',//'默认相册',
+	'default_albumname'	=> 'الألبوم الإفتراضي',//'默认相册',
 	'credit'		=> 'النقاط',//'积分',
 	'credit_unit'		=> 'نقاط',//'个',
 	'man'			=> 'رجل',//'男',
@@ -97,28 +102,28 @@ $lang = array(
 	'block3'		=> 'كتلة مخصصة 3',//'自定义模块3',
 	'block4'		=> 'كتلة مخصصة 4',//'自定义模块4',
 	'block5'		=> 'كتلة مخصصة 5',//'自定义模块5',
-	'blockdata' => array(
+/*vot*/	'blockdata'		=> array(
 		'personalinfo'	=> 'المعلومات الشخصية',//'个人资料',
 		'profile'	=> 'الملف الشخصي',
-		'doing'	=> 'الأفعال',
-		'feed'	=> 'الأخبار',
-		'blog'	=> 'المدونات',
+		'doing'		=> 'الأفعال',
+		'feed'		=> 'الأخبار',
+		'blog'		=> 'المدونات',
 		'stickblog'	=> 'أعلى المدونات',//'置顶日志',
-		'album'	=> 'الألبومات',
+		'album'		=> 'الألبومات',
 		'friend'	=> 'الأصدقاء',
 		'visitor'	=> 'الزوار',
-		'wall'	=> 'الحائط',
-		'share'	=> 'منشروات',
+		'wall'		=> 'الحائط',
+		'share'		=> 'منشروات',
 		'thread'	=> 'مواضيع',
-		'group'	=> 'مجموعاتي',
-		'music' => 'موسيقى',
+		'group'		=> 'مجموعاتي',
+		'music'		=> 'موسيقى',
 		'statistic'	=> 'الإحصائيات',
 		'myapp'		=> 'التطبيقات',//'应用',
-		'block1' => 'كتلة حرة 1',
-		'block2' => 'كتلة حرة 2',
-		'block3' => 'كتلة حرة 3',
-		'block4' => 'كتلة حرة 4',
-		'block5' => 'كتلة حرة 5'
+		'block1'	=> 'كتلة حرة 1',
+		'block2'	=> 'كتلة حرة 2',
+		'block3'	=> 'كتلة حرة 3',
+		'block4'	=> 'كتلة حرة 4',
+		'block5'	=> 'كتلة حرة 5'
 	),
 
 	'block_title'		=> '<div class="blocktitle title"><span>{bname}</span></div>',
@@ -130,7 +135,7 @@ $lang = array(
 	'visitor_anonymity'	=> '<div class="avatar48"><img src="image/magic/hidden.gif" alt="Anonymous"></div><p>مجهول</p>',//'<div class="avatar48"><img src="image/magic/hidden.gif" alt="匿名"></div><p>匿名</p>',
 	'visitor_list'		=> '<a href="home.php?mod=space&uid={uid}" target="_blank"><em class="{class}"></em>{avatar}</a><p><a href="home.php?mod=space&uid={uid}" title="{username}">{username}</a></p>',
 	'wall_form'		=> '<div class="space_wall_post">
-				<form action="home.php?mod=spacecp&ac=comment" id="quickcommentform_{uid}" name="quickcommentform_{uid}" method="post" autocomplete="off" onsubmit="ajaxpost(\'quickcommentform_{uid}\', \'return_commentwall_{uid}\');doane(event);">
+					<form action="home.php?mod=spacecp&ac=comment" id="quickcommentform_{uid}" name="quickcommentform_{uid}" method="post" autocomplete="off" onsubmit="ajaxpost(\'quickcommentform_{uid}\', \'return_commentwall_{uid}\');doane(event);">
 					'.($_G['uid'] ? '<span id="message_face" onclick="showFace(this.id, \'comment_message\');return false;" style="cursor: pointer;"><img src="static/image/common/facelist.gif" alt="facelist" class="mbn vm" /></span>
 					<br /><textarea name="message" id="comment_message" class="pt" rows="3" cols="60" onkeydown="ctrlEnter(event, \'commentsubmit_btn\');" style="width: 90%;"></textarea>
 					<input type="hidden" name="refer" value="home.php?mod=space&uid={uid}" />
@@ -142,12 +147,12 @@ $lang = array(
 					<input type="hidden" name="handlekey" value="commentwall_{uid}" />
 					<span id="return_commentwall_{uid}"></span>
 					<input type="hidden" name="formhash" value="{FORMHASH}" />
-				</form>'.
-				($_G['uid'] ? '<script type="text/javascript">
-							function succeedhandle_commentwall_{uid}(url, msg, values) {
-								wall_add(values[\'cid\']);
-							}
-						</script>' : '').'
+					</form>'.
+					($_G['uid'] ? '<script type="text/javascript">
+						function succeedhandle_commentwall_{uid}(url, msg, values) {
+							wall_add(values[\'cid\']);
+						}
+					</script>' : '').'
 					</div>',
 	'wall_li'	=> '<dl class="bbda cl" id="comment_{cid}_li">
 				<dd class="m avt">
@@ -167,26 +172,27 @@ $lang = array(
 	'wall_reply'		=> '<a href="home.php?mod=spacecp&ac=comment&op=reply&cid={cid}&handlekey=replycommenthk_{cid}" id="c_{cid}_reply" onclick="showWindow(this.id, this.href, \'get\', 0);">رد</a>',//'<a href="home.php?mod=spacecp&ac=comment&op=reply&cid={cid}&handlekey=replycommenthk_{cid}" id="c_{cid}_reply" onclick="showWindow(this.id, this.href, \'get\', 0);">回复</a>',
 	'group_li'		=> '<li><a href="forum.php?mod=group&fid={groupid}" target="_blank"><img src="{icon}" alt="{name}" /></a><p><a href="forum.php?mod=group&fid={groupid}" target="_blank">{name}</a></p></li>',
 	'poll_li'		=> '<div class="c z"><img alt="poll" src="static/image/feed/poll.gif" alt="poll" class="t" /><h4 class="h"><a target="_blank" href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a></h4><div class="mtn xg1">نشرت: {dateline}</div></div>',
-	'myapp_li_icon'	=> '<li><img src="{icon}" onerror="this.onerror=null;this.src=\'http://appicon.manyou.com/icons/{appid}\'" alt="{appname}" class="vm" /> <a href="userapp.php?mod=app&id={appid}">{appname}</a></li>',
-	'myapp_li_logo'	=> '<li><a href="userapp.php?mod=app&id={appid}"><img src="http://appicon.manyou.com/logos/{appid}" alt="{appname}" /><p><a href="userapp.php?mod=app&id={appid}">{appname}</a></p></li>',
+	'myapp_li_icon'		=> '<li><img src="{icon}" onerror="this.onerror=null;this.src=\'http://appicon.manyou.com/icons/{appid}\'" alt="{appname}" class="vm" /> <a href="userapp.php?mod=app&id={appid}">{appname}</a></li>',
+	'myapp_li_logo'		=> '<li><a href="userapp.php?mod=app&id={appid}"><img src="http://appicon.manyou.com/logos/{appid}" alt="{appname}" /><p><a href="userapp.php?mod=app&id={appid}">{appname}</a></p></li>',
 	'music_no_content'	=> 'لم يتم وضع محتوى صندوق الموسيقى',//'还没有设置音乐盒的内容',
 	'block_profile_diy'	=> 'تصميم',//'装扮空间',
 	'block_profile_wall'	=> 'عرض الحائط',//'查看留言',
 	'block_profile_avatar'	=> 'تعديل الرمزية',//'编辑头像',
 	'block_profile_update'	=> 'تحديث الملف',//'更新资料',
+	'block_profile_follow' => 'عرض البث',
 	'block_profile_wall_to_me'	=> 'رسالة حائط',//'给我留言',
 	'block_profile_friend_add'	=> 'إضافة كصديق',//'加为好友',
-	'block_profile_friend_ignore'	=> 'ازالة من الأصدقاء',//'解除好友',
+	'block_profile_friend_ignore'	=> 'إزالة من الأصدقاء',//'解除好友',
 	'block_profile_poke'		=> 'إرسال تحية',//'打个招呼',
 	'block_profile_sendmessage'	=> 'إرسال رسالة',//'发送消息',
 	'block_doing_reply'		=> 'رد',//'回复',
-	'block_doing_no_content'	=> 'لا يوجد افعال',
+	'block_doing_no_content'	=> 'لا يوجد أفعال',
 	'block_doing_no_content_publish'	=> ', <a href ="home.php?mod=space&uid={uid}&do=doing&view=me&from=space">Update Doing</a>',//	'block_doing_no_content_publish'	=> '，<a href ="home.php?mod=space&uid={uid}&do=doing&view=me&from=space">更新记录</a>',
-	'block_blog_no_content'	=> 'لا يوجد أي مدونة حتى الآن',
+	'block_blog_no_content'		=> 'لا يوجد أي مدونة حتى الآن',
 	'block_blog_no_content_publish'	=> ',<a href ="home.php?mod=spacecp&ac=blog">المدونات</a>',
 	'block_album_no_content'	=> 'لا يوجد ألبومات حتى الآن',
 	'block_album_no_content_publish'	=> ',<a href ="home.php?mod=spacecp&ac=upload">رفع</a>',
-	'block_feed_no_content'	=> 'ليس هناك حيوية الآن',
+	'block_feed_no_content'		=> 'ليس هناك حيوية الآن',
 	'block_thread_no_content'	=> 'لا مواضيع حتى الآن',
 	'block_thread_no_content_publish'	=> ',<a href ="forum.php?mod=misc&action=nav&special=0&from=home" onclick="showWindow(\'nav\', this.href);return false;">نشر موضوع</a>',
 	'block_friend_no_content'	=> 'لا أصدقاء حتى الآن',
@@ -194,20 +200,20 @@ $lang = array(
 	'block_visitor_no_content'	=> 'لا زوار الآن',
 	'block_visitor_no_content_publish'	=> ',<a href ="home.php?mod=space&do=friend&view=online&type=member">المتواجدون الآن</a>',
 	'block_share_no_content'	=> 'لا يوجد منشورات حتى الآن',
-	'block_wall_no_content'	=> 'لا يوجد محتوى',
+	'block_wall_no_content'		=> 'لا يوجد محتوى',
 	'block_group_no_content'	=> 'لا يوجد مجموعات حتى الآن',
 	'block_group_no_content_publish'	=> ',<a href ="forum.php?mod=group&action=create">إنشاء مجموعة</a> أو <a href ="group.php?mod=index">إنضمام إلى مجموعة</a>',
 	'block_group_no_content_join'	=> ',<a href ="group.php?mod=index">إنضمام إلى مجموعة</a>',
 	'block_myapp_no_content'	=> 'لم تطبق حتى الآن',
 	'block_myapp_no_content_publish'	=> ',<a href ="userapp.php?mod=manage&my_suffix=/app/list">أريد اللعب</a>',
 	'block_view_noperm'		=> 'لا صلاحيات للعرض',//'无权查看',
-	'block_view_profileinfo_noperm'		=> 'No data or no permission to view',//'暂无资料项或无权查看',
+	'block_view_profileinfo_noperm'	=> 'لا يوجد بيانات أو لا يوجد تصاريح للمشاهدة',//'暂无资料项或无权查看',
 	'click_play'			=> 'إضغط للعب',//'点击播放',
 	'click_view'			=> 'إضغط للعرض',//'点击查看',
-	'feed_view_only'		=> 'فقط انتظر إلى تلك الأخبار',//'只看此类动态',
+	'feed_view_only'		=> 'فقط إنتظر إلى تلك الأخبار',//'只看此类动态',
 
 	'export_pm'		=> 'تصدير الرسالة',//'?????',
-	'pm_export_header'	=> 'Discuz!X سجلات الرسائل الخاصة (الرسالة المسجلة هي بصيغة نص , إعادة الاتيراد غير مدعومة)',//'Discuz! X ?????(??????????,???????)',
+	'pm_export_header'	=> 'Discuz!X سجلات الرسائل الخاصة (الرسالة المسجلة هي بصيغة نص , إعادة الإستيراد غير مدعومة)',//'Discuz! X ?????(??????????,???????)',
 	'pm_export_touser'	=> 'مستقبل الرسالة: {touser}',//'????: {touser}',
 	'pm_export_subject'	=> 'موضوع الدردشة: {subject}',
 	'all'			=> 'الكل',//'??',
@@ -226,15 +232,16 @@ $lang = array(
 	'sb_album'		=> ' ألبومات {who} ',
 	'sb_space'		=> ' الملف الشخصي {who} ',
 	'sb_feed'		=> ' أخبار {who} ',
-	'sb_doing'		=> 'افعال {who} ',
+	'sb_doing'		=> 'أفعال {who} ',
 	'sb_sharing'		=> 'منشورات {who} ',
 	'sb_friend'		=> ' أصدقاء {who} ',
 	'sb_wall'		=> ' حائط {who} ',
 	'sb_profile'		=> 'الملف الشخصي {who} ',
 	'sb_thread'		=> 'مواضيع {who} ',
-	'doing_you_can'	=> 'يمكنك كتابة ماذا تفعل الآن هنا لتعريف اصدقائك ...',
+	'doing_you_can'		=> 'يمكنك كتابة ماذا تفعل الآن هنا لتعريف اصدقائك ...',
 	'block_profile_all'	=> '<p style="text-align: right;"><a href="home.php?mod=space&uid={uid}&do=profile">المعلومات الشخصية</a></p>',
 	'block_profile_edit'	=> '<span class="y xw0"><a href="home.php?mod=spacecp&ac=profile">ملفي الشخصي</a></span>',
+	'sb_follow' => 'بث {who}',
 
 	'viewthread_userinfo_hour'	=> 'ساعة',
 	'viewthread_userinfo_uid'	=> 'UID',
@@ -251,11 +258,33 @@ $lang = array(
 	'viewthread_userinfo_regtime'	=> 'وقت التسجيل',
 	'viewthread_userinfo_lastdate'	=> 'آخر دخول',
 	'viewthread_userinfo_oltime'	=> 'إجمالي الدخول',
+	'viewthread_userinfo_sellercredit'	=> 'تقييم كبائع',//'卖家信用',
+	'viewthread_userinfo_buyercredit'	=> 'تقييم كمشتري',//'买家信用',
+	'viewthread_userinfo_follower'		=> 'عدد الذين يتتبعهم',//'听众数',
+	'viewthread_userinfo_following'		=> 'عدد المستمعين له',//'收听数',
+	'follow_view_follow'			=> 'أنا أتتبع',//'我关注的',
+	'follow_view_special'			=> 'تتبع خاص',//'特别关注',
+	'follow_view_other'			=> 'ساحة التتبع',//'广播大厅',
+	'follow_view_feed'			=> 'أخبار {who}',//'{who}的广播',
+	'follow_view_thread'			=> 'مواضيع {who}',//'{who}的主题',
+	'follow_view_reply'			=> 'ردود {who}',//'{who}的回复',
+	'follow_view_profile'			=> 'البيانات الشخصية لـ{who}',//'{who}的个人资料',
+	'follow_view_type_feed'			=> 'تتبع',//'广播',
+	'follow_view_type_thread'		=> 'مواضيع',//'主题',
+	'follow_view_type_reply'		=> 'رد',//'回帖',
+	'follow_view_type_profile'		=> 'الملف الشخصي',//'个人资料',
+	'follow_view_type_follower'		=> 'قائمة التتبعات',//'听众列表',
+	'follow_view_type_following'		=> 'قائمة المتتبعين',//'收听用户',
+	'follow_view_my_follower'		=> 'الذين أتتبعهم',//'我的听众',
+	'follow_view_my_following'		=> 'الذين يتتبعوني',//'我收听的人',
+	'follow_view_do_follower'		=> 'الذين يتتبعهم',//'他的听众',
+	'follow_view_do_following'		=> 'الذين يتمعون إليه',//'他收听的人',
+	'follow_view_fulltext'			=> '... عرض النص كامل',//'...查看全文',
+	'follow_retract'			=> 'تقليص',//'收起',
+	'follow_click_play'			=> 'إضغط للعب',//'点击播放',
+	'follow_cancle_follow'			=> 'إلغاء التتبع',//'取消收听',
+	'follow_follow_ta'			=> 'تتبع الكاتب',//'收听TA',
 
-//-------------------------------------------------------
-// Added by Khalid Nahhal
-	'facebook_profile'	=> 'عرض الملف الشخصي في الفيسبوك',
-	'add_facebook_friend'	=> 'إضافة صديق من الفيسبوك',
+
 );
 
-?>

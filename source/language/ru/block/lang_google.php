@@ -7,6 +7,10 @@
  *      $Id: lang_google.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'google_name'			=> 'Поиск в Google',
@@ -23,6 +27,7 @@ $lang = array
 	'google_default_1'		=> 'Поиск по сайту',
 	'google_client'			=> 'Google Adsense ID',
 	'google_client_comment'		=> 'Введите Ваш уникальный идентификатор в Google Adsense. Ещё нет идентификатора? Получите свой ID: http://www.google.com/adsense/',
+// Added by vot
 // ToDo:
 // Make Language List from the config settings!
 );

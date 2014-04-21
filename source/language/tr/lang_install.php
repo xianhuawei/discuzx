@@ -7,7 +7,7 @@
  *      $Id: install_lang.php by Valery Votintsev at sources.ru
  */
 
-define('UC_VERNAME', 'International Version');
+define('UC_VERNAME', 'English Version');
 
 $lang = array(
 	'SC_GBK'		=> 'Simplified Chinese GBK encoding',//'简体中文版',
@@ -137,8 +137,8 @@ $lang = array(
 	'admininfo_password_invalid'	=> 'Administrator password is blank, please fill in',//'管理员密码为空，请填写',
 	'admininfo_password2_invalid'	=> 'Two passwords are not equal, please check',//'两次密码不一致，请检查',
 
-	'install_dzfull'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> New Discuz! X installation (including UCenter Server)</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> 全新安装 Discuz! X (含 UCenter Server)</label>',
-	'install_dzonly'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> Install Discuz! X only (specify manually already installed UCenter Server)</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> 仅安装 Discuz! X (手工指定已经安装的 UCenter Server)</label>',
+/*vot*/	'install_dzfull'		=> 'New Discuz! X installation (including UCenter Server)',//'全新安装 Discuz! X (含 UCenter Server)',
+/*vot*/	'install_dzonly'		=> 'Install Discuz! X only (specify manually already installed UCenter Server)',//'仅安装 Discuz! X (手工指定已经安装的 UCenter Server)',
 
 	'username'			=> 'Administrator username',//'管理员账号',
 	'email'				=> 'Administrator Email',//'管理员 Email',
@@ -244,11 +244,11 @@ $lang = array(
 
 	'license'	=> '<div class="license"><h1>License agreement</h1>
 
-<p>English Version of EULA, for non-Chinese-Speaking Users Only</p>
+<p>Copyright (c) 2001-2010, Hong Sing Imagination (Beijing) Technology Co., Ltd. All rights reserved.</p>
 
-<p>Copyright (c) 2001-2009, Comsenz Inc. All Rights Reserved.</p>
+<p>Thank you for choosing Discuz! forum product. We hope that our product will be able to provide you with a fast, efficient and powerful community forum solution.</p>
 
-<p>IMPORTANT: THIS SOFTWARE END USER LICENSE AGREEMENT("EULA") IS A LEGAL AGREEMENT BETWEEN YOU AND Comsenz Inc.. READ IT CAREFULLY BEFORE COMPLETING THE INSTALLATION PROCESS AND USING THE SOFTWARE. IT PROVIDES A LICENSE TO USE THE SOFTWARE AND CONTAINS WARRANTY INFORMATION AND LIABILITY DISCLAIMERS. BY INSTALLING AND USING THE SOFTWARE, YOU ARE CONFIRMING YOUR ACCEPTANCE OF THE SOFTWARE AND AGREEING TO BECOME BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO BE BOUND BY THESE TERMS, PLEASE DO NOT INSTALL OR USE THE SOFTWARE. YOU MUST ASSUME THE ENTIRE RISK OF USING THIS PROGRAM. ANY LIABILITY OF Comsenz Inc. WILL BE LIMITED EXCLUSIVELY TO PRODUCT REPLACEMENT OR REFUND OF PURCHASE PRICE BEFORE FIRST INSTALLATION.</p>
+<p>Discuz! English full name Crossday Discuz! Board, Chinese full name Discuz! Forum, hereinafter referred to as Discuz!.</p>
 
 <p>Sing Imagination (Beijing) Technology Co., Ltd. for the Discuz! product developers, and they shall have Discuz! Product Copyright (China National Copyright Administration of Copyright Registration No. 2006SR11895). Sing Imagination (Beijing) Technology Co., Ltd. website http://www.comsenz.com, Discuz! Official website address is http://www.discuz.com, Discuz! Official forum site at http://www.discuz.net.</p>
 
@@ -256,46 +256,38 @@ $lang = array(
 
 <p>This License applies and only applies Discuz! X version, Hong Sing Imagination (Beijing) Technology Co., Ltd. has the power of final interpretation of the licensing agreement.</p>
 
-<h3>1. Definitions</h3>
+<h3>I. Licensing agreement rights</h3>
 <ol>
-<li>"Crossday Discuz! Board"("Discuz!" for short) is a bulletin board system which is developed by Comsenz Inc.</Li>
-<li>"the Software" means "Crossday Discuz! Board".</Li>
-<li> "Comsenz Inc." is the enterprise being responsible for Discuz! product.</Li>
+<li>You can fully comply with the end user license agreement, based on the software used in this non-commercial use, without having to pay for software copyright licensing fees.</Li>
+<li>Agreement you can within the constraints and limitations modify Discuz! source code (if provided) or interface styles to suit your site requirements.</Li>
+<li>You have to use this software to build the forum all the membership information, articles and related information of ownership, and is independent of commitment and legal obligations related to the article content.</Li>
+<li>A commercial license, you can use this software for commercial applications, while according to the type of license purchased to determine the period of technical support, technical support, technical support form and content, from the moment of purchase, within the period of technical support have a way to get through the specified designated areas of technical support services. Business authorized users have the power to reflect and comment, relevant comments will be a primary consideration, but not necessarily be accepted promise or guarantee.</Li>
 </ol>
 
-<h3>2. License Grants</h3>
+<h3>II. Agreement constraints and limitations</h3>
 <ol>
-<li>You may use the Software for free for non-commercial use under the License Restrictions.</Li>
-<li>You may modify the source code(if being provieded) or interface of the Software to fit your website under the License Restrictions.</Li>
-<li>You have property of all members’ information and articles in the Bulletin Board powered by the Software; meanwhile , you need assume all relevant legal duty by yourself.</Li>
-<li>You may use the Software for commercial use after purchasing the commercial license. Moreover, according to the license you purchased you may get specified term, manner and content of technical support from Comsenz Inc. Commercial users are prior to submiting ideas and opinions to Comsenz Inc., but without any guarantee of acceptance.</Li>
+<li>Business license has not been before, may not use this software for commercial purposes (including but not limited to business sites, business operations, for commercial purpose or profit web site). Purchase of commercial license, please visit http://www.discuz.com reference instructions, call 8610-51657885 for more details.</Li>
+<li>May not associated with the software or business license for rental, sale, mortgage or grant sub-licenses.</Li>
+<li>In any case, that no matter how used, whether modified or landscaping, changes to what extent, just use Discuz! the whole or any part, without the written permission of the Forum page footer Department Discuz! name and Sing Imagination (Beijing) Technology Co., Ltd. affiliated website (http://www.comsenz.com, http://www.discuz.com or http://www.discuz.net) the link must be retained, not removed or modified .</Li>
+<li>Prohibited Discuz! the whole or any part of the basis for the development of any derivative version, modified version or third-party version for redistribution.</Li>
+<li>If you failed to comply with the terms of this Agreement, your license will be terminated, the licensee rights will be recovered, and bear the corresponding legal responsibility.</Li>
 </ol>
 
-<h3>3. License Restrictions</h3>
+<h3>III. Limited Warranty and Disclaimer</h3>
 <ol>
-<li>You may not use the Software for commercial use or profit use, unless you have been licensed to. To purchase the license , please visit http://www.discuz.com or dial 8610-5165 7885 for more information.</li>
-<li>You may not rent, lease, sublicense, sell, assign, pledge the Software and its services.</li>
-<li>You may not remove or modify the copyright information and relevant links, such as http://www.comsenz.com, http://www.discuz.com and http://www.discuz.net, in the footer of board pages without the prior written consent of Comsenz Inc., no matter how heavily you modified the Software.</li>
-<li>You may not modify the Software to create derivative works for redistribution based upon the Software.</li>
-<li>In the event that you fail to comply with this EULA, your license will be terminated.
+<li>The software and the accompanying documents as not to provide any express or implied, or guarantee in the form of compensation provided.</li>
+<li>User voluntary use of this software, you must understand the risks of using this software, technical services in the not to buy products before, we do not promise to provide any form of technical support, use of guarantees, nor liable for any use of this software issues related to liability arising.</li>
+<li>Hong Sing Company does not use the software to build a website or forum post or liable for the information, you assume full responsibility.</li>
+<li>Hong Sing company provides software and services in a timely manner, security, accuracy is not guaranteed, due to force majeure, Hong Sing factors beyond the control of the company (including hacker attacks, stopping power, etc.) caused by software and services Suspension or termination, and give your losses, you agree to Sing corporate responsibility waiver of all rights.</li>
+<li>Hong Sing Company specifically draw your attention to Hong Sing Company in order to protect business development and adjustment of autonomy, Hong Sing Company has at any time with or without prior notice to modify the service content, suspend or terminate some or all of the rights of software and services , changes will be posted on the relevant pages of Sing website, including without notice. Hong Sing Company to modify or discontinue the exercise, termination of some or all of the rights of software and services resulting from the loss, without Hong Sing Company to you or any third party.
 </li>
 </ol>
 
-<h3>4. LIMITED WARRANTY AND DISCLAIMER</h3>
-<ol>
-<li>THE SOFTWARE AND THE ACCOMPANYING FILES ARE SOLD "AS IS" AND WITHOUT WARRANTIES AS TO PERFORMANCE OF MERCHANTABILITY OR ANY OTHER WARRANTIED WHETHER EXPRESSED OR IMPLIED.</Li>
-<li>Comsenz Inc. is not liable for the content of any message posted on the forums powered by the Software.</Li>
-<li>You must assume the entire risk of using the Software. ANY LIABILITY OF Comsenz Inc. WILL BE LIMITED EXCLUSIVELY TO PRODUCT REPLACEMENT, REFUND OF PURCHASE PRICE BEFORE YOUR FIRST INSTALLATION.</Li>
-</ol>
 
-<h3>5. Official Websites</h3>
-<ol>
-<li>URL of Comsenz Inc. is http://www.comsenz.com</Li>
-<li>URL of Discuz! Home is http://www.discuz.com</Li>
-<li>URL of Discuz! Community is http://www.discuz.net</Li>
-</ol>
-
-<p>Comsenz Inc. reserves the right to modify this EULA. Discuz! Home provides offical information on license and price, Comsenz Inc. may modify them without notice. Modified license and price list will apply to new licensed users.</p>
+<p>Hong Sing products on the end user license agreement, business license and technical services to the details provided by the Hong Sing exclusive. Sing the company has without prior notice, modify the license agreement and services price list right to the modified agreement or price list from the change of the date of the new authorized user to take effect.</p>
+<p>Once you start the installation Hong Sing products, shall be deemed to fully understand and accept the terms of this Agreement, the terms in the enjoyment of the rights granted at the same time, by the relevant constraints and restrictions. Licensing agreement outside the scope of acts would be a direct violation of this License Agreement and constitute an infringement, we have the right to terminate the authorization, shall be ordered to stop the damage, and retain the power to investigate related responsibilities.</p>
+<p>The interpretation of the terms of the license agreement, validity, and dispute resolution, applicable to the mainland People\'s Republic of law.</p>
+<p>Between Hong Sing if you and any dispute or controversy, should first be settled through friendly consultations, the consultation fails, you hereby agree to submit the dispute or controversy Sing Haidian District People\'s Court where jurisdiction. Hong Sing Company has the right to interpret the above terms and discretion.</p>
 </div>',
 
 	'uc_installed'		=> 'You have installed the UCenter. If you need to re-install, delete the data/install.lock file',//'您已经安装过 UCenter，如果需要重新安装，请删除 data/install.lock 文件',
@@ -366,6 +358,7 @@ $lang = array(
 //vot	'regiondata'			=> 'Add regions data',//'Add location data',
 //vot	'regiondata_check_label'	=> 'Install additional regional data (countries/regions/cities)',//'Install additional regional data (countries/regions/cities)',
 //vot	'install_region_data'		=> 'Install regional data',//'Install regional data',
+	'mbstring'			=> 'MBstring Library',//'MBstring 库',
 
 //---------------------------------------------------------------
 

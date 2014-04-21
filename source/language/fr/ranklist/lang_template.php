@@ -17,6 +17,7 @@ $lang = array (
   'join'		=> ' personne(s) rejoint',   //  ' person(s) joined'
   'message'		=> ' message(s)',   //  ' message(s)'
   'none_data'		=> 'Aucune donn&#233;es relatives',   //  No related data
+	'ranklist'			=> 'Ranklist',//'排行',
   'ranklist_activity'	=> 'Activit&#233;s',   //  Activities
   'ranklist_activity_end'	=> 'Ech&#233;ance',   // End time - Echéance ou Heure de fin
   'ranklist_activity_start'	=> 'Tmps. Activit&#233; :',   // Activity time: 
@@ -33,7 +34,6 @@ $lang = array (
   'comment'		=> 'Commentaire',   //  Comment
   'comment_ranklist'	=> 'Commentaires',   //  Comments
   'hot_ranklist'	=> 'Hot Rangs',   //  Hot Rankings
-  'ranklist'		=> '',   //  
   'ranklist_thread_view'	=> 'Vues',   //  View
   'views'			=> 'Hot:',   //  Hot:
   'visit_ranklist'		=> 'Liste',   //  List
@@ -44,7 +44,6 @@ $lang = array (
   'ranklist_forum_post'	=> 'Posts',   //  Posts
   'ranklist_post'	=> 'Posts',   //  Posts
   'ranklist_post_day'	=> 'Posts il y a 24 heures',   //  Posts in 24 hours
-  'ranklist_post_month'	=> 'Posts il y a 30 jours',   // Posts in 30 days 
   'ranklist_reply'	=> 'R&#233;ponses',   //  Replies
   'reply'		=> 'R&#233;pondre',   //  Reply
   'credit_num'		=> 'Points',   //  Points
@@ -135,4 +134,3 @@ $lang = array (
   'thread'		=> 'Sujet',   //  Thread
 );
 
-?>

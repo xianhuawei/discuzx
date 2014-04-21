@@ -3,9 +3,13 @@
 /**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
- *       Traduit par Andre13 et Bertrand online Website on Discuz-fr.fr - 27-déc.2011
+ *       Traduit par Andre13 et Bertrand online Website on Discuz-fr.fr - 27-dï¿½c.2011
  *		$Id: lang_exif.php by Valery Votintsev at sources.ru
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 
@@ -94,4 +98,3 @@ $lang = array(
 	'ThumbMimeType'		=> 'Miniature format MIME'
 );
 
-?>

@@ -21,6 +21,9 @@ $lang = array
 	'cornerbanner_animator_comment'	=> 'Establecer si se debe mostrar animación',//'设置展现时是否显示动画效果',
 	'cornerbanner_category'		=> 'Poner los canales del portal',//'投放门户频道',
 	'cornerbanner_category_comment'	=> 'Ajuste el canal de publicidad clasificada, cuando los anuncios incluidos en el ámbito de "Portal" válida',//'设置广告投放的频道分类，当广告投放范围中包含“门户”时有效',
+	'cornerbanner_disableclose'	=> 'Close advertising link',//'关闭广告的链接',
+	'cornerbanner_disableclose_comment'	=> 'If you want the Advertising can not be closed, you can disable to show the Close link',//'如果广告代码中已内置关闭操作，可以关闭系统预置的关闭链接',
+	'cornerbanner_show'		=> 'Show',//'显示',
+	'cornerbanner_hidden'		=> 'Hide',//'隐藏',
 );
 
-?>

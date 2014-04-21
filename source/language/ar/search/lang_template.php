@@ -4,14 +4,13 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_template.php by Khalid Nahhal, http://www.ar-discuz.com
- *      Modified by Valery Votintsev at sources.ru
+ *      $Id: lang_template.php by Valery Votintsev at sources.ru
  *
- *      This file is automatically generate
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
 
 $lang = array (
-	'search_nomatch'	=> 'للاسف لا توجد اي نتائج.',//'对不起，没有找到匹配结果。',
+	'search_nomatch'	=> 'للاسف لا توجد أي نتائج.',//'对不起，没有找到匹配结果。',
 	'search_result'		=> 'النتائج: <em>يوجد $index[num] موضوع/مواضيع</em>',//'结果: <em>找到相关主题 $index[num] 个</em>',
 	'search_result_keyword'	=> 'النتائج: <em>يوجد $index[num] موضوع عن "<span class="emfont">$keyword</span>"</em>',//'结果: <em>找到 “<span class="emfont">$keyword</span>” 相关内容 $index[num] 个</em>',
 	'a_comment'		=> ' ردود ',//'个评论',
@@ -27,7 +26,7 @@ $lang = array (
 	'90_days_ago'		=> '3 شهر',//'3 个月',
 	'author'		=> 'الكاتب',//'作者',
 	'dateline'		=> 'وقت النشر',//'发布时间',
-	'keywords'	=> 'الكلمات الدلالية',
+	'keywords'		=> 'الكلمات الدلالية',
 	'order_asc'		=> 'تصاعدي',//'按升序排列',
 	'order_desc'		=> 'تنازلي',//'按降序排列',
 	'order_lastpost'	=> 'آخر مشاركة',//'回复时间',
@@ -35,20 +34,20 @@ $lang = array (
 	'order_starttime'	=> 'وقت البدء',//'发布时间',
 	'order_views'		=> 'المشاهدات',//'浏览次数',
 	'post_trade_price'	=> 'السعر',//'商品价格',
- 	'search_allforum'	=> 'جميع الأقسام',//'全部版块',
+	'search_allforum'	=> 'جميع الأقسام',//'全部版块',
 	'search_any_date'	=> 'كل الاوقات',//'全部时间',
 	'search_fulltext'	=> 'نص كامل',//'全文',
 	'search_newer'		=> 'الاجدد',//'以内',
 	'search_older'		=> 'الاقدم',//'以前',
 	'search_orderby'	=> 'ترتيب حسب',//'排序类型',
 	'search_range'		=> 'مكان البحث',//'搜索范围',
-	'search_thread_higher'	=> 'البحث المتقدم عن المشاركات',
+	'search_thread_higher'		=> 'البحث المتقدم عن المشاركات',
 	'search_thread_range'		=> 'نوع الموضوع',//'主题范围',
 	'search_thread_range_all'	=> 'كل المواضيع',//'全部主题',
 	'search_thread_range_digest'	=> 'مميز',//'精华主题',
 	'search_thread_range_top'	=> 'مواضيع مثبتة',//'置顶主题',
 	'search_time'		=> 'الوقت',//'搜索时间',
- 	'special_activity'	=> 'فعالية',//'活动主题',
+	'special_activity'	=> 'فعالية',//'活动主题',
 	'special_debate'	=> 'موضوع تحدي',//'辩论主题',
 	'special_poll'		=> 'موضوع إستطلاع',//'投票主题',
 	'special_reward'	=> 'موضوع طلب',//'悬赏主题',
@@ -62,15 +61,19 @@ $lang = array (
 	'member'		=> 'عضو',//'成员',
 	'public'		=> 'عام',//'公开',
 	'search_group_result'		=> 'النتائج: <em>وجد  لمجموعات $groupnum عناصر</em>',
-	'search_group_result_keyword'	=> 'النتائج: <em>Found groups: $groupnum عناصر,&nbsp;&nbsp;related topics: $index[num] عناصر</em>',
+	'search_group_result_keyword'	=> 'النتائج: <em>تم ايجاد المجموعات: $groupnum عناصر,&nbsp;&nbsp;related topics: $index[num] عناصر</em>',
 	'search_group_viewgroup'	=> 'عرض لمجموعات',
 	'threads'			=> 'مواضيع',//'主题',
+	'subscribe'		=> 'إشتراك',//'订阅',
+	'comment'		=> 'تعليق',//'评论',
+	'lastupdate'		=> 'آخر تحديث',//'最后更新',
 	'return_homepage'	=> 'الرجوع إلى الرئيسية',//'返回首页',
 	'visit_my_space'	=> 'زيارة ملفي الشخصي',//'访问我的空间',
 	'album'			=> ' الألبومات ',//'相册',
 	'blog'			=> ' المدونات ',//'日志',
+	'collection'		=> 'ألبوم مشاركات',//'淘帖',
 	'portal'		=> 'المجلة',//'文章',
-	'quick'	=> 'سريع',
+	'quick'			=> 'سريع',
 	'search_adv'		=> 'متقدم',//'高级',
 	'search_quick_day_180'	=> 'نشرت في آخر 6 شهور',//'6 月内帖子',
 	'search_quick_day_30'	=> 'نشرت في الشهر الماضي',//'1 月内帖子',
@@ -84,17 +87,8 @@ $lang = array (
 	'equal_to'		=> ' يساوي ',//'等于',
 	'lower_than'		=> ' أقل من ',//'小于',
 	'more_than'		=> ' أكثر من ',//'大于',
-	'unlimited'		=> 'غير محدود',//'不限'
-	'goto_memcp'	=> 'لوحة التحكم',
+	'unlimited'		=> 'غير محدود',//'不限',
+	'goto_memcp'		=> 'لوحة التحكم',
 	'thread_list_message1'	=> 'يحتوي على مواضيع مخفية,الرجاء الضغط لعرض الكل',
 );
-//	'search_return_normal'		=> 'الرجوع إلى البحث العام',//'返回普通搜索',
-//	'threadtype_option'	=> 'خيار نوع الموضوع',//'分类信息',
-//	'search_info'		=> 'معلومات الترتيب(الأقسام?)',//'分类信息',
-//	'subject'		=> 'الموضوع',//'标题',
-//	'contactus'		=> 'راسلنا',//'联系我们',
-//	'none'			=> 'لاشئ',//'无',
-//	'search_option'		=> 'خيارات البحث',//'搜索选项',
-//	'search_quick'		=> 'بحث سريع',//'便捷搜索',
 
-?>

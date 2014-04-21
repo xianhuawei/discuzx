@@ -7,6 +7,10 @@
  *      $Id: lang_space.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array(
 	'hour'			=> ' heure ', // ' hour '
 	'before'		=> ' Il y a', // ' ago'
@@ -97,7 +101,7 @@ $lang = array(
 	'block3'		=> 'Personnaliser Module 3', //  Customize Moule 3 
 	'block4'		=> 'Personnaliser Module 4', //  Customize Moule 4 
 	'block5'		=> 'Personnaliser Module 5', //  Customize Moule 5  
-	'blockdata'		=> array(
+/*vot*/	'blockdata'		=> array(
 		'personalinfo'	=> 'Infos Perso.',// 'Personal Info'
 		'profile'	=> 'Profil', // 'Profile'
 		'doing'		=> 'Agiss.', // 'Doing'
@@ -119,7 +123,7 @@ $lang = array(
 		'block3'	=> 'Module personnaliser 3',  //  'Customize Module 3'
 		'block4'	=> 'Module personnaliser 4',  //  'Customize Module 4'
 		'block5'	=> 'Module personnaliser 5'
-		),
+	),
 
 	'block_title'		=> '<div class="blocktitle title"><span>{bname}</span>{more}</div>', // '<div class="blocktitle title"><span>{bname}</span>{more}</div>'
 	'blog_li'		=> '<dl class="bbda cl"><dt><a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank">{subject}</a><span class="xg2 xw0"> {date}</span></dt>', // 
@@ -131,17 +135,17 @@ $lang = array(
 	'visitor_list'		=> '<a href="home.php?mod=space&uid={uid}" target="_blank"><em class="{class}"></em>{avatar}</a><p><a href="home.php?mod=space&uid={uid}" title="{username}">{username}</a></p>', // 
 	'wall_form'		=> '<div class="space_wall_post">
 					<form action="home.php?mod=spacecp&ac=comment" id="quickcommentform_{uid}" name="quickcommentform_{uid}" method="post" autocomplete="off" onsubmit="ajaxpost(\'quickcommentform_{uid}\', \'return_commentwall_{uid}\');doane(event);">
-						'.($_G['uid'] ? '<span id="message_face" onclick="showFace(this.id, \'comment_message\');return false;" style="cursor: pointer;"><img src="static/image/common/facelist.gif" alt="facelist" class="mbn vm" /></span>
-						<br /><textarea name="message" id="comment_message" class="pt" rows="3" cols="60" onkeydown="ctrlEnter(event, \'commentsubmit_btn\');" style="width: 90%;"></textarea>
-						<input type="hidden" name="refer" value="home.php?mod=space&uid={uid}" />
-						<input type="hidden" name="id" value="{uid}" />
-						<input type="hidden" name="idtype" value="uid" />
-						<input type="hidden" name="commentsubmit" value="true" />' :
-						'<div class="pt hm">Vous devez vous connecter en premier <a href="member.php?mod=logging&action=login" onclick="showWindow(\'login\', this.href)" class="xi2">Login</a> | <a href="member.php?mod='.$_G['setting']['regname'].'" onclick="showWindow(\'register\', this.href)" class="xi2">'.$_G['setting']['reglinkname'].'</a></div>').'
-						<p class="ptn"><button '.($_G['uid'] ? 'type="submit"' : 'type="button" onclick="showWindow(\'login\', \'member.php?mod=logging&action=login&guestmessage=yes\')"').' name="commentsubmit_btn" value="true" id="commentsubmit_btn" class="pn"><strong>Laissez un Message</strong></button></p>
-						<input type="hidden" name="handlekey" value="commentwall_{uid}" />
-						<span id="return_commentwall_{uid}"></span>
-						<input type="hidden" name="formhash" value="{FORMHASH}" />
+					'.($_G['uid'] ? '<span id="message_face" onclick="showFace(this.id, \'comment_message\');return false;" style="cursor: pointer;"><img src="static/image/common/facelist.gif" alt="facelist" class="mbn vm" /></span>
+					<br /><textarea name="message" id="comment_message" class="pt" rows="3" cols="60" onkeydown="ctrlEnter(event, \'commentsubmit_btn\');" style="width: 90%;"></textarea>
+					<input type="hidden" name="refer" value="home.php?mod=space&uid={uid}" />
+					<input type="hidden" name="id" value="{uid}" />
+					<input type="hidden" name="idtype" value="uid" />
+					<input type="hidden" name="commentsubmit" value="true" />' :
+					($_G['connectguest'] ? '<div class="pt hm">You have to <a href="member.php?mod=connect" class="xi2">Improve the account information</a> or <a href="member.php?mod=connect&ac=bind" class="xi2">Bind existing account</a> before you can reply</div>' : '<div class="pt hm">You need to log in before you can <a href="member.php?mod=logging&action=login" onclick="showWindow(\'login\', this.href)" class="xi2">Login</a> | <a href="member.php?mod='.$_G['setting']['regname'].'" class="xi2">Register</a></div>')).'
+					<p class="ptn"><button '.($_G['uid'] ? 'type="submit"' : 'type="button" onclick="showWindow(\'login\', \'member.php?mod=logging&action=login&guestmessage=yes\')"').' name="commentsubmit_btn" value="true" id="commentsubmit_btn" class="pn"><strong>Laissez un Message</strong></button></p>
+					<input type="hidden" name="handlekey" value="commentwall_{uid}" />
+					<span id="return_commentwall_{uid}"></span>
+					<input type="hidden" name="formhash" value="{FORMHASH}" />
 					</form>'.
 					($_G['uid'] ? '<script type="text/javascript">
 						function succeedhandle_commentwall_{uid}(url, msg, values) {
@@ -174,6 +178,7 @@ $lang = array(
 	'block_profile_wall'	=> 'Voir message', // View message
 	'block_profile_avatar'	=> 'Editer Avatar', // Edit Avatar
 	'block_profile_update'	=> 'Mise &#224; jour Profil', // Update Profile
+	'block_profile_follow'		=> 'View Feed',//'查看广播',
 	'block_profile_wall_to_me'	=> 'Message', // Message
 	'block_profile_friend_add'	=> 'Ajout. Ami', // Add Friend
 	'block_profile_friend_ignore'	=> 'Supprimer un Ami', // Remove Friend
@@ -235,6 +240,7 @@ $lang = array(
 	'doing_you_can'		=> 'Qu-est-ce qui vous pr&#233;occupe, laissez les Amis le savoir ...', // 'What is on your mind,let the friends know ...'
 	'block_profile_all'	=> '<p style="text-align: right;"><a href="home.php?mod=space&uid={uid}&do=profile">Informations Perso.</a></p>', // '<p style="text-align: right;"><a href="home.php?mod=space&uid={uid}&do=profile">Personal information</a></p>'
 	'block_profile_edit'	=> '<span class="y xw0"><a href="home.php?mod=spacecp&ac=profile">Mon Profil</a></span>', // '<span class="y xw0"><a href="home.php?mod=spacecp&ac=profile">My Profile</a></span>'
+	'sb_follow'		=> '{who} followings',//'{who}的广播',
 	
 	'viewthread_userinfo_hour'	=> 'Heures', // Hours
 	'viewthread_userinfo_uid'	=> 'UID', // UID
@@ -251,6 +257,33 @@ $lang = array(
 	'viewthread_userinfo_regtime'	=> 'Inscrits', // Registered
 	'viewthread_userinfo_lastdate'	=> 'Derni&#232;re Connexion', // Last Login
 	'viewthread_userinfo_oltime'	=> 'Temps En-Ligne', // Online Time
-	
+	'viewthread_userinfo_sellercredit'	=> 'Seller rating',//'卖家信用',
+	'viewthread_userinfo_buyercredit'	=> 'Buyer rating',//'买家信用',
+	'viewthread_userinfo_follower'		=> 'Number of followers',//'听众数',
+	'viewthread_userinfo_following'		=> 'Number of listenings',//'收听数',
+	'follow_view_follow'			=> 'I follow',//'我关注的',
+	'follow_view_special'			=> 'Special attention',//'特别关注',
+	'follow_view_other'			=> 'Following Hall',//'广播大厅',
+	'follow_view_feed'			=> '{who}\'s feed',//'{who}的广播',
+	'follow_view_thread'			=> '{who}\s threads',//'{who}的主题',
+	'follow_view_reply'			=> '{who}\s replies',//'{who}的回复',
+	'follow_view_profile'			=> '{who}\s Personal data',//'{who}的个人资料',
+	'follow_view_type_feed'			=> 'Follow',//'广播',
+	'follow_view_type_thread'		=> 'Threads',//'主题',
+	'follow_view_type_reply'		=> 'Reply',//'回帖',
+	'follow_view_type_profile'		=> 'Profile',//'个人资料',
+	'follow_view_type_follower'		=> 'Follower list',//'听众列表',
+	'follow_view_type_following'		=> 'Followings list',//'收听用户',
+	'follow_view_my_follower'		=> 'My followers',//'我的听众',
+	'follow_view_my_following'		=> 'My followings',//'我收听的人',
+	'follow_view_do_follower'		=> 'His followers',//'他的听众',
+	'follow_view_do_following'		=> 'His followings',//'他收听的人',
+	'follow_view_fulltext'			=> '... View full text',//'...查看全文',
+	'follow_retract'			=> 'Collapse',//'收起',
+	'follow_click_play'			=> 'Click to Play',//'点击播放',
+	'follow_cancle_follow'			=> 'Cancel follow',//'取消收听',
+	'follow_follow_ta'			=> 'Follow the author',//'收听TA',
+
+
 );
 

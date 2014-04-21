@@ -1,11 +1,15 @@
 <?php
 
-/**+++
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_portalcp.php by Valery Votintsev at sources.ru
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'block_diy_nopreview'		=> '<p>Этот блок содержит JS код, и предварительный просмотр недоступен. Если хотите просмотреть - сохраните и смотрите наздоровье.</p>',
@@ -18,6 +22,7 @@ $lang = array(
 	'block_all_type'		=> 'Все категории',
 	'file_size_limit'		=> 'Файл не может быть больше {size} Kb!',
 	'set_to_conver'			=> 'Обложка',
+	'small_image'			=> 'Small image',//'小图',
 	'insert_small_image'		=> 'Вставить маленькое изображение',
 	'insert_large_image'		=> 'Вставить большое изображение',
 	'insert_file'			=> 'Вставить файл',
@@ -27,6 +32,8 @@ $lang = array(
 	'article_noexist'		=> 'Указанной статьи не существует',
 	'article_noallowed'		=> 'У вас нет разрешения для работы с указанной статьей',
 	'article_publish_noallowed'	=> 'У вас нет разрешения на публикацию статьи ',
+	'article_category_empty'	=> 'Sorry, the category can not be empty',//'抱歉，栏目不能为空',
+	'article_edit_nopermission'	=> 'Sorry, you do not have permission to edit current article',//'抱歉，您没有权限进行当前文章操作',
 	'article_publish'		=> 'Публикация статьи',
 	'article_manage'		=> 'Управление статьями',
 	'article_tag'			=> 'Теги',
@@ -36,6 +43,8 @@ $lang = array(
 	'article_pushplus_info'		=> '<p><center><i><a href="{url}" class="xg1 xs1">Данный контент, предоставляет {author}</a></i><center></p>',
 
 	'diytemplate_name_null'		=> '[Не заполнено ]',
+	'portal_view_name'		=> ' Article view page',//' 文章查看页',
+	'forum_viewthread_name'		=> ' Posts View Page',//' 帖子查看页',
 	'portal/index'			=> 'Портал',
 	'portal/list'			=> 'Список публичных статей',
 	'portal/view'			=> 'Обзор портала',
@@ -48,7 +57,7 @@ $lang = array(
 	'group/group'			=> 'Сообщества Обзор',
 	'home/space_home'		=> 'Персональная страница',
 	'home/space_trade'		=> 'Товары',
-	'home/space_top'		=> 'Топ-юзера',
+	'home/space_top'		=> 'Топ-пользователи',
 	'home/space_thread'		=> 'Темы',
 	'home/space_reward'		=> 'Награды',
 	'home/space_share_list'		=> 'Закладки',
@@ -85,5 +94,10 @@ $lang = array(
 	'portal_topic_green'		=> 'Зеленый',
 	'portal_topic_grey'		=> 'Серый',
 	'portal_topic_red'		=> 'Красный',
+
+	'itemtypename0'			=> 'Auto',//'自动',
+	'itemtypename1'			=> '<span style="color: #FF0000">Fixed</span>',//'<span style="color: #FF0000">固定</span>',
+	'itemtypename2'			=> '<span style="color: #00BFFF">Edit</span>',//'<span style="color: #00BFFF">编辑</span>',
+	'itemtypename3'			=> '<span style="color: #0000FF">Push</span>',//'<span style="color: #0000FF">推送</span>',
 
 );

@@ -1,11 +1,15 @@
 <?php
 
-/**+++
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_editor.php by Valery Votintsev at sources.ru
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'editor_switch_media'		=> 'WYSIWYG',
@@ -24,6 +28,7 @@ $lang = array(
 	'editor_hyperlink'		=> 'Ссылка',
 	'editor_remove_link'		=> 'Удалить ссылку',
 	'editor_link_image'		=> 'Изображение',
+	'editor_link_attach'		=> 'Add attachment',//'添加附件',
 	'editor_link_flash'		=> 'Ссылка на FLASH',
 	'editor_insert_smiley'		=> 'Смайлы',
 	'editor_doodle'			=> 'Граффити',
@@ -74,5 +79,6 @@ $lang = array(
 	'editor_prompt_video_media'	=> 'Media видео',
 	'editor_prompt_video_real'	=> 'Real видео',
 	'editor_prompt_mp3'		=> 'MP3 аудио',
+	'editor_full_screen'		=> 'Full Screen',
 );
 

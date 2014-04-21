@@ -7,6 +7,10 @@
  *      $Id: lang_topiclist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'topiclist_topicids'		=> 'Sp&#233;cifiez les sujets',

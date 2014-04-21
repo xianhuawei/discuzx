@@ -1,10 +1,11 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_thread.php 
+ *      $Id: lang_thread.php 25889 2011-11-24 09:52:20Z monkey $
+ *	Translated to Thai by jaideejung007
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -12,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $lang = array (
-	  'forum_archive'	=> 'แบบข้อความล้วน',
+	  'forum_archive' => 'Archive',
 
 
 );

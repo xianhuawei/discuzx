@@ -7,10 +7,14 @@
  *      $Id: lang_post.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'post_name'				=> 'Forum post task',//'论坛帖子类任务',
-	'post_desc'				=> 'Make a Posting to complete the task, activate the forum atmosphere.',//'通过发帖回帖完成任务，活跃论坛的氛围。',
+	'post_desc'				=> 'Make a Posting to complete the task, activate the forum atmosphere.',//'通过发帖回帖完成任务，活跃论坛的氛围',
 	'post_complete_var_act'			=> 'Action',//'动作',
 	'post_complete_var_act_newthread'	=> 'Create New Thread',//'发新主题',
 	'post_complete_var_act_newreply'	=> 'Post new reply',//'发新回复',
@@ -27,10 +31,9 @@ $lang = array
 	'post_complete_var_time_comment'	=> 'Set the time restrictions to comlete the task. If a member can not complete the task in this time range, the task marked as failed and no award given. Set to 0 or leave blank for no limits.',//'设置会员从申请任务到完成任务的时间限制，会员在此时间内未能完成任务则不能领取奖励并标记任务失败，0 或留空为不限制',
 
 	'task_complete_forumid'			=> 'at Forum {value} ',//'在版块 {value} ',
-	'task_complete_act_newthread'		=> 'Created {num} new threads.',//'发新主题 {num} 次。',
-	'task_complete_act_newpost'		=> 'Posted new thread/reply {num} times.',//'发新主题/回复 {num} 次。',
-	'task_complete_act_newreply_thread'	=> 'Replied the thread "{value}" {num} times.',//'回复主题“{value}” {num} 次。',
-	'task_complete_act_newreply_author'	=> 'Replied the thread of "{value}" {num} times.',//'回复作者“{value}”的主题 {num} 次。',
+	'task_complete_act_newthread'		=> 'Created {num} new threads.',//'发新主题 {num} 次',
+	'task_complete_act_newpost'		=> 'Posted new thread/reply {num} times.',//'发新主题/回复 {num} 次',
+	'task_complete_act_newreply_thread'	=> 'Replied the thread "{value}" {num} times.',//'在“{value}”回复主题 {num} 次',
+	'task_complete_act_newreply_author'	=> 'Replied the thread of "{value}" {num} times.',//'回复作者“{value}”的主题 {num} 次',
 );
 
-?>

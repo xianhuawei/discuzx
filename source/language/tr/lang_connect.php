@@ -42,3 +42,4 @@ $lang = array
 	'connect_errlog_sig_incorrect'			=> 'URL signature incorrect',//'URL签名不正确',
 );
 
+?>

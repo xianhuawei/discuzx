@@ -44,8 +44,8 @@ $lang = array
 	'memberlist_orderby_threads'	=> 'По кол-ву тем',
 	'memberlist_orderby_digestposts'	=> 'По дайджестам',
 	'memberlist_orderby_regdate'		=> 'По дате регистрации',
-	'memberlist_orderby_todayposts'		=> 'По кол-ву постов за сегодня',
-	'memberlist_lastpost'			=> 'По дате последнего поста',
+	'memberlist_orderby_todayposts'		=> 'По кол-ву сообщений за сегодня',
+	'memberlist_lastpost'			=> 'По дате последнего сообщения',
 	'memberlist_lastpost_nolimit'		=> 'Без ограничений',
 	'memberlist_lastpost_hour'		=> 'За последний час',
 	'memberlist_lastpost_day'		=> 'За сутки',
@@ -53,8 +53,8 @@ $lang = array
 	'memberlist_lastpost_month'		=> 'За месяц',
 	'memberlist_orderby_extcreditselect'	=> 'Расширенный кредит',
 	'memberlist_orderby_extcreditselect_comment'	=> 'Укажите тип расширенного кредита',
-	'memberlist_orderby_hours'			=> 'По кол-ву постов за час',
-	'memberlist_orderby_hours_comment'	=> 'По кол-ву постов за определенное время',
+	'memberlist_orderby_hours'			=> 'По кол-ву сообщений за час',
+	'memberlist_orderby_hours_comment'	=> 'По кол-ву сообщений за определенное время',
 	'memberlist_yes'			=> 'Да',
 );
 

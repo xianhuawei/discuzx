@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -60,13 +60,13 @@ $lang = array
 	'sortlist_recommend_comment'	=> 'Показывать только рекомендованные темы',
 	'sortlist_orderby'		=> 'Сортировка',
 	'sortlist_orderby_comment'	=> 'Укажите порядок сортировки',
-	'sortlist_orderby_lastpost'	=> 'По дате последнего поста',
+	'sortlist_orderby_lastpost'	=> 'По дате последнего сообщения',
 	'sortlist_orderby_dateline'	=> 'По дате создания',
 	'sortlist_orderby_replies'	=> 'По кол-ву ответов',
 	'sortlist_orderby_views'	=> 'По кол-ву просмотров',
 	'sortlist_orderby_heats'	=> 'По популярности',
 	'sortlist_orderby_recommends'	=> 'По рекомендациям',
-	'sortlist_lastpost'		=> 'По дате последнего поста',
+	'sortlist_lastpost'		=> 'По дате последнего сообщения',
 	'sortlist_lastpost_nolimit'	=> 'Без ограничений',
 	'sortlist_lastpost_hour'	=> 'За час',
 	'sortlist_lastpost_day'		=> 'За сутки',

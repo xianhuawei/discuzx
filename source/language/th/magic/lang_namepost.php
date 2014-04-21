@@ -4,20 +4,25 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_namepost.php by Valery Votintsev at sources.ru
+ *      $Id: lang_namepost.php 27449 2012-02-01 05:32:35Z zhangguosheng $
+ *	Translated to Thai by jaideejung007
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
-	'namepost_name'			=> 'Continue Anonimous Post',//'帖子显身卡',
-	'namepost_desc'			=> 'You can specify an anonymous post to stay still anonymous',//'可以将指定的匿名贴显身',
-	'namepost_forum'		=> 'Target forums',//'允许使用本道具的版块',
-	'namepost_num'			=> 'Has a number: {magicnum}',//'拥有个数: {magicnum}',
-	'namepost_info'			=> 'For specify the stay anonymous post, please enter the post ID',//'指定要显身的帖子，请输入帖子的 ID',
-	'namepost_info_nonexistence'	=> 'Specify the stay anonymous post',//'请指定要显身的帖子',
-	'namepost_succeed'		=> 'Your post successfully stayed still anonymous',//'你操作的帖子已显身',
-	'namepost_info_noperm'		=> 'Using this magic for this forum is disabled',//'对不起，主题所在版块不允许使用本道具',
-	'namepost_info_user_noperm'	=> 'You have no permission to use magic',//'对不起，你不能对此人使用本道具',
-	'magic_namepost_succeed'	=> 'The user is anonymous',//'匿名的用户是',
+	'namepost_name' => 'เป็นคนโพสต์ล่าสุด',
+	'namepost_desc' => 'แสดงชื่อสมาชิกที่โพสต์/ตอบกลับในกระทู้เป็นชื่อคุณเองหรือสมาชิกที่คุณเลือก',
+	'namepost_forum' => 'สามารถใช้งานได้ในเว็บบอร์ด',
+	'namepost_num' => 'มีจำนวน: {magicnum}',
+	'namepost_info' => 'แสดงชื่อคนโพสต์ล่าสุด กรุณากรอก ID กระทู้',
+	'namepost_info_nonexistence' => 'เกิดข้อผิดพลาด ไม่สามารถใช้ไอเท็มนี้ได้',
+	'namepost_succeed' => 'ผู้ไม่ประสงค์ออกนาม <a title="{username}" href="space.php?uid={uid}" target="_blank"><b>{username}</b></a>',
+	'namepost_info_noperm' => 'ขออภัย! บอร์ดนี้ไม่อนุญาตให้ใช้ไอเท็มนี้',
+	'namepost_info_user_noperm' => 'ขออภัย! คุณไม่สามารถใช้ไอเท็มนี้ได้',
+	'magic_namepost_succeed' => 'ผู้ไม่ประสงค์ออกนาม',
 );
 

@@ -9,10 +9,14 @@
  *      This file is automatically generate
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array (
   'no_simplemobiletype' => 'Giao diện chuẩn',
   'nomobiletype' => 'Giao diện Web',
-  'simplemobiletype' => 'Giao diện đơn giản',
+  'simplemobiletype' => 'Đơn giản',
   'favorite' => 'Yêu thích',
   'my_posts' => 'Bài viết của tôi',
   'new_pm' => 'Tin nhắn mới',
@@ -47,9 +51,9 @@ $lang = array (
   'threadtype' => 'Phân loại chủ đề',
   'viewnewthread' => 'Sắp xếp bài viết mới',
   'admin_threadtopicadmin_error' => 'Chế độ Mobile ko hỗ trợ sửa phức tạp',
-  'expiry' => 'Thời gian <span class="xg2">(0 permanent /1 for 1 day)</span>',
+  'expiry' => 'Thời gian <span class="xg2">(0 là mãi mãi /1 là 1 ngày)</span>',
   'mod_message_goto_admincp' => 'Bạn cần dùng phiên bản Web để sử dụng các chức năng trong ACP',
-  'result' => 'Kết quả tìm kiếm',
+  'result' => 'Kết quả',
   'join_thread' => 'Trả lời',
   'required' => 'Bắt buộc',
   'send_special_activity_error' => 'Phiên bản Di động không hỗ trợ tạo chủ đề <strong>Hoạt động</strong>, xin vui lòng quay lại',
@@ -63,8 +67,8 @@ $lang = array (
   'admin_banpost_confirm' => 'Bạn có muốn cảnh cáo',
   'admin_delpost_confirm' => 'Bạn có muốn xóa trả lời này?',
   'admin_warn_confirm' => 'Báo cáo với Quản lý',
-  'attach_nopermission_login' => 'Bạn cần <a href="member.php?mod=logging&action=login">đăng nhập</a> để xem hoặc tải về đính kèm. Bạn chưa có tài khoản? <a href="member.php?mod={$_G[setting][regname]}" title="Đăng ký ngay">Đăng ký</a>',
-  'attachlist' => 'Danh sách đính kèm',
+  'attach_nopermission_login' => 'Bạn cần <a href="member.php?mod=logging&action=login">đăng nhập</a> để xem hoặc tải về đính kèm. Bạn chưa có tài khoản? <a href="member.php?mod={$_G[setting][regname]}" title="Đăng ký ngay">{$_G[setting][reglinkname]}</a>',
+  'attachlist' => 'Đính kèm',
   'ban_member' => 'Cấm',
   'digest' => '<span class="xi1">Tinh hoa</span>',
   'forum_views' => 'Xem',
@@ -91,8 +95,7 @@ $lang = array (
   'favorite_thread_confirm' => 'Thêm vào chủ đề này: ',
   'user_mobile_pm_comment' => 'Gửi tin nhắn SMS sẽ chuyển trở lại trang trước',
   'reset' => 'Reset',
-  'reg_username' => 'Username phải từ 3-15 ký tự',
-  'viewimg' => 'Xem ảnh',  	  
+  'reg_username' => 'Tải khoản phải từ 3-15 ký tự',
 );
 
 ?>

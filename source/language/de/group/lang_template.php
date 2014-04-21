@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_template.php by Valery Votintsev at sources.ru
+ *     $Id: lang_template.php by Valery Votintsev at sources.ru
  *
  *      This file is automatically generate
  */
@@ -37,11 +37,12 @@ $lang = array (
 	'choose_please'			=> 'Bitte ausw&auml;hlen',
 	'create'			=> 'Erstellen',
 	'group_category'		=> 'Kategorie',
+	'group_create_mod'		=> 'New pending groups',//'需要审核开通',
 	'group_create_new'		=> 'Erstelle neue Gruppe',
-'group_create_selete_categroy'	=> 'Select the group category',//'请选择群组分类',
+	'group_create_selete_categroy'	=> 'Select the group category',//'请选择{$_G[setting][navs][3][navname]}分类',
 	'group_description'		=> 'Beschreibung der Gruppe',
+	'group_description_preview'	=> 'Preview',//'预览',
 	'group_name'			=> 'Name der Gruppe',
-	'option_required'		=> 'Erforderlich',
 	'anonymous'			=> 'Anonym',
 	'author'			=> 'Autor',
 	'click_to_readmore'		=> 'F&uuml;r weitere Themen klicken',
@@ -79,7 +80,7 @@ $lang = array (
 	'return_index'			=> 'Zur&uuml;ck zu HOME',
 	'reward_solved'			=> 'Aufgel&ouml;st',
 	'thread'			=> 'Thema',
-'thread_digest'	=> 'Digests',
+	'thread_digest'			=> 'Digests',//'精华',
 	'thread_moved'			=> 'Verschoben',
 	'thread_recommend'		=> 'Empfohlener Level: {$thread[recommends]}',
 	'time'				=> 'Zeit',
@@ -88,7 +89,7 @@ $lang = array (
 	'enable'			=> 'Aktiviere',
 	'enter_member_user'		=> 'Bitte gib den Namen des Mitglieds ein',
 	'group_admin_member'		=> 'Mitglieder verwalten',
-'group_admin_panel'		=> 'Group Management Panel',
+	'group_admin_panel'		=> 'Group control panel',//'{$_G[setting][navs][3][navname]}管理面板',
 	'group_close_notice'		=> 'Hinweis: Nach der Schlie&szlig;ung von Gruppe kann nur die Hauptkategorie angezeigt werden.',
 	'group_demise'			=> 'Gruppe Zuordnung',
 	'group_demise_comment'		=> '<h2>Akzeptiere die &Uuml;bertragung von Qualifikationen:</h2><p>· Kann nur an die Verwaltung der Mitglieder dieser Gruppe &uuml;bertragen werden.</p><p>· Empf&auml;nger einer neu erstellten Gruppe von Qualifikationen.</p><br>',
@@ -98,6 +99,7 @@ $lang = array (
 	'group_icon'			=> 'Gruppen Icon',
 	'group_icon_resize'		=> 'Wird automatisch auf 48 X 48 Pixel angepasst.',
 	'group_image'			=> 'Gruppe Gruppenbild',
+	'group_image_filesize_advise'	=> 'Recommended to use images of size 730&times;150 for best results',//'建议使用尺寸为 730×150 的图片以取得最佳效果',
 	'group_image_filesize_limit'	=> 'Datei muss kleiner als $_G[setting][group_imgsizelimit] kb sein',
 	'group_input_password'		=> 'Bitte Passwort eingeben',
 	'group_level_cannot_do'		=> 'Dein Gruppe-Level ist derzeit nicht in der Lage diese Funktion zu nutzen.',
@@ -134,7 +136,7 @@ $lang = array (
 	'threadtype_prefix_on'		=> 'Zeigen',
 	'threadtype_required'		=> 'Beitr&auml;ge m&uuml;ssen klassifiziert werden',
 	'threadtype_required_force'	=> 'Neues Thema ist in Kraft und der Benutzer muss die Kategorie w&auml;hlen',
-'threadtype_turn_on'	=> 'Enable Thread types',
+	'threadtype_turn_on'		=> 'Enable thread categories',//'启用主题分类',
 	'threadtype_turn_on_comment'	=> 'Wenn das Fachsystematik Feature-Set aktiviert ist, musst du die entsprechende Kategorie Option f&uuml;r diese Funktion aktivieren.',
 	'transfer_group_to'		=> 'Wird mit der Gruppe &uuml;bertragen werden',
 	'yes'				=> 'Ja',
@@ -144,6 +146,7 @@ $lang = array (
 	'friend_join_group'		=> 'Freunde hat Gruppe',
 	'group'				=> 'Gruppen',
 	'group_thread'			=> 'Gruppen Thema',
+	'group_wait_mod'		=> 'Pending',//'待审核',
 	'hot_group'			=> 'Hot Gruppen',
 	'last_post'			=> 'Letzter Beitrag',
 	'last_topic_in_group'		=> 'Neue Themen (der letzten 30 Tage)',
@@ -201,10 +204,5 @@ $lang = array (
 	'orderby_default'		=> 'Standard Sortierung',
 	'stats_main_threads_count'	=> 'Themen',
 	'threads'			=> 'Themen',
-// Obsolete
-//	'group_image_resize'	=> 'Wird automatisch auf 720 X 168 Pixel verkleinert',
-	'group_create_notice'	=> 'Hinweis: Ausser Name und Erstellungszeit der {$_G[setting][navs][3][navname]} k&ouml;nnen andere Details nachtr&auml;glich ge&auml;ndert werden.',
-	'replies/views'		=> 'Replies/Views',//'回复/查看',//vot
 );
 
-?>

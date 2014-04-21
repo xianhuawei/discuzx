@@ -7,6 +7,10 @@
  *      $Id: lang_promotion.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'promotion_name'			=> 'T&#226;ches Promotion',
@@ -15,4 +19,3 @@ $lang = array
 	'promotion_complete_var_iplimit_comment'	=> 'L\'adresse IP de promotion doit &#234;tre &#233;gal ou sup&#233;rieur &#224; la valeur, la t&#226;che compl&#232;t&#233;.',
 );
 
-?>

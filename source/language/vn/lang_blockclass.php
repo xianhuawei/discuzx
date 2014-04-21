@@ -4,8 +4,12 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *		Translate by DCV team - http://www.discuz.vn
- *      $Id: lang_blockclass.php 22735 2011-05-18 10:09:30Z zhangguosheng $
+ *      $Id: lang_blockclass.php 28619 2012-03-06 08:40:56Z chenmengshu $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'blockclass_html' => 'Danh mục',
@@ -37,6 +41,7 @@ $lang = array(
 	'blockclass_myapp_field_title' => 'Tiêu đề',
 	'blockclass_myapp_field_icon' => 'Icon',
 	'blockclass_myapp_field_icon_small' => 'Biểu tượng (small)',
+	'blockclass_myapp_field_icon_abouts' => 'Biểu tượng ứng dụng (hình)',
 	'blockclass_myapp_script_myapp' => 'Nâng cao',
 
 	'blockclass_forum' => 'Chủ đề',
@@ -51,7 +56,7 @@ $lang = array(
 	'blockclass_thread_field_avatar' => 'Avatar',
 	'blockclass_thread_field_avatar_middle' => 'Avatar(vừa)',
 	'blockclass_thread_field_avatar_big' => 'Avatar(lớn)',
-	'blockclass_thread_field_icon' => 'Icon',
+//REMOVED	'blockclass_thread_field_icon' => 'Icon',
 	'blockclass_thread_field_forumurl' => 'Liên kết diễn đàn',
 	'blockclass_thread_field_forumname' => 'Tên diễn đàn',
 	'blockclass_thread_field_typename' => 'Loại diễn đàn',
@@ -139,7 +144,7 @@ $lang = array(
 	'blockclass_article_field_summary' => 'Nội dung',
 	'blockclass_article_field_dateline' => 'Ngày đăng',
 	'blockclass_article_field_uid' => 'Số UID',
-	'blockclass_article_field_username' => 'Tác giả',
+	'blockclass_article_field_username' => 'Tên của tác giả',
 	'blockclass_article_field_avatar' => 'Avatar',
 	'blockclass_article_field_avatar_middle' => 'Avatar(vừa)',
 	'blockclass_article_field_avatar_big' => 'Avatar(lớn)',
@@ -165,7 +170,7 @@ $lang = array(
 	'blockclass_topic_field_pic' => 'Ảnh',
 	'blockclass_topic_field_summary' => 'Nội dung',
 	'blockclass_topic_field_uid' => 'Số UID',
-	'blockclass_topic_field_username' => 'Thành viên',
+	'blockclass_topic_field_username' => 'Tạo bởi',
 	'blockclass_topic_field_dateline' => 'Ngày tạo',
 	'blockclass_topic_field_viewnum' => 'Lượt xem',
 	'blockclass_topic_script_topicnew' => 'Chủ đề mới',
@@ -184,7 +189,7 @@ $lang = array(
 	'blockclass_member_field_reason' => 'Lí do',
 	'blockclass_member_field_unitprice' => 'Đơn giá dự thầu',
 	'blockclass_member_field_showcredit' => 'Tổng điểm đấu thầu',
-	'blockclass_member_field_shwonote' => 'Danh sách đấu thầu',
+	'blockclass_member_field_shownote' => 'Giá đấu thầu liệt kê các tuyên bố chung về',
 	'blockclass_member_field_extcredits1' => 'Mở rộng điểm 1',
 	'blockclass_member_field_extcredits2' => 'Mở rộng điểm 2',
 	'blockclass_member_field_extcredits3' => 'Mở rộng điểm 3',
@@ -258,7 +263,7 @@ $lang = array(
 	'blockclass_doing_field_url' => 'Liên kết',
 	'blockclass_doing_field_title' => 'Tiêu đề',
 	'blockclass_doing_field_uid' => 'UID',
-	'blockclass_doing_field_username' => 'Tài khoản',
+	'blockclass_doing_field_username' => 'Tên người dùng',
 	'blockclass_doing_field_avatar' => 'Avatar',
 	'blockclass_doing_field_avatar_middle' => 'Avatar(vừa)',
 	'blockclass_doing_field_avatar_big' => 'Avatar(lớn)',
@@ -275,7 +280,7 @@ $lang = array(
 	'blockclass_blog_field_summary' => 'Nội dung',
 	'blockclass_blog_field_dateline' => 'Công bố',
 	'blockclass_blog_field_uid' => 'UID',
-	'blockclass_blog_field_username' => 'Tác giả',
+	'blockclass_blog_field_username' => 'Tên của tác giả',
 	'blockclass_blog_field_avatar' => 'Avatar',
 	'blockclass_blog_field_avatar_middle' => 'Avatar(vừa)',
 	'blockclass_blog_field_avatar_big' => 'Avatar(lớn)',
@@ -300,7 +305,7 @@ $lang = array(
 	'blockclass_album_field_pic' => 'Ảnh',
 	'blockclass_album_field_dateline' => 'Tải lên',
 	'blockclass_album_field_updatetime' => 'Cập nhật',
-	'blockclass_album_field_username' => 'Tác giả',
+	'blockclass_album_field_username' => 'Tên người dùng',
 	'blockclass_album_field_uid' => 'UID',
 	'blockclass_album_field_picnum' => 'Số ảnh',
 	'blockclass_album_script_albumnew' => 'Album mới',
@@ -451,6 +456,9 @@ $lang = array(
 	'blockclass_other_stat_albums_title' => 'Tiêu đề Album',
 	'blockclass_other_stat_pics_title' => 'Tiêu đề Ảnh',
 	'blockclass_other_stat_shares_title' => 'Tiêu đề Chia sẻ',
+
+	'blockclass_field_id' => 'ID dữ liệu',
 );
 
 
+?>

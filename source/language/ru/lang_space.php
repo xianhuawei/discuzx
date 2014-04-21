@@ -1,11 +1,15 @@
 <?php
 
-/**+++
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_space.php by Valery Votintsev at sources.ru
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 	'hour'			=> ' час',
@@ -97,7 +101,7 @@ $lang = array(
 	'block3'		=> 'Custom block 3',
 	'block4'		=> 'Custom block 4',
 	'block5'		=> 'Custom block 5',
-	'blockdata'		=> array(
+/*vot*/	'blockdata'		=> array(
 		'personalinfo'	=> 'Персональные данные',
 		'profile'	=> 'Профиль',
 		'doing'		=> 'Настроение',
@@ -174,11 +178,12 @@ $lang = array(
 	'block_profile_wall'		=> 'Стена',
 	'block_profile_avatar'		=> 'Изменить аватар',
 	'block_profile_update'		=> 'Обновить профиль',
+	'block_profile_follow'		=> 'Просмотр ленты',//'查看广播',
 	'block_profile_wall_to_me'	=> 'Стена',
 	'block_profile_friend_add'	=> 'В друзья',
 	'block_profile_friend_ignore'	=> 'Убрать из друзей',
 	'block_profile_poke'		=> 'Приветствие',
-	'block_profile_sendmessage'	=> 'PM',
+	'block_profile_sendmessage'	=> 'ЛС',
 	'block_doing_reply'		=> 'Ответ на настроение',
 	'block_doing_no_content'	=> 'Нет настроений',
 	'block_doing_no_content_publish'	=> ', <a href ="home.php?mod=space&uid={uid}&do=doing&view=me&from=space">Обновить</a>',
@@ -207,11 +212,11 @@ $lang = array(
 	'feed_view_only'			=> 'Просмотр ленты новостей',
 
 	'export_pm'		=> 'Экспорт ЛС',
-	'pm_export_header'	=> 'Экспорт личных сообщений Discuz!X. Записывается в текстовом формате. Ре-импорт не поддерживается.',
+	'pm_export_header'	=> 'Экспорт личных сообщений. Записывается в текстовом формате. Ре-импорт не поддерживается.',
 	'pm_export_touser'	=> 'Получатель: {touser}',
 	'pm_export_subject'	=> 'Тема чата сообщества: {subject}',
 	'all'			=> 'Все',
-	'manage_post'		=> 'Постинги',
+	'manage_post'		=> 'Сообщения',
 	'manage_album'		=> 'Альбомы',
 	'manage_blog'		=> 'Блоги',
 	'manage_comment'	=> 'Комментарии',
@@ -235,10 +240,11 @@ $lang = array(
 	'doing_you_can'		=> 'Опишите своё настроение, или чем Вы сейчас заняты...',
 	'block_profile_all'	=> '<p style="text-align: right;"><a href="home.php?mod=space&uid={uid}&do=profile">Все личные данные</a></p>',
 	'block_profile_edit'	=> '<span class="y xw0"><a href="home.php?mod=spacecp&ac=profile">Редактировать профиль</a></span>',
-	
+	'sb_follow'		=> '{who} followings',//'{who}的广播',
+
 	'viewthread_userinfo_hour'	=> 'час',
 	'viewthread_userinfo_uid'	=> 'UID',
-	'viewthread_userinfo_posts'	=> 'Посты',
+	'viewthread_userinfo_posts'	=> 'Сообщения',
 	'viewthread_userinfo_threads'	=> 'Темы',
 	'viewthread_userinfo_doings'	=> 'Настроения',
 	'viewthread_userinfo_blogs'	=> 'Блоги',
@@ -251,6 +257,33 @@ $lang = array(
 	'viewthread_userinfo_regtime'	=> 'Дата Рег.',
 	'viewthread_userinfo_lastdate'	=> 'Последний вход',
 	'viewthread_userinfo_oltime'	=> 'Время на сайте',
+	'viewthread_userinfo_sellercredit'	=> 'Seller rating',//'卖家信用',
+	'viewthread_userinfo_buyercredit'	=> 'Buyer rating',//'买家信用',
+	'viewthread_userinfo_follower'		=> 'Number of followers',//'听众数',
+	'viewthread_userinfo_following'		=> 'Number of listenings',//'收听数',
+	'follow_view_follow'			=> 'I follow',//'我关注的',
+	'follow_view_special'			=> 'Special attention',//'特别关注',
+	'follow_view_other'			=> 'Following Hall',//'广播大厅',
+	'follow_view_feed'			=> '{who}\'s feed',//'{who}的广播',
+	'follow_view_thread'			=> '{who}\s threads',//'{who}的主题',
+	'follow_view_reply'			=> '{who}\s replies',//'{who}的回复',
+	'follow_view_profile'			=> '{who}\s Personal data',//'{who}的个人资料',
+	'follow_view_type_feed'			=> 'Follow',//'广播',
+	'follow_view_type_thread'		=> 'Threads',//'主题',
+	'follow_view_type_reply'		=> 'Reply',//'回帖',
+	'follow_view_type_profile'		=> 'Profile',//'个人资料',
+	'follow_view_type_follower'		=> 'Follower list',//'听众列表',
+	'follow_view_type_following'		=> 'Followings list',//'收听用户',
+	'follow_view_my_follower'		=> 'My followers',//'我的听众',
+	'follow_view_my_following'		=> 'My followings',//'我收听的人',
+	'follow_view_do_follower'		=> 'His followers',//'他的听众',
+	'follow_view_do_following'		=> 'His followings',//'他收听的人',
+	'follow_view_fulltext'			=> '... View full text',//'...查看全文',
+	'follow_retract'			=> 'Collapse',//'收起',
+	'follow_click_play'			=> 'Click to Play',//'点击播放',
+	'follow_cancle_follow'			=> 'Cancel follow',//'取消收听',
+	'follow_follow_ta'			=> 'Follow the author',//'收听TA',
+
 
 );
 

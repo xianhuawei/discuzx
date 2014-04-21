@@ -3,20 +3,20 @@
 /**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
- *		Translate by DCV team - http://www.discuz.vn
- *      $Id: lang_template.php 22155 2011-04-22 08:42:02Z monkey $
  *
- *      This file is automatically generate
+ *      $Id: lang_template.php 29284 2012-03-31 09:42:04Z chenmengshu $
+ *
+ *		Translate by DCV team - http://www.discuz.vn
  */
 
 $lang = array (
-  'search_nomatch' => 'Lỗi! không tìm thấy dữ liệu liên quan.',
-  'search_result' => 'Kết quả: <em> Đã tìm thấy $index[num] chủ đề</em>',
-  'search_result_keyword' => 'Kết quả: <em> Tìm thấy $index[num] nội dung liên quan tới “<span class="emfont">$keyword</span>”   </em>',
+  'search_nomatch' => 'Không tìm thấy dữ liệu liên quan.',
+  'search_result' => 'Kết quả: <em>Tìm được $index[num] bài</em>',
+  'search_result_keyword' => 'Kết quả: <em>Tìm thấy từ "<span class="emfont">$keyword</span>" có trong $index[num] bài</em>',
   'a_comment' => ' bình luận',
   'a_visit' => ' lượt xem',
   'heat' => 'Độ hot',
-  'search_credit_msg' => 'Mỗi lần tìm kiếm sẽ trừ $policymsgs điểm',
+  'search_credit_msg' => 'Mỗi lần tìm kiếm sẽ bị trừ $policymsgs điểm',
   '180_days_ago' => '6 tháng',
   '1_days_ago' => '1 ngày',
   '2_days_ago' => '2 ngày',
@@ -60,17 +60,21 @@ $lang = array (
   'credits' => 'Điểm',
   'member' => 'Thành viên',
   'public' => 'Công khai',
-  'search_group_result' => 'Kết quả: <em>Tìm thấy Nhóm $groupnum kết quả</em>',
-  'search_group_result_keyword' => 'Kết quả: <em>Tìm thấy Nhóm $groupnum kết quả,&nbsp;&nbsp;  $index[num] chủ đề</em>',
-  'search_group_viewgroup' => 'Xem Nhóm',
+  'search_group_result' => 'Kết quả: <em>Tìm thấy nhóm {$_G[setting][navs][3][navname]} $groupnum</em>',
+  'search_group_result_keyword' => 'Kết quả: <em>Tìm nhóm {$_G[setting][navs][3][navname]} $groupnum,&nbsp;&nbsp;có $index[num] chủ đề</em>',
+  'search_group_viewgroup' => 'Xem {$_G[setting][navs][3][navname]}',
   'threads' => 'Chủ đề',
+  'subscribe' => 'Theo dõi',
+  'comment' => 'Bình luận',
+  'lastupdate' => 'Cập nhật',
   'return_homepage' => 'Trang chủ',
   'visit_my_space' => 'Xem không gian',
   'album' => 'Albums',
   'blog' => 'Blog',
+	'collection'		=> 'Collection',//'淘帖',
   'portal' => 'Portal',
   'quick' => 'Nhanh',
-  'search_adv' => 'Tìm nâng cao',
+  'search_adv' => 'Nâng cao',
   'search_quick_day_180' => 'Bài trong 6 tháng',
   'search_quick_day_30' => 'Bài trong 1 tháng',
   'search_quick_day_365' => 'Bài trong 1 năm',

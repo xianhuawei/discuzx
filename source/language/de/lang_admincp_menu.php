@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -15,21 +15,21 @@ $lang = array
 	'header_index'		=> 'Home',//'首页',
 	'header_global'		=> 'Allgemein',
 	'header_forum'		=> 'Foren',
-	'header_user'		=> 'User',
+	'header_user'		=> 'Benutzer',
 	'header_topic'		=> 'Themen',
 	'header_extended'	=> 'Erweiterungen',
-	'header_plugin'		=> 'Plugins',
+	'header_plugin'		=> 'Plugins',//'插件',
 	'header_style'		=> 'Interface',
-	'header_adv'		=> 'Ads',
-	'header_tools'		=> 'Tools',
+	'header_adv'		=> 'Ads',//'广告',
+	'header_tools'		=> 'Tools',//'工具',
 	'header_uc'		=> 'UCenter',
 	'header_welcome'	=> 'Willkommen',
-	'header_logout'		=> 'Logout',
-	'header_bbs'		=> 'Forum',
-	'header_portal'		=> 'Portal',
+	'header_logout'		=> 'Logout',//'退出',
+	'header_bbs'		=> 'Website',
+	'header_portal'		=> 'Portal',//'门户',
 	'header_group'		=> 'Gruppen',
 	'header_founder'	=> 'Webmaster',
-	'header_cloudaddons'	=> 'Addons',//'扩展中心',
+	'header_cloudaddons'	=> 'Application Center',//'应用中心',
 
 
 	'menu_home'			=> 'AdminCP',//'管理中心首页',
@@ -52,6 +52,7 @@ $lang = array
 	'menu_setting_imgwater'		=> 'Watermark Settings',
 	'menu_setting_uc'		=> 'UCenter Einstellung',
 	'menu_setting_uchome'		=> 'UCHome Einstellung',
+	'menu_setting_follow'		=> 'Follows',//'广播设置',
 	'menu_setting_home'		=> 'Home',
 	'menu_setting_search'		=> 'Suche-Einstellungen',
 	'menu_setting_district'		=> 'Regionale Einstellungen',
@@ -68,18 +69,20 @@ $lang = array
 	'menu_members_add'		=> 'Mitglied hinzuf&uuml;gen',
 	'menu_members_edit'		=> 'Mitglieder verwalten',
 	'menu_members_newsletter'	=> 'Anmeldung senden',
+	'menu_members_mobile'		=> 'Send phone notification',//'发送手机通知',
+	'menu_usertag'			=> 'User Tags',//'用户标签',
 	'menu_members_edit_ban_user'	=> 'Mitglieder verbannen',
 	'menu_members_ipban'		=> 'Ban IP',
 	'menu_members_credits'		=> 'Credit Award',
 	'menu_members_profile'		=> 'Benutzerbereich',
 	'menu_members_profile_group'	=> 'User Groups',//'用户栏目分组',
-	'menu_members_verify_setting'	=> 'Information Audit',
+	'menu_members_verify_setting'	=> 'Verification',//'认证设置',
 	'menu_members_stat'		=> 'Mitglieder Statistik',
 	'menu_moderate_modmembers'	=> 'Genehmigungen',
 	'menu_profilefields'		=> 'Mitglieder Profile',
 	'menu_admingroups'		=> 'Admin Gruppe',
 	'menu_usergroups'		=> 'Benutzer Gruppe',
-	'menu_hotuser'			=> 'Star Mitglied',
+	'menu_follow'			=> 'Follows',//'推荐关注',
 	'menu_defaultuser'		=> 'Tell a Friend',
 
 	'menu_moderate_posts'		=> 'Thread Genehmigungen',
@@ -96,6 +99,7 @@ $lang = array
 	'menu_maint_threads_group'	=> 'Thema Management Group',
 	'menu_maint_prune_group'	=> 'Volume-Gruppe',
 	'menu_maint_attaches_group'	=> 'Anhang Management Group',
+	'menu_setting_collection'	=> 'Collections',//'淘帖管理',
 	'menu_posting_tags'		=> 'Tags',
 	'menu_posting_censors'		=> 'Wort Filter',
 	'menu_maint_report'		=> 'Melden',
@@ -119,6 +123,9 @@ $lang = array
 	'menu_founder_groupperm'	=> 'Redaktion Pflichten Berechtigungen - {group}',
 	'menu_founder_permgrouplist'	=> 'Bearbeiten von Berechtigungen - {perm}',
 	'menu_founder_memberperm'	=> 'Redaktion - {username}',
+
+	'menu_patch'			=> 'Security Center',//'安全中心',
+	'menu_upgrade'			=> 'Online Upgrade',//'在线升级',
 
 	'menu_addons'			=> 'Addons',//'扩展中心',
 	'menu_plugins'			=> 'Plugins',//'插件',
@@ -152,11 +159,13 @@ $lang = array
 	'menu_tools_relatedtag'		=> 'Verwendete Tags',
 	'menu_tools_creditwizard'	=> 'Credit Einstellungen',
 	'menu_tools_fileperms'		=> 'Datei Berechtigungen',
+	'menu_tools_hookcheck'		=> 'Check Hooks',//'嵌入点校验',
 	'menu_tools_filecheck'		=> 'Datei Check',
 	'menu_forum_scheme'		=> 'Pre-Set Example',
 	'menu_db'			=> 'Datenbank',
 	'menu_postsplit'		=> 'Beitr&auml;ge Punktetabelle',
 	'menu_threadsplit'		=> 'Themen Table',
+	'menu_membersplit'		=> 'User tables',//'用户表优化',
 	'menu_logs'			=> 'Logs',
 	'menu_custommenu_manage'	=> 'Admin Menu anpassen',
 	'menu_misc_cron'		=> 'Zeitliche Aufgaben',
@@ -167,6 +176,7 @@ $lang = array
 	'menu_albumcategory'		=> 'Album Kategorien',
 	'menu_block'			=> 'Modul-Management',
 	'menu_blockstyle'		=> 'Modul Styles',
+	'menu_portalpermission'		=> 'Portal permissions',//'权限列表',
 	'menu_blockxml'			=> 'Third-Party Modul',//'第三方模块',
 	'menu_topic'			=> 'Topic-Management',
 	'menu_diytemplate'		=> 'DIY Page Management',
@@ -176,14 +186,14 @@ $lang = array
 	'menu_group_manage'		=> 'Gruppen-Verwaltung',
 	'menu_group_userperm'		=> 'Haupt-Gruppe Berechtigungen',
 	'menu_group_level'		=> 'Gruppen-Level',
+	'menu_group_mod'		=> 'Group moderation',//'审核群组',
 
-	'menu_setting_manyou'		=> 'Manyou einrichten',//'Manyou 设置',
+	'menu_setting_manyou'		=> 'Manyou Einrichten',
 	'menu_setting_qqconnect'	=> 'QQ Bound setzen',//'QQ 绑定设置',
 
 	'admincp_title'			=> $_G['setting']['bbname'].' Admin Center',//$_G['setting']['bbname'].' 管理中心',
 
 // Added by Valery Votintsev
 	'menu_setting_language'		=> 'Languages',
-
 );
 

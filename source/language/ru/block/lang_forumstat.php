@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -21,10 +21,10 @@ $lang = array
 	'forumstat_threads_text'	=> 'Заголовок',
 	'forumstat_threads_default'	=> 'Тем:',
 
-	'forumstat_posts_allow'		=> 'Статистика по постам:',
+	'forumstat_posts_allow'		=> 'Статистика по сообщениям:',
 	'forumstat_posts_order'		=> 'Порядок показа',
 	'forumstat_posts_text'		=> 'Заголовок',
-	'forumstat_posts_default'	=> 'Постов: ',
+	'forumstat_posts_default'	=> 'Сообщений: ',
 
 	'forumstat_members_allow'	=> 'Статистика по пользователям:',
 	'forumstat_members_order'	=> 'Порядок показа',

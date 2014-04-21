@@ -8,6 +8,9 @@
  *	Translate in French by Andre13 - Support :discuz-fr.fr- 27.déc.2011
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 $extend_lang = array
 (
 	'header_cloud'		=> 'Plateforme de Nuages',//'云平台',
@@ -31,16 +34,18 @@ $extend_lang = array
 	'menu_cloud_smilies'	=> 'SOSO Smileys',//'SOSO表情',
 	'menu_cloud_qqgroup'	=> 'Groupe QQ Communautaire',//'社区QQ群',
 	'menu_cloud_union'	=> 'Adv Union',//'广告联盟',
+	'menu_cloud_storage'	=> 'Cloud storage',//'旋风存储',
 	'menu_cloud_mobile'	=> 'Mobile client',//'手机客户端',
-	'menu_cloud_storage'	=> 'Tornado storage',//'旋风存储',
 
 	'close'			=> 'Fermer',//'关闭',
 	'continue'		=> 'Continuer',//'继续',
 	'message_title'		=> 'Message',//'提示信息',
 	'jump_to_cloud'		=> 'Sauter vers Discuz! Plate-forme Nuages (http://cp.discuz.qq.com) pour ouvrir complètement la procédure',//'您即将转向Discuz!云平台（http://cp.discuz.qq.com）完成开通流程',
+	'cloud_waiting'		=> 'Wait please...',//'请稍候...',
 
 	'cloud_status_error'	=> 'Si il existe quelques petites erreurs, peuvent entraîner une perte des informations parce que le site Discuz! anormaux plateforme de services nuages. Si vous avez des questions Svp. visitez <a href="http://www.discuz.net/forum-3926-1.html" target="_blank">Forum Officiel</a> for help.',//'出了点小错，可能由于站点信息丢失导致Discuz!云平台服务出现异常，如果有疑问请访问<a href="http://www.discuz.net/forum-3926-1.html" target="_blank">官方论坛</a>寻求帮助',
 
+	'cloud_timecheck'	=> 'Server time check',//'服务器时间检查',
 	'cloud_introduction'	=> 'Voir la Description',//'查看介绍',
 	'cloud_confirm_open'	=> 'Confirmer son ouverture',//'确认开通',
 	'cloud_confirm_upgrade'	=> 'Confirmer la Mise à jour',//'确认升级',
@@ -83,12 +88,12 @@ $extend_lang = array
 
 	'cloud_siteinfo_tips'	=> '<li>Si le nom du site ou une URL du site a changé, Svp. cliquer sur le bouton "Synchroniser les Informations du Site" .</li><li>Clés du site est le site pour communiquer avec la Plateforme Nuages, authentification par clé, Si la fuite récente de manipulation des touches du site est dangereux et pour des autres informations, Svp. cliquer sur le bouton "Remplacer Clés du Site ". <span style="color:red;">Utilisez cette fonctionnalité avec prudence.</span></li>',//'<li>如果站点名称或者站点URL有变动，请点击“同步站点信息”按钮。</li><li>站点Key是站点与云平台通信的验证密钥，若近期有危险操作泄漏站点Key等信息，请点击“更换站点Key”按钮。<span style="color:red;">请谨慎使用此功能。</span></li>',
 
-	'cloud_doctor_tips'	=> '<li>Discuz! Plateforme Nuages outils de diagnostiques peut vous aider à analyser la situation du site, que ce soit la Plateforme Nuages de communiquer correctement avec les autres fonctions.</li>
-				<li>Site ID est votre identifiant de site unique dans la Plateforme Nuages, des autres sites ne peuvent pas partager le même site ID et la CLE de communication du site</li>',//'<li>Discuz!云平台诊断工具是帮助您分析站点上的状况，是否能与云平台正常通信等功能。</li><li>站点ID是您的站点在云平台的唯一标识，请勿和其他站点共用一套站点ID和站点通信KEY</li>',
+	'cloud_doctor_normal'	=> 'Normal',//'正常',
+	'cloud_doctor_tips'	=> '<li>Discuz! Plateforme Nuages outils de diagnostiques peut vous aider à analyser la situation du site, que ce soit la Plateforme Nuages de communiquer correctement avec les autres fonctions.</li><li>Site ID est votre identifiant de site unique dans la Plateforme Nuages, des autres sites ne peuvent pas partager le même site ID et la CLE de communication du site</li>',//'<li>Discuz!云平台诊断工具是帮助您分析站点上的状况，是否能与云平台正常通信等功能。</li><li>站点ID是您的站点在云平台的唯一标识，请勿和其他站点共用一套站点ID和站点通信KEY</li>',
 
 	'cloud_doctor_setidkey'		=> 'Modifier le Site Discuz! ID et sa CLE',//'修改Discuz!上的站点ID和KEY',
-	'cloud_doctor_setidkey_tips'	=> '<li style="color:red">Modification Incorrect de Discuz! ID du site et KEY peut causer des erreurs de communication, les erreurs et les échecs des autres, alors ne pas oublier de lire le guide officiel des paramètres de modification.</li>
-					<li style="color:red">Avant de modifier le ID, CLE, ou de son état, faire la sauvegarde de la table Forum common_setting.</li>',//'<li style="color:red">修改Discuz!上的站点ID和KEY，可能会导致通信错误、签名错误以及其他的故障，请勿在没有官方人员指导的情况下修改。</li><li style="color:red">修改ID、KEY和状态前，请先备份论坛的common_setting表。</li>',
+	'cloud_doctor_connect_fix'	=> '<a href="./admin.php?action=cloud&operation=doctor&op=fixGuest">Click for Repair</a>',//'<a href="./admin.php?action=cloud&operation=doctor&op=fixGuest">点击修复</a>',
+	'cloud_doctor_setidkey_tips'	=> '<li style="color:red">Modification Incorrect de Discuz! ID du site et KEY peut causer des erreurs de communication, les erreurs et les échecs des autres, alors ne pas oublier de lire le guide officiel des paramètres de modification.</li><li style="color:red">Avant de modifier le ID, CLE, ou de son état, faire la sauvegarde de la table Forum common_setting.</li>',//'<li style="color:red">修改Discuz!上的站点ID和KEY，可能会导致通信错误、签名错误以及其他的故障，请勿在没有官方人员指导的情况下修改。</li><li style="color:red">修改ID、KEY和状态前，请先备份论坛的common_setting表。</li>',
 	'cloud_site_key'		=> 'Site communication CLE',//'站点通信KEY',
 	'cloud_site_key_safetips'	=> '(Pour des raisons de sécurité, partiellement caché)',//'(出于安全考虑，部分隐藏)',
 	'cloud_site_key_comment'	=> 'Ne divulguez pas la CLE de communication du Site',//'站点通信KEY请勿对外公布',
@@ -118,10 +123,6 @@ $extend_lang = array
 
 	'cloud_doctor_title_result'	=> 'Les résultats des tests (<a href="#" onClick="self.location.reload();">Re-test</a>)',//'检测结果(<a href="#" onClick="self.location.reload();">重新检测</a>)',
 
-	'cloud_doctor_php_ini_separator'	=> 'URL séparateur',//'URL分隔符',
-	'cloud_doctor_php_ini_separator_true'	=> 'Vide ou &',//'空或&',
-	'cloud_doctor_php_ini_separator_false'	=> 'Régler ce arg_separator.output valeur dans php.ini à non &, ou ini_get fonction est désactivée, Svp. contacter votre support de votre hébergement',//'php.ini 的 arg_separator.output 设置成非&值 或 ini_get 函数被禁用，请联系空间商',
-
 	'cloud_doctor_fsockopen_function'	=> 'fsockopen fonction',//'fsockopen函数',
 	'cloud_doctor_gethostbyname_function'	=> 'DNS fonctions de résolution',//'DNS解析函数',
 	'cloud_doctor_function_disable'		=> 'Fonction est désactivée, Svp. contacter le fournisseur de votre hébergement',//'函数被禁用，请联系空间商',
@@ -135,6 +136,9 @@ $extend_lang = array
 	'cloud_doctor_dns_qzone'	=> 'Nom de Domaine Internet QQ',//'QQ互联域名解析',
 	'cloud_doctor_dns_qzone_test'	=> 'Internet QQ Interface de Test Hôte',//'QQ互联主接口测试',
 	'cloud_doctor_other_qzone_test' => 'Test des autres Interfaces Internet QQ',//'QQ互联其他接口测试',
+	'cloud_doctor_site_test'		=> 'Cloud platform site testing',//'云平台到站点测试',
+	'cloud_doctor_time_check'		=> '<img src="{imgdir}/loading.gif" class="vm"> Wait please...',//'<img src="{imgdir}/loading.gif" class="vm"> 请稍候...',
+	'cloud_doctor_site_test_result'		=> '<div id="cloud_doctor_site_test_result_div"><img src="{imgdir}/loading.gif" class="vm"> Wait please...</div>',//'<div id="cloud_doctor_site_test_result_div"><img src="{imgdir}/loading.gif" class="vm"> 请稍候...</div>',
 
 	'cloud_doctor_setting_ip'	=> 'Définir Manuellement Adresse IP:',//'手动设置的IP：',
 
@@ -149,6 +153,7 @@ $extend_lang = array
 
 	'cloud_doctor_title_connect'	=> 'Test de connexion QQ',//'QQ互联检测',
 	'cloud_doctor_connect_app_id'	=> 'QQ connexion appid',//'QQ互联appid',
+	'cloud_doctor_connect_guestgroup'	=> 'QQ Internet visitors user group',//'QQ互联游客用户组',
 	'cloud_doctor_connect_app_key'	=> 'QQ connexion appkey',//'QQ互联appkey',
 	'cloud_doctor_connect_reopen'	=> 'Le site actuel appid/appkey perdu, Svp. <a href="admin.php?action=cloud&operation=applist">Re-ouvrir</a> la connexion QQ',//'当前站点appid/appkey丢失，请<a href="admin.php?action=cloud&operation=applist">重新开通</a>QQ互联',
 
@@ -168,17 +173,14 @@ $extend_lang = array
 	'cloud_stats_summary'		=> 'Aperçu du site',//'网站概况',
 
 	'cloud_smilies'			=> 'SOSO Smileys',//'SOSO表情',
-	'cloud_smilies_tips'		=> '<li>Recherche &#224;  rendre le monde examiner pour le site apporte beaucoup de plaisir et de l\'exp&#233;rience.</li><li>Omettre le processus fastidieux de Smileys en ajout sans joindres "illégalement"QQ expression à votre site Web, Forum expression ne sont plus monotone.</li>',//'<li>搜尽天下表情，为网站带来无穷的乐趣与体验。</li>
-//		<li>省略繁琐的上传表情流程，无缝“偷渡”QQ表情到您的网站，论坛表情变得不再单调无味。</li>',
-	'cloud_storage'			=> 'Tornado storage',//'旋风存储',
-	'cloud_storage_tips'		=> '<li>Space-saving bandwidth for the site, allowing users to enjoy high-speed storage of large files, upload and download the best in the clouds.</li>
-					<li>Experience high-speed uploading and downloading, support for a single file attachment upload up to 2GB, permanent attachment to reduce costs for the Forum.</li>',
+	'cloud_smilies_tips'		=> '<li>Recherche &#224;  rendre le monde examiner pour le site apporte beaucoup de plaisir et de l\'exp&#233;rience.</li><li>Omettre le processus fastidieux de Smileys en ajout sans joindres "illégalement"QQ expression à votre site Web, Forum expression ne sont plus monotone.</li>',//'<li>搜尽天下表情，为网站带来无穷的乐趣与体验。</li><li>省略繁琐的上传表情流程，无缝“偷渡”QQ表情到您的网站，论坛表情变得不再单调无味。</li>',
 
 	'cloud_smilies_status'		=> 'Activé SOSO smileys',//'启用SOSO 表情',
+	'cloud_storage'			=> 'Cloud storage',//'旋风存储',
+	'cloud_storage_tips'		=> 'For saving your sitee space and bandwidth, you can allow your users to enjoy the high-speed Cloud storage for large files</li><li>Cloud storage supports for high-speed upload and download. Single file attachment upload size is up to 2GB. The cloud attachment is permanently effective and enable to reduce the cost of your Forum hosting.</li><li>为网站节省空间带宽，让用户享受超大文件的高速存储，上传下载尽在云端。</li><li>体验高速上传下载，支持单个文件高达2GB的附件上传，附件永久有效，为论坛降低成本。</li>',
 
 	'setting_manyou'		=> 'Paramètres des Applications Itinérants',//'漫游应用设置',
-	'setting_manyou_tips'		=> '<li>Si les applications ouvertes en itinérance, cet utilisateur pourra choisir de nombreuses applications (telles que Texas Hold \'em, Bouncing Eglise, dix années aux chemins de fer ...) pour son utilisation.</li><li>Itinérance des applications fournies par <a target="_blank" href="http://www.manyou.com/www/">MYOP plateforme ouverte</a>, Manyou ouverture de la plateforme (Manyou plateforme ouverte / MYOP) Le service est fourni par la société fournit Comsenz plateforme ouverte de développement de son application, activer le service en itinérance avant, <a href="http://wiki.developer.manyou.com/wiki/index.php?title=MYOP%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AE&printable=yes" target="_blank">Lire accord MYOP service sur place du Site</a></li>',//'<li>开启漫游应用功能后，用户可以自由选择各种不同的应用(诸如德克萨斯扑克、弹弹堂、十年一剑......)在站内进行使用。</li>
-//					<li>漫游应用功能由 <a target="_blank" href="http://www.manyou.com/www/">MYOP开放平台</a> 提供， Manyou Open Platform(Manyou开放平台/MYOP)服务是由 Comsenz 公司为应用开发者提供的开放平台，启用漫游服务前，<a href="http://wiki.developer.manyou.com/wiki/index.php?title=MYOP%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AE&printable=yes" target="_blank">请先阅读MYOP网站服务协议</a></li>',
+	'setting_manyou_tips'		=> '<li>Si les applications ouvertes en itinérance, cet utilisateur pourra choisir de nombreuses applications (telles que Texas Hold \'em, Bouncing Eglise, dix années aux chemins de fer ...) pour son utilisation.</li><li>Itinérance des applications fournies par <a target="_blank" href="http://www.manyou.com/www/">MYOP plateforme ouverte</a>, Manyou ouverture de la plateforme (Manyou plateforme ouverte / MYOP) Le service est fourni par la société fournit Comsenz plateforme ouverte de développement de son application, activer le service en itinérance avant, <a href="http://wiki.developer.manyou.com/wiki/index.php?title=MYOP%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AE&printable=yes" target="_blank">Lire accord MYOP service sur place du Site</a></li>',//'<li>开启漫游应用功能后，用户可以自由选择各种不同的应用(诸如德克萨斯扑克、弹弹堂、十年一剑......)在站内进行使用。</li><li>漫游应用功能由 <a target="_blank" href="http://www.manyou.com/www/">MYOP开放平台</a> 提供， Manyou Open Platform(Manyou开放平台/MYOP)服务是由 Comsenz 公司为应用开发者提供的开放平台，启用漫游服务前，<a href="http://wiki.developer.manyou.com/wiki/index.php?title=MYOP%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AE&printable=yes" target="_blank">请先阅读MYOP网站服务协议</a></li>',
 	'setting_manyou_base'		=> 'Les réglages de base',//'基本设置',
 	'setting_manyou_base_status'	=> 'Activez les applications en itinérance',//'启用漫游应用',
 	'setting_manyou_base_status_comment'	=> 'Choisissez si vous souhaitez ouvrir des applications de son itinérance. Si vous désactivez cette demande de cette itinérance de son application des utilisateurs de votre site ne seront pas utiliser toute cette application basée sur cette itinérance',//'选择是否开启漫游应用。如果关闭漫游应用，您的网站用户将不能使用任何基于漫游的应用',
@@ -216,6 +218,10 @@ $extend_lang = array
 	'connect_setting_t_fids'		=> 'Autoriser Poussez les conseils du forum',//'允许推送的论坛版块',
 	'connect_setting_t_group'		=> 'Groupes autorisés à pousser',//'群组是否允许推送',
 	'connect_setting_t_group_comment'	=> 'Régler les groupes qui peuvent pousser les discussions publiées à microblogging Tencent',//'设置在群组发表的主题是否可以推送到腾讯微博',
+	'connect_setting_t_reply_showauthor'		=> 'Display comments or broadcast link microblogging users',//'显示评论或转播的微博用户链接',
+	'connect_setting_t_reply_showauthor_comment'	=> 'If set "Yes", Backflow will be marked in the content below comments or broadcast microblogging users nickname and microblogging address',//'设置"是"，回流时会在内容下方标注评论或转播的微博用户昵称和微博地址',
+	'connect_setting_t_reply'		=> 'Allows microblogging comments and broadcast content reply',//'允许微博评论和转播内容回流',
+	'connect_setting_t_reply_comment'	=> 'Push the topic or share the theme to the Tencent microblogging, Whether to allow the microblogging comment and broadcast content reply',//'推送主题或分享主题到腾讯微博后，是否允许微博评论和转播内容回流',
 	'connect_setting_like_allow'		=> 'Afficher le site Liens QQ espace certifié favorites',//'显示本站QQ认证空间喜欢的链接',
 	'connect_setting_like_allow_comment'	=> 'Si l\'utilisateur clique sur le lien Espace certifié site préféré, deviendra immédiatement le site QQ fan Espace certifié, de recevoir à tout moment le flux Espace certifié',//'用户点击本站QQ认证空间喜欢的链接，将立即成为本站QQ认证空间的粉丝，随时收取认证空间的动态',
 	'connect_setting_like_url'		=> 'Nombre certifié espace QQ',//'认证空间QQ号码',
@@ -227,8 +233,8 @@ $extend_lang = array
 	'connect_setting_turl_qq_failed'	=> 'Réglage de l\'officiel de microblog QQ nombre est échoué, assurez-vous que la QQ est valide.',//'官方微博QQ号码设置失败，请确保该QQ号的有效性',
 	'connect_setting_qshare_allow'		=> 'Autoriser les fonctions Q-Partage',//'开启Q-Share功能',
 	'connect_setting_qshare_allow_comment'	=> 'Les utilisateurs de contenu après dans le texte sélectionné dans n\'importe quelle période de temps, peut être commode de le texte sélectionné et images diffusées à la région de microblogging Tencent',//'用户选中帖子内容中的任何一段文本时，可方便快捷的将选中的文本内容和区域内图片转播到腾讯微博',
-	'connect_setting_qshare_appkey'		=> 'Tencent AppKey ouverte plateforme de microblogging',//'腾讯微博开放平台AppKey',
-	'connect_setting_qshare_appkey_comment'	=> 'Remplissez AppKey microblogging Tencent dans le domaine source dans les paramètres d\'affichage de l\'information, il est un temps de remplir. Comment appliquer AppKey? Visitez Tencent plateforme de microblogging ouvert, <a href="http://open.t.qq.com/apps_welcome.php" target="_blank">Demande pour votre AppKey</a>',//'填写AppKey将在腾讯微博中显示设置的来源字段信息，可不填写。怎样申请AppKey？请访问腾讯微博开放平台，<a href="http://open.t.qq.com/apps_welcome.php" target="_blank">创建应用获取AppKey</a>',
+	'connect_setting_weibo_appkey'		=> 'Tencent open microblogging platform AppKey',//'腾讯微博开放平台AppKey',
+	'connect_setting_weibo_appkey_comment'	=> 'Fill AppKey Tencent microblogging in the source field in the display settings information, it is a time to fill out. How to apply AppKey? Visit Tencent open microblogging platform, <a href="http://open.t.qq.com/apps_welcome.php" target="_blank">Request for your AppKey</a>',//'填写AppKey将在腾讯微博中显示设置的来源字段信息，可不填写。怎样申请AppKey？请访问腾讯微博开放平台，<a href="http://open.t.qq.com/apps_welcome.php" target="_blank">创建应用获取AppKey</a>',
 	'connect_member_info'			=> 'Information Utilisateur',//'用户信息',
 	'connect_member_bindlog'		=> 'QQ Lier journaux',//'QQ绑定日志',
 	'connect_member_bindlog_type'		=> 'Action',//'操作',
@@ -238,9 +244,11 @@ $extend_lang = array
 	'connect_member_bindlog_type_2'		=> 'Détacher',//'解除绑定',
 	'connect_member_bindlog_uin'		=> 'Connexion QQ lier au compte',//'QQ帐号绑定日志',
 	'connect_member_bindlog_uid'		=> 'Connexion se lier en compte l\'utilisateur',//'用户帐号绑定日志',
+	'connect_guest_group_name'		=> 'QQ visitors',//'QQ游客',
 
 	'qqgroup_menu_list'		=> 'Gestion Liaison',//'绑定管理',
 	'qqgroup_menu_manager'		=> 'Définir le nom',//'设置名称',
+	'qqgroup_menu_setting'		=> 'Push settings',//'推送设置',
 	'qqgroup_menu_block'		=> 'Poussez information',//'推送信息',
 	'qqgroup_menu_history'		=> 'Poussez historique',//'推送历史',
 
@@ -292,63 +300,76 @@ $extend_lang = array
 	'qqgroup_preview_button'	=> 'Appuyez renseignements',//'推送信息', // 'Push information'
 	'attach_img'			=> 'Image Pièce jointe',//'图片附件',
 
+	'qqgroup_feed_setting'			=> 'Push settings',//'推送设置',
+	'qqgroup_usergroup_feed_list'		=> 'Allow to push for user groups',//'允许推送的用户组',
+	'qqgroup_usergroup_feed_list_comment'	=> 'Select groups of users with push permissions, you can hold down the CTRL for multiple choice',//'所选用户组拥有推送权限，可以按住 CTRL 多选',
+	'qqgroup_setting_tips'			=> '<li>If the function "Push to QQ group" is enabled at the Topic View page, You can post immediately pushed to the QQ group chat box.</li><li><img src="static/image/admincp/cloud/feed.png" align="left"></li>',//'<li>主题查看页的“推送到QQ群”功能，可将帖子即时推送到QQ群聊天框。</li><li><img src="static/image/admincp/cloud/feed.png" align="left"></li>',
+
 	'security_member_list'		=> 'Violation users',//'违规用户',
-	'security_thread_list'		=> 'Violation threads',//'违规主题',
-	'security_post_list'		=> 'Violation replies',//'违规回帖',
-	'security_members_name'		=> 'User names',//'用户名',
+	'security_thread_list'		=> 'Violations threads',//'违规主题',
+	'security_post_list'		=> 'Violation Replies',//'违规回帖',
+	'security_members_name'		=> 'User name',//'用户名',
 	'security_members_eviltype'	=> 'Malicious type',//'恶意类型',
 	'security_post_eviltype'	=> 'Malicious type',//'恶意类型',
 	'security_thread_eviltype'	=> 'Malicious type',//'恶意类型',
-	'security_isreported'		=> 'Has been reported before',//'是否已经上报过',
+	'security_isreported'		=> 'Whether it have been reported',//'是否已经上报过',
 	'security_admin_operate'	=> 'Status',//'状态',
 	'security_isreported_yes'	=> 'Yes',//'是',
 	'security_isreported_no'	=> 'No',//'否',
-	'security_type_1'		=> 'Politic',//'政治',
-	'security_type_2'		=> 'Porno',//'色情',
-	'security_type_3'		=> 'Irrigation',//'灌水',
-	'security_type_4'		=> 'Hang horse',//'',//'挂马',
+	'security_type_1'		=> 'Politics',//'政治',
+	'security_type_2'		=> 'Pornography',//'色情',
+	'security_type_3'		=> 'Hacking',//'灌水',
+	'security_type_4'		=> 'Hung horse',//'挂马',
 	'security_type_5'		=> 'Advertising',//'广告',
 	'security_type_6'		=> 'Other',//'其他',
 	'security_opreateresult_0'	=> 'Recycle Bin',//'回收站',
 	'security_opreateresult_1'	=> 'Normal',//'正常',
 	'security_opreateresult_2'	=> 'Deleted',//'已删除',
 	'security_opreateresult_3'	=> 'Ignored',//'忽略',
-	'security_subject'		=> 'Title',//'标题',
+	'security_subject'		=> 'Subject',//'标题',
 	'security_forum'		=> 'Forum',//'版块',
 	'security_author'		=> 'Author/Post time',//'作者/发帖时间',
 	'security_view'			=> 'View',//'查看',
-	'security_view_thread'		=> 'View thread',//'查看主题',
-	'security_clicktotoggle'	=> 'Click to collapse/expand details',//'点击折叠/展开详细内容',
-	'security_foldall'		=> 'Collapse all',//'全部折叠',
-	'security_exfoldall'		=> 'Expand all',//'全部展开',
-	'security_userdeleted'		=> 'User was deleted',//'该用户已被管理人员删除',
-	'security_postdeleted'		=> 'Post was deleted',//'该帖子已被管理人员删除',
-	'security_modreason'		=> 'Waterproof wall automatic processing',//'防水墙自动处理',
+	'security_view_thread'		=> 'View Thread',//'查看主题',
+	'security_clicktotoggle'	=> 'Click to expand/collapse details',//'点击折叠/展开详细内容',
+	'security_foldall'		=> 'Collapse',//'全部折叠',
+	'security_exfoldall'		=> 'Expand',//'全部展开',
+	'security_userdeleted'		=> 'The user has been deleted by manager',//'该用户已被管理人员删除',
+	'security_postdeleted'		=> 'This post has been deleted by manager',//'该帖子已被网站管理人员从回收站彻底删除',
+	'security_modreason'		=> 'Automatic processed waterproof wall',//'防水墙自动处理',
 	'security_restore_user'		=> 'Restore user',//'恢复该用户',
-	'security_change_usergroup'	=> 'Change User Group',//'更改用户组',
+	'security_change_usergroup'	=> 'Change user group',//'更改用户组',
 
-	'recyclebin_search_security_thread'	=> 'Contains only waterproof wall subject',//'仅包含防水墙处理的主题',
-	'recyclebin_search_security_post'	=> 'Contains only waterproof wall replies',//'仅包含防水墙处理的回帖',
+	'recyclebin_search_security_thread'	=> 'Contains only the waterproof wall dealing with the threads',//'仅包含防水墙处理的主题',
+	'recyclebin_search_security_post'	=> 'Contains only the waterproof wall dealing with the replies',//'仅包含防水墙处理的回帖',
 
 	'security_index'			=> 'Home',//'首页',
 	'security_index_list'			=> 'Home',//'首页',
-	'security_setting'			=> 'White List settings',//'白名单设置',
-	'security_blanklist'			=> 'White List settings',//'白名单设置',
-	'security_setting_list'			=> 'White List settings',//'白名单设置',
-	'security_tips'				=> 'Tips',//'小贴士',
-	'security_tips_1'			=> '<li><p>Threads and replies into the system identifies Violation threads and irregularities replies, automatic <a href="admin.php?action=recyclebin" style="text-decoration:none; color:#0000FF;">Recycle Bin</a></p></li>',//'<li><p>系统识别到违规主题和违规回帖后，自动将主题和回帖放入<a href="admin.php?action=recyclebin" style="text-decoration:none; color:#0000FF;">回收站</a></p></li>',
-	'security_white_list_setting'		=> 'White List settings',//'白名单设置',
-	'security_usergroup_white_list'		=> 'White list of user groups',//'用户组白名单',
-	'security_usergroup_white_list_comment'	=> 'Operation for the selected user groups. If waterproof wall is not treated, you can hold down the CTRL for multiple choice',//'所选用户组内用户的操作，防水墙不做处理，可以按住 CTRL 多选',
+	'security_setting'			=> 'Settings',//'设置',
+	'security_blanklist'			=> 'White list settings',//'白名单设置',
+	'security_setting_list'			=> 'Settings',//'设置',
+	'security_tips'				=> 'Tips',//'小技巧',
+	'security_tips_1'			=> '<li><p>Recognized Violation threads: <a href="admin.php?action=cloud&operation=security&anchor=thread" style="font-size:14px; text-decoration:none; color:#0000FF;">%d</a>, Violations Replies: <a href="admin.php?action=cloud&operation=security&anchor=post" style="font-size:14px; text-decoration:none; color:#0000FF;">%d</a>, Violation users: <a href="admin.php?action=cloud&operation=security&anchor=member" style="font-size:14px; text-decoration:none; color:#0000FF;">%d</a></p></li><li><p>, System recognition Violation themes and Violation replies, Automatically into the threads and replies <a href="admin.php?action=recyclebin" style="text-decoration:none; color:#0000FF;">Recycle Bin</a></p></li><li><p>System recognized the violation user. The user is banned automatically.</p></li>',//'<li><p>累计识别违规主题：<a href="admin.php?action=cloud&operation=security&anchor=thread" style="font-size:14px; text-decoration:none; color:#0000FF;">%d</a>，违规回帖：<a href="admin.php?action=cloud&operation=security&anchor=post" style="font-size:14px; text-decoration:none; color:#0000FF;">%d</a>，违规用户：<a href="admin.php?action=cloud&operation=security&anchor=member" style="font-size:14px; text-decoration:none; color:#0000FF;">%d</a></p></li><li><p>系统识别到违规主题和违规回帖后，自动将主题和回帖放入<a href="admin.php?action=recyclebin" style="text-decoration:none; color:#0000FF;">回收站</a></p></li><li><p>系统识别到违规用户后，自动将用户禁言</p></li>',
+	'security_white_list_setting'		=> 'White list settings',//'白名单设置',
+	'security_usergroup_white_list'		=> 'User group white list',//'用户组白名单',
+	'security_usergroup_white_list_comment' => 'Select user groups which operations are not processed by waterproof wall, you can hold down the CTRL for multiple choice',//'所选用户组内用户的操作，防水墙不做处理，可以按住 CTRL 多选',
 	'security_forum_white_list'		=> 'Forum white list',//'版块白名单',
-	'security_forum_white_list_comment'	=> 'Thread and reply within the selected forum, waterproof wall not deal with, hold down the CTRL for multiple choice',//'所选版块内的主题和回复，防水墙不做处理，可以按住 CTRL 多选',
-	'security_recyclebin_thread'		=> 'Deal with Threads to the Recycle Bin',//'到回收站处理主题',
-	'security_recyclebin_post'		=> 'To recycle bin processing replies',//'到回收站处理回帖',
-	'security_thread_status'		=> 'Thread Status',//'主题状态',
+	'security_forum_white_list_comment'	=> 'Select forums where threads and replies are not processed by waterproof wall, you can hold down the CTRL for multiple choice',//'所选版块内的主题和回复，防水墙不做处理，可以按住 CTRL 多选',
+	'security_recyclebin_thread'		=> 'Moved to Recycle Bin threads',//'到回收站处理主题',
+	'security_recyclebin_post'		=> 'Moved to Recycle Bin posts',//'到回收站处理回帖',
+	'security_thread_status'		=> 'Thread status',//'主题状态',
 	'security_post_status'			=> 'Replies status',//'回帖状态',
 	'security_thread_member'		=> 'User status',//'用户状态',
 	'setting_update_succeed'		=> 'Current settings updated successfully',//'当前设置更新成功',
+
+	'search_menu_setting'			=> 'Settings',//'设置',
+	'search_menu_service'			=> 'Functional configuration',//'功能配置',
+	'search_setting_allow_hot_topic'	=> 'Allow hot topics',//'开启热门话题',
+	'search_setting_allow_forum_recommend'	=> 'Allow recommended forums block',//'开启板块推荐词',
+	'search_setting_allow_thread_related'	=> 'Allow related threads block',//'开启主题相关帖',
+	'search_setting_allow_forum_related'	=> 'Allow related forums block',//'开启板块相关帖',
+	'search_setting_allow_collection_related'	=> 'Allow related collections block',//'开启淘帖相关帖',
 );
 
-$GLOBALS['admincp_actions_normal'][] = 'cloud'; // DO NOT TRANSLATE THIS!!
+$GLOBALS['admincp_actions_normal'][] = 'cloud';
 

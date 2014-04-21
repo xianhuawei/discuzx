@@ -7,6 +7,10 @@
  *      $Id: lang_dz_feed.php 20562 2011-02-28 02:11:17Z congyushuai $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'feed_thread_pin_title' =>		'Bài viết {subject} của {actor} được {operater} đặt chú ý',

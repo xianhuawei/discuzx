@@ -7,6 +7,10 @@
  *      $Id: lang_groupthread.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'groupthread_fids'		=> 'Groupe ID',  //  '群组ID'

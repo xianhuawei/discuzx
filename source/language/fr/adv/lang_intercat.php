@@ -7,6 +7,10 @@
  *      $Id: lang_intercat.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'intercat_name'			=> 'Des petites annonces entre les Forums',
@@ -16,5 +20,6 @@ $lang = array
 	'intercat_position'		=> 'Emplacement',
 	'intercat_position_comment'	=> 'R&#233;glez la partition dans laquelle la publicit&#233; est affich&#233;e ci-dessous',
 	'intercat_position_random'	=> 'Toutes positions al&#233;atoires',
+	'intercat_position_fav'		=> 'Favorites bar',//'收藏栏',
 );
 

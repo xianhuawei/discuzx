@@ -4,28 +4,32 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *		Translate by Saokim999 www.traitimyenbai.net
- *      $Id: lang_exif.php 6752 2010-03-25 08:47:54Z cnteacher $
+ *      $Id: lang_exif.php 27449 2012-02-01 05:32:35Z zhangguosheng $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array(
 
-	'unknown' => 'Không xác định',
-	'resolutionunit' => array('', '', 'Inch', 'Cm'),
-	'exposureprogram' => array('Không xác định', 'Manual', 'Standard procedure', 'Khẩu độ', 'Tốc độ cửa chập', 'DOF', 'Sport mode', 'Portrait mode', 'Landscape mode'),
+	'unknown' => 'Không rõ',
+	'resolutionunit' => array('', '', 'inch', 'cm'),
+	'exposureprogram' => array('Không rõ', 'Hướng dẫn sử dụng', 'Tiêu chuẩn thủ tục', 'Ưu tiên độ mở', 'Ưu tiên màn trập', 'Chiều sâu', 'Chế độ thể thao', 'Chế độ chân dung', 'Chế độ phong cảnh'),
 	'meteringmode' => array(
-		'0'		=>	'Không xác định',
+		'0'		=>	'Không biết',
 		'1'		=>	'Trung bình',
-		'2'		=>	'Đo sáng trung tâm',
+		'2'		=>	'Bình quân',
 		'3'		=>	'Điểm đo',
 		'4'		=>	'Phân vùng',
 		'5'		=>	'Đánh giá',
-		'6'		=>	'Địa phương',
+		'6'		=>	'Phần',
 		'255'	=>	'Khác'
 		),
 	'lightsource' => array(
-		'0'		=>	'Không xác định',
-		'1'		=>	'Ánh nắng',
-		'2'		=>	'Sáng huỳnh quang',
+		'0'		=>	'Không biết',
+		'1'		=>	'Ánh sáng mặt trời',
+		'2'		=>	'Ánh đèn huỳnh quang',
 		'3'		=>	'Sáng đèn tròn',
 		'10'	=>	'Flash',
 		'17'	=>	'Tiêu chuẩn sáng A',
@@ -36,7 +40,7 @@ $lang = array(
 		'22'	=>	'D75',
 		'255'	=>	'Khác'
 		),
-	'img_info' => array ('Thông tin file ảnh' => 'Thông tin EXIF hình ảnh'),
+	'img_info' => array ('Thông tin file' => 'Không có thông tin EXIF'),
 
 	'FileName' => 'Tên tập tin',
 	'FileType' => 'Loại tập tin',
@@ -45,52 +49,53 @@ $lang = array(
 	'FileDateTime' => 'Ngày tạo',
 	'ImageDescription' => 'Chú thíc ảnhh',
 	'auto'     => 'Tự động',
-	'Make'     => 'Hãng',
-	'Model'    => 'Model',
+	'Make'     => 'Sản xuất',
+	'Model'    => 'Mô hình',
 	'Orientation' => 'Hướng',
 	'XResolution' => 'Phân giải rộng',
 	'YResolution' => 'Phân giải cao',
 	'Software'    => 'Phần mềm',
-	'DateTime'    => 'Sửa đổi',
-	'Artist'      => 'Của',
+	'DateTime'    => 'Thay đổi',
+	'Artist'      => 'Tác giả',
 	'YCbCrPositioning' => 'Vị trí YCbCr',
 	'Copyright'   => 'Bản quyền',
-	'Photographer' => 'Bản quyền ảnh',
+	'Photographer'=> 'Người chụp',
 	'Editor'      => 'Chỉnh sửa',
 	'ExifVersion' => 'Exif version',
 	'FlashPixVersion' => 'FlashPix version',
 	'DateTimeOriginal' => 'Chụp lúc',
-	'DateTimeDigitized' => 'Digitizing',
-	'Height'  => 'Độ cao',
-	'Width'   => 'Độ rộng',
+	'DateTimeDigitized'=> 'Kỹ thuật số',
+	'Height'  => 'Cao',
+	'Width'   => 'Rộng',
 	'ApertureValue' => 'Giá trị khẩu độ',
 	'ShutterSpeedValue' => 'Tốc độ cửa trập',
-	'ApertureFNumber'   => 'Số khẩu độ',
+	'ApertureFNumber'   => 'Khẩu độ',
 	'MaxApertureValue'  => 'Khẩu độ tối đa',
-	'ExposureTime'      => 'Thời gian phơi sáng',
+	'ExposureTime'      => 'Phơi sáng',
 	'FNumber'           => 'F-Number',
 	'MeteringMode'      => 'Chế độ đo sáng',
 	'LightSource'       => 'Nguồn sáng',
 	'Flash'             => 'Flash',
 	'ExposureMode'		=> 'Chế độ phơi sáng',
-	'manual'            => 'Manual',
+	'manual'            => 'Hướng dẫn',
 	'WhiteBalance'      => 'Cân bằng trắng',
 	'ExposureProgram'   => 'Phần mềm phơi sáng',
 	'ExposureBiasValue' => 'Bù sáng',
 	'ISOSpeedRatings'   => 'Độ nhạy ISO',
 	'ComponentsConfiguration' => 'Thành phần cấu hình',
-	'CompressedBitsPerPixel'  => 'Nén ảnh',
+	'CompressedBitsPerPixel'  => 'Nén hình ảnh',
 	'FocusDistance'     => 'Độ cận thị',
 	'FocalLength'       => 'Tiêu cự',
 	'FocalLengthIn35mmFilm' => 'Tiêu cự tương đương 35mm',
 	'UserCommentEncoding' => 'Mã hóa sử dụng ý kiến',
-	'UserComment'		=> 'Ý kiến người sử dụng',
+	'UserComment'		=> 'Bình luận',
 	'ColorSpace'		=> 'Không gian màu',
 	'ExifImageLength'   => 'Exif ảnh rộng',
 	'ExifImageWidth'    => 'Exif ảnh rộng',
 	'FileSource'        => 'Nguồn tin',
-	'SceneType'			=> 'Loại cảnh',
+	'SceneType'		=> 'Loại cảnh',
 	'ThumbFileType'     => 'Thu nhỏ',
 	'ThumbMimeType'     => 'Định sạng thu nhỏ Mime'
 );
 
+?>

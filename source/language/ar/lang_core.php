@@ -1,18 +1,25 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_core.php by Khalid Nahhal, http://www.ar-discuz.com
- *      Modified by Valery Votintsev at sources.ru
+ *      $Id: lang_core.php by Valery Votintsev at sources.ru
+ *      Arabic by Khalid El-Nahhal, http://www.ar-discuz.com
  */
 
- 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'nextpage'	=> 'التالي',//'下一页',
 	'prevpage'	=> 'السابق',//'上一页',
+	'pageunit'		=> 'الصفحات',//'页',
+	'total'			=> 'الإجمالي',//'共',
+	'10k'			=> '10 الآف',//'万',
+	'pagejumptip'		=> 'أدخل رقم الصفحة ثم إضغط على زر enter للإنتقال',//'输入页码，按回车快速跳转',
 	'date'	=> array(
 		'before'	=> 'قبل ',//'前',
 		'day'		=> 'يوم ',//'天',
@@ -35,10 +42,10 @@ $lang = array
 		6 => 'السبت',//'周六',
 		7 => 'الأحد',//'周日',
 	),
-	'dot'	 	=> '. ',//'、',//!!!!!!!!!! Have to add spaces ?????????
-	'archive'	=> 'الارشيف',//'存档',
-	'portal' 	=> 'المجلة',//'文章',
-	'end'	 	=> 'النهاية',//'末尾',
+	'dot'		=> '. ',//'、',//!!!!!!!!!! Have to add spaces ?????????
+	'archive'	=> 'الأرشيف',//'存档',
+	'portal'	=> 'المجلة',//'文章',
+	'end'		=> 'النهاية',//'末尾',
 
 	'seccode_image_tips'		=> 'اكتب الحروف من خلال الصورة<br />',//'输入下图中的字符<br />',
 	'seccode_image_ani_tips'	=> 'اكتب الاحرف من الصورة<br />',//'输入下面动画图片中最大的字符<br />',
@@ -60,7 +67,7 @@ $lang = array
 	'title_friend_album'		=> 'ألبومات الأصدقاء',//'好友的相册',
 	'title_my_album'		=> 'ألبوماتي',//'我的相册',
 	'title_newest_update_album'	=> 'آخر الألبومات المحدثة',//'最新更新的相册',
-	'title_hot_pic_recommend'	=> 'افضل الصور',//'热门图片推荐',
+	'title_hot_pic_recommend'	=> 'أفضل الصور',//'热门图片推荐',
 	'title_blog'			=> 'المدونات',//'日志',
 	'title_friend_blog'		=> 'مدونات الأصدقاء',//'好友的日志',
 	'title_my_blog'			=> 'مدوناتي',//'我的日志',
@@ -74,7 +81,7 @@ $lang = array
 	'title_my_create_debate'	=> 'تحديات انشاءت بواسطتي',//'我发起的辩论',
 	'title_my_join_debate'		=> 'مشترك بها',//'我参与的辩论',
 	'title_newest_debate'		=> 'التحديات الجديدة',//'最新辩论',
-	'title_top_debate'		=> 'افضل التحديات',//'热门辩论',
+	'title_top_debate'		=> 'أفضل التحديات',//'热门辩论',
 	'title_doing'			=> 'الأفعال',//'记录',
 	'title_newest_doing'		=> 'الأفعال الجديدة',//'记录',
 	'title_me_friend_doing'		=> 'أفعال الأصدقاء',//'我和好友的记录',
@@ -87,7 +94,7 @@ $lang = array
 	'title_article_favorite'	=> 'المقالات المفضلة',//'文章收藏',
 	'title_all_favorite'		=> 'المفضلة',//'全部收藏',
 	'title_friend_list'		=> 'قائمة الأصدقاء',//'好友列表',
-	'title_of'			=> ' من ',//'的',
+//	'title_of'			=> ' من ',//'的',
 	'title_all_poll'		=> 'جميع الإستطلاعات',//'随便看看投票',
 	'title_we_poll'			=> 'إستطلاعات الأصدقاء',//'好友发起的投票',
 	'title_me_poll'			=> 'إستطلاعاتي',//'我的投票',
@@ -132,7 +139,7 @@ $lang = array
 	'title_friend_request'		=> 'طلب صديق',//'好友请求',
 	'title_search_friend'		=> 'بحث عن أصدقاء',//'查找好友',
 	'title_invite_friend'		=> 'دعوة أصدقاء',//'邀请好友',
-	'title_password_security'	=> 'امان كلمة المرور',//'密码安全',
+	'title_password_security'	=> 'أمان كلمة المرور',//'密码安全',
 	'title_flash_upload'		=> 'الرفع',//'批量上传',
 	'title_cam_upload'		=> 'رفع من الكاميرا',//'大头贴',
 	'title_normal_upload'		=> 'الرفع العام',//'普通上传',
@@ -153,7 +160,7 @@ $lang = array
 	'title_memcp_privacy'		=> 'الخصوصية',//'隐私筛选',
 	'title_memcp_avatar'		=> 'تعديل الصورة الرمزية',//'修改头像',
 	'title_memcp_profile'		=> 'البيانات الشخصية',//'个人资料',
-	'title_memcp_sendmail'		=> 'تنبيه البريد',//'邮件提醒',
+//	'title_memcp_sendmail'		=> 'تنبيه البريد',//'邮件提醒',
 	'title_memcp_credit'		=> 'النقاط',//'积分',
 	'title_memcp_friend'		=> 'الأصدقاء',//'好友',
 	'title_memcp_usergroup'		=> 'مجموعات العضو',//'用户组',
@@ -162,7 +169,7 @@ $lang = array
 	'title_memcp_videophoto'	=> 'تحقق الفيديو',//'视频认证',
 	'title_memcp_comment'		=> 'تعليقات',//'评论',
 	'title_memcp_eccredit'		=> 'عمليات النقاط',//'信用评价',
-	'title_memcp_promotion'	=> 'تشجيع الوصول',
+	'title_memcp_promotion'		=> 'تشجيع الوصول',
 	'title_task'			=> 'المهام',//'任务',
 	'title_login'			=> 'تسجيل الدخول',//'登录',
 	'title_ranklist_picture'	=> 'رتب الصورة',//'图片排行',
@@ -173,9 +180,9 @@ $lang = array
 	'title_ranklist_activity'	=> 'رتب الفعاليات',//'活动排行',
 	'title_ranklist_forum'		=> 'رتب الأقسام',//'版块排行',
 	'title_ranklist_group'		=> 'رتب المجموعات',//'群组排行',
-	'title_ranklist_app'	=> 'ترتيب التطبيقات',//'应用排行',
+	'title_ranklist_app'		=> 'ترتيب التطبيقات',//'应用排行',
 	'title_ranklist_index'		=> 'رتب الكل',//'全部排行',
-//	'title_ranklist_index'		=> 'Rank',//'排行榜',
+	'title_ranklist_rankname'	=> 'الترتيب',//'排行榜',
 	'title_search'			=> 'بحث',//'搜索',
 	'title_topic_management'	=> 'إدارة المواضيع',//'创建专题',
 	'title_portal_management'	=> 'إدارة المجلة',//'门户管理',
@@ -201,15 +208,27 @@ $lang = array
 	'title_userapp_index_we'	=> 'تطبيقات الأصدقاء',//'好友在玩什么',
 	'title_userapp_index_me'	=> 'تطبيقاتي',//'我在玩的',
 	'title_userapp_manage'		=> 'إدارة التطبيقات &quot;{userapp}&quot;',//'{userapp}管理',
+
+	'title_collection'		=> 'ألبوم المشاركات',
+	'title_collection_create'	=> 'إنشاء ألبوم مشاركات',
+	'title_collection_edit'		=> 'تعديل ألبوم مشاركات',
+	'title_collection_comment_list'	=> 'قائمة التعليقات',
+	'title_collection_followers_list' => 'قائمة المتابعين',
+
 	'faq'				=> 'التعليمات',//'帮助',
 	'search'			=> 'بحث',//'搜索',
 	'page'				=> 'الصفحة {page}',
 
-//vot source/include/misc/misc_security.php
+	'close'				=> 'إغلاق',//'关闭',
+
+//--------------------------------------------------------------------------
+// Added by Valery Votintsev
+
+//source/include/misc/misc_security.php
 	'attackevasive_1_subject'	=> 'تحديث حد التردد',
 	'attackevasive_1_message'	=> 'قمت بزيارة موقع سريع جدا، وأقل من ثانيتين! يرجى الإنتظار قليلا...',
 	'attackevasive_2_subject'	=> 'الوصول من خلال ملقمات بروكسي مقيدة',
-	'attackevasive_2_message'	=> 'الدخول بواسطة بروكسيات مقيد. الرجاء ازالة إعدادات البروكسي, ثم الدخول.',
+	'attackevasive_2_message'	=> 'الدخول بواسطة بروكسيات مقيد. الرجاء إزالة إعدادات البروكسي, ثم الدخول.',
 	'attackevasive_4_subject'	=> 'تحديث فتح الصفحة',
 	'attackevasive_4_message'	=> 'اهلا بك في الموقع, جاري إعادة تحميل الصفحة, الرجاء الإنتظار ...',
 
@@ -218,4 +237,3 @@ $lang = array
 
 );
 
-?>

@@ -7,6 +7,10 @@
  *      $Id: lang_action.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	0	=> 'Inscription/Connexion', // Register/Login
@@ -20,4 +24,3 @@ $lang = array
 
 );
 
-?>

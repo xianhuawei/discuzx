@@ -139,8 +139,8 @@ $lang = array(
 	'admininfo_password_invalid'	=> 'Contraseña de administrador está en blanco, por favor, rellene',//'管理员密码为空，请填写',
 	'admininfo_password2_invalid'	=> 'Las contraseñas no son iguales, por favor revise',//'两次密码不一致，请检查',
 
-	'install_dzfull'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> Nuevo Discuz! X instalación (incluyendo UCenter Server)</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> 全新安装 Discuz! X (含 UCenter Server)</label>',
-	'install_dzonly'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> Instalar Discuz! X sólo (especificar de forma manual la instalada UCenter Server)</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> 仅安装 Discuz! X (手工指定已经安装的 UCenter Server)</label>',
+/*vot*/	'install_dzfull'		=> 'Nuevo Discuz! X instalación (incluyendo UCenter Server)',//'全新安装 Discuz! X (含 UCenter Server)',
+/*vot*/	'install_dzonly'		=> 'Instalar Discuz! X sólo (especificar de forma manual la instalada UCenter Server)',//'仅安装 Discuz! X (手工指定已经安装的 UCenter Server)',
 
 	'username'			=> 'Nombre de usuario de Administrador',//'管理员账号',
 	'email'				=> 'Administrador Email',//'管理员 Email',
@@ -356,6 +356,7 @@ $lang = array(
 //vot 2 vars for language select:
 	'welcome'			=> 'Bienvenido a la Instalación de Discuz! X',
 	'select_language'		=> '<b>Seleccione el idioma de instalación</b>:',
+	'mbstring'			=> 'MBstring Library',//'MBstring 库',
 //vot !!!Translate to Chinese!!!
 //vot	'regiondata'			=> 'Agregar datos de regiones',//'Add location data',
 //vot	'regiondata_check_label'	=> 'Instalar otros datos regionales (countries/regions/cities)',//'Install additional regional data (countries/regions/cities)',

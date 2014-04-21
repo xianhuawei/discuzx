@@ -1,14 +1,14 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: install_lang.php by Valery Votintsev at sources.ru
+ *      $Id: lang_install.php by Valery Votintsev, codersclub.org
 	Translated to Korean by ionobgy
  */
 
-define('UC_VERNAME', 'English Version');
+define('UC_VERNAME', 'International Version');
 
 $lang = array(
 	'SC_GBK'		=> 'Simplified Chinese GBK encoding',//'简体中文版',
@@ -23,12 +23,12 @@ $lang = array(
 	'agreement_no'		=> '동의하지 않음',//'我不同意',
 	'notset'		=> '제한없음',//'不限制',//????? No limits, Not limited
 
-	'message_title'		=> '알림',//'提示信息',
+	'message_title'		=> '통지서',//'提示信息',
 	'error_message'		=> '오류 메세지',//'错误信息',
 	'message_return'	=> '복귀',//'返回',
 	'return'		=> '복귀',//'返回',
 	'install_wizard'	=> '설치 마법사',//'安装向导',
-	'config_nonexistence'	=> 'Configuration 파일이 없음',//'配置文件不存在',
+	'config_nonexistence'	=> '설정 파일이 없음',//'配置文件不存在',
 	'nodir'			=> '폴더가 없음',//'目录不存在',
 	'redirect'		=> '브라우저가 자동으로 이전 페이지로 돌아갑니다.<br>프레임을 지원하지 않는 브라우저라면 여기를 누르세요',//'浏览器会自动跳转页面，无需人工干预。<br>除非当您的浏览器没有自动跳转时，请点击这里',
 	'auto_redirect'		=> '브라우저가 자동으로 이전 페이지로 돌아갑니다.',//'浏览器会自动跳转页面，无需人工干预',
@@ -88,10 +88,13 @@ $lang = array(
 	'tips_ucenter_comment'	=> 'UCenter는 Comsenz 회사의 핵심 제품입니다. Discuz! Board나 다른 Comsenz 제품은  이 프로그램에 의존합니다. 만일 당신이 이미 UCenter를 설치했다면 아래 정보를 입력하시고 그렇지 않으면 <a href="http://www.discuz.com/" target="blank">Comsenz 제품</a>으로 가서 UCenter를 다운 받아 설치하세요.',//'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="http://www.discuz.com/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。',
 
 	'advice_mysql_connect'		=> 'Mysql 모듈이 제대로 로드되었는지 확인하세요.',//'请检查 mysql 模块是否正确加载',
-	'advice_fsockopen'		=> '이 기능은 php.ini에 <b>allow_url_fopen</b> 옵션이 <b>On</b> 되어 있어야 합니다. 문제를 해결하기 위해서는 서버 관리자에게 문의하시기 바랍니다.',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
 	'advice_gethostbyname'		=> 'PHP 환경 설정은 <b>gethostbyname</b> 기능에 의해  가능하지 않습니다. 문제를 해결하기 위해서는 서버 관리자에게 문의하시기 바랍니다.',//'是否php配置中禁止了gethostbyname函数。请联系空间商，确定开启了此项功能',
 	'advice_file_get_contents'	=> '이 기능은 in php.ini에 <b>allow_url_fopen</b> 옵션이 <b>On</b> 되어 있어야 합니다. 문제를 해결하기 위해서는 서버 관리자에게 문의하시기 바랍니다.',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
 	'advice_xml_parser_create'	=> '이 기능은 당신의 php가 XML을 지원해야 합니다. 문제를 해결하기 위해서는 서버 관리자에게 문의하시기 바랍니다.',//'该函数需要 PHP 支持 XML。请联系空间商，确定开启了此项功能',
+	'advice_fsockopen'		=> '이 기능은 php.ini에 <b>allow_url_fopen</b> 옵션이 <b>On</b> 되어 있어야 합니다. 문제를 해결하기 위해서는 서버 관리자에게 문의하시기 바랍니다.',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
+	'advice_pfsockopen'		=> 'This function requires to allow_url_fopen in php.ini. Please contact the hosting provider to set this value',//'该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
+	'advice_stream_socket_client'	=> 'Whether enabled the stream_socket_client function in PHP configuration',//'是否 PHP 配置中禁止了 stream_socket_client 函数',
+	'advice_curl_init'		=> 'Whether enabled the curl_init function in PHP configuration',//'是否 PHP 配置中禁止了 curl_init 函数',
 
 	'ucurl'				=> 'UCenter URL',//'UCenter 的 URL',
 	'ucpw'				=> 'UCenter 관리자 암호',//'UCenter 创始人密码',
@@ -120,7 +123,7 @@ $lang = array(
 	'uc_admin_invalid'		=> 'UCenter 관리자 비밀번호가 맞지 않습니다. 다시 입력하세요.',//'UCenter 创始人密码错误，请重新填写',
 	'uc_data_invalid'		=> 'UCenter 연결이 실패했습니다. UCenter URL 주소가 맞는지 확인하세요.',//'通信失败，请检查 UCenter 的URL 地址是否正确 ',
 	'uc_dbcharset_incorrect'	=> 'UCenter 데이터베이스 문자세트가 현재 프로그램의 문자세트와 다릅니다.',//'UCenter 数据库字符集与当前应用字符集不一致',
-	'uc_api_add_app_error'		=> 'UCenter 어플리케이션 오류에 추가',//'向 UCenter 添加应用错误',
+	'uc_api_add_app_error'		=> 'UCenter에 어플 추가 오류.',//'向 UCenter 添加应用错误',
 	'uc_dns_error'			=> 'UCenter DNS 해석 오류입니다. UCenter IP 주소를 다시 입력하세요.',//'UCenter DNS解析错误，请返回填写一下 UCenter 的 IP地址',
 
 	'ucenter_ucurl_invalid'		=> 'UCenter URL이 비었거나 틀렸습니다. 다시 입력하세요.',//'UCenter 的URL为空，或者格式错误，请检查',
@@ -138,8 +141,8 @@ $lang = array(
 	'admininfo_password_invalid'	=> '관리자 비밀번호가 비었거나 형식이 맞지 않습니다. 다시 입력하세요.',//'管理员密码为空，请填写',
 	'admininfo_password2_invalid'	=> '두 비밀번호가 다릅니다. 다시 입력하세요.',//'两次密码不一致，请检查',
 
-	'install_dzfull'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> 새 Discuz! X 설치 (UCenter 서버 포함)</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> 全新安装 Discuz! X (含 UCenter Server)</label>',
-	'install_dzonly'		=> '<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> Discuz! X 만 설치 (이미 UCenter 서버 설치시)</label>',//'<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> 仅安装 Discuz! X (手工指定已经安装的 UCenter Server)</label>',
+/*vot*/	'install_dzfull'		=> '새 Discuz! X 설치 (UCenter 서버 포함)',//'全新安装 Discuz! X (含 UCenter Server)',
+/*vot*/	'install_dzonly'		=> 'Discuz! X 만 설치 (이미 UCenter 서버 설치시)',//'仅安装 Discuz! X (手工指定已经安装的 UCenter Server)',
 
 	'username'			=> '관리자 이름',//'管理员账号',
 	'email'				=> '관리자 이메일',//'管理员 Email',
@@ -174,10 +177,10 @@ $lang = array(
 	'init_credits_karma'	=> '평판',//'威望',//!!! The same in install_var.php
 	'init_credits_money'	=> '포인트',//'金钱',//!!! The same in install_var.php
 
-	'init_postno0'		=> '#1',//'楼主',//!!! The same in install_var.php 
-	'init_postno1'		=> '#2',//'沙发',    //!!! The same in install_var.php
-	'init_postno2'		=> '#3',//'板凳',   //!!! The same in install_var.php
-	'init_postno3'		=> '#4',//'地板',   //!!! The same in install_var.php
+	'init_postno0'		=> '주인',//'楼主',//#1 !!! The same in install_var.php 
+	'init_postno1'		=> '소파',//'沙发',//#2 !!! The same in install_var.php
+	'init_postno2'		=> '의자',//'板凳',//#3 !!! The same in install_var.php
+	'init_postno3'		=> '마루',//'地板',//#4 !!! The same in install_var.php
 
 	'init_support'		=> '추천',//'支持',   //!!! The same in install_var.php
 	'init_opposition'	=> '반대',//'反对',//!!! The same in install_var.php
@@ -209,13 +212,13 @@ $lang = array(
 	'init_cron_2'	=> '이달의 접속 시간 비움',//'清空本月在线时间',
 	'init_cron_3'	=> '매일 데이터 지우기',//'每日数据清理',
 	'init_cron_4'	=> '생일 통계 및 이메일 구독',//'生日统计与邮件祝福',
-	'init_cron_5'	=> '토픽 답글 공지',//'主题回复通知',
+	'init_cron_5'	=> '포스트 리필 공지',//'主题回复通知',
 	'init_cron_6'	=> '매일 게시판 지우기',//'每日公告清理',
 	'init_cron_7'	=> '타임 제한 조작 지우기',//'限时操作清理',
 	'init_cron_8'	=> '홍보 메세지 지우기',//'论坛推广清理',
-	'init_cron_9'	=> '매달 토픽 지우기',//'每月主题清理',
-	'init_cron_10'	=> '매일 광장 회원 갱신',//'每日 X-Space更新用户',
-	'init_cron_11'	=> '매주 토픽 갱신',//'每周主题更新',
+	'init_cron_9'	=> '매달 포스트 지우기',//'每月主题清理',
+	'init_cron_10'	=> '매일 광장 회원 업데이트',//'每日 X-Space更新用户',
+	'init_cron_11'	=> '매주 포스트 업데이트',//'每周主题更新',
 
 	'init_bbcode_1'	=> '수평 스크롤 내용에 대한 효과는 marquee HTML와 비슷하다. 노트: 이 기능은 Internet Explorer에만 작용함.',//'使内容横向滚动，这个效果类似 HTML 的 marquee 标签，注意：这个效果只在 Internet Explorer 浏览器下有效。',
 	'init_bbcode_2'	=> 'Flash 애니메이션 삽입',//'嵌入 Flash 动画',
@@ -234,22 +237,22 @@ $lang = array(
 	'init_default_template_copyright'	=> 'Sing Imagination (Beijing) Technology Co., Ltd.',//'康盛创想（北京）科技有限公司',
 
 	'init_dataformat'	=> 'Y-m-d',//'Y-n-j',
-	'init_modreasons'	=> '광고/스팸\r\n악의적인 글/해킹\r\n불법 콘텐츠\r\n주제를 벗어난 글\r\n반복된 게시\r\n\r\n동의함\r\n우수한 글\r\n원본',//'广告/SPAM\r\n恶意灌水\r\n违规内容\r\n文不对题\r\n重复发帖\r\n\r\n我很赞同\r\n精品文章\r\n原创内容',
+	'init_modreasons'	=> '광고/스팸\r\n악의적인 글/해킹\r\n불법 콘텐츠\r\n덧글를 벗어난 글\r\n반복된 게시\r\n\r\n동의함\r\n우수한 글\r\n원본',//'广告/SPAM\r\n恶意灌水\r\n违规内容\r\n文不对题\r\n重复发帖\r\n\r\n我很赞同\r\n精品文章\r\n原创内容',
 	'init_userreasons'	=> '파워풀하다!\r\n유용하다\r\n매우 좋다\r\n최고다!\r\n흥미롭다',
 	'init_link'		=> 'Discuz! 공식 포럼',//'Discuz! 官方论坛',
 	'init_link_note'	=> '최신 Discuz! 제폼 소식을 받거나 소프트웨어를 다운로드하고 기술 교환을 하려면',//'提供最新 Discuz! 产品新闻、软件下载与技术交流',
 
-	'init_promotion_task'	=> '사이트 홍보 임무',//'网站推广任务',
-	'init_gift_task'	=> '선물 임무',//'红包类任务',
-	'init_avatar_task'	=> '아바타 임무',//'头像类任务',
+	'init_promotion_task'	=> '사이트 홍보 미션',//'网站推广任务',
+	'init_gift_task'	=> '선물 미션',//'红包类任务',
+	'init_avatar_task'	=> '아바타 미션',//'头像类任务',
 
 	'license'	=> '<div class="license"><h1>License agreement</h1>
 
-<p>English Version of EULA, for non-Chinese-Speaking Users Only</p>
+<p>Copyright (c) 2001-2010, Hong Sing Imagination (Beijing) Technology Co., Ltd. All rights reserved.</p>
 
-<p>Copyright (c) 2001-2009, Comsenz Inc. All Rights Reserved.</p>
+<p>Thank you for choosing Discuz! forum product. We hope that our product will be able to provide you with a fast, efficient and powerful community forum solution.</p>
 
-<p>IMPORTANT: THIS SOFTWARE END USER LICENSE AGREEMENT("EULA") IS A LEGAL AGREEMENT BETWEEN YOU AND Comsenz Inc.. READ IT CAREFULLY BEFORE COMPLETING THE INSTALLATION PROCESS AND USING THE SOFTWARE. IT PROVIDES A LICENSE TO USE THE SOFTWARE AND CONTAINS WARRANTY INFORMATION AND LIABILITY DISCLAIMERS. BY INSTALLING AND USING THE SOFTWARE, YOU ARE CONFIRMING YOUR ACCEPTANCE OF THE SOFTWARE AND AGREEING TO BECOME BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO BE BOUND BY THESE TERMS, PLEASE DO NOT INSTALL OR USE THE SOFTWARE. YOU MUST ASSUME THE ENTIRE RISK OF USING THIS PROGRAM. ANY LIABILITY OF Comsenz Inc. WILL BE LIMITED EXCLUSIVELY TO PRODUCT REPLACEMENT OR REFUND OF PURCHASE PRICE BEFORE FIRST INSTALLATION.</p>
+<p>Discuz! English full name Crossday Discuz! Board, Chinese full name Discuz! Forum, hereinafter referred to as Discuz!.</p>
 
 <p>Sing Imagination (Beijing) Technology Co., Ltd. for the Discuz! product developers, and they shall have Discuz! Product Copyright (China National Copyright Administration of Copyright Registration No. 2006SR11895). Sing Imagination (Beijing) Technology Co., Ltd. website http://www.comsenz.com, Discuz! Official website address is http://www.discuz.com, Discuz! Official forum site at http://www.discuz.net.</p>
 
@@ -257,46 +260,42 @@ $lang = array(
 
 <p>This License applies and only applies Discuz! X version, Hong Sing Imagination (Beijing) Technology Co., Ltd. has the power of final interpretation of the licensing agreement.</p>
 
-<h3>1. Definitions</h3>
+<h3>I. Licensing agreement rights</h3>
 <ol>
-<li>"Crossday Discuz! Board"("Discuz!" for short) is a bulletin board system which is developed by Comsenz Inc.</Li>
-<li>"the Software" means "Crossday Discuz! Board".</Li>
-<li> "Comsenz Inc." is the enterprise being responsible for Discuz! product.</Li>
+<li>You can fully comply with the end user license agreement, based on the software used in this non-commercial use, without having to pay for software copyright licensing fees.</Li>
+<li>Agreement you can within the constraints and limitations modify Discuz! source code (if provided) or interface styles to suit your site requirements.</Li>
+<li>You have to use this software to build the forum all the membership information, articles and related information of ownership, and is independent of commitment and legal obligations related to the article content.</Li>
+<li>A commercial license, you can use this software for commercial applications, while according to the type of license purchased to determine the period of technical support, technical support, technical support form and content, from the moment of purchase, within the period of technical support have a way to get through the specified designated areas of technical support services. Business authorized users have the power to reflect and comment, relevant comments will be a primary consideration, but not necessarily be accepted promise or guarantee.</Li>
 </ol>
 
-<h3>2. License Grants</h3>
+<h3>II. Agreement constraints and limitations</h3>
 <ol>
-<li>You may use the Software for free for non-commercial use under the License Restrictions.</Li>
-<li>You may modify the source code(if being provieded) or interface of the Software to fit your website under the License Restrictions.</Li>
-<li>You have property of all members’ information and articles in the Bulletin Board powered by the Software; meanwhile , you need assume all relevant legal duty by yourself.</Li>
-<li>You may use the Software for commercial use after purchasing the commercial license. Moreover, according to the license you purchased you may get specified term, manner and content of technical support from Comsenz Inc. Commercial users are prior to submiting ideas and opinions to Comsenz Inc., but without any guarantee of acceptance.</Li>
+<li>Business license has not been before, may not use this software for commercial purposes (including but not limited to business sites, business operations, for commercial purpose or profit web site). Purchase of commercial license, please visit http://www.discuz.com reference instructions, call 8610-51657885 for more details.</Li>
+<li>May not associated with the software or business license for rental, sale, mortgage or grant sub-licenses.</Li>
+<li>In any case, that no matter how used, whether modified or landscaping, changes to what extent, just use Discuz! the whole or any part, without the written permission of the Forum page footer Department Discuz! name and Sing Imagination (Beijing) Technology Co., Ltd. affiliated website (http://www.comsenz.com, http://www.discuz.com or http://www.discuz.net) the link must be retained, not removed or modified .</Li>
+<li>Prohibited Discuz! the whole or any part of the basis for the development of any derivative version, modified version or third-party version for redistribution.</Li>
+<li>If you failed to comply with the terms of this Agreement, your license will be terminated, the licensee rights will be recovered, and bear the corresponding legal responsibility.</Li>
 </ol>
 
-<h3>3. License Restrictions</h3>
+<h3>III. Limited Warranty and Disclaimer</h3>
 <ol>
-<li>You may not use the Software for commercial use or profit use, unless you have been licensed to. To purchase the license , please visit http://www.discuz.com or dial 8610-5165 7885 for more information.</li>
-<li>You may not rent, lease, sublicense, sell, assign, pledge the Software and its services.</li>
-<li>You may not remove or modify the copyright information and relevant links, such as http://www.comsenz.com, http://www.discuz.com and http://www.discuz.net, in the footer of board pages without the prior written consent of Comsenz Inc., no matter how heavily you modified the Software.</li>
-<li>You may not modify the Software to create derivative works for redistribution based upon the Software.</li>
-<li>In the event that you fail to comply with this EULA, your license will be terminated.
+<li>The software and the accompanying documents as not to provide any express or implied, or guarantee in the form of compensation provided.</li>
+<li>User voluntary use of this software, you must understand the risks of using this software, technical services in the not to buy products before, we do not promise to provide any form of technical support, use of guarantees, nor liable for any use of this software issues related to liability arising.</li>
+<li>Hong Sing Company does not use the software to build a website or forum post or liable for the information, you assume full responsibility.</li>
+<li>Hong Sing company provides software and services in a timely manner, security, accuracy is not guaranteed, due to force majeure, Hong Sing factors beyond the control of the company (including hacker attacks, stopping power, etc.) caused by software and services Suspension or termination, and give your losses, you agree to Sing corporate responsibility waiver of all rights.</li>
+<li>Hong Sing Company specifically draw your attention to Hong Sing Company in order to protect business development and adjustment of autonomy, Hong Sing Company has at any time with or without prior notice to modify the service content, suspend or terminate some or all of the rights of software and services , changes will be posted on the relevant pages of Sing website, including without notice. Hong Sing Company to modify or discontinue the exercise, termination of some or all of the rights of software and services resulting from the loss, without Hong Sing Company to you or any third party.
 </li>
 </ol>
 
-<h3>4. LIMITED WARRANTY AND DISCLAIMER</h3>
-<ol>
-<li>THE SOFTWARE AND THE ACCOMPANYING FILES ARE SOLD "AS IS" AND WITHOUT WARRANTIES AS TO PERFORMANCE OF MERCHANTABILITY OR ANY OTHER WARRANTIED WHETHER EXPRESSED OR IMPLIED.</Li>
-<li>Comsenz Inc. is not liable for the content of any message posted on the forums powered by the Software.</Li>
-<li>You must assume the entire risk of using the Software. ANY LIABILITY OF Comsenz Inc. WILL BE LIMITED EXCLUSIVELY TO PRODUCT REPLACEMENT, REFUND OF PURCHASE PRICE BEFORE YOUR FIRST INSTALLATION.</Li>
-</ol>
 
-<h3>5. Official Websites</h3>
-<ol>
-<li>URL of Comsenz Inc. is http://www.comsenz.com</Li>
-<li>URL of Discuz! Home is http://www.discuz.com</Li>
-<li>URL of Discuz! Community is http://www.discuz.net</Li>
-</ol>
+<p>Hong Sing products on the end user license agreement, business license and technical services to the details provided by the Hong Sing exclusive. Sing the company has without prior notice, modify the license agreement and services price list right to the modified agreement or price list from the change of the date of the new authorized user to take effect.</p>
 
-<p>Comsenz Inc. reserves the right to modify this EULA. Discuz! Home provides offical information on license and price, Comsenz Inc. may modify them without notice. Modified license and price list will apply to new licensed users.</p>
+<p>Once you start the installation Hong Sing products, shall be deemed to fully understand and accept the terms of this Agreement, the terms in the enjoyment of the rights granted at the same time, by the relevant constraints and restrictions. Licensing agreement outside the scope of acts would be a direct violation of this License Agreement and constitute an infringement, we have the right to terminate the authorization, shall be ordered to stop the damage, and retain the power to investigate related responsibilities.</p>
+
+<p>The interpretation of the terms of the license agreement, validity, and dispute resolution, applicable to the mainland People\'s Republic of law.</p>
+
+<p>Between Hong Sing if you and any dispute or controversy, should first be settled through friendly consultations, the consultation fails, you hereby agree to submit the dispute or controversy Sing Haidian District People\'s Court where jurisdiction. Hong Sing Company has the right to interpret the above terms and discretion.</p>
+
 </div>',
 
 	'uc_installed'		=> 'UCenter를 설치했습니다. 다시 설치하려면 data/install.lock file을 삭제하세요.',//'您已经安装过 UCenter，如果需要重新安装，请删除 data/install.lock 文件',
@@ -344,25 +343,20 @@ $lang = array(
 	'create_table'		=> '테이블 생성',//'建立数据表',
 	'succeed'		=> '성공',//'成功 ',
 
-	'testdata'			=> '지역 데이터 추가',//'附加数据',
-	'testdata_check_label'		=> '추가 지역 데이터 설치 (국가/지역/도시)',//'Install demo page templates (4)',
-	'portalstatus'			=> '우편번호',
-	'portalstatus_check_label'	=> '',
-	'groupstatus'			=> '그룹 상태',
-	'groupstatus_check_label'	=> '',
-	'homestatus'			=> '주거 상태',
-	'homestatus_check_label'	=> '',
 	'install_data'			=> '데이터가 성공적으로 설치되었습니다.',//'正在安装数据',
 	'install_test_data'		=> '지역 데이터 설치',//'正在安装附加数据',
 
 	'method_undefined'		=> '정의되지 않은 방법',//'未定义方法',
 	'database_nonexistence'		=> '데이터베이스 대상이 없습니다.',//'数据库操作对象不存在',
 	'skip_current'			=> '이 단계 건너띄기',//'跳过本步',
-	'topic'				=> '토픽',//'专题',
+	'topic'				=> '포스트',//'专题',
+
 //---------------------------------------------------------------
-//vot 2 vars for language select:
+// Added by Valery Votintsev
+// 2 vars for language select:
 	'welcome'			=> 'Discuz! X 설치에 오신 것을 환영합니다!',
 	'select_language'		=> '<b>설치시 언어를 선택하세요.</b>:',
+	'mbstring'			=> 'MBstring Library',//'MBstring 库',
 //vot !!!Translate to Chinese!!!
 //vot	'regiondata'			=> 'Add regions data',//'Add location data',
 //vot	'regiondata_check_label'	=> 'Install additional regional data (countries/regions/cities)',//'Install additional regional data (countries/regions/cities)',
@@ -370,12 +364,9 @@ $lang = array(
 
 //---------------------------------------------------------------
 
-
-
 );
 
 $msglang = array(
 	'config_nonexistence'	=> 'config.inc.php 파일이 없습니다. 설치를 계속할 수 없습니다. FTP를 사용해 파일을 업로드하고 다시 시도해 주세요.',//'您的 config.inc.php 不存在, 无法继续安装, 请用 FTP 将该文件上传后再试。',
 );
 
-?>

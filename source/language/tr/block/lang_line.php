@@ -7,6 +7,10 @@
  *      $Id: lang_line.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'line_style'		=> 'Dotted Line',//'分割线样式',

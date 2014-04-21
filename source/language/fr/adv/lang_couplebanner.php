@@ -7,6 +7,10 @@
  *      $Id: lang_couplebanner.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'couplebanner_name'		=> 'La publicit&#233; couplet globale',
@@ -24,5 +28,9 @@ $lang = array
 	'couplebanner_coupleadid_comment'	=> 'R&#233;lez et op&#233;rer sur la publicit&#233; actuelle/Publicit&#233; en deuxi&#232;me ligne',
 	'couplebanner_category'		=> 'Portail des canaux de livraison',
 	'couplebanner_category_comment'	=> 'Jeu de Canal de publicit&#233; Class&#233;, quand la publicit&#233; de la gamme avec un "portail" est effective',
+	'couplebanner_disableclose'		=> 'Close advertising link',//'关闭广告的链接',
+	'couplebanner_disableclose_comment'	=> 'If you want the Advertising can not be closed, you can disable to show the Close link',//'如果广告代码中已内置关闭操作，可以关闭系统预置的关闭链接',
+	'couplebanner_show'			=> 'Show',//'显示',
+	'couplebanner_hidden'			=> 'Hide',//'隐藏',
 );
 

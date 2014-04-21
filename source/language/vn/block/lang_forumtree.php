@@ -7,12 +7,16 @@
  *      $Id: lang_forumtree.php 6752 2010-03-25 08:47:54Z cnteacher $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
-	'forumtree_name' => 'Danh sách diễn đàn dạng cây',
-	'forumtree_desc' => 'Danh sách diễn đàn cây hiển thị',
-	'forumtree_fids' => 'Hiển thị diễn đàn',
-	'forumtree_fids_comment' => 'Thiết lập cho phép hiển thị các trang, bỏ trống để hiển thị tất cả diễn đàn',
+	'forumtree_name' => 'Cấu trúc cây diễn đàn',
+	'forumtree_desc' => 'Hiển thị danh sách diễn đàn trong một cây thư mục',
+	'forumtree_fids' => 'Id diễn đàn',
+	'forumtree_fids_comment' => 'Chọn diễn đàn để hiển thị, để trống nếu muốn hiển thị tất cả diễn đàn',//'设置允许显示的版块，留空为显示所有版块',
 );
 
 ?>

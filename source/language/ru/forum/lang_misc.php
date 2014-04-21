@@ -1,11 +1,15 @@
 <?php
 
-/**+++
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_misc.php by Valery Votintsev at sources.ru
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -22,10 +26,10 @@ $lang = array
 	'view_noperm'		=> 'Скрытые содержание',
 	'post_hidden'		=> '**** Скрыто автором ****',
 	'post_banned'		=> '**** Автор заблокирован или удалён ****',
-	'post_single_banned'	=> '**** Постинг заблокирован ****',
-	'message_ishidden_hiddenreplies'	=> 'Данный постинг виден только автору темы',
+	'post_single_banned'	=> '**** Сообщение заблокировано ****',
+	'message_ishidden_hiddenreplies'	=> 'Данное сообщение может видеть только автору темы',
 	'post_reply_quote'		=> '{author} ответил: {time}',
-	'post_edit'			=> '[i=s] Отредактировано: {editor}, {edittime}[/i]\n\n',
+	'post_edit'			=> "[i=s] Отредактировано: {editor}, {edittime}[/i]\n\n",
 	'post_edit_regexp'		=> '/^\[i=s\] Отредактировано: .*?, .*?\[\/i\]\n\n/s',
 	'post_edithtml'			=> '[i=s] Отредактировано: {editor}, {edittime}[/i]<br /><br />',
 	'post_edithtml_regexp'		=> '/^\[i=s\] Отредактировано: .*?, .*?\[\/i\]&lt;br \/&gt;&lt;br \/&gt;/s',
@@ -51,14 +55,13 @@ $lang = array
 	'post_trade_transport_express'	=> 'Экспресс почта',
 	'post_trade_transport_virtual'	=> 'Виртуальный товар (или без доставки)',
 	'post_trade_transport_physical'	=> 'Наличными курьеру (COD)',
-//	'post_trade_locus'		=> 'Местонахождение',
+//vot	'post_trade_locus'		=> 'Местонахождение',
 	'post_trade_description'	=> 'Описание',
 	'post_trade_pm_subject'		=> '[Торговаться о цене]',
 	'post_trade_pm_buynum'		=> 'Количество покупаемого товара',
 	'post_trade_pm_wishprice'	=> 'Желательная цена',
 	'post_trade_pm_reason'		=> 'Причина предлагаемого изменения цены',
-	'post_deleted'			=> 'Неверный уровень, постинг был удалён',//'无效楼层，该帖已经被删除',
-	'postappend_content'		=> 'Добавить пост',
+	'postappend_content'		=> 'Добавить сообщение',
 	'payment_unit'			=> 'руб.',
 
 	'attach'			=> 'Прикреплённый файл',
@@ -71,7 +74,7 @@ $lang = array
 	'attach_downloads'		=> 'Скачивания',
 
 	'post_trade_transport'		=> 'Стоимость доставки',
-//	'post_trade_transport_mail'	=> 'Обычная почта',
+//vot	'post_trade_transport_mail'	=> 'Обычная почта',
 	'post_trade_quality'		=> 'Тип товара',
 	'post_trade_quality_new'	=> 'Новые',
 	'post_trade_quality_secondhand'	=> 'Б/У',
@@ -114,6 +117,8 @@ $lang = array
 	'credit_forum_payment'		=> 'Пополнение баланса на форуме',
 	'credit_forum_royalty'		=> 'Размер комиссии',
 
+	'credit_total'			=> 'Всего баллов',//'总积分',
+
 	'invite_payment'		=> 'Купить код приглашения',
 	'invite_forum_payment'		=> 'Купить код приглашения',
 	'invite_forum_payment_unit'	=> 'ед. оплаты',
@@ -126,7 +131,7 @@ $lang = array
 	'formulaperm_buyercredit'	=> 'Рейтинг покупателя',
 	'formulaperm_sellercredit'	=> 'Рейтинг продавца',
 	'formulaperm_digestposts'	=> 'Дайджесты',
-	'formulaperm_posts'		=> 'Посты',
+	'formulaperm_posts'		=> 'Сообщения',
 	'formulaperm_threads'		=> 'Темы',
 	'formulaperm_oltime'		=> 'Время онлайн (часы)',
 	'formulaperm_pageviews'		=> 'Просмотры темы',
@@ -179,7 +184,7 @@ $lang = array
 	'notice_actor'		=> ', и т.д. Всего пользователей: $actorcount',
 
 	'perms_allowvisit'		=> 'Доступ к форуму',
-	'perms_readaccess'		=> 'Просмотр постингов',
+	'perms_readaccess'		=> 'Просмотр сообщений',
 	'perms_allowviewpro'		=> 'Просмотр профиля',
 	'perms_allowinvisible'		=> 'Использование невидимого режима',
 	'perms_allowsearch'		=> 'Использование поиска',
@@ -197,7 +202,7 @@ $lang = array
 	'perms_allowsigbbcode'		=> 'Использование BB-кодов в подписи',
 	'perms_allowsigimgcode'		=> 'Использование тега [img]',
 	'perms_maxbiosize'		=> 'Макс. длина аннотации',
-	'perms_allowrecommend'		=> 'Рекомендование топиков',
+	'perms_allowrecommend'		=> 'Рекомендовать темы',
 	'perms_allowbiobbcode'		=> 'Использование BB-кодов в аннотации',
 	'perms_allowbioimgcode'		=> 'Использование тега [img] в аннотации',
 	'perms_allowgetattach'		=> 'Скачивание прикреплённых файлов',
@@ -209,7 +214,7 @@ $lang = array
 	'perms_maxattachsize'		=> 'Максимальный размер файла',
 	'perms_maxsizeperday'		=> 'Максимальный объём загрузок в сутки',
 	'perms_maxattachnum'		=> 'Максимальное кол-во загрузок в сутки',
-//	'perms_allowbioimgcode'		=> 'Тег [img] в аннотации',
+//vot	'perms_allowbioimgcode'		=> 'Тег [img] в аннотации',
 	'perms_attachextensions'	=> 'Разрешённые типы файлов',
 	'perms_allowstickthread'	=> 'Прикрепление тем',
 	'perms_allowdigestthread'	=> 'Дайджест тем',
@@ -231,53 +236,92 @@ $lang = array
 	'perms_allowremovereward'	=> 'Удаление награды',
 	'perms_alloweditactivity'	=> 'Редактирование мероприятия',
 	'perms_allowedittrade'		=> 'Редактирование товара',
-	'perms_alloweditpost'		=> 'Редактирование постов',
+	'perms_alloweditpost'		=> 'Редактирование сообщений',
 	'perms_allowwarnpost'		=> 'Выдача предупреждений',
-	'perms_allowbanpost'		=> 'Блокировка постов',
-	'perms_allowdelpost'		=> 'Удаление постов',
+	'perms_allowbanpost'		=> 'Блокировка сообщений',
+	'perms_allowdelpost'		=> 'Удаление сообщений',
 	'perms_allowviewreport'		=> 'Просмотр жалоб',
-	'perms_allowmodpost'		=> 'Модерация постов',
+	'perms_allowmodpost'		=> 'Модерация сообщений',
 	'perms_allowmoduser'		=> 'Модерация пользователей',
 	'perms_allowbanuser'		=> 'Бан пользователей',
 	'perms_allowbanip'		=> 'Бан по IP',
 	'perms_allowedituser'		=> 'Редактирование пользователей',
-	'perms_allowmassprune'		=> 'Массовое удаление постов',
+	'perms_allowmassprune'		=> 'Массовое удаление сообщений',
 	'perms_allowpostannounce'	=> 'Создание анонсов',
-	'perms_disablepostctrl'		=> 'Постинг без ограничений',
+	'perms_disablepostctrl'		=> 'Публикация без ограничений',
 	'perms_allowviewip'		=> 'Просмотр IP',
 	'perms_viewperm'		=> 'Просмотр форума',
 	'perms_postperm'		=> 'Создание тем',
 	'perms_replyperm'		=> 'Ответ в темах',
 	'perms_getattachperm'		=> 'Скачивание/просмотр файлов',
-	'perms_postattachperm'		=> 'Загрузка файлов',
-	'perms_postimageperm'		=> 'Загрузка изображений',
+	'perms_postattachperm'		=> 'Прикрепление файлов',
+	'perms_postimageperm'		=> 'Прикрепление изображений',
 	'perms_allowblog'		=> 'Создание блога',
 	'perms_allowdoing'		=> 'Создание настроения',
 	'perms_allowupload'		=> 'Загрузка изображений',
 	'perms_allowshare'		=> 'Добавление закладок',
 	'perms_allowpoke'		=> 'Отправка приветов',
 	'perms_allowfriend'		=> 'Добавление друзей',
-	'perms_allowclick'		=> 'Право на рейтинг',
+	'perms_allowclick'		=> 'Рейтинг',
 	'perms_allowmyop'		=> 'Использование приложений',
 	'perms_allowcomment'		=> 'Добавление комментариев',
 	'perms_allowstatdata'		=> 'Просмотр статистики',
 	'perms_allowstat'		=> 'Просмотр графиков статистики',
 	'perms_allowpostarticle'	=> 'Публикация статей',
-	'perms_raterange'		=> 'Диапазон рейтинга',
+	'perms_raterange'		=> 'Выбор значения рейтинга',
+	'perms_allowcommentpost'	=> 'Коментарии к сообщениям',//'允许参与点评',
+	'perms_allowat'			=> 'Использоание "@name" в сообщениях',//'允许 @ 的人数',
+	'perms_allowreplycredit'	=> 'Устанавливать награду за ответ',//'允许设置回帖奖励',
+	'perms_allowposttag'		=> 'Использование тегов',//'允许使用标签',
+	'perms_allowcreatecollection'	=> 'Создание коллекций',//'允许创建淘专辑的数量',
 	'perms_allowsendpm'		=> 'Отправка ЛС',
 	'perms_maximagesize'		=> 'Макс. размер изображения',
 	'perms_allowmediacode'		=> 'Использование мульти-медийных кодов',
 
-	'join_topic'		=> 'Участие в топике',
+	'join_topic'		=> 'Участие в теме',
 	'join_poll'		=> 'Участие в голосовании',
 	'buy_trade'		=> 'Покупка товара',
 	'join_reward'		=> 'Участие в наградной теме',
 	'join_activity'		=> 'Участие в мероприятии',
 	'join_debate'		=> 'Участие в дебатах',
+	'at_invite'		=> '@name для друзей',//'@我的好友',
 
 	'lower'			=> 'Меньше, чем',
 	'higher'		=> 'Больше, чем',
 	'report_msg_your'	=> 'Ваш ',
 	'report_noreward'	=> 'Нет наград',
+	'activity_viewimg'	=> 'Посмотреть',//'点击查看',
+
+	'crime_postreason'	=> '{reason} &nbsp; <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank" class="xi2">Подробности</a>',//'{reason} &nbsp; <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank" class="xi2">查看详情</a>',
+	'crime_reason'		=> '{reason}',
+
+	'connectguest_message_search'	=> array('Not logged in', 'Logged'),//array('尚未登录', '先登录'),
+	'connectguest_message_replace'	=> array('Not yet <a href="member.php?mod=connect">Improve current account</a> or <a href="member.php?mod=connect&ac=bind">Bind existing account</a>', 'You need to <a href="member.php?mod=connect">Improve account information</a> or <a href="member.php?mod=connect&ac=bind">Bind existing account</a> '),//array('尚未 <a href="member.php?mod=connect">完善帐号信息</a> 或 <a href="member.php?mod=connect&ac=bind">绑定已有帐号</a> ', '您需要先 <a href="member.php?mod=connect">完善帐号信息</a> 或 <a href="member.php?mod=connect&ac=bind">绑定已有帐号</a> '),
+	'connectguest_message_mobile_search'	=> array('Not logged in', 'Logged'),//array('尚未登录', '先登录'),
+	'connectguest_message_mobile_replace'	=> 'Provide your account information or Bind existing account, ',//'在电脑版完善资料或绑定已有帐号，',
+
+	'avatar'		=> 'Аватар',//'头像',
+	'signature'		=> 'Подпись',//'签名',
+	'custom_title'		=> 'Произвольный титул',//'自定义头衔',
+
+	'forum_guide'		=> 'Guide',//'导读',
+
+	'patch_site_have'	=> 'Your site have',//'您的网站有',
+	'patch_is_fixed'	=> 'Security vulnerabilities, has been fixed',//'个安全漏洞，已修复',
+	'patch_need_fix'	=> 'Security vulnerabilities, please fix as soon as possible',//'个安全漏洞，请尽快修复',
+	'patch_fixed_status'	=> 'Has been fixed',//'已修复',
+	'patch_unfix_status'	=> 'Not fixed',//'未修复',
+	'patch_fix_failed_status'	=> 'Repair failed',//'修复失败',
+	'patch_fix_right_now'	=> 'Repair right now',//'立即修复',
+	'patch_view_fix_detail'	=> 'Подробности',//'查看详情',
+	'patch_name'		=> 'Vulnerability',//'漏洞名称',
+	'patch_dateline'	=> 'Дата',//'发布日期',
+	'patch_status'		=> 'Статус',//'当前状态',
+	'patch_close'		=> 'Close',//'关闭',
+
+	'plugin_title'		=> 'Наличие обновлений',//'应用更新提醒',
+	'plugin_memo'		=> 'Доступно апдейтов: <span class="xi1">{number}</span>',//'您有 <span class="xi1">{number}</span> 款应用有可用更新',
+	'plugin_link'		=> 'Обновить сейчас',//'现在更新',
+
 );
 

@@ -7,6 +7,10 @@
  *      $Id: lang_thread.php 14918 2010-08-17 05:35:02Z chenchunshao $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'thread_name' => 'Trong bài viết',

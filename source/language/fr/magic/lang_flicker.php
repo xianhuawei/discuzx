@@ -5,6 +5,10 @@
  *
  *      $Id: lang_flicker.php by Valery Votintsev at sources.ru
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 $lang = array
 (
 	'flicker_name'		=> 'Carte Clignotante',   // Flicker card 

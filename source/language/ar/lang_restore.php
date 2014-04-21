@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**---
  *      $Id: lang_restore.php by Valery Votintsev at sources.ru
  */
 
@@ -51,7 +51,14 @@ $lang = array(
 	'database_import_confirm_zip'		=> 'Are you sure you want to unzip the backup?',//'您确定解压该备份吗？',
 	'database_import_multivol_confirm'	=> 'Extract all the sub-volume file is completed, you need to automatically import the backup? After importing the extracted files will be deleted',//'所有分卷文件解压缩完毕，您需要自动导入备份吗？导入后解压缩的文件将会被删除',
 	'database_import_multivol_redirect'	=> 'Data file # {volume} successfully imported, the program will automatically continue',//'数据文件 #{volume} 成功导入，程序将自动继续',
-	'error_quit_msg'			=> 'Solve the above problem, before continue tthe data recover',//'必须解决以上问题，才能继续恢复数据',
+	'error_quit_msg'			=> 'Solve the above problem, before continue the data recover',//'必须解决以上问题，才能继续恢复数据',
 	'restored_error'			=> 'Recover data function is locked. If you really want to recover data, please go to the server and delete the file ./data/restore.lock',//'恢复数据功能锁定，已经恢复过了，如果您确定要恢复数据，请到服务器上删除./data/restore.lock',
+
+// Added by Valery Votintsev
+	'restore_title'		=> 'Discuz! data recovery tool',//'Discuz! 数据恢复工具',
+	'restore_questions'	=> 'For any Recovering questions, please visit the support site',//'恢复当中有任何问题请访问技术支持站点',
+	'browser_jump'		=> 'Browser will automatically jump page, without human intervention. Unless a long time when your browser does not support frames, please click here',//'浏览器会自动跳转页面，无需人工干预。除非当您的浏览器长时间没有自动跳转时，请点击这里',
+	'ok'			=> 'OK',//'确定',
+	'cancel'		=> 'Cancel',//'取消',
 
 );

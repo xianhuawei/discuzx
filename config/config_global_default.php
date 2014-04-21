@@ -218,4 +218,34 @@ $_config['extend']['storage']['qiniu']['bucket'] = 'discuztest';
 $_config['extend']['asynctask']['on'] = 0;
 $_config['remote']['on'] = '1';
 $_config['remote']['cron'] = '1';
+
+//-----------------------------------------------------------------------
+// Multi-Lingual support by Valery Votintsev
+//-----------------------------------------------------------------------
+// "icon" - flag image file name;
+// "name" - language name in NATIONAL language;
+// "title" - language name in ENGLISH language;
+// "dir" - text direction:
+//	'ltr' (Left To Right) 
+//	'rtl' (Right To Left), i.e for Arabic, Hebrew, Urdu, etc.
+//-----------------------------------------------------------------------
+//
+// Enabled Language List:
+$_config['languages'] = array(
+	'ar' => array('icon'=>'ar.gif', 'name'=>'العربية', 'title'=>'Arabic', 'dir'=>'rtl', 'code'=>'ar-AE'),
+	'de' => array('icon'=>'de.gif', 'name'=>'Deutsch', 'title'=>'German', 'dir'=>'ltr', 'code'=>'de-DE'),
+	'en' => array('icon'=>'en.gif', 'name'=>'English', 'title'=>'English', 'dir'=>'ltr', 'code'=>'en-GB'),
+	'es' => array('icon'=>'es.gif', 'name'=>'Español', 'title'=>'Spanish', 'dir'=>'ltr', 'code'=>'es-ES'),
+	'fr' => array('icon'=>'fr.gif', 'name'=>'Français', 'title'=>'French', 'dir'=>'ltr', 'code'=>'fr-FR'),
+	'kr' => array('icon'=>'kr.gif', 'name'=>'한국어', 'title'=>'Korean', 'dir'=>'ltr', 'code'=>'ko-KO'),
+	'pl' => array('icon'=>'pl.gif', 'name'=>'Polski', 'title'=>'Polish', 'dir'=>'ltr', 'code'=>'pl-PL'),
+	'ru' => array('icon'=>'ru.gif', 'name'=>'Русский', 'title'=>'Russian', 'dir'=>'ltr', 'code'=>'ru-RU'),
+	'zh-cn' => array('icon'=>'zh.gif', 'name'=>'简体中文', 'title'=>'Simplified Chinese', 'dir'=>'ltr', 'code'=>'zh-CN'),
+	'tc' => array('icon'=>'tw.gif', 'name'=>'繁體中文', 'title'=>'Traditional Chinese', 'dir'=>'ltr', 'code'=>'zh-TW'),
+	'th' => array('icon'=>'th.gif', 'name'=>'ภาษาไทย', 'title'=>'Thai', 'dir'=>'ltr', 'code'=>'th-TH'),
+	'tr' => array('icon'=>'tr.gif', 'name'=>'Türkçe', 'title'=>'Turkish', 'dir'=>'ltr', 'code'=>'tr-TR'),
+	'vn' => array('icon'=>'vn.gif', 'name'=>'Tiếng Việt', 'title'=>'Vietnamese', 'dir'=>'ltr', 'code'=>'vi-VN'),
+);
+$_config['detect_language'] = true;	// Auto-detect user language: true|false
+$_config['enable_multilingual'] = true;	// Enable/Disable multi-lingual feature
 ?>

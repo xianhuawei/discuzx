@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_error.php by Valery Votintsev at sources.ru
+ *      $Id: lang_error.php 16868 2010-09-16 05:06:28Z cnteacher $
  */
 
 $lang = array

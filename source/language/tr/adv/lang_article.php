@@ -7,6 +7,10 @@
  *      $Id: lang_article.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'article_name'			=> 'Portal Article Ads',// '门户 文章广告',
@@ -20,4 +24,3 @@ $lang = array
 	'article_category_comment'	=> 'Set the category to display Ads in',// '设置广告投放的频道分类',
 );
 
-?>

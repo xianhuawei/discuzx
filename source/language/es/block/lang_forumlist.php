@@ -10,6 +10,8 @@
 
 $lang = array
 (
+	'forumlist_fids'			=> 'Specified forum',//'指定版块',
+	'forumlist_fids_comment'		=> 'Fill in specified forum ID (fid), separate multiple forums with a comma (,)',//'填入指定版块的ID(fid)，多个版块之间用逗号(,)分隔',
 	'forumlist_fups'			=> 'Foro padre',//'上级版块',
 	'forumlist_fups_comment'		=> 'Desplegar un foro de categoría o sub-foro',//'设置显示某些分类或版块下属的版块',
 	'forumlist_titlelength'			=> 'Longitud del título',//'名称长度',

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -12,6 +12,10 @@ $lang = array
 (
 	'nextpage'		=> 'Weiter',
 	'prevpage'		=> 'Zur&uuml;ck',
+	'pageunit'		=> 'Pages',//'页',
+	'total'			=> 'Total',//'共',
+	'10k'			=> '10K',//'万',
+	'pagejumptip'		=> 'Enter the page number and press Enter for quick jump',//'输入页码，按回车快速跳转',
 	'date'	=> array(
 		'before'	=> 'Vor',
 		'day'		=> 'Tag',
@@ -86,7 +90,7 @@ $lang = array
 	'title_article_favorite'	=> 'Artikel Favoriten',
 	'title_all_favorite'		=> 'Alle Sammlungen',
 	'title_friend_list'		=> 'Freundes Liste',
-//	'title_of'			=> 'von',
+//vot	'title_of'			=> 'von',
 	'title_all_poll'		=> 'Alle Umfragen',
 	'title_we_poll'			=> 'Abstimmungen der Freunde',
 	'title_me_poll'			=> 'Meine Stimmen',
@@ -152,7 +156,7 @@ $lang = array
 	'title_memcp_privacy'		=> 'Privater Filter',
 	'title_memcp_avatar'		=> 'Avatar',
 	'title_memcp_profile'		=> 'Pers&ouml;nliche Infos',
-//	'title_memcp_sendmail'		=> 'E-Mail-Erinnerung',
+//vot	'title_memcp_sendmail'		=> 'E-Mail-Erinnerung',
 	'title_memcp_credit'		=> 'Punkte',
 	'title_memcp_friend'		=> 'Freunde',
 	'title_memcp_usergroup'		=> 'Benutzergruppe',
@@ -174,7 +178,7 @@ $lang = array
 	'title_ranklist_group'		=> 'Gruppen Ranking',
 	'title_ranklist_app'		=> 'Anwendung Rangliste',
 	'title_ranklist_index'		=> 'Alle Ranglisten',
-//	'title_ranklist_index'		=> 'Rank',
+	'title_ranklist_rankname'	=> 'Rank',//'排行榜',
 	'title_search'			=> 'Suche',
 	'title_topic_management'	=> 'Thema erstellen',
 	'title_portal_management'	=> 'Portal-Management',
@@ -200,11 +204,23 @@ $lang = array
 	'title_userapp_index_we'	=> 'Apps der Freunde',
 	'title_userapp_index_me'	=> 'Meine Apps',
 	'title_userapp_manage'		=> '{userapp} Management',
-	'faq'				=> 'FAQ',
+
+	'title_collection'		=> 'Collection',//'淘帖',
+	'title_collection_create'	=> 'Create collection',//'创建淘专辑',
+	'title_collection_edit'		=> 'Edit collection',//'编辑淘专辑',
+	'title_collection_comment_list'	=> 'Comment list',//'评论列表',
+	'title_collection_followers_list'	=> 'Followers',//'订阅用户列表',
+
+	'faq'				=> 'FAQ',//'帮助',
 	'search'			=> 'Suche',
 	'page'				=> 'Page {page}',
 
-//vot source/include/misc/misc_security.php
+	'close'				=> 'Close',//'关闭',
+
+//--------------------------------------------------------------------------
+// Added by Valery Votintsev
+
+//source/include/misc/misc_security.php
 	'attackevasive_1_subject'	=> 'auffrischen Grenzfrequenz',
 	'attackevasive_1_message'	=> 'Sie besuchen die Website zu schnell, weniger als zwei Sekunden! Bitte warten Sie einen Augenblick ...',
 	'attackevasive_2_subject'	=> 'Zugang uber Proxy-Server beschrankt ist',
@@ -212,9 +228,8 @@ $lang = array
 	'attackevasive_4_subject'	=> 'Offnen Sie die Seite neu zu laden',
 	'attackevasive_4_message'	=> 'Willkommen auf der Webseite, die Seite neu laden, bitte warten ...',
 
-//vot Months Names
+// Months Names
 	'month_name'	=> array('Monat', 'Januar', 'Februar', 'Marz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'),
 
 );
 
-?>

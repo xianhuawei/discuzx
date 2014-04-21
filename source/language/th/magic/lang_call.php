@@ -4,13 +4,18 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_call.php by Valery Votintsev at sources.ru
+ *      $Id: lang_call.php 27449 2012-02-01 05:32:35Z zhangguosheng $
+ *	Translated to Thai by jaideejung007
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
-	'call_name'	=> 'Call Card',//'点名卡',
-	'call_desc'	=> 'Send notification to your friends to come see your blog',//'发通知给自己的好友，让他们来查看自己的日志',
-	'call_info'	=> 'Send notification to your friends to come see your blog',//'发通知给自己的好友，让他们来查看自己的日志',
+	'call_name' => 'บอกเพื่อน',
+	'call_desc' => 'บอกกับเพื่อนๆของคุณ บอกให้พวกเขาเข้ามาชมบล็อกของคุณ',
+	'call_info' => 'บอกกับเพื่อนๆของคุณ บอกให้พวกเขาเข้ามาชมบล็อกของคุณ',
 );
 

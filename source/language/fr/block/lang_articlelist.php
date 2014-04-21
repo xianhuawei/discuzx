@@ -7,6 +7,10 @@
  *      $Id: lang_articlelist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'articlelist_aids'		=> 'articles sp&#233;cifi&#233;s',  //  '指定文章'

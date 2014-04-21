@@ -7,10 +7,18 @@
  *      $Id: lang_core.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'nextpage'	=> 'Suiv.', // Next
 	'prevpage'	=> 'Pr&#233;c.', // Previous
+	'pageunit'		=> 'Pages',//'页',
+	'total'			=> 'Total',//'共',
+	'10k'			=> '10K',//'万',
+	'pagejumptip'		=> 'Enter the page number and press Enter for quick jump',//'输入页码，按回车快速跳转',
 	'date'	=> array(
 		'before'	=> ' auparavant', // ' ago'
 		'day'		=> 'jours', // days
@@ -151,7 +159,7 @@ $lang = array
 	'title_memcp_privacy'	=> 'Confidentialit&#233;', // Privacy
 	'title_memcp_avatar'	=> 'Avatar', // Avatar
 	'title_memcp_profile'	=> 'Profil', // Profile
-//	'title_memcp_sendmail'	=> 'Mail Avis', // Mail notice
+//vot	'title_memcp_sendmail'	=> 'Mail Avis', // Mail notice
 	'title_memcp_credit'	=> 'Points', // Points
 	'title_memcp_friend'	=> 'Amis', // Friends
 	'title_memcp_usergroup'	=> 'Groupe Utilis.', // Usergroup
@@ -173,7 +181,7 @@ $lang = array
 	'title_ranklist_group'		=> 'Groupe Rangs', // Group ranking
 	'title_ranklist_app'		=> 'Appl. Rangs', // Apps Ranking
 	'title_ranklist_index'		=> 'Tout les Rangs', // All rankings
-//	'title_ranklist_index'		=> 'liste Rang', // Ranking list
+	'title_ranklist_rankname'	=> 'Rank',//'排行榜',
 	'title_search'			=> 'Recherche ', // 'Search '
 	'title_topic_management'	=> 'Gestion Topics', // Create topics
 	'title_portal_management'	=> 'Gestion portail', // Manage portal
@@ -199,11 +207,23 @@ $lang = array
 	'title_userapp_index_we'	=> 'Amis', // Friends
 	'title_userapp_index_me'	=> 'Je joue', // 'I\'m playing'
 	'title_userapp_manage'		=> 'Gestion {userapp}', // 'Manage {userapp}'
+
+	'title_collection'		=> 'Collection',//'淘帖',
+	'title_collection_create'	=> 'Create collection',//'创建淘专辑',
+	'title_collection_edit'		=> 'Edit collection',//'编辑淘专辑',
+	'title_collection_comment_list'	=> 'Comment list',//'评论列表',
+	'title_collection_followers_list'	=> 'Followers',//'订阅用户列表',
+
 	'faq'				=> 'FAQ', // FAQ
 	'search'			=> 'Recherche', // 'Search'
 	'page'				=> 'Page {page}', // 'First page{page}'
 
-//vot source/include/misc/misc_security.php
+	'close'				=> 'Close',//'关闭',
+
+//--------------------------------------------------------------------------
+// Added by Valery Votintsev
+
+//source/include/misc/misc_security.php
 	'attackevasive_1_subject'	=> 'Limite de fr&#233;quence de rafra&#238;chissement', // 'Limite de fr&#233;quence de rafra&#238;chissement'
 	'attackevasive_1_message'	=> 'Vous visitez le site trop rapidement, moins de deux secondes! Svp. patienter encore un peu...', // 'You visit the site too fast, less than two seconds! Please wait a little...'
 	'attackevasive_2_subject'	=> 'Acc&#232;s via des serveurs proxy est limit&#233;e', // 'Access throug proxy servers is restricted'
@@ -211,9 +231,8 @@ $lang = array
 	'attackevasive_4_subject'	=> 'Ouvrir le rechargement de la page', // 'Open the page reload'
 	'attackevasive_4_message'	=> 'Bienvenue sur le site, la page est en rechargement, Svp. attendre ...', // 'Welcome to the site, the page is re-loading, please wait ...'
 
-//vot Months Names
+//Months Names
 	'month_name'	=> array('Mois','Janvier','F&#233;vrier','Mars','Avril','Mai','Juin','Juillet','Ao&#251;t','Septembre','Octobre','Novembre','D&#233;cembre'), // array('Month','January','February','March','April','May','June','July','August','September','October','November','December'),
 
 );
 
-?>

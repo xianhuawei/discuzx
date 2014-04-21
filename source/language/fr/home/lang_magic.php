@@ -7,6 +7,10 @@
  *      $Id: lang_magic.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'target_tid'		=> 'ID du sujet Cible',   // Target thread id 

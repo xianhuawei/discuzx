@@ -1,0 +1,713 @@
+/*---------------------------------------------------------*/
+/* (c) 2009-2011 Valery Votintsev                          */
+/* Redefine styles for the language                        */
+/* from static/space/t8/style.css                          */
+/*---------------------------------------------------------*/
+/* Arabic (RTL) by Khalid Nahhal, www.ar-discuz.com        */
+/*---------------------------------------------------------*/
+
+/*
+	Name:			mod_reset
+	Level:			Global
+	Explain:		Redefine default browser styles
+	Last Modify:	Pony
+*/
+		caption, th { text-align: right; }
+/*
+	Name:			mod_float
+	Level:			Global
+	Sample:			class="z/y"
+	Explain:		.z/.y Floating left/right
+	Last Modify:	lushnis
+*/
+	.z { float: right; } .y { float: left; }
+
+/*
+	Name:			mod_ajax_wait_info
+	Level:			Global
+	Sample:			id="ajaxwaitid"
+	Explain:		AJAX request the page in the status display
+	Last Modify:	lushnis
+*/
+	#ajaxwaitid { left: 0; }
+/*
+	Name:			mod_showmenu
+	Level:			Global
+	Sample:			class="showmenu"
+	Explain:		Drop-down menu
+	Last Modify:	lushnis
+*/
+	.showmenu { padding-right: 16px; background: url({IMGDIR}/arrwd.gif) no-repeat 100% 50%; cursor: pointer; white-space: nowrap; }
+		#um .showmenu { margin-left: -5px; }
+
+/*
+	Name:			mod_input[text]_textarea_select
+	Level:			Global
+	Sample:			class="px/pt/ps"
+	Explain:		Single-line input box (px), multi-line text box (pt) and select the box (ps / select)
+	Last Modify:	Pony
+*/
+			.er { border-color: #F66 #F66 #FFBDB9 #FFBDB9; }
+		.ps, select { padding: 2px 1px 2px 2px; }
+
+/*
+	Name:			mod_button
+	Level:			Global
+	Sample:			<button class="pn">Submit</button>
+	Explain:		Button style
+	Last Modify:	Pony
+*/
+/*vot*/	.pn { margin-left: 3px; }
+
+
+/*
+	Name:			mod_input[radio]_input[checkbox]_label
+	Level:			Global
+	Sample:			class="pr/pc/lb"
+	Explain:		Radio button (pr), check box (pc) and <label> (lb)
+	Last Modify:	Pony
+*/
+	.pr, .pc { margin: 0 0 1px 5px;}
+		.ie6 .pr, .ie6 .pc, .ie7 .pr, .ie7 .pc { margin-left: 2px; }
+	.lb { margin-left: 20px; }
+
+/*
+	Name:			mod_float_typeid
+	Level:			Global
+	Sample:			<div class="ftid">
+						<select>
+							<option>Option</option>
+						</select>
+					</div>
+	Explain:		Simulation of the drop-down menu style
+	Last Modify:	Pony
+*/
+.ftid { float: right; margin-left: 6px; }
+	.ftid select { float: right; }
+	.ftid a { padding: 0 4px 0 17px; border: 1px solid; border-color: {INPUTBORDERDARKCOLOR} {INPUTBORDER} {INPUTBORDER} {INPUTBORDERDARKCOLOR}; background: {WRAPBG} url({IMGDIR}/newarow.gif) no-repeat 100% 0; }
+	/* ctrl 'select' width */
+.sltm { padding: 5px 10px 5px 11px; text-align: right; }
+/* Share button */ .oshr { float: left; margin-right: 5px; padding: 0 22px 0 5px; border-color: #CCC #CCC #A9A9A9 #A9A9A9; }
+
+
+/*
+	Name:			mod_form
+	Level:			Global
+	Sample:			<form>
+						<table cellspacing="0" cellpadding="0" class="tfm">
+							<tr>
+								<th>Label</th>
+								<td><input type="text" name="" id="" class="" /></td>
+							</tr>
+						</table>
+					</form>
+	Explain:		Form Style
+	Last Modify:	Pony
+*/
+	.tfm { width: 100%; }
+
+
+
+		.tfm th { padding-top: 9px; padding-left: 5px; width: 130px; }
+			.tfm th .rq { float: left; font-size: 14px; }
+			.tfm .pt, .tfm .px { margin-left: 3px; width: 330px; }
+			.tfm .d em { margin-right: 5px; color: red; }
+			.tfm .d strong { margin-right: 5px; }
+		.tfm .p { text-align: left; }
+			.tfm .pcl .pc { margin-left: 5px; padding: 0; }
+
+
+
+
+
+
+
+/*
+	Name:			mod_postboxtitle
+	Level:			Function
+	Explain:		Post the page, playing the title bar of the window, etc.
+	Last Modify:	Pony
+*/
+.pbt { margin-bottom: 10px; }
+	.ie6 .pbt .ftid a, .ie7 .pbt .ftid a { margin-top: 1px; }
+	#custominfo.mtn { margin-bottom: -5px; }
+
+/* Message alert_win - altw */
+.altw { width: 400px; } /*vot*/
+		.alert_right, .alert_error, .alert_info { padding: 6px 58px 6px 0; min-height: 40px; height: auto !important; height: 40px; line-height: 160%; background:url({IMGDIR}/right.gif) no-repeat 100% 8px; font-size: 14px; }
+		.alert_act { margin-top: 20px; padding-right: 58px; }
+
+/* Post Navigation by lushnis */
+.pbnv { float: right; white-space: nowrap; overflow: hidden; width: 400px; padding: 7px 0; }
+.pbl { overflow: hidden; margin: 9px 0; width: 621px; border-width: 1px 1px 1px 0; border-style: solid; border-color: #CCC; background: {WRAPBG}; }
+	.pbl li { float: right; overflow-x: hidden; overflow-y: auto; padding: 5px; width: 196px; height: 300px; border-left: 1px solid #CCC; }
+
+/* Header */
+	#toptb { line-height: 24px; }
+		#toptb a { float: right; padding: 0 4px; height: 24px; }
+/*vot*/		#toptb .pipe { float: right;}/* display: none; */
+			#hd h2 { padding: 0 0 8px 20px; float: right; }
+
+			#scbar { height: 44px; border: solid {SPECIALBG}; border-width: 0 1px 1px; background: url({IMGDIR}/search.png) repeat-x 0 0; line-height: 44px; overflow: hidden; }
+				.scbar_icon_td { width: 70px; background: url({IMGDIR}/search.png) no-repeat 0 -74px; }
+
+				.scbar_type_td { background: url({IMGDIR}/search.png) no-repeat 0 -370px; }
+					#scbar_type { display: block; padding-left: 15px; text-align: right; text-decoration: none; }
+				#scbar_hot { padding-right: 8px; height: 45px; overflow: hidden; }
+					#scbar_hot strong, #scbar_hot a { float: right; margin-left: 8px; white-space: nowrap; }
+			
+				#sc_txt { margin-left: 0; width: 109px; border-left: none; outline: none; }
+				#sc_type_w { border-right: none; }
+				#sc_btn { margin-left: 0; }
+				#sc_type_menu { margin: 2px -5px 0 0; width: 100px; line-height: 1.5; }
+
+			#nv { overflow: hidden; padding-right: 3px; height: 33px; {MENUBGCODE}; }
+				#nv li { float: right; padding-left: 1px; height: 33px; line-height: 33px; background: url({IMGDIR}/nv_a.png) no-repeat 100% 0; font-weight: 700; font-size: 14px; }
+					#nv li a { float: right; padding: 0 20px; height: 33px; }
+						#nv li a { color: {MENUTEXT}; }
+						#nv li span { display: none; }
+					#nv li.a { margin-right: -1px; {MENUHOVERBGCODE}; }
+					#mu li { float: right; height: 32px }
+						#mu a { float: right; display: inline; margin: 5px 6px; padding: 0 10px; white-space: nowrap; }
+				.floatmu { position: absolute; right: 0; top: 0; }
+			#um { padding-top: 10px; padding-left: 60px; _padding-left: 54px; line-height: 2.3; }
+				#um, #um a { color: {HEADERTEXT}; }
+				#um p { text-align: left; }
+				#um .avt { display: inline; margin-left: -60px; }
+				.vwmy { padding-right: 16px; background: url({IMGDIR}/user_online.gif) no-repeat 100% 2px; }
+					.vwmy.qq { background: url({IMGDIR}/connect_qq.gif) no-repeat scroll 0 0; padding-right: 20px; }
+				/* .topnav .new, .sch .new - New center and were searching for personal style news page header */
+				#um .new, .topnav .new, .sch .new, #toptb .new { padding-right: 20px; background-repeat: no-repeat; background-position: 100% 50%; color: {HIGHLIGHTLINK}; font-weight: 700; }
+					#myprompt.new { background-image: url({IMGDIR}/notice.gif); background-position: 100% 50%; }
+					#pm_ntc.new { background-image: url({IMGDIR}/new_pm.gif); }
+					#task_ntc { background-image: url({STATICURL}image/feed/task.gif); }
+				#um .pipe { margin: 0 0 0 5px; }
+
+				#extcreditmenu { margin-left: 2px !important; padding-top: 3px; padding-bottom: 3px; padding-right: 10px; }
+					#extcreditmenu.a { position: relative; z-index: 302; margin-left: 1px !important; border: 1px solid; border-color: {DROPMENUBORDER}; border-bottom: none; background-color: {WRAPBG}; }
+					#extcreditmenu_menu { margin-top: -1px; width: auto; }
+						#extcreditmenu_menu li { float: none; display: block; padding-right: 10px !important; padding-left: 3em !important; }
+
+				#qmenu { float: left; display: inline; margin: 3px 4px 0; padding: 0 0 0 12px; width: 110px; height: 26px; background: url({IMGDIR}/qmenu.png) no-repeat 100% 0; line-height: 26px; text-align: center; color: {HIGHLIGHTLINK}; font-weight: 700; text-shadow: 0 1px 0 #FFF; overflow: hidden; font-size: 11px; }
+					#qmenu:hover { text-decoration: none; }
+					#qmenu.a { position: relative; z-index: 302; background-position: 100% -30px; }
+					.ie8 #qmenu { line-height: 30px; }
+				#qmenu_menu { margin-top: -1px; padding: 20px 5px 10px; width: 180px; border-color: #9A9A9A; }
+					.ie_all #qmenu_menu { margin-right: 1px; }
+						.ie9 #qmenu_menu { margin-right: 0; }
+					#qmenu_menu ul li { float: left; }
+					#qmenu_menu ul a { margin-bottom: 10px; padding: 42px 0 0; width: 90px; border: none; border-radius: 4px; background: url({IMGDIR}/noicon.gif) no-repeat 50% 0; text-align: center; }
+						#qmenu_menu ul a:hover { background-color: {SPECIALBG}; color: {HIGHLIGHTLINK}; text-shadow: none; }
+
+/* Page main area */
+	#ct { min-height: 300px; }
+		.ie6 #ct { height: 300px; }
+		.mn { overflow: hidden; }
+		.ct2 .mn { float: right; width: 730px; margin-bottom: 1em; }
+		.ct2 .sd { float: left; width: 220px; overflow: hidden; _overflow-y: visible; }
+
+		.appl { float: right; overflow: hidden; margin-bottom: 10px; padding: 6px 10px; width: 125px; }
+		.ct2_a .mn { float: left; width: 810px; }
+/*vot*/			.ct2_a .mn { display: inline; /*margin-right: 10px;*/ padding-top: 10px; width: 800px; }
+				#nv_userapp .ct2_a .mn, .ct2_a_r .mn { margin-left: 0; width: 810px; }
+
+		.ct3_a .mn { float: right; margin-right: 20px; width: 565px; }
+		.ct3_a .sd { float: left; width: 220px; }
+			#nv_home .ct3_a .sd .bm { margin-left: 10px; border: none; }
+
+/* Footer */
+	#ft { padding: 10px 0 50px; border-top: 1px solid {COMMONBORDER}; line-height: 1.8; color: {FOOTERTEXT}; }
+		#flk { text-align: left; }
+
+/* Common regional block */
+	/*
+	.bm are the most commonly used block elements,
+	    the default with a 1px border and 10px bottom margin.
+	    Under normal circumstances, .bm should include two sub-containers:
+            .bm_h and .bm_c,
+	    the former head of the representative block,
+	    with a gray background and under the border;
+	    the latter is the main container,
+	    the default with the 10px of padding.
+	.bm styleed other three seeds 
+		.bmw	Weight		Header with a background color
+		.bml	Lite		Lite header with no background 
+		.bmn	Notice		the overall with a colored background, commonly used in a message
+	*/
+		.bm_h .o { float: left; width: 30px; }
+			.bm_h .o img { float: left; margin-top: 11px; cursor: pointer; }
+		.bm_h .i { padding-right: 10px; }
+			.bmw .bm_h { border-top-color: {WRAPBG}; border-left: 1px solid {WRAPBG}; border-bottom-color: {CONTENTSEPARATE}; border-right: 1px solid {WRAPBG}; background: {SPECIALBG}; }
+	.bm2 .bm2_b { float: right; width: 49%; border: 1px solid {COMMONBORDER}; }
+		.bm2 .bm2_b_y { float: left; }
+
+	/* generic block under the wide layout */	.bw { padding: 0 15px; }
+
+/*
+	Name:			mod_path
+	Level:			Global
+	Sample:			<div id="pt"><div class="z">Path here</div></div>
+	Explain:		Breadcrumbs
+	Last Modify:	lushnis
+*/
+	#pt { margin: 2px 0; height: 29px; border:none; background: transparent; line-height: 29px; }
+		#pt .z { padding-left: 10px; }
+		#pt .z a, #pt .z em, #pt .z span { float: right; height: 29px; }
+		.nvhm { width: 55px; background: url({IMGDIR}/search.png) no-repeat -8px -119px; line-height: 200px; overflow: hidden; }
+/* Statistics */
+		.tns th { border-left: 1px solid #CCC; }
+
+/* Page header with icon ih. --> icon header */
+	.ih .icn { float: right; width: 60px; }
+	.ih dl { margin-right: 60px; }
+			.ih dd strong { margin: 0 4px 0 2em; color: #C00; }
+
+/*
+	Name:			mod_tab
+	Level:			Global
+	Dependent:		mod_clearfix
+	Sample:			<ul class="tb cl">
+						<li class="a"><a href="#">Active Tab Item</a></li>
+						<li><a href="#">Tab Item</a></li>
+					</ul>
+	Explain:		Label Style
+	Last Modify:	lushnis
+*/
+.tb { margin-top: 10px; padding-right: 5px; line-height: 30px; border-bottom: 1px solid {COMMONBORDER}; }
+	.tb li { float: right; margin: 0 0 -1px 3px; }
+	.tb .y { float: left; margin-left: 0; }
+	.tb .o { margin: 1px 2px 0 4px; border: 1px solid #235994; }
+		.ie6 .tb .o a { float: right; }
+		.tb_h li { margin-left: 0; }
+		.tb_h a { border-top: none; border-right: none; }
+
+	/* Emphasised Tab for information prompts */
+.tbms { padding: 10px 26px 10px 10px; border: 1px dashed #FF9A9A; background: url({IMGDIR}/notice.gif) no-repeat 100% 50%; }
+	/* Minimalistic Tab */
+	.tbx span { margin-left: 10px; cursor: pointer; }
+	.tbx .a { padding: 3px 5px; border: solid #999; border-width: 0 0 1px 1px; background: {COMMONBG} url({IMGDIR}/thead.png) repeat-x 0 -20px; }
+/* --- Advertising --- */
+
+	/* log the contents of ads */ .a_b { float: left; margin: 0 5px 5px 0; }
+
+	/* Post the ads */ .a_pr { float: left; width: 120px; overflow: hidden; }
+		.a_pt, .a_pb { background: url({IMGDIR}/ad.gif) no-repeat 0 50%; margin-bottom: 6px; padding-right: 20px; zoom: 1; }
+
+	/* Floating ads */ .a_fl, .a_fr { float: left; position: fixed; top: 350px; z-index: 100; }
+		.a_fl { right: 0; }
+		.a_fr { left: 0; text-align: left; }
+
+
+
+
+
+
+
+	/* Article floating ads */ .a_af { float:right; margin-left: 10px; margin-bottom: 10px; }
+	/* lower right corner ads  */ .a_cn { position: fixed; left: 10px; bottom: 10px; z-index: 300; }
+		.a_cn .close { text-align: left; }
+
+	.a_h, .a_mu, .a_c, .a_p, .a_f, .a_t { text-align: center; }
+
+/* --------------- List styles -------------------- */
+		/*
+		.xl			Text list
+			.xl1		1 line list ( wrap text will be hidden );
+			.xl2		2 col list
+			.xld		list with description ( the HTML tag must be <dl> )
+		.ml				Media/Image list
+			.mls		Media size: 48*48px
+		.fl				Forum list
+		.tl				Thread list
+		.al				Application list
+		*/
+
+/* Text list */
+.xl li { margin: 2px 0; }
+	.xl em { float: left; padding-right: 5px; }
+		.xl1_elp { float: right; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+	.xl2 li { float: right; margin: 2px 0; padding: 0; width: 48.6%; height: 1.5em; overflow: hidden; }
+	.xl ol, ol.xl { background: url({IMGDIR}/sortnum.png) no-repeat 100% 3px; line-height: 21px; }
+		.xl ol li, ol.xl li { background: none; padding-right: 20px; }
+		/* text with thumbnail image ( must with the additional class .cl ) */
+		.xld .m { float: right; margin: 8px 0 10px 8px; }
+		.xld .atc { float: left; margin-right: 20px; }
+			.xld .atc img { padding: 2px; max-width: 80px; max-height: 80px; border: 1px solid #CCC; background: {WRAPBG}; }
+				.ie6 .xld .atc img { width: expression(this.width > 80 && this.width>=this.height ? 80 : true); height: expression(this.height > 80 && this.width<=this.height ? 80 : true); }
+		.xld a.d, .xl a.d, .attc a.d, .c a.d, .sinf a.d { float: left; width: 20px; height: 20px; overflow: hidden; line-height: 100px; background: url({IMGDIR}/op.png) no-repeat 0 -2px; }
+			.attc a.d { float: right; }
+	.xlda dl { padding-right: 65px; }
+		.xlda .m { display: inline; margin: 8px -65px 8px 0; }
+
+/* Image list */
+.ml {}
+	.ml li { float: right; padding: 0 5px 5px; text-align: center; overflow: hidden; }
+			.mla .c a { display: block; padding: 14px 8px 3px 4px; width: 120px; height: 120px; overflow: hidden; }
+
+/* user avatar list, a variety of status icons.
+	.gm -> Administrator;
+	.gs -> Star Member ;
+	.gol -> Online members;
+*/
+.gm, .gs, .gol { position: absolute; overflow: hidden; margin: -3px -3px 0 0; width: 60px; height: 18px; background: url({IMGDIR}/gst.gif) no-repeat 0 0; display: block;/* ie6 */ }
+
+/* Application list */
+	.appl ul { margin: 3px 0; }
+	.appl li { display: block; height: 28px; line-height: 28px; white-space: nowrap; word-wrap: normal; font-size: 11px; text-overflow: ellipsis; overflow: hidden; }
+	.appl li a { text-decoration: none !important; }
+	.appl img { margin: 5px 0 -3px 5px; }
+	.appl span { float: left; font-size: 12px; }
+/* Sidebar list management */
+	.tbn { margin: -6px -10px 0; }
+		.tbn ul { margin: 0; }
+			.tbn li { margin: 0 10px; height: 33px; border-bottom: 1px dashed #CCC; }
+			.tbn li.a { margin: -1px 0 0; padding: 0 9px 0 10px; border-top: 1px solid {COMMONBORDER}; border-bottom-style: solid; background: {WRAPBG}; }
+		.tbn ul a { display: block; height: 33px; line-height: 33px; }
+/*vot*/		.tbn .mt { padding: 10px; font-size: 14px;}
+
+/* Magics */
+.mg_img { padding: 10px; width: 76px; height: 76px; background: url({IMGDIR}/magic_imgbg.gif) no-repeat 0 0; } 
+
+/*
+	Name:			mod_link
+	Level:			Global
+	Dependent:		
+	Sample:			<ul class="tb cl">
+						<li class="a"><a href="#">Active Tab Item</a></li>
+						<li><a href="#">Tab Item</a></li>
+					</ul>
+	Explain:		Links
+	Last Modify:	lushnis
+*/
+	.lk img { float: right; margin-left: 5px; margin-bottom: 5px; width: 88px; height: 31px; }
+	.lk p { color: {MIDTEXT}; }
+	.lk .m li { clear: right; padding: 0 98px 10px 0; }
+		.lk .m img { display: inline; margin-top: 4px; margin-top/*\**/: 1px\9; margin-right: -98px; }
+	.lk .x li { float: right; margin-left: 5px; width: 88px; height: 1.5em; overflow: hidden; }
+	.lk_logo .lk_content { float: right; }
+
+/* ---------------- Other function-specific blocks ------------------ */
+/* Tiny Editor */
+	.tedt { width: 98%; border: 1px solid; border-color: #999 #999 #CCC #CCC; }
+		.tedt .bar { padding: 0 0 0 10px; height: 25px; line-height: 25px; border-bottom: 1px solid {COMMONBORDER}; background: {COMMONBG}; }
+			.fpd a { float: right; margin: 2px 0 0 5px; width: 20px; height: 20px; background: url({STATICURL}image/editor/editor.gif) no-repeat; text-indent: -9999px; line-height: 20px; overflow: hidden; }
+
+
+
+
+
+
+			.fpd a.fsml { background-position:  -20px; }
+
+		.tedt .pt { width: 100%; margin-left: 0; padding: 0 !important; border: none; background: {WRAPBG} none; }
+
+/* Smiles */
+.sllt { padding: 10px !important 5px 5px; }
+/*vot
+	.sllt_p { *float: right; text-align: left; }
+*/
+	.sllt_p { border-top: 1px solid gray; text-align: left; padding: 4px 0; }
+/*vot
+		.sllt_p a { margin-left: 5px; color: #069; text-decoration: underline; }
+*/
+		.sllt_p a { margin-left: 5px;  color: #069; text-decoration: underline; border: 1px solid gray; }
+
+/*
+	Name:			mod_style_selector
+	Level:			Fuction
+	Dependent:		mod_popupmenu
+	Explain:		Switch style menu
+	Last Modify:	lushnis
+*/
+/*vot*/			.sslct_btn i { float: right; display: inline; margin: 2px; width: 10px; height: 10px; background: #2E80D1; overflow: hidden; font-style: normal; }
+
+/* .blk -> block content of the more complex pop-up layer
+	.blk of class, redefined within "A" tag
+*/
+			.inlinelist a { float: right; width: 5em; height: 2em; overflow: hidden; text-align: center; line-height: 2em; }
+
+	.p_pop .flbc, .p_pof .flbc{margin-left: 8px;margin-top: 4px;}
+
+/* For popup the following class can be written separately, defined individually */
+
+	.t_l { -moz-border-radius: 8px 10 0 0; -webkit-border-radius: 8px 0 0 0; border-radius: 8px 10 0 0; }
+	.t_r { -moz-border-radius: 0 10 0 0; -webkit-border-radius: 0 8px 0 0; border-radius: 0 8px 10 0; }
+	.b_l { -moz-border-radius: 0 10 0 8px; -webkit-border-radius: 0 0 0 8px; border-radius: 0 10 0 8px; }
+	.b_r { -moz-border-radius: 0 10 8px 0; -webkit-border-radius: 0 0 8px 0; border-radius: 0 10 8px 0; }
+
+/* popup content area by Pony */
+	.m_c .o { padding: 8px 10px; height: 26px; text-align: left; border-top: 1px solid #CCC; background: {COMMONBG}; }
+
+/* .flb popup header */
+		.flb em { float: right; font-size: 14px; font-weight: 700; color: {HIGHLIGHTLINK}; }
+		.flb .needverify { float: right; margin-right: 8px; padding-right: 13px; width: 45px; height: 21px; line-height: 21px; background: url({IMGDIR}/re_unsolved.gif) no-repeat 0 0; font-size: 12px; color: {LIGHTTEXT}; font-weight: 400; }
+		.flb .onerror, .flb .onright { padding-right: 20px; height: auto; line-height: 140%; white-space: nowrap; font-size: 12px; font-weight: 400; }
+
+		.flb span { float: left; color: {LIGHTTEXT}; }
+			.flb span a, .flb strong { float: right; text-decoration: none; margin-right: 8px; font-weight: 400; color: {LINK}; }
+			.flbc { float: right; width: 20px; height: 20px; overflow: hidden; text-indent: -9999px; background: url({IMGDIR}/cls.gif) no-repeat 0 0; cursor: pointer; }
+/* dropdownbtn - drop-down menu */
+.hasd {}
+	.hasd input { float: right; width: 121px; }
+		.hasd input.crl { padding: 0; width: 20px; height: 20px; background: none; border-style: solid; border-color: {INPUTBORDERDARKCOLOR} {INPUTBORDER} {INPUTBORDER} {INPUTBORDERDARKCOLOR}; border-width: 1px 1px 1px 0; }
+	.dpbtn { float: right; overflow: hidden; text-indent: -9999px; width: 21px; height: 21px; border-width: 1px 0 1px 1px; border-style: solid; border-color: {INPUTBORDERDARKCOLOR} {INPUTBORDER} {INPUTBORDER} {INPUTBORDERDARKCOLOR}; background: {WRAPBG} url({IMGDIR}/newarow.gif) no-repeat 100% 0; }
+	.hasd label { float: right; }
+		.tpclg h4 a.dpbtn { float: left; border-width: 1px; }
+	#postbox dd.hasd input { width: 99px; margin-left: 0; }
+
+/* Popup editor color box - colorbox*/
+.colorbox input { float: right; margin: 2px; padding: 0; width: 12px; height: 12px; border: 0; cursor: pointer; }
+
+/* Short message dialog box .pm -> personal_message (window) by Pony */
+			.pm .flb em { padding-right: 15px; background: url({IMGDIR}/pm.png) no-repeat 0 -65px; text-shadow: 1px 1px 1px {WRAPBG}; color: {LINK}; font-size: 12px; }
+				.pmt { overflow: hidden; position: absolute; bottom: 0; right: -6px; text-indent: -999px; width: 7px; height: 7px; background: url({IMGDIR}/pm.png) no-repeat -13px -40px; zoom: 1; }
+				.pmd { float: right; padding: 5px 8px; background: #F0F0F0 url({IMGDIR}/pm-bg1.png) repeat-x; border: 1px solid; border-color: #E7E7E7 #E7E7E7 #999 #BBB; word-wrap: break-word; -moz-box-shadow: 2px 2px 4px #DDD; -webkit-box-shadow: 2px 2px 4px #DDD; box-shadow: 2px 2px 4px #DDD; -moz-border-radius: 10px 10px 10px 0; -webkit-border-radius: 10px 10px 10px 0; border-radius: 10px 10px 10px 0; }
+					/* Reference to the short message and code under */
+					.pmd .quote { overflow: hidden; margin: 0; padding-right: 16px; background: url({IMGDIR}/qa.gif) no-repeat 0 0; color: {MIDTEXT}; }
+						.pmd .quote blockquote { display: inline; margin: 0; padding-left: 16px; background: url({IMGDIR}/qz.gif) no-repeat 100% 100%; }
+				.pmm .pmt { left: -6px; right: auto; background-position: 0 -47px; }
+				.pmm .pmd { float: left; background: #FEF5E7 url({IMGDIR}/pm-bg2.png) repeat-x; border-color: #FFC68C #DDC4A9 #F3BB65 #F9D4A7; -moz-box-shadow: -2px 2px 4px #DDD; -webkit-box-shadow: -2px 2px 4px #DDD; box-shadow: -2px 2px 4px #DDD; -moz-border-radius: 10px 10px 0 10px; -webkit-border-radius: 10px 10px 0 10px; border-radius: 10px 10px 0 10px; }
+		.pmfm { padding: 0 15px 15px; }
+			.pmfm .pn { float: left; }
+			.pma a { margin-left: 5px; }
+
+/* short message contact list by Pony */
+	.pmo { position: absolute; top: 8px; left: 10px; overflow: hidden; padding-right: 10px; width: 130px; height: 31px; line-height: 24px; line-height /*\**/: 26px\9; background: url({IMGDIR}/pn.png) repeat-x 0 -320px; text-shadow: 1px 1px 1px {WRAPBG}; }
+		.pmo em { display: block; padding: 3px 0 4px 5px; background: url({IMGDIR}/pn.png) no-repeat 100% -360px; }
+		.pmo a { overflow: hidden; white-space: nowrap; display: block; padding-left: 10px; background: url({IMGDIR}/pm.png) no-repeat 100% -222px; outline: none; }
+
+	/* .pmfl -> pm_friend_list (Window) */
+	.pmfl { position: absolute; top: 35px; left: 10px; z-index: 200; width: 138px; border: solid #CCC; border-width: 0 1px 1px; background: {WRAPBG}; }
+			.pmfl .s .px { padding-right: 20px; width: 101px; background: {WRAPBG} url({IMGDIR}/pm.png) no-repeat 0 -160px; }
+			.pmfl .avt { float: right; width: 29px; height: 29px; }
+				/* Beating head style by Pony */
+				.pmfl .newpm img { margin: 1px 1px 0 0; }
+
+/* Login and registration */
+
+		.rfm th { padding-left: 10px; width: 10em; text-align: left; }
+		.rfm .p_tip { position: absolute; z-index: 2; display: none; padding-right: 10px; width: 390px; background: {WRAPBG}; color: {MIDTEXT}; font-style: normal; }
+		.rfm .p_chk { position: absolute; z-index: 1; padding-right: 10px; width: 390px; color: red; font-weight: 700; font-family: {FONT}; }
+	.blr .c { padding: 0 10px 10px; }
+	.login_slct a { margin-left: -8px; padding-left: 16px; background: url({IMGDIR}/arrwd.gif) no-repeat 100% 50%; }
+	.fwin .rfm th, .fwin .rfm td, .nfl .f_c .rfm th, .nfl .f_c .rfm td { padding: 6px 2px; }
+	.fwin .loginb button { margin-right: 11.3em; }
+	.nfl .f_c .loginb button { margin-right: 12em; }
+
+
+
+.lgfm { font: {FONTSIZE} {FONT}; float: right; margin-bottom: 10px; *margin-bottom: -10px; padding: 20px 0; width: 280px; border-left: 1px solid #CCC; }
+		/* custom registration information */
+		.reginfo label { display: inline; }
+		.reg_c { float: right; width: 200px; }
+		.fsb .pns { margin-left: 8px; }
+		.lgfm em, .fsb em { float: right; width: 60px; }
+.sipt { float: none; margin: 0 0 10px; width: 234px; height: 20px; background-color: {WRAPBG}; border: 1px solid; border-color: {INPUTBORDERDARKCOLOR} {INPUTBORDER} {INPUTBORDER} {INPUTBORDERDARKCOLOR}; clear: right; }
+	.sipt a { float: right; width: 54px; border: none; }
+
+
+
+
+
+
+
+
+
+
+	.sipt .txt { float: right; width: 154px; border: none; outline: none; background: {WRAPBG}; }
+
+
+
+.lpsw label { float: right; padding-right: 4px; width: 61px; line-height: 150%; }
+
+
+.lgf { float: right; overflow: visible; margin: 47px 40px 10px 25px; }
+
+/*
+	Name:			mod_messagelogin
+	Level:			Global
+	Explain:		showmessage at the Login box
+	Last Modify:	lushnis
+*/
+#messagelogin { margin-top: 5px; border-top: 1px solid {COMMONBORDER}; }
+	#messagelogin .flb { padding-right: 0; }
+
+/*
+	Name:			mod_fast_login
+	Level:			Global
+	Explain:		Quick login at the page header
+	Last Modify:	Pony
+*/
+.fastlg { line-height: 24px; }
+	.fastlg td { padding: 2px 4px 2px 0; }
+	.fastlg_fm { margin-left: 5px; padding-left: 5px; border-left: 1px solid {COMMONBORDER}; }
+	.psw_w { padding-right: 5px; }
+	
+	.fastlg_l { padding-left: 4px !important; border-left: 1px solid {SPECIALBG}; }
+
+/* Greeting by Pony */
+		.poke li { float: right; margin: 0 0 5px 1%; width: 32%; height: 22px; }
+
+	/* Used to display a table of data */
+.tdat { width: 100%; border: 1px solid {COMMONBORDER}; }
+	.tdat th, .tdat td { padding: 4px 5px; border: 1px solid {COMMONBORDER}; }
+
+/* ==  um General list of bulletin messages to help:  lum -- um list == */
+.um { margin-bottom: 1em; padding-bottom: 1em; border-bottom: 1px dashed {COMMONBORDER}; clear: right; }
+		.umh h2, .umh h3 { clear: right; font-size:  14px; float: right; background: {WRAPBG} url({IMGDIR}/arrow.gif) no-repeat right 6px;  padding-left: 14px; cursor: pointer; }
+			.umh h2 em, .umh h3 em { margin-right: 8px; font-size: 12px; color: {LIGHTTEXT}; font-weight: 400; }
+			.umh_act { float: left; }
+	.umn { background: url({IMGDIR}/dash.gif) repeat-x 0 10px; clear: right; }
+			.umn .umh_cb { display: block; 	cursor: pointer; background-color: {WRAPBG}; }
+.lum {}
+	.lum ul { padding: 1em 2em 1em 0; margin-bottom: 1em; border-bottom: 1px dashed {COMMONBORDER}; }
+		.lum ul li { padding: 0.2em 0; }
+
+/* pgs --> pages & postbutton, pgb --> Back Home, nxt --> Next */
+.pgs {}
+	.pgs #newspecial, .pgs #newspecialtmp, .pgs #post_reply, .pgs #post_replytmp { float: right; margin-left: 5px; }
+	.pg { float: left; }
+		.pg a, .pg strong, .pgb a { float: right; display: inline; margin-right: 4px; padding: 0 8px; height: 26px; border: 1px solid; border-color: {SPECIALBORDER}; background-color: {WRAPBG}; background-repeat: no-repeat; color: {LINK}; overflow: hidden; text-decoration: none; }
+
+#psd,appl { width: 136px; } /*vot*/
+#psd .bn .mbn input, #postbox input { margin-left: 4px; }
+
+/* List of available magics by lushnis */
+	.mgcmn { width: 200px; }
+		.mgcmn a { padding-right: 25px; line-height: 16px !important; }
+			.mgcmn img { position: absolute; margin-right: -20px; }
+
+/* Highlight used magics */
+	.cmen a { overflow: hidden; float:right; width: 20px; height: 20px; }
+
+
+/* Hot spot: the content owners recommended in the lower right corner of the pop-up page */
+.focus { position: fixed; left: 10px; bottom: 10px; z-index: 300; overflow: hidden; width: 270px; background: {WRAPBG}; }
+/*
+	Name:			mod_filebtn
+	Level:			Global
+	Sample:			<div class="filebtn">
+						<input type="file" class="pf cur1" size="1" />
+						<button type="button" class="pn pnc"><strong>{lang}</strong></button>
+					</div>
+	Explain:		Simulation <input type="file" /> Careful not to allow button too wide
+	Last Modify:	Pony
+*/
+	.filebtn .pf { position: absolute; left: 0; height: 23px; opacity: 0; filter:alpha(opacity=0); }
+
+	/* new frame */
+	.frame-1-1-l, .frame-1-1-1-l, .frame-1-1-1-c, .frame-2-1-l, .frame-1-2-l, .frame-3-1-l, .frame-1-3-l { float: right; }
+	.frame-1-1-r, .frame-1-1-1-r, .frame-2-1-r, .frame-1-2-r, .frame-3-1-r, .frame-1-3-r { float: left; }
+	/* End */
+
+	/* X1 previous frame */
+
+	.frame-1-1 .col-r { float: left; width: 49.9%; }
+	.frame-1-1 .col-l { float: right; width: 49.9%; }
+
+	.frame-1-2 .mn, .frame-1-2 .col-r, .frame .frame-1-2 .mn, .frame .frame-1-2 .col-r { float: left; width: 66.6%; }
+	.frame-1-2 .sd, .frame-1-2 .col-l, .frame .frame-1-2 .sd, .frame .frame-1-2 .col-l { float: right; width: 33.3%; }
+
+	.frame-2-1 .mn, .frame-2-1 .col-l, .frame .frame-2-1 .mn, .frame .frame-2-1 .col-l { float: right; width: 66.6%; }
+	.frame-2-1 .sd, .frame-2-1 .col-r, .frame .frame-2-1 .sd, .frame .frame-2-1 .col-r { float: left; width: 33.3%; }
+
+	.frame-1-3 .mn, .frame-1-3 .col-r, .frame .frame-1-3 .mn, .frame .frame-1-3 .col-r { float: left; width: 74.9%;}
+	.frame-1-3 .sd, .frame-1-3 .col-l, .frame .frame-1-3 .sd, .frame .frame-1-3 .col-l { float: right; width: 24.9%;}
+
+	.frame-3-1 .mn, .frame-3-1 .col-l, .frame .frame-3-1 .mn, .frame .frame-3-1 .col-l { float: right; width: 74.9%;}
+	.frame-3-1 .sd, .frame-3-1 .col-r, .frame .frame-3-1 .sd, .frame .frame-3-1 .col-r { float: left; width: 24.9%}
+
+	.frame-1-1-1 .col-l { float: right; width: 33.3%; }
+	.frame-1-1-1 .col-c { float: right; width: 33.3%; }
+	.frame-1-1-1 .col-r { float: left; width: 33.3%; }
+	
+	/* End */
+
+	.frame .title .titletext, .block .title .titletext{ float: right; }
+	.frame-tab .tab-title .titletext { float: right; margin: 0 10px; }
+		.frame-tab .tb { margin-top: 0; padding-right: 15px; line-height: 32px; border: none; }
+			.frame-tab .tb li { margin: 0; margin-right: -1px; font-weight: 400; }
+				* html .frame-tab .tb li a { float: right; }
+
+.block { margin: 10px 10px 0; }
+	.frame-1-2 .sd .block, .col-l .block, .frame-2-1 .mn .block, .frame-1-1-1 .col-c .block, .frame-1-3 .sd .block, .frame-3-1 .mn .block { margin-left: 10px; }
+	.frame-1-2 .mn .block, .col-r .block, .frame-2-1 .sd .block, .frame-1-1-1 .col-c .block, .frame-1-3 .mn .block, .frame-3-1 .sd .block { margin-right: 10px; }
+/* drag the page element generated by lushnis */
+.drag .block .title { margin-bottom: 0; padding-right: 0; font-size: 14px; font-weight: 700; }
+
+.block .xl1 ul li { padding-right: 10px; background: url({IMGDIR}/dot.gif) no-repeat 100% 50%; }
+	.ie_all .block .xl1 ul li { background-position: 0 6px; }
+
+/* Frame styles by lushnis */
+	.xfs_nbd .col-l .block, .xfs_nbd .frame-1-1-l .block, .xfs_nbd .frame-2-1-l .block, .xfs_nbd .frame-1-2-l .block, .xfs_nbd .frame-3-1-l .block, .xfs_nbd .frame-1-3-l .block, .xfs_nbd .frame-1-1-1-l .block { margin-right: 0; }
+	.xfs_nbd .sd .block, .xfs_nbd .col-r .block, .xfs_nbd .frame-1-1-r .block, .xfs_nbd .frame-2-1-r .block, .xfs_nbd .frame-1-2-r .block, .xfs_nbd .frame-3-1-r .block, .xfs_nbd .frame-1-3-r .block, .xfs_nbd .frame-1-1-1-r .block { margin-left: 0; }
+
+
+/* Block styles by lushnis */
+.xbs { background: no-repeat 0 100%; }
+	.xbs .title { padding-right: 0; padding-left: 10px; background: no-repeat 100% 0; }
+		.xbs .titletext { float: right; padding-right: 10px; background: no-repeat 100% 0; }
+
+/* Slider block */
+.slideblock { position: relative; }
+	.slideshow { clear: both; }
+		.slideshow li { position: relative; overflow: hidden; }
+			.slideshow span.title { position: absolute; bottom: 0; right: 0; margin-bottom: 0; width: 100%; height: 32px; line-height: 32px; font-size: 14px; text-indent: 10px; }
+			.slidebar li { float: right; margin-left: 1px; width: 20px; height: 20px; line-height: 20px; text-align: center; font-size: 10px; cursor: pointer; }
+
+/* Side of the call */
+	/* Vote */
+	.b_poll dt { padding-right: 20px; background: url({IMGDIR}/pollsmall.gif) no-repeat 0 9px; }
+	.b_poll dd li { padding: 0 20px 4px 0; }
+		.b_poll dd li .pc { float: right; margin: 4px -20px 0 0; }
+	.b_debate {}
+		.b_debate dt { padding-right: 20px; background: url({IMGDIR}/debatesmall.gif) no-repeat 0 10px; }
+			.b_debate .chart .debater2 { left: 0; }
+		.b_debate .chart1, .b_debate .chart2 { position: absolute; right: 80px; bottom: 0; width: 40px; background: url({IMGDIR}/p_debate_chart.png) no-repeat 0 -78px; }
+			.b_debate .chart2 { right: 159px; background-position: 100% -78px; }
+
+/* Thread Classification menu */
+	.tsm dt { float: right; padding: 2px 0; width: 64px; clear: right; }
+	.tsm li { float: right; margin-left: 6px; white-space: nowrap; }
+
+/*
+	Name:			mod_tip
+	Level:			Global
+	Explain:		Pop-up bubbles of information, 1,2,3,4 respectively, the sharp corners left on the bubble to the left position of a small clockwise
+	Last Modify:	lushnis
+*/
+.tip {}
+		.tip_1 .tip_horn { right: 5px; top: -6px; background: url({IMGDIR}/tip_top.png); }
+		.tip_2 .tip_horn { left: 5px; top: -6px; background: url({IMGDIR}/tip_top.png); }
+		.tip_3 .tip_horn { left: 5px; bottom: -6px; background: url({IMGDIR}/tip_bottom.png); }
+		.tip_4 .tip_horn { right: 5px; bottom: -6px; background: url({IMGDIR}/tip_bottom.png); }
+		.tip_js .tip_horn { left: 61px; bottom: -6px; background: url({IMGDIR}/tip_bottom.png); }
+
+/* Recommend by dfox*/
+em.hot { position: absolute; right: -2px; top: -2px; text-indent: -9999px; overflow: hidden; background: url({IMGDIR}/hot.png) no-repeat 0 0; }
+
+/* Category, group, space main area/side of the search by dfox */
+.gsh {}
+	.gsh h1 { margin: 1em -60px 0.5em 0; font-size: 16px; font-weight: 100; }
+	.gsh .pns .px { margin-left: 3px; width: 190px; }
+
+/* Card */
+.card {}
+	.card .avt { position: absolute; display: inline; margin-right: -70px; width: 70px; }
+	.card_mn, .card_info { padding: 10px 80px 10px 10px; }
+		.card .o a { float: right; margin: 3px 0 3px 5px; padding: 2px 0; width: 5em; border: 1px solid {SPECIALBORDER}; background: {SPECIALBG} url({IMGDIR}/card_btn.png) repeat-x 0 100%; line-height: 14px; text-align: center; }
+		.ie_all .card .o a { padding: 3px 0 0; }
+	.card .mgc, .card .f { padding: 0 10px 5px; }
+
+/*
+	Name:			mod_BIUC
+	Level:			Global
+	Explain:		Edit the single data module BIU, color picker which colorwd to use with the pn
+	Last Modify:	Pony
+*/
+.ss em { display: block; float: right; margin-left: 2px; padding-right: 7px; width: 16px; line-height: 23px; background: #EEE; cursor: pointer; }
+.dopt a { float: right; margin-left: 3px; width: 21px !important; height: 21px; line-height: 21px; text-align: center; }
+.colorwd { margin-right: 3px; width: 23px !important; background-color: {MIDTEXT}; background-image: url({IMGDIR}/pn_color.png) !important; background-repeat: no-repeat; background-position: 0 0; }
+	.ie6 .colorwd, .ie7 .colorwd { background-position:  -1px; }
+.colorpx { margin: 0 3px 0 -3px; border-left: none; }
+

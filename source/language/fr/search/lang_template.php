@@ -64,10 +64,14 @@ $lang = array (
   'search_group_result_keyword'	=> 'R&#233;sultat: <em>Trouver liaisons {$_G[setting][navs][3][navname]} $groupnum, &nbsp;&nbsp;discussions connexes $index[num]</em>',    //  'Result: <em>Find related {$_G[setting][navs][3][navname]} $groupnum, &nbsp;&nbsp;related thread $index[num]</em>
   'search_group_viewgroup'	=> 'Voir {$_G[setting][navs][3][navname]}',    //  View {$_G[setting][navs][3][navname]}
   'threads'		=> 'Sujet',    //  Thread
+	'subscribe'		=> 'Subscribe',//'订阅',
+	'comment'		=> 'Comment',//'评论',
+	'lastupdate'		=> 'Last Update',//'最后更新',
   'return_homepage'	=> 'Retour',    //  Return
   'visit_my_space'	=> 'Visitez mon Espace',    //  Visit my space
   'album'		=> 'Album',    //  Album
   'blog'		=> 'Blog',    //  Blog
+	'collection'		=> 'Collection',//'淘帖',
   'portal'		=> 'Article',   //  
   'quick'		=> 'Rapide',    //  Quick - Rapide
   'search_adv'		=> 'Avanc&#233;',    //  Avanced - Avanc
@@ -87,14 +91,4 @@ $lang = array (
   'goto_memcp'		=> 'Panneau de Gestion',   //
   'thread_list_message1'	=> 'Le contenu a &#233;t&#233; masqu&#233;e, cliquez ici pour voir',   //
 );
-//  'search_return_normal'	=> 'Retour',   //
-//  'threadtype_option'	=> 'Sujet type',   //
-//  'search_info'	=> 'Cat&#233;gorie discussion',   //
-//  'subject'	=> 'Titre',   //
-//  'contactus'	=> 'Contactez-nous',   // Contact Us
-//  'none'	=> 'Aucun',   //   None - Rien ou Aucun
-//  'search_option'	=> 'Rech. Options',    //  Search Options - Recherche options
-//  'search_quick'	=> 'Rech. rapide',   //
 
-
-?>

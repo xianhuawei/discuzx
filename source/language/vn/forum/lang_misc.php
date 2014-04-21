@@ -7,6 +7,10 @@
  *      $Id: lang_misc.php 20740 2011-03-02 09:55:01Z liulanbo $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'discuz_lang' => 'misc',
@@ -19,18 +23,18 @@ $lang = array
 	'never_expired' => 'Không bao giờ hết hạn',
 	'sort_update' => 'Cập nhật',
 	'sort_upload' => 'Tải lên',
-  	'view_noperm' => 'Ẩn nội dung',
+	'view_noperm' => 'Ẩn nội dung',
 	'post_hidden' => '**** Nội dung bị tác giả đặt ẩn ****',
 	'post_banned' => '**** Tác giả bị cấm hoặc bị xóa, nội dung tự động bị ẩn ****',
 	'post_single_banned' => '**** Nội dung bị cấm xem ****',
 	'message_ishidden_hiddenreplies' => 'Bài này chỉ tác giả mới được xem',
 	'post_reply_quote' => '{author} gửi lúc {time}',
-	'post_edit' => '[i=s] Bài được {editor} sửa lúc  {edittime} [/i]\n\n',
+	'post_edit' => "[i=s] Bài được {editor} sửa lúc  {edittime} [/i]\n\n",
 	'post_edit_regexp' => '/^\[i=s\] Bài được .*? sửa lúc .*?  \[\/i\]\n\n/s',
 	'post_edithtml' => '[i=s] Bài được {editor} sửa lúc {edittime} [/i]<br /><br />',
 	'post_edithtml_regexp' => '/^\[i=s\] Bài được .*? sửa lúc .*?  \[\/i\]&lt;br \/&gt;&lt;br \/&gt;/s',
 	'post_editnobbcode' => '[ Bài được {editor} sửa lúc {edittime} ]\n\n',
-	'post_editnobbcode_regexp' => '/^\[ Bài đượcc  .*?  sửa lúc .*?  \]\n\n/s',
+	'post_editnobbcode_regexp' => '/^\[ Bài được  .*?  sửa lúc .*?  \]\n\n/s',
 	'post_reply' => 'Trả lời',
 	'post_thread' => 'Bài mới',
 
@@ -51,13 +55,12 @@ $lang = array
 	'post_trade_transport_express' => 'Chuyển nhanh',
 	'post_trade_transport_virtual' => 'Vận tải ảo',
 	'post_trade_transport_physical' => 'Người mua tự trả phí sau nhận hàng',
-	'post_trade_locus' => 'Địa điểm',
+//vot	'post_trade_locus' => 'Sản xuất',
 	'post_trade_description' => 'Mô tả',
 	'post_trade_pm_subject' => '[giá]',
 	'post_trade_pm_buynum' => 'Số lượng',
 	'post_trade_pm_wishprice' => 'Tôi muốn giá là',
 	'post_trade_pm_reason' => 'Lý do',
-	'post_deleted' => 'Bài viết này đã bị xóa',
 	'postappend_content' => 'Bổ xung',
 	'payment_unit' => 'VNĐ',
 
@@ -71,8 +74,8 @@ $lang = array
 	'attach_downloads' => 'Số lần tải',
 
 	'post_trade_transport' => 'Vận chuyển',
-	'post_trade_transport_mail' => 'Thường',
-	'post_trade_quality' => 'Chất lượng',
+//vot	'post_trade_transport_mail' => 'Thường',
+	'post_trade_quality' => 'Số lượng',
 	'post_trade_quality_new' => 'Mới',
 	'post_trade_quality_secondhand' => 'Hàng cũ',
 
@@ -85,7 +88,7 @@ $lang = array
 	'trade_syspayseller' => 'Người mua đã nhận được hàng, chờ người bán nhận tiền',
 	'trade_finished' => '<font color="green">Giao dịch kết thúc thành công</font>',
 	'trade_closed' => '<font color="gray">Giao dịch đóng(chưa hoàn thành)</font>',
-	'trade_waitselleragree'  => 'Đang chờ người bán đồng ý trả lại',
+	'trade_waitselleragree'  => 'Chờ cho người bán hoàn toàn đồng ý',
 	'trade_sellerrefusebuyer' => 'Người bán từ chối yêu cầu người mua, đang chờ người mua thay đổi yêu cầu',
 	'trade_waitbuyerreturn' => 'Bên bán đồng ý hoàn lại tiền, chờ đợi cho người mua trả lại',
 	'trade_waitsellerconfirmgoods' => 'Chờ đợi để nhận hàng hoá bán',
@@ -110,9 +113,11 @@ $lang = array
 	'trade_message_5' => 'Nhập công ty vận chuyển, hóa đơn, và các thông tin khác',
 	'trade_message_13' => 'Nhập công ty vận chuyển, hóa đơn, và các thông tin khác',
 
-		'credit_payment' => 'Thêm điểm',
+	'credit_payment' => 'Thêm điểm',
 	'credit_forum_payment' => 'Thêm điểm diễn đàn',
 	'credit_forum_royalty' => 'Thủ tục giao dịch',
+
+	'credit_total' => 'Tổng điểm',
 
 	'invite_payment' => 'Mua mã lời mời',
 	'invite_forum_payment' => 'Mua mã lời mời',
@@ -166,7 +171,7 @@ $lang = array
 	'pm_to' => 'Người nhận',
 	'pm_date' => 'Thời gian',
 
-    'share_message' => 'Bạn thân mến! tớ thấy ở {$_G[setting][bbname]} có bài viết này, rất có giá trị nên gửi cho bạn xem. \\n\\n$thread[subject]\\n địa chỉ [url={$threadurl}]{$threadurl}[/url]\\n\\n hy vọng bạn sẽ thích.',
+	'share_message' => 'Bạn thân mến! tớ thấy ở {$_G[setting][bbname]} có bài viết này, rất có giá trị nên gửi cho bạn xem. \\n\\n$thread[subject]\\n địa chỉ [url={$threadurl}]{$threadurl}[/url]\\n\\n hy vọng bạn sẽ thích.',
 
 	'week_0' => 'Chủ nhật',
 	'week_1' => 'Thứ 2',
@@ -209,7 +214,7 @@ $lang = array
 	'perms_maxattachsize' => 'Dung lượng tối đa 1 file mỗi ngày',
 	'perms_maxsizeperday' => 'Dung lượng tối đa một tập tin',
 	'perms_maxattachnum' => 'Số lượng tập tin tối đa mỗi ngày',
-	'perms_allowbioimgcode' => 'Sử dụng mã [img] trong phần tự giới thiệu',
+//vot	'perms_allowbioimgcode' => 'Sử dụng mã [img] trong phần tự giới thiệu',
 	'perms_attachextensions' => 'Loại tập tin',
 	'perms_allowstickthread' => 'Đính chủ đề',
 	'perms_allowdigestthread' => 'Chủ đề tinh hoa',
@@ -264,6 +269,11 @@ $lang = array
 	'perms_allowstat' => 'Được xem thống kê',
 	'perms_allowpostarticle' => 'Được đăng bài viết',
 	'perms_raterange' => 'Được tham gia xếp hạng',
+	'perms_allowcommentpost' => 'Cho phép tham gia đánh giá',
+	'perms_allowat' => 'Cho phép @người',
+	'perms_allowreplycredit' => 'Cho phép thiết lập trả lời phần thưởng',
+	'perms_allowposttag' => 'Cho phép thiết lập tag',
+	'perms_allowcreatecollection' => 'Cho phép tạo trình sửa Album',
 	'perms_allowsendpm' => 'Cho phép gửi tin',
 	'perms_maximagesize' => 'Kích thước tối đa của hình ảnh',
 	'perms_allowmediacode' => 'Cho phép sử dụng mã media',
@@ -274,11 +284,45 @@ $lang = array
 	'join_reward' => 'Tham gia vào thưởng',
 	'join_activity' => 'Tham gia hoạt động',
 	'join_debate' => 'Tham gia tranh luận',
+	'at_invite' => '@ Bạn bè của tôi',
 
 	'lower' => 'Thấp nhất',
 	'higher' => 'Cao nhất',
 	'report_msg_your' => 'Của bạn ',
 	'report_noreward' => 'Không khen thưởng',
+	'activity_viewimg' => 'Nhấn vào để xem',
+
+	'crime_postreason' => '{reason} &nbsp; <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank" class="xi2">Chi tiết </a>',
+	'crime_reason' => '{reason}',
+
+	'connectguest_message_search' => array('Chưa đăng nhập', 'đăng nhập'),
+	'connectguest_message_replace' => array('Chưa <a href="member.php?mod=connect" class="xi2">điền thông tin cá nhân hoàn chỉnh </a> hoặc <a href="member.php?mod=connect&ac=bind" class="xi2">tài khoản hiện có đã bị đóng</a> ', 'Trước tiên <a href="member.php?mod=connect" class="xi2">hãy điền thông tin tài khoản</a> hoặc <a href="member.php?mod=connect&ac=bind" class="xi2"> mở tài khoản hiện có</a> '),
+	'connectguest_message_mobile_search' => array('Chưa đăng nhập', 'đăng nhập'),
+	'connectguest_message_mobile_replace' => 'Hoàn thành thông tin tài khoảng trên Mobile',
+
+	'avatar' => 'Avatar',
+	'signature' => 'Chữ ký',
+	'custom_title' => 'Tiêu đề',
+
+	'forum_guide' => 'Xem',
+
+	'patch_site_have' => 'Trang web của bạn',
+	'patch_is_fixed' => 'Lỗ hổng bảo mật, đã được xác định.',
+	'patch_need_fix' => 'Xin hãy sửa chữa lỗ hỏng bảo mật.',
+	'patch_fixed_status' => 'Đã được sửa',
+	'patch_unfix_status' => 'Chưa được sửa',
+	'patch_fix_failed_status' => 'Sửa tâm trạng thất bại',
+	'patch_fix_right_now' => 'Sửa tâm trạng thành công',
+	'patch_view_fix_detail' => 'Chi tiết',
+	'patch_name' => 'Tên',
+	'patch_dateline' => 'Ngày đăng tậm trạng',
+	'patch_status' => 'Hiện tâm trạng',
+	'patch_close' => 'Close',
+
+	'plugin_title' => 'Áp dụng các lời nhắc nhở cập nhật',
+	'plugin_memo' => 'Bạn có <span class="xi1">{number}</span> cập nhật ứng dụng',
+	'plugin_link' => 'Cập nhật',
+
 );
 
 ?>

@@ -47,4 +47,3 @@ $lang = array (
   'open'	=> 'D&#233;velopper',// Open
 );
 
-?>

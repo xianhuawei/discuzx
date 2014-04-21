@@ -1,6 +1,6 @@
 <?php
 
-/**
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -15,7 +15,7 @@ $lang = array (
 	'search_result_keyword'	=> 'Ergebnisse: <em>Gefunden “<span class="emfont">$keyword</span>” Related Content $index[num] Ein</em>',
 	'a_comment'		=> 'Beitr&auml;ge',
 	'a_visit'		=> 'Aufrufe',
-	'heat'			=> 'Hot',
+	'heat'			=> 'Hot',//'热度',
 	'search_credit_msg'	=> 'Bei jeder Suche werden $policymsgs abgezogen',
 	'180_days_ago'		=> '6 Monate',
 	'1_days_ago'		=> '1 Tag',
@@ -41,8 +41,8 @@ $lang = array (
 	'search_older'		=> '&Auml;ltere',
 	'search_orderby'	=> 'Nach Typ sortieren',
 	'search_range'		=> 'Suche',
-'search_thread_higher'		=> 'Post Advanced Search',//'帖子高级搜索',
-	'search_thread_range'	=> 'Fachrichtung',
+	'search_thread_higher'		=> 'Post Advanced Search',//'帖子高级搜索',
+	'search_thread_range'		=> 'Fachrichtung',
 	'search_thread_range_all'	=> 'Alle Themen',
 	'search_thread_range_digest'	=> 'Wichtigkeit des Themas',
 	'search_thread_range_top'	=> 'Top Thema',
@@ -54,7 +54,7 @@ $lang = array (
 	'special_thread'	=> 'Spezielle Themen',
 	'special_trade'		=> 'Waren Thema',
 	'trade_remaindays'	=> 'Restzeit',
-'a_comment_thread'	=> 'Replies',//'个回复',
+	'a_comment_thread'	=> 'Replies',//'个回复',
 	'anonymous'		=> 'Anonym',
 	'creating_time'		=> 'Erstellt',
 	'credits'		=> 'Credits',
@@ -64,11 +64,15 @@ $lang = array (
 	'search_group_result_keyword'	=> 'Ergebnisse: <em>Suche {$_G[setting][navs][3][navname]} $groupnum,&nbsp;&nbsp;Verwandte Themen $index[num]</em>',
 	'search_group_viewgroup'	=> 'Anzeigen {$_G[setting][navs][3][navname]}',
 	'threads'		=> 'Themen',
+	'subscribe'		=> 'Subscribe',//'订阅',
+	'comment'		=> 'Comment',//'评论',
+	'lastupdate'		=> 'Last Update',//'最后更新',
 	'return_homepage'	=> 'Startseite',
 	'visit_my_space'	=> 'Besuche meinen Space',
 	'album'			=> 'Album',
 	'blog'			=> 'Blog',
-	'portal'		=> 'Portal',
+	'collection'		=> 'Collection',//'淘帖',
+	'portal'		=> 'Portal',//'文章',
 	'quick'			=> 'Einfache',//'快速',
 	'search_adv'		=> 'Fortschrittlich',
 	'search_quick_day_180'	=> 'Innerhalb von 6 Monaten',
@@ -84,16 +88,7 @@ $lang = array (
 	'lower_than'		=> 'Weniger als',
 	'more_than'		=> 'Mehr als',
 	'unlimited'		=> 'Unlimitiert',
-'goto_memcp'		=> 'Go to Control Panel',//'进入管理面板',
+	'goto_memcp'		=> 'Go to Control Panel',//'进入管理面板',
 	'thread_list_message1'	=> 'Inhalt verborgenen Bed&uuml;rfnisse, klicke bitte in den Blick',
 );
-//	'search_return_normal'	=> 'Zur&uuml;ck zur allgemeinen Suche',
-//	'threadtype_option'	=> 'Kategorie Information',
-//	'search_info'		=> 'Kategorie Information',
-//	'subject'		=> 'Titel',
-//	'contactus'		=> 'Kontaktiere uns',
-//	'none'			=> 'Nichts',
-//	'search_option'		=> 'Suchoptionen',
-//	'search_quick'		=> 'Einfache Suche',
 
-?>

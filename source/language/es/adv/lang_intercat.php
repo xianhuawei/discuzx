@@ -17,5 +17,6 @@ $lang = array
 	'intercat_position'		=> 'Anuncio Posición',//'投放位置',
 	'intercat_position_comment'	=> 'Fijar la posición de adv por debajo del cual la zona',//'设置广告在哪个分区的下方显示',
 	'intercat_position_random'	=> 'Posición aleatoria',//'所有位置随机',
+	'intercat_position_fav'		=> 'Favorites bar',//'收藏栏',
 );
 

@@ -4,13 +4,21 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *		Translate by DCV team - http://www.discuz.vn
- *      $Id: lang_core.php 22638 2011-05-16 06:29:59Z svn_project_zhangjie $
+ *      $Id: lang_core.php 28082 2012-02-22 06:58:29Z monkey $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
 	'nextpage' => 'Trang tiếp',
 	'prevpage' => 'Trang trước',
+	'pageunit' => 'Trang',
+	'total' => 'Tất cả',
+	'10k' => '10k',
+	'pagejumptip' => 'Nhập vào số trang đích',
 	'date' => array(
 		'before' => ' trước',
 		'day' => ' ngày',
@@ -46,7 +54,7 @@ $lang = array
 	'fullblankspace' => '　',
 
 	'title_goruptype' => 'Loại',
-	'title_of' => '',
+	'title_of' => ' ',
 	'title_board_message' => 'Thông báo',
 	'title_view_all' => 'Xem hết',
 	'title_activity' => 'Hoạt động',
@@ -85,7 +93,7 @@ $lang = array
 	'title_article_favorite' => 'Bài viết yêu thích',
 	'title_all_favorite' => 'Tất cả',
 	'title_friend_list' => 'Danh sách bạn bè',
-//	'title_of' => ' ',
+//vot	'title_of' => ' ',
 	'title_all_poll' => 'Các Khảo sát',
 	'title_we_poll' => 'Của bạn bè',
 	'title_me_poll' => 'Bình chọn của tôi',
@@ -151,7 +159,7 @@ $lang = array
 	'title_memcp_privacy' => 'Riêng tư',
 	'title_memcp_avatar' => 'Sửa avatar',
 	'title_memcp_profile' => 'Cập nhật',
-//	'title_memcp_sendmail' => 'Cảnh báo',
+//vot	'title_memcp_sendmail' => 'Cảnh báo',
 	'title_memcp_credit' => 'Điểm',
 	'title_memcp_friend' => 'Bạn bè',
 	'title_memcp_usergroup' => 'Nhóm',
@@ -173,7 +181,7 @@ $lang = array
 	'title_ranklist_group' => 'Xếp hạng Nhóm',
 	'title_ranklist_app' => 'Xếp hạng Apps',
 	'title_ranklist_index' => 'Tổng thể',
-//	'title_ranklist_index' => 'TOP',
+	'title_ranklist_rankname' => 'Top',
 	'title_search' => 'Tìm kiếm',
 	'title_topic_management' => 'Tạo chủ đề',
 	'title_portal_management' => 'Quản lí Portal',
@@ -199,20 +207,32 @@ $lang = array
 	'title_userapp_index_we' => 'Của bạn bè',
 	'title_userapp_index_me' => 'Của tôi',
 	'title_userapp_manage' => 'Quản lí {userapp}',
+
+	'title_collection' => 'Bài ẩn',
+	'title_collection_create' => 'Tạo album ẩn',
+	'title_collection_edit' => 'Sửa album ẩn',
+	'title_collection_comment_list' => 'Danh sách bình luận',
+	'title_collection_followers_list' => 'Danh sách các theo dõi',
+
 	'faq' => 'Trợ giúp',
 	'search' => 'Tìm kiếm',
-	'page'				=> 'page {page}',
+	'page' => 'Trang {page}',
 
-//vot source/include/misc/misc_security.php
-	'attackevasive_1_subject'	=> 'Refresh frequency limit',
-	'attackevasive_1_message'	=> 'You visit the site too fast, less than two seconds! Please wait a little...',
-	'attackevasive_2_subject'	=> 'Access through proxy servers is restricted',
-	'attackevasive_2_message'	=> 'Access to the site through a proxy servers is restricted for mow. Please remove your proxy setting configuration, and access to the site directly.',
-	'attackevasive_4_subject'	=> 'Open the page reload',
-	'attackevasive_4_message'	=> 'Welcome to the site, the page is re-loading, please wait ...',
+	'close' => 'Đóng',
 
-//vot Months Names
-	'month_name'	=> array('Month','January','February','March','April','May','June','July','August','September','October','November','December'),
+//--------------------------------------------------------------------------
+// Added by Valery Votintsev
+
+//source/include/misc/misc_security.php
+	'attackevasive_1_subject'	=> '刷新频率限制',//'Refresh frequency limit',
+	'attackevasive_1_message'	=> '您访问网站的速度太快，不到两秒钟！请等一下...',//'You visit the site too fast, less than two seconds! Please wait a little...',
+	'attackevasive_2_subject'	=> '通过代理服务器的访问是受到限制',//'Access throug proxy servers is restricted',
+	'attackevasive_2_message'	=> '通过代理服务器访问网站限制亩。请删除您的代理设置配置，并直接访问该网站。',//'Access to the site through a proxy servers is restricted for mow. Please remove your proxy setting configuration, and access to the site directly.',
+	'attackevasive_4_subject'	=> '打开页面重载',//'Open the page reload',
+	'attackevasive_4_message'	=> '欢迎的网站，页面重新载入，请稍候...',//'Welcome to the site, the page is re-loading, please wait ...',
+
+// Months Names
+	'month_name'	=> array('月','一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'),//array('Month','January','February','March','April','May','June','July','August','September','October','November','December'),
 
 );
 

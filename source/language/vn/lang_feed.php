@@ -4,13 +4,17 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *		Translate by DCV team - http://www.discuz.vn
- *      $Id: lang_feed.php 19827 2011-01-19 07:07:40Z monkey $
+ *      $Id: lang_feed.php 27449 2012-02-01 05:32:35Z zhangguosheng $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
 
-	'feed_blog_password' => '{actor} đã đăng nhật ký có bảo mật {subject}',
+	'feed_blog_password' => '{actor} đã đăng nhật ký bí mật {subject}',
 	'feed_blog_title' => '{actor} đã đăng nhật ký mới',
 	'feed_blog_body' => '<b>{subject}</b><br />{summary}',
 	'feed_album_title' => '{actor} đã cập nhập album',
@@ -39,7 +43,7 @@ $lang = array
 	'feed_click_blog' => '{actor} đã tặng 1 "{click}" cho bài viết {subject} của {touser}',
 	'feed_click_thread' => '{actor} đã tặng 1 "{click}" cho  bài viết {subject} của {touser}',
 	'feed_click_pic' => '{actor} đã tặng 1 "{click}" cho hình ảnh của {touser} ',
-	'feed_click_article' => '{actor} đã tăng 1 "{click}" cho tác phẩm {subject} của {touser}',
+	'feed_click_article' => '{actor} đã tặng 1 "{click}" cho tác phẩm {subject} của {touser}',
 
 
 	'feed_task' => '{actor} đã hoàn thành nhiệm vụ {task}',
@@ -61,45 +65,46 @@ $lang = array
 	'magicuse_thunder_announce_body' => 'Chào cả nhà, tôi đang online nè !<br /><a href="home.php?mod=space&uid={uid}" target="_blank"> Rất vui khi bạn ghé thăm blog của tôi</a>',
 
 
-	'feed_thread_title' =>			'{actor} đã đăng chủ đề mới',
+	'feed_thread_title' =>			'{actor} đăng một chủ đề mới',
 	'feed_thread_message' =>		'<b>{subject}</b><br />{message}',
 
-	'feed_reply_title' =>			'{actor} đã trả lời chủ đề {subject} của {author} ',
-	'feed_reply_title_anonymous' =>		'{actor} đã trả lời chủ đề {subject}',
+	'feed_reply_title' =>			'{actor} trả lời {author} tại {subject}',
+	'feed_reply_title_anonymous' =>		'{actor} trả lời chủ đề này {subject}',
 	'feed_reply_message' =>			'',
 
-	'feed_thread_poll_title' =>		'{actor} đã gửi bình chọn mới',
+	'feed_thread_poll_title' =>		'{actor} phát động một cuộc bỏ phiếu mới',
 	'feed_thread_poll_message' =>		'<b>{subject}</b><br />{message}',
 
-	'feed_thread_votepoll_title' =>		'{actor} đã bỏ phiếu chủ đề {subject}',
+	'feed_thread_votepoll_title' =>		'{actor} tham gia bỏ phiếu {subject}',
 	'feed_thread_votepoll_message' =>	'',
 
-	'feed_thread_goods_title' =>		'{actor} đã đăng sản phẩm mới',
+	'feed_thread_goods_title' =>		'{actor} bán một sản phẩm mới',
 	'feed_thread_goods_message_1' =>	'<b>{itemname}</b><br />Price {itemprice} USD and {itemcredit}{creditunit}',
 	'feed_thread_goods_message_2' =>	'<b>{itemname}</b><br />Price {itemprice} USD',
 	'feed_thread_goods_message_3' =>	'<b>{itemname}</b><br />Price {itemcredit}{creditunit}',
 
-	'feed_thread_reward_title' =>		'{actor} đã gửi khen thưởng mới',
-	'feed_thread_reward_message' =>		'<b>{subject}</b><br />khen thưởng {rewardprice}{extcredits}',
+	'feed_thread_reward_title' =>		'{actor} tung ra một phần thưởng mới',
+	'feed_thread_reward_message' =>		'<b>{subject}</b><br />Phần thưởng {rewardprice}{extcredits}',
 
-	'feed_reply_reward_title' =>		'{actor} replied a reward about {subject}',
+	'feed_reply_reward_title' =>		'{actor} trả lời hoạt động thưởng {subject}',
 	'feed_reply_reward_message' =>		'',
 
-	'feed_thread_activity_title' =>		'{actor} đã đăng hoạt động mới',
-	'feed_thread_activity_message' =>	'<b>{subject}</b><br />thời gian bắt đầu：{starttimefrom}<br /> địa điểm：{activityplace}<br />{message}',
+	'feed_thread_activity_title' =>		'{actor} khởi động các hoạt động mới',
+	'feed_thread_activity_message' =>	'<b>{subject}</b><br />Thời gian bắt đầu： {starttimefrom}<br /> Địa điểm: {activityplace}<br />{message}',
 
-	'feed_reply_activity_title' =>		'{actor} đã ghi danh tham gia hoạt động {subject}',
+	'feed_reply_activity_title' =>		'{actor} ghi danh vào hoạt động {subject}',
 	'feed_reply_activity_message' =>	'',
 
-	'feed_thread_debate_title' =>		'{actor} đã gửi biện luận',
-	'feed_thread_debate_message' =>		'<b>{subject}</b><br />đồng tình：{affirmpoint}<br />phản đối：{negapoint}<br />{message}',
+	'feed_thread_debate_title' =>		'{actor} phát động một cuộc tranh luận mới',
+	'feed_thread_debate_message' =>		'<b>{subject}</b><br />Đồng tình: {affirmpoint}<br />Đối lập: {negapoint}<br />{message}',
 
-	'feed_thread_debatevote_title_1' =>	'{actor} đã tham gia đồng tình với biện luận của {subject}',
-	'feed_thread_debatevote_title_2' =>	'{actor} đã tham gia phản đối với biện luận của {subject}',
-	'feed_thread_debatevote_title_3' =>	'{actor} đã tham gia trung lập với biện luận của {subject}',
+	'feed_thread_debatevote_title_1' =>	'{actor} đã đồng tình với biện luận của {subject}',
+	'feed_thread_debatevote_title_2' =>	'{actor} đã phản đối với biện luận của {subject}',
+	'feed_thread_debatevote_title_3' =>	'{actor} đã trung lập với biện luận của {subject}',
 	'feed_thread_debatevote_message_1' =>	'',
 	'feed_thread_debatevote_message_2' =>	'',
 	'feed_thread_debatevote_message_3' =>	'',
 
 );
 
+?>

@@ -7,6 +7,10 @@
  *      $Id: lang_spacecp.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array(
 
 	'by'			=> 'par',  //  by
@@ -40,6 +44,7 @@ $lang = array(
 	'message_can_not_send_13'	=> 'Ce n\'est pas un message du Groupe',  //  This is not a group message
 	'message_can_not_send_14'	=> 'Ce n\'est pas un Message Priv&#233;',  //  This is not a Private Message
 	'message_can_not_send_15'	=> 'Donn&#233;es sont incorrectes',  //  Data is incorrect
+	'message_can_not_send_16'	=> 'You have exceeded the maximum number of PM within 24 hours',//'您超出了24小时内发短消息数量的上限',
 	'message_can_not_send_onlyfriend'	=> 'L\'utilisateur n\'acceptera qu\'un Ami envoit un court message &#224; envoyer',  // The user will only accept friend a short message to send 
 
 
@@ -204,7 +209,7 @@ $lang = array(
 	'do_stat_eventcomment'	=> 'Activit&#233; commentaires',  //  'Activity comments'
 	'do_stat_eventjoin'	=> 'Joindre Activit&#233;',  //  'Join activity'
 	'do_stat_sharecomment'	=> 'Partages commentaires',  //  'Share comments'
-//	'do_stat_post'		=> 'posts',  //  posts
+//vot	'do_stat_post'		=> 'posts',  //  posts
 	'do_stat_click'		=> 'Attitude',  // Attitude //Modify
 	'do_stat_wall'		=> 'Message',  // Message //Modify
 	'do_stat_poke'		=> 'Appuyer',  // Poke //Modify
@@ -236,11 +241,14 @@ $lang = array(
 	'logs_credit_update_RCA'	=> 'R&#233;ponses Gagnante',  //  'Replies winning'
 	'logs_credit_update_RCB'	=> 'R&#233;ponses retour de points de bonus',  //  'Replies return of bonus points'
 	'logs_credit_update_CDC'	=> 'Rechargez le secret de la carte',  // 'Recharge card secret' 
-
 	'logs_credit_update_RGC'	=> 'Recycl&#233; enveloppes rouges',  // 'Recycled red envelopes' 
 	'logs_credit_update_BGC'	=> 'Plant&#233; enveloppe rouge',  //  'Planted red envelope'
 	'logs_credit_update_AGC'	=> 'Obtenez paquets rouges',  //  'Get red packets'
 	'logs_credit_update_RKC'	=> 'PPC',  // 'PPC' 
+	'logs_credit_update_BME'	=> 'Buy Medal',//'购买勋章',
+	'logs_credit_update_RPR'	=> 'Background points rewards and punishments',//'后台积分奖惩',
+	'logs_credit_update_RPZ'	=> 'Background points rewards and punishments clean',//'后台积分奖惩清零',
+	'logs_credit_update_reward_clean'	=> 'Clean',//'清零',
 	'logs_select_operation'		=> 'Svp. choisissez une op&#233;ration',  // 'Please choose an operation' 
 	'task_credit'			=> 'Des points de r&#233;compense des t&#226;ches',  //  'Task reward points'
 	'special_3_credit'		=> 'Des points de r&#233;compense Th&#232;me d&#233;duits',  //  'Theme reward points deducted'
@@ -264,6 +272,7 @@ $lang = array(
 	'thread_credit2'		=> 'Sujets des D&#233;penses Partie Int&#233;grante',  //  'Topics spending integral'
 	'buy_credit'			=> 'Rechargez l\'int&#233;grale',  //  'Recharge the integral'
 	'buy_usergroup'			=> 'D&#233;penses points pour acheter des du Groupe Utilisateurs &#233;tendu',  //  'Spending points to buy extended user group'
+	'buy_medal'			=> 'Buy Medal',//'购买勋章',
 	'report_credit'			=> 'Fonction de la prime pour le signalement',  //  'Function of the incentive to report'
 	'join'				=> 'Participation',  //  'Participation'
 	'activity_credit'		=> 'Activit&#233;s, d&#233;duction faite de points',  //  'Activities, net of points'
@@ -275,6 +284,8 @@ $lang = array(
 	'replycredit_thread'		=> 'R&#233;partition des postes',  //  'Distribution of posts'
 	'card_credit'			=> 'Rechargez la carte des points d\'acc&#232;s fermer',  // 'Recharge card access points close' 
 	'ranklist_top'			=> ' Des points de consommation &#224; participer &#224; PPC',  //  'Consumer points to participate in PPC'
+	'admincp_op_credit'		=> 'Credit rewards and punishments operations',//'后台积分奖惩操作',
+	'credit_update_reward_clean'	=> 'Clean',//'清零',
 
 	'profile_unchangeable'		=> 'Immuable, apr&#232;s envoie',  //  'Unchangeable after submit'
 	'profile_is_verifying'		=> 'En attendant la mod&#233;ration',  //  'Pending moderate'
@@ -285,12 +296,32 @@ $lang = array(
 	'profile_verify_modify_error'	=> '{verify} a v&#233;rifi&#233;, peut pas &#234;tre modifi&#233;',  //  '{verify} has verfied, cannot be edited'
 	'profile_verify_verifying'	=> 'Vos informations ont &#233;t&#233; envoy&#233; {verify}, Svp. soyez  patient pour la v&#233;rification.',  //  'Your information has been submitted {verify}, please be patient verification.'
 
-//'district_level_0'		=> '- Country -',//'-国家-',
 	'district_level_1'		=> '-Pays-',  //  '-Country-'
 	'district_level_2'		=> '-Ville-',  //  '-City-'
 	'district_level_3'		=> '-Commune-',  //  '-Town-'
 	'district_level_4'		=> '-Village-',  //  '-Village-'
 	'invite_you_to_visit'		=> '{user} vous invites &#224; d&#233;couvrir {bbname}',  //  '{user} invites you to visit {bbname}'
+//vot	'district_level_0'		=> '- Country -',//'-国家-',
+	'portal'		=> 'Portal',//'门户',
+	'group'			=> 'Groups',//'群组',
+	'follow'		=> 'Follow',//'广播',
+	'collection'		=> 'Collection',//'淘帖',
+	'guide'			=> 'Guide',//'导读',
+	'feed'			=> 'Feeds',//'动态',
+	'blog'			=> 'Blogs',//'日志',
+	'doing'			=> 'Doings',//'记录',
+	'wall'			=> 'Wall',//'留言板',
+	'homepage'		=> 'Personal Space',//'个人主页',
+	'ranklist'		=> 'RankList',//'排行榜',
+	'select_the_navigation_position'	=> 'Select {type} navigation position',//'选择{type}导航位置',
+	'close_module'		=> 'Close the {type} module',//'关闭{type}功能',
+
+	'follow_add_remark'		=> 'Add remark',//'添加备注',
+	'follow_modify_remark'		=> 'Edit remark',//'修改备注',
+	'follow_specified_group'	=> 'Follow specified group',//'广播专区',
+	'follow_specified_forum'	=> 'Follow specified forum',//'广播专版',
+
+	'filesize_lessthan'		=> 'File size should be less than ',//'文件大小应该小于',
 
 	'spacecp_message_prompt'	=> '(Support {msg} code, max 1000 caract&#232;res)',  //  
 	'card_update_doing'		=> ' <a class="xi2" href="###">[Agissements &#224; jour]</a>',  //  
@@ -298,7 +329,8 @@ $lang = array(
 						<span class="xi1">Nouveau email ({newemail}) Attendre pour la Validation ...</span><br />
 						Le syst&#232;me a envoy&#233; un courriel de v&#233;rification pour l\'activation, Svp. consulter votre courrier &#233;lectronique.<br>
 						Si vous ne recevez pas de courriel de v&#233;rification, changer votre email, ou <a href="home.php?mod=spacecp&ac=profile&op=password&resend=1" class="xi2"> appliquer &#224; nouveau</a>',  
+/*!*/	'qq_set_status'		=> 'I set my QQ online status',//'设置我的QQ在线状态',
+/*!*/	'qq_dialog'		=> 'Start QQ chat',//'发起QQ聊天',
 
 );
 
-?>

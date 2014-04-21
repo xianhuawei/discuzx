@@ -7,6 +7,10 @@
  *      $Id: lang_article.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'article_name'			=> 'Portail Messages publicitaires',
@@ -20,4 +24,3 @@ $lang = array
 	'article_category_comment'	=> 'Canal publicitaire Class&#233; ensemble',
 );
 
-?>

@@ -1,6 +1,6 @@
 <?php
 
-/**+++
+/**
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
@@ -29,9 +29,9 @@ $lang = array
 
 	'feed_thread_recommend_title'	=> 'Модератор рекомендовал тему {subject} автора {actor}.',
 
-	'feed_post_rate_title'		=> 'Постинг автора {actor} в теме {thread} получил более {count} оценок.',
+	'feed_post_rate_title'		=> 'Сообщение автора {actor} в теме {thread} получило более {count} оценок.',
 
-	'feed_post_magic_title'		=> '{operater} использовал артефакт {magiccard} для постинга автора {actor} в теме {thread}.',
+	'feed_post_magic_title'		=> '{operater} использовал артефакт {magiccard} для сообщения автора {actor} в теме {thread}.',
 
 	'feed_user_profile_title'	=> '{actor} обновил свой профиль',
 
@@ -41,7 +41,7 @@ $lang = array
 
 	'feed_user_threads_title'	=> 'Количество тем {actor} достигло {count}.',
 
-	'feed_user_posts_title'		=> 'Количество постингов {actor} достигло {count}.',
+	'feed_user_posts_title'		=> 'Количество сообщений {actor} достигло {count}.',
 
 	'feed_user_digest_title'	=> 'Количество дайджестов {actor} достигло {count}.',
 

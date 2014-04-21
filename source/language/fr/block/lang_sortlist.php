@@ -7,6 +7,10 @@
  *      $Id: lang_sortlist.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'sortlist_fids'			=> 'Dans le forum',

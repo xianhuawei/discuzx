@@ -1,16 +1,24 @@
 <?php
 
-/**+++
+/**---
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
  *      $Id: lang_core.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'nextpage'		=> 'След.',
 	'prevpage'		=> 'Пред.',
+	'pageunit'		=> 'Pages',//'页',
+	'total'			=> 'Total',//'共',
+	'10k'			=> '10K',//'万',
+	'pagejumptip'		=> 'Enter the page number and press Enter for quick jump',//'输入页码，按回车快速跳转',
 	'date'	=> array(
 		'before'	=> ' назад ',
 		'day'		=> 'дн.',
@@ -85,7 +93,7 @@ $lang = array
 	'title_article_favorite'	=> 'Избранные статьи',
 	'title_all_favorite'		=> 'Всё избранное',
 	'title_friend_list'		=> 'Список друзей',
-//	'title_of'			=> ' из ',
+//vot	'title_of'			=> ' из ',
 	'title_all_poll'		=> 'Все опросы',
 	'title_we_poll'			=> 'Опросы друзей',
 	'title_me_poll'			=> 'Мои опросы',
@@ -136,7 +144,7 @@ $lang = array
 	'title_normal_upload'		=> 'Обычная загрузка',
 	'title_newthread_post'		=> 'Создать новую тему',
 	'title_reply_post'		=> 'Ответить в теме',
-	'title_edit_post'		=> 'Редактировать пост',
+	'title_edit_post'		=> 'Редактировать сообщение',
 	'title_newtrade_post'		=> 'Добавить товар',
 	'title_magics_shop'		=> 'Магазин магии',
 	'title_magics_hot'		=> 'Популярные артефакты',
@@ -151,7 +159,7 @@ $lang = array
 	'title_memcp_privacy'		=> 'Приватность',
 	'title_memcp_avatar'		=> 'Изменить аватар',
 	'title_memcp_profile'		=> 'Персональные данные',
-//	'title_memcp_sendmail'		=> 'Уведомления по email',
+//vot	'title_memcp_sendmail'		=> 'Уведомления по email',
 	'title_memcp_credit'		=> 'Баланс',
 	'title_memcp_friend'		=> 'Друзья',
 	'title_memcp_usergroup'		=> 'Группы',
@@ -160,7 +168,7 @@ $lang = array
 	'title_memcp_videophoto'	=> 'Видео-верификация',
 	'title_memcp_comment'		=> 'Комментарии',
 	'title_memcp_eccredit'		=> 'Передача баллов',
-	'title_memcp_promotion'		=> 'Партнерская программа',	
+	'title_memcp_promotion'		=> 'Партнерская программа',
 	'title_task'			=> 'Задачи',
 	'title_login'			=> 'Вход',
 	'title_ranklist_picture'	=> 'Топ-изображения',
@@ -173,9 +181,9 @@ $lang = array
 	'title_ranklist_group'		=> 'Топ-сообщества',
 	'title_ranklist_app'		=> 'Топ-приложения',
 	'title_ranklist_index'		=> 'Весь Топ-Лист',
-//	'title_ranklist_index'		=> 'Весь Топ-Лист',
+	'title_ranklist_rankname'	=> 'Рейтинг',
 	'title_search'			=> 'Поиск',
-	'title_topic_management'	=> 'Управление топиками',
+	'title_topic_management'	=> 'Управление темами',
 	'title_portal_management'	=> 'Управление порталом',
 	'title_portalblock_management'	=> 'Управление блоками портала',
 	'title_block_management'	=> 'Управление блоками',
@@ -199,21 +207,32 @@ $lang = array
 	'title_userapp_index_we'	=> 'Приложения друзей',
 	'title_userapp_index_me'	=> 'Мои приложения',
 	'title_userapp_manage'		=> 'Управление приложением {userapp}',
+
+	'title_collection'		=> 'Collection',//'淘帖',
+	'title_collection_create'	=> 'Create collection',//'创建淘专辑',
+	'title_collection_edit'		=> 'Edit collection',//'编辑淘专辑',
+	'title_collection_comment_list'	=> 'Comment list',//'评论列表',
+	'title_collection_followers_list'	=> 'Followers',//'订阅用户列表',
+
 	'faq'				=> 'Вопросы и ответы',
 	'search'			=> 'Поиск',
 	'page'				=> 'page {page}',
 
-//vot source/include/misc/misc_security.php
+	'close'				=> 'Закрыть',
+
+//--------------------------------------------------------------------------
+// Added by Valery Votintsev
+
+//source/include/misc/misc_security.php
 	'attackevasive_1_subject'	=> 'Лимит обновления страницы',
 	'attackevasive_1_message'	=> 'Вы обращаетесь к сайту слишком часто, менее чем через 2 сек.! Пожалуйста, делайте паузы чуть побольше...',
 	'attackevasive_2_subject'	=> 'Доступ к сайту черех проки-сервера запрещён',
 	'attackevasive_2_message'	=> 'В настоящее время доступ к сайту черех проки-сервера запрещён. Пожалуйста, удалите прокси-сервер из Ваших сетевых настроек, и заходите на сайт напрямую.',
-	'attackevasive_4_subject'	=> 'Open the page reload',
+	'attackevasive_4_subject'	=> 'Open the page reload',//'打开页面重载',
 	'attackevasive_4_message'	=> 'Добро пожаловать на сайт! Сейчас Вы будете перенаправлены на соответствующую страницу...',
 
-//vot Months Names
+// Months Names
 	'month_name'	=> array('- Месяц -','Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'),
 
 );
 
-?>

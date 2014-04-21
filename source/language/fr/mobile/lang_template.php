@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_template.php by Valery Votintsev $
+ *      $Id: lang_template.php by Valery Votintsev, codersclub.org
  *
  *      This file is automatically generate
  */
@@ -92,16 +92,5 @@ $lang = array (
   'user_mobile_pm_comment'	=> 'Envoyer un SMS et revenir &#224; la page pr&#233;c&#233;dente',   // Gửi tin nhắn SMS sẽ chuyển trở lại trang trước 
   'reset'		=> 'R&#233;initialiser',   //  Reset
   'reg_username'	=> 'Nom Utilisateur doit &#234;tre comprise entre 3-15 caract&#232;res',   // Username phải từ 3-15 ký tự 
-  'viewimg'		=> 'Voir les images',   // Xem ảnh   	  
-
-//	'nextpage'		=> 'Next',//'下一页',
-//	'prevpage'		=> 'Prev',//'上一页',
-//	'forum_threads'		=> 'Threads',//'帖',
-//	'send_posts'		=> 'Reply',//'回复',
-//	'other'			=> 'Other',//'其他',
-//	'thread_lock'		=> 'Locked',//'锁定',
-//	'required_select'	=> 'Required',//'必选',
-
 );
 
-?>

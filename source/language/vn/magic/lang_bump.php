@@ -7,6 +7,10 @@
  *      $Id: lang_bump.php 7877 2010-04-14 08:36:20Z monkey $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'bump_name' => 'Thẻ làm mới',

@@ -7,6 +7,10 @@
  *      $Id: lang_blog.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'blog_name'	=> 'T&#226;ches Articles du blog',
@@ -18,4 +22,3 @@ $lang = array
 		</ul>',
 );
 
-?>

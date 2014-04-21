@@ -7,6 +7,10 @@
  *      $Id: lang_grouptrade.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'grouptrade_fids'			=> 'Specified groups',//'指定群组',
@@ -28,7 +32,7 @@ $lang = array
 	'grouptrade_tids'			=> 'Specified threads',//'指定主题',
 	'grouptrade_tids_comment'		=> 'Set the specified threads tid you want to display, use "," to seperate tids',//'设置要指定显示的主题 tid ，多个 tid 请用半角逗号“,”隔开。注意: 留空为不进行任何过滤',
 	'grouptrade_keyword'			=> 'Keywords',//'标题关键字',
-	'grouptrade_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤<br />关键字中可使用通配符 "*"<br />匹配多个关键字全部，可用空格或 "AND" 连接。如 win32 AND unix<br />匹配多个关键字其中部分，可用 "|" 或 "OR" 连接。如 win32 OR unix',
+	'grouptrade_keyword_comment'		=> 'Set the keywords used.<br />You can use wildcard "*" in keywords.<br />If you want to use some keywords at same time, you can use "AND". Example: win32 AND unix.<br />If you want to use just one of keywords, you can use "|" or "OR". Example: win32 OR unix',//'设置标题包含的关键字。注意: 留空为不进行任何过滤； 关键字中可使用通配符 *； 匹配多个关键字全部，可用空格或 AND 连接。如 win32 AND unix； 匹配多个关键字其中部分，可用 | 或 OR 连接。如 win32 OR unix',
 	'grouptrade_typeids'			=> 'Trade types',//'主题分类',
 	'grouptrade_typeids_comment'		=> 'Select specific thread type. Note: Select All or Clear All for disable any filtering.',//'设置特定分类的主题。注意: 全选或全不选均为不进行任何过滤',
 	'grouptrade_typeids_all'		=> 'All thread types',//'全部的主题分类',
@@ -91,9 +95,9 @@ $lang = array
 	'grouptrade_orderby_weekexp'		=> 'Expired last week',//'按一周内报名截止时间排序',
 	'grouptrade_orderby_monthexp'		=> 'Expired last month',//'按一月内报名截止时间排序',
 	'grouptrade_gviewperm'			=> 'Group view permissions',//'群组浏览权限',
-	'grouptrade_gviewperm_nolimit'		=> 'No limits',
+	'grouptrade_gviewperm_nolimit'		=> 'No limits',//'不限制',
 	'grouptrade_gviewperm_only_member'	=> 'Members only',//'仅成员',
 	'grouptrade_gviewperm_all_member'	=> 'All',//'所有人',
-	'grouptrade_highlight'			=> 'Highlight found words',
+	'grouptrade_highlight'			=> 'Highlight found words',//'获得高亮值',
 );
 

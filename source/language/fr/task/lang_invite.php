@@ -7,6 +7,10 @@
  *      $Id: lang_invite.php by Valery Votintsev at sources.ru
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'invite_message'	=> '<p style="color:red;">Wow, vous avez invit&#233; {count} amis.</p><br>',
@@ -19,4 +23,3 @@ $lang = array
 
 );
 
-?>

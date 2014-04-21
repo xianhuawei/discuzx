@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_template.php by Valery Votintsev at sources.ru
+ *     $Id: lang_template.php by Valery Votintsev, codersclub.org
  *
  *      This file is automatically generate
  */
@@ -37,11 +37,12 @@ $lang = array (
   'choose_please'	=> 'Svp. choisissez',   //  请选择
   'create'		=> 'Cr&#233;er',   //  创建
   'group_category'	=> 'Appartient a la Cat&#233;gorie',   //  所属分类
+	'group_create_mod'		=> 'New pending groups',//'需要审核开通',
   'group_create_new'	=> 'Cr&#233;ez un nouveau{$_G[setting][navs][3][navname]}',   //  '创建新{$_G[setting][navs][3][navname]}'
   'group_create_selete_categroy'	=> 'Svp. choisissez{$_G[setting][navs][3][navname]}Classification',   //  '请选择{$_G[setting][navs][3][navname]}分类'
   'group_description'	=> '{$_G[setting][navs][3][navname]}Pr&#233;sentation',   //  '{$_G[setting][navs][3][navname]}简介'
+	'group_description_preview'	=> 'Preview',//'预览',
   'group_name'		=> '{$_G[setting][navs][3][navname]}Nom',   // '{$_G[setting][navs][3][navname]}名称'
-  'option_required'	=> 'Obligatoires',   //  必选项
   'anonymous'		=> 'Anonyme',   //  匿名
   'author'		=> 'Auteur',   // 作者 
   'click_to_readmore'	=> 'Cliquez pour plus de sujets',   // 点击查看更多话题 
@@ -98,6 +99,7 @@ $lang = array (
   'group_icon'			=> '{$_G[setting][navs][3][navname]}Ic&#244;ne',   // '{$_G[setting][navs][3][navname]}图标' 
   'group_icon_resize'		=> 'Automatiquement abr&#233;g&#233; 48 X 48 taille de pixel de l\'image',   //  '自动缩略成 48 X 48 像素大小的图片'
   'group_image'			=> '{$_G[setting][navs][3][navname]}Top de la photo',   //  '{$_G[setting][navs][3][navname]}顶部图片'
+	'group_image_filesize_advise'	=> 'Recommended to use images of size 730&times;150 for best results',//'建议使用尺寸为 730×150 的图片以取得最佳效果',
   'group_image_filesize_limit'	=> 'Le fichier est inf&#233;rieur &#224; $_G[setting][group_imgsizelimit] Kio',   //  '文件小于 $_G[setting][group_imgsizelimit] KB'
   'group_input_password'	=> 'Svp. entrer un mot de passe',   //  请输入登录密码
   'group_level_cannot_do'	=> 'Pr&#233;sentez votre{$_G[setting][navs][3][navname]}Niveau pouvez pas utiliser cette fonctionnalit&#233;.',   // '目前你的{$_G[setting][navs][3][navname]}等级不能使用此功能.' 
@@ -144,6 +146,7 @@ $lang = array (
   'friend_join_group'	=> 'Amis &#224; rejoindre{$_G[setting][navs][3][navname]}',   // '好友加入的{$_G[setting][navs][3][navname]}' 
   'group'		=> '{$_G[setting][navs][3][navname]}',   //  '{$_G[setting][navs][3][navname]}'
   'group_thread'	=> '{$_G[setting][navs][3][navname]}Sujet',   //  '{$_G[setting][navs][3][navname]}话题'
+	'group_wait_mod'		=> 'Pending',//'待审核',
   'hot_group'		=> 'Meilleurs{$_G[setting][navs][3][navname]}',   // '热门{$_G[setting][navs][3][navname]}' 
   'last_post'		=> 'dernier message',   //  最后发表
   'last_topic_in_group'	=> 'Nouveau sujet (30 derniers jours)',   //  '新话题(最近30天)'
@@ -201,10 +204,5 @@ $lang = array (
   'orderby_default'		=> 'Ordre par d&#233;faut',   //  默认排序
   'stats_main_threads_count'	=> 'Nbres.de Sujets',   // 主题数 
   'threads'			=> 'Th&#232;me',   //  主题
-// Obsolete
-//	'group_image_resize'	=> 'The image will be automatically resized to 644 X 150 px',//'自动缩略成 720 X 168 像素大小的图片',
-	'group_create_notice'	=> 'Note: You can change other group details after the group creating. But the group name and category can not be modified later.',//'注：除群组名称和分类暂时不能修改外，其它项目在创建完成后仍可修改。',
-	'replies/views'		=> 'Replies/Views',//'回复/查看',//vot
 );
 
-?>

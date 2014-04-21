@@ -7,11 +7,15 @@
  *      $Id: lang_anonymouspost.php 18824 2010-12-07 02:39:28Z liulanbo $
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array
 (
 	'anonymouspost_name' => 'Thẻ ẩn danh',
 	'anonymouspost_desc' => 'Dùng để ẩn danh tính khi viết bài.',
-	'anonymouspost_num' => 'Có một số: {magicnum}',
+	'anonymouspost_num' => 'Hiện có: {magicnum}',
 	'anonymouspost_forum' => 'Cho phép sử dụng các đạo cụ của Diễn đàn',
 	'anonymouspost_info' => 'Nhập ID chủ đề cần ẩn danh',
 	'anonymouspost_info_nonexistence' => 'Hãy xác định bài viết ẩn danh',

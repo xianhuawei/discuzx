@@ -9,6 +9,6 @@
 
 $lang = array
 (
-	'adv_title'	=> 'Enter adv title',//'或者输入名称',
-	'adv_adv'	=> 'Select adv',//'选择广告',
+	'adv_title'	=> '또는 명칭 입력',//'或者输入名称',
+	'adv_adv'	=> '광고 선택',//'选择广告',
 );

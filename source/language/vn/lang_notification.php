@@ -4,8 +4,12 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *		Translate by DCV team - http://www.discuz.vn
- *      $Id: lang_notification.php 22303 2011-04-29 02:42:08Z maruitao $
+ *      $Id: lang_notification.php 28954 2012-03-20 09:23:02Z monkey $
  */
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 $lang = array
 (
@@ -27,7 +31,7 @@ $lang = array
 	'type_group' => 'Nhóm',
 
 	'mail_to_user' => 'Có thông báo mới',
-	'showcredit' => '{actor} tặng bạn {credit} điểm lên hạng, để giúp bạn lên hạng ở <a href="home.php?mod=space&do=top" target="_blank"> bảng xếp hạng</a> thành viên',
+	'showcredit' => '{actor} tặng bạn {credit} điểm, để giúp bạn lên hạng ở <a href="home.php?mod=space&do=top" target="_blank"> bảng xếp hạng</a> thành viên',
 	'share_space' => '{actor} đã chia sẻ blog của bạn',
 	'share_blog' => '{actor} đã chia sẻ nhật ký của bạn <a href="{url}" target="_blank">{subject}</a>',
 	'share_album' => '{actor} đã chia sẻ album của bạn <a href="{url}" target="_blank">{albumname}</a>',
@@ -59,6 +63,7 @@ $lang = array
 	'group_member_invite' => '{actor} đã mời bạn gia nhập nhóm -CLB <a href="forum.php?mod=group&fid={fid}" target="_blank">{groupname}</a>,<a href="{url}" target="_blank">click vào đây để gia nhập</a>',
 	'group_member_check' => 'Bạn đã được chấp nhận vào nhóm CLB <a href="{url}" target="_blank">{groupname}</a>, hãy <a href="{url}" target="_blank">click vào đây để xem</a>',
 	'group_member_check_failed' => 'Bạn đã không được nhóm <a href="{url}" target="_blank">{groupname}</a> thông qua.',
+	'group_mod_check' => 'Nhóm <a href="{url}" target="_blank">{groupname}</a>bạn tạo đã được phê duyệt, bấm vào <a href="{url}" target="_blank">đây</a> để truy cập.',
 
 	'reason_moderate' => 'Chủ đề của bạn <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> được {actor} {modaction} <div class="quote"><blockquote>{reason}</blockquote></div>',
 
@@ -70,9 +75,9 @@ $lang = array
 
 	'reason_ban_post' => 'Bài viết của bạn <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> được {actor} {modaction} <div class="quote"><blockquote>{reason}</blockquote></div>',
 
-	'reason_warn_post' => 'Chủ đề của bạn <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> được {actor} {modaction}<br />
-Vào {warningexpiration} liên tục bạn nhận được {warninglimit} cảnh báo, bạn sẽ bọ cấm đăng bài {warningexpiration} ngày.<br />
-Tính đến nay, bạn đã bị cảnh báo {authorwarnings} lần, xin lưu ý !<div class="quote"><blockquote>{reason}</blockquote></div>',
+	'reason_warn_post' => 'Chủ đề của bạn <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> bị {actor} {modaction}<br />
+Hiệu lực {warningexpiration} đến ngày {warninglimit}, ngày hết hạn {warningexpiration} ngày.<br />
+Tính đến bây giờ, bạn đã bị cảnh báo {authorwarnings} lần, xin lưu ý!<div class="quote"><blockquote>{reason}</blockquote></div>',
 
 	'reason_move' => 'Bài viết <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> được {actor} di chuyển tới <a href="forum.php?mod=forumdisplay&fid={tofid}" target="_blank">{toname}</a> <div class="quote"><blockquote>{reason}</blockquote></div>',
 
@@ -92,7 +97,11 @@ Tính đến nay, bạn đã bị cảnh báo {authorwarnings} lần, xin lưu �
 
 	'reason_stickdeletereply' => 'Bài viết <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> được {actor} hủy bỏ đính <div class="quote"><blockquote>{reason}</blockquote></div>',
 
+	'reason_quickclear' => '{cleartype} hãy xóa {actor} <div class="quote"><blockquote>{reason}</blockquote></div>',
+
 	'modthreads_delete' => 'Chủ đề {threadsubject} không được chấp thuận, đã bị xóa !<div class="quote"><blockquote>{reason}</blockquote></div>',
+
+	'modthreads_delete_reason' => 'Published by you thread {threadsubject} was not approved, and now has been deleted! <div class="quote"><blockquote>{reason}</blockquote></div>',//'您发表的主题 {threadsubject} 未通过审核，现已被删除！<div class="quote"><blockquote>{reason}</blockquote></div>',
 
 	'modthreads_validate' => 'Chủ đề <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{threadsubject}</a> đã được phê duyệt! &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">Xem &rsaquo;</a> <div class="quote"><blockquote>{reason}</blockquote></div>',
 
@@ -101,12 +110,14 @@ Tính đến nay, bạn đã bị cảnh báo {authorwarnings} lần, xin lưu �
 	'modreplies_validate' => 'Trả lời của bạn đã được thông qua và công bố ! &nbsp; <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank" class="lit">Xem &rsaquo;</a> <p class="summary">Nội dung:<span>{post}</span></p> <div class="quote"><blockquote>{reason}</blockquote></div>',
 
 	'transfer' => 'Bạn nhận được từ {actor} số điểm là {credit} &nbsp; <a href="home.php?mod=spacecp&ac=credit&op=log&suboperation=creditslog" target="_blank" class="lit">Xem &rsaquo;</a>
-<p class="summary">{actor} Nội dung:<span>{transfermessage}</span></p>',
+<p class="summary">{actor} Nhắn: <span>{transfermessage}</span></p>',
 
 	'addfunds' => 'Bạn đã nạp điểm thành công, số tiền tương ứng đã được chuyển vào tài khoản của bạn ! &nbsp; <a href="home.php?mod=spacecp&ac=credit&op=base" target="_blank" class="lit">Xem &rsaquo;</a>
-<p class="summary">Số lệnh:<span>{orderid}</span></p><p class="summary">Chi:<span>{price} VNĐ</span></p><p class="summary">Thu nhập:<span>{value}</span></p>',
+<p class="summary">Đặt hàng số: <span>{orderid}</span></p><p class="summary">Giá: <span>{price} VND</span></p><p class="summary">Thu được: <span>{value}</span></p>',
 
 	'rate_reason' => 'Chủ đề <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank">{subject}</a> đăng bởi {actor} đánh giá {ratescore} <div class="quote"><blockquote>{reason}</blockquote></div>',
+
+	'recommend_note_post' => 'Chúc mừng, bài viết <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> của bạn đã được chỉnh sửa.',
 
 	'rate_removereason' => '{actor} thu hồi chủ đề <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank">{subject}</a> số điểm trong bài viết {ratescore} <div class="quote"><blockquote>{reason}</blockquote></div>',
 
@@ -163,6 +174,8 @@ Tính đến nay, bạn đã bị cảnh báo {authorwarnings} lần, xin lưu �
 	'grouplevel_update' => 'Chúc mừng bạn, nhóm dùng của bạn đã được nâng cấp lên {groupname} {newlevel}',
 
 	'thread_invite' => '{actor} mời bạn {invitename} <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">Xem &rsaquo;</a>',
+	'blog_invite' => '{actor} mời bạn xem blog <a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank">{subject}</a> &nbsp; <a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank" class="lit"> Xem &rsaquo;</a>',
+	'article_invite' => '{actor} mời bạn xem chủ đề <a href="portal.php?mod=view&aid={aid}" target="_blank">{subject}</a> &nbsp; <a href="portal.php?mod=view&aid={aid}" target="_blank" class="lit">Xem &rsaquo;</a>',
 	'invite_friend' => 'Chúc mừng bạn đã mời kết bạn thành công với {actor}',
 
 	'poke_request' => '<a href="{fromurl}" class="xi2">{fromusername}</a>: <span class="xw0">{pokemsg}&nbsp;</span><a href="home.php?mod=spacecp&ac=poke&op=reply&uid={fromuid}&from=notice" id="a_p_r_{fromuid}" class="xw1" onclick="showWindow(this.id, this.href, \'get\', 0);">Quay lại chào hỏi</a><span class="pipe">|</span><a href="home.php?mod=spacecp&ac=poke&op=ignore&uid={fromuid}&from=notice" id="a_p_i_{fromuid}" onclick="showWindow(\'pokeignore\', this.href, \'get\', 0);">Phớt lờ</a>',
@@ -171,6 +184,10 @@ Tính đến nay, bạn đã bị cảnh báo {authorwarnings} lần, xin lưu �
 	'profile_verify_pass' => 'Chúc mừng bạn! Thông tin {verify} đã được thông qua',
 	'profile_verify_pass_refusal' => 'Chia buồn nhé, thông tin {verify} bạn điền bị từ chối',
 	'member_ban_speak' => 'Bạn đã bị {user} cấm phát ngôn, thời hạn:{day} ngày(0: cấm vĩnh viễn), lý do: {reason}',
+	'member_ban_visit' => 'Bạn đã bị {user} cấm truy cập trong thời gian {day} ngày (0 là cấm vĩnh viễn)Với lý do: {reason}.',
+	'member_ban_status' => 'Bạn có thể bị cấm truy cập bởi {user}, với lý do: {reason}.',
+	'member_follow' => 'Bạn có {count} người theo dõi, xem <a href="home.php?mod=follow">tại đây</a>',
+	'member_follow_add' => '{actor} theo dõi, xem <a href="home.php?mod=follow&do=follower">tại đây</a>',
 
 	'member_moderate_invalidate' => 'Tài khoản của bạn đã bị từ chối, vui lòng <a href="home.php?mod=spacecp&ac=profile">gửi lại thông tin đăng ký</a>.<br />BQT: <b>{remark}</b>',
 	'member_moderate_validate' => 'Tài khoản của bạn đã được chấp thuận.<br />BQT: <b>{remark}</b>',
@@ -194,19 +211,22 @@ Tính đến nay, bạn đã bị cảnh báo {authorwarnings} lần, xin lưu �
 	'system_notice' => '{subject}<p class="summary">{message}</p>',
 	'system_adv_expiration' => 'Các quảng cáo trang web của bạn sẽ hết hạn sau {day} ngày, Vui lòng giải quyết ngay<br />{advs}',
 	'report_change_credits' => '{actor} đã xử lý báo của bạn, {creditchange} của bạn',
+	'at_message' => '<a href="home.php?mod=space&uid={buyerid}" target="_blank">{buyer}</a> trích dẫn bạn trong chủ đề <a href="forum.php?mod=redirect&goto=findpost&ptid={tid}&pid={pid}" target="_blank">{subject}</a>. Nội dung <div class="quote"><blockquote>{message}</blockquote></div> <a href="forum.php?mod=redirect&goto=findpost&ptid={tid}&pid={pid}" target="_blank">Bấm vào để xem</a>.',
 	'new_report' => 'Có báo cáo đang chờ xử lý, <a href="admin.php?action=report" target="_blank">bấm vào đây để xem</a>.',
 	'new_post_report' => 'Có báo cáo mới chở xử lý, <a href="forum.php?mod=modcp&action=report&fid={fid}" target="_blank">Click vào đây để vào quản lý</a>. ',
-	'magics_receive' => 'Bạn nhận được công cụ do {actor} tặng cho bạn {magicname}
-<p class="summary">{actor} Nội dung: <span>{msg}</span></p>
-<p class="mbn"><a href="home.php?mod=magic" target="_blank">Quay lại Shop</a>
-<span class="pipe">|</span><a href="home.php?mod=magic&action=mybox" target="_blank">Xem nhà kho</a></p>',
+	'magics_receive' => 'Bạn được {actor} tặng cho thẻ {magicname}
+<p class="summary">{actor} Nhắn: <span>{msg}</span></p>
+<p class="mbn"><a href="home.php?mod=magic" target="_blank">Giảm giá đạo cụ</a>
+<span class="pipe">|</span><a href="home.php?mod=magic&action=mybox" target="_blank">Đạo cụ của tôi</a></p>',
+	'invite_collection' => '{actor} mời bạn xem  <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a>.<br /> <a href="forum.php?mod=collection&action=edit&op=acceptinvite&ctid={ctid}&dateline={dateline}">Bấm vào đây để chấp nhận.</a>',
+	'collection_removed' => 'Quản lý của bạn trong <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> đã bị {actor} đóng.',
+	'exit_collection' => 'Bạn đã thôi quản lý <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a>',
+	'collection_becommented' => 'Album  <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> có comment mới.',
+	'collection_befollowed' => 'Album <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a> có người theo dõi mới.',
+	'collection_becollected' => 'Chúc mừng chủ đề <a href="forum.php?mod=viewthread&tid={tid}">{threadname}</a> đã được thêm vào <a href="forum.php?mod=collection&action=view&ctid={ctid}">{collectionname}</a>!',
 
 	'pmreportcontent' => '{pmreportcontent}',
 
-//vot ToDo: From install_data.sql
-'welcome_message_title'		=> 'Hello {username}! Thank you for your registration, please read the following ...',
-'welcome_message_content'	=> 'Dear {username}, you have already registered as a member at {sitename}, please when you publish, compliance with local laws and regulations.\nIf you have any questions please contact the administrator, Email: {adminemail}.\n\n\n{bbname}\n{time}',
-'terms_of_services'		=> 'This is Rules.\nMust read!',
-
 );
 
+?>
