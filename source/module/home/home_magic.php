@@ -239,7 +239,7 @@ if($action == 'shop') {
 				} else {
 					showmessage('magics_credits_no_enough', '', array('credit' => $_G['setting']['extcredits'][$magic['credit']]['title']));
 				}
-			} elseif($magic['num'] < $magicnum) {
+			} elseif($magicnum < 0 || $magic['num'] < $magicnum) {
 				showmessage('magics_num_no_enough');
 			} elseif(!$magicnum || $magicnum < 0) {
 				showmessage('magics_num_invalid');
