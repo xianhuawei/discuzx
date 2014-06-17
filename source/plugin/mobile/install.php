@@ -28,6 +28,12 @@ CREATE TABLE pre_mobile_setting (
   PRIMARY KEY (`skey`)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS pre_mobile_wsq_threadlist (
+  `skey` int(10) unsigned NOT NULL,
+  `svalue` text NOT NULL,
+  PRIMARY KEY (`skey`)
+) ENGINE=InnoDB;
+
 REPLACE INTO pre_mobile_setting VALUES ('extend_used', '1');
 REPLACE INTO pre_mobile_setting VALUES ('extend_lastupdate', '1343182299');
 

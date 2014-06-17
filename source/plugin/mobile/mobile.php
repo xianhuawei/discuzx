@@ -14,21 +14,29 @@ chdir('../../../');
 
 require_once 'source/plugin/mobile/mobile.class.php';
 
-$_GET['mobile'] = 'no';
+if($_GET['version'] != 4) {
+	$_GET['mobile'] = 'no';
+}
 
 $modules = array('extends', 'buyattachment', 'buythread', 'checkpost', 'connect',
-		'favforum', 'favthread', 'forumdisplay', 'forumindex',
-		'forumnav', 'forumupload', 'friend', 'hotforum', 'hotthread',
-		'login', 'myfavforum', 'myfavthread', 'mypm', 'mythread',
-		'newthread', 'profile', 'publicpm', 'register', 'seccode',
-		'secure', 'sendpm', 'sendreply', 'sub_checkpost', 'sublist',
-		'toplist', 'viewthread', 'uploadavatar', 'pollvote', 'mynotelist',
-		'modcp', 'topicadmin', 'forumimage', 'newthreads', 'signin', 'smiley', 'threadrecommend', 'check');
+	'favforum', 'favthread', 'forumdisplay', 'forumindex',
+	'forumnav', 'forumupload', 'friend', 'hotforum', 'hotthread',
+	'login', 'myfavforum', 'myfavthread', 'mypm', 'mythread',
+	'newthread', 'profile', 'publicpm', 'register', 'seccode',
+	'secure', 'sendpm', 'sendreply', 'sub_checkpost', 'sublist',
+	'toplist', 'viewthread', 'uploadavatar', 'pollvote', 'mynotelist',
+	'modcp', 'topicadmin', 'forumimage', 'newthreads', 'signin', 'smiley', 'threadrecommend', 'check',
+	'wsqindex', 'wsqsiteinfo', 'recommend',
+	'wechat', 'wechat_clearlogin', 'checkinfo', 'seccodehtml');
+
+$defaultversions = array(
+	'wechat' => 4,
+);
 
 if(!in_array($_GET['module'], $modules)) {
 	mobile_core::result(array('error' => 'module_not_exists'));
 }
-$_GET['version'] = !empty($_GET['version']) ? intval($_GET['version']) : 1;
+$_GET['version'] = !empty($_GET['version']) ? intval($_GET['version']) : (!$defaultversions[$_GET['module']] ? 1 : $defaultversions[$_GET['module']]);
 $_GET['version'] = $_GET['version'] > MOBILE_PLUGIN_VERSION ? MOBILE_PLUGIN_VERSION : $_GET['version'];
 
 if(empty($_GET['module']) || empty($_GET['version']) || !preg_match('/^[\w\.]+$/', $_GET['module']) || !preg_match('/^[\d\.]+$/', $_GET['version'])) {
