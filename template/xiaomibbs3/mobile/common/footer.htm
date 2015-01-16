@@ -1,0 +1,39 @@
+
+<!--{if $_G['setting']['mobile']['mobilesimpletype']}-->
+<!--{subtemplate mobile/common/footer}-->
+<!--{else}-->
+
+<!--{hook/global_footer_mobile}-->
+<div class="uiddiv ui-bar-b" data-role="navbar">
+	<ul>
+		<li><a href="$_G['siteurl']" data-icon="home" data-iconpos="top" data-ajax="false">{lang homepage}</a></li>
+		<li><a href="$nav" data-icon="star" data-iconpos="top" data-ajax="false">版块</a></li>
+		<li><a href="{$_G['setting']['mobile']['nomobileurl']}" title="{lang nomobiletype}" data-icon="grid" data-iconpos="top" data-ajax="false">{lang nomobiletype}</a></li>
+		<li><a href="#" data-rel="back" data-icon="back" data-iconpos="top" data-direction="reverse">{lang goback}</a></li>
+	</ul>
+</div>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32650205-1']);
+_gaq.push(['_addOrganic', 'baidu', 'word']);
+_gaq.push(['_addOrganic', 'soso', 'w']); 
+_gaq.push(['_addOrganic', 'vnet', 'kw']); 
+_gaq.push(['_addOrganic', 'sogou', 'query']); 
+_gaq.push(['_addOrganic', 'youdao', 'q']); 
+_gaq.push(['_addOrganic', 'so', 'q']); 
+  _gaq.push(['_setDomainName', 'xiaomi.cn']); 
+_gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+</body></html>
+<!--{eval updatesession();}-->
+<!--{if defined('IN_MOBILE')}-->
+<!--{eval output();}-->
+<!--{else}-->
+<!--{eval output_preview();}-->
+<!--{/if}-->
+<!--{/if}-->

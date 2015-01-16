@@ -1,0 +1,92 @@
+<!--{template common/header}-->
+
+<!--{if $_G['forum']['ismoderator']}-->
+<script type="text/javascript" src="{$_G[setting][jspath]}forum_moderate.js?{VERHASH}"></script>
+<!--{/if}-->
+<style id="diy_style" type="text/css"></style>
+<!--[diy=diynavtop]--><div id="diynavtop" class="area"></div><!--[/diy]-->
+
+<!--{ad/text/wp a_t}-->
+<!-- start body -->
+<div id="main">
+    <div class="ct">
+        {if $_GET['fid'] == MECHINE_CATEGORY}
+        <!--[diy=macType]-->
+        <div id="macType" class="area">
+            <div id="tab6HRjyt" class="cl_frame_bm frame-tab move-span cl">
+                <div id="tab6HRjyt_title" class="tab-title title column cl" switchtype="click">
+                    <span class="titletext">机型专区</span>
+                    <!--{block/76}-->
+                    <!--{block/77}-->
+                </div>
+                <div id="tab6HRjyt_content" class="tb-c" style="padding: 0; border-top: 1px solid #f2f2f2;"></div>
+                <script type="text/javascript">initTab("tab6HRjyt","click");</script>
+            </div>
+        </div><!--[/diy]-->
+
+        {elseif $_GET['fid'] == FLYME_CATEGORY}
+        <!--{block/69}-->
+        {elseif $_GET['fid'] == PARADISE_CATEGORY}
+        <!--{block/70}-->
+        <!--{block/71}-->
+        {elseif $_GET['fid'] == BREAKING_CATEGORY}
+        <!--{block/79}-->
+        {/if}
+        <div id="main_content">
+            <!-- start content -->
+            <!-- start notice -->
+            <!--{subtemplate common/common_notice}-->
+            <!-- end notice -->
+            <!--{subtemplate forum/forumdisplayall_list}-->
+            <!-- end content -->
+        </div>
+        <!-- start sidebar -->
+        <!--{subtemplate forum/forumdisplay_rightside}-->
+        <!-- end sidebar -->
+    </div>
+</div>
+<!-- end body -->
+
+<!--{if $_G['group']['allowpost'] && ($_G['group']['allowposttrade'] || $_G['group']['allowpostpoll'] || $_G['group']['allowpostreward'] || $_G['group']['allowpostactivity'] || $_G['group']['allowpostdebate'] || $_G['setting']['threadplugins'] || $_G['forum']['threadsorts'])}-->
+<ul class="p_pop" id="newspecial_menu" style="display: none">
+    <!--{if !$_G['forum']['allowspecialonly']}--><li><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]">{lang post_newthread}</a></li><!--{/if}-->
+    <!--{if $_G['forum']['threadsorts'] && !$_G['forum']['allowspecialonly']}-->
+    <!--{loop $_G['forum']['threadsorts']['types'] $id $threadsorts}-->
+    <!--{if $_G['forum']['threadsorts']['show'][$id]}-->
+    <li class="popupmenu_option"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&extra=$extra&sortid=$id">$threadsorts</a></li>
+    <!--{/if}-->
+    <!--{/loop}-->
+    <!--{/if}-->
+    <!--{if $_G['group']['allowpostpoll']}--><li class="poll"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=1">{lang post_newthreadpoll}</a></li><!--{/if}-->
+    <!--{if $_G['group']['allowpostreward']}--><li class="reward"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=3">{lang post_newthreadreward}</a></li><!--{/if}-->
+    <!--{if $_G['group']['allowpostdebate']}--><li class="debate"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=5">{lang post_newthreaddebate}</a></li><!--{/if}-->
+    <!--{if $_G['group']['allowpostactivity']}--><li class="activity"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=4">{lang post_newthreadactivity}</a></li><!--{/if}-->
+    <!--{if $_G['group']['allowposttrade']}--><li class="trade"><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=2">{lang post_newthreadtrade}</a></li><!--{/if}-->
+    <!--{if $_G['setting']['threadplugins']}-->
+    <!--{loop $_G['forum']['threadplugin'] $tpid}-->
+    <!--{if array_key_exists($tpid, $_G['setting']['threadplugins']) && @in_array($tpid, $_G['group']['allowthreadplugin'])}-->
+    <li class="popupmenu_option"{if $_G['setting']['threadplugins'][$tpid][icon]} style="background-image:url(source/plugin/$tpid/$_G[setting][threadplugins][$tpid][icon])"{/if}><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&specialextra=$tpid">{$_G[setting][threadplugins][$tpid][name]}</a></li>
+    <!--{/if}-->
+    <!--{/loop}-->
+    <!--{/if}-->
+</ul>
+<!--{/if}-->
+
+<!--{if $_G['setting']['visitedforums'] && $_G['forum']['status'] != 3}-->
+<div id="visitedforums_menu" class="p_pop blk cl" style="display: none;">
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            <td id="v_forums">
+                <h3 class="mbn pbn bbda xg1">{lang viewed_forums}</h3>
+                <ul class="xl xl1">
+                    $_G['setting']['visitedforums']
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+<!--{/if}-->
+<!--{if $_G['setting']['threadmaxpages'] > 1 && $page && !$subforumonly}-->
+<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, <!--{if $page > 1}-->1<!--{else}-->0<!--{/if}-->, <!--{if $page < $_G['setting']['threadmaxpages'] && $page < $_G['page_next']}-->1<!--{else}-->0<!--{/if}-->, 'forum.php?mod=forumdisplay&fid={$_G[fid]}&filter={$filter}&orderby={$_GET[orderby]}{$forumdisplayadd[page]}&{$multipage_archive}', $page);}</script>
+<!--{/if}-->
+<!--{template common/footer}-->

@@ -1,0 +1,52 @@
+
+<!--{if $_G['setting']['mobile']['mobilesimpletype']}-->
+<!--{subtemplate mobile/forum/discuz}-->
+<!--{else}-->
+
+<!--{subtemplate mobile/common/header}-->
+<style type="text/css">
+.ui-content .ui-listview-inset { margin:0.5em -10px;}
+</style>
+
+
+<!--{hook/index_top_mobile}-->
+
+
+					<!--{if $forum_favlist}-->
+					<!--{loop $forum_favlist $key $favorite}-->
+					<!--{eval $forum=$favforumlist[$favorite[id]];}-->
+				<!--{eval $i=$forum[fid]}-->
+                <!--{eval $z=($z.$i)}-->
+					<!--{/loop}-->
+					<!--{/if}-->
+
+
+            <div data-role="content">
+                <ul data-role="listview" data-divider-theme="b" data-inset="true" data-count-theme="b">
+        <!--{loop $catlist $key $cat}-->
+        <!--{if $_G[setting][mobile][mobileforumview] == 0 || ($cat[fid] == $_GET[viewgid])}-->
+                    <li data-role="list-divider" role="heading">
+                        <!--{if $_G[setting][mobile][mobileforumview] == 1}--><a href="forum.php?viewgid={if $cat[fid] != $_GET[viewgid]}{$cat[fid]}{else}0{/if}">$cat[name]</a><!--{else}-->$cat[name]<!--{/if}-->
+                    </li>
+                    <!--{loop $cat[forums] $forumid}-->
+                    <!--{eval $forum=$forumlist[$forumid];}-->
+                    <li {if strstr($z,$forum[fid])}data-icon="star" data-theme="e"{else}data-theme="c"{/if} >
+						<a href="forum.php?mod=forumdisplay&fid={$forum['fid']}" style="padding:0px 6px 2px 18px;" data-transition="none">
+							<p style="font-size:1.4em;padding:0; margin:7px 0 7px 0;letter-spacing:1px;"><strong>{$forum[name]}</strong></p>
+							<p><strong>{lang index_threads} {$forum[threads]} / {$forum[posts]}</strong><span style="color:#aaa;"> | {$forum[lastpost][dateline]}</span></p>
+							<!--{if $_GET[simpletype]!='yes' && $forum[description]}-->
+							<p><!--{echo cutstr($forum[description], 500)}--></p>
+							<!--{/if}-->
+							<span class="ui-li-count" style="font-size:14px;">{$forum[todayposts]}</span>
+						</a>
+                    </li>
+                    <!--{/loop}-->
+		<!--{/if}-->
+        <!--{/loop}-->
+                </ul>
+            </div>
+
+<!--{hook/index_middle_mobile}-->
+<!--{hook/index_bottom_mobile}-->
+<!--{subtemplate mobile/common/footer}-->
+<!--{/if}-->

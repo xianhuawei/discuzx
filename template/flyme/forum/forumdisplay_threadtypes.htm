@@ -1,0 +1,27 @@
+<ul class="filter">
+		<!--{hook/forumdisplay_threadtype_inner}-->
+		<li id="ttp_all" {if !$_GET['typeid'] && !$_GET['sortid']}class="xw1 a"{/if}><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_G['forum']['threadsorts']['defaultshow']}&filter=sortall&sortall=1{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang forum_viewall}</a></li>
+		<!--{if $_G['forum']['threadtypes']}-->
+			<!--{loop $_G['forum']['threadtypes']['types'] $id $name}-->
+				<!--{if $_GET['typeid'] == $id}-->
+				<li class="xw1 a"><a class="linkABlueTop" href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_GET['sortid']}&filter=sortid&sortid=$_GET['sortid']{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}"><!--{if $_G[forum][threadtypes][icons][$id] && $_G['forum']['threadtypes']['prefix'] == 2}--><img class="vm" src="$_G[forum][threadtypes][icons][$id]" alt="" /> <!--{/if}-->$name<!--{if $showthreadclasscount[typeid][$id]}--><!--{/if}--></a></li>
+				<!--{else}-->
+				<li><a <!--{if $_GET['typeid'] == $id}-->class="linkABlueTop" <!--{/if}--> href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&typeid=$id$forumdisplayadd[typeid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}"><!--{if $_G[forum][threadtypes][icons][$id] && $_G['forum']['threadtypes']['prefix'] == 2}--><img class="vm" src="$_G[forum][threadtypes][icons][$id]" alt="" /> <!--{/if}-->$name<!--{if $showthreadclasscount[typeid][$id]}--><!--{/if}--></a></li>
+				<!--{/if}-->
+			<!--{/loop}-->
+		<!--{/if}-->
+
+		<!--{if $_G['forum']['threadsorts']}-->
+			<!--{if $_G['forum']['threadtypes']}--><li><span class="pipe">|</span></li><!--{/if}-->
+			<!--{loop $_G['forum']['threadsorts']['types'] $id $name}-->
+				<!--{if $_GET['sortid'] == $id}-->
+				<li class="xw1 a"><a class="linkABlueTop" href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_GET['typeid']}&filter=typeid&typeid=$_GET['typeid']{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">$name<!--{if $showthreadclasscount[sortid][$id]}--><!--{/if}--></a></li>
+				<!--{else}-->
+				<li><a class="linkABlueTop" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=sortid&sortid=$id$forumdisplayadd[sortid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">$name<!--{if $showthreadclasscount[sortid][$id]}--><!--{/if}--></a></li>
+				<!--{/if}-->
+			<!--{/loop}-->
+		<!--{/if}-->
+		<!--{hook/forumdisplay_filter_extra}-->
+		<li style="clear:both;"><li>
+	</ul>
+	<script type="text/javascript">showTypes('thread_types');</script>

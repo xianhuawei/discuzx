@@ -1,0 +1,532 @@
+
+<!--{subtemplate common/header_common}-->
+	<meta name="robots" content="noindex,nofollow" />
+	<meta name="application-name" content="$_G['setting']['bbname']" />
+	<meta name="msapplication-tooltip" content="$_G['setting']['bbname']" />
+	<!--{if $_G['setting']['portalstatus']}--><meta name="msapplication-task" content="name=$_G['setting']['navs'][1]['navname'];action-uri={echo !empty($_G['setting']['domain']['app']['portal']) ? 'http://'.$_G['setting']['domain']['app']['portal'] : $_G[siteurl].'portal.php'};icon-uri={$_G[siteurl]}{IMGDIR}/portal.ico" /><!--{/if}-->
+	<meta name="msapplication-task" content="name=$_G['setting']['navs'][2]['navname'];action-uri={echo !empty($_G['setting']['domain']['app']['forum']) ? 'http://'.$_G['setting']['domain']['app']['forum'] : $_G[siteurl].'forum.php'};icon-uri={$_G[siteurl]}{IMGDIR}/bbs.ico" />
+	<!--{if $_G['setting']['groupstatus']}--><meta name="msapplication-task" content="name=$_G['setting']['navs'][3]['navname'];action-uri={echo !empty($_G['setting']['domain']['app']['group']) ? 'http://'.$_G['setting']['domain']['app']['group'] : $_G[siteurl].'group.php'};icon-uri={$_G[siteurl]}{IMGDIR}/group.ico" /><!--{/if}-->
+	<!--{if helper_access::check_module('feed')}--><meta name="msapplication-task" content="name=$_G['setting']['navs'][4]['navname'];action-uri={echo !empty($_G['setting']['domain']['app']['home']) ? 'http://'.$_G['setting']['domain']['app']['home'] : $_G[siteurl].'home.php'};icon-uri={$_G[siteurl]}{IMGDIR}/home.ico" /><!--{/if}-->
+	<!--{if $_G['basescript'] == 'forum' && $_G['setting']['archiver']}-->
+		<link rel="archives" title="$_G['setting']['bbname']" href="{$_G[siteurl]}archiver/" />
+	<!--{/if}-->
+	<!--{if !empty($rsshead)}-->$rsshead<!--{/if}-->
+	<!--{if widthauto()}-->
+		<link rel="stylesheet" id="css_widthauto" type="text/css" href="data/cache/style_{STYLEID}_widthauto.css?{VERHASH}" />
+		<script type="text/javascript">HTMLNODE.className += ' widthauto'</script>
+	<!--{/if}-->
+	<!--{if $_G['basescript'] == 'forum' || $_G['basescript'] == 'group'}-->
+		<script type="text/javascript" src="{$_G[setting][jspath]}forum.js?{VERHASH}"></script>
+	<!--{elseif $_G['basescript'] == 'home' || $_G['basescript'] == 'userapp'}-->
+		<script type="text/javascript" src="{$_G[setting][jspath]}home.js?{VERHASH}"></script>
+	<!--{elseif $_G['basescript'] == 'portal'}-->
+		<script type="text/javascript" src="{$_G[setting][jspath]}portal.js?{VERHASH}"></script>
+	<!--{/if}-->
+	<!--{if $_G['basescript'] != 'portal' && $_GET['diy'] == 'yes' && check_diy_perm($topic)}-->
+		<script type="text/javascript" src="{$_G[setting][jspath]}portal.js?{VERHASH}"></script>
+	<!--{/if}-->
+	<!--{if $_GET['diy'] == 'yes' && check_diy_perm($topic)}-->
+	<link rel="stylesheet" type="text/css" id="diy_common" href="data/cache/style_{STYLEID}_css_diy.css?{VERHASH}" />
+	<!--{/if}-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32650205-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+<style>
+    .clearfix {
+        zoom: 1
+    }
+
+    .clearfix:before, .clearfix:after {
+        display: table;
+        content: "";
+        line-height: 0
+    }
+
+    .clearfix:after {
+        clear: both
+    }
+
+    @-webkit-keyframes heartBig {
+        0% {
+            width: 16px;
+            opacity: .9;
+            filter: alpha(opacity=90)
+        }
+        100% {
+            width: 30px;
+            opacity: .1;
+            filter: alpha(opacity=10)
+        }
+    }
+
+    @keyframes heartBig {
+        0% {
+            width: 16px;
+            opacity: .9;
+            filter: alpha(opacity=90)
+        }
+        100% {
+            width: 30px;
+            opacity: .1;
+            filter: alpha(opacity=10)
+        }
+    }
+
+    @-moz-keyframes heartBig {
+        0% {
+            width: 16px;
+            opacity: .9;
+            filter: alpha(opacity=90)
+        }
+        100% {
+            width: 30px;
+            opacity: .1;
+            filter: alpha(opacity=10)
+        }
+    }
+
+    @-o-keyframes heartBig {
+        0% {
+            width: 16px;
+            opacity: .9;
+            filter: alpha(opacity=90)
+        }
+        100% {
+            width: 30px;
+            opacity: .1;
+            filter: alpha(opacity=10)
+        }
+    }
+
+    .headerInner {
+        width: 960px;
+        margin: 0 auto;
+    }
+
+    .headerInner .logo {
+        position: relative;
+        height: 110px;
+        /*background: url("http://static.xiaomi.cn/xiaomicms/statics/images/comm_v2/headerLogo.png") no-repeat;*/
+        overflow: hidden
+    }
+
+    .headerInner .logo a.logo_img {
+        float: left;
+        height: 100%;
+        min-width: 190px
+    }
+
+    .headerInner .logo .info .ju {
+        float: left;
+        height: 20px;
+        line-height: 16px
+    }
+
+    .headerInner .logo .info .btn {
+        float: left;
+        position: relative;
+        font-size: 12px;
+        line-height: 16px
+    }
+
+    .headerInner .logo .info .btn .heartspace {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        background-image: url("http://p.www.xiaomi.com/zt/131114/images/heart5.png");
+
+        background-position: 12px 0px;
+        background-repeat: no-repeat
+    }
+
+    .headerInner .logo .info .btn .heartspace .heart {
+        width: 16px;
+        display: inline-block;
+        position: relative;
+        vertical-align: -2px;
+        z-index: 5;
+        cursor: pointer
+    }
+
+    .headerInner .logo .info .btn .warninfo {
+        padding-left: 20px;
+        padding-right: 20px;
+        height: 27px;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        color: #646c78;
+        font-size: 12px;
+        line-height: 27px;
+        text-align: center;
+        position: absolute;
+        border-radius: 15px;
+        top: -22px;
+        left: -30px;
+        display: none
+    }
+
+    .headerInner .logo .info .btn .warninfo .angle {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-width: 8px;
+        border-color: #ddd transparent transparent transparent;
+        border-style: solid;
+        position: absolute;
+        bottom: -16px;
+        left: 28px;
+        z-index: 1;
+        _display: none
+    }
+
+    .headerInner .logo .info .btn .warninfo .angleC {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-width: 7px;
+        border-color: #fff transparent transparent transparent;
+        border-style: solid;
+        position: absolute;
+        \bottom: -13px;
+        left: 29px;
+        z-index: 2;
+        _display: none
+    }
+
+    .headerInner .logo .info .btn .heartBig {
+        animation: heartBig 1s ease-in-out;
+        -moz-animation: heartBig 1s ease-in-out;
+        -webkit-animation: heartBig 1s ease-in-out;
+        -o-animation: heartBig 1s ease-in-out
+    }
+
+    .headerInner .logo .info .btn .zancount {
+        position: absolute;
+        top: 0;
+        left: 35px;
+        width: 200px;
+        font-size: 15px;
+    }
+</style>
+    <!--<link rel="stylesheet" type="text/css" href="{STATICURL}/xiaomi/xiaomi_temp.css" />-->
+</head>
+
+<body id="nv_{$_G[basescript]}" class="pg_{CURMODULE}{if $_G['basescript'] === 'portal' && CURMODULE === 'list' && !empty($cat)} {$cat['bodycss']}{/if}" onkeydown="if(event.keyCode==27) return false;">
+	<div id="append_parent"></div><div id="ajaxwaitid"></div>
+	<!--{if $_GET['diy'] == 'yes' && check_diy_perm($topic)}-->
+		<!--{template common/header_diy}-->
+	<!--{/if}-->
+	<!--{if check_diy_perm($topic)}-->
+		<!--{template common/header_diynav}-->
+	<!--{/if}-->
+	<!--{if CURMODULE == 'topic' && $topic && empty($topic['useheader']) && check_diy_perm($topic)}-->
+		$diynav
+	<!--{/if}-->
+	<!--{if empty($topic) || $topic['useheader']}-->
+		<!--{if $_G['setting']['mobile']['allowmobile'] && (!$_G['setting']['cacheindexlife'] && !$_G['setting']['cachethreadon'] || $_G['uid']) && ($_GET['diy'] != 'yes' || !$_GET['inajax']) && ($_G['mobile'] != '' && $_G['cookie']['mobile'] == '' && $_GET['mobile'] != 'no')}-->
+			<div class="xi1 bm bm_c">
+			    {lang your_mobile_browser}<a href="{$_G['siteurl']}forum.php?mobile=yes">{lang go_to_mobile}</a> <span class="xg1">|</span> <a href="$_G['setting']['mobile']['nomobileurl']">{lang to_be_continue}</a>
+			</div>
+		<!--{/if}-->
+		<!--{if $_G['setting']['shortcut'] && $_G['member'][credits] >= $_G['setting']['shortcut']}-->
+			<div id="shortcut">
+				<span><a href="javascript:;" id="shortcutcloseid" title="{lang close}">{lang close}</a></span>
+				{lang shortcut_notice}
+				<a href="javascript:;" id="shortcuttip">{lang shortcut_add}</a>
+
+			</div>
+			<script type="text/javascript">setTimeout(setShortcut, 2000);</script>
+		<!--{/if}-->
+		<div id="toptb" class="cl">
+			<!--{hook/global_cpnav_top}-->
+			<div class="wp">
+				<div class="z">
+					<!--{loop $_G['setting']['topnavs'][0] $nav}-->
+						<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->$nav[code]<!--{/if}-->
+					<!--{/loop}-->
+					<!--{hook/global_cpnav_extra1}-->
+				</div>
+				<div class="y">
+					<a id="switchblind" href="javascript:;" onclick="toggleBlind(this)" title="{lang switch_blind}" class="switchblind">{lang switch_blind}</a>
+					<!--{hook/global_cpnav_extra2}-->
+					<!--{loop $_G['setting']['topnavs'][1] $nav}-->
+						<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->$nav[code]<!--{/if}-->
+					<!--{/loop}-->
+					<!--{if $_G['uid'] && empty($_G['disabledwidthauto']) && $_G['setting']['switchwidthauto']}-->
+						<a href="javascript:;" id="switchwidth" onclick="widthauto(this)" title="{if widthauto()}{lang switch_narrow}{else}{lang switch_wide}{/if}" class="switchwidth"><!--{if widthauto()}-->{lang switch_narrow}<!--{else}-->{lang switch_wide}<!--{/if}--></a>
+					<!--{/if}-->
+					<!--{if $_G['uid'] && !empty($_G['style']['extstyle'])}--><a id="sslct" href="javascript:;" onmouseover="delayShow(this, function() {showMenu({'ctrlid':'sslct','pos':'34!'})});">{lang changestyle}</a><!--{/if}-->
+					<!--{if check_diy_perm($topic)}-->
+						$diynav
+					<!--{/if}-->
+				</div>
+			</div>
+            <script type="text/javascript">
+                (function() {
+                    var links = $('toptb').getElementsByTagName('a');
+
+                    for(var i = 0; i < links.length; i++) {
+                        var current = links[i];
+
+                        if (!(current.parentNode.className == "z" || current.parentNode.className == "y")) {
+                            continue
+                        } else if (current.innerHTML.indexOf("<") > -1) {
+                            continue
+                        }
+
+                        var temp = current.getAttribute("onclick");
+                        var action = "_gaq.push(['_trackEvent', 'BBSToolbar', '" + current.innerHTML + "']);";
+                        current.setAttribute("onclick", temp == null ? action : action + temp);
+                    }
+                })();
+            </script>
+		</div>
+
+		<!--{if !IS_ROBOT}-->
+			<!--{if $_G['uid']}-->
+                <ul id="pm_ntc_menu" class="p_pop pm_ntc_menu_xiaomi" style="display: none;">
+                    <!--{if !empty($_G[member][newpm])}-->
+                    <li>
+                        {$_G[member][newpm]}条新{lang pm_center}，&nbsp;&nbsp;
+                        <a href="home.php?mod=space&do=pm" style="background-repeat: no-repeat; background-position: 0 50%;">
+                            查看{lang pm_center}
+                            <!--{if $_G['uid']}--><em class="prompt_news{if empty($_G[member][newpm])}_0{/if}"></em><!--{/if}-->
+                        </a>
+                    </li>
+                    <!--{/if}-->
+
+                    <!--{if $_G['uid'] && $_G[member][newprompt_num][follower]}-->
+                    <li>
+                        {$_G[member][newprompt_num][follower]}位{lang notice_interactive_follower}，&nbsp;&nbsp;
+                        <a href="home.php?mod=follow&do=follower">
+                            查看<!--{lang notice_interactive_follower}-->
+                            <!--{if $_G['uid']}-->{if $_G[member][newprompt_num][follower]}($_G[member][newprompt_num][follower]){/if}<!--{/if}-->
+                            <!--{if $_G['uid']}--><em class="prompt_follower{if empty($_G[member][newprompt_num][follower])}_0{/if}"></em><!--{/if}-->
+                        </a>
+                    </li>
+                    <!--{/if}-->
+
+                    <!--{if $_G['uid'] && $_G[member][newprompt] && $_G[member][newprompt_num][follow]}-->
+                        <li>
+                            {$_G[member][newprompt_num][follow]}条<!--{lang notice_interactive_follow}-->，&nbsp;&nbsp;
+                            <a href="home.php?mod=follow">
+                                查看<!--{lang notice_interactive_follow}-->
+                                <!--{if $_G['uid']}-->($_G[member][newprompt_num][follow])<!--{/if}-->
+                                <!--{if $_G['uid']}--><em class="prompt_concern"></em><!--{/if}-->
+                            </a>
+                        </li>
+                    <!--{/if}-->
+
+                    <!--{if $_G[member][newprompt]}-->
+                    <li>
+                        {$_G[member][newprompt]}条提醒，&nbsp;&nbsp;<a href="home.php?mod=space&do=notice">查看提醒</a>
+                    </li>
+                    <!--{/if}-->
+
+                    <!--{if $_G[member][newprompt] && $_G[member][newprompt_num][post]}-->
+                    <li>
+                        {$_G[member][newprompt_num][post]}条帖子回复，&nbsp;&nbsp;<a href="home.php?mod=space&do=notice&type=post">查看回复</a>
+                    </li>
+                    <!--{/if}-->
+
+                    <!--{if $_G[member][newprompt] && $_G[member][newprompt_num][at]}-->
+                    <li>
+                        {$_G[member][newprompt_num][at]}条@提到我，&nbsp;&nbsp;<a href="home.php?mod=space&do=notice&type=at">查看@</a>
+                    </li>
+                    <!--{/if}-->
+
+                    <!--{if $_G[member][newprompt] && $_G[member][newprompt_num][friend]}-->
+                    <li>
+                        {$_G[member][newprompt_num][friend]}条好友请求，&nbsp;&nbsp;<a href="home.php?mod=space&do=notice&type=friend">查看请求</a>
+                    </li>
+                    <!--{/if}-->
+
+                    <!--{if $_G['uid'] && $_G[member][newprompt]}-->
+                        <!--{loop $_G['member']['category_num'] $key $val}-->
+                            <li>
+                                {$val}条<!--{echo lang('template', 'notice_'.$key)}-->，&nbsp;&nbsp;
+                                <a href="home.php?mod=space&do=notice&view=$key">
+                                    查看<!--{echo lang('template', 'notice_'.$key)}-->
+                                    <!--{if $_G['uid']}-->(<span class="rq">$val</span>)<!--{/if}-->
+                                    <!--{if $_G['uid']}--><em class="notice_$key"></em><!--{/if}-->
+                                </a>
+                            </li>
+                        <!--{/loop}-->
+                    <!--{/if}-->
+
+                    <!--{if empty($_G['cookie']['ignore_notice'])}-->
+                    <li class="ignore_noticeli">
+                        <a href="javascript:;" onclick="setcookie('ignore_notice', 1);hideMenu('pm_ntc_menu')" title="{lang temporarily_to_remind}">
+                            <em class="ignore_notice"></em>
+                        </a>
+                    </li>
+                    <!--{/if}-->
+				</ul>
+			<!--{/if}-->
+			<!--{if $_G['uid'] && !empty($_G['style']['extstyle'])}-->
+				<div id="sslct_menu" class="cl p_pop" style="display: none;">
+					<!--{if !$_G[style][defaultextstyle]}--><span class="sslct_btn" onclick="extstyle('')" title="{lang default}"><i></i></span><!--{/if}-->
+					<!--{loop $_G['style']['extstyle'] $extstyle}-->
+						<span class="sslct_btn" onclick="extstyle('$extstyle[0]')" title="$extstyle[1]"><i style='background:$extstyle[2]'></i></span>
+					<!--{/loop}-->
+				</div>
+			<!--{/if}-->
+			<!--{subtemplate common/header_qmenu}-->
+		<!--{/if}-->
+
+		<!--{ad/headerbanner/wp a_h}-->
+		<div id="hd" class="xm_header">
+            <div class="xm_headerInner headerInner">
+				<!--{eval $mnid = getcurrentnav();}-->
+				<div class="logo" id="logo">
+                    <!--{if !isset($_G['setting']['navlogos'][$mnid])}-->
+                        <a class="logo_img" id="logoImg" href="{if $_G['setting']['domain']['app']['default']}http://{$_G['setting']['domain']['app']['default']}/{else}./{/if}" title="$_G['setting']['bbname']">{$_G['style']['boardlogo']}</a> 
+                    <!--{else}-->
+                        $_G['setting']['navlogos'][$mnid]
+                    <!--{/if}-->
+					<div class="info clearfix " style="float: left;margin-left: -78px;margin-top: 80px;color: #656D78;" >
+						<div class="ju"> <a style="color: #656D78;font-size:15px;" id="logoText" href="http://bbs.xiaomi.cn/qiandao/" target="_blank">永远相信美好的事情即将发生</a></div>
+						 <div class="btn J_btnheart" id="logoDianzan" style="cursor:pointer;">
+                
+								<div class="heartspace">
+									<img src="http://p.www.xiaomi.com/zt/131114/images/heart2.png" alt="" class="heart J_heart" id="logo_text_like">
+								</div>
+								<div class="warninfo J_warninfo" id="logo_warninfo" style="left:-17px;top:-37px;">
+									<span class="error" id="logo_text_msg" style="width:120px;"></span>
+									<span class="angle"></span>
+									<span class="angleC"></span>
+								</div>
+								<div class="zancount">  
+								<span class="J_zancount" id="logo_text_count">30873</span>次赞
+								</div>
+							</div> 
+					</div>
+                </div>
+                <script type="text/javascript" src="http://oss.xiaomi.com/cmsApi/logo/GetLogo"></script>
+				<script type="text/javascript" src="static/js/mobile/jquery-1.8.3.min.js"></script>
+                <script type="text/javascript">
+                    (function() {
+                        try {
+                            if (logo_url) {
+                                var logoImg = document.getElementById("logoImg").getElementsByTagName("img")[0];
+                                logoImg.src = logo_url;
+                            }
+                        } catch (e) {}
+                        try {
+                            if (logo_text) {
+                                var logoText = document.getElementById("logoText");
+                                logoText.innerHTML = logo_text;
+                            }
+                        } catch (e) {}
+						try {
+							if (logo_text_count) {
+								var logoTextCount = document.getElementById('logo_text_count');
+								logoTextCount.innerHTML = logo_text_count;
+							}
+						} catch (e) {}
+						var jq = jQuery.noConflict();
+						$("logoDianzan").onclick = function(){
+							 jq.ajax({
+								url: "/api.php?mod=point_like",
+								type: "get",
+								dataType: 'json',
+								success: function(o) {
+									if (o.code === 200) {
+										/*心跳效果*/
+										logo_text_count++;
+										var remove = function() {
+											jq("#logo_text_count").html(logo_text_count);
+											jq(".heart").removeClass("heartBig");
+										}
+										jq("#logo_text_like").addClass("heartBig");
+										setTimeout(remove, 1000);
+									} else {
+										/*提示框*/
+										jq('#logo_warninfo').css('width',o.width+'px');
+										jq('#logo_text_msg').html(o.msg);
+										jq(".warninfo").fadeIn(300);
+										var fadeOut = function() {
+											jq(".warninfo").fadeOut(700);
+										}
+										setTimeout(fadeOut, 3000);
+									}
+
+								}, error: function() {
+									alert('网络错误，请稍后重试！');
+								}
+
+							})
+						}
+                    })()
+                </script>
+
+                <div class="info">
+                    <!--{template common/header_userstatus}-->
+                </div>
+
+				<div id="nv">
+					<a href="javascript:;" id="qmenu" class="qmenu_xiaomi" onmouseover="delayShow(this, function () {showMenu({'ctrlid':'qmenu','pos':'34!','ctrlclass':'a','duration':2});showForummenu($_G[fid]);})">{lang my_nav}</a>
+                    <!--{subtemplate common/pubsearchform_xiaomi}-->
+                    <ul class="xm_nav">
+						<!--{loop $_G['setting']['navs'] $nav}-->
+							<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}--><!--eval echo $mnid;--><li {if $mnid == $nav[navid]}class="a" {/if}$nav[nav]></li><!--{/if}-->
+						<!--{/loop}-->
+					</ul>
+					<script type="text/javascript">
+					(function() {
+						var links = $('nv').getElementsByClassName('xm_nav')[0].getElementsByTagName('a');
+
+						for(var i = 0; i < links.length; i++) {
+							var current = links[i];
+
+                            var temp = current.getAttribute("onclick");
+                            var action = "_gaq.push(['_trackEvent', '论坛导航条', '" + current.innerHTML.replace(/<span>[^>]+<\/span>/g,"") + "']);";
+                            current.setAttribute("onclick", temp == null ? action : action + temp);
+                        }
+					})();
+					</script>
+					<!--{hook/global_nav_extra}-->
+				</div>
+
+                <!--{if !empty($_G['setting']['plugins']['jsmenu'])}-->
+					<ul class="p_pop h_pop" id="plugin_menu" style="display: none">
+					<!--{loop $_G['setting']['plugins']['jsmenu'] $module}-->
+						 <!--{if !$module['adminid'] || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}-->
+						 <li>$module[url]</li>
+						 <!--{/if}-->
+					<!--{/loop}-->
+					</ul>
+				<!--{/if}-->
+                $_G[setting][menunavs]
+                <div id="mu" class="cl">
+				<!--{if $_G['setting']['subnavs']}-->
+					<!--{loop $_G[setting][subnavs] $navid $subnav}-->
+						<!--{if $_G['setting']['navsubhover'] || $mnid == $navid}-->
+						<ul class="cl {if $mnid == $navid}current{/if}" id="snav_$navid" style="display:{if $mnid != $navid}none{/if}">
+						$subnav
+						</ul>
+						<!--{/if}-->
+					<!--{/loop}-->
+				<!--{/if}-->
+				</div>
+				<!--{ad/subnavbanner/a_mu}-->
+				<!--"{"subtemplate common/pubsearchform"}"-->
+			</div>
+		</div>
+
+		<!--{hook/global_header}-->
+	<!--{/if}-->
+
+	<div id="wp" class="wp">

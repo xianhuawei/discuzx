@@ -1,0 +1,49 @@
+<!--{subtemplate common/header}-->
+<style>
+.forumlist table, .threadlist table,.pages_btns{border-right:none;}
+.threadlist td.lastpost{ width:120px;}
+td.nums{text-align:center;}
+.threadlist{ border-top:none;}
+.pages_btns{ border-bottom:1px solid #DFDFDF;}
+.tsearch tr td, .tsearch tr th{ height:52px; font-size:15px; color:#646464 !important; padding:0 5px 0 0;vertical-align: middle;}
+.tsearch tr th{padding:0 10px;}
+.tsearch a{ color:#646464 !important; text-decoration:none;}
+.tsearch a:hover{text-decoration:underline;}
+.tsearch thead tr td,.tsearch thead tr th{ height:40px !important;}
+.crumbs{ margin-top:20px;}
+.mw{ background-color:#FFFFFF;}
+.tl td { border-bottom:1px solid #f2f2f2;}
+.td_first{text-indent:10px;}
+</style>
+<div  class="cl w">
+    <div class="crumbs">
+    	<a class="crumb" href="/">首页</a> <div class="crumb_arrow"></div> <a class="crumb" href="javascript:;">搜索</a>
+        <div class="crumb_arrow crumb_arrow_last"></div><a  class="crumb crumb_last" href="javascript:;">{$keyword}</a>
+    </div>
+	<div style="clear:both"></div>
+	<div class="mw">
+		<!--{if !empty($searchid) && submitcheck('searchsubmit', 1)}-->
+			<!--{subtemplate search/thread_list}-->
+        <!--{else}-->
+        	<div class="tl" >
+        	<div style="margin:0" class="mainbox threadlist">
+            <table cellspacing="0" cellpadding="0" class="tsearch">
+            <thead>
+            <tr style=" background-color:#E6EAEB;">
+            <th style="width:50%;">标题</th>
+            <td width="95" style="width:95px;" class="forum">板块</td>
+            <td width="130" style="width:130px;" class="author">作者</td>
+            <td width="60" style="width:60px;" class="nums">回复</td>
+            <td width="60" style="width:60px;" class="nums">查看</td>
+            <td width="130" style="width:130px;" class="lastpost">最后更新</td>
+            </tr>
+            </thead>
+            <tbody><tr><th style='height:460px;' colspan="6">对不起，没有找到匹配结果。</th></tr></tbody>
+            </table>
+            </div>
+            </div>
+		<!--{/if}-->
+	</div>
+</div>
+
+<!--{subtemplate common/footer}-->

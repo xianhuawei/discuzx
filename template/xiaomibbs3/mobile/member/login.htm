@@ -1,0 +1,61 @@
+
+<!--{subtemplate common/header}-->
+<style type="text/css">
+	.loginform{padding:1.5em;}
+	.loginDiv{padding:0.4em;}
+	.userInput input{text-align:center;width:92%;margin: 0.2em auto;}
+</style>
+{eval $loginhash = 'L'.random(4);}
+<form method="post" class="loginform" action="member.php?mod=logging&action=login&loginsubmit=yes&loginhash=$loginhash&mobile=yes" onsubmit="{if $_G['setting']['pwdsafety']}pwmd5('password3_$loginhash');{/if}"  data-ajax="false">
+
+	<input type="hidden" name="formhash" id="formhash" value='{FORMHASH}' />
+	<input type="hidden" name="referer" id="referer" value="<!--{if dreferer()}-->{echo dreferer()}<!--{else}-->forum.php?mobile=yes<!--{/if}-->" />
+	
+<ul data-role="listview" data-inset="true" class="loginDiv">
+	<li style="text-align: center;font-size: 1em; font-weight: bold;">{lang username} / {lang password}</li>
+	<li class="userInput">
+		<select name="fastloginfield" id="fastloginfield_{$loginhash}">
+		<option value="username">{lang username}</option>
+		<!--{if getglobal('setting/uidlogin')}-->
+		<option value="uid">UID</option>
+		<!--{/if}-->
+		<option value="email">Email</option>
+		</select>
+		<label for="username" class="ui-hidden-accessible">{lang username}</label>
+		<input type="text" name="username" id="username_{$loginhash}" placeholder="{lang username}"  />
+		<input type="password" name="password" id="password3_$loginhash" value="" placeholder="{lang password}"/>
+	</li>
+	
+	<!--{if $secqaacheck || $seccodecheck}-->
+	<li class="userInput">
+	<!--{subtemplate common/seccheck}-->
+	</li>
+	<!--{/if}-->
+	
+	<li class="userInput">
+		<select name="questionid" id="questionid_{$loginhash}" >
+		<option value="0">{lang security_question}</option>
+		<option value="1">{lang security_question_1}</option>
+		<option value="2">{lang security_question_2}</option>
+		<option value="3">{lang security_question_3}</option>
+		<option value="4">{lang security_question_4}</option>
+		<option value="5">{lang security_question_5}</option>
+		<option value="6">{lang security_question_6}</option>
+		<option value="7">{lang security_question_7}</option>
+		</select>
+		<input type="text" name="answer" id="answer_{$loginhash}" />
+	</li>
+	<li>
+		<input type="checkbox" name="cookietime-1" id="cookietime_{$loginhash}" value="2592000"/>
+		<label for="cookietime_{$loginhash}">{lang login_permanent}</label>
+		<input type="submit" name="submit" id="submit" value="{lang login}" data-theme="b" />
+	</li>
+</ul>
+</form>
+
+<!--{if $_G['setting']['pwdsafety']}-->
+	<script type="text/javascript" src="{$_G['setting']['jspath']}md5.js?{VERHASH}" reload="1"></script>
+<!--{/if}-->
+
+<!--{eval updatesession();}-->
+<!--{subtemplate common/footer}-->

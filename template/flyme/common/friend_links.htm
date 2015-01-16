@@ -1,0 +1,16 @@
+<!--{if ($_G['cache']['forumlinks'][0] || $_G['cache']['forumlinks'][1] || $_G['cache']['forumlinks'][2])}-->
+<div id="linkTip" class="z linkTip"><a style="cursor: default;">友情链接</a></div>
+<div id="flk" class="z linkTip">
+    <!--{if $_G['cache']['forumlinks'][0]}-->
+    <ul class="m mbn cl">$_G['cache']['forumlinks'][0]</ul>
+    <!--{/if}-->
+    <!--{if $_G['cache']['forumlinks'][1]}-->
+    <div class="mbn cl">$_G['cache']['forumlinks'][1]</div>
+    <!--{/if}-->
+    <!--{if $_G['cache']['forumlinks'][2]}-->
+    <ul class="x mbm cl">
+        $_G['cache']['forumlinks'][2]
+    </ul>
+    <!--{/if}-->
+</div>
+<!--{/if}-->

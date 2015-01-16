@@ -1,0 +1,31 @@
+<!--{template common/header}-->
+<!--{if empty($_G['gp_infloat'])}-->
+<div id="ct" class="wp cl">
+	<div class="mn">
+		<div class="bm bw0">
+<!--{/if}-->
+<div class="f_c">
+	<h3 class="flb">
+		<em id="return_$_G['gp_handlekey']">$thisvars[tcbt]</em>
+		<span>
+			<!--{if !empty($_G['gp_infloat'])}--><a href="javascript:;" class="flbc" onclick="hideWindow('$_G['gp_handlekey']')" title="{lang close}">{lang close}</a><!--{/if}-->
+		</span>
+	</h3>
+	<div class="c" style="width: 490px">
+	
+		<div class="p_opt mpx pns cl">
+			<b>$_G[username]</b>:<br>
+			<blockquote>$thisvars[tczw]</blockquote>
+		</div>
+	</div>
+</div>
+<div class="o pns cl{if empty($_G['gp_infloat'])} mtm{/if}">
+	<button class="pn pnc y" onclick="showWindow('dsu_amupper', 'plugin.php?id=dsu_amupper&ppersubmit=true&formhash={FORMHASH}');<!--{$addjs}-->hideWindow('$_G['gp_handlekey']');return false;"><span>$sb</span></button>
+</div>
+
+<!--{if empty($_G['gp_infloat'])}-->
+		</div>
+	</div>
+</div>
+<!--{/if}-->
+<!--{template common/footer}-->

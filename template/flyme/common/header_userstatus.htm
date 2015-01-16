@@ -1,0 +1,56 @@
+<!--{if !$_G['uid'] && !$_G[connectguest]}-->
+<div id="loginPanel">
+	<span><a href="member.php?mod=logging&amp;action=login" target="_self" title="登录">登录</a></span>|
+	<span><a href="member.php?mod={$_G[setting][regname]}" target="_blank" title="注册">注册</a></span>
+</div>
+<!--{elseif $_G['uid']}-->
+<script>var tipNum = {$_G[message_notice_all]};</script>
+<div id="accountOpt" <!--{if ($_G['uid'] && getstatus($_G['member']['allowadmincp'], 1)) ||($_G['uid'] && $_G['adminid']==3)}-->class="account_manager"<!--{/if}-->> <!-- 非管理员版主请去掉 account_manager 类 -->
+	<!--{if $_G['uid'] && getstatus($_G['member']['allowadmincp'], 1)}-->
+	<a href="admin.php" target="_blank" id="user_manager" title="管理">管理</a>
+	<!--{/if}-->
+	<!--{if $_G['uid'] && $_G['adminid']==3}-->
+		<a href="forum.php?mod=modcp&fid=0" target="_blank" id="user_manager" title="管理">管理</a>
+	<!--{/if}-->
+<a href="home.php?mod=space&amp;do=pm" style="margin-top: 8px"><div class="msgNums" title="{$_G[message_notice_all]}条信息" alt="{$_G[message_notice_all]}条信息">{$_G[message_notice_all]}</div></a>
+<a href="home.php?mod=space&uid=$_G[uid]" target="_blank"   title="{$_G[member][username]}" alt="{$_G[member][username]}" id="user_name">{eval echo cutstr($_G[member][username],15)}</a>
+<a href="home.php?mod=space&uid=$_G[uid]" target="_blank" title="{lang visit_my_space}"  id="user_avatar"><!--{avatar($_G[uid],small)}--></a>
+</div>
+<div id="accountPanel">
+	<div class="arrow"></div>
+	<div class="user_avatar">
+		<!--{avatar($_G[uid],small)}-->
+		<p class="userRole"><a href="home.php?mod=spacecp&ac=usergroup" target="_blank">$_G[group][grouptitle]</a></p>
+	</div>
+	<ul class="archives">
+		<li><a href="home.php?mod=space&do=thread&view=me&type=thread" target="_blank">帖子：{$_G[member_count][posts]}</a></li>
+		<li><a href="home.php?mod=spacecp&ac=credit" target="_blank">积分：$_G[member][credits]</a></li>
+		<li><a href="home.php?mod=space&do=thread&view=me&from=space&type=thread" target="_blank">主题：$_G[member_count][threads]</a></li>
+	</ul>
+	<div class="opts">
+		<div class="optsWrap">
+			<a href="home.php?mod=space&amp;do=pm" target="_blank" class="opt"><i class="icon icon_msg"></i><p>消息</p></a>
+			<a href="home.php?mod=space&do=friend" target="_blank" class="opt"><i class="icon icon_friends"></i><p>好友</p></a>
+			<a href="home.php?mod=medal" target="_blank" class="opt"><i class="icon icon_medal"></i><p>勋章</p></a>
+			<a href="home.php?mod=task&amp;item=new" target="_blank" class="opt"><i class="icon icon_task"></i><p>任务</p></a>
+			<a href="home.php?mod=spacecp&amp;ac=profile" target="_blank" class="opt"><i class="icon icon_setting"></i><p>设置</p></a>
+			<a href="home.php?mod=space&do=favorite&view=me" target="_blank" class="opt"><i class="icon icon_mark"></i><p>收藏</p></a>
+		</div>
+	</div>
+	<a class="logout" href="member.php?mod=logging&action=logout&formhash={FORMHASH}" target="_self">{lang logout}</a>
+</div>
+<!--{elseif !empty($_G['cookie']['loginuser'])}-->
+<p>
+	<strong><a id="loginuser" class="noborder"><!--{echo dhtmlspecialchars($_G['cookie']['loginuser'])}--></a></strong>
+	<a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href)">{lang activation}</a>
+	<a href="member.php?mod=logging&action=logout&formhash={FORMHASH}">{lang logout}</a>
+</p>
+<!--{elseif !$_G[connectguest]}-->
+	<!--{template member/login_simple}-->
+<!--{else}-->
+<div id="um">
+	<div class="avt y"><!--{avatar(0,small)}--></div>
+	<p><strong class="vwmy qq">{$_G[member][username]}</strong><!--{hook/global_usernav_extra1}--><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}">{lang logout}</a></p>
+	<p><a href="home.php?mod=spacecp&ac=credit&showcredit=1">{lang credits}: 0</a>{lang usergroup}: $_G[group][grouptitle]</p>
+</div>
+<!--{/if}-->

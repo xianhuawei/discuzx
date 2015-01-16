@@ -1,0 +1,54 @@
+
+<!--{subtemplate common/header}-->
+<style>
+.hddiv{ display: block;}
+.profile{padding-top:0; padding-bottom:0;}
+.profile a{text-decoration:none;}
+</style>
+<div data-role="content" class="profile">
+	<ul data-role="listview" data-inset="true">
+		<li data-theme="b">{lang memcp_profile}</li>
+		<li>{$space[username]} (UID: {$space[uid]}) <span class="ui-li-count"><!--{if $space[uid] != $_G[uid]}--><a href="home.php?mod=spacecp&ac=pm&touid={$space[uid]}">[{lang send_pm}]</a> | <!--{/if}--><!--{if $_G['group']['allowbanuser']}--><a href="forum.php?mod=modcp&action=member&op=ban&uid={$space[uid]}">[{lang ban_member}]</a><!--{/if}--></span></li>
+		<!--{if in_array($_G[adminid], array(1, 2))}-->
+		<li>Email:<span class="ui-li-count">$space[email]</span></li>
+		<!--{/if}-->
+		<!--{loop $profiles $value}-->
+		<li>$value[title]: <span class="ui-li-count">$value[value]</span></li>
+   		<!--{/loop}-->
+        <li>{lang medals}:
+        <span style="float: right;">
+        <!--{loop $space['medals'] $medal}-->
+        <img src="{STATICURL}/image/common/$medal[image]" alt="$medal[name]" id="md_{$medal[medalid]}"  style="position: static;" />
+        <!--{/loop}-->
+        </span>
+        <div style="clear:both"></div>
+        </li>
+    </ul>
+	<ul data-role="listview" data-inset="true">
+		<li data-theme="b">{lang active_profile}</li>
+		<!--{if $space[adminid]}-->
+        <li>{lang management_team}:<span class="ui-li-count">{$space[admingroup][grouptitle]} {$space[admingroup][icon]}</span></li>
+        <!--{/if}-->
+        <li>{lang usergroup}: <span class="ui-li-count">{$space[group][grouptitle]}{$space[group][icon]}</span></li>
+        <!--{if $space[extgroupids]}-->
+        <li>{lang group_expiry_type_ext}:<span class="ui-li-count">$space[extgroupids]</span></li>
+        <!--{/if}-->
+        <li>{lang online_time}: <span class="ui-li-count">$space[oltime] {lang hours}</span></li>
+        <li>{lang regdate}: <span class="ui-li-count">$space[regdate]</span></li>
+        <li>{lang last_visit}: <span class="ui-li-count">$space[lastvisit]</span></li>
+        
+        
+        <!--{if $_G[uid] == $space[uid] || $_G[group][allowviewip]}-->
+        <li>{lang register_ip}: <span class="ui-li-count">$space[regip] - $space[regip_loc]</span></li>
+        <li>{lang last_visit_ip}: <span class="ui-li-count">$space[lastip] - $space[lastip_loc]</span></li>
+        <!--{/if}-->
+        <li>{lang last_activity_time}: <span class="ui-li-count">$space[lastactivity]</span></li>
+        <li>{lang last_post_time}: <span class="ui-li-count">$space[lastpost]</span></li>
+        <li>{lang last_send_email}: <span class="ui-li-count">$space[lastsendmail]</span></li>
+        <li>{lang time_offset}:<br/>
+            <!--{eval $timeoffset = array({lang timezone});}-->
+            <em>$timeoffset[$space[timeoffset]]</em></li>
+    </ul>
+</div>
+
+<!--{subtemplate common/footer}-->

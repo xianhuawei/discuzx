@@ -1,0 +1,30 @@
+#publish {
+	background: transparent  url(../img/btn.png) no-repeat 0 0; 
+	height:27px; 
+	width:110px; 
+	border:0px; 
+	cursor: pointer;
+}
+.syn_qq_check {background-position: -22px 0;}
+.syn_qq, .syn_tqq, .syn_qq_check, .syn_tqq_check {
+	display: inline-block;
+	margin-top: 3px;
+	width: 19px;
+	height: 19px;
+	background: transparent url(../../../../static/image/common/connect_post_syn.png) no-repeat 0 0;
+	line-height: 64px;
+	overflow: hidden;
+	vertical-align: top;
+	cursor: pointer;
+}
+.syn_qq_check {
+	background-position: -22px 0;
+}
+.syn_tqq {
+	background-position: 0 -22px;
+	margin-left: 5px;
+}
+.syn_tqq_check {
+	background-position: -22px -22px;
+	margin-left: 5px;
+}

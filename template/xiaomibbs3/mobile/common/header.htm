@@ -1,0 +1,125 @@
+
+<!--{if $_G['setting']['mobile']['mobilesimpletype']}-->
+<!--{subtemplate mobile/common/header}-->
+<!--{else}-->
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<meta http-equiv="Cache-control" content="{if $_G['setting']['mobile'][mobilecachetime] > 0}{$_G['setting']['mobile'][mobilecachetime]}{else}no-cache{/if}" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0"/>
+<meta name="MobileOptimized" content="360"/>
+<meta name="Iphone-content" content="480"/>
+<meta name="format-detection" content="telephone=no" />
+<meta name="keywords" content="{if !empty($metakeywords)}{echo dhtmlspecialchars($metakeywords)}{/if}" />
+<meta name="description" content="{if !empty($metadescription)}{echo dhtmlspecialchars($metadescription)} {/if},$_G['setting']['bbname']" />
+<title><!--{if !empty($navtitle)}-->$navtitle - <!--{/if}--><!--{if empty($nobbname)}--> $_G['setting']['bbname'] - <!--{/if}--> {lang waptitle}</title>
+
+
+<script type="text/javascript" src="{$_G[setting][jspath]}common.js?{VERHASH}"></script>
+<!--{if $_G['uid']}-->
+<!--ios-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+<!--Mark Icon-->
+<link rel="apple-touch-icon" href="{STATICURL}xiaomi/mobile/static/images/touch-icon-iphone.png">
+<link rel="apple-touch-icon" sizes="72x72" href="{STATICURL}xiaomi/mobile/static/images/touch-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="114x114" href="{STATICURL}xiaomi/mobile/static/images/touch-icon-iphone4.png">
+<!--{/if}-->
+
+
+<!--Jq Mobile Style-->
+<link href="{STATICURL}xiaomi/mobile/static/jquery.mobile-1.1.0.min.css" rel="stylesheet" />
+<script src="{STATICURL}xiaomi/mobile/static/jquery.min.js"></script>
+<script src="{STATICURL}xiaomi/mobile/static/jquery.mobile-1.1.0.min.js"></script>
+
+
+<!--Mark Style-->
+<!--{if $_G['basescript'] == 'forum' && CURMODULE == 'forumdisplay'}-->
+<link rel="stylesheet" href="{STATICURL}/xiaomi/mobile/static/add2home.css">
+<script type="text/javascript">
+var addToHomeConfig = {
+	animationIn: 'bubble',
+	animationOut: 'drop',
+	lifespan:10000,
+	expire:2,
+	touchIcon:true
+};
+</script>
+<script type="text/javascript" src="{STATICURL}/xiaomi/mobile/static/add2home.js" charset="utf-8"></script>
+<!--{/if}-->
+
+
+<style type="text/css">
+	.hddiv div.ui-block-b {position: relative;}
+	.hddiv a.avatar img{position: absolute;right:0.5em; top:0.5em;  border-radius: 0.5em;}
+	.hddiv span.uidName{position: absolute;right:5px; top:50px; text-align:center; width:50px; font-size: 12px;text-shadow: none;}
+	.avatar img{padding:0;margin:0;width:40px;height:40px;}
+	.hdLogo a img{width:160px;height:60px; position:relative;}
+	.hdLogo span.version{ position: absolute; top: 36px;left: 165px; font-size: 14px; color: #97a6b4;font-style: italic;text-shadow:none; line-height:0.76em;}
+	.hdLogo span.version em{ display: block; font-size: 8px;font-style: italic;}
+	.newMessage{color:#fc0;}
+	.pg label { display:none;}
+	.uiddiv, .footerDiv{border:none;}
+	.ui-bar { font-size:12px;}
+	.ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn {display: inline-block; font-size: 12px;margin: 0;}
+	.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner {padding: 0.4em 8px 0.5em;}
+	.ui-controlgroup-horizontal .ui-btn, .ui-controlgroup-horizontal .ui-select { margin:0 -6px 0 0;}
+	.ui-btn-icon-left .ui-btn-inner {padding-left:27px;}
+	.ui-header .ui-btn-icon-left .ui-icon, .ui-footer .ui-btn-icon-left .ui-icon, .ui-bar .ui-btn-icon-left .ui-icon {left: 4px;}
+	font.jammer {display: none;}
+</style>
+
+</head>
+<body>
+<!--{if $_G['setting']['domain']['app']['mobile']}-->
+	{eval $nav = 'http://'.$_G['setting']['domain']['app']['mobile'];}
+<!--{else}-->
+	{eval $nav = "forum.php";}
+<!--{/if}-->
+
+<!--{if $_G['uid']&&$_G['basescript'] == 'forum' && (CURMODULE == 'forumdisplay' || CURMODULE == 'viewthread')}-->
+<!--{else}-->
+<div class="hddiv ui-grid-a">
+  <div class="ui-block-b hdLogo">
+		<a href="$nav" title="<!--{if empty($nobbname)}--> $_G['setting']['bbname'] - <!--{/if}-->{lang waptitle}" data-transition="none">
+			<img style="margin:4px 0 0 4px;" src="{STATICURL}/xiaomi/mobile/static/images/big_logo.png" />
+		</a>		
+	</div>
+	<div class="ui-block-b">
+		<!--{if $_G['uid']}-->
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=profile" class="avatar" data-transition="none"><!--{avatar($_G[uid],small)}--></a>
+		<span class="uidName">{$_G['member']['username']}</span>
+		<!--{/if}-->
+	</div>
+</div>
+<!--{/if}-->
+
+<!--{if $_G['uid'] && $_G['basescript'] == 'forum' && (CURMODULE == 'forumdisplay' || CURMODULE == 'viewthread')}-->
+<!--{else}-->
+<div class="uiddiv ui-bar-b" data-role="navbar">
+	<ul>
+	<!--{if $_G['uid']}-->
+		<li><a href="home.php?mod=space&do=pm" {if $_G[member][newpm]}class="newMessage"{/if} data-icon="info" data-transition="none">{if $_G[member][newpm]}{lang new_pm}{else}{lang pm_center}{/if}</a></li>
+		<li><a href="home.php?mod=space&uid={$_G[uid]}&do=favorite&view=me&type=forum" data-icon="star" data-transition="none">{lang favorite}</a></li>
+		<li><a href="home.php?mod=space&uid={$_G[uid]}&do=thread&view=me" data-icon="grid" data-transition="none">{lang my_posts}</a></li>
+		<li><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}" title="{lang logout}" data-icon="delete" data-transition="none" data-ajax="false">{lang logout}</a></li>
+	<!--{elseif $_G['connectguest']}-->
+		<li>{$_G['member']['username']} <a href="member.php?mod=logging&action=logout&formhash={FORMHASH}" title="{lang logout}"  data-ajax="false">{lang logout}</a></li>
+	<!--{else}-->
+		<li><a href="{$_G['config']['passport']['login']}&mobile=yes" title="{lang login}" data-transition="none" data-ajax="false">{lang login}</a></li>
+		<!--{if $_G['setting']['regstatus']}-->
+		<li><a href="member.php?mod={$_G[setting][regname]}" title="{$_G['setting']['reglinkname']}" data-transition="none" data-ajax="false">{$_G['setting']['reglinkname']}</a></li>
+		<!--{/if}-->
+        <!--{if $_G['setting']['connect']['allow'] && !$_G['setting']['bbclosed']}-->
+        <li><a href="{$_G['config']['passport']['register']}" data-transition="none" data-ajax="false">$_G['setting']['reglinkname']</a></li>
+        <!--{/if}-->
+	<!--{/if}-->
+	</ul>
+</div>
+<!--{/if}-->
+<div style="display:none"><!--{hook/global_header_mobile}--></div>
+<!--{/if}-->

@@ -1,0 +1,52 @@
+
+<!--{template common/header}-->
+<!-- header start -->
+<header class="header">
+    <div class="nav">
+        <div class="header-tit">
+            <span class="name"><!-- {lang hotest_thread} --></span>
+        </div>
+        <div class="header-nav">
+            <a class="header-btn" href="forum.php?forumlist=1">
+                <i class="icon icon-back"></i>
+            </a>
+        </div>
+        <!--<div class="header-act">-->
+            <!--<a class="header-btn" href="forum.php?mod=post&action=newthread&fid=$_G[fid]" title="{lang send_threads}">-->
+                <!--<i class="icon icon-post"></i>-->
+            <!--</a>-->
+        <!--</div>-->
+    </div>
+
+    <!--{if $_G['uid']}-->
+	<!--<div class="hdc cl">-->
+		<!--&lt;!&ndash;{if $_G['setting']['domain']['app']['mobile']}&ndash;&gt;-->
+			<!--{eval $nav = 'http://'.$_G['setting']['domain']['app']['mobile'];}-->
+		<!--&lt;!&ndash;{else}&ndash;&gt;-->
+			<!--{eval $nav = "forum.php";}-->
+		<!--&lt;!&ndash;{/if}&ndash;&gt;-->
+		<!--<h2><a title="$_G[setting][bbname]" href="$nav"><img src="{STATICURL}image/mobile/images/logo.png" /></a></h2>-->
+		<!--<ul class="user_fun">-->
+			<!--<li><a href="search.php?mod=forum" class="icon_search">{lang search}</a></li>-->
+			<!--<li><a href="forum.php?forumlist=1" class="icon_threadlist">{lang forum_list}</a></li>-->
+			<!--<li id="usermsg"><a href="&lt;!&ndash;{if $_G[uid]}&ndash;&gt;home.php?mod=space&uid=$_G[uid]&do=profile&mycenter=1&lt;!&ndash;{else}&ndash;&gt;member.php?mod=logging&action=login&lt;!&ndash;{/if}&ndash;&gt;" class="icon_userinfo">{lang user_info}</a>&lt;!&ndash;{if $_G[member][newpm]}&ndash;&gt;<span class="icon_msg"></span>&lt;!&ndash;{/if}&ndash;&gt;</li>-->
+			<!--<li class="on"><a href="forum.php?mod=guide&view=hot" class="icon_hotthread">{lang hot_thread}</a></li>-->
+		<!--</ul>-->
+	<!--</div>-->
+    <!--{/if}-->
+</header>
+<!-- header end -->
+<!-- main threadlist start -->
+<div class="threadlist">
+
+	<!--{loop $data $key $list}-->
+		<!--{subtemplate forum/guide_list_row}-->
+	<!--{/loop}-->
+
+</div>
+<!-- main threadlist end -->
+
+$multipage
+
+<div class="pullrefresh" style="display:none;"></div>
+<!--{template common/footer}-->

@@ -1,0 +1,46 @@
+<div id="aside">
+<ul class="sidemenu sidebox">
+<li class="first active aside-follow-content">
+<a href="{$_G['siteurl']}">
+<span class="aside-icon"></span>
+$_G['setting']['bbname']
+</a>
+</li>
+
+<!--{if (!$simplestyle || !$_G['forum']['allowside'] && $page == 1) && !empty($announcement)}-->						
+<!--{if empty($announcement['type'])}-->
+<li class="sub aside-explore-blog">
+<a href="forum.php?mod=announcement&id=$announcement[id]#$announcement[id]" target="_blank">
+<span class="aside-icon"></span>
+$announcement[subject]  $announcement[starttime]</a> 
+<!--{else}-->
+<li class="sub aside-explore-blog">
+<a href="$announcement[message]" target="_blank">
+<span class="aside-icon"></span>
+$announcement[subject]  $announcement[starttime]</a>
+<!--{/if}-->
+<!--{else}-->
+<li class="sub aside-explore-blog">
+<a href="{$_G['siteurl']}">
+<span class="aside-icon"></span>
+<script type="text/javascript">           	
+var now=(new Date()).getHours();
+if(now>0&&now<=6){
+document.write("Hi，午夜好!");
+}else if(now>6&&now<=11){
+document.write("Hi，早上好!");}
+else if(now>11&&now<=14){
+document.write("Hi，中午好!");}
+else if(now>14&&now<=18){
+document.write("Hi，下午好!");}
+else{document.write("Hi，晚上好!");}
+</script></a>
+<!--{/if}-->
+</li>
+</ul>
+</div>
+
+<a style="display:block;margin-top:20px; text-indent:-9999em;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;outline:none;" ></a>
+<!--{subtemplate common/pubsearchform}-->
+
+

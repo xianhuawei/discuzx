@@ -1,0 +1,88 @@
+<!--{template common/header}-->
+<!--{if empty($_G['gp_infloat'])}-->
+<div id="ct" class="wp cl">
+	<div class="mn">
+		<div class="bm bw0">
+<!--{/if}-->
+	<div class="f_c">
+		<h3 class="flb">
+			<em id="return_$_GET['handlekey']">{lang dsu_amupper:e_}</em>
+			<span>
+				<!--{if !empty($_G['gp_infloat'])}-->
+				<a href="javascript:;" class="flbc" onclick="hideWindow('$_GET['handlekey']')" title="{lang close}">{lang close}</a>
+				<!--{/if}-->
+			</span>
+		</h3>
+<!--{if empty($_GET[uid])}-->
+	<script type="text/javascript">
+	function getuid(){
+		url = 'plugin.php?id=dsu_amupper:padmin&formhash={FORMHASH}';
+		url = url + "&uid=" + $('uid').value + "&handlekey=" + $('handlekey').value;
+		
+		if($('uid').value){
+			hideWindow('$_GET[handlekey]');
+			showWindow('amupper_padmin', url);
+		}else{
+			alert('{lang dsu_amupper:nouid}');
+			$('ppersubmit').disabled='';
+		}
+	}
+	</script>
+
+	<!--{if $_G[inajax]}-->
+	<input type="hidden" id="handlekey" name="handlekey" value="$_GET[handlekey]" />
+	<!--{/if}-->
+		<div class="c" style="width: 280px">
+			<div class="p_opt mpx pns cl">
+			{lang dsu_amupper:e_uid}<INPUT TYPE="text" id="uid" NAME="uid">	
+			</div>
+		</div>
+	</div>
+	<div class="o pns cl{if empty($_G['gp_infloat'])} mtm{/if}">		
+		<button type="submit" id="ppersubmit" class="pn pnc y" value="true" name="ppersubmit" onclick="$('ppersubmit').disabled='disabled';getuid();"><span>{lang dsu_amupper:admin2_s2}</span></button>
+	</div>
+<!--{else}-->
+	<script type="text/javascript">
+	function subpper(){
+		url = 'plugin.php?id=dsu_amupper:padmin&ppersubmit=true&referer={$_G[referer]}&formhash={FORMHASH}';
+		url = url + "&uid=" + $('uid').value + "&handlekey=" + $('handlekey').value + "&cons=" + $('cons').value;
+		if( $('cons').value >  $('addup').value){
+			alert('{lang dsu_amupper:nobig}');
+			$('ppersubmit').disabled=''; 
+		}else{
+			if($('uid').value){
+				hideWindow('$_GET[handlekey]');
+				showWindow('amupper_padmin', url);
+				setTimeout('location.reload();', 3000);
+			}else{
+				alert('{lang dsu_amupper:nouid}');
+				hideWindow('$_GET[handlekey]');
+			}
+		}
+	}
+	</script>
+
+	<!--{if $_G[inajax]}-->
+	<input type="hidden" id="handlekey" name="handlekey" value="$_GET[handlekey]" />
+	<!--{/if}-->
+	<INPUT type="hidden" id="uid" NAME="uid" value="$_GET[uid]">
+		<div class="c" style="width: 280px">
+			<div class="p_opt mpx pns cl">
+				<B>{lang dsu_amupper:e_uname}$puid[uname]</B><BR>
+				{lang dsu_amupper:e_cons}<INPUT TYPE="text" id="cons" NAME="cons" value="{$puid[cons]}"><BR>
+				{lang dsu_amupper:e_addup}<INPUT TYPE="text" id="addup" NAME="addup" disabled="disabled" value="{$puid[addup]}"><BR>
+			</div>
+		</div>
+	</div>
+	<div class="o pns cl{if empty($_G['gp_infloat'])} mtm{/if}">		
+		<button type="submit" id="ppersubmit" class="pn pnc y" value="true" name="ppersubmit" onclick="$('ppersubmit').disabled='disabled';subpper();"><span>{lang dsu_amupper:admin2_s2}</span></button>
+	</div>
+<!--{/if}-->
+
+
+<!--{if empty($_G['gp_infloat'])}-->
+		</div>
+	</div>
+</div>
+<!--{/if}-->
+<!--{template common/footer}-->

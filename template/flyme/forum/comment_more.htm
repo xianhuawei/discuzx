@@ -1,0 +1,27 @@
+<!--{template common/header}-->
+<!--{if $comments}-->
+<div class="th">
+		<h3>点评</h3>
+		<div class="slideUp"></div>
+	</div>
+	<div class="tbody commentTbody">
+		<!--{loop $comments $comment}-->
+		<div class="tr">
+			<div class="avatar"><a href="home.php?mod=space&uid=$comment['authorid']" target="_blank"><!--{avatar($comment['authorid'],small)}--></a></div>
+			<div class="title copyr13232" title="<!--{if $comment['authorid']}-->$comment[author]<!--{else}-->{lang guest}<!--{/if}-->">
+				<!--{if $comment['authorid']}-->{eval echo cutstr($comment[author],10)}<!--{else}-->
+				{lang guest}
+				<!--{/if}-->：<span title="{eval echo dhtmlspecialchars($comment[comment])}"><!--{eval echo cutstr($comment[comment],130)}--></span>
+			</div>
+			<div class="replyTime"><!--{$comment[dateline]}--></div>
+		</div>
+		<!--{/loop}-->
+	</div>
+<script>
+	jQuery(function(){
+		jQuery("#commentcount").html({$count});
+	})
+</script>
+<!--{/if}-->
+<!--<div class="pgs mbm cl">$multi</div>-->
+<!--{template common/footer}-->

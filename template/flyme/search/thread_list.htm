@@ -1,0 +1,56 @@
+<div class="tl">
+<!--{if !empty($multipage)}-->
+	<!--<div class="pgs cl mbm" style="padding:10px 0 20px 0; float:right;">$multipage</div>-->
+    <div class="cr"></div>
+<!--{/if}-->
+<div class="mainbox threadlist" style="margin:0;min-height: 500px;">
+	<table class="tsearch" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr style=" background-color:#E6EAEB;">
+				<th style="width:50%">标题</th>
+				<td class="forum" width="95" style="width:95px;" >板块</td>
+				<td class="author" width="130" style="width:130px;">作者</td>
+				<td class="nums" width="60" style="width:60px;">回复</td>
+				<td class="nums" width="60" style="width:60px;">查看</td>
+				<td class="lastpost" width="130" style="width:130px;">最后更新</td>
+			</tr>
+		</thead>
+		<tbody>
+<!--{if $threadlist}-->
+	<!--{loop $threadlist $thread}-->
+		<tr>
+			<td class="td_first">
+				<!--{if $index[seareply] && $thread['pid'] > 0}-->
+					<a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$thread[pid]" target="_blank" title="{$thread[subjectall]}" $thread[highlight]>{eval echo bat_highlight(cutstr($thread[subjectall],45),$keyword)}</a>
+				<!--{else}-->
+					<a href="thread-$thread[tid]-1-1.html" target="_blank" title="{$thread[subjectall]}" $thread[highlight]>{eval echo bat_highlight(cutstr($thread[subjectall],45),$keyword)}</a>
+				<!--{/if}-->
+			</td>
+			<td class="forum"><a href="forum-$thread[fid]-1.html" title="$thread[forumname]">$thread[forumname]</a></td>
+			<td class="author">
+				
+				<!--{if $thread['authorid'] && $thread['author']}-->
+					<a href="space-uid-$thread[authorid].html" title="{$thread[author]">{eval echo cutstr($thread[author],10)}</a>
+				<!--{else}-->
+					<!--{if $forum['ismoderator']}--><a href="space-uid-$thread[authorid].html">{lang anonymous}</a><!--{else}-->{lang anonymous}<!--{/if}-->
+				<!--{/if}-->
+				<br />
+				<em>$thread[dateline]</em>
+			</td>
+			<td class="nums"><strong>$thread[replies]</strong> </td>
+			<td class="nums"><em>$thread[views]</em></td>
+			<td class="lastpost">
+				<em><a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$thread[pid]">$thread[lastpost]</a></em>
+                <br />
+				<cite><!--{if $thread['lastposter']}--><a href="space-username-$thread[lastposterenc].html" title="{$thread[lastposter]}">{eval echo cutstr($thread[lastposter],10)}</a><!--{else}-->{lang anonymous}<!--{/if}--></cite>
+			</td>
+		</tr>
+	<!--{/loop}-->
+<!--{else}-->
+<tr><td colspan="6" align="center">{lang search_nomatch}</td></tr>
+<!--{/if}-->
+		</tbody>
+</table>
+</div>
+<!--{if !empty($multipage)}--><div class="pgs cl mbm" style="padding:20px 0 0 0; float:right;" >$multipage</div><!--{/if}-->
+</div>

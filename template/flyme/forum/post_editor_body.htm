@@ -1,0 +1,129 @@
+<!-- <p id="editor_switch" data-status="on">关闭编辑框 ∧</p> -->
+<!-- <div id="{$editorid}_body_loading"><img src="{IMGDIR}/loading.gif" width="16" height="16" class="vm" /> {lang e_editor_loading}</div> -->
+<div class="edt" id="{$editorid}_body" <!--{if empty($editor[value])&&in_array($_G['fid'],array(FEEDBACK_BUG_FID,FEEDBACK_PROPOSAL_FID))&&in_array($_GET['action'],array('newthread','edit'))}-->style="display:none"<!--{/if}-->>
+	<div id="{$editorid}_controls" class="bar">
+		<div class="y">
+			<div class="b2r nbl nbr" id="{$editorid}_adv_5">
+				<p>
+					<a id="{$editorid}_undo" title="{lang e_undo}">Undo</a>
+				</p>
+				<p>
+					<a id="{$editorid}_redo" title="{lang e_redo}">Redo</a>
+				</p>
+			</div>
+			<div class="z">
+                <!--{if $_G['is_mobile_browser']}-->
+                <span class="mbn"><a id="{$editorid}_fullswitcher" style="margin-top: -5px;"></a><a id="{$editorid}_simple" style="margin-top: -5px;"></a></span>
+                <!--{else}-->
+				<span class="mbn"><a id="{$editorid}_fullswitcher"></a><a id="{$editorid}_simple"></a></span>
+                <!--{/if}-->
+				<label id="{$editorid}_switcher" class="bar_swch ptn"><input id="{$editorid}_switchercheck" type="checkbox" class="pc" name="checkbox" value="0" {if !$editor[editormode]}checked="checked"{/if} onclick="switchEditor(this.checked?0:1)" />{lang code}</label>
+			</div>
+		</div>
+		<!--{if !empty($_G[setting][pluginhooks][post_editorctrl_right])}-->
+			<div class="y"><!--{hook/post_editorctrl_right}--></div>
+		<!--{/if}-->
+		<div id="{$editorid}_button" class="btn cl">
+			<div class="b2r nbr nbl" id="{$editorid}_adv_s2" style="border-right: 1px solid #ddd">
+				<a id="{$editorid}_fontname" class="dp" adv="1" title="{lang e_fontname}" menupos="43!"><span id="{$editorid}_font">{lang e_font}</span></a>
+				<a id="{$editorid}_bold" title="{lang e_bold}">B</a>
+				<a id="{$editorid}_italic" adv="1" title="{lang e_italic}">I</a>
+				<a id="{$editorid}_underline" adv="1" title="{lang e_underline}">U</a>
+				<a id="{$editorid}_removeformat" adv="1" title="{lang e_removeformat}">Removeformat</a>
+				<a id="{$editorid}_inserthorizontalrule" adv="1" title="{lang e_hr_title}">Hr</a><br adv="1">
+				<a id="{$editorid}_fontsize" class="dp" adv="1" title="{lang e_fontsize}" menupos="43!" menuwidth="25"><span id="{$editorid}_size">{lang e_size}</span></a>
+				<!--{if $_G['is_mobile_browser']}-->
+                <style>
+                    #{$editorid}_bold,#{$editorid}_italic,#{$editorid}_underline,#{$editorid}_forecolor,#{$editorid}_backcolor,
+                    #{$editorid}_url,#{$editorid}_unlink{margin-top: 0}
+                </style>
+                <!--{/if}-->
+				<a id="{$editorid}_forecolor" title="{lang e_forecolor}">Color</a>
+				<a id="{$editorid}_backcolor" adv="1" title="{lang e_fontbgcolor}">BgColor</a>
+				<a id="{$editorid}_url" title="{lang e_url}">Url</a>
+				<span id="{$editorid}_adv_8">
+					<a id="{$editorid}_unlink" title="{lang e_unlink}">Unlink</a>
+				</span>
+				<a id="{$editorid}_tbl" adv="1" title="{lang e_table}">Table</a>
+			</div>
+			<div class="b2r">
+				<p id="{$editorid}_adv_1" style="height: auto; overflow: hidden">
+					<a adv="1" id="{$editorid}_justifyleft" title="{lang e_left}">Left</a>
+					<a adv="1" id="{$editorid}_justifycenter" title="{lang e_center}">Center</a>
+					<a adv="1" id="{$editorid}_justifyright" title="{lang e_right}">Right</a>
+				</p>
+				<p id="{$editorid}_adv_4" style="height: auto; overflow: hidden">
+					<a adv="1" id="{$editorid}_floatleft" title="{lang e_floatleft}">FloatLeft</a>
+					<a adv="1" id="{$editorid}_floatright" title="{lang e_floatright}">FloatRight</a>
+					<a adv="1" id="{$editorid}_insertorderedlist" title="{lang e_orderedlist}">Orderedlist</a>
+					<a adv="1" id="{$editorid}_insertunorderedlist" title="{lang e_unorderedlist}">Unorderedlist</a>
+				</p>
+			</div>
+			<div class="b1r" id="{$editorid}_adv_s1">
+				<a id="{$editorid}_sml" title="{lang e_smilies_title}">{lang e_smilies}</a>
+				<div id="{$editorid}_imagen" style="display:none">!</div>
+				<a id="{$editorid}_image" title="{lang e_image_title}" menupos="00" menuwidth="600">{lang e_image}</a>
+				<!--{if $_G['group']['allowpostattach']}-->
+					<div id="{$editorid}_attachn" style="display:none">!</div>
+					<a id="{$editorid}_attach" title="{lang e_attach_title}" menupos="00" menuwidth="600">{lang e_attach}</a>
+				<!--{/if}-->
+				<p style="clear: both">
+				<!--{if $_G['forum']['allowmediacode'] && $_G['group']['allowmediacode']}-->
+					<a id="{$editorid}_aud" adv="1" title="{lang e_audio_title}">{lang e_audio}</a>
+					<a id="{$editorid}_vid" adv="1" title="{lang e_video_title}">{lang e_video}</a>
+					<a id="{$editorid}_fls" adv="1" title="{lang e_flash_title}">{lang e_flash}</a>
+				<!--{/if}-->
+				<!--{if ($_GET[action] == 'newthread' || $_GET[action] == 'reply' || $_GET[action] == 'edit') && $_G['group']['allowat']}-->
+					<a id="{$editorid}_at" title="{lang e_at_title}" menupos="43" menuwidth="600">{lang e_at}</a>
+				<!--{/if}-->
+				</p>
+				<!--{hook/post_editorctrl_left}-->
+			</div>
+			<div class="b2r esb" id="{$editorid}_adv_s3" style="border-right: none">
+				<!--{hook/post_editorctrl_top}-->
+				<a id="{$editorid}_quote" title="{lang e_quote_title}">{lang e_quote_title}</a>
+				<a id="{$editorid}_code" title="{lang e_code_title}">{lang e_code_title}</a>
+				
+				<a id="{$editorid}_free" adv="1" title="{lang e_free_title}">{lang e_free_title}</a>
+				<a id="{$editorid}_hide" adv="1" title="{lang e_hide_title}">{lang e_hide_title}</a>
+
+				<!--a id="{$editorid}_pasteword" adv="1" title="{lang e_pasteword_title}">{lang e_pasteword_title}</a>
+				<a id="{$editorid}_downremoteimg" adv="1" title="{lang e_downremoteimg_title}">{lang e_downremoteimg_title}</a>
+
+				<a id="{$editorid}_page" adv="1" title="{lang e_page_title}">{lang e_page_title}</a>
+				<a id="{$editorid}_index" adv="1" title="{lang e_index_title}">{lang e_index_title}</a-->
+
+				<!--a id="{$editorid}_password" adv="1" title="{lang e_password_title}">{lang e_password_title}</a>
+				<a id="{$editorid}_postbg" adv="1" title="{lang e_postbg_title}">{lang e_postbg_title}</a-->
+
+				<!-- <a id="{$aditorid}_magic_doodle" adv="1" href="home.php?mod=magic&amp;mid=doodle&amp;showid=comment_doodle&amp;target=e_textarea&amp;from=forumeditor" class="cst" onclick="showWindow(this.id, this.href, 'get', 0)"><img src="static/image/magic/doodle.small.gif" alt="doodle" title="{lang a_magic_doodle_title}" style="margin-top:2px"></a> -->
+
+                <!--
+				<a id="{$editorid}_beginning" adv="1" title="{lang e_beginning_title}" menupos="43" menuwidth="600">{lang e_beginning}</a>
+				<a id="{$editorid}_cst1_qq" class="cst" title="{lang e_cst1_qq_title}" initialized="true"><img src="static/image/common/bb_qq.gif" title="{lang e_cst1_qq_title}" alt="qq"></a>
+                -->
+
+				<!--{if $_G['group']['allowbegincode'] && $isfirstpost}-->
+					<a id="{$editorid}_beginning" adv="1" title="{lang e_beginning_title}" menupos="43" menuwidth="600">{lang e_beginning_title}</a>
+				<!--{/if}-->
+				<!--{loop $_G['cache']['bbcodes_display'][$_G['groupid']] $tag $bbcode}-->
+					<a id="{$editorid}_cst{$bbcode[params]}_$tag" class="cst" title="$bbcode[explanation]"><img src="{STATICURL}image/common/$bbcode[icon]" title="$bbcode[explanation]" alt="$tag" /></a>
+				<!--{/loop}-->
+				<!--{hook/post_editorctrl_bottom}-->
+			</div>
+		</div>
+	</div>
+
+	<div id="rstnotice" class="ntc_l bbs" style="display:none">
+		<a href="javascript:;" title="{lang post_topicreset}" class="d y" onclick="userdataoption(0)">close</a>{lang missed_data} <a class="xi2" href="javascript:;" onclick="userdataoption(1)"><strong>{lang post_autosave_restore}</strong></a>
+	</div>
+
+	<div class="area">
+        <!--{if $editor[textarea] || $editor[textarea] != ''}-->
+		    <textarea name="$editor[textarea]" id="{$editorid}_textarea" class="pt" rows="15" tabindex="2">$editor[value]</textarea>
+        <!--{else}-->
+            <textarea name="message" id="{$editorid}_textarea" class="pt" rows="15" tabindex="2">$editor[value]</textarea>
+        <!--{/if}-->
+	</div>
+	<!--{subtemplate common/editor}-->
+</div>

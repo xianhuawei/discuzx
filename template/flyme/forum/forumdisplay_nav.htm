@@ -1,0 +1,10 @@
+<!--{if CURMODULE != 'guide'}-->
+<div class="filter">
+	<a id="filter_special" class="customMySelect showmenu xi2 " href="javascript:;" onmouseover="showMenu(this.id)">主题</a>
+	<a id="filter_orderby" class="customMySelect showmenu xi2 " href="javascript:;" onmouseover="showMenu(this.id)">排序</a>
+	<a id="filter_hot" class="customMySelect showmenu xi2 " href="javascript:;" onmouseover="showMenu(this.id)">热门</a>
+	<a id="filter_digest" class="customMySelect xi2 " href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}&filter=digest&digest=1" {if $_GET[filter]='digest'&&$_GET[digest]==1}class="a"{/if}>精华</a>
+</div>
+<!--{else}-->
+	{lang title}
+<!--{/if}-->

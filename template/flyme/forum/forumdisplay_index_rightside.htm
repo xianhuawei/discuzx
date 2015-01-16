@@ -1,0 +1,36 @@
+<div id="main_sidebar">
+	<!--{if $_GET['mod']=='forumdisplay'}-->
+	<a class="btn btn_post" onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"><i class="icon icon_post"></i><p>发帖</p></a>
+	<!--{else}-->
+	<a class="btn btn_post" onclick="showWindow('nav', this.href, 'get', 0)" href="forum.php?mod=misc&amp;action=nav"><i class="icon icon_post"></i><p>发帖</p></a>
+	<!--{/if}-->
+	<div id="signBox" style="position: relative"></div>
+	<div class="sidebarBlock" id="convenientNav">
+		<h3>便捷导航</h3>
+		<div class="nav">
+        <span class="nav_li"><a href="{NEWCOMERS_URL}" target="_self"><i class="icon icon_bbsNew"><img class="imgNormal" src="{STATICURL}flyme/img/nav/新人.png"><img class="imgHover" src="{STATICURL}flyme/img/nav/新人_hover.png"></i><p>社区新人</p></a></span>
+        <span class="nav_li"><a href="{ACTIVITIES_URL}" target="_self"><i class="icon icon_bbsNew"><img class="imgNormal" src="{STATICURL}flyme/img/nav/活动.png"><img class="imgHover" src="{STATICURL}flyme/img/nav/活动_hover.png"></i><p>热门活动</p></a></span>        <span class="nav_li"><a href="{PHOTOGRAPHY_URL}" target="_self"><i class="icon icon_bbsNew"><img class="imgNormal" src="{STATICURL}flyme/img/nav/相机.png"><img class="imgHover" src="{STATICURL}flyme/img/nav/相机_hover.png"></i><p>摄影天地</p></a></span>
+        <span class="nav_li"><a href="{FIRNWARE_DOWNLOAD_URL}" target="_blank"><i class="icon icon_bbsNew"><img class="imgNormal" src="{STATICURL}flyme/img/nav/固件.png"><img class="imgHover" src="{STATICURL}flyme/img/nav/固件_hover.png"></i><p>固件下载</p></a>
+</span>
+        <span class="nav_li"><a href="{PROPOSAL_URL}" target="_self"><i class="icon icon_bbsNew"><img class="imgNormal" src="{STATICURL}flyme/img/nav/反馈.png"><img class="imgHover" src="{STATICURL}flyme/img/nav/反馈_hover.png"></i><p>建议反馈</p></a></span>
+        <span class="nav_li"><a href="{DEPOT_URL}" target="_self"><i class="icon icon_bbsNew"><img class="imgNormal" src="{STATICURL}flyme/img/nav/社区服务.png"><img class="imgHover" src="{STATICURL}flyme/img/nav/社区服务_hover.png"></i><p>社区版务</p></a></span>
+        <span class="nav_li"><a href="{APPLY_URL}" target="_self"><i class="icon icon_bbsNew"><img class="imgNormal" src="{STATICURL}flyme/img/nav/申请.png"><img class="imgHover" src="{STATICURL}flyme/img/nav/申请_hover.png"></i><p>我要申请</p></a></span>
+        <span class="nav_li"><a href="{MEDAL_URL}" target="_self"><i class="icon icon_bbsNew"><img class="imgNormal" src="{STATICURL}flyme/img/nav/勋章.png"><img class="imgHover" src="{STATICURL}flyme/img/nav/勋章_hover.png"></i><p>勋章申请</p></a></span>
+		</div>
+	</div>
+	<div id="recommendArticle"><!--{block/37}--><div class="sidebarBlock"><h3>推荐文章</h3><!--{block/36}--></div></div><div id="jiang108"><!--{block/38}--><div class="sidebarBlock"><h3>108将出品</h3><!--{block/41}--></div></div>
+    <div class="sidebarBlock" id="activeMember">
+        <h3>活跃会员</h3>
+        <div class="activeMembers_wrap">
+            <div class="activeMembers"><!--{loop $common_member_active $key $member_active}--><a class="activeMember" href="http://bbs.flyme.cn/space-uid-{$member_active[uid]}.html" target="_blank"><!--{avatar($member_active[uid])}--><p>{$member_active[username]}</p></a><!--{/loop}-->
+            </div>
+        </div>
+    </div>
+    
+</div>
+<script>
+    jQuery(function(){
+        articFun("#jiang108 .art_title");
+        articFun("#recommendArticle .art_title");
+    });
+</script>

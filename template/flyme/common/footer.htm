@@ -1,0 +1,118 @@
+	</div>
+<!--{if empty($topic) || ($topic[usefooter])}-->
+	<!--{if $_G['uid'] && $_G['member']['allowadmincp'] == 1 && $_G['setting']['showpatchnotice'] == 1}-->
+		<div class="focus patch" id="patch_notice"></div>
+	<!--{/if}-->
+	<!--{hook/global_footer}-->
+	<div id="ft" class="wp cl">
+        <!--{if ($_G['cache']['forumlinks'][0] || $_G['cache']['forumlinks'][1] || $_G['cache']['forumlinks'][2])&&$_G['basescript'] == 'portal'}-->
+        <div id="linkTip" class="z linkTip"><a style="cursor:default;">友情链接</a></div>
+        <div id="flk" class="z linkTip">
+            <!--{if $_G['cache']['forumlinks'][0]}--><ul class="m mbn cl">$_G['cache']['forumlinks'][0]</ul><!--{/if}-->
+            <!--{if $_G['cache']['forumlinks'][1]}--><div class="mbn cl">$_G['cache']['forumlinks'][1]</div><!--{/if}-->
+            <!--{if $_G['cache']['forumlinks'][2]}--><ul class="x mbm cl">$_G['cache']['forumlinks'][2]</ul><!--{/if}-->
+        </div>
+        <!--{/if}-->
+        
+		<!--{eval updatesession();}-->
+		<!--{if $_G['uid'] && $_G['group']['allowinvisible']}-->
+			<script type="text/javascript">
+			var invisiblestatus = '<!--{if $_G['session']['invisible']}-->{lang login_invisible_mode}<!--{else}-->{lang login_normal_mode}<!--{/if}-->';
+			var loginstatusobj = $('loginstatusid');
+			if(loginstatusobj != undefined && loginstatusobj != null) loginstatusobj.innerHTML = invisiblestatus;
+			</script>
+		<!--{/if}-->
+	</div>
+<!--{/if}-->
+
+<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze'] && !$_G['member']['groupexpiry']}-->
+	<!--{if $_G[uid] && !isset($_G['cookie']['checkpm'])}-->
+	<script type="text/javascript" src="home.php?mod=spacecp&ac=pm&op=checknewpm&rand=$_G[timestamp]"></script>
+	<!--{/if}-->
+	<!--{if $_G[uid] && helper_access::check_module('follow') && !isset($_G['cookie']['checkfollow'])}-->
+	<script type="text/javascript" src="home.php?mod=spacecp&ac=follow&op=checkfeed&rand=$_G[timestamp]"></script>
+	<!--{/if}-->
+	<!--{if $_G[uid] && $_G['member']['allowadmincp'] == 1 && !isset($_G['cookie']['checkpatch'])}-->
+	<script type="text/javascript" src="misc.php?mod=patch&action=checkpatch&rand=$_G[timestamp]"></script>
+	<!--{/if}-->
+<!--{/if}-->
+<!--{if $_GET['diy'] == 'yes'}-->
+	<!--{if check_diy_perm($topic) && (empty($do) || $do != 'index')}-->
+		<script type="text/javascript" src="{$_G[setting][jspath]}common_diy.js?{VERHASH}"></script>
+		<script type="text/javascript" src="{$_G[setting][jspath]}portal_diy{if !check_diy_perm($topic, 'layout')}_data{/if}.js?{VERHASH}"></script>
+	<!--{/if}-->
+	<!--{if $space['self'] && CURMODULE == 'space' && $do == 'index'}-->
+		<script type="text/javascript" src="{$_G[setting][jspath]}common_diy.js?{VERHASH}"></script>
+		<script type="text/javascript" src="{$_G[setting][jspath]}space_diy.js?{VERHASH}"></script>
+	<!--{/if}-->
+<!--{/if}-->
+<!--{if $_G['uid'] && $_G['member']['allowadmincp'] == 1 && $_G['setting']['showpatchnotice'] == 1}-->
+	<script type="text/javascript">patchNotice();</script>
+<!--{/if}-->
+
+<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze'] && !$_G['member']['groupexpiry'] && $_G['setting']['disableipnotice'] != 1 && $_G['uid'] && !empty($_G['cookie']['lip'])}-->
+	<div class="focus plugin" id="ip_notice"></div>
+	<script type="text/javascript">ipNotice();</script>
+<!--{/if}-->
+<!--{if $_G[message_notice_all]||($_G['member']['newprompt'] && (empty($_G['cookie']['promptstate_'.$_G[uid]]) || $_G['cookie']['promptstate_'.$_G[uid]] != $_G['member']['newprompt']) && $_GET['do'] != 'notice')}-->
+	<!--<script type="text/javascript">noticeTitle();</script>-->
+<!--{/if}-->
+
+<!--{if ($_G[member][newpm] || $_G[member][newprompt]) && empty($_G['cookie']['ignore_notice'])}-->
+	<script type="text/javascript" src="{$_G[setting][jspath]}html5notification.js?{VERHASH}"></script>
+	<script type="text/javascript">
+	var h5n = new Html5notification();
+	if(h5n.issupport()) {
+		<!--{if $_G[member][newpm] && $_GET[do] != 'pm'}-->
+		h5n.shownotification('pm', '$_G[siteurl]home.php?mod=space&do=pm', '<!--{avatar($_G[uid],small,true)}-->', '{lang newpm_subject}', '{lang newpm_notice_info}');
+		<!--{/if}-->
+		<!--{if $_G[member][newprompt] && $_GET[do] != 'notice'}-->
+				<!--{loop $_G['member']['category_num'] $key $val}-->
+					<!--{eval $noticetitle = lang('template', 'notice_'.$key);}-->
+					h5n.shownotification('notice_$key', '$_G[siteurl]home.php?mod=space&do=notice&view=$key', '<!--{avatar($_G[uid],small,true)}-->', '$noticetitle ($val)', '{lang newnotice_notice_info}');
+				<!--{/loop}-->
+		<!--{/if}-->
+	}
+	</script>
+<!--{/if}-->
+
+<!--{eval userappprompt();}-->
+<!--{if $_G['basescript'] != 'userapp'}-->
+	<!-- start goTop -->
+	<div id="scrollTop">
+		<a class="sclTop_share sclTop_shareWX" href="javascript:void(0);">
+			<i class="icon icon_weixin"></i>
+		</a>
+		<a class="sclTop_share sclTop_shareWB" href="http://weibo.com/meizuflyme" target="_blank">
+			<i class="icon icon_weibo"></i>
+		</a>
+		<a class="sclTop_share sclTop_goTop" href="javascript:void(0);">
+			<i class="icon icon_goTop"></i>
+		</a>
+        <div id="wechatPic"></div>
+	</div>
+	<!-- end goTop -->
+<!--{/if}-->
+<!--{if isset($_G['makehtml'])}-->
+	<script type="text/javascript" src="{$_G[setting][jspath]}html2dynamic.js?{VERHASH}"></script>
+	<script type="text/javascript">
+		var html_lostmodify = {TIMESTAMP};
+		htmlGetUserStatus();
+		<!--{if isset($_G['htmlcheckupdate'])}-->
+		htmlCheckUpdate();
+		<!--{/if}-->
+	</script>
+<!--{/if}-->
+<!--{eval output();}-->
+<!--{subtemplate common/footer_meizu}-->
+<script type="text/javascript">
+;(function() {
+var ga = document.createElement('script'), s; 
+ga.type = 'text/javascript';
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'tongji.meizu.com/js/flow.js';
+s = document.getElementsByTagName('script')[0]; 
+s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<script type="text/javascript" src="{$_G[setting][jspath]}flyme/commonLib.js?{VERHASH}"></script>
+</body></html>

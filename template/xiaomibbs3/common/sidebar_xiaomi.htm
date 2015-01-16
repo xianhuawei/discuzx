@@ -1,0 +1,166 @@
+
+<!--{if $_G['uid']}-->
+<div class="bm xm_bm xm_bm_gal">
+    <div class="bm_c">
+    <!--{block/6456}-->
+    </div>
+</div>
+<!--{/if}-->
+<!--{block/6456}-->
+
+<div class="bm xm_bm xm_bm_hot">
+	<!--{block/6339}-->
+</div>
+<!--{if $_G['uid']}-->
+<div class="bm xm_bm xm_bm_hot">
+    <div class="bm_h">
+        <h2>论坛版块推荐</h2>
+        <a href="http://bbs.xiaomi.cn/forum.php" target="_blank">更多&gt;</a>
+    </div>
+    <div class="bm_c">		
+        <!--{block/6339}-->
+    </div>
+</div>
+<!--{/if}-->
+
+<!--签到start-->
+<div id="midaben_sign"></div>
+<!--签到end-->
+
+<div class="bm xm_bm xm_bm_top">
+    <div class="bm_h">
+        <h2>精彩推荐</h2>
+        <a href="http://www.xiaomi.cn" target="_blank">更多&gt;</a>
+        <a href="http://www.xiaomi.cn" target="_blank">更多&gt;</a>
+    </div>
+    <div class="bm_c">
+        <!--{block/6336}-->
+    </div>
+</div>
+
+<div class="bm xm_bm xm_bm_rom">
+	<div class="bm_h">
+		<h2>小米手机ROM</h2>
+		<a href="http://rom.xiaomi.cn" target="_blank">更多&gt;</a>
+	</div>
+	<div class="bm_c">
+		<!--{if $_G['uid']}-->
+        <div class="download">
+            <strong>89.2<span>%</span></strong>
+            <h2>本周推荐度</h2>
+            <em>MIUI V5 3.8.9</em>
+            <a href="#">ROM下载</a>
+        </div>
+        <div class="info">
+            <a href="#">关于开发版和稳定版的说明</a>
+            <br/>
+            <a href="#">Miflash</a> | <a href="#">一件升级工具</a> | <a href="#">手机助手</a>
+        </div>
+		<!--{/if}-->
+		<!--{block/3520}-->
+	</div>
+</div>
+
+<script type="text/javascript">
+    var slideGal = function(id) {
+        var obj = document.getElementById(id);
+
+        obj.pics = obj.getElementsByTagName("li");
+        obj.pic_num = obj.pics.length;
+        obj.pic_cur = 0;
+
+        obj.timer;
+
+        obj.toggles = document.createElement("div");
+        obj.toggles.className = "toggle";
+        obj.getElementsByClassName("bm_c")[0].appendChild(obj.toggles);
+
+        obj.showPic = function (id) {
+            var temp = obj.toggles.getElementsByTagName("a");
+            for (var i in temp) {
+                temp[i].className = temp[i].id === "tog_" + id?"current":"";
+            }
+
+            for (var i in obj.pics) {
+                if (obj.pics[i].tagName && obj.pics[i].tagName.toLocaleUpperCase() === "LI") {
+                    obj.pics[i].style.display = (obj.pics[i].id === "pic_" + id)?"block":"none";
+                }
+            }
+
+            return false
+        }
+
+        obj.rollPic = function () {
+            clearTimeout(obj.timer);
+
+            if (obj.pic_cur >= obj.pic_num) {
+                obj.pic_cur = 0;
+            }
+
+            obj.showPic(obj.pic_cur);
+
+            obj.pic_cur++;
+
+            obj.timer = setTimeout(obj.rollPic, 5000);
+
+        }
+
+        for (var i in obj.pics) {
+            if (obj.pics[i].tagName && obj.pics[i].tagName.toUpperCase() === "LI") {
+                obj.pics[i].id = "pic_" + i;
+
+                var toggle = document.createElement("a");
+                toggle.setAttribute("href", "#");
+                toggle.id = "tog_" + i;
+                toggle.addEventListener("click", function(e) {
+                    obj.pic_cur = this.id.replace("tog_", "");
+                    obj.rollPic();
+                    e.preventDefault();
+                })
+
+                obj.toggles.appendChild(toggle);
+            }
+        }
+
+        if (obj.pic_num > 0) {
+            obj.rollPic();
+
+            obj.onmouseover = function() {clearTimeout(obj.timer)};
+            obj.onmouseleave = function() {obj.timer = setTimeout(obj.rollPic, 5000)};
+        }
+    }
+</script>
+
+<!--{if $_G['uid']}-->
+<div class="bm xm_bm xm_bm_gal" id="xm_gallery">
+    <div class="bm_c">
+        <!--{block/6337}-->
+        <script type="text/javascript">
+            slideGal("xm_gallery");
+        </script>
+    </div>
+</div>
+<!--{/if}-->
+<!--{block/6337}-->
+
+<div class="bm xm_bm xm_bm_news">
+    <div class="bm_h">
+        <h2>热点动态</h2>
+        <a href="http://bbs.xiaomi.cn/forum-15-1.html" target="_blank">更多&gt;</a>
+    </div>
+    <div class="bm_c">
+        <!--{block/6338}-->
+    </div>
+</div>
+
+<div class="bm xm_bm xm_bm_gal xm_bm_store" id="xm_store">
+    <div class="bm_h">
+        <h2>小米官方精品配件</h2>
+    </div>
+    <div class="bm_c">
+        <!--{block/6455}-->
+        <script type="text/javascript">
+            slideGal("xm_store");
+        </script>
+    </div>
+</div>

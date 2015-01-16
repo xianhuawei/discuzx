@@ -1,0 +1,179 @@
+	<!--{if $quicksearchlist && !$_GET['archiveid']}-->
+		<!--{subtemplate forum/search_sortoption}-->
+	<!--{/if}-->
+            <!--{loop $_G['forum_threadlist'] $key $thread}-->
+               <!--{if $_G['forum_threadcount']}-->
+	<!--{if empty($_G['forum']['picstyle']) || $_G['cookie']['forumdefstyle']}-->
+						
+<div class="feed">
+<div class="feed-avatar">
+<a avatar= title="$_G['setting']['bbname']" class="blog-avatar" href="{$_G['siteurl']}" title="$_G['setting']['bbname']"></a>
+<a href="home.php?mod=space&amp;uid=$thread[authorid]" class="author-avatar"  c="34"><img src="uc_server/avatar.php?uid=$thread[authorid]&amp;size=small" width="30" height="30"/></a>
+</div>
+<div class="feed-content-holder pop"><div class="v2-boxtrz"></div>
+<div class="pop-triangle"></div>
+<div class="pop-content"><div class="feed-hd">
+<div class="feed-basic">
+
+<div id="chart" class="bm bw0 cl">
+<p class=" z">
+<!--{if $thread['authorid'] && $thread['author']}-->
+<a href="home.php?mod=space&uid={$thread[authorid]}">作者：{$thread[author]} </a><span class="xg1">{$thread[dateline]}</span><!--{/if}-->
+<!--{if $thread['cover']}-->
+<span class="xg4"><span class="xi1">帖内有$thread[cover]张图</span></span>
+<!--{/if}-->
+<!--{if $thread[icon] >= 0}-->
+<span class="xg4"><span class="xi1"><img src="{STATICURL}image/stamp/{$_G[cache][stamps][$thread[icon]][url]}" alt="{$_G[cache][stamps][$thread[icon]][text]}" align="absmiddle" /></span></span>
+<!--{/if}-->
+<!--{if $thread['rushreply']}-->
+<img src="{IMGDIR}/rushreply_s.png" alt="{lang rushreply}" align="absmiddle" />
+<!--{/if}-->
+<!--{if $thread['price'] > 0}-->
+<!--{if $thread['special'] == '3'}-->
+- <a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=reward$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}&rewardtype=1" title="{lang show_rewarding_only}"><span class="xi1">[{lang thread_reward} <span class="xw1">$thread[price]</span> {$_G[setting][extcredits][$_G['setting']['creditstransextra'][2]][unit]}{$_G[setting][extcredits][$_G['setting']['creditstransextra'][2]][title]}]</span></a>
+<!--{else}-->
+- [{lang price} <span class="xw1">$thread[price]</span> {$_G[setting][extcredits][$_G['setting']['creditstransextra'][1]][unit]}{$_G[setting][extcredits][$_G['setting']['creditstransextra'][1]][title]}]
+<!--{/if}-->
+<!--{elseif $thread['special'] == '3' && $thread['price'] < 0}-->
+- <a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=reward$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}&rewardtype=2" title="{lang show_rewarded_only}">[{lang reward_solved}]</a>
+<!--{/if}-->
+<!--{if $thread['attachment'] == 2}-->
+<img src="{STATICURL}image/filetype/image_s.gif" alt="attach_img" title="{lang attach_img}" align="absmiddle" />
+<!--{elseif $thread['attachment'] == 1}-->
+<img src="{STATICURL}image/filetype/common.gif" alt="attachment" title="{lang attachment}" align="absmiddle" />
+<!--{/if}-->
+<!--{if $thread['mobile']}-->
+<img src="{IMGDIR}/mobile-attach-$thread['mobile'].png" alt="{lang post_mobile}" align="absmiddle" />
+<!--{/if}-->
+<!--{if $thread['digest'] > 0 && $filter != 'digest'}-->
+<img src="{IMGDIR}/digest_$thread[digest].gif" align="absmiddle" alt="digest" title="{lang thread_digest} $thread[digest]" />
+<!--{/if}-->
+<!--{if $thread['displayorder'] == 0}-->
+<!--{if $thread[recommendicon] && $filter != 'recommend'}-->
+<img src="{IMGDIR}/recommend_$thread[recommendicon].gif" align="absmiddle" alt="recommend" title="{lang thread_recommend} $thread[recommends]" />
+<!--{/if}-->
+<!--{if $thread[heatlevel]}-->
+<img src="{IMGDIR}/hot_$thread[heatlevel].gif" align="absmiddle" alt="heatlevel" title="$thread[heatlevel] {lang heats}" />
+<!--{/if}-->
+<!--{if $thread['rate'] > 0}-->
+<img src="{IMGDIR}/agree.gif" align="absmiddle" alt="agree" title="{lang rate_credit_add}" />
+<!--{elseif $thread['rate'] < 0}-->
+<img src="{IMGDIR}/disagree.gif" align="absmiddle" alt="disagree" title="{lang posts_deducted}" />
+<!--{/if}-->
+<!--{/if}-->
+</p>
+<div class="y">
+<!--{if $thread['displayorder'] == 3}-->
+<img border="0" align="absmiddle" title="全局置顶" src="{IMGDIR}/pin_3.gif">
+<!--{elseif $thread['displayorder'] == 2}-->
+<img border="0" align="absmiddle" title="分区置顶" src="{IMGDIR}/pin_2.gif">
+<!--{elseif $thread['displayorder'] == 1}-->
+<img border="0" align="absmiddle" title="版块置顶" src="{IMGDIR}/pin_1.gif">
+<!--{/if}-->
+</div>
+</div>
+ </div>
+</div><div class="feed-bd">
+<h4 class="feed-title">   
+<a href="forum.php?mod=viewthread&tid=$thread[tid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra"$thread[highlight]{if $thread['isgroup'] == 1 || $thread['forumstick']} target="_blank"{else} onclick="atarget(this)"{/if} class="xst feed-title" >$thread[subject]</a>
+</h4>
+<div class="feed-ct">
+<div class="feed-txt-full">
+<div>	
+<ul id="bigs"><li>
+<!--{hook/forumdisplay_thread $key}-->
+</li></ul>
+<div class="feed-txt-summary">
+<p><!--{hook/forumdisplay_thread_subject $key}--></p>								
+</div></div>						
+</div>
+</div>
+<div id="chart" class="bm bw0 cl">
+<p class=" z">
+
+<!--{if $groupnames[$thread[tid]]}-->
+<a href="forum.php?mod=forumdisplay&fid={$groupnames[$thread[tid]][fid]}" target="_blank" >#{$groupnames[$thread[tid]][name]}</a>
+<!--{/if}-->
+
+$thread[sorthtml] $thread[typehtml]  
+                               
+<!--{if $thread['lastposter']}--><a href="{if $thread[digest] != -2}home.php?mod=space&username=$thread[lastposterenc]{else}forum.php?mod=viewthread&tid=$thread[tid]&page={echo max(1, $thread[pages]);}{/if}" onclick="atarget(this)">#$thread[lastposter]</a><!--{else}-->#$_G[setting][anonymoustext]<!--{/if}-->
+<a href="{if $thread[digest] != -2}forum.php?mod=redirect&tid=$thread[tid]&goto=lastpost$highlight#lastpost{else}forum.php?mod=viewthread&tid=$thread[tid]&page={echo max(1, $thread[pages]);}{/if}" onclick="atarget(this)">在$thread[lastpost]<!--{if $thread['replies'] == 0}-->{lang published}<!--{else}-->{lang reply}<!--{/if}--></a>
+</p>
+<div class="y">
+<a href="{if $thread[digest] != -2}forum.php?mod=redirect&tid=$thread[tid]&goto=lastpost$highlight#lastpost{else}forum.php?mod=viewthread&tid=$thread[tid]&page={echo max(1, $thread[pages]);}{/if}" onclick="atarget(this)">回复($thread[replies])</a>
+
+<a  style="cursor:pointer;padding-right: 5px;"> <!--{if $thread['isgroup'] != 1}-->热度($thread[views])<!--{else}-->热度({$groupnames[$thread[tid]][views]})<!--{/if}--></a>
+</div>
+</div>
+</div>
+<div class="feed-content-holderz">
+<div class="v2-boxbrjz">
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<hr size="18" color="#DBDFE2">	
+
+								
+<!--{/if}-->
+<!--{else}-->
+<tbody class="bw0_all"><tr><th colspan="{if !$_GET['archiveid'] && $_G['forum']['ismoderator']}6{else}5{/if}"><p class="emp">{lang forum_nothreads}</p></th></tr></tbody>
+</table>
+<!--{/if}-->
+<!--{/loop}-->	
+
+<!--{if empty($_G['forum']['picstyle']) || $_G['cookie']['forumdefstyle']}-->
+<script type="text/javascript">var lasttime = $_G['timestamp'];</script>
+<!--{/if}-->
+		
+<!--{if !IS_ROBOT}-->
+	<div id="filter_special_menu" class="p_pop" style="display:none" change="location.href='forum.php?mod=forumdisplay&fid=$_G[fid]&filter='+$('filter_special').value">
+		<ul>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang threads_all}</a></li>
+			<!--{if $showpoll}--><li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=poll$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang thread_poll}</a></li><!--{/if}-->
+			<!--{if $showtrade}--><li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=trade$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang thread_trade}</a></li><!--{/if}-->
+			<!--{if $showreward}--><li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=reward$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang thread_reward}</a></li><!--{/if}-->
+			<!--{if $showactivity}--><li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=activity$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang thread_activity}</a></li><!--{/if}-->
+			<!--{if $showdebate}--><li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=debate$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang thread_debate}</a></li><!--{/if}-->
+		</ul>
+	</div>
+	<div id="filter_reward_menu" class="p_pop" style="display:none" change="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=reward$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}&rewardtype='+$('filter_reward').value">
+		<ul>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=reward$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang all_reward}</a></li>
+			<!--{if $showpoll}--><li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=reward$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}&rewardtype=1">{lang rewarding}</a></li><!--{/if}-->
+			<!--{if $showtrade}--><li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=reward$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}&rewardtype=2">{lang reward_solved}</a></li><!--{/if}-->
+		</ul>
+	</div>
+	<div id="filter_dateline_menu" class="p_pop" style="display:none">
+		<ul>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&orderby={$_GET['orderby']}&filter=dateline$forumdisplayadd[dateline]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang search_any_date}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&orderby={$_GET['orderby']}&filter=dateline&dateline=86400$forumdisplayadd[dateline]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang last_1_days}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&orderby={$_GET['orderby']}&filter=dateline&dateline=172800$forumdisplayadd[dateline]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang last_2_days}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&orderby={$_GET['orderby']}&filter=dateline&dateline=604800$forumdisplayadd[dateline]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang list_one_week}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&orderby={$_GET['orderby']}&filter=dateline&dateline=2592000$forumdisplayadd[dateline]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang list_one_month}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&orderby={$_GET['orderby']}&filter=dateline&dateline=7948800$forumdisplayadd[dateline]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang list_three_month}</a></li>
+		</ul>
+	</div>
+	<!--{if !$_G['setting']['closeforumorderby']}-->
+	<div id="filter_orderby_menu" class="p_pop" style="display:none">
+		<ul>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang list_default_sort}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=author&orderby=dateline$forumdisplayadd[author]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang list_post_time}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=reply&orderby=replies$forumdisplayadd[reply]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang replies}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=reply&orderby=views$forumdisplayadd[view]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang views}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=lastpost&orderby=lastpost$forumdisplayadd[lastpost]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang lastpost}</a></li>
+			<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=heat&orderby=heats$forumdisplayadd[heat]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang order_heats}</a></li>
+		<ul>
+	</div>
+	<!--{/if}-->
+<!--{/if}-->
+
+<div class="bm bw0 pgs cl">
+	<span id="fd_page_bottom">$multipage</span>
+	<span {if $_G[setting][visitedforums]}id="visitedforumstmp" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'21'})"{/if} class="pgb y"><a href="forum.php">{lang return_index}</a></span>
+	
+	<!--{hook/forumdisplay_postbutton_bottom}-->
+</div>

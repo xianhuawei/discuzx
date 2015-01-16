@@ -1,0 +1,201 @@
+body { padding: 0; margin: 0; background: #f1f1f1; color: #333; font-family: microsoft yahei, Verdana, Geneva, sans-serif;  }
+div, ul, li, span, img, h1, h1, h2, h3, h4, h5, h6, input, em, dt, dd, button, p, textarea { padding: 0; margin: 0; border: none; list-style: none; font-size: 100%; font-weight: normal; }
+a { color: #333; text-decoration: none; }
+a:visited { color: #333; text-decoration: none; }
+.sr_header { position: relative; }
+.sr_header h2 { width: 50%; text-align: center; padding: 2% 0; position: relative; text-align: center; margin: 0 auto; }
+.sr_header h2 img { max-width: 85%; text-align: center; }
+.sr_header .hdc { background: #fd7d44; text-align: center; position: relative; }
+.zs { width: 100%; height: 17px; background: url(images/zs.png) repeat-x; position: relative; z-index: 9; margin-bottom: -15px; }
+.shadow_bg { width: 100%; height: 9px; background: url(images/shadow_bg.png) repeat-x; position: absolute; top: 0px; left: 0px; }
+ul.user_fun { width: 100%; padding: 2% 0; background: #f9f9f9; overflow: hidden; border-bottom: 1px solid #e2e2e2; position: relative; }
+ul.user_fun li { width: 33%; border-right: 1px solid #f0f0f0; float: left; text-align: center; }
+ul.user_fun li a { color: #666; }
+.sr_ttp { text-align: center; }
+.boxpost { background: #ececec; padding: 1.9% 2.5%; color: #999; border-bottom: 1px solid #e2e2e2; }
+.pipe { color: #e0e0e0; margin: 0 1.5%; }
+.sr_board .wp { padding: 0 2.5%; }
+.sr_board .wp .bm { background: #fff; margin-top: 2.5%; }
+.sr_board .subforumshow { background: #f6f6f6; padding: 3.5%; border-bottom: 1px solid #e2e2e2; overflow: hidden; clear: both; }
+.sr_board .wp .bm .n { float: left; }
+.sr_board .wp .bm .o { }
+.sr_board .wp .bm .o img { float: right; width: 6%; }
+.sr_board ul li {  padding: 2.5% 3.5%; border-bottom: 1px solid #e2e2e2; position: relative; overflow: hidden; cursor: pointer; }
+.sr_board ul li .num { position: absolute; right: 3.5%; padding: 0.2% 2.5%; background: #fd7d44; color: #fff; border-radius: 50px; top: 35%; font-size: 86.9%; }
+.sr_board .posticon img { float: left; width: 16%; }
+.sr_board .c_board { float: left; margin-left: 3%; padding: 2% 0; }
+.sr_board .c_board .board_name { font-size: 105%; }
+.sr_board .c_board .posthreads { font-size: 79.5%; color: #999; }
+.footer { text-align: center; margin-top: 3.5%; border-top: 1px solid #e0e0e0; padding: 2.5%; color: #333; clear: both; overflow: hidden; margin-bottom: 15%; }
+.footer p { margin: 0px; padding: 0; }
+.footer a { color: #333; }
+.footer a:visited { color: #333; }
+
+.clear { clear: both; }
+blockquote { }
+.nav { }
+.threadlist { padding: 0 2.5%; border-top: 1px solid #f9f9f9; }
+.threadlist ul li {background: #fff; border-bottom: 1px solid #e2e2e2; cursor: pointer; margin-top: 1.5%; }
+.sr_bg { height: 2px; background: #ededed; }
+.sr_header .backlink img { position: absolute; left: 2.5%; width: 6% !important; top: 29%; }
+.navtop { padding: 2% 0 2% 2.5%; background: #f9f9f9; overflow: hidden; border-bottom: 1px solid #e2e2e2; position: relative; display: block; color: #999; position: relative; }
+.navtop em { font-style: normal; color: #e0e0e0; }
+.photosize { }
+.photosize img { max-width: 6.5%; position: relative; top: 2px; border: none; }
+.thread_con { padding: 3.5%; border-bottom: 1px solid #f3f3f3; }
+.thread_meta { padding: 0.9% 3.5%; background: #fafafa; border-top: 1px solid #fff; border-bottom: 1px solid #fff; overflow: hidden; color: #999; font-size: 75%; }
+.thread_left { width: 50%; float: left; }
+.thread_right { width: 50%; float: right; text-align: right; }
+.thread_meta .ts { margin-right: 0.5%; color: #c0c0c0; }
+.thread_meta .ts img { max-width: 6.5%; }
+.pagenav { margin: 3.5% 0; text-align: center; }
+.nothreads { padding: 3.5%; }
+
+.topsend { padding: 2.5%; border-bottom: 1px solid #e2e2e2; overflow: hidden; }
+.icon_edit { padding: 0.5% 2.5%; background: #fd7d44; color: #fff; border-radius: 5px; display: block; overflow: hidden; float: left; cursor: pointer; position: absolute; top: 20%; right: 3.5% }
+.boxfor { display: none; }
+.topsend .xg2 { padding: 1.5% 0; background: #e2e2e2; color: #666; background: #fff; border: 1px solid #e0e0e0; cursor: pointer; clear: both; }
+.topsend .xg2 em { font-style: normal; }
+.boxfor { text-align: center; }
+.boxfor a { width: 49%; background: #f9f9f9; color: #fff; color: #666; display: inline-block; border-radius: 5px; padding: 2.5% 0; margin-top: 2.5%; }
+
+.pagenav a { margin: 0 2.5%; }
+.footer .function_menu { padding: 1.9% 3.5%; text-align: center; background: #fff; margin-bottom: 3.5%; color: #e0e0e0; }
+.footer .function_menu a { color: #666; }
+.footer .function_menu a.visited { color: #666; }
+/*#messagetext { padding: 0 2.5%; }
+#messagetext .jump_box { background: #f0f0f0; padding: 5%; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px #999; }
+#messagetext a { color: #fd7d44; }
+#messagetext a:visited { color: #fd7d44; }*/
+.postlist { padding: 0 2.5%; margin-top: 2.5%; }
+.topostit { padding: 3.5%; border-bottom: 1px solid #f3f3f3; background: #fff; border-bottom: 1px solid #e2e2e2; cursor: pointer; }
+.bottometa em { color: #e9e9e9; margin: 0 0.5%; font-style: normal; }
+.bottometa { padding: 0.9% 3.5%; background: #fafafa; border-top: 1px solid #fff; border-bottom: 1px solid #fff; overflow: hidden; color: #999; font-size: 72%; }
+.bottometa span { margin: 0 0.5%; }
+.plc a { color: #666; }
+.plc a:visited { color: #666; }
+.plc .pi .message img,.plc .pi .img_one img { max-width:100%; height: auto; margin: 2.5% 0; }
+.message { padding: 3.5%; background: #fff; overflow: hidden; font-size: 100%; }
+.avatar { float: left; }
+.pi { width: 100%; }
+ul.authi { width: 75%; float: left; margin-left: 3.5%; }
+ul.authi li { font-size: 75%; }
+.floordiv { position: absolute; top: 0; right: 0; font-size: 72%; color: #999; }
+.chatby { width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 9px solid #fff; margin-left: 2.5%; }
+.plc { margin-top: 2.5%; }
+.topinfor { position: relative; border-bottom: 1px solid #f0f0f0; padding-bottom: 1.5%; margin-bottom: 2.5%; color: #999; }
+.postauthor { font-size: 125%; color: #333; }
+a.postauthor { color: #333; }
+.postcon { font-size: 100%; word-break:break-all; }
+.onlyauthor a { display: block; overflow: hidden; padding: 2.5% 0; margin-top: 1.5%; text-align: center; color: #999; background: #f5f5f5; font-size: 75%; }
+#fastpostmessage { width: 100%; height: 60px; border: 1px solid #e2e2e2; font-size: 85.9%; font-family: microsoft yahei, Verdana, Geneva, sans-serif; color: #666; }
+#fastpostsubmit { padding: 1.5% 2.5%; background: #fd7d44; color: #fff; font-size: 85.9%; margin: 2.5% 0 0 2.5%; }
+ul.fastpost ul li .y { float: right; }
+#fastpostsubmitline a.y { float: right; display: block; margin-top: 4.5%!important; }
+ul.fastpost li .y .none { display: none; }
+.dialogbox { }
+
+.tip { width: 300px; height: auto !important; background: #f0f0f0; margin: 0 auto;border: 1px solid #D7D7D7; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;text-align: center; box-shadow: 0 5px 5px #999; }
+.tip dt { padding: 30px 20px; font-size: 15px; }  
+.tip dd { background:#FFF; border-top:1px solid #D7D7D7; padding: 9px 0; }
+.tip dd a { margin-left:15px; }
+.tip dd input.button2 { padding: 5px 15px; background: #fd7d44; color: #fff; border-radius: 5px; }
+
+.profilebox { padding: 0 2.5%; margin-top: 2.5%; }
+.user_avatar { background: #fafafa; padding: 2.5% 3.5%; border-bottom: 1px solid #e2e2e2; overflow: hidden; }
+.avatar_m img { float: left; }
+.profilebox h2.name { float: left; margin-left: 3.5%; padding: 4.5% 0; }
+.user_box ul li { padding: 2.5% 3.5%; border-bottom: 1px solid #f0f0f0; background: #fff; color: #666; }
+.loginbox { padding: 0 2.5%; margin-top: 2.5%; }
+.loginbox input { width: 94.5%; }
+.loginbox .account { border: 1px solid #e0e0e0; border-radius: 9px 9px 0 0; padding: 2.5%; }
+.loginbox .password { border: 1px solid #e0e0e0; border-radius:  0 0 9px 9px; padding: 2.5%; border-top: none; }
+.login_select { margin-top: 3.5%; }
+.login_select .span_question { width: 100%; color: #666; }
+.selectbox select.sel_list { width: 100%; margin-top: 3.5%; }
+.btn_login { margin-top: 3.5%; }
+.btn_login button { width: 100%; }
+.btn_login .formdialog { padding: 2.5%; text-align: center; background: #fd7d44; color: #fff; border-radius: 5px; }
+.loginbox .accout_input { border: 1px solid #e0e0e0; border-radius: 9px 9px 0 0; padding: 2.5%; border-bottom: 1px solid #f0f0f0; }
+.loginbox .password_input { border: 1px solid #e0e0e0; padding: 2.5%; border-top: none; border-bottom: 1px solid #f0f0f0; }
+.loginbox .ap_password { border: 1px solid #e0e0e0; padding: 2.5%; border-top: none; border-bottom: 1px solid #f0f0f0; }
+.loginbox .email_input { border: 1px solid #e0e0e0; border-radius:  0 0 9px 9px; padding: 2.5%; border-top: none; }
+.btn_register { margin-top: 3.5%; }
+.btn_register button { width: 100%; }
+.btn_register .formdialog { padding: 2.5%; text-align: center; background: #fd7d44; color: #fff; border-radius: 5px; }
+.jump_c { margin-top: 2.5%; padding: 0 3.5%; }
+.jump_con { background: #fff; padding: 3.5%; border-bottom: 1px solid #f3f3f3; }
+.jump_c p { margin: 1.5% 0; }
+.jump_url { padding: 0.9% 3.5%; background: #fafafa; border-top: 1px solid #fff; border-bottom: 1px solid #fff; overflow: hidden; text-align: center; }
+.jump_url a { color: #666; }
+.dialogbox input.button { width: 100%; text-align: center; background: #fd7d44; color: #fff; font-size: 125%; margin-bottom: 1.5%; padding: 3.5%  }
+.post_from { padding: 0 2.5%; margin-top: 2.5%; }
+.post_from ul li { text-align: center; margin: 0 auto; }
+.post_from .bl_line { width: 92.5%; background: #e2e2e2; padding: 2.5%; border: 1px solid #e2e2e2; text-align: left; }
+.post_from .bl_line #needsubject { padding: 2.5%; width: 92.5%  }
+.post_from .bl_none textarea { width: 92.5%; height: auto; resize: none; margin-top: 1.5%; padding: 2.5%; border: 1px solid #e2e2e2; }
+.post_from .bl_none #needmessage { }
+.threadboxlist { padding: 0 2.5%; margin-bottom: 20.5%; }
+.threadboxlist ul li { background: #fff; border-bottom: 1px solid #e2e2e2; cursor: pointer; margin-top: 1.5%; }
+.myinfo_list ul li { width: 50%; padding: 3.5% 0; text-align: center; float: left; background: #fff; cursor: pointer; border-bottom: 1px dashed #e2e2e2; }
+.icon_pm_send { margin-top: 4.5%; }
+.icon_pm_send a { width: 100%; display: block; padding: 3.5% 0; text-align: center; color: #fff; background: #fd7d44; border-radius: 5px; }
+.pmbox { padding: 0 2.5%; margin-top: 4.5%; }
+.pm_sendbox { background: #fff; overflow: hidden; }
+.pm_sendbox ul li { padding: 2.5%; overflow: hidden; cursor: pointer; }
+.pm_sendbox .avatar_img img { float: left; }
+.cl_pmbox { width: 80.6%; border-radius: 5px; float: left; margin-left: 2.5%; position: relative; }
+.pmbox .time { position: absolute; right: 2.5%; top: 0; font-size: 75%; color: #999; }
+.pmbox .pm_sendbox .namebox { font-size: 85.9%; color: #999; }
+.pmbox .pm_sendbox .grey { overflow: hidden; text-overflow: ellipsis; white-space:nowrap; margin-top: 1.5%; }
+.pm_showbox { margin-top: 4.5%; border-bottom: 1px dashed #e2e2e2; padding-bottom: 4.5%; }
+.pm_showbox .avat{ float: left; }
+.msgbox { padding: 0 2.5%; margin: 2.5% 0 20.5%; }
+.dialog_t { word-break:break-all; }
+.dialog_white, .dialog_green { width: 89%; float: left; position: relative; }
+.dialog_t { background: #fff; padding: 4.5%; margin-left: 6.5%; }
+.chat_arrow { border-top: 9px solid #fff; border-left: 9px solid transparent; height:0px; width:0px; position: absolute; top: 0; left: 3.5%; }
+.dialog_white .date, .dialog_green .date { margin: 2.5% 0 0 6.5%; font-size: 75%; color: #999; }
+.replybox { padding: 3.5%; border: 1px solid #e2e2e2; width: 68.9%; }
+form.pmform { text-align: center; }
+.replysubmit { padding: 3.5% 4.5%; background: #fd7d44; color: #fff; }
+.post_msg_from { padding: 0 2.5%; margin-top: 4.5%; }
+.post_msg_from ul li { width: 100%; max-width: 100%; height: auto; text-align: center; }
+.post_msg_from input { width: 92.5%; padding: 2.5%; border: 1px solid #e2e2e2; }
+.post_msg_from textarea { max-width: 92.5%; resize: none; padding: 2.5%; border: 1px solid #e2e2e2; margin-top: 1.5%; }
+.post_msg_from .pm_btn .btn_pn_grey { width: 92.5%; padding: 2.5%; background: #fd7d44; color: #fff; margin-top: 4.5%; }
+.post_imglist { background: none; margin-top: 2.5%; }
+.replybox_send { width: 100%; text-align: center; margin-top: 4.5%; }
+.replybox_send button { width: 50%; padding: 2.5%; background: #fd7d44; color: #fff; float: left; }
+.leftinput { float: left; }
+.rightfileimg { float: right; }
+ul.post_imglist { padding: 0px 2.5%; margin-top: 2.5%; }
+ul.post_imglist li { margin-top: 2.5%; border: 1px solid #E2E2E2; background: #fff; padding: 2.5%; margin-right: 1.58%; float: left; }
+ul.post_imglist .del { text-align: center; }
+.search { padding: 0 2.5%; margin-top: 2.5%; }
+.search table { background: #fff; padding: 3.5%; text-align: center; }
+.search table input { width: 95%; }
+.searchtext input { padding: 2.5%; border: 1px solid #e2e2e2; }
+.searchsubmit input { padding: 2.5%; background: #fd7d44; color: #fff; margin-top: 4.5%; }
+.search_threadlist { padding: 0 2.5%; margin-top: 2.5%; }
+.search_threadlist ul li { background: #fff; border-bottom: 1px solid #e2e2e2; cursor: pointer; margin-top: 1.5%; padding: 3.5%; }
+.thread_tit { padding: 2.5%; background: #fff3b5; color: #7d7a65; }
+.btn_exit a { margin-top: 3.5%; background: #e0e0e0; padding: 1.5%; color: #666; text-align: center; display: block; overflow: hidden; }
+#post_new { margin-top: 2.5px; padding: 0 3.5%; background: #fff; overflow: hidden; font-size: 100%; }
+#post_new .message { padding: 1.5% 0 2.5%; background: none; overflow: hidden; clear: both; border-top: 1px solid #f0f0f0; }
+#post_new .plc { clear: both; border-bottom: 1px solid #e0e0e0; padding: 2.5% 0; position: relative;  }
+#post_new ul li em { position: absolute; top: 3.5%; right: 3.5%; font-size: 100%; color: #999; }
+#post_new ul li .rela { color: #999; }
+.btn_qqlogin { text-align: center; padding: 2.5% 0; background: #fff; border: 1px solid #E0E0E0; margin: 2.5% 0; border-radius: 9px; }
+.btn_qqlogin img { max-width: 85%; border: none; }
+.loginbox .login_wrapper p { margin-top: 2.5%; }
+.replyfor { position: absolute; top: 0%; right: 3.5%; }
+.replyfor button { background: #17818e; color: #fff; padding: 9.5% 9%; border-radius: 0 0 5px 5px; font-size: 100%; display: block; cursor: pointer; }
+.c_bk { padding: 0 2.5%; margin-top: 2.5%; }
+.c_bk .bm_h { background: #F6F6F6; padding: 3.5%; border-bottom: 1px solid #E2E2E2; overflow: hidden; clear: both; }
+.c_bk .bm_c { padding: 0; border-bottom: 1px solid #E2E2E2; position: relative; overflow: hidden; cursor: pointer; background: #fff; }
+.sub_forum { display: none; }
+.subforumshow { cursor: pointer; }
+.subforumshow .sr_arrow img { float: right; width: 6%; }
+.clock_icon { margin-right: 0.5%; color: #c0c0c0; }
+.clock_icon img { max-width: 6.5% !important; margin: 0 !important; position: relative; top: 2px; }

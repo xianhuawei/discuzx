@@ -1,0 +1,150 @@
+<!--{template common/header}-->
+<link rel="stylesheet" href="{STATICURL}meizu/style_extends.css" type="text/css" media="all">
+<div class="buglist_title">
+    <a href="forum-{$_G[fid]}-1.html">BUG反馈</a>
+</div>
+<div class="buglist_nav">
+    <div class="buglist_nav_module">
+        <span style="cursor: pointer" onclick="window.location.href='forum.php?mod=forumdisplay&fid={$_G[fid]}&filter=typeid{if $_GET[orderby]==support}&orderby=$_GET[orderby]{/if}{if $_GET[feedback_status]}&feedback_status=$_GET[feedback_status]{/if}{if $_GET[romversion]}&romversion=$_GET[romversion]{/if}{if $_GET[machine]}&machine=$_GET[machine]{/if}{if $_GET[version]}&version=$_GET[version]{/if}{if $_GET[usedtime]}&usedtime=$_GET[usedtime]{/if}'">模块</span>
+        <!--{loop $firstcategory $info}-->
+        <a id="buglist_nav_module_{$info['id']}" href="<!--{if $info['haschild']=='1'}-->javascript:;<!--{else}-->forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&typeid={$info['id']}{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}<!--{/if}-->" class="<!--{if $info['haschild']=='1'}-->showmenu<!--{/if}--> xi2 {if $_GET['typeid']==$info['id']}active{/if}" onmouseover="showMenu(this.id)" >{$info[name]}</a>
+        <!--{/loop}-->
+    </div>
+    <div class="buglist_nav_filter">
+        <span>筛选</span>
+        <a  href="forum.php?mod=forumdisplay&fid={$_G[fid]}&filter=typeid&orderby=$_GET[orderby]{if $_GET[feedback_status]}&feedback_status=$_GET[feedback_status]{/if}" class="{if !$_GET['romversion'] && !$_GET['version']&&!$_GET['machine'] && !$_GET['usedtime']}active {/if}">全部</a>
+        <a id="buglist_nav_filter_beta" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&romversion=2{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['version']}&version=$_GET['version']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}" class="xi2 {if $_GET['romversion']==2}active {/if}">体验版</a>
+        <a id="buglist_nav_filter_stable" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&romversion=1{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['version']}&version=$_GET['version']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}" class="xi2 {if $_GET['romversion']==1}active {/if}">稳定版</a>
+        <a id="buglist_nav_filter_version" href="javascript:;" class="showmenu xi2" onmouseover="showMenu(this.id)">版本号</a>
+        <a id="buglist_nav_filter_machine" href="javascript:;" class="showmenu xi2" onmouseover="showMenu(this.id)">全部机型</a>
+        <a id="buglist_nav_filter_usedTime" href="javascript:;" class="showmenu xi2" onmouseover="showMenu(this.id)">全部时间</a>
+    </div>
+</div>
+<div id="buglist_nav_filter_version_menu" class="p_pop4bugList" parentid="buglist_nav_filter_version" style="display:none">
+    <ul>
+        <li><a data-value="" class="{if !isset($_GET['version'])||empty($_GET['version'])}active {/if} typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}">版本号</a></li>
+        <!--{loop $version  $v}-->
+        <li><a class="{if isset($_GET['version'])&&!empty($_GET['version'])&&$_GET['version']==$v[code]}active {/if}typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&version={$v[code]}{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}">{$v[value]}</a></li>
+        <!--{/loop}-->
+    </ul>
+</div>
+<div id="buglist_nav_filter_machine_menu" class="p_pop4bugList" parentid="buglist_nav_filter_machine"  style="display:none">
+    <ul>
+        <li><a data-value="" class="{if !isset($_GET['machine'])||empty($_GET['machine'])} active {/if} typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid{$v[code]}{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}{if $_GET['version']}&version=$_GET['version']{/if}">全部机型</a></li>
+        <!--{loop $machine  $v}-->
+        <li><a class="{if isset($_GET['machine'])&&!empty($_GET['machine'])&&$_GET['machine']==$v[code]}active {/if}typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&machine={$v[code]}{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}{if $_GET['version']}&version=$_GET['version']{/if}">{$v[value]}</a></li>
+        <!--{/loop}-->
+    </ul>
+</div>
+<div id="buglist_nav_filter_usedTime_menu"class="p_pop4bugList" parentid="buglist_nav_filter_usedTime"  style="display:none">
+    <ul>
+        <li><a data-value="" class="{if !isset($_GET['usedtime'])||empty($_GET['usedtime'])}active {/if} typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}">全部时间</a></li>
+        <li><a class="{if isset($_GET['usedtime'])&&!empty($_GET['usedtime'])&&$_GET['usedtime']==1} active {/if} typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&usedtime=1{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}">一天</a></li>
+        <li><a class="{if isset($_GET['usedtime'])&&!empty($_GET['usedtime'])&&$_GET['usedtime']==2} active {/if} typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&usedtime=2{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}">三天</a></li>
+        <li><a class="{if isset($_GET['usedtime'])&&!empty($_GET['usedtime'])&&$_GET['usedtime']==3} active {/if} typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&usedtime=3{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}">一星期</a></li>
+        <li><a class="{if isset($_GET['usedtime'])&&!empty($_GET['usedtime'])&&$_GET['usedtime']==4} active {/if} typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&usedtime=4{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}">三星期</a></li>
+        <li><a class="{if isset($_GET['usedtime'])&&!empty($_GET['usedtime'])&&$_GET['usedtime']==5} active {/if} typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&usedtime=5{if $_GET['orderby']=='support'}&orderby=support{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}">一个月</a></li>
+    </ul>
+</div>
+<!--{loop $subcategory $key $info}-->
+<div id="buglist_nav_module_{$key}_menu" class="p_pop4bugList" parentid="buglist_nav_module_{$key}" style="display:none">
+    <ul>
+        <!--{loop $info  $v}-->
+        <li><a class="{if $_GET['typeid']==$v['id']}active {/if}typeidlist_menu" href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&typeid={$v['id']}{if $_GET[orderby]==support}&orderby=$_GET['orderby']{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}">{$v[name]}</a></li>
+        <!--{/loop}-->
+    </ul>
+</div>
+<!--{/loop}-->
+<script type="text/javascript">
+    ;(function($){
+        var obj = $(".p_pop4bugList").find(".active"),
+                menu=null;
+        if(obj.length>0){
+            obj.each(function(i,v){
+                if($(v).attr("data-value")!=""){
+                    menu = $(v).closest(".p_pop4bugList");
+                    var id = $(menu).attr("id");
+                    if(menu!=null){
+                        $("#"+menu.attr("parentid")).addClass("active");
+                        if(id=='buglist_nav_filter_version_menu'||id=='buglist_nav_filter_usedTime_menu'||id=='buglist_nav_filter_machine_menu'){
+                            $("#"+menu.attr("parentid")).text($(v).text());
+                        }
+                    }
+                }
+            });
+        }
+    })(jQuery);
+</script>
+<!-- /对应弹出面板 -->
+<div class="buglist_classify">
+    <!--{if $_G['is_mobile_browser']}-->
+    <style>.buglist_classify_nav a p{font-size: 14px}</style>
+    <!--{/if}-->
+    <ul class="buglist_classify_nav">
+        <li <!--{if $feedback_status==10}--> class="active"<!--{/if}-->>
+        <a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&feedback_status=10{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}">
+            <i class="i_icon buglist_classify_new"></i>
+            <p>最新提交</p>
+        </a>
+        </li>
+        <li <!--{if $feedback_status==20}--> class="active"<!--{/if}-->>
+        <a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&feedback_status=20{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}">
+            <i class="i_icon buglist_classify_pending"></i>
+            <p>待处理</p>
+        </a>
+        </li>
+        <li <!--{if $feedback_status==30}--> class="active"<!--{/if}-->>
+        <a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&feedback_status=30{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}">
+            <i class="i_icon buglist_classify_handled"></i>
+            <p>已处理</p>
+        </a>
+        </li>
+        <li <!--{if $feedback_status==40}--> class="active"<!--{/if}-->>
+        <a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&feedback_status=40{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}">
+            <i class="i_icon buglist_classify_solved"></i>
+            <p>确认解决</p>
+        </a>
+        </li>
+    </ul>
+    <div class="buglist_btns">
+        <a href="forum.php?mod=post&action=newthread&fid=<!--{echo FEEDBACK_PROPOSAL_FID}-->" class="suggest_fb">建议反馈</a>
+        <a href="forum.php?mod=post&action=newthread&fid=<!--{echo FEEDBACK_BUG_FID}-->" class="bug_fb">BUG反馈</a>
+    </div>
+</div>
+
+<table cellpadding="0" cellspacing="0" class="postlist_table">
+    <thead>
+    <tr><th class="handle_status">处理状态</th><th class="feedback_title">BUG反馈</th><th class="attention_rate"><a <!--{if $_GET[orderby]=="support"}-->class="active"<!--{/if}--> href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&orderby=support{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['feedback_status']}&feedback_status=$_GET['feedback_status']{/if}{if $_GET['romversion']}&romversion=$_GET['romversion']{/if}{if $_GET['typeid']}&typeid=$_GET['typeid']{/if}{if $_GET['machine']}&machine=$_GET['machine']{/if}{if $_GET['version']}&version=$_GET['version']{/if}{if $_GET['usedtime']}&usedtime=$_GET['usedtime']{/if}">遇到次数/关注度</a></th><th class="author">提交人</th><th class="post_time"> 提交时间</th></tr>
+    </thead>
+    <tbody>
+    <!--{if $_G['forum_threadcount']}-->
+    <!--{if empty($_G['forum']['picstyle']) || $_G['cookie']['forumdefstyle']}-->
+    <!--{loop $_G['forum_threadlist'] $key $thread}-->
+    <!--{if $separatepos <= $key + 1}-->
+    <!--{ad/threadlist}-->
+    <!--{/if}-->
+    <!--{if $separatepos == $key +2}-->
+    <tr class="border-bottom">
+        <!--{else}-->
+    <tr>
+        <!--{/if}-->
+        <td class="handle_status
+                        <!--{if $thread['displayorder']>0}
+                            <!--{elseif $thread['feedback_status']==20}-->font_blue
+                            <!--{elseif $thread['feedback_status']==30}-->font_yellow
+                            <!--{elseif $thread['feedback_status']==40}-->font_green
+                            <!--{/if}-->">
+            <!--{if $thread['displayorder']>0}-->置顶
+            <!--{elseif $thread['feedback_status']==20}-->待处理
+            <!--{elseif $thread['feedback_status']==30}-->已处理
+            <!--{elseif $thread['feedback_status']==40}-->确认解决
+            <!--{/if}-->
+        </td><td class="feedback_title "><a href="forum.php?mod=viewthread&tid=$thread[icontid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra"$thread[highlight]>{$thread[subject]}</a></td><td class="attention_rate">{$thread[support]}/{$thread[views]}</td><td class="author" title="{$thread[author]}"><a href="home.php?mod=space&uid={$thread[authorid]}" target="_blank"> <!--{eval echo cutstr($thread['author'],15)}--></a></td><td class="post_time">{$thread[dateline]}</td>
+    </tr>
+    <!--{/loop}-->
+    <!--{/if}-->
+    <!--{/if}-->
+</table>
+<span id="fd_page_bottom" style="float: right">$multipage</span>
+<!--{if empty($_G['setting']['disfixednv_forumdisplay']) }--><script>fixed_top_nv();</script><!--{/if}-->
+<!--{template common/footer}-->

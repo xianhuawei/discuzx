@@ -1,0 +1,165 @@
+<!--{template common/header}-->
+
+<!--{if empty($_G['gp_infloat'])}-->
+<div id="ct" class="wp w cl">
+	<div class="mn mw">
+<!--{/if}-->
+
+<div class="f_c">
+<h3 class="flb" id="fctrl_$_G[gp_handlekey]" style="cursor: move;">
+<em id="return_$_G[gp_handlekey]" fwin="$_G[gp_handlekey]">
+{lang qqmedal:medalaward}
+</em>
+<span><a title="{lang close}" onclick="hideWindow('$_G[gp_handlekey]');return false;" class="flbc" href="javascript:;">{lang close}</a></span>
+</h3>
+<div class="c">
+<form name="publish_form" id="publish_form" action="plugin.php?id=qqmedal:medal" method="post" onsubmit="ajaxpost('publish_form', 'return_$_G[gp_handlekey]', null, null, 'publishsubmit', null);return false;">
+<input type="hidden" value="{FORMHASH}" name="formhash">
+<input type="hidden" value="true" id="publishsubmit" name="publishsubmit" >
+<!--{if $_G[inajax]}-->
+	<input type="hidden" name="handlekey" value="$_G[gp_handlekey]" />
+<!--{/if}-->
+<dl class="xld cl" style="padding: 0 20px;">
+<dd class="m" style="margin-right:20px;">
+	<img src="source/plugin/qqmedal/img/icon_tips.png" />
+</dd>
+<dt class="z">
+<div class="mbm pbm">
+	<!--{if $rewardcredit && $addcreditnum}-->
+	<p class="mtn xi1 xs2">{lang qqmedal:awardtips1}</p>
+	<p class="mtm xw0">{lang qqmedal:awardtips2}<span class="xi2">$addcreditnum $_G['setting']['extcredits'][$rewardcredit]['title']</span></p>
+	<!--{/if}-->
+</div>
+<div class="mbm">
+	<p class="mbn">
+		<button id="publish" name="publish" value="true" type="submit"></button>&nbsp;&nbsp;
+        <a title="{lang qqconnect:connect_post_sync_qzone2}" class="syn_qq" href="javascript:void(0);" id="connectPost_synQQ_infloat"  rel="connect_publish_feed_infloat">{lang qqconnect:connect_viewthread_share_to_qzone}</a>
+        <input type="hidden" name="connect_publish_feed_infloat" id="connect_publish_feed_infloat" value="0" />
+        <a title="{lang qqconnect:connect_post_sync_t2}" class="syn_tqq" href="javascript:void(0);" id="connectPost_synT_infloat" rel="connect_publish_t_infloat">{lang qqconnect:connect_viewthread_share_to_t}</a>
+        <input type="hidden" name="connect_publish_t_infloat" id="connect_publish_t_infloat" value="0" />
+    </p>
+</div>
+</dt>
+</dl>
+</form>
+</div>
+</div>
+<div class="o pns">
+</div>
+
+<script type="text/javascript" reload="1">
+    var _allow_qq_infloat = true;
+    var _allow_t_infloat = true;
+    var _syn_qq_infloat = {if $_G['member']['conisbind'] && $_G['member']['conispublishfeed']}true{else}false{/if};
+    var _syn_t_infloat = {if $_G['member']['conisbind'] && $_G['member']['conispublisht']}true{else}false{/if};
+    var _is_oauth_user_infloat = {if $_G['member']['conisbind']}true{else}false{/if};
+    var _is_feed_auth_infloat = {if $_G['member']['conuinsecret'] && $_G['member']['is_feed']}true{else}false{/if};
+    var _is_token_outofdate = {if $_G['member']['conuinsecret']}false{else}true{/if};
+    function connect_post_init_infloat() {
+        if (_allow_qq_infloat && _syn_qq_infloat) {
+            if (_is_feed_auth_infloat && !_is_token_outofdate) {
+                $('connectPost_synQQ_infloat').className = 'syn_qq_check';
+                $('connectPost_synQQ_infloat').title = '{lang qqconnect:connect_post_sync_qzone1}';
+                $('connect_publish_feed_infloat').value = 1;
+            } else {
+                $('connectPost_synQQ_infloat').className = 'syn_qq';
+                $('connectPost_synQQ_infloat').title = '{lang qqconnect:connect_post_sync_qzone2}';
+                $('connect_publish_feed_infloat').value = 0;
+            }
+        }
+
+        if (_allow_t_infloat && _syn_t_infloat) {
+            if (_is_feed_auth_infloat && !_is_token_outofdate) {
+                $('connectPost_synT_infloat').className = 'syn_tqq_check';
+                $('connectPost_synT_infloat').title = '{lang qqconnect:connect_post_sync_t1}';
+                $('connect_publish_t_infloat').value = 1;
+            } else {
+                $('connectPost_synT_infloat').className = 'syn_tqq';
+                $('connectPost_synT_infloat').title = '{lang qqconnect:connect_post_sync_t2}';
+                $('connect_publish_t_infloat').value = 0;
+            }
+        }
+        
+        if (_allow_qq_infloat) {
+            $('connectPost_synQQ_infloat').onclick = function () {
+                connect_syn_option_toggle_infloat(this);
+            }
+        }
+        if (_allow_t_infloat) {
+            $('connectPost_synT_infloat').onclick = function () {
+                connect_syn_option_toggle_infloat(this);
+            }
+        }
+        if (getcookie('connect_synpost_tip')) {
+            connect_post_tip_infloat();
+        }
+    }
+    function connect_syn_option_toggle_infloat(opt) {
+        if (_is_feed_auth_infloat && !_is_token_outofdate) {
+            if ($(opt.getAttribute('rel')).value == 1) {
+                opt.className = opt.className.replace('_check', '');
+                opt.title = opt.title.replace('{lang qqconnect:connect_post_sync_yes}', '{lang qqconnect:connect_post_sync_no}');
+                $(opt.getAttribute('rel')).value = 0;
+            } else {
+                $(opt.getAttribute('rel')).value = 1;
+                opt.className += '_check';
+                opt.title = opt.title.replace('{lang qqconnect:connect_post_sync_no}', '{lang qqconnect:connect_post_sync_yes}');
+            }
+        } else {
+            var _auth_text = '{lang qqconnect:connect_post_sync_unauthorized_desc}';
+            if (_is_token_outofdate) {
+                _auth_text = '{lang qqconnect:connect_access_token_out_of_date_feed}';
+                var _button = '{lang qqconnect:connect_access_token_outofdate_button}';
+                showDialog(_auth_text, 'notice', null, null, 0, null, null, _button);
+                return;
+            } else if (!_is_oauth_user_infloat) {
+                _auth_text = '{lang qqconnect:connect_post_sync_not_bind_desc}';
+            }
+            showDialog(_auth_text, 'notice', '{lang qqconnect:connect_post_sync_unauthorized_title}', 'connect_goto_setting_infloat()', 0, null, null, '{lang qqconnect:connect_modify_authorization_button}');
+        }
+    }
+    function connect_post_tip_infloat() {
+        if ($('fastpostform')) {
+            return;
+        }
+        var r = document.getElementById('rstnotice');
+        var c = document.createElement('div');
+        c.setAttribute('id', 'synnotice');
+        c.setAttribute('class', 'ntc_l bbs');
+        if(BROWSER.ie) {
+            c.id = 'synnotice';
+            c.className = 'ntc_l bbs';
+        }
+        c.style.display = 'block';
+        r.parentNode.insertBefore(c, r.nextSibling);
+        c.innerHTML = '<a href="javascript:void(0);" title="{lang qqconnect:connect_post_sync_tip_close}" class="d y" onclick="connect_syn_tip_hide_infloat();">close</a>{lang qqconnect:connect_post_sync_tip}&nbsp;&nbsp;<a class="xi2" href="javascript:void(0);" onclick="connect_syn_cancel_infloat();" title="{lang qqconnect:connect_post_sync_cancel_tip}"><strong>{lang qqconnect:connect_post_sync_cancel}</strong></a>';
+    }
+    function connect_syn_tip_hide_infloat() {
+        setcookie('connect_synpost_tip', '', '-1');
+        $('synnotice').style.display = 'none';
+    }
+    function connect_syn_cancel_infloat() {
+        ajaxget('{$_G['siteurl']}connect.php?mod=config&op=synconfig', '');
+        $('connectPost_synQQ_infloat').className = 'syn_qq';
+        $('connectPost_synQQ_infloat').title = '{lang qqconnect:connect_post_sync_qzone2}';
+        $('connect_publish_feed_infloat').value = 0;
+        $('connectPost_synT_infloat').className = 'syn_tqq';
+        $('connectPost_synT_infloat').title = '{lang qqconnect:connect_post_sync_t2}';
+        $('connect_publish_t_infloat').value = 0;
+        $('synnotice').style.display = 'none';
+    }
+    function connect_goto_setting_infloat() {
+        var _url = "{$_G['siteurl']}home.php?mod=spacecp&ac=plugin&id=qqconnect:spacecp";
+        hideMenu('fwin_dialog', 'dialog')
+        var _newWindow = window.open(_url, 'newWindow');
+        _newWindow.focus();
+    }
+    connect_post_init_infloat();
+</script>
+
+<!--{if empty($_G['gp_infloat'])}-->
+	</div></div>
+</div>
+<!--{/if}-->
+
+<!--{template common/footer}-->

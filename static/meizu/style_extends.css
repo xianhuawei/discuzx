@@ -1,0 +1,131 @@
+/* bug反馈，建议反馈css样式 */
+.buglist_title{width: 100%; border-bottom: 1px solid #d9d9d9; margin-bottom: 30px;margin-top: 10px;}
+.buglist_title a{ font-size: 18px; border-bottom: 2px solid #32a5e7}
+.buglist_nav_module,.buglist_nav_filter{margin-bottom: 15px;}
+.buglist_nav_module span, .buglist_nav_filter span{margin-right: 13px; color: #2b2b2b}
+.buglist_nav_module a, .buglist_nav_filter a{ margin-right: 17px;color: #7f7f7f !important;}
+
+.p_pop4bugList {background-color: #fff;min-width: 80px;text-align: center;font-size: 16px;padding:0;border: 1px solid #d9d9d9;}
+.p_pop4bugList li{border-bottom: 1px solid #d9d9d9;font-size: 14px;}
+.p_pop4bugList li a{color: #7f7f7f;display: block;padding: 10px;}
+.p_pop4bugList li a.active{color: #00a7ea;}
+.buglist_nav_module a.active{color: #00a7ea !important;}
+.buglist_nav_filter a.active{color: #00a7ea !important;}
+.postlist_table  .post_time a.active, .postlist_table  .attention_rate a.active, .postlist_table .handle_status a.active{color: #00a7ea}
+
+.buglist_classify{height:auto; overflow: hidden; clear:both;margin-top: 40px; padding-bottom: 15px; border-bottom: 1px solid #d9d9d9}
+.buglist_classify_nav{display: block; float: left; margin-top: 10px}
+.buglist_nav .showmenu{cursor: default}
+.buglist_classify_nav li{display: block; width: 60px; height: 60px; float: left; position: relative; margin-right: 50px}
+.buglist_classify_nav a{display: block; width: 60px; height: 60px;}
+.buglist_classify_nav li p{width: 100%; height: 20px; cursor: pointer; text-align: center; line-height: 20px; position: absolute; left: 0; bottom: 0; color: #2b2b2b}
+.buglist_classify_nav .active p{color: #00a7ea}
+.buglist_classify_nav .i_icon{display: block; margin:auto;width: 28px; height: 28px; background: url("images/icon_sprite.png") 28px 28px no-repeat;}
+.buglist_classify_nav .buglist_classify_new{background-position: 0 -84px;}
+.active .buglist_classify_new{background-position: -28px -84px;}
+.buglist_classify_nav .buglist_classify_pending{background-position: 0 0}
+.active .buglist_classify_pending{background-position: -28px 0}
+.buglist_classify_nav .buglist_classify_handled{background-position: 0 -28px}
+.active .buglist_classify_handled{background-position: -28px -28px}
+.buglist_classify_nav .buglist_classify_solved{background-position: 0 -56px}
+.active .buglist_classify_solved{background-position: -28px -56px}
+
+.buglist_classify_nav .suggestlist_classify_new{background-position: 0 -84px;}
+.active .suggestlist_classify_new{background-position: -28px -84px;}
+.buglist_classify_nav .suggestlist_classify_accept{background-position: -56px -27px}
+.active .suggestlist_classify_accept{background-position: -84px -28px}
+.buglist_classify_nav .suggestlist_classify_assess{background-position: -56px 1px}
+.active .suggestlist_classify_assess{background-position: -84px 0}
+.buglist_classify_nav .suggestlist_classify_unconsider{background-position: -56px -56px}
+.active .suggestlist_classify_unconsider{background-position: -84px -56px}
+.buglist_classify_nav .suggestlist_classify_compleled{background-position: 0 -56px}
+.active .suggestlist_classify_compleled{background-position: -28px -56px}
+
+.buglist_btns{width: 310px; float: right;}
+.buglist_btns a{display: block; float: left; width: 143px; margin-right: 24px; height: 48px; background: #00a7ea; color: #fff; text-align: center; line-height: 48px; font-size: 20px}
+.buglist_btns .bug_fb{margin-right: 0;}
+
+table.postlist_table{width: 100%; font-size: 14px; color: #7f7f7f}
+.postlist_table thead th{color:#2b2b2b}
+.postlist_table thead .attention_rate span{cursor: pointer;}
+.postlist_table thead .attention_rate span:hover{color: #00a7ea}
+.postlist_table tr td,tr th{border-bottom: 1px solid #f2f2f2; height: 55px; line-height: 55px;}
+.postlist_table tr .handle_status{width: 14%; text-align: left}
+.postlist_table tr .feedback_title{width: 50%; text-align: left;overflow: hidden; white-space: nowrap; text-overflow: ellipsis }
+.feedback_title a{display: block;}
+.postlist_table tr .attention_rate{width: 13%; text-align: center}
+.postlist_table tr .author{width: 13%; text-align: center}
+.postlist_table tr .post_time{width: 10%; text-align: right}
+.postlist_table tr .font_orange{color: #f44a07}
+.postlist_table tr .font_blue{color: #1c7bf0}
+.postlist_table tr .font_yellow{color: #f59812}
+.postlist_table tr .font_green{color: #28c3be}
+.postlist_table tr .font_blueLight{color: #00a7ea}
+.postlist_table tr .font_black{color: #2b2b2b}
+.postlist_table .border-bottom td,.border-bottom th{border-bottom: 1px solid #d9d9d9}
+
+/* BUG反馈提交 页面样式 */
+.buglist_title{width: 100%; border-bottom: 1px solid #d9d9d9; margin-bottom: 30px;}
+.buglist_title a{ font-size: 18px; border-bottom: 2px solid #32a5e7}
+.form_require_blue{color: #00a7ea}
+.formLine{margin: 20px 0;}
+.formLine .z{ color: #2b2b2b;width: 100px; font-size: 18px; margin-right: 10px; height: 30px; line-height: 30px;}
+.form_require_blue{margin-right: 10px; height: 30px; line-height: 30px;}
+.formLine textarea,.formLine input{border:1px solid #e4e4e4}
+.formLine input{height: 28px; width: 220px}
+.form_tips{color: #7f7f7f; font-size: 14px; height: 30px; line-height: 30px; clear: both}
+.form_tips a{display: inline; border: none; background: none; color: #08a9eb !important;}
+.form_tips a:hover{text-decoration: underline !important;}
+
+.pnpost button.feedback_postsubmit{width: 143px; height: 48px !important; background: #00a7ea !important; color: #fff !important; border-radius: 0; border: none; line-height: 48px; font-size: 20px; text-align: center;}
+.pnpost button.feedback_postsubmit span,.pnpost button.feedback_postsubmit em{cursor: pointer}
+
+#editor_switch{width:150px;color: #00a7ea; font-size: 18px; cursor: pointer; height:30px; line-height: 30px; margin-bottom: 10px;}
+.hiddenInput,.thumb-img-hide{display: none}
+.thumb-imgWrap{width: 100px; height: 100px; float: left; margin: 20px 20px 20px 0; position: relative}
+.thumb-imgRemove{width: 17px; height: 17px; cursor: pointer; position: absolute; top: -8px; right: -8px; background: url("images/close.png") 0 0 no-repeat;}
+.btn_upload{display:block; float:left !important; background: #00a7ea; color: #fff; font-family: "Microsoft Yahei"; width: 117px; height: 36px; font-size: 16px; text-align: center; line-height: 36px; cursor: pointer}
+.jImg_btn_upload{float: none}
+.fakeInput{display: block; float: left; padding: 5px;overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-right: 10px; border: 1px solid #b2b2b2; width: 160px; height: 24px;}
+
+/* 建议详情 页面样式  */
+.side{float:left;width: 259px; min-height: 500px}
+.post_detail_cont{float:left;width: 740px; height: auto; overflow: hidden; padding: 30px 0}
+.post_detail_title{color: #2b2b2b; font-size: 24px; width: 696px;}
+.post_detail_cont{width: 696px; }
+.post_detail_info{width: 100%;padding: 24px 0; font-size: 14px; color: #7f7f7f; border-bottom: 1px solid #e5e5e5; margin-bottom: 55px; zoom: 0.82}
+.post_detail_info span{margin-right: 10px;}
+.last_edit span{margin-right: 2px;}
+.post_detail_info .last_edit{float: right; *margin-top:-20px;}
+.post_detail_info .last_edit_name{display: inline; display: inline-block; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: bottom;}
+.post_detail_info .last_edit_name a{color: #00a7ea;}
+
+.post_detail_cont table.viewTable {border-left: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5; margin-bottom: 20px; font-size: 16px; color: #2b2b2b}
+.post_detail_cont .viewTable td{width:18%; text-align:center;border-bottom: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; padding: 20px 15px;}
+.post_detail_cont td.percent82,.viewTable td.percent82{width: 82%;}
+.post_detail_cont .textLeft{text-align: left !important;}
+
+.post_detail_opts{width: 256px; height: 56px; margin: 50px auto 67px;}
+.post_detail_occur{width: 97px; height: 56px; background: #00a7ea; float: left; margin-right: 11px;}
+.occur_num{width:100%; height:20px; margin-top:10px;font-size: 18px; line-height: 20px; text-align: center; color: #fff}
+.occur_desc{font-size: 12px; width: 100%; height: 16px; line-height: 16px; text-align: center; color: #fff}
+.post_detail_occur2ed{cursor:pointer;width: 146px; height: 54px; border:1px solid #00a7ea; float: left; line-height: 54px; color: #00a7ea; font-size: 18px; text-align: center}
+
+.ftid select{width:100px;margin-right: 5px; height: 30px;}
+
+.pcb{margin-right: 0;}
+/**bug反馈详情页面，建议反馈页面 需求背景，功能描述等需要回车换行**/
+.viewTable pre{font-family: microsoft yahei, Verdana, Geneva, sans-serif;margin: 0;white-space:pre-wrap;/*css-3*/
+    white-space:-moz-pre-wrap;/*Mozilla,since1999*/
+    white-space:-pre-wrap;/*Opera4-6*/
+    white-space:-o-pre-wrap;/*Opera7*/
+    word-wrap:break-word;/*InternetExplorer5.5+*/}
+/**上传文件域显示值改为0；这里主要是兼容ie浏览器**/
+/*.logFile{cursor:pointer;display: block;position: absolute;top: 0;left: 0;width: 117px;height: 36px;opacity: 0;-moz-opacity: 0;filter: alpha(opacity=0);}*/
+/**底层文字说明**/
+/*.jFile_btn_upload{position: relative;text-align: center;cursor: pointer;}*/
+
+.jFile_btn_upload { position: relative; overflow: hidden;display:block; width:117px; height:36px; font-size:14px; line-height:36px; text-align:center; color:#fff; background:#32a5e7; border-radius:1px; -moz-border-radius:1px; -webkit-border-radius:1px; }
+.jFile_btn_upload input { position: absolute; top: 0; right: 0; margin: 0; opacity: 0; -ms-filter: 'alpha(opacity=0)'; font-size: 200px; direction: ltr; cursor: pointer; }
+/* Fixes for IE < 8 */
+@media screen\9 {.jFile_btn_upload input { filter: alpha(opacity=0); font-size: 100%; height: 100%; }}

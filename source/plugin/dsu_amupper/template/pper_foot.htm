@@ -1,0 +1,18 @@
+<!--{block return}-->
+<style>
+.pperwbm {padding:6px 12px;border:1px solid #CDCDCD;background:#F2F2F2;line-height:1.8em;color:#003300;width:200px;overflow:hidden}
+.pperwbm .times{color:#ff9900;}
+.pperwbm  a{float:right;color:#ff3300;text-decoration:none}
+</style>
+
+<div class="pperwbm" id="pperwb_menu" style="display: none" >
+	<!--{if $this->vars['listradio']==0 }--><A HREF="plugin.php?id=dsu_amupper:pperlist" target="_blank">{lang dsu_amupper:showlist}</A><!--{/if}-->
+	<strong>{lang dsu_amupper:addup}<span class="times">{$pper_show[a]}</span>{lang dsu_amupper:times}</strong><br>
+	<!--{if $this->vars[uid][allow]}-->
+	<A HREF="forum.php?mod=viewthread&tid={$this->vars[uid][allow]}&authorid={$this->vars[uid][uid]}" target="_blank">{lang dsu_amupper:showpost}</A>
+	<!--{/if}-->
+	<strong>{lang dsu_amupper:cons}<span class="times">{$pper_show[c]}</span>{lang dsu_amupper:times}</strong><br>
+	
+	<strong>{lang dsu_amupper:last}: <span class="times">{$pper_show[l]}</span></strong>
+</div>
+<!--{/block}-->

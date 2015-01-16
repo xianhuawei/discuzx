@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="{CHARSET}">
+<!--{if $_G['config']['output']['iecompatible']}--><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE{$_G['config']['output']['iecompatible']}" /><!--{/if}-->
+<title><!--{if !empty($navtitle)}-->$navtitle  <!--{/if}--><!--{if empty($nobbname)}--> $_G['setting']['bbname'] <!--{/if}--> </title>
+$_G['setting']['seohead']
+<meta name="keywords" content="{if !empty($metakeywords)}{echo dhtmlspecialchars($metakeywords)}{/if}" />
+<meta name="description" content="{if !empty($metadescription)}{echo dhtmlspecialchars($metadescription)} {/if}{if empty($nobbname)},$_G['setting']['bbname']{/if}" />
+<meta name="generator" content="Discuz! $_G['setting']['version']" /><meta name="author" content="Discuz! Team and Comsenz UI Team" /><meta name="copyright" content="2001-2013 Comsenz Inc." />
+<link rel="apple-touch-icon" href="{STATICURL}image/flymeos/flymelogo.png" /><link rel="apple-touch-icon" sizes="72x72" href="{STATICURL}image/flymeos/flymelogo72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="{STATICURL}image/flymeos/flymelogo114.png" /><link rel="apple-touch-icon" sizes="144x144" href="{STATICURL}image/flymeos/flymelogo144.png" />
+<meta name="MSSmartTagsPreventParsing" content="True" /><meta http-equiv="MSThemeCompatible" content="Yes" />
+<base href="/" />
+<!--{csstemplate}-->
+<script src="{$_G[setting][jspath]}flyme/jquery-1.11.1.js"></script>
+<script type="text/javascript">var STYLEID = '{STYLEID}', STATICURL = '{STATICURL}', IMGDIR = '{IMGDIR}', VERHASH = '{VERHASH}', charset = '{CHARSET}', discuz_uid = '$_G[uid]', cookiepre = '{$_G[config][cookie][cookiepre]}', cookiedomain = '{$_G[config][cookie][cookiedomain]}', cookiepath = '{$_G[config][cookie][cookiepath]}', showusercard = '{$_G[setting][showusercard]}', attackevasive = '{$_G[config][security][attackevasive]}', disallowfloat = '{$_G[setting][disallowfloat]}', creditnotice = '<!--{if $_G['setting']['creditnotice']}-->$_G['setting']['creditnames']<!--{/if}-->', defaultstyle = '$_G[style][defaultextstyle]', REPORTURL = '$_G[currenturl_encode]', SITEURL = '$_G[siteurl]', JSPATH = '$_G[setting][jspath]', CSSPATH = '$_G[setting][csspath]', DYNAMICURL = '$_G[dynamicurl]';</script>
+<script type="text/javascript" src="{$_G[setting][jspath]}common.js?{VERHASH}"></script>
+<!--{if empty($_GET['diy'])}--><!--{eval $_GET['diy'] = '';}--><!--{/if}-->
+<!--{if !isset($topic)}--><!--{eval $topic = array();}--><!--{/if}-->
+<meta content="width=1080" name="viewport"/><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="application-name" content="$_G['setting']['bbname']" />
+<meta name="msapplication-tooltip" content="$_G['setting']['bbname']" />
+<!--{if $_G['setting']['portalstatus']}--><meta name="msapplication-task" content="name=$_G['setting']['navs'][1]['navname'];action-uri={echo !empty($_G['setting']['domain']['app']['portal']) ? 'http://'.$_G['setting']['domain']['app']['portal'] : $_G[siteurl].'portal.php'};icon-uri={$_G[siteurl]}{IMGDIR}/portal.ico" /><!--{/if}-->
+<meta name="msapplication-task" content="name=$_G['setting']['navs'][2]['navname'];action-uri={echo !empty($_G['setting']['domain']['app']['forum']) ? 'http://'.$_G['setting']['domain']['app']['forum'] : $_G[siteurl].'forum.php'};icon-uri={$_G[siteurl]}{IMGDIR}/bbs.ico" />
+<!--{if $_G['setting']['groupstatus']}--><meta name="msapplication-task" content="name=$_G['setting']['navs'][3]['navname'];action-uri={echo !empty($_G['setting']['domain']['app']['group']) ? 'http://'.$_G['setting']['domain']['app']['group'] : $_G[siteurl].'group.php'};icon-uri={$_G[siteurl]}{IMGDIR}/group.ico" /><!--{/if}-->
+<!--{if helper_access::check_module('feed')}--><meta name="msapplication-task" content="name=$_G['setting']['navs'][4]['navname'];action-uri={echo !empty($_G['setting']['domain']['app']['home']) ? 'http://'.$_G['setting']['domain']['app']['home'] : $_G[siteurl].'home.php'};icon-uri={$_G[siteurl]}{IMGDIR}/home.ico" /><!--{/if}-->
+<!--{if $_G['basescript'] == 'forum' && $_G['setting']['archiver']}--><link rel="archives" title="$_G['setting']['bbname']" href="{$_G[siteurl]}archiver/" /><!--{/if}-->
+<script type="text/javascript" src="{$_G[setting][jspath]}flyme/common.js?{VERHASH}"></script>
+<script type="text/javascript" src="{$_G[setting][jspath]}portal.js?{VERHASH}"></script>
+<!--{if $_GET['diy'] == 'yes' && check_diy_perm($topic)}--><link rel="stylesheet" type="text/css" id="diy_common" href="{$_G['setting']['csspath']}{STYLEID}_css_diy.css?{VERHASH}" /><!--{/if}-->
+<!--{if $_G['is_mobile_browser']}--><link rel="stylesheet" type="text/css" href="{STATICURL}/css/mobile.css"><!--{/if}-->
+<!--[if IE]>
+<style>#header_search .header_search{width: 238px; height: 33px;line-height: 33px;}#header{ width: expression( document.body.clientWidth < 1000 ? "1000px" : "100%" );}</style>
+<![endif]-->
+</head>
+<body id="nv_{$_G[basescript]}" class="pg_{CURMODULE}{if $_G['basescript'] === 'portal' && CURMODULE === 'list' && !empty($cat)} {$cat['bodycss']}{/if}" onkeydown="if(event.keyCode==27) return false;">
+	<div id="append_parent"></div><div id="ajaxwaitid"></div>
+	<!--{if empty($topic) || $topic['useheader']}-->
+	<!-- start header -->
+	<div id="hd"><div class="wp"><div id="header_cont"><a href="http://bbs.flyme.cn" id="logo"><img src="{STATICURL}flyme/img/logo.png"></a>
+				<ul id="header_link">
+					<!--{eval $header_count = count($_G['setting']['topnavs'][0])-3;}-->
+					<!--{loop $_G['setting']['topnavs'][0] $nav}-->
+					<!--{eval $nav_idx++}-->
+					<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}--><li <!--{if $nav_idx > $header_count}--> class="lastChild"<!--{/if}-->>$nav[code]</li> <!--{/if}-->
+					<!--{/loop}-->
+				</ul>
+			</div>
+			<div id="header_nav">
+				<ul>
+					<!--{loop $_G['setting']['navs'] $nav}-->
+					<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->
+					<!--{eval $navs_key_index++;}-->
+					<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}--><li><a href="{$nav[filename]}"> $nav[navname]</a></li><!--{/if}-->
+					<!--{/if}-->
+					<!--{/loop}-->
+				</ul>
+				<!--{subtemplate common/nav_search}--></div></div></div><!-- end header -->
+	<!--{/if}-->
+	<div id="wp" class="wp">
+<!--{if $_G['forum']['ismoderator']}-->
+<script type="text/javascript" src="{$_G[setting][jspath]}forum_moderate.js?{VERHASH}"></script>
+<!--{/if}-->
+<style id="diy_style" type="text/css"></style>
+<!-- start body -->
+<div id="main">
+	<div class="ct">
+		<div id="main_content">
+			<!-- start content -->
+			<div id="gallery4Index">
+				<div class="rotate" id="rotate">
+					<div class="roll_img" id=""><!--{block/78}--></div>
+					<div class="leftbtn_picturn"></div><div class="rightbtn_picturn"></div><div class="cr"></div>
+				</div>
+				<div class="roll_opacity"></div>
+				<div class="roll"><div class="roll_title"></div><div class="roll_small_signimg_div"></div><script>var tttt=new picTurn();tttt.picControl();</script></div>
+			</div>
+			<!-- start notice -->
+			<!--{subtemplate common/common_notice}-->
+			<!-- end notice -->
+			<!--{subtemplate forum/forumdisplayall_index}-->
+			<!-- end content -->
+		</div>
+		<!-- start sidebar -->
+		<!--{subtemplate forum/forumdisplay_index_rightside}-->
+		<!-- end sidebar -->
+	</div>
+</div>
+<script>
+jQuery(function(){
+    jQuery.ajax({ url: "ajax.php?r="+(new Date()).getTime(), success:function(data){
+        jQuery('#header_link').after(data);
+        if(window.PageHome){
+            window.PageHome.acEvent();
+        }
+        var dsu_amuppered=getcookie('dsu_amuppered');
+        var plugin_dsuamupper_count=getcookie('plugin_dsuamupper_count');
+        var username=getcookie('username');
+        if(plugin_dsuamupper_count=='') plugin_dsuamupper_count=0;
+        if(username!=''){
+            var signed=dsu_amuppered!=''?'btn_signed':'';
+            var sign_box='<a class="btn btn_sign '+signed+'" attribute="plugin.php?id=dsu_amupper&ppersubmit=true&infloat=yes" >';
+        }else{
+            var sign_box='<a class="btn btn_sign" href="member.php?mod=logging&amp;action=login" onclick="showWindow(\'login\', this.href)" class="xi2">';
+
+        }
+        var sing_text=signed=dsu_amuppered!=''?'已签到':'签到';
+        sign_box+='<div class="btn_sign_left" ><i class="icon icon_sign"></i><p>'+sing_text+'</p></div>';
+        sign_box+='<div class="btn_sign_right"><p class="lineTop">今日签到</p><p class="lineBtm"><span id="today_count_sign">'+plugin_dsuamupper_count+'</span>人</p></div>';
+        sign_box+='</a><div class="tips_signin" style="display:none;"><span class="tipcont_signin"></span><em class="point_signtip"></em></div>';
+        jQuery('#signBox').html(sign_box);
+        signinFunc(".btn_sign",".tips_signin");
+    }});
+});
+</script>
+<!--{template common/footer}-->

@@ -1,0 +1,63 @@
+<!--{if empty($_G['forum']['picstyle']) || $_G['cookie']['forumdefstyle']}-->
+<script type="text/javascript">var lasttime = $_G['timestamp'];var listcolspan= '{if !$_GET['archiveid'] && $_G['forum']['ismoderator']}4{else}3{/if}';</script>
+<!--{/if}-->
+<div class="listBlocks">
+    <!--{if $_G['basefilename']!='portal.php'}-->
+    <div class="listBlock">
+        <div class="filter">
+            <a id="filter_special" class="customMySelect showmenu xi2 " href="javascript:;" onmouseover="showMenu(this.id)">主题</a>
+            <a id="filter_orderby" class="customMySelect showmenu xi2 " href="javascript:;" onmouseover="showMenu(this.id)">排序</a>
+            <a id="filter_hot" class="customMySelect showmenu xi2 " href="javascript:;" onmouseover="showMenu(this.id)">热门</a>
+            <a id="filter_digest" class="customMySelect xi2 " href="forum.php?mod=forumdisplayall&fid=$_G[fid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">精华</a>
+        </div>
+    </div>
+    <!--{/if}-->
+    <div class="listBlock">
+        <div class="listBlockContent" summary="forum_$_G[fid]" cellspacing="0" cellpadding="0" id="threadlisttableid">
+            <!--{if $_G['forum_threadcount']}-->
+            <!--{loop $_G['forum_threadlist'] $key $thread}-->
+            <!--{if $_G[setting][forumseparator] == 1 && $separatepos == $key + 1}--><h3>板块主题</h3><!--{/if}--><!--{if $separatepos <= $key + 1}--><!--{ad/threadlist}--><!--{/if}-->
+                <div class="list {if $thread['displayorder']==1} third{elseif $thread['displayorder']==2} second{elseif $thread['displayorder']==3} first{/if}">
+                    <a href="home.php?mod=space&uid=$thread[authorid]" class="list_avatar" target="_blank"><!--{avatar($thread[authorid],small)}--> </a>
+                    <div class="listContent <!--{if $_G[setting][forumseparator] == 1 && ($separatepos > $key+1)}--> setTopArea {/if}{$thread['class_type']}">
+                       <!--{if !empty($thread[fname])}--> <a class="category" href="forum-{$thread[fid]}-1.html">$thread[fname]</a><!--{/if}-->
+                        <!--{if $thread['moved']}-->
+                        <!--{eval $thread[tid]=$thread[closed];}-->
+                        <!--{/if}-->
+                        <a href="forum.php?mod=viewthread&tid=$thread[tid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra"$thread[highlight] target="_blank" class="listTitle" title="{$thread[subject]}"><!--{eval echo cutstr($thread[subject],56)}--></a>
+                        <span class="marks">
+                            <!--{if $thread['displayorder'] == 0}-->
+                                <!--{if $thread[recommendicon] && $filter != 'recommend'}--><img class="marking"  src="{STATICURL}flyme/img/postImg/zan.jpg" alt="推荐" title="推荐:$thread[recommends]" /><!--{/if}-->
+                                <!--{if $thread[heatlevel]}--><img class="marking"  src="{STATICURL}flyme/img/postImg/hot.jpg" alt="热度" title="热度: {$thread[heats]}" /><!--{/if}-->
+                            <!--{/if}-->
+                            <!--{if $thread['attachment'] == 1}--><img class="marking" src="{STATICURL}flyme/img/postImg/fu.jpg" alt="附件" title="附件"/><!--{/if}-->
+                            <!--{if $thread['attachment'] == 2}--><img class="marking" src="{STATICURL}flyme/img/postImg/tu.jpg" alt="图片" title="图片"/><!--{/if}-->
+                            <!--{if $thread['digest'] > 0}--><img class="marking" src="{STATICURL}flyme/img/postImg/jing.jpg" alt="精华" title="精华: $thread[digest]"/><!--{/if}-->
+                            <!--{if $thread['favtimes'] > 0}--><img class="marking" src="{STATICURL}flyme/img/postImg/top.jpg" alt="收藏" title="收藏: $thread[favtimes]"/><!--{/if}-->
+                            <!--{if $thread[rushreply] == 1}--><img class="marking" src="{STATICURL}flyme/img/postImg/qiang.jpg"  alt="抢楼贴" title="抢楼贴"/><!--{/if}-->
+                            <!--{if $thread[folder] == 'lock'}--><img class="marking" src="{STATICURL}flyme/img/postImg/lock.jpg" alt="关闭贴" title="关闭贴"/><!--{/if}-->
+                            <!--{if $thread['special'] == 1}--><img class="marking" src="{STATICURL}flyme/img/postImg/vote.jpg" alt="投票贴" title="投票贴"/><!--{/if}-->
+                        </span>
+                        <!--{if in_array($thread['displayorder'], array(1, 2, 3, 4))}--><span class="setTopIcon" {if $thread['displayorder']==1} title="本版置顶"{elseif $thread['displayorder']==2} title="分类置顶"{elseif $thread['displayorder']==3} title="全局置顶"{/if}>置顶</span><!--{/if}-->
+                        <!--{if $thread[icon] >= 0 && !empty($_G[cache][stamps][$thread[icon]][url])}--><span class="marks"><img class="marking" style="margin-top: 3px; margin-left: 3px;" src="{STATICURL}image/stamp/{$_G[cache][stamps][$thread[icon]][url]}" alt="{$_G[cache][stamps][$thread[icon]][text]}" align="absmiddle" /></span><!--{/if}-->
+                        <div class="footnote">
+                            <div class="ftn_author">
+                                <!--{if $thread['author']}--><a href="{if $thread[digest] != -2}home.php?mod=space&uid=$thread[authorid]{else}forum.php?mod=viewthread&tid=$thread[tid]&page={echo max(1, $thread[pages]);}{/if}"><!--{eval echo cutstr($thread[author],15)}--></a><!--{else}-->$_G[setting][anonymoustext]<!--{/if}-->
+                            </div>
+                            <div class="ftn_readNum" title="{$thread[views]}人阅读" alt="{$thread[views]}人阅读"><i class="icon"></i><p>{$thread[views]}</p></div>
+                            <div class="ftn_comment" title="{$thread[allreplies]}条评论" alt="{$thread[allreplies]}条评论"><i class="icon"></i><p>{$thread[allreplies]}</p></div>
+                            <!--{if $thread[allreplies]>0}-->
+                            <div class="ftn_lastCommenter" title="$thread[lastposter]"><!--{eval echo cutstr($thread[lastposter],15)}--></div>
+                            <div class="ftn_lastCommentTime"><a href="{if $thread[digest] != -2 && !$thread[ordertype]}forum.php?mod=redirect&tid=$thread[tid]&goto=lastpost$highlight#lastpost{else}forum.php?mod=viewthread&tid=$thread[tid]{if !$thread[ordertype]}&page={echo max(1, $thread[pages]);}{/if}{/if}">$thread['lastpost']</a></div>
+                            <!--{/if}-->
+                            <div class="postTime">$thread[dateline]</div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--{/loop}--><!--{/if}-->
+
+        </div>
+    </div>
+</div>
+$multipage
